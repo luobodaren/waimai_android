@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titlebar_height">44dp</dimen>
+    <dimen name="tabbar_height">49dp</dimen>
+
+    <dimen name="font_size_18">18sp</dimen>
+    <dimen name="font_size_17">17sp</dimen>
+    <dimen name="font_size_16">16sp</dimen>
+    <dimen name="font_size_15">15sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
+    <dimen name="font_size_13">13sp</dimen>
+    <dimen name="font_size_12">12sp</dimen>
+    <dimen name="font_size_11">11sp</dimen>
+    <dimen name="font_size_10">10sp</dimen>
+    <dimen name="font_size_9">9sp</dimen>
+
+    <dimen name="divider_line_size">1dp</dimen>
+
+    <dimen name="interval_size_small">16dp</dimen>
+    <dimen name="interval_size_normal">20dp</dimen>
+    <dimen name="interval_size_big">32dp</dimen>
+
+    <dimen name="login_divider_phoneNumberET_button">20dp</dimen>
+    <dimen name="login_font_phone_size">27sp</dimen>
+    <dimen name="login_font_button_size">@dimen/font_size_16</dimen>
+    <dimen name="login_font_by_phone">28sp</dimen>
+    <dimen name="login_interval_size_loginByPhone_phoneET">50dp</dimen>
+    <dimen name="login_interval_size_verificationET_loginBT">52dp</dimen>
+
+    <dimen name="login_bt_getVerification_height">32dp</dimen>
+    <dimen name="login_bt_getVerification_width">84dp</dimen>
+    <dimen name="login_bt_getVerification_marginBottom">12.5dp</dimen>
+</resources>

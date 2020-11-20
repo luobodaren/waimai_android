@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">外卖说</string>
+
+    <string name="agreement">《用户服务协议》</string>
+    <string name="policy">《隐私政策》</string>
+
+    <string name="login_by_machine">本机号码一键登录</string>
+    <string name="login_by_phone">手机号登录</string>
+    <string name="login_by_other">使用其他手机号登录</string>
+    <string name="login_tip_login_by_other">其他登录方式</string>
+    <string name="login_tip">未注册手机号登陆后将自动生成账号，且代表您已阅读并同意</string>
+    <string name="login_tip_bottom">登录即同意</string>
+    <string name="input_phoneNumber">请输入手机号</string>
+    <string name="login">登录</string>
+    <string name="get_verification">获取验证码</string>
+
+
+</resources>

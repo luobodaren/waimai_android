@@ -1,0 +1,2 @@
+include ':app', ':thirdlib', ':base'
+rootProject.name='My Application'

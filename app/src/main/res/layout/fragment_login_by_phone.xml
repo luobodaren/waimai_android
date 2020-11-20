@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_login_by_phone"
+        style="@style/login_tv_by_phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/et_phoneNumber"
+        style="@style/login_et_phoneNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_login_by_phone"/>
+
+    <TextView
+        android:id="@+id/divider_1"
+        style="@style/dividerStyle"
+        app:layout_constraintTop_toBottomOf="@id/et_phoneNumber"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/et_verification"
+        style="@style/login_et_verification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_1"/>
+
+    <TextView
+        android:id="@+id/divider_2"
+        style="@style/dividerStyle"
+        app:layout_constraintTop_toBottomOf="@id/et_verification"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/bt_login"
+        style="@style/login_bt_login"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/divider_2"/>
+
+    <Button
+        android:id="@+id/bt_get_verification"
+        style="@style/login_bt_get_verification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider_2"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
