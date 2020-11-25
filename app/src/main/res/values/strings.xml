@@ -13,6 +13,7 @@
     <string name="input_phoneNumber">请输入手机号</string>
     <string name="login">登录</string>
     <string name="get_verification">获取验证码</string>
+    <string name="login_please">请登录</string>
 
 
 </resources>

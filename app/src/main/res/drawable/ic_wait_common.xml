@@ -1,0 +1,27 @@
+<vector android:height="28dp" android:viewportHeight="56"
+    android:viewportWidth="56" android:width="28dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FE4036" android:fillType="evenOdd"
+        android:pathData="M44.25,9C47.5637,9 50.25,11.6863 50.25,15L50.25,35C50.25,38.3137 47.5637,41 44.25,41L33.414,41L28.9751,45.214C28.2033,45.9465 26.9931,45.9465 26.2214,45.214L21.782,41L12,41C8.6863,41 6,38.3137 6,35L6,15C6,11.6863 8.6863,9 12,9L44.25,9Z"
+        android:strokeColor="#00000000" android:strokeWidth="1"/>
+    <path android:fillAlpha="1" android:fillColor="#000000"
+        android:fillType="evenOdd"
+        android:pathData="M15.4821,21.5a2.6339,2.5 0,1 0,5.2679 0a2.6339,2.5 0,1 0,-5.2679 0z"
+        android:strokeColor="#00000000" android:strokeWidth="1"/>
+    <path android:fillColor="#FFFFFF" android:fillType="evenOdd"
+        android:pathData="M15.4821,21.5a2.6339,2.5 0,1 0,5.2679 0a2.6339,2.5 0,1 0,-5.2679 0z"
+        android:strokeColor="#00000000" android:strokeWidth="1"/>
+    <path android:fillAlpha="1" android:fillColor="#000000"
+        android:fillType="evenOdd"
+        android:pathData="M24.9642,21.5a2.6339,2.5 0,1 0,5.2679 0a2.6339,2.5 0,1 0,-5.2679 0z"
+        android:strokeColor="#00000000" android:strokeWidth="1"/>
+    <path android:fillColor="#FFFFFF" android:fillType="evenOdd"
+        android:pathData="M24.9642,21.5a2.6339,2.5 0,1 0,5.2679 0a2.6339,2.5 0,1 0,-5.2679 0z"
+        android:strokeColor="#00000000" android:strokeWidth="1"/>
+    <path android:fillAlpha="1" android:fillColor="#000000"
+        android:fillType="evenOdd"
+        android:pathData="M34.4464,21.5a2.6339,2.5 0,1 0,5.2679 0a2.6339,2.5 0,1 0,-5.2679 0z"
+        android:strokeColor="#00000000" android:strokeWidth="1"/>
+    <path android:fillColor="#FFFFFF" android:fillType="evenOdd"
+        android:pathData="M34.4464,21.5a2.6339,2.5 0,1 0,5.2679 0a2.6339,2.5 0,1 0,-5.2679 0z"
+        android:strokeColor="#00000000" android:strokeWidth="1"/>
+</vector>

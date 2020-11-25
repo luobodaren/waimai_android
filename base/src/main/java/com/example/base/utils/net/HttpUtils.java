@@ -56,7 +56,7 @@ public class HttpUtils {
      * @param isWithToken 带Token
      * @param httpCallback
      */
-    private void doGet(String url, boolean isWithToken, final HttpCallback httpCallback){
+    public void doGet(String url, boolean isWithToken, final HttpCallback httpCallback){
         //第一步创建OkHttpClient对象
         final OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -98,7 +98,7 @@ public class HttpUtils {
      * @param isWithToken 带token
      * @param httpCallback
      */
-    private void doPost(String url, Map<String,String> params, boolean isWithToken,final HttpCallback httpCallback){
+    public void doPost(String url, Map<String,String> params, boolean isWithToken,final HttpCallback httpCallback){
         // 1.拿到okhttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -127,7 +127,7 @@ public class HttpUtils {
      * @param isWithToken 带token
      * @param httpCallback
      */
-    private void doPostJson(String url, String jsonStr, boolean isWithToken, final HttpCallback httpCallback) {
+    public void doPostJson(String url, String jsonStr, boolean isWithToken, final HttpCallback httpCallback) {
         // 1.拿到okhttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -157,7 +157,7 @@ public class HttpUtils {
      * @param isWithToken
      * @param httpCallback
      */
-    private void requestPostFileTxt(String url, String filePath, boolean isWithToken, HttpCallback httpCallback){
+    public void requestPostFileTxt(String url, String filePath, boolean isWithToken, HttpCallback httpCallback){
 
         //1.创建OkHttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -188,7 +188,7 @@ public class HttpUtils {
      * @param isWithToken
      * @param httpCallback
      */
-    private void requestPostJPG(String url, String filePath, boolean isWithToken, final HttpCallback httpCallback){
+    public void requestPostJPG(String url, String filePath, boolean isWithToken, final HttpCallback httpCallback){
         //1.创建OkHttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -217,7 +217,7 @@ public class HttpUtils {
      * @param isWithToken
      * @param httpCallback
      */
-    private void requestPostPNG(String url, String filePath, boolean isWithToken, final HttpCallback httpCallback){
+    public void requestPostPNG(String url, String filePath, boolean isWithToken, final HttpCallback httpCallback){
         //1.创建OkHttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -276,6 +276,24 @@ public class HttpUtils {
         executeQuest_Async(okHttpClient,request,httpCallback);
     }
 
+    /**
+     * 拼接参数
+     * @param url
+     * @param params
+     * @return
+     */
+    public String appendParams(String url, Map<String, String> params) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(url + "?");
+        if (params != null && !params.isEmpty()) {
+            for (String key : params.keySet()) {
+                sb.append(key).append("=").append(params.get(key)).append("&");
+            }
+        }
+        sb = sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+
     private void executeQuest_Async(OkHttpClient okHttpClient, Request request, final HttpCallback httpCallback){
         okHttpClient.newBuilder()
                 .connectTimeout(CONNECTED_TIME_OUT, TimeUnit.SECONDS)
@@ -294,24 +312,6 @@ public class HttpUtils {
                         httpCallback.onSuccess(json);
                     }
                 });
-    }
-
-    /**
-     * 拼接参数
-     * @param url
-     * @param params
-     * @return
-     */
-    public String appendParams(String url, Map<String, String> params) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(url + "?");
-        if (params != null && !params.isEmpty()) {
-            for (String key : params.keySet()) {
-                sb.append(key).append("=").append(params.get(key)).append("&");
-            }
-        }
-        sb = sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
     }
 
     /**
@@ -345,7 +345,7 @@ public class HttpUtils {
     }
 
     //创建接口
-    interface HttpCallback{
+    public interface HttpCallback{
         //请求成功时的监听方法
         void onSuccess(String json);
 

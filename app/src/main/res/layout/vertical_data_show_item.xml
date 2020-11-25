@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.example.myapplication.mvvm.model.mine.TopDataRecyclerModel.Data" />
+    </data>
+
+    <com.example.base.views.UiAdapterConstrainLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_data_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_normal"
+            android:textSize="20sp"
+            android:includeFontPadding="false"
+            android:text="@{item.number}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_data_type"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_data_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_normal"
+            android:textSize="11sp"
+            android:text="@{item.type}"
+            android:layout_marginTop="7dp"
+            android:includeFontPadding="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_data_count"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/right_interval"
+            android:layout_width="0.5dp"
+            android:layout_height="9dp"
+            android:background="@color/interval_color"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="33dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/tv_data_count"
+            app:layout_constraintBottom_toBottomOf="@id/tv_data_type"
+            app:layout_constraintStart_toEndOf="@id/tv_data_type" />
+
+        <TextView
+            android:id="@+id/top_interval"
+            android:layout_width="9dp"
+            android:layout_height="0.5dp"
+            android:background="@color/interval_color"
+            android:layout_marginTop="33dp"
+            android:layout_marginBottom="33dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_data_type"
+            app:layout_constraintStart_toStartOf="@id/tv_data_type"
+            app:layout_constraintEnd_toEndOf="@id/tv_data_type" />
+
+        <TextView
+            android:id="@+id/left_interval"
+            android:layout_width="0.5dp"
+            android:layout_height="9dp"
+            android:background="@color/interval_color"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="33dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/tv_data_count"
+            app:layout_constraintBottom_toBottomOf="@id/tv_data_type"
+            app:layout_constraintEnd_toStartOf="@id/tv_data_type" />
+
+        <TextView
+            android:id="@+id/bottom_interval"
+            android:layout_width="9dp"
+            android:layout_height="0.5dp"
+            android:background="@color/interval_color"
+            android:layout_marginTop="33dp"
+            android:layout_marginBottom="33dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/tv_data_count"
+            app:layout_constraintStart_toStartOf="@id/tv_data_type"
+            app:layout_constraintEnd_toEndOf="@id/tv_data_type" />
+
+    </com.example.base.views.UiAdapterConstrainLayout>
+</layout>

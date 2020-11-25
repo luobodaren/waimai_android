@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.base.views.UiAdapterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/iv_brand"
         style="@style/login_iv_brand"
-        android:src="@drawable/ic_waimai"
+        android:src="@drawable/ic_waimai_brand"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -17,9 +17,7 @@
         style="@style/login_tv_phoneNumber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_brand"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.398"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_brand"/>
 
     <Button
         android:id="@+id/bt_login_by_machine"
@@ -40,7 +38,6 @@
         style="@style/login_tv_tip"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bt_login_by_other"
-        />
+        app:layout_constraintTop_toBottomOf="@id/bt_login_by_other" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.example.base.views.UiAdapterFrameLayout>

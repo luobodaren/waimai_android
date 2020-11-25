@@ -16,18 +16,29 @@
 
     <dimen name="divider_line_size">1dp</dimen>
 
-    <dimen name="interval_size_small">16dp</dimen>
-    <dimen name="interval_size_normal">20dp</dimen>
-    <dimen name="interval_size_big">32dp</dimen>
+    <dimen name="interval_size_xs">12dp</dimen>
+    <dimen name="interval_size_s">16dp</dimen>
+    <dimen name="interval_size_m">20dp</dimen>
+    <dimen name="interval_size_l">32dp</dimen>
 
+    <!--  登录  -->
     <dimen name="login_divider_phoneNumberET_button">20dp</dimen>
     <dimen name="login_font_phone_size">27sp</dimen>
     <dimen name="login_font_button_size">@dimen/font_size_16</dimen>
     <dimen name="login_font_by_phone">28sp</dimen>
     <dimen name="login_interval_size_loginByPhone_phoneET">50dp</dimen>
     <dimen name="login_interval_size_verificationET_loginBT">52dp</dimen>
-
     <dimen name="login_bt_getVerification_height">32dp</dimen>
     <dimen name="login_bt_getVerification_width">84dp</dimen>
     <dimen name="login_bt_getVerification_marginBottom">12.5dp</dimen>
+
+    <!--  主页  -->
+    <dimen name="main_tab_height" >49dp</dimen>
+    <dimen name="main_tab_text_size">11sp</dimen>
+
+    <!--  我的模块  -->
+    <dimen name="mine_head_icon_size">50dp</dimen>
+    <dimen name="mine_marginTop">64dp</dimen>
+    <dimen name="mine_tv_name_font_size">18sp</dimen>
+    <dimen name="mine_tv_signature_font_size">10sp</dimen>
 </resources>

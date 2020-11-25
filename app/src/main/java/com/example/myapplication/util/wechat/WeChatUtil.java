@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.example.base.utils.net.HttpUtils;
+import com.example.myapplication.MyApplication;
 import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelmsg.GetMessageFromWX;
@@ -21,6 +24,11 @@ public class WeChatUtil {
 
     // APP_ID 替换为你的应用从官方网站申请到的合法appID
     private static final String APP_ID = "wx0c317fe686662189";
+    private static final String SECRET = "816026b0e0c153576d242e3c6718206e";
+
+    private static final String GET_ACCESS_TOKEN_URL =
+            "https://api.weixin.qq.com/sns/oauth2/access_token";
+
     // IWXAPI 是第三方app和微信通信的openApi接口
     private IWXAPI api;
 
@@ -58,12 +66,16 @@ public class WeChatUtil {
      * 授权登录
      */
     public void loginByWeChat(){
-        final SendAuth.Req req = new SendAuth.Req();
-        // TODO: 2020/11/20 作用域添加
-        req.scope = "snsapi_userinfo"; //应用授权作用域
-        req.state = "wechat_sdk_demo_test"; // FIXME: 2020/11/20 参数可用于防止 csrf 攻击（跨站请求伪造攻击） 可设置为简单的随机数加 session 进行校验
-        boolean result = api.sendReq(req);
-        // TODO: 2020/11/20 处理登录结果
+        if (!api.isWXAppInstalled()) {
+            Toast.makeText(MyApplication.getMyApplication(), "您的设备未安装微信客户端", Toast.LENGTH_SHORT).show();
+        } else {
+            final SendAuth.Req req = new SendAuth.Req();
+            // TODO: 2020/11/20 作用域添加
+            req.scope = "snsapi_userinfo"; //应用授权作用域
+            req.state = "wechat_sdk_demo_test"; // FIXME: 2020/11/20 参数可用于防止 csrf 攻击（跨站请求伪造攻击） 可设置为简单的随机数加 session 进行校验
+            boolean result = api.sendReq(req);
+            // TODO: 2020/11/20 处理登录结果
+        }
     }
 
     /**
@@ -142,5 +154,31 @@ public class WeChatUtil {
     }
 
 
+    public IWXAPI getApi() {
+        return api;
+    }
 
+    public void getAccessToken(String code) {
+        // TODO: 2020/11/23 微信授权登录 如何与服务器同步
+        StringBuilder loginUrl = new StringBuilder();
+        loginUrl.append("https://api.weixin.qq.com/sns/oauth2/access_token")
+                .append("?appid=")
+                .append(APP_ID)
+                .append("&secret=")
+                .append(SECRET)
+                .append("&code=")
+                .append(code)
+                .append("&grant_type=authorization_code");
+        HttpUtils.getHttpUtils().doGet(loginUrl.toString(), false, new HttpUtils.HttpCallback() {
+            @Override
+            public void onSuccess(String json) {
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
 }

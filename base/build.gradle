@@ -10,7 +10,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
     }
@@ -22,11 +22,17 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -34,4 +40,20 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'com.google.android.material:material:1.2.1'
+    api 'com.github.bumptech.glide:glide:4.11.0'
+
+    //androidx项目
+    api 'com.github.xuexiangjys:XUI:1.1.5'
+    //XPage页面框架
+    api 'com.github.xuexiangjys.XPage:xpage-lib:3.0.0'
+    annotationProcessor 'com.github.xuexiangjys.XPage:xpage-compiler:3.0.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    //BRVAH
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+
 }
