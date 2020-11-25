@@ -4,10 +4,8 @@ import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerAdapter;
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerViewHolder;
-import com.example.myapplication.adapter.mine.TopDataRecyclerAdapter;
+import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
+import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
 import com.example.myapplication.adapter.mine.TopDataRecyclerViewHolder;
 import com.example.myapplication.databinding.VerticalDataShowItemBinding;
 import com.example.myapplication.mvvm.model.BaseModel;

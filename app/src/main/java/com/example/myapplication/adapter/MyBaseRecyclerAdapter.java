@@ -1,10 +1,9 @@
-package com.example.myapplication.adapter.RecyclerViewHolder;
+package com.example.myapplication.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.base.utils.LogUtil;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 

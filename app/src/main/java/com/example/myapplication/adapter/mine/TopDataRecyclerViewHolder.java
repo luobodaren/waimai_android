@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerViewHolder;
+import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
 
 public class TopDataRecyclerViewHolder extends MyBaseRecyclerViewHolder {
 

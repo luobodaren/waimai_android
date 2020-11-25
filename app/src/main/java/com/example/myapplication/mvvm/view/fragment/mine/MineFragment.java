@@ -5,10 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerAdapter;
 import com.example.myapplication.adapter.mine.GoodLogisticsRecyclerAdapter;
 import com.example.myapplication.adapter.mine.TopDataRecyclerAdapter;
-import com.example.myapplication.adapter.mine.TopDataRecyclerViewHolder;
 import com.example.myapplication.databinding.FragmentMineBinding;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
@@ -16,9 +14,6 @@ import com.example.myapplication.mvvm.vm.mine.MineViewModel;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Page(name = "我的", anim = CoreAnim.fade)
 public class MineFragment extends BaseFragment {
@@ -76,7 +71,7 @@ public class MineFragment extends BaseFragment {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4, LinearLayoutManager.VERTICAL,false);
         TopDataRecyclerAdapter myBaseRecyclerAdapter
-                = new TopDataRecyclerAdapter(R.layout.vertical_data_show_item,mViewModel.getDataList()
+                = new TopDataRecyclerAdapter(R.layout.vertical_data_show_item,mViewModel.getmTopDataList()
                 ,mViewModel.getTopRecyclerViewModelList());
 
         fragmentMineBinding.recyclerTopData.setAdapter(myBaseRecyclerAdapter);
@@ -84,19 +79,15 @@ public class MineFragment extends BaseFragment {
     }
 
     private void initLogisticsRecycler(){
-        List<GoodLogisticsRecyclerAdapter.Data> data = new ArrayList<>();
-        data.add(new GoodLogisticsRecyclerAdapter.Data(R.drawable.ic_wait_payment,"待付款"));
-        data.add(new GoodLogisticsRecyclerAdapter.Data(R.drawable.ic_wait_delivery,"待配送"));
-        data.add(new GoodLogisticsRecyclerAdapter.Data(R.drawable.ic_in_deliver,"配送中"));
-        data.add(new GoodLogisticsRecyclerAdapter.Data(R.drawable.ic_wait_common,"待评价"));
-        data.add(new GoodLogisticsRecyclerAdapter.Data(R.drawable.ic_after_sales,"售后/退款"));
+        FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),5, LinearLayoutManager.VERTICAL,false);
-        GoodLogisticsRecyclerAdapter goodLogisticsRecyclerAdapter = new GoodLogisticsRecyclerAdapter(data);
+        GoodLogisticsRecyclerAdapter goodLogisticsRecyclerAdapter =
+                new GoodLogisticsRecyclerAdapter(R.layout.vertical_icon_data_show_item,mViewModel.getGoodLogisticsdata()
+                ,mViewModel.getGoodLogisticsRecyclerViewModelList());
 
-        mGoodLogisticsRecycler = findViewById(R.id.recycler_good_logistics);
-        mGoodLogisticsRecycler.setAdapter(goodLogisticsRecyclerAdapter);
-        mGoodLogisticsRecycler.setLayoutManager(gridLayoutManager);
+        fragmentMineBinding.recyclerTopData.setAdapter(goodLogisticsRecyclerAdapter);
+        fragmentMineBinding.recyclerTopData.setLayoutManager(gridLayoutManager);
     }
 
 }

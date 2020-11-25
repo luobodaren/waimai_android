@@ -1,7 +1,7 @@
 package com.example.myapplication.mvvm.vm;
 
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerAdapter;
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerViewHolder;
+import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
+import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
 import com.example.myapplication.mvvm.model.BaseModel;
 
 public abstract class BaseRecyclerViewModel extends BaseViewModel {

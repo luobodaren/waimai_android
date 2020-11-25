@@ -1,14 +1,9 @@
 package com.example.myapplication.adapter.mine;
 
-import android.view.View;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.myapplication.R;
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerAdapter;
-import com.example.myapplication.adapter.RecyclerViewHolder.MyBaseRecyclerViewHolder;
+import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.myapplication.adapter.RecyclerViewHolder;
+package com.example.myapplication.adapter;
 
 import android.view.View;
 
