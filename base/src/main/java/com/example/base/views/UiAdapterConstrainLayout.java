@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
 
 public class UiAdapterConstrainLayout extends ConstraintLayout {
@@ -31,26 +32,7 @@ public class UiAdapterConstrainLayout extends ConstraintLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        autoAdapterUI();
-    }
-
-    /**
-     * 自动适配UI
-     */
-    private void autoAdapterUI(){
-        float scaleX = UIUtils.getInstance(getContext()).getHorValue();
-        float scaleY = UIUtils.getInstance(getContext()).getVerValue();
-        int count = this.getChildCount();
-        for(int i = 0; i < count; i++){
-            View child = getChildAt(i);
-            LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
-            layoutParams.width = (int) (layoutParams.width * scaleX);
-            layoutParams.height = (int) (layoutParams.height * scaleY);
-            layoutParams.leftMargin = (int) (layoutParams.leftMargin * scaleX);
-            layoutParams.rightMargin = (int) (layoutParams.rightMargin * scaleX);
-            layoutParams.topMargin = (int) (layoutParams.topMargin * scaleY);
-            layoutParams.bottomMargin = (int) (layoutParams.bottomMargin * scaleY);
-        }
+        UIUtils.autoAdapterUI(getContext(),this);
     }
 
     @Override

@@ -9,8 +9,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:scaleType">centerCrop</item>
-        <item name="android:layout_marginStart">7dp</item>
-        <item name="android:layout_marginBottom">76dp</item>
+        <item name="android:layout_marginStart">14px</item>
+        <item name="android:layout_marginBottom">152px</item>
     </style>
 
     <style name="login_iv_brand">
@@ -20,14 +20,14 @@
     </style>
 
     <style name="login_tv_phoneNumber">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">0px</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textSize">@dimen/login_font_phone_size</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginBottom">@dimen/login_divider_phoneNumberET_button</item>
-        <item name="android:layout_marginTop">72.5dp</item>
+        <item name="android:layout_marginTop">145px</item>
     </style>
 
 
@@ -48,7 +48,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:text">@string/login_tip</item>
-        <item name="android:textSize">@dimen/font_size_14</item>
+        <item name="android:textSize">@dimen/font_size_28</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginTop">@dimen/interval_size_s</item>
         <item name="android:maxLines">2</item>
@@ -60,7 +60,7 @@
         <item name="android:gravity">center</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:text">@string/login_tip_bottom</item>
-        <item name="android:textSize">@dimen/font_size_10</item>
+        <item name="android:textSize">@dimen/font_size_20</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginTop">@dimen/interval_size_s</item>
     </style>
@@ -71,7 +71,7 @@
         <item name="android:gravity">center</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:text">@string/login_tip_login_by_other</item>
-        <item name="android:textSize">@dimen/font_size_13</item>
+        <item name="android:textSize">@dimen/font_size_26</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginBottom">@dimen/interval_size_s</item>
     </style>
@@ -107,7 +107,7 @@
         <item name="android:layout_width">@dimen/login_bt_getVerification_width</item>
         <item name="android:layout_height">@dimen/login_bt_getVerification_height</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/font_size_12</item>
+        <item name="android:textSize">@dimen/font_size_24</item>
         <item name="android:text">@string/get_verification</item>
         <item name="sSelectorNormalColor">@color/transparent</item>
         <item name="sSelectorPressedColor">@color/gray</item>
@@ -119,7 +119,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/main_tab_height</item>
         <item name="android:background">@drawable/sr_main_tab_bg_panel</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">22px</item>
     </style>
 
     <style name="mine_head_portrait">
@@ -129,14 +129,14 @@
     </style>
 
     <style name="mine_head_icon">
-        <item name="android:layout_width">22dp</item>
-        <item name="android:layout_height">22dp</item>
-        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_width">44px</item>
+        <item name="android:layout_height">44px</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="card_grid_recycler_view">
         <item name="android:background">@drawable/sr_card_recycler_view_bg</item>
-        <item name="android:padding">@dimen/font_size_16</item>
+        <item name="android:padding">@dimen/font_size_32</item>
         <item name="android:shadowColor">#80e6e6e6</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">3</item>

@@ -71,6 +71,7 @@ public class MainActivity extends BaseActivity {
             adapter.addFragment(tabFragment.get(i),tabStr);
         }
 
+        mBinding.viewPager.setOffscreenPageLimit(3);
         mBinding.viewPager.setAdapter(adapter);
         mBinding.viewPager.setCurrentItem(0,false);
     }

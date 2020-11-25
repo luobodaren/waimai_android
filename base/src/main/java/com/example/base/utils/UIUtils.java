@@ -4,24 +4,39 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.base.views.UiAdapterRelativeLayout;
 
 import java.lang.reflect.Field;
+import java.util.Random;
 
 public class UIUtils {
 
+    public static final int SCALE_KEY = new Random(System.currentTimeMillis()).nextInt();
     //标准值
-    private static final float STANDRD_WIDTH = 750F;
-    private static final float STANDRD_HEIGHT = 1624F;
+    private static final float STANDRD_WIDTH = 750f;
+    private static final float STANDRD_HEIGHT = 1624f;
     //实际值 保存MMKV中
     private static float displayMetricsWidth;
     private static float displayMetricsHeight;
     private static float scaledDensity;
     private static float density;
+    private static float horValue;
+    private static float verValue;
+
+    private Context context;
+
     //单例
     private static UIUtils instance;
 
     private UIUtils(Context context) {
+        this.context = context;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         // TODO: 2020/11/24 从缓存中读取时间屏幕高宽值
         if(displayMetricsWidth == 0.0f || displayMetricsHeight == 0.0f
@@ -45,6 +60,8 @@ public class UIUtils {
                 displayMetricsHeight = (float) displayMetrics.heightPixels - systemBarHeight;
             }
         }
+
+        LogUtil.d("display Width=" + displayMetricsWidth + " height=" + displayMetricsHeight);
     }
 
     public synchronized static UIUtils getInstance(Context context){
@@ -54,12 +71,45 @@ public class UIUtils {
         return instance;
     }
 
+    public static void autoAdapterUI(Context context,ViewGroup viewGroup) {
+        float scaleX = UIUtils.getInstance(context).getHorValue();
+//        float scaleY = UIUtils.getInstance(getContext()).getVerValue();
+        int count = viewGroup.getChildCount();
+        for(int i = 0; i < count; i++){
+            View child = viewGroup.getChildAt(i);
+            if(child.getTag(UIUtils.SCALE_KEY) == null){    //防止多次放大
+                ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
+                layoutParams.width = (int) (layoutParams.width * scaleX);
+                layoutParams.height = (int) (layoutParams.height * scaleX);
+                if(layoutParams instanceof ViewGroup.MarginLayoutParams){
+                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+                    marginLayoutParams.leftMargin = (int) (marginLayoutParams.leftMargin * scaleX);
+                    marginLayoutParams.rightMargin = (int) (marginLayoutParams.rightMargin * scaleX);
+                    marginLayoutParams.topMargin = (int) (marginLayoutParams.topMargin * scaleX);
+                    marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
+                }
+                if(child instanceof TextView){
+                    ((TextView) child).setTextSize
+                            (UIUtils.pxTosp(context,((TextView) child).getTextSize() * scaleX));
+                }
+                child.setTag(UIUtils.SCALE_KEY,1);
+                if(child instanceof ViewGroup){
+                    autoAdapterUI(context,(ViewGroup) child);
+                }
+            }
+        }
+    }
+
     /**
      * 获得横向缩放倍数
      * @return
      */
     public float getHorValue(){
-        return ((float)displayMetricsWidth)/STANDRD_WIDTH;
+        if(horValue == 0.0f){
+            horValue = displayMetricsWidth/STANDRD_WIDTH;
+            LogUtil.d("horValue=" + horValue);
+        }
+        return horValue;
     }
 
     /**
@@ -67,7 +117,11 @@ public class UIUtils {
      * @return
      */
     public float getVerValue(){
-        return ((float)displayMetricsHeight)/STANDRD_HEIGHT;
+        if(verValue == 0.0f){
+            verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight(context));
+            LogUtil.d("verValue=" + verValue);
+        }
+        return verValue;
     }
 
     /**
@@ -132,7 +186,7 @@ public class UIUtils {
             int id = Integer.parseInt(field.get(object).toString());
             return context.getResources().getDimensionPixelOffset(id);
         }catch (Exception a){
-            LogUtil.e(a.getMessage());
+            LogUtil.e("Util error " + a.getMessage());
         }
         return defaultValue;
     }

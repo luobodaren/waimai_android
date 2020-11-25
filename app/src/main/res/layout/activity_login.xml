@@ -6,47 +6,47 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/v_line_begin_24"
+        android:id="@+id/v_line_begin_48px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="24dp"/>
+        app:layout_constraintGuide_begin="48px"/>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/line_v_end_24"
+        android:id="@+id/line_v_end_48px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_end="24dp" />
+        app:layout_constraintGuide_end="48px" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/line_h_begin_64"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="64dp"/>
+        app:layout_constraintGuide_begin="128px"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/h_line_186.5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="186.5dp"/>
+        app:layout_constraintGuide_begin="373px"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_close"
-        app:layout_constraintStart_toStartOf="@id/v_line_begin_24"
+        app:layout_constraintStart_toStartOf="@id/v_line_begin_48px"
         app:layout_constraintTop_toTopOf="@id/line_h_begin_64"/>
 
-    <com.example.base.views.UiAdapterFrameLayout
+    <FrameLayout
         android:id="@+id/fm_login_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/v_line_begin_24"
-        app:layout_constraintEnd_toEndOf="@id/line_v_end_24"
+        android:layout_width="0px"
+        android:layout_height="0px"
+        app:layout_constraintStart_toStartOf="@id/v_line_begin_48px"
+        app:layout_constraintEnd_toEndOf="@id/line_v_end_48px"
         app:layout_constraintTop_toTopOf="@id/h_line_186.5"
         app:layout_constraintBottom_toTopOf="@id/tv_tip_login_by_other"/>
 
@@ -85,7 +85,7 @@
         android:id="@+id/iv_alipay"
         style="@style/login_iv_icon"
         android:src="@drawable/ic_alipay_login"
-        android:layout_marginEnd="7dp"
+        android:layout_marginEnd="14px"
         app:layout_constraintTop_toTopOf="@id/iv_wechat"
         app:layout_constraintStart_toEndOf="@id/iv_sina"
         app:layout_constraintEnd_toEndOf="parent"/>

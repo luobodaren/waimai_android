@@ -52,7 +52,7 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
 
-        if (isShowStatusBar) {
+        if (!isShowStatusBar) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
                     , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }

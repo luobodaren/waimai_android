@@ -86,8 +86,8 @@ public class MineFragment extends BaseFragment {
                 new GoodLogisticsRecyclerAdapter(R.layout.vertical_icon_data_show_item,mViewModel.getGoodLogisticsdata()
                 ,mViewModel.getGoodLogisticsRecyclerViewModelList());
 
-        fragmentMineBinding.recyclerTopData.setAdapter(goodLogisticsRecyclerAdapter);
-        fragmentMineBinding.recyclerTopData.setLayoutManager(gridLayoutManager);
+        fragmentMineBinding.recyclerGoodLogistics.setAdapter(goodLogisticsRecyclerAdapter);
+        fragmentMineBinding.recyclerGoodLogistics.setLayoutManager(gridLayoutManager);
     }
 
 }
