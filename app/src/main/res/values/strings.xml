@@ -14,6 +14,8 @@
     <string name="login">登录</string>
     <string name="get_verification">获取验证码</string>
     <string name="login_please">请登录</string>
+    <string name="more_recommended">更多推荐</string>
+    <string name="search">搜索</string>
 
 
 </resources>

@@ -1,6 +1,8 @@
 package com.example.myapplication.mvvm.vm.mine;
 
 import com.example.myapplication.R;
+import com.example.myapplication.bean.ui.IconStrRecyclerViewItemData;
+import com.example.myapplication.bean.ui.TypeCountRecyclerViewItemData;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.mine.GoodLogisticsRecyclerModel;
 import com.example.myapplication.mvvm.model.mine.MineModel;
@@ -17,8 +19,9 @@ public class MineViewModel extends BaseViewModel {
     private String detail;
     private int headIconId = R.drawable.ic_waimai_brand;
 
-    private List<TopDataRecyclerModel.Data> mTopDataList = new ArrayList<>();
-    private List<GoodLogisticsRecyclerModel.Data> mGoodLogisticsData = new ArrayList<>();
+    private List<TypeCountRecyclerViewItemData> mTopDataList = new ArrayList<>();
+    private List<IconStrRecyclerViewItemData> mGoodLogisticsData = new ArrayList<>();
+    private List<IconStrRecyclerViewItemData> mMoreRecommendData = new ArrayList<>();
 
     MineModel myModel;
 
@@ -32,14 +35,19 @@ public class MineViewModel extends BaseViewModel {
     public void initData() {
         initTopRecyclerData();
         initGoodLogistics();
+        initMoreRecommene();
     }
 
-    public List<TopDataRecyclerModel.Data> getmTopDataList() {
+    public List<TypeCountRecyclerViewItemData> getmTopDataList() {
         return mTopDataList;
     }
 
-    public List<GoodLogisticsRecyclerModel.Data> getGoodLogisticsdata() {
+    public List<IconStrRecyclerViewItemData> getGoodLogisticsdata() {
         return mGoodLogisticsData;
+    }
+
+    public List<IconStrRecyclerViewItemData> getMoreRecommenedData() {
+        return mMoreRecommendData;
     }
 
     public List<BaseRecyclerViewModel> getTopRecyclerViewModelList() {
@@ -62,19 +70,41 @@ public class MineViewModel extends BaseViewModel {
         return list;
     }
 
+    public List<BaseRecyclerViewModel> getFunctionRecomendedViewModeList() {
+        List<BaseRecyclerViewModel> list = new ArrayList<>();
+        for(int i = 0; i< mMoreRecommendData.size(); i++){
+            FunctionRecommendedViewModel functionRecommendedViewModel = new FunctionRecommendedViewModel();
+            functionRecommendedViewModel.setData(mMoreRecommendData.get(i));
+            list.add(functionRecommendedViewModel);
+        }
+        return list;
+    }
+
+
     private void initTopRecyclerData(){
-        mTopDataList.add(new TopDataRecyclerModel.Data("商品收藏","20"));
-        mTopDataList.add(new TopDataRecyclerModel.Data("关注店铺","12"));
-        mTopDataList.add(new TopDataRecyclerModel.Data("浏览记录","70"));
-        mTopDataList.add(new TopDataRecyclerModel.Data("红包卡卷","30"));
+        mTopDataList.add(new TypeCountRecyclerViewItemData("商品收藏","20"));
+        mTopDataList.add(new TypeCountRecyclerViewItemData("关注店铺","12"));
+        mTopDataList.add(new TypeCountRecyclerViewItemData("浏览记录","70"));
+        mTopDataList.add(new TypeCountRecyclerViewItemData("红包卡卷","30"));
     }
 
     private void initGoodLogistics(){
-        mGoodLogisticsData.add(new GoodLogisticsRecyclerModel.Data(R.drawable.ic_wait_payment,"待付款"));
-        mGoodLogisticsData.add(new GoodLogisticsRecyclerModel.Data(R.drawable.ic_wait_delivery,"待配送"));
-        mGoodLogisticsData.add(new GoodLogisticsRecyclerModel.Data(R.drawable.ic_in_deliver,"配送中"));
-        mGoodLogisticsData.add(new GoodLogisticsRecyclerModel.Data(R.drawable.ic_wait_common,"待评价"));
-        mGoodLogisticsData.add(new GoodLogisticsRecyclerModel.Data(R.drawable.ic_after_sales,"售后/退款"));
+        mGoodLogisticsData.add(new IconStrRecyclerViewItemData(R.drawable.ic_wait_payment,"待付款"));
+        mGoodLogisticsData.add(new IconStrRecyclerViewItemData(R.drawable.ic_wait_delivery,"待配送"));
+        mGoodLogisticsData.add(new IconStrRecyclerViewItemData(R.drawable.ic_in_deliver,"配送中"));
+        mGoodLogisticsData.add(new IconStrRecyclerViewItemData(R.drawable.ic_wait_common,"待评价"));
+        mGoodLogisticsData.add(new IconStrRecyclerViewItemData(R.drawable.ic_after_sales,"售后/退款"));
+    }
+
+    private void initMoreRecommene(){
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_adress,"地址管理"));
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_award,"推荐有奖"));
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_collect,"我的收藏"));
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_tenants,"商家入驻"));
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_cooperation,"商务合作"));
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_service,"我的客服"));
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_rider,"骑手招募"));
+        mMoreRecommendData.add(new IconStrRecyclerViewItemData(R.drawable.ic_recomended_help,"帮助中心"));
     }
 
 }

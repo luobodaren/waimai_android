@@ -7,16 +7,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewWithDivider extends RecyclerView {
-    public RecyclerViewWithDivider(@NonNull Context context) {
+public class MyBaseRecyclerView extends RecyclerView {
+    public MyBaseRecyclerView(@NonNull Context context) {
         super(context);
     }
 
-    public RecyclerViewWithDivider(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public MyBaseRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RecyclerViewWithDivider(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MyBaseRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 }

@@ -7,6 +7,9 @@
     <color name="colorTheme_60_percent">#4DFE4036</color>
     <color name="colorTheme_10_percent">#1AF84500</color>
 
+    <color name="colorTheme_gradient_start">#FF9468</color>
+    <color name="colorTheme_gradient_end">#FE4036</color>
+
     <color name="background">#f8f8f8</color>
     <color name="divider">#E6E6E6</color>
 
@@ -15,11 +18,13 @@
     <color name="text_tip">#999999</color>
     <color name="text_assist">#bbbbbb</color>
 
-    <color name="login_bt_machine_start">#FF9468</color>
-    <color name="login_bt_machine_end">#FE4036</color>
+    <color name="login_bt_machine_start">@color/colorTheme_gradient_start</color>
+    <color name="login_bt_machine_end">@color/colorTheme_gradient_end</color>
     <color name="login_bt_unable">#80ffffff</color>
     <color name="login_bt_able">#fffb5900</color>
     <color name="main_tab_bg">@color/white</color>
 
     <color name="interval_color">#333333</color>
+
+    <color name="search_bg">#F2F2F2</color>
 </resources>

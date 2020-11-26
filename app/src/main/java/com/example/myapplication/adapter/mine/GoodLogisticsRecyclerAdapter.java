@@ -30,14 +30,4 @@ public class GoodLogisticsRecyclerAdapter extends MyBaseRecyclerAdapter<GoodLogi
         super(layoutResId, mItemViewModelList);
     }
 
-    class ViewHolder extends BaseViewHolder{
-        ImageView iv_icon;
-        TextView tv_icon_type;
-        public ViewHolder(View view) {
-            super(view);
-            iv_icon = view.findViewById(R.id.iv_icon);
-            tv_icon_type = view.findViewById(R.id.tv_icon_type);
-        }
-    }
-
 }

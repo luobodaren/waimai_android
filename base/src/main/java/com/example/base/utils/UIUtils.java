@@ -2,6 +2,7 @@ package com.example.base.utils;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.base.views.UiAdapterRelativeLayout;
 
@@ -36,6 +39,11 @@ public class UIUtils {
     private static UIUtils instance;
 
     private UIUtils(Context context) {
+        if(context == null){
+            LogUtil.e("context == null");
+            return;
+        }
+
         this.context = context;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         // TODO: 2020/11/24 从缓存中读取时间屏幕高宽值
@@ -71,6 +79,18 @@ public class UIUtils {
         return instance;
     }
 
+    public static void autoAdapterUI(Context context,View view){
+        if(view.getTag(UIUtils.SCALE_KEY) == null) {    //防止多次放大
+            float scaleX = UIUtils.getInstance(context).getHorValue();
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+//                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
+            layoutParams.width = (int) (layoutParams.width * scaleX);
+            layoutParams.height = (int) (layoutParams.height * scaleX);
+            view.setTag(UIUtils.SCALE_KEY,1);
+        }
+    }
+
+
     public static void autoAdapterUI(Context context,ViewGroup viewGroup) {
         float scaleX = UIUtils.getInstance(context).getHorValue();
 //        float scaleY = UIUtils.getInstance(getContext()).getVerValue();
@@ -79,8 +99,10 @@ public class UIUtils {
             View child = viewGroup.getChildAt(i);
             if(child.getTag(UIUtils.SCALE_KEY) == null){    //防止多次放大
                 ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
+//                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
                 layoutParams.width = (int) (layoutParams.width * scaleX);
                 layoutParams.height = (int) (layoutParams.height * scaleX);
+//                LogUtil.e("tag=" + child.getTag() + "  end   width=" + layoutParams.width + " height=" + layoutParams.height);
                 if(layoutParams instanceof ViewGroup.MarginLayoutParams){
                     ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
                     marginLayoutParams.leftMargin = (int) (marginLayoutParams.leftMargin * scaleX);
@@ -97,6 +119,14 @@ public class UIUtils {
                     autoAdapterUI(context,(ViewGroup) child);
                 }
             }
+        }
+    }
+
+    public static void autoAdapterDrawable(Context context,Drawable drawable){
+        if (drawable != null ) {
+            drawable.setBounds(0, 0
+                    , (int)(drawable.getIntrinsicWidth()*getInstance(context).getHorValue())
+                    , (int)(drawable.getIntrinsicHeight()*getInstance(context).getHorValue()));
         }
     }
 

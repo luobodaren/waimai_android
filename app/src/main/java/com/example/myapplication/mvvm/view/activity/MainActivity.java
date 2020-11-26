@@ -8,6 +8,7 @@ import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.view.fragment.mine.MineFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.MainViewModel;
+import com.example.myapplication.views.widget.MyTabSegmentTab;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
@@ -60,10 +61,11 @@ public class MainActivity extends BaseActivity {
         int tabSize = tabData.length;
         for(int i = 0;i < tabSize;i++){
             String tabStr = tabData[i];
-            TabSegment.Tab tab = new TabSegment.Tab(
+            MyTabSegmentTab tab = new MyTabSegmentTab(
                     ContextCompat.getDrawable(getContext(), tabIconId[i]),
                     ContextCompat.getDrawable(getContext(), tabIconId[i]),  // TODO: 2020/11/25 动画添加
-                    tabStr, true
+                    tabStr,
+                    true
             );
             tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.main_tab_text_size));
             tab.setIconPosition(TabSegment.ICON_POSITION_TOP);

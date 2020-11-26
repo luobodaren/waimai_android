@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="BaseAppTheme">
-        <item name="android:background">@color/background</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
     <style name="login_iv_icon">
@@ -136,7 +136,8 @@
 
     <style name="card_grid_recycler_view">
         <item name="android:background">@drawable/sr_card_recycler_view_bg</item>
-        <item name="android:padding">@dimen/font_size_32</item>
+        <item name="android:layout_marginTop">24px</item>
+        <item name="android:padding">@dimen/font_size_28</item>
         <item name="android:shadowColor">#80e6e6e6</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">3</item>

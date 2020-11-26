@@ -11,6 +11,6 @@ public abstract class BaseRecyclerViewModel extends BaseViewModel {
      * @param mBaseViewHolder
      * @param baseModel
      */
-    public abstract void bindMode(MyBaseRecyclerViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter);
+    public abstract void bindModel(MyBaseRecyclerViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter);
 
 }

@@ -1,7 +1,15 @@
 package com.example.myapplication.mvvm.vm.mine;
 
+import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
+
+import com.example.base.utils.LogUtil;
 import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
 import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
+import com.example.myapplication.adapter.mine.GoodLogisticsRecyclerViewHolder;
+import com.example.myapplication.bean.ui.IconStrRecyclerViewItemData;
+import com.example.myapplication.databinding.ItemMineRecyclerGoodLogisticsBinding;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.mine.GoodLogisticsRecyclerModel;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
@@ -10,11 +18,18 @@ public class GoodLogisticsViewModel extends BaseRecyclerViewModel {
 
     GoodLogisticsRecyclerModel goodLogisticsRecyclerModel;
 
-    GoodLogisticsRecyclerModel.Data data;
+    IconStrRecyclerViewItemData data = new IconStrRecyclerViewItemData(0,"");
 
     @Override
-    public void bindMode(MyBaseRecyclerViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
-
+    public void bindModel(MyBaseRecyclerViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
+        GoodLogisticsRecyclerViewHolder viewHolder;
+        if(mBaseViewHolder instanceof GoodLogisticsRecyclerViewHolder){
+            viewHolder = (GoodLogisticsRecyclerViewHolder)mBaseViewHolder;
+            ItemMineRecyclerGoodLogisticsBinding itemMineRecyclerGoodLogisticsBinding = DataBindingUtil.bind(viewHolder.itemView);
+            itemMineRecyclerGoodLogisticsBinding.setItem(data);
+        }else{
+            LogUtil.e("ERROR:bindModel Fail");
+        }
     }
 
     @Override
@@ -28,7 +43,8 @@ public class GoodLogisticsViewModel extends BaseRecyclerViewModel {
 
     }
 
-    public void setData(GoodLogisticsRecyclerModel.Data data) {
-        this.data = data;
+    public void setData(IconStrRecyclerViewItemData data) {
+        this.data.setData(data);
     }
+
 }

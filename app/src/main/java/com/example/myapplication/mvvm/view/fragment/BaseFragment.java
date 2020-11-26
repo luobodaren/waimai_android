@@ -49,13 +49,8 @@ public abstract class BaseFragment extends com.example.base.fragment.BaseFragmen
 
 
     @Override
-    protected  int getLayoutId() {
-        return 0;
-    }
-
-    @Override
     protected void initViews() {
-        baseViewModel.initData();
+        baseViewModel.init();
     }
 
     @Override

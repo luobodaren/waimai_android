@@ -51,7 +51,7 @@
         <ImageView
             android:id="@+id/iv_message"
             style="@style/mine_head_icon"
-            android:src="@drawable/ic_mine_message"
+            android:src="@drawable/ic_message_black"
             android:layout_marginEnd="24px"
             app:layout_constraintTop_toTopOf="@id/tv_name"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -115,11 +115,10 @@
                         android:overScrollMode="never"/>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/more_recommended_recycler"
+                        android:id="@+id/recycler_more_recommended"
                         style="@style/card_grid_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24px"
+                        android:layout_height="374px"
                         android:overScrollMode="never"/>
                 </LinearLayout>
 
