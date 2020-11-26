@@ -7,6 +7,7 @@ import com.example.myapplication.bean.ui.IconStrRecyclerViewItemData;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
+import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,8 @@ public class WaimaiViewModel extends BaseViewModel {
 
     private List<IconStrRecyclerViewItemData> mFoodTypeList = new ArrayList<>();
 
+    private List<BannerItem> mBannerItemList = new ArrayList<>();
+
     @Override
     public BaseModel getModel() {
         return null;
@@ -24,6 +27,7 @@ public class WaimaiViewModel extends BaseViewModel {
 
     @Override
     public void initData() {
+        initBannerList();
         initFoodRecyclerData();
     }
 
@@ -31,8 +35,24 @@ public class WaimaiViewModel extends BaseViewModel {
 
     }
 
+    public List<BannerItem> getBannerItemList() {
+        return mBannerItemList;
+    }
+
     public List<IconStrRecyclerViewItemData> getMyFoodDataList() {
         return mFoodTypeList;
+    }
+
+    private void initBannerList(){
+        BannerItem bannerItem1 = new BannerItem();
+        bannerItem1.setImgUrl("https://chinese.aljazeera.net/wp-content/uploads/2020/02/8bbea808-13f9-4466-b2a5-2a8207989cf6.jpeg");
+        BannerItem bannerItem2 = new BannerItem();
+        bannerItem2.setImgUrl("http://5b0988e595225.cdn.sohucs.com/images/20190130/314cbd6c9c5c496297e45f518ea0aee1.jpeg");
+        BannerItem bannerItem3 = new BannerItem();
+        bannerItem3.setImgUrl("https://pimage.cqcb.com/d/file/wealth/2019-12-26/0b069da3298226a21a2d553ad6a89c80.jpg");
+        mBannerItemList.add(bannerItem1);
+        mBannerItemList.add(bannerItem2);
+        mBannerItemList.add(bannerItem3);
     }
 
     private void initFoodRecyclerData(){
@@ -65,4 +85,6 @@ public class WaimaiViewModel extends BaseViewModel {
         }
         return list;
     }
+
+
 }

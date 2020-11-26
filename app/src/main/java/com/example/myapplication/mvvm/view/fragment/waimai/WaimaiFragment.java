@@ -4,6 +4,7 @@ package com.example.myapplication.mvvm.view.fragment.waimai;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -45,7 +46,7 @@ public class WaimaiFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
-
+        initSlideShow();
         initFoodTypeRecycler();
     }
 
@@ -83,6 +84,16 @@ public class WaimaiFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    private void initSlideShow(){
+        FragmentWaimaiBinding fragmentWaimaiBinding = ((FragmentWaimaiBinding)mViewDataBinding);
+        fragmentWaimaiBinding.sibSimpleUsage
+                .setSource(mViewModel.getBannerItemList())
+                .setOnItemClickListener((view,t,position)->{
+                    Toast.makeText(getContext(),"点击了轮播图",Toast.LENGTH_SHORT).show();
+                })
+                .setIsOnePageLoop(false).startScroll();
     }
 
 //    sib_simple_usage.setSource(mData)
