@@ -67,7 +67,7 @@
         <ImageView
             android:id="@+id/iv_change_skin"
             style="@style/mine_head_icon"
-            android:src="@drawable/ic_change_skin"
+            android:src="@drawable/ic_change_skin_black"
             android:layout_marginEnd="30px"
             app:layout_constraintTop_toTopOf="@id/iv_message"
             app:layout_constraintEnd_toStartOf="@id/iv_setting"/>

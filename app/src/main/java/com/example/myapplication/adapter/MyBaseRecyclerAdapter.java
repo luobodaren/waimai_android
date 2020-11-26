@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.MyApplication;
@@ -14,7 +15,7 @@ import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 
 import java.util.List;
 
-public abstract class MyBaseRecyclerAdapter<T extends MyBaseRecyclerViewHolder> extends BaseQuickAdapter<Object, T> {
+public abstract class MyBaseRecyclerAdapter<T extends BaseViewHolder> extends BaseQuickAdapter<Object, T> {
 
     protected List<BaseRecyclerViewModel> mItemViewModelList;
 

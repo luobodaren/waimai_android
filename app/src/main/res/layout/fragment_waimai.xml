@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.mvvm.vm.waimai.WaimaiViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/sr_bg_theme_color_gradient">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/titlebar_height"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            >
+
+            <ImageView
+                android:id="@+id/iv_local"
+                android:layout_width="44px"
+                android:layout_height="43px"
+                android:src="@drawable/ic_local_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="36px"
+                android:includeFontPadding="false"
+                android:layout_marginStart="8px"
+                android:layout_marginEnd="8px"
+                app:layout_constraintStart_toEndOf="@id/iv_local"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:layout_width="24px"
+                android:layout_height="24px"
+                android:src="@drawable/ic_arrow_down_white"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toEndOf="@id/tv_location"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:layout_marginEnd="24px"
+                android:src="@drawable/ic_message_white"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:layout_marginEnd="24px"
+                android:src="@drawable/ic_scan_white"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@id/iv_message"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_change_skin"
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:layout_marginEnd="24px"
+                android:src="@drawable/ic_change_skin_white"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toStartOf="@id/iv_scan"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24px"
+            android:orientation="vertical"
+            android:background="@drawable/sr_bg_waimai">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="68px"
+                    android:drawableLeft="@drawable/ic_search"
+                    android:background="@drawable/sr_bg_search"
+                    android:paddingStart="24px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <Button
+                    android:id="@+id/bt_search"
+                    android:layout_width="108px"
+                    android:layout_height="52px"
+                    android:layout_marginEnd="8px"
+                    android:text="@string/search"
+                    android:textColor="@color/white"
+                    android:textSize="26px"
+                    android:background="@drawable/sr_bt_search"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner
+                android:id="@+id/sib_simple_usage"
+                android:layout_width="match_parent"
+                android:layout_height="172px"
+                app:bb_scale="0.5625" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_food_type"
+                android:layout_width="match_parent"
+                android:layout_height="490px"
+                android:padding="24px"
+                android:overScrollMode="never"
+                android:background="@drawable/sr_card_recycler_view_bg"/>
+
+<!--     刷新组件       -->
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

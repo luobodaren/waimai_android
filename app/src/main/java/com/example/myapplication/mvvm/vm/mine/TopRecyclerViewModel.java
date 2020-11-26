@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.base.utils.LogUtil;
 import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
 import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
@@ -17,12 +18,10 @@ import java.util.List;
 
 public class TopRecyclerViewModel extends BaseRecyclerViewModel {
 
-    private static List<TypeCountRecyclerViewItemData> datas;
-
     TypeCountRecyclerViewItemData data;
 
     @Override
-    public void bindModel(MyBaseRecyclerViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
+    public void bindModel(BaseViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
         TopDataRecyclerViewHolder viewHolder;
         if(mBaseViewHolder instanceof TopDataRecyclerViewHolder){
             viewHolder = (TopDataRecyclerViewHolder)mBaseViewHolder;

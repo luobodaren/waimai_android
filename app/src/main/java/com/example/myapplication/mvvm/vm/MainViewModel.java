@@ -5,6 +5,7 @@ import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.MainModel;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.view.fragment.mine.MineFragment;
+import com.example.myapplication.mvvm.view.fragment.waimai.WaimaiFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class MainViewModel extends BaseViewModel {
 
     public List<BaseFragment> getTabFragment() {
         List<BaseFragment> fragmentList = new ArrayList();
-        fragmentList.add(new MineFragment());
+        fragmentList.add(new WaimaiFragment());
         fragmentList.add(new MineFragment());
         fragmentList.add(new MineFragment());
         fragmentList.add(new MineFragment());

@@ -2,6 +2,7 @@ package com.example.myapplication.mvvm.vm.mine;
 
 import androidx.databinding.DataBindingUtil;
 
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.base.utils.LogUtil;
 import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
 import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
@@ -19,7 +20,7 @@ public class FunctionRecommendedViewModel extends BaseRecyclerViewModel {
     IconStrRecyclerViewItemData data;
 
     @Override
-    public void bindModel(MyBaseRecyclerViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
+    public void bindModel(BaseViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
         FunctionRecommendedViewHolder viewHolder;
         if(mBaseViewHolder instanceof FunctionRecommendedViewHolder){
             viewHolder = (FunctionRecommendedViewHolder)mBaseViewHolder;

@@ -4,6 +4,7 @@ import android.view.View;
 
 import androidx.databinding.DataBindingUtil;
 
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.base.utils.LogUtil;
 import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
 import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
@@ -21,7 +22,7 @@ public class GoodLogisticsViewModel extends BaseRecyclerViewModel {
     IconStrRecyclerViewItemData data = new IconStrRecyclerViewItemData(0,"");
 
     @Override
-    public void bindModel(MyBaseRecyclerViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
+    public void bindModel(BaseViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
         GoodLogisticsRecyclerViewHolder viewHolder;
         if(mBaseViewHolder instanceof GoodLogisticsRecyclerViewHolder){
             viewHolder = (GoodLogisticsRecyclerViewHolder)mBaseViewHolder;

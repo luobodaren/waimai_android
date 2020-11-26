@@ -84,8 +84,10 @@ public class UIUtils {
             float scaleX = UIUtils.getInstance(context).getHorValue();
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
 //                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
-            layoutParams.width = (int) (layoutParams.width * scaleX);
-            layoutParams.height = (int) (layoutParams.height * scaleX);
+            if(layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT)
+                layoutParams.width = (int) (layoutParams.width * scaleX);
+            if(layoutParams.height != ViewGroup.LayoutParams.MATCH_PARENT)
+                layoutParams.height = (int) (layoutParams.height * scaleX);
             view.setTag(UIUtils.SCALE_KEY,1);
         }
     }
@@ -100,8 +102,10 @@ public class UIUtils {
             if(child.getTag(UIUtils.SCALE_KEY) == null){    //防止多次放大
                 ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
 //                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
-                layoutParams.width = (int) (layoutParams.width * scaleX);
-                layoutParams.height = (int) (layoutParams.height * scaleX);
+                if(layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT)
+                    layoutParams.width = (int) (layoutParams.width * scaleX);
+                if(layoutParams.height != ViewGroup.LayoutParams.MATCH_PARENT)
+                    layoutParams.height = (int) (layoutParams.height * scaleX);
 //                LogUtil.e("tag=" + child.getTag() + "  end   width=" + layoutParams.width + " height=" + layoutParams.height);
                 if(layoutParams instanceof ViewGroup.MarginLayoutParams){
                     ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
