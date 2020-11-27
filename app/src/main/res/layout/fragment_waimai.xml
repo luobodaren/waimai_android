@@ -96,17 +96,20 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/search_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
 
-                <EditText
+                <TextView
                     android:id="@+id/et_search"
                     android:layout_width="match_parent"
                     android:layout_height="68px"
-                    android:drawableLeft="@drawable/ic_search"
+                    android:drawableStart="@drawable/ic_search_gray"
                     android:background="@drawable/sr_bg_search"
+                    android:gravity="center_vertical"
                     android:paddingStart="24px"
+                    android:hint="  搜索词"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/bt_search"
@@ -117,22 +120,33 @@
                     android:textColor="@color/white"
                     android:textSize="26px"
                     android:background="@drawable/sr_bt_search"
+                    android:focusable="false"
+                    android:clickable="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16px"
+                android:overScrollMode="never"/>
+
             <com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner
                 android:id="@+id/sib_simple_usage"
                 android:layout_width="match_parent"
                 android:layout_height="172px"
+                android:layout_marginTop="24px"
                 app:bb_scale="0.5625" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_food_type"
                 android:layout_width="match_parent"
-                android:layout_height="490px"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24px"
                 android:padding="24px"
                 android:overScrollMode="never"
                 android:background="@drawable/sr_card_recycler_view_bg"/>

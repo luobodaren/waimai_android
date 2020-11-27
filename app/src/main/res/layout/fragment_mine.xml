@@ -107,10 +107,10 @@
                     <!--                android:background=""-->
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_good_logistics"
+                        android:id="@+id/recycler_goods_logistics"
                         style="@style/card_grid_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="168px"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="62px"
                         android:overScrollMode="never"/>
 
@@ -118,7 +118,7 @@
                         android:id="@+id/recycler_more_recommended"
                         style="@style/card_grid_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="374px"
+                        android:layout_height="wrap_content"
                         android:overScrollMode="never"/>
                 </LinearLayout>
 

@@ -2,7 +2,12 @@ package com.example.myapplication.mvvm.vm.waimai;
 
 import android.view.View;
 
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableInt;
+
 import com.example.myapplication.R;
+import com.example.myapplication.bean.SearchRecord;
 import com.example.myapplication.bean.ui.IconStrRecyclerViewItemData;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
@@ -13,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WaimaiViewModel extends BaseViewModel {
+
+    public BaseObservable goToSearch = new ObservableInt();
 
     String mLocation;
 
@@ -31,8 +38,12 @@ public class WaimaiViewModel extends BaseViewModel {
         initFoodRecyclerData();
     }
 
-    public void onSearchBtClick(View view,String searchStr) {
-
+    /**
+     * 搜索栏点击
+     * @param view
+     */
+    public void onSearchBtClick(View view) {
+        goToSearch.notifyChange();
     }
 
     public List<BannerItem> getBannerItemList() {
@@ -86,5 +97,17 @@ public class WaimaiViewModel extends BaseViewModel {
         return list;
     }
 
-
+    public SearchRecord[] getSearchRecord() {
+        return new SearchRecord[]{
+                new SearchRecord(1L,"外卖", System.currentTimeMillis())
+                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
+                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
+                ,new SearchRecord(1L,"外卖", System.currentTimeMillis())
+                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
+                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
+                ,new SearchRecord(1L,"外卖", System.currentTimeMillis())
+                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
+                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
+                ,new SearchRecord(4L,"免费配送", System.currentTimeMillis())};
+    }
 }

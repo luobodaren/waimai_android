@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.example.myapplication.adapter.MyBaseRecyclerViewHolder;
 
-public class GoodLogisticsRecyclerViewHolder extends MyBaseRecyclerViewHolder {
-    public GoodLogisticsRecyclerViewHolder(@NonNull View itemView) {
+public class GoodsLogisticsRecyclerViewHolder extends MyBaseRecyclerViewHolder {
+    public GoodsLogisticsRecyclerViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 }

@@ -38,7 +38,11 @@ public abstract class MyBaseRecyclerAdapter<T extends BaseViewHolder> extends Ba
     protected void convert(@NonNull T helper, Object item) {
         int headCount = getHeaderLayoutCount();
         int position = getData().indexOf(item);
+
         BaseRecyclerViewModel vm= getItemViewModel(position);
+        if(vm != null){
+            vm.bindModel( helper,vm.getModel(),this);
+        }
 
         //屏幕适配
         if(helper.itemView instanceof ViewGroup){
@@ -46,13 +50,13 @@ public abstract class MyBaseRecyclerAdapter<T extends BaseViewHolder> extends Ba
         }else {
             UIUtils.autoAdapterUI(MyApplication.getMyApplication(),helper.itemView);
         }
-
-        vm.bindModel( helper,vm.getModel(),this);
     }
 
     public BaseRecyclerViewModel getItemViewModel(int index) {
-        if (index < getItemCount())
-            return mItemViewModelList.get(index);
+        if (index < getItemCount()){
+            if(mItemViewModelList != null && mItemViewModelList.size()>index)
+                return mItemViewModelList.get(index);
+        }
         return null;
     }
 

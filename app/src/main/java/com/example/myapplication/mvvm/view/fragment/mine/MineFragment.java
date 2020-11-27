@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.mine.FunctionRecommendedRecyclerAdapter;
-import com.example.myapplication.adapter.mine.GoodLogisticsRecyclerAdapter;
+import com.example.myapplication.adapter.mine.GoodsLogisticsRecyclerAdapter;
 import com.example.myapplication.adapter.mine.TopDataRecyclerAdapter;
 import com.example.myapplication.databinding.FragmentMineBinding;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
@@ -73,13 +72,13 @@ public class MineFragment extends BaseFragment {
     private void initLogisticsRecycler(){
         FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
 
-        GoodLogisticsRecyclerAdapter myBaseRecyclerAdapter =
-                new GoodLogisticsRecyclerAdapter(R.layout.item_mine_recycler_good_logistics,mViewModel.getGoodLogisticsdata()
+        GoodsLogisticsRecyclerAdapter myBaseRecyclerAdapter =
+                new GoodsLogisticsRecyclerAdapter(R.layout.item_mine_recycler_good_logistics,mViewModel.getGoodLogisticsdata()
                         ,mViewModel.getGoodLogisticsRecyclerViewModelList());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),5, LinearLayoutManager.VERTICAL,false);
 
-        fragmentMineBinding.recyclerGoodLogistics.setAdapter(myBaseRecyclerAdapter);
-        fragmentMineBinding.recyclerGoodLogistics.setLayoutManager(gridLayoutManager);
+        fragmentMineBinding.recyclerGoodsLogistics.setAdapter(myBaseRecyclerAdapter);
+        fragmentMineBinding.recyclerGoodsLogistics.setLayoutManager(gridLayoutManager);
     }
 
     private void initMoreRecommendedRecycler() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="titlebar_height">88px</dimen>
+    <dimen name="titlebar_text_size">42px</dimen>
     <dimen name="tabbar_height">98px</dimen>
 
     <dimen name="font_size_36">36px</dimen>
@@ -41,4 +42,7 @@
     <dimen name="mine_marginTop">40px</dimen>
     <dimen name="mine_tv_name_font_size">36px</dimen>
     <dimen name="mine_tv_signature_font_size">20px</dimen>
+
+    <dimen name="order_tab_text_size_first">28px</dimen>
+    <dimen name="order_tab_text_size">24px</dimen>
 </resources>

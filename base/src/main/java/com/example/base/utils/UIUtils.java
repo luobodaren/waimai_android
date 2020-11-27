@@ -92,10 +92,25 @@ public class UIUtils {
         }
     }
 
-
     public static void autoAdapterUI(Context context,ViewGroup viewGroup) {
         float scaleX = UIUtils.getInstance(context).getHorValue();
 //        float scaleY = UIUtils.getInstance(getContext()).getVerValue();
+        ViewGroup.LayoutParams lp = viewGroup.getLayoutParams();
+        if(viewGroup.getTag(UIUtils.SCALE_KEY) == null){//防止多次放大
+            if(lp.width != ViewGroup.LayoutParams.MATCH_PARENT)
+                lp.width = (int) (lp.width * scaleX);
+            if(lp.height != ViewGroup.LayoutParams.MATCH_PARENT)
+                lp.height = (int) (lp.height * scaleX);
+            if(lp instanceof ViewGroup.MarginLayoutParams){
+                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) lp;
+                marginLayoutParams.leftMargin = (int) (marginLayoutParams.leftMargin * scaleX);
+                marginLayoutParams.rightMargin = (int) (marginLayoutParams.rightMargin * scaleX);
+                marginLayoutParams.topMargin = (int) (marginLayoutParams.topMargin * scaleX);
+                marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
+            }
+            viewGroup.setTag(UIUtils.SCALE_KEY,1);
+        }
+
         int count = viewGroup.getChildCount();
         for(int i = 0; i < count; i++){
             View child = viewGroup.getChildAt(i);

@@ -27,4 +27,6 @@
     <color name="interval_color">#333333</color>
 
     <color name="search_bg">#F2F2F2</color>
+
+    <color name="selector_search_record_tag_color">@color/text_normal</color>
 </resources>
