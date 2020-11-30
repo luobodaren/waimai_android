@@ -6,7 +6,7 @@ import com.example.myapplication.mvvm.model.BaseModel;
 
 public abstract class BaseViewModel {
 
-    private BaseModel mMode;
+    protected BaseModel mMode;
 
     void setMode(BaseModel mode){
         this.mMode = mode;

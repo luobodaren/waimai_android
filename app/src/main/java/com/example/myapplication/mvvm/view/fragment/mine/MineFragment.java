@@ -27,13 +27,19 @@ public class MineFragment extends BaseFragment {
     RecyclerView mGoodLogisticsRecycler;
 
     @Override
-    protected TitleBar initTitleBar() {
-        return null;
+    protected int getLayoutId() {
+        return R.layout.fragment_mine;
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_mine;
+    protected void initArgs() {
+        setFitWindow(true);
+        setStatusBarLightMode(true);
+    }
+
+    @Override
+    protected TitleBar initTitleBar() {
+        return null;
     }
 
     @Override

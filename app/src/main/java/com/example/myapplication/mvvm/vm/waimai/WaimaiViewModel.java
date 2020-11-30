@@ -10,6 +10,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.bean.SearchRecord;
 import com.example.myapplication.bean.ui.IconStrRecyclerViewItemData;
 import com.example.myapplication.mvvm.model.BaseModel;
+import com.example.myapplication.mvvm.model.waimai.WaimaiModel;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
@@ -29,7 +30,10 @@ public class WaimaiViewModel extends BaseViewModel {
 
     @Override
     public BaseModel getModel() {
-        return null;
+        if(mMode == null){
+            mMode = new WaimaiModel();
+        }
+        return mMode;
     }
 
     @Override

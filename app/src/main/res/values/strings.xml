@@ -17,7 +17,8 @@
     <string name="more_recommended">更多推荐</string>
     <string name="search">搜索</string>
     <string name="pay">付款</string>
-    <string name="cancle_order">取消订单</string>
+    <string name="cancel">取消</string>
+    <string name="cancel_order">取消订单</string>
 
 
 </resources>

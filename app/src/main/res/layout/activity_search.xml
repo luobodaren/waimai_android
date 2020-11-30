@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.mvvm.vm.SearchActivityViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{(v)->viewModel.onSearchBtClick(v)}"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="68px"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/ic_search_gray"
+                android:drawablePadding="8px"
+                android:background="@drawable/sr_bg_search"
+                android:gravity="center_vertical"
+                android:paddingStart="24px"
+                android:text="@={viewModel.searchStr}"
+                android:hint="搜索词"
+                android:layout_marginTop="14px"
+                android:layout_marginBottom="14px"
+                android:layout_marginStart="24px" />
+
+            <Button
+                android:id="@+id/bt_search"
+                android:layout_width="108px"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8px"
+                android:text="@string/cancel"
+                android:textColor="@color/text_uncheck"
+                android:textSize="26px"
+                android:background="@null"
+                android:focusable="false"
+                android:clickable="false" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></FrameLayout>
+
+    </LinearLayout>
+</layout>

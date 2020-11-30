@@ -59,6 +59,7 @@ public class OrderItemViewModel extends BaseRecyclerViewModel {
             ((MallUnPayViewHolder)mBaseViewHolder).recyclerView.setAdapter(adapter1);
 
         }else if(mBaseViewHolder instanceof OrderViewHolder){
+            // TODO: 2020/11/30 根据不同type显示不同界面
             LogUtil.e("ViewHolder 匹配失败111111111111111111");
         }else{
             LogUtil.e("ViewHolder 匹配失败");

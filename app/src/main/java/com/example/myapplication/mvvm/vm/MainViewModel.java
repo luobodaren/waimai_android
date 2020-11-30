@@ -4,7 +4,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.MainModel;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
-import com.example.myapplication.mvvm.view.fragment.SearchFragment;
 import com.example.myapplication.mvvm.view.fragment.mine.MineFragment;
 import com.example.myapplication.mvvm.view.fragment.order.OrderFragment;
 import com.example.myapplication.mvvm.view.fragment.waimai.WaimaiFragment;
@@ -34,7 +33,7 @@ public class MainViewModel extends BaseViewModel {
     public List<BaseFragment> getTabFragment() {
         List<BaseFragment> fragmentList = new ArrayList<>();
         fragmentList.add(new WaimaiFragment());
-        fragmentList.add(new SearchFragment());
+        fragmentList.add(new WaimaiFragment());
         fragmentList.add(new OrderFragment());
         fragmentList.add(new MineFragment());
 

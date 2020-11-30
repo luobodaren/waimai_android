@@ -1,14 +1,21 @@
 package com.example.base.fragment;
 
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.example.base.utils.LogUtil;
+import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageActivity;
 import com.xuexiang.xpage.base.XPageFragment;
 import com.xuexiang.xpage.core.PageOption;
@@ -16,7 +23,61 @@ import com.xuexiang.xpage.enums.CoreAnim;
 
 import java.io.Serializable;
 
+@Page
 public abstract class BaseFragment extends XPageFragment {
+
+    @Override
+    protected void initListeners() {
+
+        /*getFragmentManager()
+                .beginTransaction()
+                .setMaxLifecycle(this, Lifecycle.State.CREATED)
+                .commit();*/
+
+        getLifecycle().addObserver(new LifecycleEventObserver() {
+            @Override
+            public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
+                LogUtil.d(event.name());
+                switch (event){
+                    case ON_CREATE:
+                        break;
+                    case ON_START:
+                        break;
+                    case ON_RESUME:
+                        onLifecycleResume();
+                        break;
+                    case ON_PAUSE:
+                        break;
+                    case ON_STOP:
+                        break;
+                    case ON_DESTROY:
+                        break;
+                    case ON_ANY:
+                        break;
+                }
+            }
+        });
+
+
+    }
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if(isVisibleToUser){
+//            onLifecycleResume();
+//        }else{
+//
+//        }
+//    }
+
+    protected abstract void onLifecycleCreate();
+    protected abstract void onLifecycleStart();
+    protected abstract void onLifecycleResume();
+    protected abstract void onLifecyclePuase();
+    protected abstract void onLifecycleStop();
+    protected abstract void onLifecycleDestroy();
+    protected abstract void onLifecycleAny();
 
     /**
      * 打开一个新的页面

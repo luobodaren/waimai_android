@@ -9,23 +9,22 @@
             type="com.example.myapplication.mvvm.vm.MainViewModel" />
     </data>
 
-    <com.example.base.views.UiAdapterConstrainLayout
+    <com.example.base.views.UiAdapterLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0px"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tabSegment"/>
+            android:layout_weight="1"/>
 
         <com.xuexiang.xui.widget.tabbar.TabSegment
             android:id="@+id/tabSegment"
             style="@style/main_tab_bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-    </com.example.base.views.UiAdapterConstrainLayout>
+    </com.example.base.views.UiAdapterLinearLayout>
 
 
 </layout>

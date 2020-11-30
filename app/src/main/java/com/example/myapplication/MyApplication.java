@@ -1,8 +1,16 @@
 package com.example.myapplication;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.example.base.IComponentApplication;
+import com.xuexiang.xpage.PageConfig;
+import com.xuexiang.xpage.PageConfiguration;
+import com.xuexiang.xpage.base.XPageActivity;
+import com.xuexiang.xpage.model.PageInfo;
+
+import java.util.List;
+
 public class MyApplication extends Application {
 
     private static final String[] MODULESLIST =
@@ -14,6 +22,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         myApplication = this;
+
         //Module类的APP初始化
         modulesApplicationInit();
     }
@@ -39,6 +48,5 @@ public class MyApplication extends Application {
             }
         }
     }
-
 
 }

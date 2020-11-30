@@ -89,67 +89,89 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="24px"
             android:orientation="vertical"
             android:background="@drawable/sr_bg_waimai">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/search_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
-
-                <TextView
-                    android:id="@+id/et_search"
+                android:orientation="vertical"
+                android:padding="24px">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/search_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="68px"
-                    android:drawableStart="@drawable/ic_search_gray"
-                    android:background="@drawable/sr_bg_search"
-                    android:gravity="center_vertical"
-                    android:paddingStart="24px"
-                    android:hint="  搜索词"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
 
-                <Button
-                    android:id="@+id/bt_search"
-                    android:layout_width="108px"
-                    android:layout_height="52px"
-                    android:layout_marginEnd="8px"
-                    android:text="@string/search"
-                    android:textColor="@color/white"
-                    android:textSize="26px"
-                    android:background="@drawable/sr_bt_search"
-                    android:focusable="false"
-                    android:clickable="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    <TextView
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="68px"
+                        android:drawableStart="@drawable/ic_search_gray"
+                        android:drawablePadding="8px"
+                        android:background="@drawable/sr_bg_search"
+                        android:gravity="center_vertical"
+                        android:paddingStart="24px"
+                        android:hint="  搜索词"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <Button
+                        android:id="@+id/bt_search"
+                        android:layout_width="108px"
+                        android:layout_height="52px"
+                        android:layout_marginEnd="8px"
+                        android:text="@string/search"
+                        android:textColor="@color/white"
+                        android:textSize="26px"
+                        android:background="@drawable/sr_bt_search"
+                        android:focusable="false"
+                        android:clickable="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_record"
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_record"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16px"
+                    android:overScrollMode="never"/>
+
+                <com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner
+                    android:id="@+id/sib_simple_usage"
+                    android:layout_width="match_parent"
+                    android:layout_height="172px"
+                    android:layout_marginTop="24px"
+                    app:bb_scale="0.5625" />
+            </LinearLayout>
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16px"
-                android:overScrollMode="never"/>
-
-            <com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner
-                android:id="@+id/sib_simple_usage"
-                android:layout_width="match_parent"
-                android:layout_height="172px"
                 android:layout_marginTop="24px"
-                app:bb_scale="0.5625" />
+                android:layout_marginStart="24px">
+                <com.meetsl.scardview.SCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24px"
+                    android:layout_marginBottom="24px"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="6px"
+                    app:cardLightDirection="LT">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_food_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24px"
-                android:padding="24px"
-                android:overScrollMode="never"
-                android:background="@drawable/sr_card_recycler_view_bg"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_food_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="24px"
+                        android:overScrollMode="never"
+                        android:background="@drawable/sr_card_recycler_view_bg"/>
+
+                </com.meetsl.scardview.SCardView>
+            </FrameLayout>
 
 <!--     刷新组件       -->
 

@@ -1,16 +1,14 @@
 package com.example.myapplication.mvvm.view.fragment;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.example.myapplication.mvvm.vm.BaseViewModel;
+import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.utils.TitleBar;
 
 public abstract class BaseFragment extends com.example.base.fragment.BaseFragment {
@@ -18,10 +16,14 @@ public abstract class BaseFragment extends com.example.base.fragment.BaseFragmen
     public ViewDataBinding mViewDataBinding;
     public BaseViewModel baseViewModel;
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
+    private boolean isFitWindow = false;
+
+    private boolean isStatusBarLightMode = true;
+
+
+    protected abstract BaseViewModel setViewModel();
+
+    protected abstract void bindViewModel();
 
     @Override
     protected View inflateView(LayoutInflater inflater, ViewGroup container) {
@@ -34,11 +36,14 @@ public abstract class BaseFragment extends com.example.base.fragment.BaseFragmen
 
     @Override
     protected void initArgs() {
-        super.initArgs();
+
     }
 
     @Override
     protected void initPage() {
+        if(isFitWindow){
+            StatusBarUtils.fitStatusBarHight(this);
+        }
         super.initPage();
     }
 
@@ -47,7 +52,6 @@ public abstract class BaseFragment extends com.example.base.fragment.BaseFragmen
         return super.initTitleBar();
     }
 
-
     @Override
     protected void initViews() {
         baseViewModel.init();
@@ -55,11 +59,73 @@ public abstract class BaseFragment extends com.example.base.fragment.BaseFragmen
 
     @Override
     protected void initListeners() {
+        super.initListeners();
+    }
+
+    @Override
+    protected void onLifecycleCreate() {
 
     }
 
-    protected abstract BaseViewModel setViewModel();
+    @Override
+    protected void onLifecycleStart() {
 
-    protected abstract void bindViewModel();
+    }
+
+    @Override
+    protected void onLifecycleResume() {
+
+    }
+
+    @Override
+    protected void onLifecyclePuase() {
+
+    }
+
+    @Override
+    protected void onLifecycleStop() {
+
+    }
+
+    @Override
+    protected void onLifecycleDestroy() {
+
+    }
+
+    @Override
+    protected void onLifecycleAny() {
+
+    }
+
+    public void setFitWindow(boolean fitWindow) {
+        isFitWindow = fitWindow;
+    }
+
+    public void setStatusBarLightMode(boolean statusBarLightMode) {
+        isStatusBarLightMode = statusBarLightMode;
+    }
+
+    private void setStatusBarMode() {
+        if(isStatusBarLightMode){
+            StatusBarUtils.setStatusBarLightMode(getActivity());
+        }else{
+            StatusBarUtils.setStatusBarDarkMode(getActivity());
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            onShow();
+        }
+    }
+
+    /**
+     * fragment显示再布局上
+     */
+    protected void onShow(){
+        setStatusBarMode();
+    }
 
 }

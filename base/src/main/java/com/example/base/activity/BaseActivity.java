@@ -7,14 +7,11 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.xuexiang.xpage.base.XPageActivity;
+
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
-public abstract class BaseActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+public abstract class BaseActivity extends XPageActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {

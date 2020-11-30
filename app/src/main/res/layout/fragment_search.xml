@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.mvvm.vm.SearchFragmentViewModel" />
     </data>
 
     <com.example.base.views.UiAdapterFrameLayout

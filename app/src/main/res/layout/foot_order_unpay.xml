@@ -51,7 +51,7 @@
             android:layout_height="60px"
             android:background="@drawable/sr_order_bt_bg_gray"
             android:layout_marginEnd="16px"
-            android:text="@string/cancle_order"
+            android:text="@string/cancel_order"
             android:textColor="@color/text_normal"
             android:textSize="28px"
             app:layout_constraintEnd_toStartOf="@id/bt_pay"

@@ -41,6 +41,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void initActivityAttritube() {
+        setTransluecnt(true);
+        setFitWindow(false);
+    }
+
+    @Override
     protected void initView() {
         mBinding = (ActivityMainBinding)mViewDataBinding;
 

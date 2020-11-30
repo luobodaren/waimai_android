@@ -2,16 +2,16 @@ package com.example.myapplication.mvvm.vm;
 
 import com.example.myapplication.bean.SearchRecord;
 import com.example.myapplication.mvvm.model.BaseModel;
-import com.example.myapplication.mvvm.model.SearchModel;
+import com.example.myapplication.mvvm.model.SearchFragmentModel;
 
-public class SearchViewModel extends BaseViewModel {
+public class SearchFragmentViewModel extends BaseViewModel {
 
-    SearchModel searchModel;
+    SearchFragmentModel searchFragmentModel;
 
     @Override
     public BaseModel getModel() {
-        searchModel = new SearchModel();
-        return searchModel;
+        searchFragmentModel = new SearchFragmentModel();
+        return searchFragmentModel;
     }
 
     @Override

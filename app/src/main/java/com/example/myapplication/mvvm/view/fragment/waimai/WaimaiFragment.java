@@ -2,6 +2,7 @@ package com.example.myapplication.mvvm.view.fragment.waimai;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
@@ -22,7 +23,9 @@ import com.example.myapplication.adapter.mine.FoodTypeRecyclerAdapter;
 import com.example.myapplication.bean.SearchRecord;
 import com.example.myapplication.databinding.FragmentWaimaiBinding;
 import com.example.myapplication.mvvm.view.activity.BaseActivity;
+import com.example.myapplication.mvvm.view.activity.SearchActivity;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
+import com.example.myapplication.mvvm.view.fragment.SearchHistoryFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaimaiViewModel;
 import com.example.myapplication.util.DataBindingUtils;
@@ -65,6 +68,12 @@ public class WaimaiFragment extends BaseFragment {
         initSlideShow();
         initSearchView();
         initFoodTypeRecycler();
+    }
+
+    @Override
+    protected void initArgs() {
+        setFitWindow(true);
+        setStatusBarLightMode(false);
     }
 
     @Override
@@ -167,6 +176,8 @@ public class WaimaiFragment extends BaseFragment {
             public void onPropertyChanged(Observable observable, int i) {
                 // TODO: 2020/11/27 跳转搜索页
                 LogUtil.e("跳转搜索页");
+//                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
+                startActivity(new Intent(getContext(), SearchActivity.class));  // FIXME: 2020/11/30 
 //                startActivity();
             }
         });

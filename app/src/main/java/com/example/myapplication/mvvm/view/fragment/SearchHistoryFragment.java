@@ -4,42 +4,36 @@ import android.content.Context;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.SearchRecordTagAdapter;
-import com.example.myapplication.adapter.SearchRecordTagWaimaiAdapter;
 import com.example.myapplication.bean.SearchRecord;
 import com.example.myapplication.databinding.FragmentSearchBinding;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
-import com.example.myapplication.mvvm.vm.SearchViewModel;
+import com.example.myapplication.mvvm.vm.SearchFragmentViewModel;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.xuexiang.xpage.annotation.Page;
-import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xpage.enums.CoreAnim;
 
-@Page(name = "搜索页")
-public class SearchFragment extends BaseFragment {
+@Page(name = "历史搜索内容与发现",anim = CoreAnim.fade)
+public class SearchHistoryFragment extends BaseFragment {
 
-    SearchViewModel mViewModel;
+    SearchFragmentViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
-        mViewModel = new SearchViewModel();
+        mViewModel = new SearchFragmentViewModel();
         return mViewModel;
     }
 
     @Override
     protected void bindViewModel() {
-
+        ((FragmentSearchBinding)mViewDataBinding).setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_search;
-    }
-
-    @Override
-    protected TitleBar initTitleBar() {
-        return null;
     }
 
     @Override
@@ -82,4 +76,5 @@ public class SearchFragment extends BaseFragment {
         flexboxLayoutManager.setJustifyContent(JustifyContent.FLEX_START);
         return flexboxLayoutManager;
     }
+
 }

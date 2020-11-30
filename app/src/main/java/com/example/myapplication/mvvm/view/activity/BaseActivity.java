@@ -10,12 +10,15 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
+import com.example.myapplication.R;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.util.ActivityCollector;
+import com.example.myapplication.util.StatusBarUtils;
 
 
 public abstract class BaseActivity extends com.example.base.activity.BaseActivity {
@@ -28,6 +31,10 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
     private boolean isShowStatusBar = true;
     //是否允许旋转屏幕
     private boolean isAllowScreenRotate = true;
+    //是否设置沉浸式状态栏
+    private boolean isTransluecnt = true;
+    //是否留出状态栏宽度
+    private boolean isFitWindow = true;
     //封装Toast对象
     private static Toast toast;
     public Context context;
@@ -48,6 +55,8 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
         baseViewModel = setViewModel();
         bindViewModel();
 
+        initActivityAttritube();
+
         if (!isShowTitle) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
@@ -55,6 +64,13 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
         if (!isShowStatusBar) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
                     , WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            if(isTransluecnt){
+                StatusBarUtils.translucent(this,getResources().getColor(R.color.transparent));
+                if(isFitWindow){
+                    StatusBarUtils.fitStatusBarHight(this);
+                }
+            }
         }
 
         //设置屏幕是否可旋转
@@ -87,6 +103,11 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
     protected abstract void bindViewModel();
 
     /**
+     * 设置Activity属性
+     */
+    protected abstract void initActivityAttritube();
+
+    /**
      * 初始化view
      */
     protected abstract void initView();
@@ -107,6 +128,22 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
      */
     public void setShowStatusBar(boolean showStatusBar) {
         isShowStatusBar = showStatusBar;
+    }
+
+    /**
+     * 设置沉浸式状态栏
+     * @param transluecnt
+     */
+    public void setTransluecnt(boolean transluecnt) {
+        isTransluecnt = transluecnt;
+    }
+
+    /**
+     * 是否为状态栏留出空间
+     * @param fitWindow
+     */
+    public void setFitWindow(boolean fitWindow) {
+        isFitWindow = fitWindow;
     }
 
     /**
