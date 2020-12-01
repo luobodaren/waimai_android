@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_hour"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        android:gravity="center"
+        android:text="10"
+        android:textSize="20px"
+        android:textColor="@color/white"
+        android:background="@drawable/sr_text_bg_theme_color_gradient"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text=":"
+        android:textSize="32px"
+        android:textColor="@color/colorTheme"
+        android:paddingStart="5px"
+        android:paddingEnd="5px"/>
+
+    <TextView
+        android:id="@+id/tv_minute"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        android:gravity="center"
+        android:text="23"
+        android:textSize="20px"
+        android:textColor="@color/white"
+        android:background="@drawable/sr_text_bg_theme_color_gradient"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text=":"
+        android:textSize="32px"
+        android:textColor="@color/colorTheme"
+        android:paddingStart="5px"
+        android:paddingEnd="5px"/>
+
+
+    <TextView
+        android:id="@+id/tv_seconds"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        android:gravity="center"
+        android:text="59"
+        android:textSize="20px"
+        android:textColor="@color/white"
+        android:background="@drawable/sr_text_bg_theme_color_gradient"/>
+</LinearLayout>

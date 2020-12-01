@@ -11,6 +11,12 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : "App" ]
+            }
+        }
     }
     buildTypes {
         release {
@@ -18,13 +24,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-    }
 
     dataBinding{
         enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -40,5 +47,8 @@ dependencies {
     implementation project(':base')
     implementation project(':thirdlib')
 
+    //XPage页面框架
+    implementation 'com.github.xuexiangjys.XPage:xpage-lib:3.0.0'
+    annotationProcessor 'com.github.xuexiangjys.XPage:xpage-compiler:3.0.0'
 
 }

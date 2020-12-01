@@ -5,10 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.SearchActivityViewModel" />
+            type="com.example.myapplication.mvvm.vm.SearchViewModel" />
     </data>
 
-    <LinearLayout
+    <com.example.base.views.UiAdapterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -58,5 +58,5 @@
             android:layout_height="0dp"
             android:layout_weight="1"></FrameLayout>
 
-    </LinearLayout>
+    </com.example.base.views.UiAdapterLinearLayout>
 </layout>

@@ -8,7 +8,7 @@ import androidx.databinding.ObservableInt;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.SearchActivityModel;
 
-public class SearchActivityViewModel extends BaseViewModel {
+public class SearchViewModel extends BaseViewModel {
 
     public String searchStr;
 

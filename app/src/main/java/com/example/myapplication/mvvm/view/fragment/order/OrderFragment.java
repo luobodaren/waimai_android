@@ -2,11 +2,9 @@ package com.example.myapplication.mvvm.view.fragment.order;
 
 import android.graphics.Color;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
-import com.example.base.activity.BaseActivity;
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.MyApplication;
 import com.example.myapplication.R;
@@ -14,7 +12,6 @@ import com.example.myapplication.databinding.FragmentOrderBinding;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.order.OrderViewModel;
-import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.views.widget.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;

@@ -67,7 +67,7 @@ public class MineFragment extends BaseFragment {
         FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
 
         TopDataRecyclerAdapter myBaseRecyclerAdapter
-                = new TopDataRecyclerAdapter(R.layout.vertical_data_show_item,mViewModel.getmTopDataList()
+                = new TopDataRecyclerAdapter(R.layout.item_vertical_data_show,mViewModel.getmTopDataList()
                 ,mViewModel.getTopRecyclerViewModelList());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4, LinearLayoutManager.VERTICAL,false);
 

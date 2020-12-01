@@ -23,8 +23,10 @@ import com.example.myapplication.adapter.mine.FoodTypeRecyclerAdapter;
 import com.example.myapplication.bean.SearchRecord;
 import com.example.myapplication.databinding.FragmentWaimaiBinding;
 import com.example.myapplication.mvvm.view.activity.BaseActivity;
+import com.example.myapplication.mvvm.view.activity.MessageActivity;
 import com.example.myapplication.mvvm.view.activity.SearchActivity;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
+import com.example.myapplication.mvvm.view.fragment.MessageFragment;
 import com.example.myapplication.mvvm.view.fragment.SearchHistoryFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaimaiViewModel;
@@ -34,6 +36,7 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.xuexiang.xpage.annotation.Page;
+import com.xuexiang.xpage.core.PageOption;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
@@ -174,10 +177,23 @@ public class WaimaiFragment extends BaseFragment {
         DataBindingUtils.addCallBack(this, mViewModel.goToSearch, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
-                // TODO: 2020/11/27 跳转搜索页
-                LogUtil.e("跳转搜索页");
+                LogUtil.d("跳转搜索页");
 //                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
                 startActivity(new Intent(getContext(), SearchActivity.class));  // FIXME: 2020/11/30 
+//                startActivity();
+            }
+        });
+
+        DataBindingUtils.addCallBack(this, mViewModel.goToMessage, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable observable, int i) {
+                LogUtil.d("跳转消息页");
+//                PageOption.to(MessageFragment.class)
+//                        .setNewActivity(true).setAnim(CoreAnim.fade).open(WaimaiFragment.this);
+                openPage(MessageFragment.class);
+//                openPage(Mess)
+//                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
+//                startActivity(new Intent(getContext(), SearchActivity.class));
 //                startActivity();
             }
         });

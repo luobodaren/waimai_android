@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="24px"
-            android:background="@drawable/sr_card_recycler_view_bg"/>
+            android:background="@drawable/sr_card_view_white_bg"/>
 
     </LinearLayout>
 </layout>

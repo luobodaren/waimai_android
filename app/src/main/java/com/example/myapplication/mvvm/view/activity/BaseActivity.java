@@ -5,23 +5,30 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.AttributeSet;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
+import androidx.databinding.Observable;
 
 import com.example.myapplication.R;
-import com.example.myapplication.mvvm.vm.BaseViewModel;
+import com.example.myapplication.databinding.ActivitySearchBinding;
+import com.example.myapplication.mvvm.vm.SearchViewModel;
 import com.example.myapplication.util.ActivityCollector;
+import com.example.myapplication.util.DataBindingUtils;
 import com.example.myapplication.util.StatusBarUtils;
+import com.xuexiang.xpage.base.XPageActivity;
+
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 
-public abstract class BaseActivity extends com.example.base.activity.BaseActivity {
+public abstract class BaseActivity extends XPageActivity {
 
     //获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
@@ -38,9 +45,18 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
     //封装Toast对象
     private static Toast toast;
     public Context context;
+//
+//    public ViewDataBinding mViewDataBinding;
+//    public BaseViewModel baseViewModel;
 
-    public ViewDataBinding mViewDataBinding;
-    public BaseViewModel baseViewModel;
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        //XUI注入字体
+        //XUI1.1.4版本之后
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
+        //XUI1.1.3版本及之前
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,10 +66,10 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
         //activity管理
         ActivityCollector.addActivity(this);
 
-        //MVVM 绑定布局
-        mViewDataBinding = DataBindingUtil.setContentView(this,initLayout());
-        baseViewModel = setViewModel();
-        bindViewModel();
+//        //MVVM 绑定布局
+//        mViewDataBinding = DataBindingUtil.setContentView(this,initLayout());
+//        baseViewModel = setViewModel();
+//        bindViewModel();
 
         initActivityAttritube();
 
@@ -80,27 +96,10 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        baseViewModel.init();
+//        baseViewModel.init();
 
         initView();
     }
-
-    /**
-     * 初始化布局
-     *
-     * @return 布局id
-     */
-    protected abstract int initLayout();
-
-    /**
-     * 设置viewModel
-     */
-    protected abstract BaseViewModel setViewModel();
-
-    /**
-     * 绑定ViewModel
-     */
-    protected abstract void bindViewModel();
 
     /**
      * 设置Activity属性
@@ -184,6 +183,50 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        mViewDataBinding.unbind();
+        //activity管理
+        ActivityCollector.removeActivity(this);
+    }
+
+    /**
+     * 保证同一按钮在1秒内只会响应一次点击事件
+     */
+    public abstract static class OnSingleClickListener implements View.OnClickListener {
+        //两次点击按钮之间的间隔，目前为1000ms
+        private static final int MIN_CLICK_DELAY_TIME = 1000;
+        private long lastClickTime;
+
+        public abstract void onSingleClick(View view);
+
+        @Override
+        public void onClick(View view) {
+            long curClickTime = System.currentTimeMillis();
+            if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
+                lastClickTime = curClickTime;
+                onSingleClick(view);
+            }
+        }
+    }
+
+    public View getContentView(){
+        return this.getWindow().getDecorView().findViewById(android.R.id.content);
+    }
+
+    /**
+     * 同一按钮在短时间内可重复响应点击事件
+     */
+    public abstract static class OnMultiClickListener implements View.OnClickListener {
+        public abstract void onMultiClick(View view);
+
+        @Override
+        public void onClick(View v) {
+            onMultiClick(v);
+        }
+    }
+
     /**
      * 隐藏软键盘
      */
@@ -203,14 +246,4 @@ public abstract class BaseActivity extends com.example.base.activity.BaseActivit
             imm.showSoftInputFromInputMethod(getCurrentFocus().getWindowToken(), 0);
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mViewDataBinding.unbind();
-        //activity管理
-        ActivityCollector.removeActivity(this);
-    }
-
-
 }

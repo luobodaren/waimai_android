@@ -19,6 +19,10 @@
     <string name="pay">付款</string>
     <string name="cancel">取消</string>
     <string name="cancel_order">取消订单</string>
+    <string name="read_all_message_bt">全部已读</string>
+    <string name="read_all_message_tip">全部消息已读</string>
+    <string name="message_swipe_item1">置顶</string>
+    <string name="message_swipe_item2">删除</string>
 
 
 </resources>

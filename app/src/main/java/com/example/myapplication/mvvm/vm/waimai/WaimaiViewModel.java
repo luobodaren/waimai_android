@@ -21,6 +21,7 @@ import java.util.List;
 public class WaimaiViewModel extends BaseViewModel {
 
     public BaseObservable goToSearch = new ObservableInt();
+    public BaseObservable goToMessage = new ObservableInt();
 
     String mLocation;
 
@@ -48,6 +49,14 @@ public class WaimaiViewModel extends BaseViewModel {
      */
     public void onSearchBtClick(View view) {
         goToSearch.notifyChange();
+    }
+
+    /**
+     * 消息点击
+     * @param view
+     */
+    public void onMessageIvClick(View view){
+        goToMessage.notifyChange();
     }
 
     public List<BannerItem> getBannerItemList() {

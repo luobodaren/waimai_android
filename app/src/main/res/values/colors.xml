@@ -32,4 +32,8 @@
 
     <color name="shadowStartColor">#FE4036</color>
     <color name="shadowEndColor">@color/black</color>
+    <color name="pop_bg_80_black">#CC000000</color>
+
+    <color name="bg_recycler_swipe_item1">#FF3B30</color>
+    <color name="bg_recycler_swipe_item2">#FED15B</color>
 </resources>

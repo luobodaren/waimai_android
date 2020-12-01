@@ -4,7 +4,7 @@ import com.example.myapplication.bean.SearchRecord;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.SearchFragmentModel;
 
-public class SearchFragmentViewModel extends BaseViewModel {
+public class SearchHistoryViewModel extends BaseViewModel {
 
     SearchFragmentModel searchFragmentModel;
 
