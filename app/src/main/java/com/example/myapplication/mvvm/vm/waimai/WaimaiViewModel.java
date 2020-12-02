@@ -99,16 +99,6 @@ public class WaimaiViewModel extends BaseViewModel {
         mFoodTypeList.add(new IconStrRecyclerViewItemData(R.mipmap.ic_food_all_type,"全部分类"));
     }
 
-    public List<BaseRecyclerViewModel> getFoodRecyclerViewModelList() {
-        List<BaseRecyclerViewModel> list = new ArrayList<>();
-        int size = mFoodTypeList.size();
-        for(int i = 0; i< size; i++){
-             FoodTypeViewModel foodTypeViewModel = new FoodTypeViewModel();
-            foodTypeViewModel.setData(mFoodTypeList.get(i));
-            list.add(foodTypeViewModel);
-        }
-        return list;
-    }
 
     public SearchRecord[] getSearchRecord() {
         return new SearchRecord[]{

@@ -15,42 +15,46 @@ import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 
 import java.util.List;
 
-public abstract class MyBaseRecyclerAdapter<T extends BaseViewHolder> extends BaseQuickAdapter<Object, T> {
+public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
     protected List<BaseRecyclerViewModel> mItemViewModelList;
 
-    public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data, @NonNull List<BaseRecyclerViewModel> mItemViewModelList) {
+    public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data, List<BaseRecyclerViewModel> mItemViewModelList) {
         super(layoutResId, data);
         this.mItemViewModelList = mItemViewModelList;
     }
 
-    public MyBaseRecyclerAdapter(@Nullable List data, @NonNull List<BaseRecyclerViewModel> mItemViewModelList) {
+    public MyBaseRecyclerAdapter(@Nullable List data, List<BaseRecyclerViewModel> mItemViewModelList) {
         super(data);
         this.mItemViewModelList = mItemViewModelList;
     }
 
-    public MyBaseRecyclerAdapter(int layoutResId, @NonNull List<BaseRecyclerViewModel> mItemViewModelList) {
+    public MyBaseRecyclerAdapter(int layoutResId, List<BaseRecyclerViewModel> mItemViewModelList) {
         super(layoutResId);
         this.mItemViewModelList = mItemViewModelList;
     }
 
     @Override
-    protected void convert(@NonNull T helper, Object item) {
+    protected void convert(@NonNull BaseViewHolder holder, T item) {
         int headCount = getHeaderLayoutCount();
         int position = getData().indexOf(item);
 
         BaseRecyclerViewModel vm= getItemViewModel(position);
-        if(vm != null){
-            vm.bindModel( helper,vm.getModel(),this);
+
+        //分离界面控制与业务逻辑
+        initView(holder,item);
+        if(vm != null){ //若不传入viewModel 则直接在initView中处理数据
+            vm.bindModel( holder,vm.getModel(),this);
         }
 
         //屏幕适配
-        if(helper.itemView instanceof ViewGroup){
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),(ViewGroup)helper.itemView);
+        if(holder.itemView instanceof ViewGroup){
+            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),(ViewGroup)holder.itemView);
         }else {
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),helper.itemView);
+            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),holder.itemView);
         }
     }
+
 
     public BaseRecyclerViewModel getItemViewModel(int index) {
         if (index < getItemCount()){
@@ -86,5 +90,6 @@ public abstract class MyBaseRecyclerAdapter<T extends BaseViewHolder> extends Ba
         return mItemViewModelList;
     }
 
+    protected abstract void initView(BaseViewHolder helper,T item);
 
 }

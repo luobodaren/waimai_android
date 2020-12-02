@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,15 +19,14 @@ import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.SearchRecordTagWaimaiAdapter;
-import com.example.myapplication.adapter.mine.FoodTypeRecyclerAdapter;
 import com.example.myapplication.bean.SearchRecord;
+import com.example.myapplication.bean.ui.IconStrRecyclerViewItemData;
 import com.example.myapplication.databinding.FragmentWaimaiBinding;
-import com.example.myapplication.mvvm.view.activity.BaseActivity;
-import com.example.myapplication.mvvm.view.activity.MessageActivity;
+import com.example.myapplication.databinding.ItemWaimaiRecyclerFoodTypeBinding;
+import com.example.myapplication.databinding.ItemWaimaiRecyclerFoodTypeSmallBinding;
 import com.example.myapplication.mvvm.view.activity.SearchActivity;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.view.fragment.MessageFragment;
-import com.example.myapplication.mvvm.view.fragment.SearchHistoryFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaimaiViewModel;
 import com.example.myapplication.util.DataBindingUtils;
@@ -36,9 +35,10 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.xuexiang.xpage.annotation.Page;
-import com.xuexiang.xpage.core.PageOption;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
+import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 
 @Page(name = "外卖", anim = CoreAnim.fade)
 public class WaimaiFragment extends BaseFragment {
@@ -85,14 +85,12 @@ public class WaimaiFragment extends BaseFragment {
     }
 
     private void initFoodTypeRecycler(){
+        int spanCount = 5;
         FragmentWaimaiBinding fragmentWaimaiBinding = ((FragmentWaimaiBinding)mViewDataBinding);
 
-        FoodTypeRecyclerAdapter myBaseRecyclerAdapter
-                = new FoodTypeRecyclerAdapter(R.layout.item_waimai_recycler_food_type,mViewModel.getMyFoodDataList()
-                ,mViewModel.getFoodRecyclerViewModelList());
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),5, LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),spanCount, LinearLayoutManager.VERTICAL,false);
 
-        fragmentWaimaiBinding.recyclerFoodType.setAdapter(myBaseRecyclerAdapter);
+        fragmentWaimaiBinding.recyclerFoodType.setAdapter(getFoodRecyclerAdapter());
         fragmentWaimaiBinding.recyclerFoodType.setLayoutManager(gridLayoutManager);
         fragmentWaimaiBinding.recyclerFoodType.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -113,6 +111,51 @@ public class WaimaiFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    private RecyclerView.Adapter getFoodRecyclerAdapter() {
+        return new BaseRecyclerAdapter<IconStrRecyclerViewItemData>(mViewModel.getMyFoodDataList()){
+
+            private int mViewType[] = {1,2};    //1 大图  2 小图
+
+            @Override
+            protected void bindData(@NonNull RecyclerViewHolder holder, int position, IconStrRecyclerViewItemData item) {
+                if(holder.getItemViewType() == mViewType[0]){
+                    ItemWaimaiRecyclerFoodTypeBinding binding
+                            = ItemWaimaiRecyclerFoodTypeBinding.bind(holder.itemView);
+                    binding.setItem(item);
+                }else{
+                    ItemWaimaiRecyclerFoodTypeSmallBinding binding
+                            = ItemWaimaiRecyclerFoodTypeSmallBinding.bind(holder.itemView);
+                    binding.setItem(item);
+                }
+            }
+
+            @Override
+            protected int getItemLayoutId(int viewType) {
+                if(viewType == mViewType[0]){
+                    return R.layout.item_waimai_recycler_food_type;
+                }else if(viewType == mViewType[1]){
+                    return R.layout.item_waimai_recycler_food_type_small;
+                }
+                return R.layout.item_waimai_recycler_food_type;//默认
+            }
+
+            @NonNull
+            @Override
+            protected RecyclerViewHolder getViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return super.getViewHolder(parent, viewType);
+            }
+
+            @Override
+            public int getItemViewType(int position) {
+                if(position > 9){
+                    return mViewType[1];
+                }else{
+                    return mViewType[0];
+                }
+            }
+        };
     }
 
     private void initSearchView(){

@@ -1,8 +1,5 @@
 package com.example.myapplication.mvvm.vm.order;
 
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.myapplication.adapter.order.MallUnPayViewHolder;
-import com.example.myapplication.adapter.order.OrderViewHolder;
 import com.example.myapplication.bean.Goods;
 import com.example.myapplication.bean.Order;
 import com.example.myapplication.enumtype.OrderState;

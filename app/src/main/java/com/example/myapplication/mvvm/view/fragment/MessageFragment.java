@@ -4,18 +4,12 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.MessageRecyclerAdapter;
-import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
 import com.example.myapplication.bean.Message;
 import com.example.myapplication.constant.Constant;
 import com.example.myapplication.databinding.FragmentMessageBinding;
@@ -33,6 +27,8 @@ import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
+
+import java.util.Collection;
 
 @Page(name = "消息中心",anim = CoreAnim.fade)
 public class MessageFragment extends BaseFragment {
@@ -71,6 +67,7 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
+
         setFitWindow(true);
     }
 
@@ -139,18 +136,7 @@ public class MessageFragment extends BaseFragment {
         //必须在setAdapter之前调用
         binding.swipeRecyclerView.setOnItemMenuClickListener(mMenuItemClickListener);
 
-        mMessageReyclerAdapter = new BaseRecyclerAdapter<Message>(mViewModel.getMessageData()) {
-            @Override
-            protected void bindData(@NonNull RecyclerViewHolder holder, int position, Message item) {
-                setDataToViewHolder(holder,item);
-            }
-
-            @Override
-            protected int getItemLayoutId(int viewType) {
-                return R.layout.item_message;
-            }
-
-        };
+        mMessageReyclerAdapter = new MessageRecyclerAdapter(mViewModel.getMessageData());
         binding.swipeRecyclerView.setAdapter(mMessageReyclerAdapter);
 
         binding.swipeRefreshLayout.setColorSchemeColors(0xff0099cc, 0xffff4444, 0xff669900, 0xffaa66cc, 0xffff8800);
@@ -165,11 +151,6 @@ public class MessageFragment extends BaseFragment {
                 .centerCrop()
                 .placeholder(R.drawable.ic_waimai_brand)
                 .into((ImageView) viewHolder.getView(R.id.iv_message_head_icon));*/
-        viewHolder.image(R.id.iv_message_head_icon,item.getHeadSrc());
-        viewHolder.text(R.id.tv_message_name,item.getName());
-        viewHolder.text(R.id.tv_message_content,item.getContent());
-        viewHolder.text(R.id.tv_message_date,item.getDate());
-        viewHolder.text(R.id.tv_uncheck_message_count,item.getUnCheckCount());
 
     }
 
@@ -178,10 +159,6 @@ public class MessageFragment extends BaseFragment {
      */
     private SwipeMenuCreator swipeMenuCreator = (swipeLeftMenu, swipeRightMenu, position) -> {
         int width = getResources().getDimensionPixelSize(R.dimen.RecyclerSwipeWidth);
-
-        // 1. MATCH_PARENT 自适应高度，保持和Item一样高;
-        // 2. 指定具体的高，比如80;
-        // 3. WRAP_CONTENT，自身高度，不推荐;
         int height = ViewGroup.LayoutParams.MATCH_PARENT;
 
         // 添加左侧的，如果不添加，则左侧不会出现菜单。
@@ -248,5 +225,37 @@ public class MessageFragment extends BaseFragment {
         },1000);
     }
 
+    private static class MessageRecyclerAdapter extends BaseRecyclerAdapter<Message>{
+
+        public MessageRecyclerAdapter() {
+        }
+
+        public MessageRecyclerAdapter(Collection<Message> list) {
+            super(list);
+        }
+
+        public MessageRecyclerAdapter(Message[] data) {
+            super(data);
+        }
+
+        @Override
+        protected void bindData(@NonNull RecyclerViewHolder holder, int position, Message item) {
+            holder.image(R.id.iv_message_head_icon,item.getHeadSrc());
+            holder.text(R.id.tv_message_name,item.getName());
+            holder.text(R.id.tv_message_content,item.getContent());
+            holder.text(R.id.tv_message_date,item.getDate());
+            holder.text(R.id.tv_uncheck_message_count,item.getUnCheckCount());
+        }
+
+        @Override
+        protected int getItemLayoutId(int viewType) {
+            return R.layout.item_message;
+        }
+
+        @Override
+        public int getItemCount() {
+            return super.getItemCount();
+        }
+    }
 
 }

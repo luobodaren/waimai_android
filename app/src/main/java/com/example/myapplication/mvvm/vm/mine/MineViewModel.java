@@ -70,17 +70,6 @@ public class MineViewModel extends BaseViewModel {
         return list;
     }
 
-    public List<BaseRecyclerViewModel> getFunctionRecomendedViewModeList() {
-        List<BaseRecyclerViewModel> list = new ArrayList<>();
-        for(int i = 0; i< mMoreRecommendData.size(); i++){
-            FunctionRecommendedViewModel functionRecommendedViewModel = new FunctionRecommendedViewModel();
-            functionRecommendedViewModel.setData(mMoreRecommendData.get(i));
-            list.add(functionRecommendedViewModel);
-        }
-        return list;
-    }
-
-
     private void initTopRecyclerData(){
         mTopDataList.add(new TypeCountRecyclerViewItemData("商品收藏","20"));
         mTopDataList.add(new TypeCountRecyclerViewItemData("关注店铺","12"));
