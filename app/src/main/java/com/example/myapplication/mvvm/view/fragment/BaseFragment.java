@@ -61,7 +61,9 @@ public abstract class BaseFragment extends XPageFragment {
 
     @Override
     protected void initViews() {
-        baseViewModel.init();
+        if(baseViewModel != null){
+            baseViewModel.init();
+        }
     }
 
     @Override

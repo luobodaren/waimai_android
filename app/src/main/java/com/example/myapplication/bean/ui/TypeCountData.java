@@ -2,11 +2,11 @@ package com.example.myapplication.bean.ui;
 
 import androidx.annotation.NonNull;
 
-public class TypeCountRecyclerViewItemData {
+public class TypeCountData {
     String type;
     String number;
 
-    public TypeCountRecyclerViewItemData(@NonNull String type, @NonNull String number) {
+    public TypeCountData(@NonNull String type, @NonNull String number) {
         this.type = type;
         this.number = number;
     }
@@ -27,7 +27,7 @@ public class TypeCountRecyclerViewItemData {
         this.number = number;
     }
 
-    public void setTypeCountRecyclerViewItemData(TypeCountRecyclerViewItemData typeCountRecyclerViewItemData){
+    public void setTypeCountRecyclerViewItemData(TypeCountData typeCountRecyclerViewItemData){
         this.type = typeCountRecyclerViewItemData.type;
         this.number = typeCountRecyclerViewItemData.number;
     }

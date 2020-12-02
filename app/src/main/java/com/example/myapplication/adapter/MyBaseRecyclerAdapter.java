@@ -19,10 +19,6 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
 
     protected List<BaseRecyclerViewModel> mItemViewModelList;
 
-    public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data, List<BaseRecyclerViewModel> mItemViewModelList) {
-        super(layoutResId, data);
-        this.mItemViewModelList = mItemViewModelList;
-    }
 
     public MyBaseRecyclerAdapter(@Nullable List data, List<BaseRecyclerViewModel> mItemViewModelList) {
         super(data);
@@ -31,6 +27,11 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
 
     public MyBaseRecyclerAdapter(int layoutResId, List<BaseRecyclerViewModel> mItemViewModelList) {
         super(layoutResId);
+        this.mItemViewModelList = mItemViewModelList;
+    }
+
+    public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data, List<BaseRecyclerViewModel> mItemViewModelList) {
+        super(layoutResId, data);
         this.mItemViewModelList = mItemViewModelList;
     }
 

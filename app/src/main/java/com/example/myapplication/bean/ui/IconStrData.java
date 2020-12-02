@@ -5,12 +5,12 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 
-public class IconStrRecyclerViewItemData {
+public class IconStrData {
 
     int resImgId;
     String iconType;
 
-    public IconStrRecyclerViewItemData(@NonNull int resImgId, @NonNull String iconType) {
+    public IconStrData(@NonNull int resImgId, @NonNull String iconType) {
         this.resImgId = resImgId;
         this.iconType = iconType;
     }
@@ -31,7 +31,7 @@ public class IconStrRecyclerViewItemData {
         this.iconType = iconType;
     }
 
-    public void setData(IconStrRecyclerViewItemData data) {
+    public void setData(IconStrData data) {
         this.resImgId = data.resImgId;
         this.iconType = data.iconType;
     }

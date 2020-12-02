@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.myapplication.bean.ui.IconStrRecyclerViewItemData" />
+            type="com.example.myapplication.bean.ui.IconStrData" />
     </data>
 
     <com.example.base.views.UiAdapterLinearLayout

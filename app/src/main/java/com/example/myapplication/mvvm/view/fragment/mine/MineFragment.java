@@ -1,10 +1,8 @@
 package com.example.myapplication.mvvm.view.fragment.mine;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,20 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
-import com.example.myapplication.bean.ui.IconStrRecyclerViewItemData;
-import com.example.myapplication.bean.ui.TypeCountRecyclerViewItemData;
+import com.example.myapplication.bean.ui.IconStrData;
+import com.example.myapplication.bean.ui.TypeCountData;
 import com.example.myapplication.databinding.FragmentMineBinding;
 import com.example.myapplication.databinding.ItemMineRecyclerMoreRecommendedBinding;
-import com.example.myapplication.databinding.ItemWaimaiRecyclerFoodTypeBinding;
-import com.example.myapplication.databinding.ItemWaimaiRecyclerFoodTypeSmallBinding;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.mine.MineViewModel;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
-import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 
 @Page(name = "我的", anim = CoreAnim.fade)
 public class MineFragment extends BaseFragment {
@@ -75,11 +69,11 @@ public class MineFragment extends BaseFragment {
     private void initTopRecycler(){
         FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
 
-        MyBaseRecyclerAdapter<TypeCountRecyclerViewItemData> myBaseRecyclerAdapter
-                = new MyBaseRecyclerAdapter<TypeCountRecyclerViewItemData>(R.layout.item_vertical_data_show,mViewModel.getmTopDataList()
+        MyBaseRecyclerAdapter<TypeCountData> myBaseRecyclerAdapter
+                = new MyBaseRecyclerAdapter<TypeCountData>(R.layout.item_vertical_data_show,mViewModel.getmTopDataList()
                 ,mViewModel.getTopRecyclerViewModelList()){
             @Override
-            protected void initView(BaseViewHolder helper, TypeCountRecyclerViewItemData item) {
+            protected void initView(BaseViewHolder helper, TypeCountData item) {
 
             }
         };
@@ -92,11 +86,11 @@ public class MineFragment extends BaseFragment {
     private void initLogisticsRecycler(){
         FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
 
-        MyBaseRecyclerAdapter<IconStrRecyclerViewItemData> myBaseRecyclerAdapter =
-                new MyBaseRecyclerAdapter<IconStrRecyclerViewItemData>(R.layout.item_mine_recycler_good_logistics,mViewModel.getGoodLogisticsdata()
+        MyBaseRecyclerAdapter<IconStrData> myBaseRecyclerAdapter =
+                new MyBaseRecyclerAdapter<IconStrData>(R.layout.item_mine_recycler_good_logistics,mViewModel.getGoodLogisticsdata()
                         ,mViewModel.getGoodLogisticsRecyclerViewModelList()){
                     @Override
-                    protected void initView(BaseViewHolder helper, IconStrRecyclerViewItemData item) {
+                    protected void initView(BaseViewHolder helper, IconStrData item) {
 
                     }
                 };
@@ -109,7 +103,7 @@ public class MineFragment extends BaseFragment {
     private void initMoreRecommendedRecycler() {
         FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
 
-        MyBaseRecyclerAdapter<IconStrRecyclerViewItemData> adapter = getFunctionRecyclerAdapter();
+        MyBaseRecyclerAdapter<IconStrData> adapter = getFunctionRecyclerAdapter();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(
                 getContext(),
@@ -133,13 +127,13 @@ public class MineFragment extends BaseFragment {
         fragmentMineBinding.recyclerMoreRecommended.setLayoutManager(gridLayoutManager);
     }
 
-    private MyBaseRecyclerAdapter<IconStrRecyclerViewItemData> getFunctionRecyclerAdapter() {
-        return new MyBaseRecyclerAdapter<IconStrRecyclerViewItemData>
+    private MyBaseRecyclerAdapter<IconStrData> getFunctionRecyclerAdapter() {
+        return new MyBaseRecyclerAdapter<IconStrData>
                 (R.layout.item_mine_recycler_more_recommended
                         ,mViewModel.getMoreRecommenedData()
                         ,null){
             @Override
-            protected void initView(BaseViewHolder holder, IconStrRecyclerViewItemData item) {
+            protected void initView(BaseViewHolder holder, IconStrData item) {
                 ItemMineRecyclerMoreRecommendedBinding binding = DataBindingUtil.bind(holder.itemView);
                 binding.setItem(item);
             }

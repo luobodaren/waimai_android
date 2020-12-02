@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_good_name"
+            android:id="@+id/tv_goods_name"
             android:layout_width="336px"
             android:layout_height="wrap_content"
             android:maxLines="2"
@@ -41,7 +41,7 @@
             android:textColor="@color/text_normal"
             android:includeFontPadding="false"
             android:text="@{goods.price}"
-            app:layout_constraintTop_toTopOf="@id/tv_good_name"
+            app:layout_constraintTop_toTopOf="@id/tv_goods_name"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView

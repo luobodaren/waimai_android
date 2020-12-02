@@ -13,11 +13,14 @@
         android:layout_height="match_parent"
         android:background="@drawable/sr_bg_theme_color_gradient">
 
-        <ScrollView
+        <!--嵌套滑动父控件-->
+        <com.example.myapplication.views.widget.StickyNavigationLayout
+            android:id="@+id/sticky_navigation_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/top_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -157,171 +160,156 @@
                             app:bb_scale="0.5625" />
                     </LinearLayout>
 
-                    <com.meetsl.scardview.SCardView
+                    <!--                    <com.meetsl.scardview.SCardView-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="24px"-->
+                    <!--                        android:layout_marginStart="24px"-->
+                    <!--                        android:layout_marginEnd="24px"-->
+                    <!--                        app:cardCornerRadius="8dp"-->
+                    <!--                        app:cardElevation="6px"-->
+                    <!--                        app:cardLightDirection="LT">-->
+                    <!--                    </com.meetsl.scardview.SCardView>-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_food_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24px"
                         android:layout_marginStart="24px"
                         android:layout_marginEnd="24px"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="6px"
-                        app:cardLightDirection="LT">
+                        android:padding="24px"
+                        android:overScrollMode="never"
+                        android:background="@drawable/sr_card_view_white_bg"/>
+
+                    <!--<com.meetsl.scardview.SCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:layout_marginStart="24px"
+                        android:layout_marginEnd="24px">
+                    </com.meetsl.scardview.SCardView>-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_my_exclusive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:layout_marginStart="24px"
+                        android:layout_marginEnd="24px"
+                        android:padding="24px"
+                        android:background="@drawable/sr_card_view_white_bg"
+                        android:overScrollMode="never"/>
+
+                    <!--<com.meetsl.scardview.SCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:layout_marginStart="24px"
+                        android:layout_marginEnd="24px">
+                    </com.meetsl.scardview.SCardView>-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:layout_marginStart="24px"
+                        android:layout_marginEnd="24px"
+                        android:background="@drawable/sr_card_view_white_bg">
+
+                        <TextView
+                            android:id="@+id/text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24px"
+                            android:layout_marginTop="24px"
+                            android:includeFontPadding="false"
+                            android:text="限时秒杀"
+                            android:textColor="@color/text_normal"
+                            android:textSize="36px"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <include
+                            layout="@layout/layout_countting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16px"
+                            app:layout_constraintStart_toEndOf="@id/text2"
+                            app:layout_constraintTop_toTopOf="@id/text2" />
+
+                        <TextView
+                            android:id="@+id/text3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="0元配送"
+                            android:textColor="@color/text_normal"
+                            android:textSize="36px"
+                            android:layout_marginStart="12px"
+                            app:layout_constraintTop_toTopOf="@id/text2"
+                            app:layout_constraintStart_toStartOf="@id/guideline_50percent"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="海量放心选择"
+                            android:textSize="18px"
+                            app:layout_constraintStart_toEndOf="@id/text3"
+                            app:layout_constraintTop_toTopOf="@id/text3"
+                            app:layout_constraintBottom_toBottomOf="@id/text3"
+                            android:layout_marginStart="8px"
+                            android:paddingTop="7px"
+                            android:paddingBottom="7px"
+                            android:paddingStart="14px"
+                            android:paddingEnd="14px"
+                            android:background="@drawable/sr_bg_pink_radius"
+                            android:textColor="@color/colorTheme"/>
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_food_type"
+                            android:id="@+id/recycler_seconds_kill"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="24px"
                             android:overScrollMode="never"
-                            android:background="@drawable/sr_card_view_white_bg"/>
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text2" />
 
-                    </com.meetsl.scardview.SCardView>
-
-                    <com.meetsl.scardview.SCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24px"
-                        android:layout_marginStart="24px"
-                        android:layout_marginEnd="24px">
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_50percent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/sr_card_view_white_bg">
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
 
-                            <TextView
-                                android:id="@+id/text1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:includeFontPadding="false"
-                                android:textSize="36px"
-                                android:textColor="#BF8C00"
-                                android:text="专属早餐"
-                                android:layout_marginStart="24px"
-                                android:layout_marginTop="24px"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                            <TextView
-                                android:id="@+id/tv_more_shop"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="30px"
-                                android:layout_marginEnd="25px"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"/>
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_my_breakfast"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="24px"
-                                app:layout_constraintTop_toBottomOf="@id/text1"
-                                app:layout_constraintStart_toStartOf="parent"/>
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.meetsl.scardview.SCardView>
-
-                    <com.meetsl.scardview.SCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24px"
-                        android:layout_marginStart="24px"
-                        android:layout_marginEnd="24px">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/sr_card_view_white_bg">
-
-                            <TextView
-                                android:id="@+id/text2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="24px"
-                                android:layout_marginTop="24px"
-                                android:includeFontPadding="false"
-                                android:text="限时秒杀"
-                                android:textColor="@color/text_normal"
-                                android:textSize="36px"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <include
-                                layout="@layout/layout_countting"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16px"
-                                app:layout_constraintEnd_toEndOf="@id/text2"
-                                app:layout_constraintStart_toEndOf="@id/text2"
-                                app:layout_constraintTop_toTopOf="@id/text2" />
-
-                            <TextView
-                                android:id="@+id/text3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:includeFontPadding="false"
-                                android:text="0元配送"
-                                android:textColor="@color/text_normal"
-                                android:textSize="36px"
-                                android:layout_marginStart="12px"
-                                app:layout_constraintTop_toTopOf="@id/text2"
-                                app:layout_constraintStart_toStartOf="@id/guideline_50percent"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="海量放心选择"
-                                android:textSize="18px"
-                                app:layout_constraintStart_toEndOf="@id/text3"
-                                app:layout_constraintTop_toTopOf="@id/text3"
-                                app:layout_constraintBottom_toBottomOf="@id/text3"
-                                android:layout_marginStart="8px"
-                                android:paddingTop="7px"
-                                android:paddingBottom="7px"
-                                android:paddingStart="14px"
-                                android:paddingEnd="14px"
-                                android:background="@drawable/sr_bg_pink_radius"
-                                android:textColor="@color/colorTheme"/>
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_seconds_kill"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="24px"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/text2" />
-
-                            <androidx.constraintlayout.widget.Guideline
-                                android:id="@+id/guideline_50percent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                app:layout_constraintGuide_percent="0.5" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.meetsl.scardview.SCardView>
-
-                    <com.xuexiang.xui.widget.tabbar.TabSegment
-                        android:id="@+id/tabSegment_waimai_recommended"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:layout_height="40dp"
-                        android:background="@null"/>
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/viewPager_waimai_recommended"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:fitsSystemWindows="true"/>
 
                 </LinearLayout>
 
             </LinearLayout>
+            <!--TabLayout-->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/waimaiRecommendedTab"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingTop="40px"
+                android:paddingEnd="30px"/>
 
+            <include layout="@layout/layout_sort"
+                android:id="@+id/sort_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <!--ViewPager-->
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background" />
 
-        </ScrollView>
+        </com.example.myapplication.views.widget.StickyNavigationLayout>
 
     </FrameLayout>
 </layout>

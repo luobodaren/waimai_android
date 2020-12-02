@@ -1,21 +1,18 @@
 package com.example.myapplication.mvvm.vm.mine;
 
-import android.view.View;
-
 import androidx.databinding.DataBindingUtil;
 
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.example.base.utils.LogUtil;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.MyBaseRecyclerAdapter;
-import com.example.myapplication.bean.ui.TypeCountRecyclerViewItemData;
+import com.example.myapplication.bean.ui.TypeCountData;
 import com.example.myapplication.databinding.ItemVerticalDataShowBinding;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 
 public class TopRecyclerViewModel extends BaseRecyclerViewModel {
 
-    TypeCountRecyclerViewItemData data;
+    TypeCountData data;
 
     @Override
     public void bindModel(BaseViewHolder mBaseViewHolder, BaseModel baseModel, MyBaseRecyclerAdapter adapter) {
@@ -37,7 +34,7 @@ public class TopRecyclerViewModel extends BaseRecyclerViewModel {
 
     }
 
-    public void setData(TypeCountRecyclerViewItemData data) {
+    public void setData(TypeCountData data) {
         this.data = data;
     }
 
