@@ -1,10 +1,15 @@
 package com.example.myapplication.util;
 
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.base.utils.LogUtil;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
@@ -33,6 +38,50 @@ public class Utils {
                 spanCount,
                 LinearLayoutManager.VERTICAL,
                 false);
+        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if(position == 0)
+                    return spanCount;
+                return 1;
+            }
+        });
+
+        return gridLayoutManager;
+    }
+
+    public static GridLayoutManager getGridLayoutManagerAdapterHeight(Context context,int spanCount, RecyclerView recyclerView){
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(
+                context,
+                spanCount,
+                LinearLayoutManager.VERTICAL,
+                false){
+            @Override
+            public void onMeasure(@NonNull RecyclerView.Recycler recycler, @NonNull RecyclerView.State state, int widthSpec, int heightSpec) {
+                super.onMeasure(recycler, state, widthSpec, heightSpec);
+                int measuredWidth = recyclerView.getMeasuredWidth();
+                int measuredHeight = recyclerView.getMeasuredHeight();
+                int myMeasureHeight = 0;
+                int count = state.getItemCount();
+                for (int i = 0; i < count; i++) {
+                    View view = recycler.getViewForPosition(i);
+                    if (view != null) {
+                        if ( i % 3 == 0) {
+                            RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
+                            int childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec,
+                                    getPaddingLeft() + getPaddingRight(), p.width);
+                            int childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec,
+                                    getPaddingTop() + getPaddingBottom(), p.height);
+                            view.measure(childWidthSpec, childHeightSpec);
+                            myMeasureHeight += view.getMeasuredHeight() + p.bottomMargin + p.topMargin;
+                        }
+                        recycler.recycleView(view);
+                    }
+                }
+                LogUtil.i("Height  " + Math.max(measuredHeight, myMeasureHeight));
+                setMeasuredDimension(measuredWidth, Math.max(measuredHeight, myMeasureHeight));
+            }
+        };
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

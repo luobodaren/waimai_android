@@ -35,6 +35,12 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
         this.mItemViewModelList = mItemViewModelList;
     }
 
+    @NonNull
+    @Override
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return super.onCreateViewHolder(parent, viewType);
+    }
+
     @Override
     protected void convert(@NonNull BaseViewHolder holder, T item) {
         int headCount = getHeaderLayoutCount();

@@ -48,7 +48,6 @@ public abstract class BaseFragment extends XPageFragment {
     @Override
     protected void initArgs() {
         initMyHandle();
-        setStatusBarLightMode(true);
     }
 
     @Override

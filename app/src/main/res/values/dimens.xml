@@ -46,5 +46,13 @@
     <dimen name="order_tab_text_size_first">28px</dimen>
     <dimen name="order_tab_text_size">24px</dimen>
 
-    <dimen name="RecyclerSwipeWidth">100px</dimen>
+    <!--  外卖模块  -->
+    <dimen name="waimai_tabbar_item_space">40px</dimen>
+    <dimen name="waimai_tabbar_item_text_size_selected">36px</dimen>
+    <dimen name="waimai_tabbar_item_text_size">32px</dimen>
+
+    <dimen name="message_recycler_swipe_width">100px</dimen> <!-- 菜单侧滑宽度 -->
+
+
+    <dimen name="my_cardview_default_radius">24px</dimen>
 </resources>

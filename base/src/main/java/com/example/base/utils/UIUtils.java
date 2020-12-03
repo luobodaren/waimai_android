@@ -29,6 +29,7 @@ public class UIUtils {
     private static float displayMetricsWidth;
     private static float displayMetricsHeight;
     private static float scaledDensity;
+    private static float systemBarHeight;
     private static float density;
     private static float horValue;
     private static float verValue;
@@ -51,7 +52,7 @@ public class UIUtils {
                 || scaledDensity == 0.0f || density == 0.0f) {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-            int systemBarHeight = getSystemBarHeight(context);
+            systemBarHeight = getSystemBarHeight(context);
             // TODO: 2020/11/24 横竖屏切换时改变大小
             displayMetricsWidth = (float)displayMetrics.widthPixels;
             displayMetricsHeight = (float) displayMetrics.heightPixels - systemBarHeight;
@@ -150,30 +151,6 @@ public class UIUtils {
     }
 
     /**
-     * 获得横向缩放倍数
-     * @return
-     */
-    public float getHorValue(){
-        if(horValue == 0.0f){
-            horValue = displayMetricsWidth/STANDRD_WIDTH;
-            LogUtil.d("horValue=" + horValue);
-        }
-        return horValue;
-    }
-
-    /**
-     * 获得竖直缩放倍数
-     * @return
-     */
-    public float getVerValue(){
-        if(verValue == 0.0f){
-            verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight(context));
-            LogUtil.d("verValue=" + verValue);
-        }
-        return verValue;
-    }
-
-    /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      *
      * @param context 上下文
@@ -220,7 +197,52 @@ public class UIUtils {
         return (int) (sp * scaledDensity + 0.5f);
     }
 
+    /**
+     * 获得横向缩放倍数
+     * @return
+     */
+    public float getHorValue(){
+        if(horValue == 0.0f){
+            horValue = displayMetricsWidth/STANDRD_WIDTH;
+            LogUtil.d("horValue=" + horValue);
+        }
+        return horValue;
+    }
+
+    /**
+     * 获得竖直缩放倍数
+     * @return
+     */
+    public float getVerValue(){
+        if(verValue == 0.0f){
+            verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight(context));
+            LogUtil.d("verValue=" + verValue);
+        }
+        return verValue;
+    }
+
+    public float getDisplayMetricsWidth() {
+        return displayMetricsWidth;
+    }
+
+    public float getDisplayMetricsHeight() {
+        return displayMetricsHeight;
+    }
+
+    public float getScaledDensity() {
+        return scaledDensity;
+    }
+
+    public float getSystemBarHeight() {
+        return systemBarHeight;
+    }
+
+    public float getDensity() {
+        return density;
+    }
+
     private static final String DIME_CLASS = "com.android.internal.R$dimen";
+
     //用于反射系统的属性
     private int getSystemBarHeight(Context context){
         return getValue(context,DIME_CLASS,"system_bar_height",48);

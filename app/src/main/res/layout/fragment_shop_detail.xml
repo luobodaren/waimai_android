@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_shop_img_background_top"
+            android:layout_width="750px"
+            android:layout_height="374px"
+            android:scaleType="centerCrop"/>
+
+        <com.example.myapplication.views.widget.StickyNavigationLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/title_shop_details"/>
+
+                <include layout="@"
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.xuexiang.xui.widget.tabbar.TabSegment
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.example.myapplication.views.widget.StickyNavigationLayout>
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

@@ -74,7 +74,8 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        LogUtil.e("onNestedPreScroll");
+        LogUtil.e("getScrollY() " + getScrollY());
+
         //如果子view欲向上滑动，则先交给父view滑动
         boolean hideTop = dy > 0 && getScrollY() < mCanScrollDistance;
         //如果子view欲向下滑动，必须要子view不能向下滑动后，才能交给父view滑动
@@ -147,13 +148,12 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
         LogUtil.e("onMeasure");
         //先测量一次
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
         //ViewPager修改后的高度= 总高度-TabLayout高度
         ViewGroup.LayoutParams lp = mViewPager.getLayoutParams();
-        if(lp.height != 0){
-            int result = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
-                    - getTitleBarHeight() - mSortView.getMeasuredHeight();
-            lp.height = result > 0 ? result: 0;
-        }
+        LogUtil.e("onMeasure start " + lp.height + "  mCanScrollDistance：" + mCanScrollDistance);
+        lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight() - mSortView.getMeasuredHeight();
+//        lp.height = (int)UIUtils.getInstance(getContext()).getDisplayMetricsHeight() - mNavigationView.getMeasuredHeight() - mSortView.getMeasuredHeight();
         mViewPager.setLayoutParams(lp);
         //因为ViewPager修改了高度，所以需要重新测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -162,11 +162,9 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        mCanScrollDistance = mTopView.getMeasuredHeight() - getTitleBarHeight();
-    }
-
-    private int getTitleBarHeight() {
-        return ThemeUtils.resolveDimension(getContext(), R.attr.xui_actionbar_height) + TitleBar.getStatusBarHeight();
+        LogUtil.e("onSizeChanged " + w + "  " + h + "  " + oldw + "  " + oldh);
+        mCanScrollDistance = mTopView.getMeasuredHeight();
+        LogUtil.e("onSizeChanged " + mCanScrollDistance);
     }
 
     @Override

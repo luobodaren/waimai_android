@@ -1,7 +1,6 @@
 package com.example.myapplication.mvvm.view.fragment.waimai;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -16,6 +15,7 @@ import androidx.databinding.Observable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -34,34 +34,27 @@ import com.example.myapplication.databinding.ItemWaimaiRecyclerFoodTypeSmallBind
 import com.example.myapplication.mvvm.view.activity.SearchActivity;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.view.fragment.MessageFragment;
+import com.example.myapplication.mvvm.view.fragment.WaiMaiTypeFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
-import com.example.myapplication.mvvm.vm.waimai.WaimaiViewModel;
+import com.example.myapplication.mvvm.vm.waimai.WaiMaiViewModel;
 import com.example.myapplication.util.DataBindingUtils;
-import com.example.myapplication.views.widget.StickyNavigationLayout;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
+import com.example.myapplication.util.Utils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
-import com.xuexiang.xui.adapter.recyclerview.DividerItemDecoration;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
-
-import static com.example.myapplication.util.Utils.getFlexboxLayoutManager;
-import static com.example.myapplication.util.Utils.getGridLayoutManagerWithHead;
-import static com.google.android.material.tabs.TabLayout.MODE_FIXED;
+import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 @Page(name = "外卖", anim = CoreAnim.fade)
 public class WaimaiFragment extends BaseFragment {
 
-    WaimaiViewModel mViewModel;
+    WaiMaiViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
-        mViewModel = new WaimaiViewModel();
+        mViewModel = new WaiMaiViewModel();
         return mViewModel;
     }
 
@@ -81,7 +74,7 @@ public class WaimaiFragment extends BaseFragment {
 
         addCallBack();
 
-        initSlideShow();
+        initBanner();
         initSearchView();
         initFoodTypeRecycler();
 
@@ -103,14 +96,73 @@ public class WaimaiFragment extends BaseFragment {
         return null;
     }
 
+    private void addCallBack() {
+        DataBindingUtils.addCallBack(this, mViewModel.goToSearch, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable observable, int i) {
+                LogUtil.d("跳转搜索页");
+//                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
+                startActivity(new Intent(getContext(), SearchActivity.class));  // FIXME: 2020/11/30
+//                startActivity();
+            }
+        });
+
+        DataBindingUtils.addCallBack(this, mViewModel.goToMessage, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable observable, int i) {
+                LogUtil.d("跳转消息页");
+//                PageOption.to(MessageFragment.class)
+//                        .setNewActivity(true).setAnim(CoreAnim.fade).open(WaimaiFragment.this);
+                openPage(MessageFragment.class);
+//                openPage(Mess)
+//                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
+//                startActivity(new Intent(getContext(), SearchActivity.class));
+//                startActivity();
+            }
+        });
+    }
+
+    /**
+     * 初始化历史搜索View
+     */
+    private void initSearchView(){
+        SearchRecord[] searchRecord = mViewModel.getSearchRecord();
+        SearchRecordTagWaimaiAdapter mAdapter;
+        FragmentWaimaiBinding fragmentWaimaiBinding = ((FragmentWaimaiBinding)mViewDataBinding);
+        fragmentWaimaiBinding.searchRecord.setLayoutManager(Utils.getFlexboxLayoutManager(getContext()));
+        fragmentWaimaiBinding.searchRecord.setAdapter(mAdapter = new SearchRecordTagWaimaiAdapter());
+        mAdapter.refresh(searchRecord);
+    }
+
+    /**
+     * 初始化轮播图
+     */
+    private void initBanner(){
+        FragmentWaimaiBinding fragmentWaimaiBinding = ((FragmentWaimaiBinding)mViewDataBinding);
+        fragmentWaimaiBinding.simpleImageBanner
+                .setSource(mViewModel.getBannerItemList())
+                .setOnItemClickListener((view,t,position)->{
+                    Toast.makeText(getContext(),"点击了轮播图",Toast.LENGTH_SHORT).show();
+                })
+                .setIsOnePageLoop(false).startScroll();
+    }
+
+    /**
+     * 初始化食物类型Recycler
+     */
     private void initFoodTypeRecycler(){
         int spanCount = 5;
         FragmentWaimaiBinding fragmentWaimaiBinding = ((FragmentWaimaiBinding)mViewDataBinding);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),spanCount
                 , LinearLayoutManager.VERTICAL,false);
-
-        fragmentWaimaiBinding.recyclerFoodType.setAdapter(getFoodRecyclerAdapter());
+        BaseRecyclerAdapter<IconStrData> adapter = getFoodRecyclerAdapter();
+        adapter.setOnItemClickListener((itemView, item, position) -> {
+            if(position == adapter.getItemCount()-1){
+                openPage(WaiMaiTypeFragment.class);
+            }
+        });
+        fragmentWaimaiBinding.recyclerFoodType.setAdapter(adapter);
         fragmentWaimaiBinding.recyclerFoodType.setLayoutManager(gridLayoutManager);
         fragmentWaimaiBinding.recyclerFoodType.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -135,7 +187,110 @@ public class WaimaiFragment extends BaseFragment {
         });
     }
 
-    private RecyclerView.Adapter getFoodRecyclerAdapter() {
+    /**
+     * 初始化专属recycler
+     */
+    private void initMyExclusiveRecycler() {
+        FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
+
+        MyBaseRecyclerAdapter<ExclusiveShopData> adapter = getExclusiveRecyclerAdapter();
+
+        View view = View.inflate(getContext(),R.layout.head_cart_view,null);
+        ((TextView)view.findViewById(R.id.left_text)).setText("专属早餐");
+        ((TextView)view.findViewById(R.id.right_tv)).setText("更多好店");
+        ((ImageView)view.findViewById(R.id.right_iv)).setImageResource(R.drawable.ic_arrow_right_gray);
+//        adapter.addHeaderView(view);
+
+        int spanCount = 2;
+        binding.recyclerMyExclusive.setAdapter(adapter);
+//        binding.recyclerMyExclusive.setLayoutManager(
+//                Utils.getGridLayoutManagerWithHead(getContext(),spanCount));
+        binding.recyclerMyExclusive.setLayoutManager(
+                Utils.getGridLayoutManagerAdapterHeight(getContext(),spanCount,binding.recyclerMyExclusive));
+        binding.recyclerSecondsKill.addItemDecoration(new RecyclerView.ItemDecoration(){
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                                       @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int position = parent.getChildAdapterPosition(view);
+                if(position >= spanCount){
+                    outRect.top = (int)(40* UIUtils.getInstance(getContext()).getHorValue());
+                }
+            }
+        });
+    }
+
+    /**
+     * 初始化显示秒杀界面
+     */
+    private void initLimitedTimeRecycler() {
+        FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
+
+        MyBaseRecyclerAdapter<LimitedTimeGoodsData> adapter =
+                new MyBaseRecyclerAdapter<LimitedTimeGoodsData>(R.layout.item_simple_goods
+                        ,mViewModel.getLimitedTimeGoodsData(),null) {
+                    @Override
+                    protected void initView(BaseViewHolder helper, LimitedTimeGoodsData item) {
+                        Glide.with(WaimaiFragment.this)
+                                .load(item.getShopIconStr())
+                                .centerCrop()
+                                .placeholder(R.drawable.ic_waimai_brand)
+                                .into(((ImageView)helper.getView(R.id.iv_goods_img)));
+                        helper.setText(R.id.tv_goods_name,item.getShopName());
+                    }
+                };
+
+        binding.recyclerSecondsKill.setAdapter(adapter);
+//        binding.recyclerSecondsKill.setLayoutManager(
+//                Utils.getGridLayoutManagerWithHead(getContext(),2));
+
+        binding.recyclerSecondsKill.setLayoutManager(
+                Utils.getGridLayoutManagerAdapterHeight(getContext(),2,binding.recyclerSecondsKill));
+    }
+
+    private int space;
+    private int textSizeSelected;
+    private int textSizeNormal;
+    /**
+     * 初始化粘性导航栏
+     */
+    private void initNavigationTab() {
+        FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
+
+        space = getResources().getDimensionPixelOffset(R.dimen.waimai_tabbar_item_space);
+        textSizeSelected = getResources().getDimensionPixelOffset(R.dimen.waimai_tabbar_item_text_size_selected);
+        textSizeNormal = getResources().getDimensionPixelOffset(R.dimen.waimai_tabbar_item_text_size);
+        String[] titles = mViewModel.getRecommendedTitle();
+
+        FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
+
+
+        binding.tabLayout.setHasIndicator(false);
+        binding.tabLayout.setMode(TabSegment.MODE_SCROLLABLE);
+        binding.tabLayout.setItemSpaceInScrollMode(space);
+        binding.tabLayout.setPadding(space, 0, space, 0);
+        binding.tabLayout.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
+        binding.tabLayout.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
+        addTab(binding.tabLayout,adapter,titles);
+        binding.tabLayout.setupWithViewPager(binding.viewPager,true);   // FIXME: 2020/12/3 解决第一次进入 文字大小不正确的问题
+
+        binding.viewPager.setOffscreenPageLimit(titles.length - 1);
+        binding.viewPager.setAdapter(adapter);
+        binding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                refreshTabViewStyle(binding.tabLayout,titles,position);
+                // TODO: 2020/12/3 刷新内容
+
+            }
+        });
+
+        binding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {
+            // TODO: 2020/12/2 排序按钮可点击
+        });
+    }
+
+    private BaseRecyclerAdapter<IconStrData> getFoodRecyclerAdapter() {
         return new BaseRecyclerAdapter<IconStrData>(mViewModel.getMyFoodDataList()){
 
             private int mViewType[] = {1,2};    //1 大图  2 小图
@@ -180,73 +335,6 @@ public class WaimaiFragment extends BaseFragment {
         };
     }
 
-    private void initSearchView(){
-        SearchRecord[] searchRecord = mViewModel.getSearchRecord();
-        SearchRecordTagWaimaiAdapter mAdapter;
-        FragmentWaimaiBinding fragmentWaimaiBinding = ((FragmentWaimaiBinding)mViewDataBinding);
-        fragmentWaimaiBinding.searchRecord.setLayoutManager(getFlexboxLayoutManager(getContext()));
-        fragmentWaimaiBinding.searchRecord.setAdapter(mAdapter = new SearchRecordTagWaimaiAdapter());
-        mAdapter.refresh(searchRecord);
-    }
-
-    private void initSlideShow(){
-        FragmentWaimaiBinding fragmentWaimaiBinding = ((FragmentWaimaiBinding)mViewDataBinding);
-        fragmentWaimaiBinding.sibSimpleUsage
-                .setSource(mViewModel.getBannerItemList())
-                .setOnItemClickListener((view,t,position)->{
-                    Toast.makeText(getContext(),"点击了轮播图",Toast.LENGTH_SHORT).show();
-                })
-                .setIsOnePageLoop(false).startScroll();
-    }
-
-    private void initNavigationTab() {
-        FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
-
-        FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
-        binding.tabLayout.setTabMode(MODE_FIXED);
-        String[] titles = mViewModel.getRecommendedTitle();
-        for (String title : titles) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(title));
-            adapter.addFragment(mViewModel.getRecommendedFragment(), title);
-        }
-        binding.viewPager.setOffscreenPageLimit(titles.length - 1);
-        binding.viewPager.setAdapter(adapter);
-        binding.tabLayout.setupWithViewPager(binding.viewPager);
-
-        binding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {
-            // TODO: 2020/12/2 排序按钮可点击
-        });
-    }
-
-
-    private void initMyExclusiveRecycler() {
-        FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
-
-        MyBaseRecyclerAdapter<ExclusiveShopData> adapter = getExclusiveRecyclerAdapter();
-
-        View view = View.inflate(getContext(),R.layout.head_cart_view,null);
-        ((TextView)view.findViewById(R.id.left_text)).setText("专属早餐");
-        ((TextView)view.findViewById(R.id.right_tv)).setText("更多好店");
-        ((ImageView)view.findViewById(R.id.right_iv)).setImageResource(R.drawable.ic_arrow_right_gray);
-        adapter.addHeaderView(view);
-
-        int spanCount = 2;
-        binding.recyclerMyExclusive.setAdapter(adapter);
-        binding.recyclerMyExclusive.setLayoutManager(
-                getGridLayoutManagerWithHead(getContext(),spanCount));
-        binding.recyclerSecondsKill.addItemDecoration(new RecyclerView.ItemDecoration(){
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
-                                       @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int position = parent.getChildAdapterPosition(view);
-                if(position >= spanCount){
-                    outRect.top = (int)(40* UIUtils.getInstance(getContext()).getHorValue());
-                }
-            }
-        });
-    }
-
     private MyBaseRecyclerAdapter<ExclusiveShopData> getExclusiveRecyclerAdapter() {
         return new MyBaseRecyclerAdapter<ExclusiveShopData>(R.layout.item_exclusive_shop
                 ,mViewModel.getExclusiveShopData(),null) {
@@ -263,26 +351,56 @@ public class WaimaiFragment extends BaseFragment {
         };
     }
 
-    private void initLimitedTimeRecycler() {
-        FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
+    /**
+     * 更新TabBar样式
+     */
+    private void refreshTabViewStyle(TabSegment tabSegment,String[] titles,int position) {
+        tabSegment.reset();
+        resetTab(tabSegment,titles,position,false);
 
-        MyBaseRecyclerAdapter<LimitedTimeGoodsData> adapter =
-                new MyBaseRecyclerAdapter<LimitedTimeGoodsData>(R.layout.item_simple_goods
-                        ,mViewModel.getLimitedTimeGoodsData(),null) {
-                    @Override
-                    protected void initView(BaseViewHolder helper, LimitedTimeGoodsData item) {
-                        Glide.with(WaimaiFragment.this)
-                                .load(item.getShopIconStr())
-                                .centerCrop()
-                                .placeholder(R.drawable.ic_waimai_brand)
-                                .into(((ImageView)helper.getView(R.id.iv_goods_img)));
-                        helper.setText(R.id.tv_goods_name,item.getShopName());
-                    }
-                };
 
-        binding.recyclerSecondsKill.setAdapter(adapter);
-        binding.recyclerSecondsKill.setLayoutManager(
-                getGridLayoutManagerWithHead(getContext(),2));
+        tabSegment.setTabTextSize(textSizeSelected);
+        refreshSortType(position);
+        tabSegment.notifyDataChanged();
+    }
+
+    private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
+                        String[] titles){
+        boolean isFirstItem = true;
+        for (String title : titles) {
+            TabSegment.Tab tab = new TabSegment.Tab(title);
+            if(isFirstItem){
+                tab.setTextSize(textSizeSelected);
+                isFirstItem = false;
+            }else{
+                tab.setTextSize(textSizeNormal);
+            }
+            adapter.addFragment(mViewModel.getRecommendedFragment(), title);
+            tabSegment.addTab(tab);
+        }
+    }
+
+    private void resetTab(TabSegment tabSegment,String[] titles,
+                          int selectedPosition, boolean isFirstAdd){
+        int position = 0;
+        for (String title : titles) {
+            TabSegment.Tab tab = new TabSegment.Tab(title);
+            if(position == selectedPosition){
+                tab.setTextSize(isFirstAdd ? textSizeSelected :
+                        (int) (textSizeSelected * UIUtils.getInstance(getContext()).getHorValue()));
+            }else{
+                tab.setTextSize(isFirstAdd ? textSizeNormal :
+                        (int) (textSizeNormal * UIUtils.getInstance(getContext()).getHorValue()));
+            }
+            tabSegment.addTab(tab);
+            position++;
+        }
+    }
+
+    /**
+     * 更新排序界面
+     */
+    private void refreshSortType(int position) {
 
     }
 
@@ -309,31 +427,6 @@ public class WaimaiFragment extends BaseFragment {
 //        }
     }
 
-    private void addCallBack() {
-        DataBindingUtils.addCallBack(this, mViewModel.goToSearch, new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                LogUtil.d("跳转搜索页");
-//                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
-                startActivity(new Intent(getContext(), SearchActivity.class));  // FIXME: 2020/11/30 
-//                startActivity();
-            }
-        });
-
-        DataBindingUtils.addCallBack(this, mViewModel.goToMessage, new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                LogUtil.d("跳转消息页");
-//                PageOption.to(MessageFragment.class)
-//                        .setNewActivity(true).setAnim(CoreAnim.fade).open(WaimaiFragment.this);
-                openPage(MessageFragment.class);
-//                openPage(Mess)
-//                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
-//                startActivity(new Intent(getContext(), SearchActivity.class));
-//                startActivity();
-            }
-        });
-    }
 
     @Override
     public void onDestroyView() {

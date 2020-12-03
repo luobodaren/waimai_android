@@ -158,7 +158,7 @@ public class MessageFragment extends BaseFragment {
      * 菜单创建器，在Item要创建菜单的时候调用。
      */
     private SwipeMenuCreator swipeMenuCreator = (swipeLeftMenu, swipeRightMenu, position) -> {
-        int width = getResources().getDimensionPixelSize(R.dimen.RecyclerSwipeWidth);
+        int width = getResources().getDimensionPixelSize(R.dimen.message_recycler_swipe_width);
         int height = ViewGroup.LayoutParams.MATCH_PARENT;
 
         // 添加左侧的，如果不添加，则左侧不会出现菜单。

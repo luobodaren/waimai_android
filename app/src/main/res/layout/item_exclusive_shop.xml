@@ -45,7 +45,6 @@
         android:id="@+id/bt_cancel"
         android:layout_width="32px"
         android:layout_height="32px"
-        android:layout_marginBottom=""
         android:scaleType="center"
         android:src="@drawable/ic_close_gray"
         android:background="@drawable/sr_bt_1dp_1radius_stroke"

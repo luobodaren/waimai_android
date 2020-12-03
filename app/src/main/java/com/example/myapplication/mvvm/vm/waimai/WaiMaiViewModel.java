@@ -22,7 +22,7 @@ import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WaimaiViewModel extends BaseViewModel {
+public class WaiMaiViewModel extends BaseViewModel {
 
     public BaseObservable goToSearch = new ObservableInt();
     public BaseObservable goToMessage = new ObservableInt();
@@ -83,13 +83,13 @@ public class WaimaiViewModel extends BaseViewModel {
         return recommendedFragment;*/
 
         List<Shop> list = new ArrayList<>();
-        list.add(new Shop());
-        list.add(new Shop());
-        list.add(new Shop());
-        list.add(new Shop());
-        list.add(new Shop());
-        list.add(new Shop());
-        list.add(new Shop());
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
 
         RecommendedFragment fragment = new RecommendedFragment();
         fragment.setData(list);

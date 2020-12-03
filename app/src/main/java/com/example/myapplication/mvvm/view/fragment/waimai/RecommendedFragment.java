@@ -40,6 +40,12 @@ public class RecommendedFragment extends BaseFragment {
         return null;
     }
 
+    @Override
+    protected void initArgs() {
+        super.initArgs();
+        setStatusBarLightMode(false);
+    }
+
     public void setData(List<Shop> shopList) {
         mShopList = shopList;
         // TODO: 2020/12/2 刷新列表
@@ -57,7 +63,7 @@ public class RecommendedFragment extends BaseFragment {
                 new BaseQuickAdapter<Shop,BaseViewHolder>(R.layout.item_recommended_shop,mShopList) {
                     @Override
                     protected void convert(@NonNull BaseViewHolder helper, Shop item) {
-
+                        helper.setText(R.id.tv_shop_name,item.getShopName());
                     }
 
                     @Override
