@@ -1,11 +1,15 @@
 package com.example.myapplication.mvvm.view.fragment.waimai;
 
+import android.graphics.Rect;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.bean.Shop;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
@@ -63,7 +67,7 @@ public class RecommendedFragment extends BaseFragment {
                 new BaseQuickAdapter<Shop,BaseViewHolder>(R.layout.item_recommended_shop,mShopList) {
                     @Override
                     protected void convert(@NonNull BaseViewHolder helper, Shop item) {
-                        helper.setText(R.id.tv_shop_name,item.getShopName());
+
                     }
 
                     @Override
@@ -71,5 +75,15 @@ public class RecommendedFragment extends BaseFragment {
 
                     }
                 });
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int position = parent.getChildAdapterPosition(view);
+                if(position != 0){
+                    outRect.top = (int)(getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs)* UIUtils.getInstance(getContext()).getHorValue());
+                }
+            }
+        });
     }
 }

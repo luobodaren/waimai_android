@@ -4,11 +4,18 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.myapplication.R;
 import com.example.myapplication.bean.Message;
 import com.example.myapplication.constant.Constant;
@@ -20,7 +27,9 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xpage.utils.TitleUtils;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
+import com.xuexiang.xui.adapter.recyclerview.DividerItemDecoration;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
+import com.xuexiang.xui.adapter.recyclerview.XLinearLayoutManager;
 import com.xuexiang.xui.utils.WidgetUtils;
 import com.xuexiang.xui.widget.popupwindow.PopWindow;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
@@ -29,6 +38,9 @@ import com.yanzhenjie.recyclerview.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.Collection;
+import java.util.List;
+
+import static androidx.recyclerview.widget.OrientationHelper.VERTICAL;
 
 @Page(name = "消息中心",anim = CoreAnim.fade)
 public class MessageFragment extends BaseFragment {
@@ -36,7 +48,7 @@ public class MessageFragment extends BaseFragment {
     MessageViewModel mViewModel;
     FragmentMessageBinding binding;
 
-    private BaseRecyclerAdapter<Message> mMessageReyclerAdapter;
+    private MessageRecyclerAdapter mMessageReyclerAdapter;
 
     private PopWindow mAllMessageReadPopWindow;
     private Runnable mCancelPopRunnable = new Runnable() {
@@ -67,7 +79,7 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-
+        setStatusBarLightMode(true);
         setFitWindow(true);
     }
 
@@ -93,6 +105,8 @@ public class MessageFragment extends BaseFragment {
                 doReadAllMessage();
             }
         });
+//        titleBar = super.initTitleBar();
+//        titleBar.setT
         return titleBar;
     }
 
@@ -129,7 +143,10 @@ public class MessageFragment extends BaseFragment {
 
     private void initMessageRecycler(){
         FragmentMessageBinding binding = ((FragmentMessageBinding)mViewDataBinding);
-        WidgetUtils.initRecyclerView(binding.swipeRecyclerView);
+//        WidgetUtils.initRecyclerView(binding.swipeRecyclerView);
+        binding.swipeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+//        binding.swipeRecyclerView.addItemDecoration(new DividerItemDecoration(binding.swipeRecyclerView.getContext(), VERTICAL));
+//        binding.swipeRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //必须在setAdapter之前调用
         binding.swipeRecyclerView.setSwipeMenuCreator(swipeMenuCreator);
@@ -218,43 +235,41 @@ public class MessageFragment extends BaseFragment {
 
     private void loadData() {
         mHandler.postDelayed(()->{
-            mMessageReyclerAdapter.refresh(mViewModel.getMessageData());
+            List<Message> list =  mMessageReyclerAdapter.getData();
+            list.clear();
+            list.addAll(list);
+            mMessageReyclerAdapter.notifyDataSetChanged();
             if (binding.swipeRefreshLayout != null) {
                 binding.swipeRefreshLayout.setRefreshing(false);
             }
         },1000);
     }
 
-    private static class MessageRecyclerAdapter extends BaseRecyclerAdapter<Message>{
+    private static class MessageRecyclerAdapter extends BaseQuickAdapter<Message, BaseViewHolder> {
 
-        public MessageRecyclerAdapter() {
+        public MessageRecyclerAdapter(int layoutResId, @Nullable List<Message> data) {
+            super(layoutResId, data);
         }
 
-        public MessageRecyclerAdapter(Collection<Message> list) {
-            super(list);
-        }
-
-        public MessageRecyclerAdapter(Message[] data) {
+        public MessageRecyclerAdapter(@Nullable List<Message> data) {
             super(data);
         }
 
-        @Override
-        protected void bindData(@NonNull RecyclerViewHolder holder, int position, Message item) {
-            holder.image(R.id.iv_message_head_icon,item.getHeadSrc());
-            holder.text(R.id.tv_message_name,item.getName());
-            holder.text(R.id.tv_message_content,item.getContent());
-            holder.text(R.id.tv_message_date,item.getDate());
-            holder.text(R.id.tv_uncheck_message_count,item.getUnCheckCount());
+        public MessageRecyclerAdapter(int layoutResId) {
+            super(layoutResId);
         }
 
         @Override
-        protected int getItemLayoutId(int viewType) {
-            return R.layout.item_message;
-        }
-
-        @Override
-        public int getItemCount() {
-            return super.getItemCount();
+        protected void convert(@NonNull BaseViewHolder helper, Message item) {
+            Glide.with(helper.itemView.getContext())
+                    .load(item.getHeadSrc())
+                    .placeholder(R.drawable.ic_waimai_brand)
+                    .into((ImageView) helper
+                            .getView(R.id.iv_message_head_icon));
+            helper.setText(R.id.tv_message_name,item.getName());
+            helper.setText(R.id.tv_message_content,item.getContent());
+            helper.setText(R.id.tv_message_date,item.getDate());
+            helper.setText(R.id.tv_uncheck_message_count,item.getUnCheckCount());
         }
     }
 

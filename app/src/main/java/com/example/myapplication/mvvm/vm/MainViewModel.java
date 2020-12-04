@@ -42,8 +42,8 @@ public class MainViewModel extends BaseViewModel {
 
     public int[] getTabIcons() {
         return new int[]{R.drawable.ic_main_tabbar_waimai_select
-                ,R.drawable.ic_main_tabbar_shop_select
-                ,R.drawable.ic_main_tabbar_order_select
-                ,R.drawable.ic_main_tabbar_mine_select};
+                ,R.drawable.ic_main_tabbar_shop_unselect
+                ,R.drawable.ic_main_tabbar_order_unselect
+                ,R.drawable.ic_main_tabbar_mine_unselect};
     }
 }

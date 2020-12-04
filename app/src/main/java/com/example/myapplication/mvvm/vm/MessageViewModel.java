@@ -17,12 +17,12 @@ public class MessageViewModel extends BaseViewModel {
 
     @Override
     public void initData() {
-        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg"));
-        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg"));
-        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg"));
-        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg"));
-        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg"));
-        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg"));
+        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640"));
+        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640"));
+        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640"));
+        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640"));
+        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640"));
+        messageList.add(new Message("七匹狼","您收到了本店送出的十件时尚时装，请输入收获地址接受！！！！！","2020/12/20","5","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640"));
     }
 
     public List<Message> getMessageData() {

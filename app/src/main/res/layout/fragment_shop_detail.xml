@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <ImageView
+        android:id="@+id/iv_shop_img_background_top"
+        android:layout_width="match_parent"
+        android:layout_height="374px"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"/>
+
+<!--        <com.example.myapplication.views.widget.StickyNavigationLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+
+
+
+<!--        </com.example.myapplication.views.widget.StickyNavigationLayout>-->
     <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_shop_img_background_top"
-            android:layout_width="750px"
-            android:layout_height="374px"
-            android:scaleType="centerCrop"/>
-
-        <com.example.myapplication.views.widget.StickyNavigationLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/top_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <include layout="@layout/title_shop_details"/>
-
-                <include layout="@"
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <include layout="@layout/layout_shop_head_details" />
 
             <com.xuexiang.xui.widget.tabbar.TabSegment
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        </com.example.myapplication.views.widget.StickyNavigationLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <include layout="@layout/title_shop_details"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </FrameLayout>
 
 
 
-</LinearLayout>
+</FrameLayout>

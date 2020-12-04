@@ -48,7 +48,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void initActivityAttritube() {
-
+        setTransluecnt(true);
     }
 
     private void initDataBinding(){

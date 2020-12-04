@@ -34,7 +34,7 @@ import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 
 public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConfig<ElemeGroupedItem.ItemInfo> {
 
-    private static final int SPAN_COUNT = 2;
+    private static final int SPAN_COUNT = 3;
 
     private Context mContext;
 
@@ -56,17 +56,17 @@ public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConf
 
     @Override
     public int getGridLayoutId() {
-        return R.layout.adapter_eleme_secondary_grid;
+        return R.layout.adapter_linkage_secondary_grid;
     }
 
     @Override
     public int getLinearLayoutId() {
-        return R.layout.adapter_eleme_secondary_linear;
+        return R.layout.adapter_linkage_secondary_linear;
     }
 
     @Override
     public int getHeaderLayoutId() {
-        return R.layout.default_adapter_linkage_secondary_header;
+        return R.layout.adapter_waimai_secondary_header;
     }
 
     @Override
@@ -98,11 +98,11 @@ public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConf
             }
         });
 
-        holder.getView(R.id.iv_goods_add).setOnClickListener(v -> {
-            if (mItemClickListener != null) {
-                mItemClickListener.onGoodAdd(v, item);
-            }
-        });
+//        holder.getView(R.id.iv_goods_add).setOnClickListener(v -> {
+//            if (mItemClickListener != null) {
+//                mItemClickListener.onGoodAdd(v, item);
+//            }
+//        });
     }
 
     @Override

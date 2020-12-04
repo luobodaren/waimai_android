@@ -2,6 +2,7 @@ package com.example.myapplication.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,16 @@ public class StatusBarUtils {
 
         //设置 paddingTop
         ViewGroup rootView = (ViewGroup) baseActivity.getWindow().getDecorView().findViewById(android.R.id.content);
-        rootView.setPadding(0, statusBarHeight, 0, 0);
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)rootView.getLayoutParams();
+        layoutParams.topMargin = statusBarHeight;
+        rootView.setLayoutParams(layoutParams);
+//        //根布局添加占位状态栏
+//        ViewGroup decorView = (ViewGroup) baseActivity.getWindow().getDecorView();
+//        View statusBarView = new View(baseActivity);
+//        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                statusBarHeight);
+//        statusBarView.setBackgroundColor(Color.TRANSPARENT);
+//        decorView.addView(statusBarView,0,lp);
         /*
         //添加占位view
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -58,12 +68,35 @@ public class StatusBarUtils {
      */
     public static void fitStatusBarHight(BaseFragment baseFragment){
         int statusBarHeight = com.xuexiang.xui.utils.StatusBarUtils.getStatusBarHeight(baseFragment.getContext());
-
+//
+//
+        ViewGroup rootView = (ViewGroup) baseFragment.getRootView().findViewById(android.R.id.content);
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)rootView.getLayoutParams();
+        if(layoutParams==null){
+            layoutParams = new ViewGroup.MarginLayoutParams();
+        }
+        layoutParams.topMargin = statusBarHeight;
+        rootView.setLayoutParams(layoutParams);
+//        //根布局添加占位状态栏
+//        ViewGroup decorView = (ViewGroup) baseFragment.getRootView();
+//        View statusBarView = new View(baseFragment.getContext());
+//        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                statusBarHeight);
+//        statusBarView.setBackgroundColor(Color.TRANSPARENT);
+//        decorView.addView(statusBarView,0,lp);
         //设置 paddingTop
-        ViewGroup rootView = (ViewGroup) baseFragment.getRootView();
-        ViewGroup.LayoutParams layoutParams = rootView.getLayoutParams();
-        layoutParams.height -= statusBarHeight;
-        rootView.setPadding(0,statusBarHeight,0,0);
+//        ViewGroup rootView = (ViewGroup) baseFragment.getRootView();
+//
+//        ViewGroup decorView = (ViewGroup) baseFragment.getWindow().getDecorView();
+//        View statusBarView = new View(baseFragment);
+//        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                statusBarHeight);
+//        statusBarView.setBackgroundColor(Color.TRANSPARENT);
+//        decorView.addView(statusBarView, lp);
+
+//        ViewGroup.LayoutParams layoutParams = rootView.getLayoutParams();
+//        layoutParams.height -= statusBarHeight;
+//        rootView.setPadding(0,statusBarHeight,0,0);
         /*ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(layoutParams);
         marginLayoutParams.topMargin = statusBarHeight;
         rootView.setLayoutParams(marginLayoutParams);*/

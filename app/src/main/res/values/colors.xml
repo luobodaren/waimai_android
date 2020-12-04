@@ -18,6 +18,9 @@
     <color name="text_tip">#999999</color>
     <color name="text_assist">#bbbbbb</color>
 
+    <color name="view_uncheck">#666666</color>
+    <color name="view_check">@color/colorTheme</color>
+
     <color name="login_bt_machine_start">@color/colorTheme_gradient_start</color>
     <color name="login_bt_machine_end">@color/colorTheme_gradient_end</color>
     <color name="login_bt_unable">#80ffffff</color>
@@ -36,4 +39,9 @@
 
     <color name="bg_recycler_swipe_item1">#FF3B30</color>
     <color name="bg_recycler_swipe_item2">#FED15B</color>
+
+    <color name="linkage_primary_item_bg_default">#F5F5F5</color>
+    <color name="linkage_primary_item_bg_selected">#FFFFFF</color>
+
+    <color name="score_text">#FF3B30</color>
 </resources>

@@ -58,6 +58,8 @@ public class MainFragment extends BaseFragment {
         mBinding.tabSegment.setHasIndicator(false);
         mBinding.tabSegment.setDefaultTabIconPosition(TabSegment.ICON_POSITION_TOP);
         mBinding.tabSegment.setMode(TabSegment.MODE_FIXED);
+        mBinding.tabSegment.setDefaultNormalColor(getResources().getColor(R.color.view_uncheck));
+        mBinding.tabSegment.setDefaultSelectedColor(getResources().getColor(R.color.view_check));
         String[] tabData = myViewModel.getTabDatas();
         int[] tabIconId = myViewModel.getTabIcons();
         List<BaseFragment> tabFragment = ((MainViewModel)baseViewModel).getTabFragment();

@@ -55,4 +55,9 @@
 
 
     <dimen name="my_cardview_default_radius">24px</dimen>
+    <dimen name="text_size_grid_item">20px</dimen>
+    <dimen name="text_size_grid_header">28px</dimen>
+    <dimen name="text_size_grid_header_right">26px</dimen>
+    <dimen name="linkagePrimary_left_icon_width">6px</dimen>
+    <dimen name="linkagePrimary_left_icon_height">30px</dimen>
 </resources>

@@ -17,7 +17,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_recommended_shop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/interval_size_xs"
+            android:paddingStart="@dimen/interval_size_xs"
+            android:paddingEnd="@dimen/interval_size_xs"/>
 
     </LinearLayout>
 </layout>

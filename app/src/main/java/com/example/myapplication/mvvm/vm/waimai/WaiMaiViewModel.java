@@ -90,6 +90,13 @@ public class WaiMaiViewModel extends BaseViewModel {
         list.add(new Shop("嘉禾一品粥(国展店)"));
         list.add(new Shop("嘉禾一品粥(国展店)"));
         list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
 
         RecommendedFragment fragment = new RecommendedFragment();
         fragment.setData(list);
@@ -148,27 +155,27 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     public List getExclusiveShopData() {
         mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg",
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "星巴克代购",
                 "最近有一万人下单了呢"));
         mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg",
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "星巴克代购",
                 "最近有一万人下单了呢"));
         mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg",
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "星巴克代购",
                 "最近有一万人下单了呢"));
         mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg",
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "星巴克代购",
                 "最近有一万人下单了呢"));
         return mExclusiveShopDataList;
     }
 
     public List<LimitedTimeGoodsData> getLimitedTimeGoodsData() {
-        mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg","网红人气美谢限时抢购"));
-        mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg","网红人气美谢限时抢购"));
+        mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","网红人气美谢限时抢购"));
+        mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","网红人气美谢限时抢购"));
         return mLimitedTimeGoodsDataList;
     }
 }

@@ -34,7 +34,6 @@ import com.example.myapplication.databinding.ItemWaimaiRecyclerFoodTypeSmallBind
 import com.example.myapplication.mvvm.view.activity.SearchActivity;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.view.fragment.MessageFragment;
-import com.example.myapplication.mvvm.view.fragment.WaiMaiTypeFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaiMaiViewModel;
 import com.example.myapplication.util.DataBindingUtils;
@@ -380,6 +379,13 @@ public class WaimaiFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 仅更新 title 若需要改变个数 需要重写方法
+     * @param tabSegment
+     * @param titles
+     * @param selectedPosition
+     * @param isFirstAdd
+     */
     private void resetTab(TabSegment tabSegment,String[] titles,
                           int selectedPosition, boolean isFirstAdd){
         int position = 0;

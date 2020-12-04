@@ -30,21 +30,21 @@ public class OrderListItemViewModel extends BaseViewModel {
 
     private void initOrderData() {
         List<Goods> goodsList = new ArrayList<>();
-        Goods goods = new Goods("小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋小白鞋","这是一双小白鞋！！！！！！",
-                "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2424071932,228392684&fm=15&gp=0.jpg",
+        Goods goods = new Goods("来吃烧烤！！！来吃烧烤！！！来吃烧烤！！！来吃烧烤！！！来吃烧烤！！！来吃烧烤！！！","这是一堆烧烤",
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "2","550.00");
         goodsList.add(goods);
         goodsList.add(goods);
         goodsList.add(goods);
-        orderList.add(new Order("嘉禾服装店",
+        orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
                 OrderState.UNDELIVER.getCode(),goodsList));
-        orderList.add(new Order("嘉禾服装店",
+        orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
                 OrderState.UNDELIVER.getCode(),goodsList));
-        orderList.add(new Order("嘉禾服装店",
+        orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
                 OrderState.UNDELIVER.getCode(),goodsList));

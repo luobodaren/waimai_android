@@ -19,15 +19,24 @@ package com.example.myapplication.adapter;
 
 
 import android.content.Context;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
+import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
+import com.example.myapplication.bean.ElemeGroupedItem;
+import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
+import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkagePrimaryAdapterConfig;
+
+import java.lang.ref.WeakReference;
 
 /**
  * 自定义主菜单适配器
@@ -35,15 +44,18 @@ import com.kunminx.linkage.contract.ILinkagePrimaryAdapterConfig;
  * @author xuexiang
  * @since 2019-11-25 17:17
  */
-public class CustomLinkagePrimaryAdapterConfig implements ILinkagePrimaryAdapterConfig {
+public class  CustomLinkagePrimaryAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkagePrimaryAdapterConfig {
 
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;
     private static final int MARQUEE_REPEAT_NONE_MODE = 0;
     private Context mContext;
     private OnPrimaryItemClickListener mItemClickListener;
 
-    public CustomLinkagePrimaryAdapterConfig(OnPrimaryItemClickListener itemClickListener) {
+    private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
+
+    public CustomLinkagePrimaryAdapterConfig(OnPrimaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
         mItemClickListener = itemClickListener;
+        mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
     }
 
     public CustomLinkagePrimaryAdapterConfig setOnItemClickListner(OnPrimaryItemClickListener itemClickListener) {
@@ -58,7 +70,7 @@ public class CustomLinkagePrimaryAdapterConfig implements ILinkagePrimaryAdapter
 
     @Override
     public int getLayoutId() {
-        return R.layout.default_adapter_linkage_primary;
+        return R.layout.adapter_linkage_primary;
     }
 
     @Override
@@ -71,13 +83,36 @@ public class CustomLinkagePrimaryAdapterConfig implements ILinkagePrimaryAdapter
         return R.id.layout_group;
     }
 
+    Drawable drawable = null;
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
+        if(drawable == null){
+            drawable = mContext.getResources().getDrawable(R.drawable.sr_widght_vertical_bar);
+            drawable.setBounds(0,0,
+                    (int) (mContext.getResources().getDimensionPixelOffset(R.dimen.linkagePrimary_left_icon_width)
+                            * UIUtils.getInstance(mContext).getHorValue()),
+                    (int) (mContext.getResources().getDimensionPixelOffset(R.dimen.linkagePrimary_left_icon_height)
+                            * UIUtils.getInstance(mContext).getHorValue()));
+        }
+
         TextView tvTitle = ((TextView) holder.mGroupTitle);
         tvTitle.setText(title);
 
-        tvTitle.setBackgroundColor(mContext.getResources().getColor(selected ? R.color.colorAccent : R.color.colorWhite));
-        tvTitle.setTextColor(ContextCompat.getColor(mContext, selected ? R.color.colorWhite : R.color.colorGray));
+        int selectedPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getSelectedPosition();
+
+        if(selected){
+            tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_selected ));
+
+            tvTitle.setCompoundDrawablesRelative(drawable,null,null,null);
+        }else{
+            tvTitle.setBackground(mContext.getResources().getDrawable(R.color.linkage_primary_item_bg_default));
+            tvTitle.setCompoundDrawablesRelative(null,null,null,null);
+        }
+        if(holder.getAdapterPosition() == (selectedPosition - 1)){  //上一个
+            tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_before_select));
+        }else if(holder.getAdapterPosition() == (selectedPosition + 1)){    //下一个
+            tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_after_select));
+        }
         tvTitle.setEllipsize(selected ? TextUtils.TruncateAt.MARQUEE : TextUtils.TruncateAt.END);
         tvTitle.setFocusable(selected);
         tvTitle.setFocusableInTouchMode(selected);

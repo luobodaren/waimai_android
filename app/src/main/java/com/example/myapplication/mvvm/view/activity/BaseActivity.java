@@ -3,6 +3,7 @@ package com.example.myapplication.mvvm.view.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.AttributeSet;
@@ -82,7 +83,7 @@ public abstract class BaseActivity extends XPageActivity {
                     , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }else{
             if(isTransluecnt){
-                StatusBarUtils.translucent(this,getResources().getColor(R.color.transparent));
+                StatusBarUtils.translucent(this, Color.TRANSPARENT);
                 if(isFitWindow){
                     StatusBarUtils.fitStatusBarHight(this);
                 }

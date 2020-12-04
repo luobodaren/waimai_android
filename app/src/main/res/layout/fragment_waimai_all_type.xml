@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable
-            name="viewModel"
-            type="com.example.myapplication.mvvm.vm.SearchViewModel" />
+
     </data>
 
     <com.example.base.views.UiAdapterLinearLayout
@@ -20,14 +17,19 @@
             android:layout_height="88px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:onClick="@{(v)->viewModel.onSearchBtClick(v)}"
             android:paddingStart="@dimen/interval_size_xs"
             android:paddingEnd="@dimen/interval_size_xs">
+
+            <ImageView
+                android:id="@+id/iv_left_action"
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:src="@drawable/ic_arrow_left_black"/>
 
             <EditText
                 android:id="@+id/et_search"
                 android:layout_width="0dp"
-                android:layout_height="68px"
+                android:layout_height="60px"
                 android:layout_weight="1"
                 android:drawableStart="@drawable/ic_search_gray"
                 android:drawablePadding="8px"
@@ -35,27 +37,25 @@
                 android:gravity="center_vertical"
                 android:layout_marginStart="16px"
                 android:paddingStart="24px"
-                android:text="@={viewModel.searchStr}"
-                android:hint="搜索词"/>
+                android:hint="搜索你需要的商品热门关键词"/>
 
-            <Button
+            <ImageView
                 android:id="@+id/bt_search"
-                android:layout_width="108px"
-                android:layout_height="match_parent"
-                android:text="@string/cancel"
-                android:textColor="@color/text_uncheck"
-                android:textSize="26px"
-                android:background="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_message_black"
+                android:layout_marginStart="24px"
                 android:focusable="false"
                 android:clickable="false" />
 
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@id/fragment_container"
+        <com.kunminx.linkage.LinkageRecyclerView
+            android:id="@+id/linkage_waimai_type"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"></FrameLayout>
+            android:layout_height="0px"
+            android:layout_weight="1"/>
 
     </com.example.base.views.UiAdapterLinearLayout>
 </layout>

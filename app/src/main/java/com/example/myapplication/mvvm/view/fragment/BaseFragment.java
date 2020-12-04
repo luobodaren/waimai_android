@@ -111,6 +111,7 @@ public abstract class BaseFragment extends XPageFragment {
 
     public void setStatusBarLightMode(boolean statusBarLightMode) {
         isStatusBarLightMode = statusBarLightMode;
+        setStatusBarMode();
     }
 
     private void setStatusBarMode() {
