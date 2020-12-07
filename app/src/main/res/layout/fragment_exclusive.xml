@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.mvvm.vm.waimai.WaimaiExclusiveViewModel" />
+    </data>
+
+    <com.example.base.views.UiAdapterLinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_exclusive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.example.base.views.UiAdapterLinearLayout>
+</layout>

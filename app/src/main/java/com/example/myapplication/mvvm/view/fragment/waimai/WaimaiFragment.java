@@ -37,6 +37,7 @@ import com.example.myapplication.mvvm.view.fragment.MessageFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaiMaiViewModel;
 import com.example.myapplication.util.DataBindingUtils;
+import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.util.Utils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -86,8 +87,8 @@ public class WaimaiFragment extends BaseFragment {
 
     @Override
     protected void initArgs() {
-        setFitWindow(true);
-        setStatusBarLightMode(false);
+        setFitStatusBarHeight(true);
+        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
     @Override
@@ -111,7 +112,7 @@ public class WaimaiFragment extends BaseFragment {
             public void onPropertyChanged(Observable observable, int i) {
                 LogUtil.d("跳转消息页");
 //                PageOption.to(MessageFragment.class)
-//                        .setNewActivity(true).setAnim(CoreAnim.fade).open(WaimaiFragment.this);
+//                        .setNewActivity(true).setAnim(CoreAnim.slide).open(WaimaiFragment.this);
                 openPage(MessageFragment.class);
 //                openPage(Mess)
 //                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
@@ -158,7 +159,7 @@ public class WaimaiFragment extends BaseFragment {
         BaseRecyclerAdapter<IconStrData> adapter = getFoodRecyclerAdapter();
         adapter.setOnItemClickListener((itemView, item, position) -> {
             if(position == adapter.getItemCount()-1){
-                openPage(WaiMaiTypeFragment.class);
+                openPage(WaimaiTypeFragment.class);
             }
         });
         fragmentWaimaiBinding.recyclerFoodType.setAdapter(adapter);
@@ -285,7 +286,15 @@ public class WaimaiFragment extends BaseFragment {
         });
 
         binding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {
-            // TODO: 2020/12/2 排序按钮可点击
+            if(moveRatio == 1){
+                if(isShowStatusBar()){
+                    setStatusBarShowByType(HIDE_STATUS_BAR);
+                }
+            } else {
+                if(isHideStatusBar()){
+                    setStatusBarShowByType(SHOW_STATUS_BAR);
+                }
+            }
         });
     }
 
@@ -335,7 +344,7 @@ public class WaimaiFragment extends BaseFragment {
     }
 
     private MyBaseRecyclerAdapter<ExclusiveShopData> getExclusiveRecyclerAdapter() {
-        return new MyBaseRecyclerAdapter<ExclusiveShopData>(R.layout.item_exclusive_shop
+        return new MyBaseRecyclerAdapter<ExclusiveShopData>(R.layout.item_waimai_exclusive_shop
                 ,mViewModel.getExclusiveShopData(),null) {
             @Override
             protected void initView(BaseViewHolder helper, ExclusiveShopData item) {

@@ -1,17 +1,19 @@
 package com.example.myapplication.mvvm.view.fragment;
 
 import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,25 +24,19 @@ import com.example.myapplication.constant.Constant;
 import com.example.myapplication.databinding.FragmentMessageBinding;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.MessageViewModel;
+import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xpage.utils.TitleUtils;
-import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
-import com.xuexiang.xui.adapter.recyclerview.DividerItemDecoration;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
-import com.xuexiang.xui.adapter.recyclerview.XLinearLayoutManager;
-import com.xuexiang.xui.utils.WidgetUtils;
 import com.xuexiang.xui.widget.popupwindow.PopWindow;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
-import java.util.Collection;
 import java.util.List;
-
-import static androidx.recyclerview.widget.OrientationHelper.VERTICAL;
 
 @Page(name = "消息中心",anim = CoreAnim.fade)
 public class MessageFragment extends BaseFragment {
@@ -79,34 +75,28 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-        setStatusBarLightMode(true);
-        setFitWindow(true);
+        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
+        setFitStatusBarHeight(true);
     }
 
     @Override
     protected TitleBar initTitleBar() {
-        TitleBar titleBar =  TitleUtils
-                .addTitleBarDynamic(this,(ViewGroup) mRootView, getPageTitle())
-                .setTitleColor(R.color.text_normal)
-                .setTitleSize(36)
-                .setActionTextColor(R.color.text_normal)
-                .setSubTitleSize(30);
-        titleBar.setLeftImageResource(R.drawable.ic_arrow_left_black);
-        titleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popToBack();
-            }
-        });
+        TitleBar titleBar = super.initTitleBar();
+
+        titleBar.setLeftImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_left_black));
+
         titleBar.setBackgroundColor(getResources().getColor(R.color.white));
-        titleBar.addAction(new TitleBar.TextAction(getContext().getString(R.string.read_all_message_bt)) {
+        titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
+        titleBar.setCenterTextBold(true);
+        titleBar.setTitleColor(getResources().getColor(R.color.text_normal));
+        titleBar.setActionTextColor(getResources().getColor(R.color.text_normal));
+        TextView actionTextView = (TextView) titleBar.addAction(new TitleBar.TextAction(getString(R.string.read_all_message_bt)) {
             @Override
             public void performAction(View view) {
                 doReadAllMessage();
             }
         });
-//        titleBar = super.initTitleBar();
-//        titleBar.setT
+        actionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimension(R.dimen.font_size_30));
         return titleBar;
     }
 
@@ -123,6 +113,17 @@ public class MessageFragment extends BaseFragment {
         //下拉刷新
         binding.swipeRefreshLayout.setOnRefreshListener(this::loadData);
 //        refresh();
+    }
+
+    @Override
+    protected void onLifecycleResume() {
+        super.onLifecycleResume();
+        setStatusBarMode();
+    }
+
+    @Override
+    protected void onLifecycleDestroy() {
+        super.onLifecycleDestroy();
     }
 
     private void doReadAllMessage(){
@@ -153,7 +154,7 @@ public class MessageFragment extends BaseFragment {
         //必须在setAdapter之前调用
         binding.swipeRecyclerView.setOnItemMenuClickListener(mMenuItemClickListener);
 
-        mMessageReyclerAdapter = new MessageRecyclerAdapter(mViewModel.getMessageData());
+        mMessageReyclerAdapter = new MessageRecyclerAdapter(R.layout.item_message,mViewModel.getMessageData());
         binding.swipeRecyclerView.setAdapter(mMessageReyclerAdapter);
 
         binding.swipeRefreshLayout.setColorSchemeColors(0xff0099cc, 0xffff4444, 0xff669900, 0xffaa66cc, 0xffff8800);
@@ -261,6 +262,7 @@ public class MessageFragment extends BaseFragment {
 
         @Override
         protected void convert(@NonNull BaseViewHolder helper, Message item) {
+
             Glide.with(helper.itemView.getContext())
                     .load(item.getHeadSrc())
                     .placeholder(R.drawable.ic_waimai_brand)

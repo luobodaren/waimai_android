@@ -6,6 +6,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentMainBinding;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.MainViewModel;
+import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.views.widget.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;

@@ -20,7 +20,7 @@ import com.example.myapplication.util.DataBindingUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 
-@Page(name = "搜索页",anim = CoreAnim.fade)
+@Page(name = "搜索页",anim = CoreAnim.slide)
 public class SearchActivity extends BaseActivity {
 
     private ViewDataBinding mViewDataBinding;

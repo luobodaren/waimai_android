@@ -19,6 +19,7 @@ import com.example.myapplication.bean.Order;
 import com.example.myapplication.databinding.FragmentOrderListBinding;
 import com.example.myapplication.databinding.ItemGoodInfoBinding;
 import com.example.myapplication.enumtype.OrderState;
+import com.example.myapplication.mvvm.view.fragment.BaseChildFragment;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
@@ -29,7 +30,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 import java.util.List;
 
 @Page(name = "订单页 ViewPager子页")
-public class OrderBarItemFragment extends BaseFragment {
+public class OrderBarItemFragment extends BaseChildFragment {
 
     private OrderListItemViewModel mViewModel;
 

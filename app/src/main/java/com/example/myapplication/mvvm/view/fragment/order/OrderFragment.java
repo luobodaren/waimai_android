@@ -12,6 +12,7 @@ import com.example.myapplication.databinding.FragmentOrderBinding;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.order.OrderViewModel;
+import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.views.widget.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -44,8 +45,8 @@ public class OrderFragment extends BaseFragment {
 
     @Override
     protected void initArgs() {
-        setFitWindow(true);
-        setStatusBarLightMode(true);
+        setFitStatusBarHeight(true);
+        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }
 
     @Override

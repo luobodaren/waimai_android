@@ -12,15 +12,16 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.bean.Shop;
-import com.example.myapplication.mvvm.view.fragment.BaseFragment;
+import com.example.myapplication.mvvm.view.fragment.BaseChildFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
+import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 
 import java.util.List;
 
 @Page(name = "推荐列表")
-public class RecommendedFragment extends BaseFragment {
+public class RecommendedFragment extends BaseChildFragment {
 
     private List<Shop> mShopList;
 
@@ -47,7 +48,7 @@ public class RecommendedFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-        setStatusBarLightMode(false);
+        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
     public void setData(List<Shop> shopList) {

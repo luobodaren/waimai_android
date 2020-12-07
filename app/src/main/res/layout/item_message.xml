@@ -1,79 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.base.views.UiAdapterConstrainLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <com.xuexiang.xui.widget.imageview.RadiusImageView
+        android:id="@+id/iv_message_head_icon"
+        android:layout_width="96px"
+        android:layout_height="96px"
+        android:clickable="true"
+        app:riv_is_circle="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="33px"
+        android:layout_marginStart="40px"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_message_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30px"
+        android:textColor="@color/text_normal"
+        android:includeFontPadding="false"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_message_head_icon"
+        app:layout_constraintTop_toTopOf="@id/iv_message_head_icon"/>
 
-        <ImageView
-            android:id="@+id/iv_message_head_icon"
-            android:layout_width="96px"
-            android:layout_height="96px"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="33px"
-            android:layout_marginStart="40px"/>
+    <TextView
+        android:id="@+id/tv_message_content"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:textSize="26px"
+        android:textColor="@color/text_tip"
+        android:includeFontPadding="false"
+        android:layout_marginTop="32px"
+        android:layout_marginEnd="62px"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="@id/tv_message_name"
+        app:layout_constraintEnd_toStartOf="@id/tv_uncheck_message_count"
+        app:layout_constraintTop_toBottomOf="@id/tv_message_name"/>
 
-        <TextView
-            android:id="@+id/tv_message_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30px"
-            android:textColor="@color/text_normal"
-            android:includeFontPadding="false"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            app:layout_constraintStart_toEndOf="@id/iv_message_head_icon"
-            app:layout_constraintTop_toTopOf="@id/iv_message_head_icon"/>
+    <TextView
+        android:id="@+id/tv_message_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_tip"
+        android:textSize="24px"
+        android:layout_marginEnd="40px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_message_name"/>
 
-        <TextView
-            android:id="@+id/tv_message_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="26px"
-            android:textColor="@color/text_tip"
-            android:includeFontPadding="false"
-            android:layout_marginTop="32px"
-            android:maxEms="16"
-            android:maxLines="1"
-            app:layout_constraintStart_toStartOf="@id/tv_message_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_message_name"
-            />
+    <TextView
+        android:id="@+id/tv_uncheck_message_count"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:background="@drawable/sr_round_red"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:gravity="center"
+        android:textSize="24px"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tv_message_date"
+        app:layout_constraintEnd_toEndOf="@id/tv_message_date"/>
 
-        <TextView
-            android:id="@+id/tv_message_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_tip"
-            android:textSize="24px"
-            android:layout_marginEnd="40px"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_message_name"/>
+    <TextView
+        android:layout_width="0px"
+        android:layout_height="1px"
+        android:layout_marginTop="32px"
+        app:layout_constraintStart_toStartOf="@id/tv_message_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_message_content"/>
 
-        <TextView
-            android:id="@+id/tv_uncheck_message_count"
-            android:layout_width="40px"
-            android:layout_height="40px"
-            android:background="@drawable/sr_round_red"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:gravity="center"
-            android:textSize="24px"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/tv_message_date"
-            app:layout_constraintEnd_toEndOf="@id/tv_message_date"/>
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="1px"
-            android:layout_marginTop="32px"
-            app:layout_constraintStart_toStartOf="@id/tv_message_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_message_content"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+</com.example.base.views.UiAdapterConstrainLayout>

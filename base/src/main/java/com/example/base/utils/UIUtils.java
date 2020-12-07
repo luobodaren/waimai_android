@@ -19,6 +19,8 @@ import com.example.base.views.UiAdapterRelativeLayout;
 import java.lang.reflect.Field;
 import java.util.Random;
 
+import static com.xuexiang.xui.XUI.getContext;
+
 public class UIUtils {
 
     public static final int SCALE_KEY = new Random(System.currentTimeMillis()).nextInt();
@@ -95,7 +97,7 @@ public class UIUtils {
 
     public static void autoAdapterUI(Context context,ViewGroup viewGroup) {
         float scaleX = UIUtils.getInstance(context).getHorValue();
-//        float scaleY = UIUtils.getInstance(getContext()).getVerValue();
+        float scaleY = UIUtils.getInstance(context).getVerValue();
         ViewGroup.LayoutParams lp = viewGroup.getLayoutParams();
         if(viewGroup.getTag(UIUtils.SCALE_KEY) == null){//防止多次放大
             if(lp.width != ViewGroup.LayoutParams.MATCH_PARENT)
@@ -110,6 +112,7 @@ public class UIUtils {
                 marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
             }
             viewGroup.setTag(UIUtils.SCALE_KEY,1);
+            viewGroup.setLayoutParams(lp);
         }
 
         int count = viewGroup.getChildCount();
@@ -130,9 +133,10 @@ public class UIUtils {
                     marginLayoutParams.topMargin = (int) (marginLayoutParams.topMargin * scaleX);
                     marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
                 }
+                child.setLayoutParams(layoutParams);
                 if(child instanceof TextView){
                     ((TextView) child).setTextSize
-                            (UIUtils.pxTosp(context,((TextView) child).getTextSize() * scaleX));
+                            (UIUtils.pxTosp(((TextView) child).getTextSize() * scaleX));
                 }
                 child.setTag(UIUtils.SCALE_KEY,1);
                 if(child instanceof ViewGroup){
@@ -153,33 +157,30 @@ public class UIUtils {
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      *
-     * @param context 上下文
      * @param dp      dp的值
      * @return px的值
      */
-    public static int dpTopx(Context context, float dp) {
+    public static int dpTopx(float dp) {
         return (int) (dp * density + 0.5f);
     }
 
     /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
      *
-     * @param context 上下文
      * @param px      px的值
      * @return dp的值
      */
-    public static int pxTodp(Context context, float px) {
+    public static int pxTodp(float px) {
         return (int) (px / density + 0.5f);
     }
 
     /**
      * 将px值转换为sp值，保证文字大小不变
      *
-     * @param context 上下文
      * @param px      px的值
      * @return sp的值
      */
-    public static int pxTosp(Context context, float px) {
+    public static int pxTosp(float px) {
         //DisplayMetrics类中属性scaledDensity
         return (int) (px / scaledDensity + 0.5f);
     }
@@ -187,13 +188,12 @@ public class UIUtils {
     /**
      * 将sp值转换为px值，保证文字大小不变
      *
-     * @param context 上下文
      * @param sp      sp的值
      * @return px的值
      */
-    public static int spTopx(Context context, float sp) {
+    public static int spTopx(float sp) {
         //DisplayMetrics类中属性scaledDensity
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = scaledDensity;
         return (int) (sp * scaledDensity + 0.5f);
     }
 

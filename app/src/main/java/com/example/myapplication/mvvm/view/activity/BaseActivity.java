@@ -6,23 +6,15 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.databinding.Observable;
 
-import com.example.myapplication.R;
-import com.example.myapplication.databinding.ActivitySearchBinding;
-import com.example.myapplication.mvvm.vm.SearchViewModel;
 import com.example.myapplication.util.ActivityCollector;
-import com.example.myapplication.util.DataBindingUtils;
 import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.base.XPageActivity;
 
@@ -85,7 +77,7 @@ public abstract class BaseActivity extends XPageActivity {
             if(isTransluecnt){
                 StatusBarUtils.translucent(this, Color.TRANSPARENT);
                 if(isFitWindow){
-                    StatusBarUtils.fitStatusBarHight(this);
+                    StatusBarUtils.fitStatusBarHeight(this);
                 }
             }
         }

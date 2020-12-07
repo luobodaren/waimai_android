@@ -21,6 +21,7 @@ package com.example.myapplication.adapter;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -97,16 +98,18 @@ public class  CustomLinkagePrimaryAdapterConfig<T extends BaseGroupedItem.ItemIn
 
         TextView tvTitle = ((TextView) holder.mGroupTitle);
         tvTitle.setText(title);
-
         int selectedPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getSelectedPosition();
 
         if(selected){
             tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_selected ));
-
             tvTitle.setCompoundDrawablesRelative(drawable,null,null,null);
+            TextPaint tp = tvTitle.getPaint();
+            tp.setFakeBoldText(true);
         }else{
             tvTitle.setBackground(mContext.getResources().getDrawable(R.color.linkage_primary_item_bg_default));
             tvTitle.setCompoundDrawablesRelative(null,null,null,null);
+            TextPaint tp = tvTitle.getPaint();
+            tp.setFakeBoldText(false);
         }
         if(holder.getAdapterPosition() == (selectedPosition - 1)){  //上一个
             tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_before_select));

@@ -16,7 +16,7 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
-@Page(name = "历史搜索内容与发现",anim = CoreAnim.fade)
+@Page(name = "历史搜索内容与发现",anim = CoreAnim.slide)
 public class SearchHistoryFragment extends BaseFragment {
 
     SearchHistoryViewModel mViewModel;

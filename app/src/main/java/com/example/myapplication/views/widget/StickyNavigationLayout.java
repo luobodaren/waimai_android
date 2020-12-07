@@ -31,7 +31,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
+import com.example.base.views.UiAdapterLinearLayout;
 import com.example.myapplication.R;
+import com.xuexiang.xui.utils.StatusBarUtils;
 import com.xuexiang.xui.utils.ThemeUtils;
 import com.xuexiang.xui.widget.actionbar.TitleBar;
 
@@ -41,7 +43,7 @@ import com.xuexiang.xui.widget.actionbar.TitleBar;
  * @author xuexiang
  * @since 2020/4/6 11:08 AM
  */
-public class StickyNavigationLayout extends LinearLayout implements NestedScrollingParent2 {
+public class StickyNavigationLayout extends UiAdapterLinearLayout implements NestedScrollingParent2 {
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper;
 
@@ -74,8 +76,6 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
 
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
-        LogUtil.e("getScrollY() " + getScrollY());
-
         //如果子view欲向上滑动，则先交给父view滑动
         boolean hideTop = dy > 0 && getScrollY() < mCanScrollDistance;
         //如果子view欲向下滑动，必须要子view不能向下滑动后，才能交给父view滑动
@@ -113,7 +113,6 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
 
     @Override
     public void onNestedScroll(@NonNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
-        LogUtil.e("onNestedScroll");
         if (dyUnconsumed < 0) {
             //表示已经向下滑动到头，这里不用区分手势还是fling
             scrollBy(0, dyUnconsumed);
@@ -135,7 +134,6 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
 
     @Override
     protected void onFinishInflate() {
-        LogUtil.e("onFinishInflate");
         super.onFinishInflate();
         mTopView = findViewById(R.id.top_view);
         mNavigationView = findViewById(R.id.tab_layout);
@@ -145,14 +143,14 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        LogUtil.e("onMeasure");
         //先测量一次
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         //ViewPager修改后的高度= 总高度-TabLayout高度
         ViewGroup.LayoutParams lp = mViewPager.getLayoutParams();
-        LogUtil.e("onMeasure start " + lp.height + "  mCanScrollDistance：" + mCanScrollDistance);
-        lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight() - mSortView.getMeasuredHeight();
+//        LogUtil.e("onMeasure start " + lp.height + "  mCanScrollDistance：" + mCanScrollDistance);
+        lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
+                - mSortView.getMeasuredHeight() + StatusBarUtils.getStatusBarHeight(getContext());
 //        lp.height = (int)UIUtils.getInstance(getContext()).getDisplayMetricsHeight() - mNavigationView.getMeasuredHeight() - mSortView.getMeasuredHeight();
         mViewPager.setLayoutParams(lp);
         //因为ViewPager修改了高度，所以需要重新测量
@@ -162,14 +160,11 @@ public class StickyNavigationLayout extends LinearLayout implements NestedScroll
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        LogUtil.e("onSizeChanged " + w + "  " + h + "  " + oldw + "  " + oldh);
-        mCanScrollDistance = mTopView.getMeasuredHeight();
-        LogUtil.e("onSizeChanged " + mCanScrollDistance);
+        mCanScrollDistance = mTopView.getMeasuredHeight() + StatusBarUtils.getStatusBarHeight(getContext());
     }
 
     @Override
     public void scrollTo(int x, int y) {
-        LogUtil.e("scrollTo");
         if (y < 0) {
             y = 0;
         }

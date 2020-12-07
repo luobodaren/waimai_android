@@ -15,13 +15,14 @@ public class Goods extends BaseObservable implements Parcelable {
 
     private String price;
 
-    public Goods(String name, String details, String goodsImgUrl, String buyNum, String price) {
-        this.name = name;
-        this.details = details;
-        this.goodsImgUrl = goodsImgUrl;
-        this.buyNum = buyNum;
-        this.price = price;
+    private String price_deliver;
+    private String price_avg_per_man;
+    private String count_per_month;
+    private String score;
+
+    public Goods() {
     }
+
 
     protected Goods(Parcel in) {
         name = in.readString();
@@ -29,6 +30,10 @@ public class Goods extends BaseObservable implements Parcelable {
         goodsImgUrl = in.readString();
         buyNum = in.readString();
         price = in.readString();
+        price_deliver = in.readString();
+        price_avg_per_man = in.readString();
+        count_per_month = in.readString();
+        score = in.readString();
     }
 
     public static final Creator<Goods> CREATOR = new Creator<Goods>() {
@@ -42,15 +47,6 @@ public class Goods extends BaseObservable implements Parcelable {
             return new Goods[size];
         }
     };
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(details);
-        dest.writeString(goodsImgUrl);
-        dest.writeString(buyNum);
-        dest.writeString(price);
-    }
 
     public String getName() {
         return name;
@@ -96,9 +92,54 @@ public class Goods extends BaseObservable implements Parcelable {
         this.buyNum = buyNum;
     }
 
+    public String getPrice_deliver() {
+        return price_deliver;
+    }
+
+    public void setPrice_deliver(String price_deliver) {
+        this.price_deliver = price_deliver;
+    }
+
+    public String getPrice_avg_per_man() {
+        return price_avg_per_man;
+    }
+
+    public void setPrice_avg_per_man(String price_avg_per_man) {
+        this.price_avg_per_man = price_avg_per_man;
+    }
+
+    public String getCount_per_month() {
+        return count_per_month;
+    }
+
+    public void setCount_per_month(String count_per_month) {
+        this.count_per_month = count_per_month;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(details);
+        dest.writeString(goodsImgUrl);
+        dest.writeString(buyNum);
+        dest.writeString(price);
+        dest.writeString(price_deliver);
+        dest.writeString(price_avg_per_man);
+        dest.writeString(count_per_month);
+        dest.writeString(score);
+    }
 }

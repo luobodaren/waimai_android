@@ -7,7 +7,7 @@
             type="com.example.myapplication.mvvm.vm.MessageViewModel" />
     </data>
 
-    <LinearLayout
+    <com.example.base.views.UiAdapterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -26,11 +26,10 @@
             <com.yanzhenjie.recyclerview.SwipeRecyclerView
                 android:id="@+id/swipe_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/red"/>
+                android:layout_height="match_parent"/>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </LinearLayout>
+    </com.example.base.views.UiAdapterLinearLayout>
 
 </layout>
