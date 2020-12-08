@@ -14,7 +14,7 @@
     <!--            android:layout_width="match_parent"-->
     <!--            android:layout_height="match_parent">-->
     <!--嵌套滑动父控件-->
-    <com.example.myapplication.views.widget.StickyNavigationLayout
+    <com.example.myapplication.views.StickyNavigationLayout
         android:id="@+id/sticky_navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                     android:layout_marginStart="24px"
                     android:layout_marginTop="24px"
                     android:layout_marginEnd="24px"
-                    android:background="@drawable/sr_card_view_white_bg"
+                    android:background="@drawable/sr_bg_card_view_white"
                     android:overScrollMode="never"
                     android:padding="24px" />
 
@@ -199,7 +199,7 @@
                     android:layout_marginStart="24px"
                     android:layout_marginEnd="24px"
                     android:padding="24px"
-                    android:background="@drawable/sr_card_view_white_bg"
+                    android:background="@drawable/sr_bg_card_view_white"
                     android:overScrollMode="never"/>
 
                 <!--<com.meetsl.scardview.SCardView
@@ -216,7 +216,7 @@
                     android:layout_marginTop="24px"
                     android:layout_marginStart="24px"
                     android:layout_marginEnd="24px"
-                    android:background="@drawable/sr_card_view_white_bg">
+                    android:background="@drawable/sr_bg_card_view_white">
 
                     <TextView
                         android:id="@+id/text2"
@@ -311,7 +311,7 @@
             android:layout_height="match_parent"
             android:background="@color/background" />
 
-    </com.example.myapplication.views.widget.StickyNavigationLayout>
+    </com.example.myapplication.views.StickyNavigationLayout>
     <!--        </ScrollView>-->
 
 </layout>

@@ -47,7 +47,7 @@
         android:layout_height="32px"
         android:scaleType="center"
         android:src="@drawable/ic_close_gray"
-        android:background="@drawable/sr_bt_1dp_1radius_stroke"
+        android:background="@drawable/sr_bt_1px_1radius_stroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 

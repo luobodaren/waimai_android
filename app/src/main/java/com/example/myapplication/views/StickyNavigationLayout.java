@@ -15,7 +15,7 @@
  *
  */
 
-package com.example.myapplication.views.widget;
+package com.example.myapplication.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -29,13 +29,9 @@ import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.base.utils.LogUtil;
-import com.example.base.utils.UIUtils;
 import com.example.base.views.UiAdapterLinearLayout;
 import com.example.myapplication.R;
 import com.xuexiang.xui.utils.StatusBarUtils;
-import com.xuexiang.xui.utils.ThemeUtils;
-import com.xuexiang.xui.widget.actionbar.TitleBar;
 
 /**
  * 演示NestedScrollingParent2的使用

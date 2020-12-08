@@ -76,6 +76,12 @@ public class RecommendedFragment extends BaseChildFragment {
 
                     }
                 });
+        ((BaseQuickAdapter)recyclerView.getAdapter()).setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                openPage(ShopDetailFragment.class);
+            }
+        });
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {

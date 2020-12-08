@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
 
 public class Goods extends BaseObservable implements Parcelable {
 
@@ -15,14 +14,32 @@ public class Goods extends BaseObservable implements Parcelable {
 
     private String price;
 
+    private int time_send;
+
     private String price_deliver;
     private String price_avg_per_man;
-    private String count_per_month;
+    private int count_per_month;
     private String score;
 
     public Goods() {
     }
 
+    public Goods(String name, int time_send, String goodsImgUrl, String price_deliver, int count_per_month, String score) {
+        this.name = name;
+        this.goodsImgUrl = goodsImgUrl;
+        this.time_send = time_send;
+        this.price_deliver = price_deliver;
+        this.count_per_month = count_per_month;
+        this.score = score;
+    }
+
+    public Goods(String name, String describe, String goodsImgUrl, String buyNum, String price) {
+        this.name = name;
+        this.details = describe;
+        this.goodsImgUrl = goodsImgUrl;
+        this.buyNum = buyNum;
+        this.price = price;
+    }
 
     protected Goods(Parcel in) {
         name = in.readString();
@@ -30,9 +47,10 @@ public class Goods extends BaseObservable implements Parcelable {
         goodsImgUrl = in.readString();
         buyNum = in.readString();
         price = in.readString();
+        time_send = in.readInt();
         price_deliver = in.readString();
         price_avg_per_man = in.readString();
-        count_per_month = in.readString();
+        count_per_month = in.readInt();
         score = in.readString();
     }
 
@@ -47,6 +65,14 @@ public class Goods extends BaseObservable implements Parcelable {
             return new Goods[size];
         }
     };
+
+    public int getTime_send() {
+        return time_send;
+    }
+
+    public void setTime_send(int time_send) {
+        this.time_send = time_send;
+    }
 
     public String getName() {
         return name;
@@ -108,11 +134,11 @@ public class Goods extends BaseObservable implements Parcelable {
         this.price_avg_per_man = price_avg_per_man;
     }
 
-    public String getCount_per_month() {
+    public int getCount_per_month() {
         return count_per_month;
     }
 
-    public void setCount_per_month(String count_per_month) {
+    public void setCount_per_month(int count_per_month) {
         this.count_per_month = count_per_month;
     }
 
@@ -123,7 +149,6 @@ public class Goods extends BaseObservable implements Parcelable {
     public void setScore(String score) {
         this.score = score;
     }
-
 
     @Override
     public int describeContents() {
@@ -137,9 +162,10 @@ public class Goods extends BaseObservable implements Parcelable {
         dest.writeString(goodsImgUrl);
         dest.writeString(buyNum);
         dest.writeString(price);
+        dest.writeInt(time_send);
         dest.writeString(price_deliver);
         dest.writeString(price_avg_per_man);
-        dest.writeString(count_per_month);
+        dest.writeInt(count_per_month);
         dest.writeString(score);
     }
 }

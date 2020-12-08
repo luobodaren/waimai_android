@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/interval_size_xs"
+    android:background="@color/shop_menbers_cardview_bg">
+
+    <com.xuexiang.xui.widget.imageview.RadiusImageView
+        android:id="@+id/iv_shopIcon"
+        android:layout_width="68px"
+        android:layout_height="68px"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_shop_members_card_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_normal"
+        android:textSize="28px"
+        android:layout_marginStart="16px"
+        android:drawablePadding="8px"
+        android:drawableLeft="@drawable/ic_members_card"
+        app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
+        app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+        tools:text="一点点会员阿卡"/>
+
+    <TextView
+        android:id="@+id/tv_shop_members_card_describe"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_normal"
+        android:textSize="22px"
+        app:layout_constraintStart_toStartOf="@id/tv_shop_members_card_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="新注册会员即可享受海量优惠"/>
+
+    <com.xuexiang.xui.widget.button.shadowbutton.ShadowButton
+        android:id="@+id/bt_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_sign_in_members"
+        android:textColor="@color/white"
+        android:textSize="22px"
+        android:background="@drawable/sr_bg_100radius_theme_color"
+        android:paddingStart="21px"
+        android:paddingEnd="21px"
+        android:paddingTop="11px"
+        android:paddingBottom="11px"
+        app:sb_radius="24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

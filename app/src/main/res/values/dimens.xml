@@ -60,4 +60,5 @@
     <dimen name="text_size_grid_header_right">26px</dimen>
     <dimen name="linkagePrimary_left_icon_width">6px</dimen>
     <dimen name="linkagePrimary_left_icon_height">30px</dimen>
+    <dimen name="shop_menbers_cardview_conners">10px</dimen>
 </resources>

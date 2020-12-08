@@ -3,14 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/interval_size_xs"
+    android:background="@drawable/sr_bg_16radius_white">
 
-    <ImageView
+    <com.example.myapplication.util.FilletImageView
         android:id="@+id/iv_goods_img"
+        android:scaleType="centerCrop"
         android:layout_width="342px"
         android:layout_height="342px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:filletImageRadius="16px"
+        app:topLeftRightCorner="true"/>
+
+    <TextView
+        android:id="@+id/tv_img_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:background="@drawable/sr_bg_8radius_translucent_gray"
+        android:textColor="@color/white"
+        android:textSize="22px"
+        android:layout_margin="16px"
+        android:paddingTop="7px"
+        android:paddingBottom="7px"
+        android:paddingStart="12px"
+        android:paddingEnd="12px"
+        app:layout_constraintBottom_toBottomOf="@id/iv_goods_img"
+        app:layout_constraintStart_toStartOf="@id/iv_goods_img"/>
 
     <TextView
         android:id="@+id/tv_goods_name"
@@ -36,6 +57,8 @@
         android:maxLines="1"
         android:textSize="24px"
         android:layout_marginTop="8px"
+        android:paddingStart="24px"
+        android:paddingEnd="24px"
         app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
         app:layout_constraintStart_toStartOf="@id/tv_goods_name"
         app:layout_constraintEnd_toEndOf="@id/tv_goods_name"/>

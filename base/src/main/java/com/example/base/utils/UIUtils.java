@@ -221,10 +221,18 @@ public class UIUtils {
         return verValue;
     }
 
+    /**
+     * 获得屏幕宽度
+     * @return
+     */
     public float getDisplayMetricsWidth() {
         return displayMetricsWidth;
     }
 
+    /**
+     * 获得屏幕高度
+     * @return
+     */
     public float getDisplayMetricsHeight() {
         return displayMetricsHeight;
     }
@@ -233,6 +241,10 @@ public class UIUtils {
         return scaledDensity;
     }
 
+    /**
+     * 获得状态栏高度
+     * @return
+     */
     public float getSystemBarHeight() {
         return systemBarHeight;
     }
@@ -262,4 +274,13 @@ public class UIUtils {
         return defaultValue;
     }
 
+    public int getViewMeasureWidth(View view) {
+        view.measure(0,0);
+        return view.getMeasuredWidth();
+    }
+
+    public int getViewMeasureHeight(View view) {
+        view.measure(0,0);
+        return view.getMeasuredHeight();
+    }
 }

@@ -10,12 +10,13 @@
     <com.example.base.views.UiAdapterLinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_bitmap_exclusive">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_exclusive"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </com.example.base.views.UiAdapterLinearLayout>
 </layout>

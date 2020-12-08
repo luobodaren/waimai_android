@@ -21,7 +21,6 @@ import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xui.utils.SnackbarUtils;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
 
 @Page(name = "全部分类", anim = CoreAnim.slide)
@@ -71,8 +70,7 @@ public class WaimaiTypeFragment extends BaseFragment implements
 
     @Override
     protected void onLifecycleResume() {
-        setFitStatusBarHeight(true);
-        setStatusBarMode();
+        changeStatusBarMode();
     }
 
     @Override
@@ -106,7 +104,7 @@ public class WaimaiTypeFragment extends BaseFragment implements
         RadiusImageView imageView = new RadiusImageView(getContext());
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(layoutParams);
-        imageView.setBackground(getResources().getDrawable(R.drawable.sr_card_view_white_bg));
+        imageView.setBackground(getResources().getDrawable(R.drawable.sr_bg_card_view_white));
         imageView.setCornerRadius(24);
         frameLayout.addView(imageView);
         Glide.with(this)

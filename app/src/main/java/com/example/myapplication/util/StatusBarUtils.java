@@ -11,9 +11,13 @@ import android.view.WindowManager;
 
 import androidx.annotation.ColorInt;
 
+import com.example.base.utils.LogUtil;
 import com.example.base.views.UiAdapterLinearLayout;
+import com.example.myapplication.R;
 import com.example.myapplication.mvvm.view.activity.BaseActivity;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
+
+import java.lang.reflect.Field;
 
 public class StatusBarUtils {
 
@@ -33,7 +37,7 @@ public class StatusBarUtils {
     }
 
     /**
-     * 需要布局最外层布局为LinerLayout且竖直排序
+     * 需要布局中存在id为content_view的垂直LinearLayout
      * 通过添加占位view实现
      * 配合状态栏透明，实现渐变式状态栏
      */
@@ -47,11 +51,18 @@ public class StatusBarUtils {
         rootView.setLayoutParams(layoutParams);*/
         //根布局添加占位状态栏
         ViewGroup decorView = (ViewGroup) baseActivity.getWindow().getDecorView();
+        ViewGroup contentView = decorView.findViewById(R.id.my_content_view);
+
+        if(contentView == null){
+            LogUtil.e("fitStatusBarHeight Fail，contentView == null");
+            return;
+        }
+
         View statusBarView = new View(baseActivity);
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 statusBarHeight);
         statusBarView.setBackgroundColor(Color.TRANSPARENT);
-        decorView.addView(statusBarView,0,lp);
+        contentView.addView(statusBarView,0,lp);
 /*        //添加占位view
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //5.0 以上直接设置状态栏颜色
@@ -73,15 +84,15 @@ public class StatusBarUtils {
      */
     public static void fitStatusBarHeight(BaseFragment baseFragment){
         int statusBarHeight = com.xuexiang.xui.utils.StatusBarUtils.getStatusBarHeight(baseFragment.getContext());
-//
         ViewGroup rootView = (ViewGroup) baseFragment.getRootView();
+        ViewGroup contentView = rootView.findViewById(R.id.content_view);
 
 //        根布局添加占位状态栏
         View statusBarView = new View(baseFragment.getContext());
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 statusBarHeight);
         statusBarView.setBackgroundColor(Color.TRANSPARENT);
-        rootView.addView(statusBarView,0,lp);
+        contentView.addView(statusBarView,0,lp);
         //设置 paddingTop
 //        ViewGroup rootView = (ViewGroup) baseFragment.getRootView();
 //
@@ -128,4 +139,5 @@ public class StatusBarUtils {
     public static void showStatusBar(Window window) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); //显示状态栏
     }
+
 }

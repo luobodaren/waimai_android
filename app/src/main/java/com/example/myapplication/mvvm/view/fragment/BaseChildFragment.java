@@ -11,7 +11,7 @@ public abstract class BaseChildFragment extends BaseFragment {
     }
 
     @Override
-    protected void setStatusBarMode() {
+    protected void changeStatusBarMode() {
 
     }
 

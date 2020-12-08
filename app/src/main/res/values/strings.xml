@@ -24,5 +24,14 @@
     <string name="message_swipe_item1">置顶</string>
     <string name="message_swipe_item2">删除</string>
 
+    <string name="arrive_in_minutes">%s分钟送达</string>
+    <string name="price_of_sending">￥%s起送</string>
+    <string name="sale_count_a_month">月售%d</string>
+    <string name="score">评分</string>
+    <string name="number_of_fans">粉丝数%s万</string>
+    <string name="announcement">公告：%s</string>
+    <string name="more_preferential">%d个优惠</string>
+    <string name="tv_sign_in_members">入会有礼</string>
+
 
 </resources>

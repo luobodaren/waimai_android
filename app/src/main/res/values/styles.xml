@@ -38,7 +38,7 @@
     </style>
 
     <style name="login_bt_by_other" parent="button_login_base">
-        <item name="android:background">@drawable/sr_bt_1dp_50radius_stroke</item>
+        <item name="android:background">@drawable/sr_bt_1px_50radius_stroke</item>
         <item name="android:layout_marginTop">@dimen/interval_size_s</item>
         <item name="android:text">@string/login_by_other</item>
     </style>
@@ -111,14 +111,14 @@
         <item name="android:text">@string/get_verification</item>
         <item name="sSelectorNormalColor">@color/transparent</item>
         <item name="sSelectorPressedColor">@color/gray</item>
-        <item name="android:background">@drawable/sr_bt_1dp_50radius_stroke</item>
+        <item name="android:background">@drawable/sr_bt_1px_50radius_stroke</item>
         <item name="android:layout_marginBottom">@dimen/login_bt_getVerification_marginBottom</item>
     </style>
 
     <style name="main_tab_bottom">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/main_tab_height</item>
-        <item name="android:background">@drawable/sr_main_tab_bg_panel</item>
+        <item name="android:background">@drawable/sr_bg_main_tab_panel</item>
         <item name="android:textSize">22px</item>
     </style>
 
@@ -156,6 +156,12 @@
     <style name="TabText">
         <item name="android:textColor">@color/text_normal</item>
         <item name="android:textSize">@dimen/font_size_36</item>
+    </style>
+
+    <style name="score_stat">
+        <item name="android:layout_width">20px</item>
+        <item name="android:layout_height">20px</item>
+        <item name="android:layout_marginStart">2px</item>
     </style>
 
 </resources>

@@ -88,19 +88,25 @@ public abstract class BaseFragment extends XPageFragment {
                 LogUtil.d(getPageTitle() + event.name());
                 switch (event){
                     case ON_CREATE:
+                        onLifecycleCreate();
                         break;
                     case ON_START:
+                        onLifecycleStart();
                         break;
                     case ON_RESUME:
                         onLifecycleResume();
                         break;
                     case ON_PAUSE:
+                        onLifecyclePause();
                         break;
                     case ON_STOP:
+                        onLifecycleStop();
                         break;
                     case ON_DESTROY:
+                        onLifecycleDestroy();
                         break;
                     case ON_ANY:
+                        onLifecycleAny();
                         break;
                 }
             }
@@ -136,7 +142,7 @@ public abstract class BaseFragment extends XPageFragment {
 
     public void setmStatusBarLightMode(int mStatusBarLightMode) {
         this.mStatusBarLightMode = mStatusBarLightMode;
-//        setStatusBarMode();
+//        changeStatusBarMode();
     }
 
 
@@ -152,7 +158,7 @@ public abstract class BaseFragment extends XPageFragment {
      * fragment显示的监听
      */
     protected void onFragmentShow(){
-        setStatusBarMode();
+        changeStatusBarMode();
         setStatusBarShowByType(mStatusBarShowType);
     }
 
@@ -187,7 +193,7 @@ public abstract class BaseFragment extends XPageFragment {
         }
     }
 
-    protected void setStatusBarMode() {
+    protected void changeStatusBarMode() {
         if(mStatusBarLightMode == StatusBarUtils.STATUS_BAR_MODE_LIGHT){
             StatusBarUtils.setStatusBarLightMode(getActivity());
             LogUtil.d(getPageTitle() + " 状态栏 setLightMode");
@@ -207,7 +213,7 @@ public abstract class BaseFragment extends XPageFragment {
     protected void onLifecycleCreate(){}
     protected void onLifecycleStart(){}
     protected void onLifecycleResume(){}
-    protected void onLifecyclePuase(){}
+    protected void onLifecyclePause(){}
     protected void onLifecycleStop(){}
     protected void onLifecycleDestroy(){}
     protected void onLifecycleAny(){}

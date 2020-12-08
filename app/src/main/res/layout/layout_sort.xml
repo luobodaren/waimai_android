@@ -40,11 +40,17 @@
             android:text="销量"/>
     </LinearLayout>
 
+    <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+        android:id="@+id/flowlayout_preferential"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="@dimen/interval_size_xs">
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +60,7 @@
             android:paddingBottom="16px"
             android:paddingStart="24px"
             android:paddingEnd="24px"
-            android:background="@drawable/sr_main_tab_bg_panel"
+            android:background="@drawable/sr_bg_main_tab_panel"
             android:textSize="20px"
             android:textColor="@color/text_uncheck"
             android:text="津贴优惠"/>
@@ -67,7 +73,7 @@
             android:paddingBottom="16px"
             android:paddingStart="24px"
             android:paddingEnd="24px"
-            android:background="@drawable/sr_main_tab_bg_panel"
+            android:background="@drawable/sr_bg_main_tab_panel"
             android:textSize="20px"
             android:textColor="@color/text_uncheck"
             android:text="津贴优惠"/>
@@ -80,7 +86,7 @@
             android:paddingBottom="16px"
             android:paddingStart="24px"
             android:paddingEnd="24px"
-            android:background="@drawable/sr_main_tab_bg_panel"
+            android:background="@drawable/sr_bg_main_tab_panel"
             android:textSize="20px"
             android:textColor="@color/text_uncheck"
             android:text="津贴优惠"/>
@@ -93,7 +99,7 @@
             android:paddingBottom="16px"
             android:paddingStart="24px"
             android:paddingEnd="24px"
-            android:background="@drawable/sr_main_tab_bg_panel"
+            android:background="@drawable/sr_bg_main_tab_panel"
             android:textSize="20px"
             android:textColor="@color/text_uncheck"
             android:text="津贴优惠"/>

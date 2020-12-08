@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,7 +27,6 @@ import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xpage.utils.TitleUtils;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.popupwindow.PopWindow;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
@@ -118,7 +116,7 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void onLifecycleResume() {
         super.onLifecycleResume();
-        setStatusBarMode();
+        changeStatusBarMode();
     }
 
     @Override

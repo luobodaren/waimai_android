@@ -1,7 +1,6 @@
 package com.example.myapplication.util;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -11,15 +10,16 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+
 
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
 
-public class TopRadiusImageView extends AppCompatImageView {
+public class FilletImageView extends AppCompatImageView {
 
     //最后确认的宽高
     private RectF drawRectF;
@@ -28,15 +28,15 @@ public class TopRadiusImageView extends AppCompatImageView {
     private BitmapShader bitmapShader;
     private boolean topLeftRightCorner,bottomLeftRightCorner;//定义上面与下面的是否为圆角
     private int radius = 5;
-    public TopRadiusImageView(Context context) {
+    public FilletImageView(Context context) {
         this(context,null);
     }
 
-    public TopRadiusImageView(Context context, AttributeSet attrs) {
+    public FilletImageView(Context context, AttributeSet attrs) {
         this(context, attrs,0);
     }
 
-    public TopRadiusImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FilletImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context,attrs);
     }
@@ -45,12 +45,11 @@ public class TopRadiusImageView extends AppCompatImageView {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FilletImageView);
         topLeftRightCorner = typedArray.getBoolean(R.styleable.FilletImageView_topLeftRightCorner,false);
         bottomLeftRightCorner = typedArray.getBoolean(R.styleable.FilletImageView_bottomLeftRightCorner,false);
-        radius = typedArray.getInt(R.styleable.FilletImageView_filletImageRadius,5);
+        radius = typedArray.getDimensionPixelOffset(R.styleable.FilletImageView_filletImageRadius,16);
         typedArray.recycle();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         matrix = new Matrix();
-        radius = UIUtils.dpTopx(radius);
     }
 
     public int getRadius() {
@@ -65,20 +64,17 @@ public class TopRadiusImageView extends AppCompatImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
+
         //创建一个和原图大小的图片
         if (this.getDrawable() == null){
             return;
         }
-
-        //创建一个和原图大小的图片
-        long startTime = System.currentTimeMillis(); //起始时间
         Bitmap sourceBitMap = ((BitmapDrawable)this.getDrawable()).getBitmap();
         if (sourceBitMap == null){
             return;
         }
-        long endTime = System.currentTimeMillis(); //结束时间
-        long runTime = endTime - startTime;
-        LogUtil.i(String.format("方法使用时间 %d ms", runTime));
+        //创建一个和原图大小的图片
+        sourceBitMap = ((BitmapDrawable)this.getDrawable()).getBitmap();
 
         //BitmapShader 为着色器
         bitmapShader = new BitmapShader(sourceBitMap, Shader.TileMode.CLAMP,Shader.TileMode.CLAMP);
@@ -112,6 +108,13 @@ public class TopRadiusImageView extends AppCompatImageView {
             //右边顶部
             canvas.drawRect(canvas.getWidth() - radius,0,canvas.getWidth(),radius,mPaint);
         }
+    }
+
+    private Bitmap drawableToBitamp(Drawable drawable)
+    {
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        return Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
     }
 
 }

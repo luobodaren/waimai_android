@@ -13,6 +13,8 @@
     <color name="background">#f8f8f8</color>
     <color name="divider">#E6E6E6</color>
 
+    <color name="bg_80_black">#80000000</color>
+
     <color name="text_normal">#333333</color>
     <color name="text_uncheck">#666666</color>
     <color name="text_tip">#999999</color>
@@ -44,4 +46,5 @@
     <color name="linkage_primary_item_bg_selected">#FFFFFF</color>
 
     <color name="score_text">#FF3B30</color>
+    <color name="shop_menbers_cardview_bg">#FFFFF0E7</color>
 </resources>

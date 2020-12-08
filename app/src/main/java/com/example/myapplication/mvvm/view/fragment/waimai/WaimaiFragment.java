@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
@@ -194,6 +195,12 @@ public class WaimaiFragment extends BaseFragment {
         FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
 
         MyBaseRecyclerAdapter<ExclusiveShopData> adapter = getExclusiveRecyclerAdapter();
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                openPage(WaimaiExclusiveFragment.class);
+            }
+        });
 
         View view = View.inflate(getContext(),R.layout.head_cart_view,null);
         ((TextView)view.findViewById(R.id.left_text)).setText("专属早餐");

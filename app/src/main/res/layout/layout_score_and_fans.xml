@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_normal"
+        android:textSize="20px"
+        android:text="@string/score"/>
+
+    <ImageView
+        android:id="@+id/iv_star_1"
+        android:layout_width="20px"
+        android:layout_height="20px"
+        android:layout_marginStart="9px"
+        android:src="@drawable/ic_star_red"/>
+    <ImageView
+        android:id="@+id/iv_star_2"
+        style="@style/score_stat"
+        android:src="@drawable/ic_star_red"/>
+    <ImageView
+        android:id="@+id/iv_star_3"
+        style="@style/score_stat"
+        android:src="@drawable/ic_star_red"/>
+    <ImageView
+        android:id="@+id/iv_star_4"
+        style="@style/score_stat"
+        android:src="@drawable/ic_star_red"/>
+    <ImageView
+        android:id="@+id/iv_star_5"
+        style="@style/score_stat"
+        android:src="@drawable/ic_star_gray"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_normal"
+        android:textSize="20px"
+        android:layout_marginStart="24px"
+        android:text="@string/number_of_fans"/>
+</LinearLayout>
