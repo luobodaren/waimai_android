@@ -20,6 +20,7 @@ import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageFragment;
+import com.xuexiang.xpage.utils.TitleBar;
 
 @Page
 public abstract class BaseFragment extends XPageFragment {
@@ -65,6 +66,11 @@ public abstract class BaseFragment extends XPageFragment {
         initViews();
         initListeners();
 
+    }
+
+    @Override
+    protected TitleBar initTitleBar() {
+        return super.initTitleBar();
     }
 
     @Override
@@ -117,7 +123,9 @@ public abstract class BaseFragment extends XPageFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mHandler.removeCallbacksAndMessages(null);
+        if(mHandler != null){
+            mHandler.removeCallbacksAndMessages(null);
+        }
     }
 
     @Override

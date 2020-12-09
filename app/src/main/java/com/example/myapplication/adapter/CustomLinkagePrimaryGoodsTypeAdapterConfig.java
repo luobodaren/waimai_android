@@ -19,19 +19,15 @@ package com.example.myapplication.adapter;
 
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
-import com.example.myapplication.bean.ElemeGroupedItem;
+import com.example.myapplication.listener.OnPrimaryItemClickListener;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
@@ -45,7 +41,7 @@ import java.lang.ref.WeakReference;
  * @author xuexiang
  * @since 2019-11-25 17:17
  */
-public class  CustomLinkagePrimaryAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkagePrimaryAdapterConfig {
+public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkagePrimaryAdapterConfig {
 
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;
     private static final int MARQUEE_REPEAT_NONE_MODE = 0;
@@ -54,12 +50,12 @@ public class  CustomLinkagePrimaryAdapterConfig<T extends BaseGroupedItem.ItemIn
 
     private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
 
-    public CustomLinkagePrimaryAdapterConfig(OnPrimaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
+    public CustomLinkagePrimaryGoodsTypeAdapterConfig(OnPrimaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
         mItemClickListener = itemClickListener;
         mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
     }
 
-    public CustomLinkagePrimaryAdapterConfig setOnItemClickListner(OnPrimaryItemClickListener itemClickListener) {
+    public CustomLinkagePrimaryGoodsTypeAdapterConfig setOnItemClickListner(OnPrimaryItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
         return this;
     }
@@ -129,14 +125,4 @@ public class  CustomLinkagePrimaryAdapterConfig<T extends BaseGroupedItem.ItemIn
         }
     }
 
-    public interface OnPrimaryItemClickListener {
-        /**
-         * we suggest you get position by holder.getAdapterPosition
-         *
-         * @param holder primaryHolder
-         * @param view   view
-         * @param title  groupTitle
-         */
-        void onPrimaryItemClick(LinkagePrimaryViewHolder holder, View view, String title);
-    }
 }

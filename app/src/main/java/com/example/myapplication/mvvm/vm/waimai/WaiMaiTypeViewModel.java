@@ -1,7 +1,7 @@
 package com.example.myapplication.mvvm.vm.waimai;
 
 import com.example.base.utils.GsonUtil;
-import com.example.myapplication.bean.ElemeGroupedItem;
+import com.example.myapplication.bean.LinkageGroupedItemWaimaiType;
 import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.waimai.WaiMaiTypeModel;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
@@ -13,7 +13,7 @@ import java.util.List;
 public class WaiMaiTypeViewModel extends BaseViewModel {
 
     WaiMaiTypeModel model;
-    List<ElemeGroupedItem> waimaiTypeList = new ArrayList<>();
+    List<LinkageGroupedItemWaimaiType> waimaiTypeList = new ArrayList<>();
 
     @Override
     public BaseModel getModel() {
@@ -28,7 +28,7 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
 
     }
 
-    public List<BaseGroupedItem<ElemeGroupedItem.ItemInfo>> getElemeGroupItems() {
+    public List<BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo>> getElemeGroupItems() {
         String dataJson = "[\n" +
                 "  {\n" +
                 "    \"header\": \"优惠\",\n" +
@@ -65,7 +65,7 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"翅\"  } }," +
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤\"  } }" +
                 "]" ;
-        waimaiTypeList =  GsonUtil.jsonToList(dataJson,  ElemeGroupedItem.class);
+        waimaiTypeList =  GsonUtil.jsonToList(dataJson,  LinkageGroupedItemWaimaiType.class);
         return (List)waimaiTypeList;
     }
 

@@ -1,101 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/sr_bg_card_view_white"
-        android:layout_marginTop="18px"
-        android:padding="24px"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:id="@+id/tv_shopName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="36px"
-            android:textColor="@color/text_normal"
-            android:includeFontPadding="false"
-            android:layout_marginTop="8px"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content">
 
-        <include layout="@layout/layout_score_and_fans"
-            android:id="@+id/layout_score_and_fans"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16px"
-            app:layout_constraintTop_toBottomOf="@id/tv_shopName"
-            app:layout_constraintStart_toStartOf="@id/tv_shopName"/>
-
-        <TextView
-            android:id="@+id/tv_shop_describe_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textSize="20px"
-            android:textColor="@color/text_tip"
-            android:maxLines="1"
-            android:maxWidth="500px"
-            android:ellipsize="end"
-            app:layout_constraintStart_toStartOf="@id/tv_shopName"
-            app:layout_constraintTop_toBottomOf="@id/layout_score_and_fans"/>
-
-        <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
-            android:id="@+id/flowlayout_discount"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/tv_shopName"
-            app:layout_constraintTop_toBottomOf="@id/tv_shop_describe_1"/>
+            android:background="@drawable/sr_bg_card_view_white"
+            android:layout_marginTop="18px"
+            android:padding="24px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/tv_shop_announcement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textSize="22px"
-            android:textColor="@color/text_tip"
-            android:maxLines="1"
-            android:maxWidth="540px"
-            android:ellipsize="end"
-            android:text="@string/announcement"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@id/tv_shopName"
-            app:layout_constraintEnd_toStartOf="@id/tv_more_preferential"
-            app:layout_constraintTop_toBottomOf="@id/flowlayout_discount"/>
+            <TextView
+                android:id="@+id/tv_shopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="36px"
+                android:textColor="@color/text_normal"
+                android:includeFontPadding="false"
+                android:layout_marginTop="8px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_more_preferential"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textSize="22px"
-            android:textColor="@color/text_tip"
-            android:maxLines="1"
-            android:maxWidth="540px"
-            android:drawableRight="@drawable/ic_arrow_down_gray"
-            android:drawablePadding="8px"
-            android:text="@string/more_preferential"
-            app:layout_constraintStart_toEndOf="@id/tv_shop_announcement"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_shop_announcement"
-            />
+            <com.example.myapplication.views.ScoreView
+                android:id="@+id/layout_score_and_fans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16px"
+                app:layout_constraintTop_toBottomOf="@id/tv_shopName"
+                app:layout_constraintStart_toStartOf="@id/tv_shopName"/>
+
+            <TextView
+                android:id="@+id/tv_shop_describe_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_marginTop="16px"
+                android:textSize="20px"
+                android:textColor="@color/text_tip"
+                android:maxLines="1"
+                android:maxWidth="500px"
+                android:ellipsize="end"
+                app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                app:layout_constraintTop_toBottomOf="@id/layout_score_and_fans" />
+
+            <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+                android:id="@+id/flowlayout_cash_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                app:layout_constraintTop_toBottomOf="@id/tv_shop_describe_1" />
+
+            <TextView
+                android:id="@+id/tv_shop_announcement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:includeFontPadding="false"
+                android:textSize="22px"
+                android:textColor="@color/text_tip"
+                android:maxLines="1"
+                android:maxWidth="540px"
+                android:ellipsize="end"
+                android:text="@string/announcement"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                app:layout_constraintEnd_toStartOf="@id/tv_more_preferential"
+                app:layout_constraintTop_toBottomOf="@id/flowlayout_cash_back" />
+
+            <TextView
+                android:id="@+id/tv_more_preferential"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="22px"
+                android:textColor="@color/text_tip"
+                android:maxLines="1"
+                android:maxWidth="540px"
+                android:drawableRight="@drawable/ic_arrow_down_gray"
+                android:drawablePadding="8px"
+                android:text="@string/more_preferential"
+                app:layout_constraintStart_toEndOf="@id/tv_shop_announcement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_shop_announcement" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_shopIcon"
+            android:layout_width="130px"
+            android:layout_height="130px"
+            android:layout_marginEnd="24px"
+            app:riv_corner_radius="16px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.xuexiang.xui.widget.imageview.RadiusImageView
-        android:id="@+id/iv_shopIcon"
-        android:layout_width="130px"
-        android:layout_height="130px"
-        android:layout_marginEnd="24px"
-        app:riv_corner_radius="16px"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

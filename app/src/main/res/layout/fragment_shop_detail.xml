@@ -11,6 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <ImageView
@@ -19,64 +20,74 @@
             android:src="@drawable/png_bg_shop_top"
             android:adjustViewBounds="true" />
 
-        <LinearLayout
-            android:id="@+id/my_content_view"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical">
-            <!--        占位view高度需要计算需要计算 -->
+            android:layout_height="match_parent">
 
-            <include
-                layout="@layout/title_shop_details"
+            <LinearLayout
+                android:id="@+id/my_content_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/top_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="47px">
+                android:orientation="vertical">
+                <!--        占位view高度需要计算需要计算 -->
 
                 <include
-                    layout="@layout/layout_shop_head_details"
+                    layout="@layout/title_shop_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24px"
-                    android:layout_marginEnd="24px" />
+                    android:layout_alignParentTop="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/top_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="47px">
 
-            <include
-                android:id="@+id/layout_members"
-                layout="@layout/layout_shop_members_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="24px" />
+                    <include
+                        android:id="@+id/layout_shop_details"
+                        layout="@layout/layout_shop_head_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/interval_size_xs"
+                        android:layout_marginEnd="@dimen/interval_size_xs" />
 
-            <com.xuexiang.xui.widget.tabbar.TabSegment
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.xuexiang.xui.widget.banner.recycler.BannerLayout
-                android:id="@+id/bl_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="180px"
-                app:bl_autoPlaying="true"
-                app:bl_centerScale="1.3"
-                app:bl_itemSpace="10dp"
-                app:bl_moveSpeed="1.8" />
+                <include
+                    android:id="@+id/layout_members"
+                    layout="@layout/layout_shop_members_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/interval_size_xs" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                <com.xuexiang.xui.widget.tabbar.TabSegment
+                    android:id="@+id/tab_layout"
+                    style="@style/shopDetailTabSegment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tabbar_height"/>
 
-        </LinearLayout>
+                <com.xuexiang.xui.widget.banner.recycler.BannerLayout
+                    android:id="@+id/bl_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="180px"
+                    android:layout_marginTop="20px"
+                    app:bl_autoPlaying="true"
+                    app:bl_centerScale="1"
+                    app:bl_itemSpace="20px"
+                    app:bl_moveSpeed="1.8" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="500px"
+                    android:layout_marginTop="@dimen/interval_size_xs"/>
+
+            </LinearLayout>
+
+        </ScrollView>
 
 
     </FrameLayout>

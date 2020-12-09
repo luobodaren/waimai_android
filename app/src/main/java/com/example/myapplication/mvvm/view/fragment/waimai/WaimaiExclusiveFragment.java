@@ -26,7 +26,7 @@ import com.example.myapplication.databinding.FragmentExclusiveBinding;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaimaiExclusiveViewModel;
-import com.example.myapplication.util.FilletImageView;
+import com.example.myapplication.views.FilletImageView;
 import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.views.widget.StaggeredDividerItemDecoration;
 import com.xuexiang.xpage.annotation.Page;

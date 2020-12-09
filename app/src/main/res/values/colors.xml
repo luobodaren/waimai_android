@@ -4,7 +4,9 @@
     <color name="colorTheme">#FE4036</color>
     <!-- colorAssist 辅助色 -->
     <color name="colorAssist">#F84500</color>
-    <color name="colorTheme_60_percent">#4DFE4036</color>
+    <color name="colorTheme_60_percent">#99FE4036</color>
+    <color name="colorTheme_50_percent">#80FE4036</color>
+    <color name="colorTheme_30_percent">#4DFE4036</color>
     <color name="colorTheme_10_percent">#1AF84500</color>
 
     <color name="colorTheme_gradient_start">#FF9468</color>

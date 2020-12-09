@@ -19,16 +19,14 @@ package com.example.myapplication.bean;
 
 import com.kunminx.linkage.bean.BaseGroupedItem;
 
-import java.util.List;
-
-public class ElemeGroupedItem extends BaseGroupedItem<ElemeGroupedItem.ItemInfo> {
+public class LinkageGroupedItemWaimaiType extends BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> {
 
 
-    public ElemeGroupedItem(boolean isHeader, String header) {
+    public LinkageGroupedItemWaimaiType(boolean isHeader, String header) {
         super(isHeader, header);
     }
 
-    public ElemeGroupedItem(ItemInfo info) {
+    public LinkageGroupedItemWaimaiType(ItemInfo info) {
         super(info);
     }
 

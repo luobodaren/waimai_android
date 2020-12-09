@@ -22,7 +22,8 @@
             android:paddingStart="24px"
             android:paddingEnd="24px"
             android:layout_marginBottom="24px"
-            android:layout_height="168px"/>
+            android:layout_height="168px"
+            android:visibility="gone"/>
 
         <FrameLayout
             android:id="@+id/level_2"

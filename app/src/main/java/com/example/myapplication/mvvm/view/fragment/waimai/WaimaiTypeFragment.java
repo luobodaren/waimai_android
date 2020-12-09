@@ -6,10 +6,12 @@ import android.widget.FrameLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.CustomLinkagePrimaryAdapterConfig;
-import com.example.myapplication.adapter.ElemeSecondaryAdapterConfig;
-import com.example.myapplication.bean.ElemeGroupedItem;
+import com.example.myapplication.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
+import com.example.myapplication.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
+import com.example.myapplication.bean.LinkageGroupedItemWaimaiType;
 import com.example.myapplication.databinding.FragmentWaimaiAllTypeBinding;
+import com.example.myapplication.listener.OnPrimaryItemClickListener;
+import com.example.myapplication.listener.OnSecondaryItemClickListener;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaiMaiTypeViewModel;
@@ -25,8 +27,8 @@ import com.xuexiang.xui.widget.imageview.RadiusImageView;
 
 @Page(name = "全部分类", anim = CoreAnim.slide)
 public class WaimaiTypeFragment extends BaseFragment implements
-        CustomLinkagePrimaryAdapterConfig.OnPrimaryItemClickListener,
-        ElemeSecondaryAdapterConfig.OnSecondaryItemClickListener{
+        OnPrimaryItemClickListener,
+        OnSecondaryItemClickListener {
 
     private FragmentWaimaiAllTypeBinding mBinding;
     private WaiMaiTypeViewModel mViewModel;
@@ -80,22 +82,19 @@ public class WaimaiTypeFragment extends BaseFragment implements
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
-                                     BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
+                                     BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 //        SnackbarUtils.Short(view, item.info.getTitle()).show();
     }
 
-    @Override
-    public void onGoodAdd(View view, BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
-//        SnackbarUtils.Short(view, "添加：" + item.info.getTitle()).show();
-    }
 
     private void initLinkageRecycler(){
-        LinkageRecyclerView<ElemeGroupedItem.ItemInfo> linkage = mBinding.linkageWaimaiType;
+        LinkageRecyclerView<LinkageGroupedItemWaimaiType.ItemInfo> linkage = mBinding.linkageWaimaiType;
         FrameLayout rightTopCustomView = linkage.findViewById(R.id.right_top_custom);
+        rightTopCustomView.setVisibility(View.VISIBLE);
         initRightTopCustomView(rightTopCustomView);
         linkage.init(mViewModel.getElemeGroupItems(),
-                new CustomLinkagePrimaryAdapterConfig<>(this,linkage),
-                new ElemeSecondaryAdapterConfig(this));
+                new CustomLinkagePrimaryGoodsTypeAdapterConfig<>(this,linkage),
+                new CustomLinkageSecondaryGoodsTypeAdapterConfig(this));
         linkage.setGridMode(true);
 
     }

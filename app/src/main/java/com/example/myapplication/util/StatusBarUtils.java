@@ -54,7 +54,7 @@ public class StatusBarUtils {
         ViewGroup contentView = decorView.findViewById(R.id.my_content_view);
 
         if(contentView == null){
-            LogUtil.e("fitStatusBarHeight Fail，contentView == null");
+            LogUtil.e("Activity FitStatusBarHeight Fail，contentView == null");
             return;
         }
 
@@ -86,6 +86,11 @@ public class StatusBarUtils {
         int statusBarHeight = com.xuexiang.xui.utils.StatusBarUtils.getStatusBarHeight(baseFragment.getContext());
         ViewGroup rootView = (ViewGroup) baseFragment.getRootView();
         ViewGroup contentView = rootView.findViewById(R.id.content_view);
+
+        if(contentView == null){
+            LogUtil.e("Fragment FitStatusBarHeight Fail，contentView == null");
+            return;
+        }
 
 //        根布局添加占位状态栏
         View statusBarView = new View(baseFragment.getContext());

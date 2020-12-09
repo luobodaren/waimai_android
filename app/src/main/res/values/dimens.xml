@@ -50,6 +50,9 @@
     <dimen name="waimai_tabbar_item_space">40px</dimen>
     <dimen name="waimai_tabbar_item_text_size_selected">36px</dimen>
     <dimen name="waimai_tabbar_item_text_size">32px</dimen>
+    
+    <dimen name="waimai_shop_tabbar_item_space">80px</dimen>
+    <dimen name="waimai_shop_tabbar_item_text_size_selected">@dimen/font_size_30</dimen>
 
     <dimen name="message_recycler_swipe_width">100px</dimen> <!-- 菜单侧滑宽度 -->
 
@@ -61,4 +64,9 @@
     <dimen name="linkagePrimary_left_icon_width">6px</dimen>
     <dimen name="linkagePrimary_left_icon_height">30px</dimen>
     <dimen name="shop_menbers_cardview_conners">10px</dimen>
+
+    <dimen name="shop_goods_text_size_grid_item">20px</dimen>
+    <dimen name="shop_goods_text_size_grid_header">30px</dimen>
+    <dimen name="shop_goods_text_size_grid_header_right">22px</dimen>
+    <dimen name="linkagePrimary_top_icon_size">46px</dimen>
 </resources>

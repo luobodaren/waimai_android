@@ -10,7 +10,7 @@ import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 public class SearchRecordTagWaimaiAdapter extends BaseRecyclerAdapter<SearchRecord> {
     @Override
     protected int getItemLayoutId(int viewType) {
-        return R.layout.adapter_waimai_search_record_tag_item;
+        return R.layout.adapter_tag_item_waimai_search_record;
     }
 
     @Override

@@ -18,21 +18,21 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.bean.ElemeGroupedItem;
+import com.example.myapplication.bean.LinkageGroupedItemWaimaiType;
+import com.example.myapplication.listener.OnSecondaryItemClickListener;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 
-public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConfig<ElemeGroupedItem.ItemInfo> {
+public class CustomLinkageSecondaryShopGoodsAdapterConfig implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemWaimaiType.ItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
@@ -40,11 +40,11 @@ public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConf
 
     private OnSecondaryItemClickListener mItemClickListener;
 
-    public ElemeSecondaryAdapterConfig(OnSecondaryItemClickListener itemClickListener) {
+    public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 
-    public ElemeSecondaryAdapterConfig setOnItemClickListner(OnSecondaryItemClickListener itemClickListener) {
+    public CustomLinkageSecondaryShopGoodsAdapterConfig setOnItemClickListner(OnSecondaryItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
         return this;
     }
@@ -66,7 +66,7 @@ public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConf
 
     @Override
     public int getHeaderLayoutId() {
-        return R.layout.adapter_waimai_secondary_header;
+        return R.layout.adapter_waimai_secondary_header_shop_goods;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConf
 
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
-                                 final BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
+                                 final BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 
         ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
         Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
@@ -97,33 +97,19 @@ public class ElemeSecondaryAdapterConfig implements ILinkageSecondaryAdapterConf
                 mItemClickListener.onSecondaryItemClick(holder, viewGroup, item);
             }
         });
-
-//        holder.getView(R.id.iv_goods_add).setOnClickListener(v -> {
-//            if (mItemClickListener != null) {
-//                mItemClickListener.onGoodAdd(v, item);
-//            }
-//        });
     }
 
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
-                                       BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
     }
 
     @Override
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
-                                       BaseGroupedItem<ElemeGroupedItem.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 
     }
 
-
-    public interface OnSecondaryItemClickListener {
-
-        void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<ElemeGroupedItem.ItemInfo> item);
-
-        void onGoodAdd(View view, BaseGroupedItem<ElemeGroupedItem.ItemInfo> item);
-
-    }
 }

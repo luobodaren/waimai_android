@@ -153,12 +153,12 @@
                         android:layout_marginTop="16px"
                         android:overScrollMode="never"/>
 
-                    <com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner
+                    <com.example.myapplication.views.MySimpleImageBanner
                         android:id="@+id/simpleImageBanner"
                         android:layout_width="match_parent"
                         android:layout_height="172px"
                         android:layout_marginTop="24px"
-                        app:bb_scale="0.5625" />
+                        app:bb_scale="0.2450" />
                 </LinearLayout>
 
                 <!--                    <com.meetsl.scardview.SCardView-->
@@ -293,7 +293,7 @@
         <!--TabLayout-->
         <com.xuexiang.xui.widget.tabbar.TabSegment
             android:id="@+id/tab_layout"
-            style="@style/waimaiRecommendedTab"
+            style="@style/waimaiRecommendedTabSegment"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:paddingTop="40px"

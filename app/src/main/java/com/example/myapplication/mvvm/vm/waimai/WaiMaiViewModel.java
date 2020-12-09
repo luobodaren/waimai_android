@@ -123,11 +123,11 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     private void initBannerList(){
         BannerItem bannerItem1 = new BannerItem();
-        bannerItem1.setImgUrl("https://chinese.aljazeera.net/wp-content/uploads/2020/02/8bbea808-13f9-4466-b2a5-2a8207989cf6.jpeg");
+        bannerItem1.setImgUrl("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2515911597,1913645471&fm=26&gp=0.jpg");
         BannerItem bannerItem2 = new BannerItem();
-        bannerItem2.setImgUrl("http://5b0988e595225.cdn.sohucs.com/images/20190130/314cbd6c9c5c496297e45f518ea0aee1.jpeg");
+        bannerItem2.setImgUrl("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg");
         BannerItem bannerItem3 = new BannerItem();
-        bannerItem3.setImgUrl("https://pimage.cqcb.com/d/file/wealth/2019-12-26/0b069da3298226a21a2d553ad6a89c80.jpg");
+        bannerItem3.setImgUrl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2755313968,2418553549&fm=26&gp=0.jpg");
         mBannerItemList.add(bannerItem1);
         mBannerItemList.add(bannerItem2);
         mBannerItemList.add(bannerItem3);

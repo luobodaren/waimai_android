@@ -40,6 +40,7 @@ import com.example.myapplication.mvvm.vm.waimai.WaiMaiViewModel;
 import com.example.myapplication.util.DataBindingUtils;
 import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.util.Utils;
+import com.example.myapplication.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -373,7 +374,6 @@ public class WaimaiFragment extends BaseFragment {
         tabSegment.reset();
         resetTab(tabSegment,titles,position,false);
 
-
         tabSegment.setTabTextSize(textSizeSelected);
         refreshSortType(position);
         tabSegment.notifyDataChanged();
@@ -383,7 +383,7 @@ public class WaimaiFragment extends BaseFragment {
                         String[] titles){
         boolean isFirstItem = true;
         for (String title : titles) {
-            TabSegment.Tab tab = new TabSegment.Tab(title);
+            MyTabSegmentTab tab = new MyTabSegmentTab(title);
             if(isFirstItem){
                 tab.setTextSize(textSizeSelected);
                 isFirstItem = false;
@@ -406,7 +406,7 @@ public class WaimaiFragment extends BaseFragment {
                           int selectedPosition, boolean isFirstAdd){
         int position = 0;
         for (String title : titles) {
-            TabSegment.Tab tab = new TabSegment.Tab(title);
+            MyTabSegmentTab tab = new MyTabSegmentTab(title);
             if(position == selectedPosition){
                 tab.setTextSize(isFirstAdd ? textSizeSelected :
                         (int) (textSizeSelected * UIUtils.getInstance(getContext()).getHorValue()));
