@@ -15,166 +15,172 @@
   ~
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/iv_goods_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:layout_marginStart="24px"
     android:layout_marginEnd="24px"
     android:layout_marginTop="32px">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_goods_img"
-        android:layout_width="160px"
-        android:layout_height="160px"
-        android:src="@drawable/ic_waimai_brand"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/id_space" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/iv_goods_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_goods_img"
+            android:layout_width="160px"
+            android:layout_height="160px"
+            android:src="@drawable/ic_waimai_brand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_space" />
 
-    <Space
-        android:id="@+id/id_space"
-        android:layout_width="0px"
-        android:layout_height="5px"
-        app:layout_constraintStart_toStartOf="@id/iv_goods_img"
-        app:layout_constraintTop_toTopOf="@id/iv_goods_img_tip"/>
+        <Space
+            android:id="@+id/id_space"
+            android:layout_width="0px"
+            android:layout_height="5px"
+            app:layout_constraintStart_toStartOf="@id/iv_goods_img"
+            app:layout_constraintTop_toTopOf="@id/iv_goods_img_tip"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_goods_img_tip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_popular_goods"
-        app:layout_constraintStart_toStartOf="@+id/iv_goods_img"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/iv_goods_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:layout_marginStart="24px"
-        android:textStyle="bold"
-        android:textSize="33px"
-        android:textColor="@color/text_normal"
-        app:layout_constraintStart_toEndOf="@+id/iv_goods_img"
-        app:layout_constraintTop_toTopOf="@+id/iv_goods_img"
-        tools:text="水果" />
-
-    <TextView
-        android:id="@+id/iv_goods_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:maxWidth="240px"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textColor="@color/text_tip"
-        android:layout_marginTop="16px"
-        android:text="好吃的食物，增肥神器，有求必应"
-        android:textSize="20px"
-        app:layout_constraintStart_toStartOf="@+id/iv_goods_name"
-        app:layout_constraintTop_toBottomOf="@+id/iv_goods_name" />
-
-    <TextView
-        android:id="@+id/iv_goods_comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="月售1023 好评率90%"
-        android:layout_marginTop="16px"
-        android:textColor="@color/text_tip"
-        android:textSize="22px"
-        app:layout_constraintStart_toStartOf="@+id/iv_goods_name"
-        app:layout_constraintTop_toBottomOf="@+id/iv_goods_detail" />
-
-    <LinearLayout
-        android:id="@+id/ll_preferential"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16px"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@id/iv_goods_name"
-        app:layout_constraintTop_toBottomOf="@id/iv_goods_comment">
-
-        <TextView
-            android:id="@+id/tv_discount"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_goods_img_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sr_stroke_1px_4radius_red"
-            android:textSize="22px"
-            android:paddingStart="6px"
-            android:paddingEnd="6px"
-            android:textColor="@color/colorTheme"
-            android:text="9.7折"/>
+            android:src="@drawable/ic_popular_goods"
+            app:layout_constraintStart_toStartOf="@+id/iv_goods_img"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_preferential_describe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorTheme"
-            android:textSize="22px"
-            android:layout_marginStart="8px"
-            android:text="每单限一份优惠"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@+id/iv_goods_name"
-        app:layout_constraintTop_toBottomOf="@+id/ll_preferential">
-        <TextView
-            android:id="@+id/tv_goods_discount_price"
+            android:id="@+id/iv_goods_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:text="¥18.8"
-            android:textColor="@color/red"
-            android:textSize="28px"/>
+            android:layout_marginStart="24px"
+            android:textStyle="bold"
+            android:textSize="33px"
+            android:textColor="@color/text_normal"
+            app:layout_constraintStart_toEndOf="@+id/iv_goods_img"
+            app:layout_constraintTop_toTopOf="@+id/iv_goods_img"
+            tools:text="水果" />
 
         <TextView
-            android:id="@+id/tv_goods_pre_price"
+            android:id="@+id/iv_goods_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:layout_marginStart="8px"
-            android:textSize="20px"
+            android:maxWidth="240px"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/text_tip"
-            android:text="￥18.8"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_group_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8px"
-        app:layout_constraintStart_toStartOf="@id/iv_goods_name"
-        app:layout_constraintTop_toBottomOf="@id/ll_price">
+            android:layout_marginTop="16px"
+            android:text="好吃的食物，增肥神器，有求必应"
+            android:textSize="20px"
+            app:layout_constraintStart_toStartOf="@+id/iv_goods_name"
+            app:layout_constraintTop_toBottomOf="@+id/iv_goods_name" />
 
         <TextView
+            android:id="@+id/iv_goods_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:textColor="@color/colorTheme"
-            android:textSize="20px"
-            android:text="拼团价"/>
+            android:text="月售1023 好评率90%"
+            android:layout_marginTop="16px"
+            android:textColor="@color/text_tip"
+            android:textSize="22px"
+            app:layout_constraintStart_toStartOf="@+id/iv_goods_name"
+            app:layout_constraintTop_toBottomOf="@+id/iv_goods_detail" />
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_preferential"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16px"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/iv_goods_name"
+            app:layout_constraintTop_toBottomOf="@id/iv_goods_comment">
 
+            <TextView
+                android:id="@+id/tv_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sr_stroke_1px_4radius_red"
+                android:textSize="22px"
+                android:paddingStart="6px"
+                android:paddingEnd="6px"
+                android:textColor="@color/colorTheme"
+                android:text="9.7折"/>
 
+            <TextView
+                android:id="@+id/tv_preferential_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorTheme"
+                android:textSize="22px"
+                android:layout_marginStart="8px"
+                android:text="每单限一份优惠"
+                />
 
-    <FrameLayout
-        android:id="@+id/iv_goods_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_close_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/ll_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/iv_goods_name"
+            app:layout_constraintTop_toBottomOf="@+id/ll_preferential">
+            <TextView
+                android:id="@+id/tv_goods_discount_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="¥18.8"
+                android:textColor="@color/red"
+                android:textSize="28px"/>
+
+            <TextView
+                android:id="@+id/tv_goods_pre_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_marginStart="8px"
+                android:textSize="20px"
+                android:textColor="@color/text_tip"
+                android:text="￥18.8"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_group_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8px"
+            app:layout_constraintStart_toStartOf="@id/iv_goods_name"
+            app:layout_constraintTop_toBottomOf="@id/ll_price">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorTheme"
+                android:textSize="20px"
+                android:text="拼团价"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/iv_goods_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" >
+            <include layout="@layout/layout_goods_option_add_shopping_cart"/>
+<!--            <include layout="@layout/layout_goods_option_chose"/>选规格  -->
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

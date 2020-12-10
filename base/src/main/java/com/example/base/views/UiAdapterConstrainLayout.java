@@ -32,7 +32,7 @@ public class UiAdapterConstrainLayout extends ConstraintLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        UIUtils.autoAdapterUI(getContext(),this);
+        UIUtils.getInstance(getContext()).autoAdapterUI(this);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 

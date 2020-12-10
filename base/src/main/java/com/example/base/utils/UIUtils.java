@@ -23,7 +23,9 @@ import static com.xuexiang.xui.XUI.getContext;
 
 public class UIUtils {
 
-    public static final int SCALE_KEY = new Random(System.currentTimeMillis()).nextInt();
+    private static final int SCALE_KEY = new Random(System.currentTimeMillis()).nextInt();
+
+    private static final String DIME_CLASS = "com.android.internal.R$dimen";
     //标准值
     private static final float STANDRD_WIDTH = 750f;
     private static final float STANDRD_HEIGHT = 1624f;
@@ -82,24 +84,25 @@ public class UIUtils {
         return instance;
     }
 
-    public static void autoAdapterUI(Context context,View view){
-        if(view.getTag(UIUtils.SCALE_KEY) == null) {    //防止多次放大
-            float scaleX = UIUtils.getInstance(context).getHorValue();
+    // FIXME: 2020/12/10 background圆角角度适配添加
+    public void autoAdapterUI(View view){
+        if(isScale(view)) {    //防止多次放大
+            float scaleX = getHorValue();
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
 //                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
             if(layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT)
                 layoutParams.width = (int) (layoutParams.width * scaleX);
             if(layoutParams.height != ViewGroup.LayoutParams.MATCH_PARENT)
                 layoutParams.height = (int) (layoutParams.height * scaleX);
-            view.setTag(UIUtils.SCALE_KEY,1);
+            setScaleTag(view);
         }
     }
 
-    public static void autoAdapterUI(Context context,ViewGroup viewGroup) {
-        float scaleX = UIUtils.getInstance(context).getHorValue();
-        float scaleY = UIUtils.getInstance(context).getVerValue();
+    public void autoAdapterUI(ViewGroup viewGroup) {
+        float scaleX = getHorValue();
+        float scaleY = getVerValue();
         ViewGroup.LayoutParams lp = viewGroup.getLayoutParams();
-        if(viewGroup.getTag(UIUtils.SCALE_KEY) == null){//防止多次放大
+        if(isScale(viewGroup)){//防止多次放大
             if(lp.width != ViewGroup.LayoutParams.MATCH_PARENT)
                 lp.width = (int) (lp.width * scaleX);
             if(lp.height != ViewGroup.LayoutParams.MATCH_PARENT)
@@ -111,14 +114,14 @@ public class UIUtils {
                 marginLayoutParams.topMargin = (int) (marginLayoutParams.topMargin * scaleX);
                 marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
             }
-            viewGroup.setTag(UIUtils.SCALE_KEY,1);
+            setScaleTag(viewGroup);
             viewGroup.setLayoutParams(lp);
         }
 
         int count = viewGroup.getChildCount();
         for(int i = 0; i < count; i++){
             View child = viewGroup.getChildAt(i);
-            if(child.getTag(UIUtils.SCALE_KEY) == null){    //防止多次放大
+            if(isScale(child)){    //防止多次放大
                 ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
 //                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
                 if(layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT)
@@ -136,17 +139,17 @@ public class UIUtils {
                 child.setLayoutParams(layoutParams);
                 if(child instanceof TextView){
                     ((TextView) child).setTextSize
-                            (UIUtils.pxTosp(((TextView) child).getTextSize() * scaleX));
+                            (pxTosp(((TextView) child).getTextSize() * scaleX));
                 }
-                child.setTag(UIUtils.SCALE_KEY,1);
+                setScaleTag(child);
                 if(child instanceof ViewGroup){
-                    autoAdapterUI(context,(ViewGroup) child);
+                    autoAdapterUI((ViewGroup) child);
                 }
             }
         }
     }
 
-    public static void autoAdapterDrawable(Context context,Drawable drawable){
+    public void autoAdapterDrawable(Context context,Drawable drawable){
         if (drawable != null ) {
             drawable.setBounds(0, 0
                     , (int)(drawable.getIntrinsicWidth()*getInstance(context).getHorValue())
@@ -160,7 +163,7 @@ public class UIUtils {
      * @param dp      dp的值
      * @return px的值
      */
-    public static int dpTopx(float dp) {
+    public int dpTopx(float dp) {
         return (int) (dp * density + 0.5f);
     }
 
@@ -170,7 +173,7 @@ public class UIUtils {
      * @param px      px的值
      * @return dp的值
      */
-    public static int pxTodp(float px) {
+    public int pxTodp(float px) {
         return (int) (px / density + 0.5f);
     }
 
@@ -180,7 +183,7 @@ public class UIUtils {
      * @param px      px的值
      * @return sp的值
      */
-    public static int pxTosp(float px) {
+    public int pxTosp(float px) {
         //DisplayMetrics类中属性scaledDensity
         return (int) (px / scaledDensity + 0.5f);
     }
@@ -191,7 +194,7 @@ public class UIUtils {
      * @param sp      sp的值
      * @return px的值
      */
-    public static int spTopx(float sp) {
+    public int spTopx(float sp) {
         //DisplayMetrics类中属性scaledDensity
         final float fontScale = scaledDensity;
         return (int) (sp * scaledDensity + 0.5f);
@@ -202,6 +205,7 @@ public class UIUtils {
      * @return
      */
     public float getHorValue(){
+
         if(horValue == 0.0f){
             horValue = displayMetricsWidth/STANDRD_WIDTH;
             LogUtil.d("horValue=" + horValue);
@@ -215,7 +219,7 @@ public class UIUtils {
      */
     public float getVerValue(){
         if(verValue == 0.0f){
-            verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight(context));
+            verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight());
             LogUtil.d("verValue=" + verValue);
         }
         return verValue;
@@ -253,7 +257,15 @@ public class UIUtils {
         return density;
     }
 
-    private static final String DIME_CLASS = "com.android.internal.R$dimen";
+    public int getViewMeasureWidth(View view) {
+        view.measure(0,0);
+        return view.getMeasuredWidth();
+    }
+
+    public int getViewMeasureHeight(View view) {
+        view.measure(0,0);
+        return view.getMeasuredHeight();
+    }
 
     //用于反射系统的属性
     private int getSystemBarHeight(Context context){
@@ -274,13 +286,17 @@ public class UIUtils {
         return defaultValue;
     }
 
-    public int getViewMeasureWidth(View view) {
-        view.measure(0,0);
-        return view.getMeasuredWidth();
+    public void setScaleTag(View view){
+        if(view.getTag(SCALE_KEY) == null){
+            view.setTag(SCALE_KEY,1);
+        }
     }
 
-    public int getViewMeasureHeight(View view) {
-        view.measure(0,0);
-        return view.getMeasuredHeight();
+    public boolean isScale(View view){
+        if(view.getTag(SCALE_KEY) == null){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

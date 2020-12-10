@@ -49,4 +49,5 @@
 
     <color name="score_text">#FF3B30</color>
     <color name="shop_menbers_cardview_bg">#FFFFF0E7</color>
+    <color name="shopping_cart_background">#FF272727</color>
 </resources>

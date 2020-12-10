@@ -10,85 +10,105 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/png_bg_shop_top"
-            android:adjustViewBounds="true" />
-
-        <ScrollView
+        <com.example.myapplication.views.StickyNavigationLayout
+            android:id="@+id/sticky_navigation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white">
 
-            <LinearLayout
-                android:id="@+id/my_content_view"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:orientation="vertical">
-                <!--        占位view高度需要计算需要计算 -->
 
-                <include
-                    layout="@layout/title_shop_details"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/png_bg_shop_top"
+                    android:adjustViewBounds="true" />
+
+                <LinearLayout
+                    android:id="@+id/my_ll_content_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:orientation="vertical">
+                    <!--        占位view高度需要计算需要计算 -->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/top_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="47px">
-
-                    <include
-                        android:id="@+id/layout_shop_details"
-                        layout="@layout/layout_shop_head_details"
+                    <LinearLayout
+                        android:id="@+id/top_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/interval_size_xs"
-                        android:layout_marginEnd="@dimen/interval_size_xs" />
+                        android:orientation="vertical">
+                        <include
+                            layout="@layout/title_shop_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="47px">
 
-                <include
-                    android:id="@+id/layout_members"
-                    layout="@layout/layout_shop_members_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/interval_size_xs" />
+                            <include
+                                android:id="@+id/layout_shop_details"
+                                layout="@layout/layout_shop_head_details"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/interval_size_xs"
+                                android:layout_marginEnd="@dimen/interval_size_xs" />
 
-                <com.xuexiang.xui.widget.tabbar.TabSegment
-                    android:id="@+id/tab_layout"
-                    style="@style/shopDetailTabSegment"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/tabbar_height"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.xuexiang.xui.widget.banner.recycler.BannerLayout
-                    android:id="@+id/bl_horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="180px"
-                    android:layout_marginTop="20px"
-                    app:bl_autoPlaying="true"
-                    app:bl_centerScale="1"
-                    app:bl_itemSpace="20px"
-                    app:bl_moveSpeed="1.8" />
+                        <include
+                            android:id="@+id/layout_members"
+                            layout="@layout/layout_shop_members_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/interval_size_xs" />
+                    </LinearLayout>
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="500px"
-                    android:layout_marginTop="@dimen/interval_size_xs"/>
+                </LinearLayout>
 
-            </LinearLayout>
+            </FrameLayout>
 
-        </ScrollView>
+            <com.xuexiang.xui.widget.tabbar.TabSegment
+                android:id="@+id/tab_layout"
+                style="@style/shopDetailTabSegment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tabbar_height" />
 
+            <com.xuexiang.xui.widget.banner.recycler.BannerLayout
+                android:id="@+id/content_layout"
+                android:layout_width="match_parent"
+                android:layout_height="180px"
+                android:layout_marginTop="20px"
+                app:bl_autoPlaying="true"
+                app:bl_centerScale="1"
+                app:bl_itemSpace="20px"
+                app:bl_moveSpeed="1.8" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.example.myapplication.views.StickyNavigationLayout>
+
+        <include
+            layout="@layout/layout_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/interval_size_xs"/>
 
     </FrameLayout>
+
+
 </layout>

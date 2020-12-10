@@ -18,21 +18,26 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.base.utils.LogUtil;
 import com.example.myapplication.R;
 import com.example.myapplication.bean.LinkageGroupedItemWaimaiType;
 import com.example.myapplication.listener.OnSecondaryItemClickListener;
+import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 
-public class CustomLinkageSecondaryShopGoodsAdapterConfig implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemWaimaiType.ItemInfo> {
+import java.lang.ref.WeakReference;
+
+public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemWaimaiType.ItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
@@ -40,8 +45,11 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig implements ILinkageSec
 
     private OnSecondaryItemClickListener mItemClickListener;
 
-    public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryItemClickListener itemClickListener) {
+    private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
+
+    public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
         mItemClickListener = itemClickListener;
+        mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
     }
 
     public CustomLinkageSecondaryShopGoodsAdapterConfig setOnItemClickListner(OnSecondaryItemClickListener itemClickListener) {
@@ -87,7 +95,6 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig implements ILinkageSec
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
                                  final BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
-
         ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
         Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
 

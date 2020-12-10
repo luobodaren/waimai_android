@@ -25,7 +25,7 @@ public class MyTabSegmentTab extends TabSegment.Tab {
     }
     
     private void UiAdapter(Drawable drawable){
-        UIUtils.autoAdapterDrawable(MyApplication.getMyApplication(),drawable);
+        UIUtils.getInstance(MyApplication.getMyApplication()).autoAdapterDrawable(MyApplication.getMyApplication(),drawable);
     }
-    
+
 }

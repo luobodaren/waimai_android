@@ -27,9 +27,10 @@ public abstract class BaseFragment extends XPageFragment {
 
     protected static int SHOW_STATUS_BAR = 1; //显示
     protected static int HIDE_STATUS_BAR = 0; //不显示
-    protected int mStatusBarShowType = SHOW_STATUS_BAR; //默认显示
+    protected static int NO_HANDLE_STATUS_BAR = -1;
+    protected int mStatusBarShowType = NO_HANDLE_STATUS_BAR; //默认显示
 
-    private int mStatusBarLightMode = StatusBarUtils.STATUS_BAR_MODE_DARK;
+    private int mStatusBarLightMode = StatusBarUtils.STATUS_BAR_MODE_NO_HANDLE;
 
     private boolean isFitStatusBarHeight = false;
 
@@ -187,16 +188,19 @@ public abstract class BaseFragment extends XPageFragment {
             LogUtil.e(getPageName() + " 状态栏：activity为null");
             return;
         }
-        Window window = getActivity().getWindow();
         if(statusBarShowType == SHOW_STATUS_BAR){
+            Window window = getActivity().getWindow();
             mStatusBarShowType = SHOW_STATUS_BAR;
             StatusBarUtils.showStatusBar(window);
             LogUtil.d(getPageTitle() + " 状态栏：显示！");
         }else if(statusBarShowType == HIDE_STATUS_BAR){
+            Window window = getActivity().getWindow();
             mStatusBarShowType = HIDE_STATUS_BAR;
             StatusBarUtils.hideStatusBar(window);
             LogUtil.d(getPageTitle() + " 状态栏：隐藏！");
-        }else{
+        }else if(statusBarShowType == NO_HANDLE_STATUS_BAR){
+            LogUtil.d(getPageTitle() + " 状态栏：不处理显示隐藏！");
+        } else{
             LogUtil.e(getPageTitle() + " 状态栏：显示类型值错误！");
         }
     }
@@ -208,7 +212,9 @@ public abstract class BaseFragment extends XPageFragment {
         }else if(mStatusBarLightMode == StatusBarUtils.STATUS_BAR_MODE_DARK){
             StatusBarUtils.setStatusBarDarkMode(getActivity());
             LogUtil.d(getPageTitle() + " 状态栏 setDarkMode");
-        }else{
+        }else if(mStatusBarLightMode == StatusBarUtils.STATUS_BAR_MODE_NO_HANDLE){
+            LogUtil.d(getPageTitle() + " 状态栏 Mode 不处理");
+        } else{
             LogUtil.e(getPageTitle() + " 状态栏 设置字体模式出错");
         }
     }

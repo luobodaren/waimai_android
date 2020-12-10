@@ -23,8 +23,11 @@ import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Space;
 import android.widget.TextView;
 
+import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.listener.OnPrimaryItemClickListener;
@@ -80,6 +83,7 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
         return R.id.layout_group;
     }
 
+    int maxPosition = -1;
     Drawable drawable = null;
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
@@ -90,12 +94,26 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
         TextView tvTitle = ((TextView) holder.mGroupTitle);
         tvTitle.setText(title);
         int selectedPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getSelectedPosition();
+        if(maxPosition == -1){
+            maxPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getItemCount() - 1;
+        }
+
+        View space = holder.mLayout.findViewById(R.id.layout_room_for_shopping_cart_bar);
+        if(maxPosition == holder.getAdapterPosition()){   //最后一个腾出购物车空间
+            if(space.getVisibility() == View.GONE){
+                space.setVisibility(View.VISIBLE);
+            }
+        }else{
+            if(space.getVisibility() == View.VISIBLE){
+                space.setVisibility(View.GONE);
+            }
+        }
 
         Drawable drawableTop = getDrawableTop();
 
         View viewSelectMark = holder.mLayout.findViewById(R.id.iv_selected);
         if(selected){
-            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_selected));
+            holder.mLayout.findViewById(R.id.layout_content).setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_selected));
             tvTitle.setCompoundDrawablesRelative(drawable,drawableTop,null,null);
             TextPaint tp = tvTitle.getPaint();
             tp.setFakeBoldText(true);
@@ -103,7 +121,7 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
                 viewSelectMark.setVisibility(View.VISIBLE);
             }
         }else{
-            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.color.linkage_primary_item_bg_default));
+            holder.mLayout.findViewById(R.id.layout_content).setBackgroundColor(mContext.getResources().getColor(R.color.transparent));
             tvTitle.setCompoundDrawablesRelative(null,drawableTop,null,null);
             TextPaint tp = tvTitle.getPaint();
             tp.setFakeBoldText(false);
@@ -112,11 +130,14 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
                 viewSelectMark.setVisibility(View.GONE);
             }
         }
-        if(holder.getAdapterPosition() == (selectedPosition - 1)){  //上一个
-            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_before_select));
-        }else if(holder.getAdapterPosition() == (selectedPosition + 1)){    //下一个
-            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_after_select));
-        }
+
+
+
+//        if(holder.getAdapterPosition() == (selectedPosition - 1)){  //上一个
+//            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_before_select));
+//        }else if(holder.getAdapterPosition() == (selectedPosition + 1)){    //下一个
+//            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_after_select));
+//        }
         tvTitle.setEllipsize(selected ? TextUtils.TruncateAt.MARQUEE : TextUtils.TruncateAt.END);
         tvTitle.setFocusable(selected);
         tvTitle.setFocusableInTouchMode(selected);

@@ -29,6 +29,8 @@ import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.base.utils.LogUtil;
+import com.example.base.utils.UIUtils;
 import com.example.base.views.UiAdapterLinearLayout;
 import com.example.myapplication.R;
 import com.xuexiang.xui.utils.StatusBarUtils;
@@ -46,7 +48,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     private View mTopView;
     private View mNavigationView;
     private ViewPager mViewPager;
-    private View mSortView;
+    private View mContentLayout;    //位于Navigation(TabBar)与ViewPager中间的布局
 
     private OnScrollChangeListener mOnScrollChangeListener;
 
@@ -134,20 +136,32 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         mTopView = findViewById(R.id.top_view);
         mNavigationView = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
-        mSortView = findViewById(R.id.sort_layout);
+        mContentLayout = findViewById(R.id.content_layout);
     }
 
+
+    int mainTabBarHeight = 0;
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //先测量一次
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+        if(mainTabBarHeight == 0){
+            mainTabBarHeight = getContext().getResources().getDimensionPixelSize(R.dimen.main_tab_height);
+//            mainTabBarHeight *= UIUtils.getInstance(getContext()).getHorValue();
+        }
+
         //ViewPager修改后的高度= 总高度-TabLayout高度
         ViewGroup.LayoutParams lp = mViewPager.getLayoutParams();
 //        LogUtil.e("onMeasure start " + lp.height + "  mCanScrollDistance：" + mCanScrollDistance);
-        lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
-                - mSortView.getMeasuredHeight() + StatusBarUtils.getStatusBarHeight(getContext());
-//        lp.height = (int)UIUtils.getInstance(getContext()).getDisplayMetricsHeight() - mNavigationView.getMeasuredHeight() - mSortView.getMeasuredHeight();
+        if(mContentLayout == null){
+            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
+                    - mainTabBarHeight + StatusBarUtils.getStatusBarHeight(getContext());
+        }else{
+            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
+                    - mContentLayout.getMeasuredHeight() - mainTabBarHeight
+                    + StatusBarUtils.getStatusBarHeight(getContext());
+        }
         mViewPager.setLayoutParams(lp);
         //因为ViewPager修改了高度，所以需要重新测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

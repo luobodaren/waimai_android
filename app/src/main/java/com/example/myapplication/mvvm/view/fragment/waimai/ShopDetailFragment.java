@@ -18,6 +18,7 @@ import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
+import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.widget.banner.recycler.BannerLayout;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
@@ -58,6 +59,11 @@ public class ShopDetailFragment extends BaseFragment {
     }
 
     @Override
+    protected TitleBar initTitleBar() {
+        return null;
+    }
+
+    @Override
     protected void initViews() {
         super.initViews();
 
@@ -66,6 +72,22 @@ public class ShopDetailFragment extends BaseFragment {
 
         initBanner();
         initNavigationTab();
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+        mBinding.stickyNavigation.setOnScrollChangeListener(moveRatio -> {
+            if(moveRatio == 1){
+                if(isShowStatusBar()){
+                    setStatusBarShowByType(HIDE_STATUS_BAR);
+                }
+            } else {
+                if(isHideStatusBar()){
+                    setStatusBarShowByType(SHOW_STATUS_BAR);
+                }
+            }
+        });
     }
 
 
@@ -124,7 +146,7 @@ public class ShopDetailFragment extends BaseFragment {
                 = new RecyclerViewBannerAdapter(mViewModel.getBannerSource());
         mAdapterHorizontal.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
-        mBinding.blHorizontal.setAdapter(mAdapterHorizontal);
+        mBinding.contentLayout.setAdapter(mAdapterHorizontal);
     }
 
     private int space;
@@ -144,6 +166,7 @@ public class ShopDetailFragment extends BaseFragment {
         mBinding.tabLayout.setPadding(space, 0, space, 0);
         mBinding.tabLayout.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
         mBinding.tabLayout.setDefaultSelectedColor(getResources().getColor(R.color.text_uncheck));
+        mBinding.tabLayout.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size));
         addTab(mBinding.tabLayout,adapter,shopTabTypes);
         mBinding.tabLayout.setupWithViewPager(mBinding.viewPager,true);
 
@@ -177,7 +200,7 @@ public class ShopDetailFragment extends BaseFragment {
             ShopTabType shopTabType = iterator.next();
             String title = shopTabType.getName();
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_shop_tabbar_item_space));
+            tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_shop_tabbar_item_text_size_selected));
             adapter.addFragment(mViewModel.getTabBarFragment(shopTabType), title);
             tabSegment.addTab(tab);
         }

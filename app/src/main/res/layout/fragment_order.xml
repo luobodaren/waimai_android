@@ -8,7 +8,8 @@
             type="com.example.myapplication.mvvm.vm.order.OrderViewModel" />
     </data>
 
-    <LinearLayout
+    <com.example.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -27,5 +28,5 @@
             android:layout_height="match_parent"
             android:background="@color/background"/>
 
-    </LinearLayout>
+    </com.example.base.views.UiAdapterLinearLayout>
 </layout>

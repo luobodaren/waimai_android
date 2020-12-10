@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_group"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_selected"
-        android:layout_width="6px"
-        android:layout_height="0px"
-        android:background="@drawable/sr_widght_vertical_bar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_selected"
+            android:layout_width="6px"
+            android:layout_height="0px"
+            android:background="@drawable/sr_widght_vertical_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/tv_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:background="@color/transparent"
-        android:layout_marginTop="20px"
-        android:layout_marginBottom="20px"
-        android:textSize="26px"
-        android:singleLine="true"
-        android:drawablePadding="5px"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <TextView
+            android:id="@+id/tv_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:background="@color/transparent"
+            android:layout_marginTop="20px"
+            android:layout_marginBottom="20px"
+            android:textSize="26px"
+            android:singleLine="true"
+            android:drawablePadding="5px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/layout_room_for_shopping_cart_bar"
+        layout="@layout/widget_room_for_shopping_card"/>
+
+</com.example.base.views.UiAdapterLinearLayout>

@@ -56,9 +56,9 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
 
         //屏幕适配
         if(holder.itemView instanceof ViewGroup){
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),(ViewGroup)holder.itemView);
+            UIUtils.getInstance(mContext).autoAdapterUI((ViewGroup)holder.itemView);
         }else {
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),holder.itemView);
+            UIUtils.getInstance(mContext).autoAdapterUI(holder.itemView);
         }
     }
 
@@ -75,9 +75,9 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
     public int addHeaderView(View header, int index, int orientation) {
         int result = super.addHeaderView(header, index, orientation);
         if(header instanceof ViewGroup){
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),(ViewGroup)header);
+            UIUtils.getInstance(mContext).autoAdapterUI((ViewGroup)header);
         }else {
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),header);
+            UIUtils.getInstance(mContext).autoAdapterUI(header);
         }
         return result;
     }
@@ -86,9 +86,9 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
     public int addFooterView(View footer, int index, int orientation) {
         int result = super.addFooterView(footer, index, orientation);
         if(footer instanceof ViewGroup){
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),(ViewGroup)footer);
+            UIUtils.getInstance(mContext).autoAdapterUI((ViewGroup)footer);
         }else {
-            UIUtils.autoAdapterUI(MyApplication.getMyApplication(),footer);
+            UIUtils.getInstance(mContext).autoAdapterUI(footer);
         }
         return result;
     }

@@ -86,6 +86,23 @@ public class WaimaiFragment extends BaseFragment {
         initNavigationTab();
     }
 
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+        FragmentWaimaiBinding mBinding = ((FragmentWaimaiBinding)mViewDataBinding);
+        mBinding.myLlContentView.setOnScrollChangeListener(moveRatio -> {
+            if(moveRatio == 1){
+                if(isShowStatusBar()){
+                    setStatusBarShowByType(HIDE_STATUS_BAR);
+                }
+            } else {
+                if(isHideStatusBar()){
+                    setStatusBarShowByType(SHOW_STATUS_BAR);
+                }
+            }
+        });
+    }
+
 
     @Override
     protected void initArgs() {
@@ -161,7 +178,7 @@ public class WaimaiFragment extends BaseFragment {
         BaseRecyclerAdapter<IconStrData> adapter = getFoodRecyclerAdapter();
         adapter.setOnItemClickListener((itemView, item, position) -> {
             if(position == adapter.getItemCount()-1){
-                openPage(WaimaiTypeFragment.class);
+                openPage(WaimaiAllTypeFragment.class);
             }
         });
         fragmentWaimaiBinding.recyclerFoodType.setAdapter(adapter);
@@ -265,21 +282,21 @@ public class WaimaiFragment extends BaseFragment {
     private void initNavigationTab() {
         FragmentWaimaiBinding binding = ((FragmentWaimaiBinding)mViewDataBinding);
 
-        space = getResources().getDimensionPixelOffset(R.dimen.waimai_tabbar_item_space);
-        textSizeSelected = getResources().getDimensionPixelOffset(R.dimen.waimai_tabbar_item_text_size_selected);
-        textSizeNormal = getResources().getDimensionPixelOffset(R.dimen.waimai_tabbar_item_text_size);
+        space = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_space);
+        textSizeSelected = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size_selected);
+        textSizeNormal = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size);
         String[] titles = mViewModel.getRecommendedTitle();
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
-
+        addTab(binding.tabLayout,adapter,titles);   // FIXME: 2020/12/10 第一次进入 拿不到tab 设置的大小
         binding.tabLayout.setHasIndicator(false);
         binding.tabLayout.setMode(TabSegment.MODE_SCROLLABLE);
         binding.tabLayout.setItemSpaceInScrollMode(space);
         binding.tabLayout.setPadding(space, 0, space, 0);
         binding.tabLayout.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
         binding.tabLayout.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
-        addTab(binding.tabLayout,adapter,titles);
+        binding.tabLayout.setTabTextSize(textSizeNormal);
         binding.tabLayout.setupWithViewPager(binding.viewPager,true);   // FIXME: 2020/12/3 解决第一次进入 文字大小不正确的问题
 
         binding.viewPager.setOffscreenPageLimit(titles.length - 1);
@@ -290,18 +307,6 @@ public class WaimaiFragment extends BaseFragment {
                 refreshTabViewStyle(binding.tabLayout,titles,position);
                 // TODO: 2020/12/3 刷新内容
 
-            }
-        });
-
-        binding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {
-            if(moveRatio == 1){
-                if(isShowStatusBar()){
-                    setStatusBarShowByType(HIDE_STATUS_BAR);
-                }
-            } else {
-                if(isHideStatusBar()){
-                    setStatusBarShowByType(SHOW_STATUS_BAR);
-                }
             }
         });
     }
@@ -372,9 +377,8 @@ public class WaimaiFragment extends BaseFragment {
      */
     private void refreshTabViewStyle(TabSegment tabSegment,String[] titles,int position) {
         tabSegment.reset();
-        resetTab(tabSegment,titles,position,false);
+        resetTab(tabSegment,titles,position);
 
-        tabSegment.setTabTextSize(textSizeSelected);
         refreshSortType(position);
         tabSegment.notifyDataChanged();
     }
@@ -400,19 +404,16 @@ public class WaimaiFragment extends BaseFragment {
      * @param tabSegment
      * @param titles
      * @param selectedPosition
-     * @param isFirstAdd
      */
     private void resetTab(TabSegment tabSegment,String[] titles,
-                          int selectedPosition, boolean isFirstAdd){
+                          int selectedPosition){
         int position = 0;
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
             if(position == selectedPosition){
-                tab.setTextSize(isFirstAdd ? textSizeSelected :
-                        (int) (textSizeSelected * UIUtils.getInstance(getContext()).getHorValue()));
+                tab.setTextSize((int) (textSizeSelected * UIUtils.getInstance(getContext()).getHorValue()));
             }else{
-                tab.setTextSize(isFirstAdd ? textSizeNormal :
-                        (int) (textSizeNormal * UIUtils.getInstance(getContext()).getHorValue()));
+                tab.setTextSize((int) (textSizeNormal * UIUtils.getInstance(getContext()).getHorValue()));
             }
             tabSegment.addTab(tab);
             position++;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
@@ -28,4 +28,4 @@
         android:layout_marginStart="16px"
         tools:text="大家喜欢的，才是真好吃"/>
 
-</LinearLayout>
+</com.example.base.views.UiAdapterLinearLayout>

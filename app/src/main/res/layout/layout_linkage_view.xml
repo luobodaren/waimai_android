@@ -9,6 +9,7 @@
         android:id="@+id/rv_primary"
         android:layout_width="210px"
         android:layout_height="match_parent"
+        android:background="@color/linkage_primary_item_bg_default"
         android:overScrollMode="never"/>
 
     <LinearLayout

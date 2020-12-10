@@ -49,7 +49,6 @@ public class ShopOrderDishesFragment extends com.example.myapplication.mvvm.view
     @Override
     protected void initArgs() {
         super.initArgs();
-        setFitStatusBarHeight(true);
         setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
@@ -84,7 +83,7 @@ public class ShopOrderDishesFragment extends com.example.myapplication.mvvm.view
         LinkageRecyclerView<LinkageGroupedItemWaimaiType.ItemInfo> linkage = mBinding.linkageWaimaiType;
         linkage.init(mViewModel.getShopGoodsItems(),
                 new CustomLinkagePrimaryShopGoodsAdapterConfig<>(this,linkage),
-                new CustomLinkageSecondaryShopGoodsAdapterConfig(this));
+                new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this,linkage));
         linkage.setGridMode(false);
     }
 

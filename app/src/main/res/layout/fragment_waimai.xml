@@ -15,11 +15,12 @@
     <!--            android:layout_height="match_parent">-->
     <!--嵌套滑动父控件-->
     <com.example.myapplication.views.StickyNavigationLayout
-        android:id="@+id/sticky_navigation_layout"
+        android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/sr_bg_theme_color_gradient">
+
         <LinearLayout
             android:id="@+id/top_view"
             android:layout_width="match_parent"
@@ -300,7 +301,7 @@
             android:paddingEnd="30px"/>
 
         <include layout="@layout/layout_sort"
-            android:id="@+id/sort_layout"
+            android:id="@+id/content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

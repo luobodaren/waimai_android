@@ -35,13 +35,7 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
                 "    \"isHeader\": true\n" +
                 "  },\n" +
                 "  {\n" +
-                "    \"isHeader\": false,\n" +
-                "    \"info\": {\n" +
-                "      \"content\": \"好吃的食物，增肥神器，有求必应\",\n" +
-                "      \"group\": \"优惠\",\n" +
-                "      \"title\": \"全家桶\"\n" +
-                "    }\n" +
-                "  },\n" +
+                "    \"isHeader\": false,\"info\": {\"content\": \"好吃的食物，增肥神器，有求必应\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全家桶\"  } },\n" +
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全家\"  } }," +
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全桶\"  } }," +
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"家桶\"  } }," +
