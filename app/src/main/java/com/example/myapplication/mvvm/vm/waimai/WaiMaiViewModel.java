@@ -15,7 +15,6 @@ import com.example.myapplication.mvvm.model.BaseModel;
 import com.example.myapplication.mvvm.model.waimai.WaimaiModel;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.view.fragment.waimai.RecommendedFragment;
-import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 
@@ -122,35 +121,32 @@ public class WaiMaiViewModel extends BaseViewModel {
     }
 
     private void initBannerList(){
-        BannerItem bannerItem1 = new BannerItem();
-        bannerItem1.setImgUrl("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2515911597,1913645471&fm=26&gp=0.jpg");
         BannerItem bannerItem2 = new BannerItem();
         bannerItem2.setImgUrl("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg");
         BannerItem bannerItem3 = new BannerItem();
         bannerItem3.setImgUrl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2755313968,2418553549&fm=26&gp=0.jpg");
-        mBannerItemList.add(bannerItem1);
         mBannerItemList.add(bannerItem2);
         mBannerItemList.add(bannerItem3);
     }
 
     private void initFoodRecyclerData(){
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_health,"健康美食"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_drink,"甜品饮品"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_mark,"超时便利"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_fruit,"蔬菜水果"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_medicine,"送药上门"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_health,"健康美食"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_drink,"甜品饮品"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_mark,"超时便利"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_fruit,"蔬菜水果"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_medicine,"送药上门"));
 
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_hamburg,"汉堡蔬菜"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_japanese,"日韩料理"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_my_city,"同城零售"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_self_help,"快速自取"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_sala,"沙拉轻食"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_hamburg,"汉堡蔬菜"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_japanese,"日韩料理"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_my_city,"同城零售"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_self_help,"快速自取"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_sala,"沙拉轻食"));
 
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_tea,"下午茶"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_tea_shop,"小吃馆"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_local,"地方菜"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_cosmetics,"化妆品"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_all_type,"全部分类"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_tea,"下午茶"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_tea_shop,"小吃馆"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_local,"地方菜"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_cosmetics,"化妆品"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_all,"全部分类"));
     }
 
     public List getExclusiveShopData() {

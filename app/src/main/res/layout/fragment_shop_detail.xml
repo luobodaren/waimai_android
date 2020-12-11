@@ -8,12 +8,12 @@
             type="com.example.myapplication.mvvm.vm.waimai.ShopDetailViewModel" />
     </data>
 
-    <FrameLayout
+    <com.example.base.views.UiAdapterFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.example.myapplication.views.StickyNavigationLayout
-            android:id="@+id/sticky_navigation"
+            android:id="@+id/sticky_navigation_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -25,9 +25,9 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/png_bg_shop_top"
+                    android:src="@mipmap/png_bg_shop_top"
                     android:adjustViewBounds="true" />
 
                 <LinearLayout
@@ -36,7 +36,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:orientation="vertical">
-                    <!--        占位view高度需要计算需要计算 -->
 
                     <LinearLayout
                         android:id="@+id/top_view"
@@ -78,24 +77,45 @@
 
             </FrameLayout>
 
-            <com.xuexiang.xui.widget.tabbar.TabSegment
-                android:id="@+id/tab_layout"
-                style="@style/shopDetailTabSegment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tabbar_height" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <com.xuexiang.xui.widget.tabbar.TabSegment
+                    android:id="@+id/sticky_view"
+                    style="@style/shopDetailTabSegment"
+                    android:layout_width="0px"
+                    android:layout_height="@dimen/tabbar_height"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/bt_go_spell_list"
+                    android:layout_width="116px"
+                    android:layout_height="54px"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:background="@drawable/sr_bg_full_corners_theme"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="26px"
+                    android:text="@string/go_spell_list"
+                    android:elevation="10px"/>
+
+            </LinearLayout>
 
             <com.xuexiang.xui.widget.banner.recycler.BannerLayout
                 android:id="@+id/content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="180px"
                 android:layout_marginTop="20px"
+                android:layout_marginBottom="20px"
                 app:bl_autoPlaying="true"
                 app:bl_centerScale="1"
                 app:bl_itemSpace="20px"
                 app:bl_moveSpeed="1.8" />
 
             <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
+                android:id="@+id/adaptive_size_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
@@ -108,7 +128,7 @@
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/interval_size_xs"/>
 
-    </FrameLayout>
+    </com.example.base.views.UiAdapterFrameLayout>
 
 
 </layout>

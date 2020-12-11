@@ -49,7 +49,7 @@ public class ShopOrderDishesFragment extends com.example.myapplication.mvvm.view
     @Override
     protected void initArgs() {
         super.initArgs();
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
     @Override

@@ -34,7 +34,7 @@ public abstract class BaseActivity extends XPageActivity {
     //是否设置沉浸式状态栏
     private boolean isTransluecnt = true;
     //是否留出状态栏宽度
-    private boolean isFitWindow = true;
+    private boolean isFitStatusBarHeight = true;
     //封装Toast对象
     private static Toast toast;
     public Context context;
@@ -76,7 +76,7 @@ public abstract class BaseActivity extends XPageActivity {
         }else{
             if(isTransluecnt){
                 StatusBarUtils.translucent(this, Color.TRANSPARENT);
-                if(isFitWindow){
+                if(isFitStatusBarHeight){
                     StatusBarUtils.fitStatusBarHeight(this);
                 }
             }
@@ -132,10 +132,10 @@ public abstract class BaseActivity extends XPageActivity {
 
     /**
      * 是否为状态栏留出空间
-     * @param fitWindow
+     * @param fitStatusBarHeight
      */
-    public void setFitWindow(boolean fitWindow) {
-        isFitWindow = fitWindow;
+    public void setFitStatusBarHeight(boolean fitStatusBarHeight) {
+        isFitStatusBarHeight = fitStatusBarHeight;
     }
 
     /**

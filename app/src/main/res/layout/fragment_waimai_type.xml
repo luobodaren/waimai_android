@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.mvvm.vm.waimai.WaiMaiTypeViewModel" />
+    </data>
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_top_image_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/png_bg_health_food" />
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/title_waimai_type" />
+
+            <!--TabLayout-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_food_subtype"
+                style="@style/waimaiRecommendedTabSegment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:layout_marginTop="@dimen/interval_size_xs" />
+
+            <com.example.myapplication.views.StickyNavigationLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/interval_size_xs"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_tl_tr_24radius_white">
+
+                <ImageView
+                    android:id="@+id/top_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="260px"
+                    android:src="@mipmap/png_health_food_adbertising"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true" />
+
+                <include
+                    layout="@layout/layout_sort"
+                    android:id="@+id/sticky_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+                    android:id="@+id/adaptive_size_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.example.myapplication.views.StickyNavigationLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

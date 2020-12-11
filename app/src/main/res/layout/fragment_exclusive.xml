@@ -7,17 +7,30 @@
             type="com.example.myapplication.mvvm.vm.waimai.WaimaiExclusiveViewModel" />
     </data>
 
-    <com.example.base.views.UiAdapterLinearLayout
-        android:id="@+id/my_ll_content_view"
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_bitmap_exclusive">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_exclusive"
+        <ImageView
+            android:id="@+id/iv_top_image_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/png_bg_mipmap_exclusive"/>
 
-    </com.example.base.views.UiAdapterLinearLayout>
+        <com.example.base.views.UiAdapterLinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_exclusive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.example.base.views.UiAdapterLinearLayout>
+
+    </FrameLayout>
+
 </layout>

@@ -53,7 +53,7 @@
             android:text="@string/tv_sign_in_members"
             android:textColor="@color/white"
             android:textSize="22px"
-            android:background="@drawable/sr_bg_100radius_theme_color"
+            android:background="@drawable/sr_bg_full_corners_theme"
             android:paddingStart="21px"
             android:paddingEnd="21px"
             android:paddingTop="11px"

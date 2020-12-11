@@ -56,14 +56,15 @@
 
     <dimen name="message_recycler_swipe_width">100px</dimen> <!-- 菜单侧滑宽度 -->
 
-
     <dimen name="my_cardview_default_radius">24px</dimen>
-    <dimen name="text_size_grid_item">20px</dimen>
-    <dimen name="text_size_grid_header">28px</dimen>
-    <dimen name="text_size_grid_header_right">26px</dimen>
+
+    <dimen name="linkageSecondary_grid_item_text_size">20px</dimen>
+    <dimen name="linkageSecondary_grid_header_text_size">28px</dimen>
+    <dimen name="linkageSecondary_grid_header_right_text_size">26px</dimen>
     <dimen name="linkagePrimary_left_icon_width">6px</dimen>
     <dimen name="linkagePrimary_left_icon_height">30px</dimen>
-    <dimen name="shop_menbers_cardview_conners">10px</dimen>
+
+    <dimen name="shop_menbers_cardview_radius">10px</dimen>
 
     <dimen name="shop_goods_text_size_grid_item">20px</dimen>
     <dimen name="shop_goods_text_size_grid_header">30px</dimen>
@@ -72,5 +73,9 @@
     <dimen name="height_of_room_for_shopping_cart">160px</dimen>
 
     <dimen name="shopping_cart_height">88px</dimen>
-    <dimen name="shopping_cart_corners">44px</dimen>
+
+    <dimen name="shopping_cart_radius">44px</dimen>
+
+    <dimen name="waimai_type_tabbar_item_space">6px</dimen>
+    <dimen name="waimai_subtype_recycler_item_text_size">24px</dimen>
 </resources>

@@ -16,11 +16,13 @@ import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.example.base.utils.LogUtil;
+import com.example.myapplication.R;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageFragment;
 import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xpage.utils.TitleUtils;
 
 @Page
 public abstract class BaseFragment extends XPageFragment {
@@ -28,7 +30,7 @@ public abstract class BaseFragment extends XPageFragment {
     protected static int SHOW_STATUS_BAR = 1; //显示
     protected static int HIDE_STATUS_BAR = 0; //不显示
     protected static int NO_HANDLE_STATUS_BAR = -1;
-    protected int mStatusBarShowType = NO_HANDLE_STATUS_BAR; //默认显示
+    protected int mStatusBarShowType = NO_HANDLE_STATUS_BAR; //不处理
 
     private int mStatusBarLightMode = StatusBarUtils.STATUS_BAR_MODE_NO_HANDLE;
 
@@ -39,7 +41,6 @@ public abstract class BaseFragment extends XPageFragment {
 
     //用于UI更新
     protected Handler mHandler;
-
 
 
     protected abstract BaseViewModel setViewModel();
@@ -71,7 +72,8 @@ public abstract class BaseFragment extends XPageFragment {
 
     @Override
     protected TitleBar initTitleBar() {
-        return super.initTitleBar();
+        return TitleUtils.addTitleBarDynamic(mRootView.findViewById(R.id.my_ll_content_view),
+                getPageTitle(), v -> popToBack());
     }
 
     @Override
@@ -149,7 +151,7 @@ public abstract class BaseFragment extends XPageFragment {
         }
     }
 
-    public void setmStatusBarLightMode(int mStatusBarLightMode) {
+    public void setStatusBarLightMode(int mStatusBarLightMode) {
         this.mStatusBarLightMode = mStatusBarLightMode;
 //        changeStatusBarMode();
     }
@@ -190,12 +192,12 @@ public abstract class BaseFragment extends XPageFragment {
         }
         if(statusBarShowType == SHOW_STATUS_BAR){
             Window window = getActivity().getWindow();
-            mStatusBarShowType = SHOW_STATUS_BAR;
+//            mStatusBarShowType = SHOW_STATUS_BAR;
             StatusBarUtils.showStatusBar(window);
             LogUtil.d(getPageTitle() + " 状态栏：显示！");
         }else if(statusBarShowType == HIDE_STATUS_BAR){
             Window window = getActivity().getWindow();
-            mStatusBarShowType = HIDE_STATUS_BAR;
+//            mStatusBarShowType = HIDE_STATUS_BAR;
             StatusBarUtils.hideStatusBar(window);
             LogUtil.d(getPageTitle() + " 状态栏：隐藏！");
         }else if(statusBarShowType == NO_HANDLE_STATUS_BAR){

@@ -29,25 +29,17 @@ import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.base.utils.LogUtil;
-import com.example.base.utils.UIUtils;
 import com.example.base.views.UiAdapterLinearLayout;
 import com.example.myapplication.R;
 import com.xuexiang.xui.utils.StatusBarUtils;
 
-/**
- * 演示NestedScrollingParent2的使用
- *
- * @author xuexiang
- * @since 2020/4/6 11:08 AM
- */
 public class StickyNavigationLayout extends UiAdapterLinearLayout implements NestedScrollingParent2 {
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper;
 
     private View mTopView;
     private View mNavigationView;
-    private ViewPager mViewPager;
+    private View mAdaptiveSizeView;
     private View mContentLayout;    //位于Navigation(TabBar)与ViewPager中间的布局
 
     private OnScrollChangeListener mOnScrollChangeListener;
@@ -134,9 +126,9 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     protected void onFinishInflate() {
         super.onFinishInflate();
         mTopView = findViewById(R.id.top_view);
-        mNavigationView = findViewById(R.id.tab_layout);
-        mViewPager = findViewById(R.id.view_pager);
+        mNavigationView = findViewById(R.id.sticky_view);
         mContentLayout = findViewById(R.id.content_layout);
+        mAdaptiveSizeView = findViewById(R.id.adaptive_size_view);
     }
 
 
@@ -152,17 +144,17 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         }
 
         //ViewPager修改后的高度= 总高度-TabLayout高度
-        ViewGroup.LayoutParams lp = mViewPager.getLayoutParams();
+        ViewGroup.LayoutParams lp = mAdaptiveSizeView.getLayoutParams();
 //        LogUtil.e("onMeasure start " + lp.height + "  mCanScrollDistance：" + mCanScrollDistance);
-        if(mContentLayout == null){
-            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
-                    - mainTabBarHeight + StatusBarUtils.getStatusBarHeight(getContext());
-        }else{
+        if(mContentLayout != null){
             lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
                     - mContentLayout.getMeasuredHeight() - mainTabBarHeight
                     + StatusBarUtils.getStatusBarHeight(getContext());
+        }else{
+            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
+                    - mainTabBarHeight + StatusBarUtils.getStatusBarHeight(getContext());
         }
-        mViewPager.setLayoutParams(lp);
+        mAdaptiveSizeView.setLayoutParams(lp);
         //因为ViewPager修改了高度，所以需要重新测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -170,7 +162,10 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        mCanScrollDistance = mTopView.getMeasuredHeight() + StatusBarUtils.getStatusBarHeight(getContext());
+        if(mTopView != null){
+            mCanScrollDistance += mTopView.getMeasuredHeight();
+        }
+        mCanScrollDistance += StatusBarUtils.getStatusBarHeight(getContext());
     }
 
     @Override

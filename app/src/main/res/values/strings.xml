@@ -35,6 +35,7 @@
     <string name="connect_merchants">联系商家</string>
     <string name="to_settle_accounts">去结算</string>
     <string name="chose_specification">选规格</string>
+    <string name="go_spell_list">去拼单</string>
 
 
 </resources>

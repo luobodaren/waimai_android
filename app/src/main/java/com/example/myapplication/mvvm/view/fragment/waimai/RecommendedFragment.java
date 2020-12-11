@@ -48,7 +48,7 @@ public class RecommendedFragment extends BaseChildFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
     public void setData(List<Shop> shopList) {

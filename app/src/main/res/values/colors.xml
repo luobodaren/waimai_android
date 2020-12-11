@@ -29,11 +29,11 @@
     <color name="login_bt_machine_end">@color/colorTheme_gradient_end</color>
     <color name="login_bt_unable">#80ffffff</color>
     <color name="login_bt_able">#fffb5900</color>
-    <color name="main_tab_bg">@color/white</color>
 
     <color name="interval_color">#333333</color>
 
     <color name="search_bg">#F2F2F2</color>
+    <color name="search_bg_translate">#80FFFFFF</color>
 
     <color name="selector_search_record_tag_color">@color/text_normal</color>
 

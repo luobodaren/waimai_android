@@ -20,12 +20,12 @@ public class MainFragment extends BaseFragment {
 
     FragmentMainBinding mBinding;
 
-    MainViewModel myViewModel;
+    MainViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
-        myViewModel = new MainViewModel();
-        return myViewModel;
+        mViewModel = new MainViewModel();
+        return mViewModel;
     }
 
     @Override
@@ -60,18 +60,19 @@ public class MainFragment extends BaseFragment {
         mBinding.tabSegment.setMode(TabSegment.MODE_FIXED);
         mBinding.tabSegment.setDefaultNormalColor(getResources().getColor(R.color.view_uncheck));
         mBinding.tabSegment.setDefaultSelectedColor(getResources().getColor(R.color.view_check));
-        String[] tabData = myViewModel.getTabDatas();
-        int[] tabIconId = myViewModel.getTabIcons();
+        String[] tabData = mViewModel.getTabDatas();
+        int[] tabIconId = mViewModel.getTabIcons();
+        int[] tabIconIdSelected = mViewModel.getTabIconsSelected();
         List<BaseFragment> tabFragment = ((MainViewModel)baseViewModel).getTabFragment();
 
         int tabSize = tabData.length;
         for(int i = 0;i < tabSize;i++){
             String tabStr = tabData[i];
             MyTabSegmentTab tab = new MyTabSegmentTab(
-                    ContextCompat.getDrawable(getContext(), tabIconId[i]),
+                    ContextCompat.getDrawable(getContext(), tabIconIdSelected[i]),
                     ContextCompat.getDrawable(getContext(), tabIconId[i]),  // TODO: 2020/11/25 动画添加
                     tabStr,
-                    true
+                    false
             );
             tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.main_tab_text_size));
             tab.setIconPosition(TabSegment.ICON_POSITION_TOP);

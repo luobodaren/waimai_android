@@ -9,7 +9,7 @@
         android:layout_width="104px"
         android:layout_height="50px"
         android:includeFontPadding="false"
-        android:background="@drawable/sr_bg_full_corners_red"
+        android:background="@drawable/sr_bg_full_corners_theme"
         android:textSize="@dimen/font_size_24"
         android:textColor="@color/white"
         android:text="@string/chose_specification"/>

@@ -34,7 +34,8 @@ public class MySimpleImageBanner extends BaseImageBanner<MySimpleImageBanner> {
 
     @Override
     protected void loadingImageView(ImageView iv, BannerItem item) {
-        String imgUrl = item.imgUrl;
-        Glide.with(getContext()).load(imgUrl).placeholder(R.drawable.ic_waimai_brand).centerCrop().into(iv);
+        super.loadingImageView(iv,item);
+//        String imgUrl = item.imgUrl;
+//        Glide.with(getContext()).load(imgUrl).placeholder(R.drawable.ic_waimai_brand).centerCrop().into(iv);
     }
 }

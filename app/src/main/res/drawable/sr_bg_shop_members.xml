@@ -4,7 +4,7 @@
     <item>
         <shape>
             <solid android:color="@color/shop_menbers_cardview_bg" />
-            <corners android:radius="@dimen/shop_menbers_cardview_conners" />
+            <corners android:radius="@dimen/shop_menbers_cardview_radius" />
         </shape>
     </item>
 </selector>

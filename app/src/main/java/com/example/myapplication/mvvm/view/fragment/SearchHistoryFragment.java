@@ -33,6 +33,13 @@ public class SearchHistoryFragment extends BaseFragment {
     }
 
     @Override
+    protected void initArgs() {
+        super.initArgs();
+        setFitStatusBarHeight(false);
+
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_search_history;
     }

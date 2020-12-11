@@ -57,7 +57,7 @@ public class WaimaiExclusiveFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
         setFitStatusBarHeight(true);
     }
 

@@ -14,7 +14,7 @@ import com.example.myapplication.listener.OnPrimaryItemClickListener;
 import com.example.myapplication.listener.OnSecondaryItemClickListener;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
-import com.example.myapplication.mvvm.vm.waimai.WaiMaiTypeViewModel;
+import com.example.myapplication.mvvm.vm.waimai.WaiMaiAllTypeViewModel;
 import com.example.myapplication.util.StatusBarUtils;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
@@ -31,11 +31,11 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
         OnSecondaryItemClickListener {
 
     private FragmentWaimaiAllTypeBinding mBinding;
-    private WaiMaiTypeViewModel mViewModel;
+    private WaiMaiAllTypeViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
-        mViewModel = new WaiMaiTypeViewModel();
+        mViewModel = new WaiMaiAllTypeViewModel();
         return mViewModel;
     }
 
@@ -48,7 +48,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
     protected void initArgs() {
         super.initArgs();
         setFitStatusBarHeight(true);
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }
 
     @Override

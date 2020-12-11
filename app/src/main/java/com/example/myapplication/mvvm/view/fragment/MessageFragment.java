@@ -36,7 +36,7 @@ import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
 import java.util.List;
 
-@Page(name = "消息中心",anim = CoreAnim.fade)
+@Page(name = "消息中心",anim = CoreAnim.slide)
 public class MessageFragment extends BaseFragment {
 
     MessageViewModel mViewModel;
@@ -73,7 +73,7 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
         setFitStatusBarHeight(true);
     }
 

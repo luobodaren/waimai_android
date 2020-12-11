@@ -1,17 +1,12 @@
 package com.example.myapplication.mvvm.view.activity;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 
-import com.example.base.utils.LogUtil;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivitySearchBinding;
 import com.example.myapplication.mvvm.view.fragment.SearchHistoryFragment;
@@ -49,6 +44,7 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void initActivityAttritube() {
         setTransluecnt(true);
+        setFitStatusBarHeight(true);
     }
 
     private void initDataBinding(){

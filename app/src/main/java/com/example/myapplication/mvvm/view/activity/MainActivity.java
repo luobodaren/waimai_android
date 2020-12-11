@@ -7,7 +7,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initActivityAttritube() {
         setTransluecnt(true);
-        setFitWindow(false);
+        setFitStatusBarHeight(false);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class StatusBarUtils {
      * 通过添加占位view实现
      * 配合状态栏透明，实现渐变式状态栏
      */
-    public static void fitStatusBarHeight(BaseActivity baseActivity){    // FIXME: 2020/12/7 添加占位后，重新计算布局高度
+    public static void fitStatusBarHeight(BaseActivity baseActivity){    // FIXME: 2020/12/7 搜索界面没有效果
         int statusBarHeight = com.xuexiang.xui.utils.StatusBarUtils.getStatusBarHeight(baseActivity);
         //根布局添加占位状态栏
         ViewGroup decorView = (ViewGroup) baseActivity.getWindow().getDecorView();

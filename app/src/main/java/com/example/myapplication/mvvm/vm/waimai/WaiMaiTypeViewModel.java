@@ -1,66 +1,85 @@
 package com.example.myapplication.mvvm.vm.waimai;
 
-import com.example.base.utils.GsonUtil;
-import com.example.myapplication.bean.LinkageGroupedItemWaimaiType;
+import com.example.myapplication.R;
+import com.example.myapplication.bean.Shop;
+import com.example.myapplication.bean.ui.IconStrData;
 import com.example.myapplication.mvvm.model.BaseModel;
-import com.example.myapplication.mvvm.model.waimai.WaiMaiTypeModel;
+import com.example.myapplication.mvvm.model.waimai.WaimaiModel;
+import com.example.myapplication.mvvm.view.fragment.BaseFragment;
+import com.example.myapplication.mvvm.view.fragment.waimai.RecommendedFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
-import com.kunminx.linkage.bean.BaseGroupedItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WaiMaiTypeViewModel extends BaseViewModel {
 
-    WaiMaiTypeModel model;
-    List<LinkageGroupedItemWaimaiType> waimaiTypeList = new ArrayList<>();
+    private WaimaiModel mModel;
 
     @Override
     public BaseModel getModel() {
-        if(model == null){
-            model = new WaiMaiTypeModel();
+        if(mModel == null){
+            mModel = new WaimaiModel();
         }
-        return model;
+        return mModel;
     }
 
     @Override
     public void initData() {
-
+        initFoodRecyclerData();
     }
 
-    public List<BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo>> getElemeGroupItems() {
-        String dataJson = "[\n" +
-                "  {\n" +
-                "    \"header\": \"优惠\",\n" +
-                "    \"isHeader\": true\n" +
-                "  },\n" +
-                "  {\n" +
-                "    \"isHeader\": false,\"info\": {\"content\": \"好吃的食物，增肥神器，有求必应\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全家桶\"  } },\n" +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全家\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全桶\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"家桶\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"家\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"桶\"  } }," +
+    public List<IconStrData> getSubtypeTitles() {
+        return mFoodSubtypeList;
+    }
 
-                "  {\"header\": \"热卖\",\"isHeader\": true}," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤全翅\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤翅\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤全\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"全\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"翅\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤\"  } }," +
+    private List<IconStrData> mFoodSubtypeList = new ArrayList<>();
+    private void initFoodRecyclerData(){
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"健康美食"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"甜品饮品"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"超时便利"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"蔬菜水果"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"送药上门"));
 
-                "  {\"header\": \"超市便利\",\"isHeader\": true}," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤全翅\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤翅\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤全\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"全\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"翅\"  } }," +
-                "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤\"  } }" +
-                "]" ;
-        waimaiTypeList =  GsonUtil.jsonToList(dataJson,  LinkageGroupedItemWaimaiType.class);
-        return (List)waimaiTypeList;
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"汉堡蔬菜"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"日韩料理"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"同城零售"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"快速自取"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"沙拉轻食"));
+
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"下午茶"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"小吃馆"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"地方菜"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"化妆品"));
+        mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"全部分类"));
+    }
+
+    public BaseFragment getRecommendedFragment() {
+        /*if(recommendedFragment == null){
+            recommendedFragment = new RecommendedFragment();
+            recommendedFragment.setData(mShopList);
+        }
+        return recommendedFragment;*/
+
+        List<Shop> list = new ArrayList<>();
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+        list.add(new Shop("嘉禾一品粥(国展店)"));
+
+        RecommendedFragment fragment = new RecommendedFragment();
+        fragment.setData(list);
+        return fragment;
     }
 
 }

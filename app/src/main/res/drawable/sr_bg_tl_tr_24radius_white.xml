@@ -3,7 +3,8 @@
 
     <item>
         <shape>
-            <solid android:color="@color/main_tab_bg"/>
+            <solid android:color="@color/white"/>
+            <corners android:topLeftRadius="24px" android:topRightRadius="24px"/>
         </shape>
     </item>
 

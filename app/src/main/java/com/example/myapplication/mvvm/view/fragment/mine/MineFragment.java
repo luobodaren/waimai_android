@@ -38,7 +38,7 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         setFitStatusBarHeight(true);
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }
 
     @Override

@@ -20,7 +20,6 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
-import com.xuexiang.xui.widget.banner.recycler.BannerLayout;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.util.Iterator;
@@ -55,7 +54,7 @@ public class ShopDetailFragment extends BaseFragment {
     protected void initArgs() {
         super.initArgs();
         setFitStatusBarHeight(true);
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
     @Override
@@ -77,17 +76,15 @@ public class ShopDetailFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-        mBinding.stickyNavigation.setOnScrollChangeListener(moveRatio -> {
+        mBinding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {    // FIXME: 2020/12/10  没效果
             if(moveRatio == 1){
-                if(isShowStatusBar()){
-                    setStatusBarShowByType(HIDE_STATUS_BAR);
-                }
+                setStatusBarShowByType(HIDE_STATUS_BAR);
             } else {
-                if(isHideStatusBar()){
-                    setStatusBarShowByType(SHOW_STATUS_BAR);
-                }
+                setStatusBarShowByType(SHOW_STATUS_BAR);
             }
         });
+
+        mRootView.findViewById(R.id.iv_back).setOnClickListener((v)-> popToBack());
     }
 
 
@@ -159,20 +156,21 @@ public class ShopDetailFragment extends BaseFragment {
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
-        mBinding.tabLayout.setHasIndicator(true);
-        mBinding.tabLayout.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widght_horizontal_bar));
-        mBinding.tabLayout.setMode(TabSegment.MODE_SCROLLABLE);
-        mBinding.tabLayout.setItemSpaceInScrollMode(space);
-        mBinding.tabLayout.setPadding(space, 0, space, 0);
-        mBinding.tabLayout.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
-        mBinding.tabLayout.setDefaultSelectedColor(getResources().getColor(R.color.text_uncheck));
-        mBinding.tabLayout.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size));
-        addTab(mBinding.tabLayout,adapter,shopTabTypes);
-        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager,true);
+        mBinding.stickyView.setHasIndicator(true);
+        mBinding.stickyView.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widght_horizontal_bar));
+        mBinding.stickyView.setIndicatorWidthAdjustContent(false);
+        mBinding.stickyView.setMode(TabSegment.MODE_SCROLLABLE);
+        mBinding.stickyView.setItemSpaceInScrollMode(space);
+        mBinding.stickyView.setPadding(space, 0, space, 0);
+        mBinding.stickyView.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
+        mBinding.stickyView.setDefaultSelectedColor(getResources().getColor(R.color.text_uncheck));
+        mBinding.stickyView.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size));
+        addTab(mBinding.stickyView,adapter,shopTabTypes);
+        mBinding.stickyView.setupWithViewPager(mBinding.adaptiveSizeView,true);
 
-        mBinding.viewPager.setOffscreenPageLimit(shopTabTypes.size() - 1);
-        mBinding.viewPager.setAdapter(adapter);
-        mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        mBinding.adaptiveSizeView.setOffscreenPageLimit(shopTabTypes.size() - 1);
+        mBinding.adaptiveSizeView.setAdapter(adapter);
+        mBinding.adaptiveSizeView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
                  //TODO: 2020/12/3 刷新内容
@@ -180,17 +178,6 @@ public class ShopDetailFragment extends BaseFragment {
             }
         });
 
-//        mBinding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {
-//            if(moveRatio == 1){
-//                if(isShowStatusBar()){
-//                    setStatusBarShowByType(HIDE_STATUS_BAR);
-//                }
-//            } else {
-//                if(isHideStatusBar()){
-//                    setStatusBarShowByType(SHOW_STATUS_BAR);
-//                }
-//            }
-//        });
     }
 
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,

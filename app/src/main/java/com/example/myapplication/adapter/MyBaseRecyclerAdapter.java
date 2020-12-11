@@ -15,6 +15,10 @@ import com.example.myapplication.mvvm.vm.BaseRecyclerViewModel;
 
 import java.util.List;
 
+/**
+ * mvvm 实现界面与业务分离
+ * @param <T>
+ */
 public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
     protected List<BaseRecyclerViewModel> mItemViewModelList;

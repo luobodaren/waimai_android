@@ -4,6 +4,7 @@ package com.example.myapplication.mvvm.view.fragment.waimai;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -92,11 +93,11 @@ public class WaimaiFragment extends BaseFragment {
         FragmentWaimaiBinding mBinding = ((FragmentWaimaiBinding)mViewDataBinding);
         mBinding.myLlContentView.setOnScrollChangeListener(moveRatio -> {
             if(moveRatio == 1){
-                if(isShowStatusBar()){
+                if(!isHideStatusBar()){
                     setStatusBarShowByType(HIDE_STATUS_BAR);
                 }
             } else {
-                if(isHideStatusBar()){
+                if(!isShowStatusBar()){
                     setStatusBarShowByType(SHOW_STATUS_BAR);
                 }
             }
@@ -107,7 +108,7 @@ public class WaimaiFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         setFitStatusBarHeight(true);
-        setmStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
+        setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
     @Override
@@ -178,7 +179,11 @@ public class WaimaiFragment extends BaseFragment {
         BaseRecyclerAdapter<IconStrData> adapter = getFoodRecyclerAdapter();
         adapter.setOnItemClickListener((itemView, item, position) -> {
             if(position == adapter.getItemCount()-1){
-                openPage(WaimaiAllTypeFragment.class);
+                openPage(WaimaiAllTypeFragment.class);  //最后一个为全部类型
+            }else{  //打开子类型
+                Bundle bundle = new Bundle();
+                bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY,item.getIconType());
+                openPage(WaimaiTypeFragment.class,bundle);
             }
         });
         fragmentWaimaiBinding.recyclerFoodType.setAdapter(adapter);
@@ -289,22 +294,22 @@ public class WaimaiFragment extends BaseFragment {
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
-        addTab(binding.tabLayout,adapter,titles);   // FIXME: 2020/12/10 第一次进入 拿不到tab 设置的大小
-        binding.tabLayout.setHasIndicator(false);
-        binding.tabLayout.setMode(TabSegment.MODE_SCROLLABLE);
-        binding.tabLayout.setItemSpaceInScrollMode(space);
-        binding.tabLayout.setPadding(space, 0, space, 0);
-        binding.tabLayout.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
-        binding.tabLayout.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
-        binding.tabLayout.setTabTextSize(textSizeNormal);
-        binding.tabLayout.setupWithViewPager(binding.viewPager,true);   // FIXME: 2020/12/3 解决第一次进入 文字大小不正确的问题
+        addTab(binding.stickyView,adapter,titles);   // FIXME: 2020/12/10 第一次进入 拿不到tab 设置的大小
+        binding.stickyView.setHasIndicator(false);
+        binding.stickyView.setMode(TabSegment.MODE_SCROLLABLE);
+        binding.stickyView.setItemSpaceInScrollMode(space);
+        binding.stickyView.setPadding(space, 0, space, 0);
+        binding.stickyView.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
+        binding.stickyView.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
+        binding.stickyView.setTabTextSize(textSizeNormal);
+        binding.stickyView.setupWithViewPager(binding.adaptiveSizeView,true);
 
-        binding.viewPager.setOffscreenPageLimit(titles.length - 1);
-        binding.viewPager.setAdapter(adapter);
-        binding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        binding.adaptiveSizeView.setOffscreenPageLimit(titles.length - 1);
+        binding.adaptiveSizeView.setAdapter(adapter);
+        binding.adaptiveSizeView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
-                refreshTabViewStyle(binding.tabLayout,titles,position);
+                refreshTabViewStyle(binding.stickyView,titles,position);
                 // TODO: 2020/12/3 刷新内容
 
             }

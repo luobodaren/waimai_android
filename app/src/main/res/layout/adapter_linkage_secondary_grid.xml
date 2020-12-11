@@ -15,7 +15,7 @@
   ~
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/iv_goods_item"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:layout_marginTop="8px"
-        android:textSize="@dimen/text_size_grid_item"
+        android:textSize="@dimen/linkageSecondary_grid_item_text_size"
         android:textColor="@color/text_normal"
         app:layout_constraintStart_toStartOf="@+id/iv_goods_img"
         app:layout_constraintEnd_toEndOf="@id/iv_goods_img"
@@ -73,4 +73,4 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="@+id/iv_goods_price" />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.example.base.views.UiAdapterConstrainLayout>
