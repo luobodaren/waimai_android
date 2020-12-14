@@ -18,6 +18,7 @@
 package com.example.myapplication.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,8 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     private View mAdaptiveSizeView;
     private View mContentLayout;    //位于Navigation(TabBar)与ViewPager中间的布局
 
+    private boolean mIsFitStatusBar;
+
     private OnScrollChangeListener mOnScrollChangeListener;
 
     /**
@@ -59,6 +62,8 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
     public StickyNavigationLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StickyNavigationLayout);
+        mIsFitStatusBar = typedArray.getBoolean(R.styleable.StickyNavigationLayout_fitStatusBar,true);
         setOrientation(LinearLayout.VERTICAL);
         mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
     }
@@ -165,7 +170,9 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         if(mTopView != null){
             mCanScrollDistance += mTopView.getMeasuredHeight();
         }
-        mCanScrollDistance += StatusBarUtils.getStatusBarHeight(getContext());
+        if(mIsFitStatusBar){
+            mCanScrollDistance += StatusBarUtils.getStatusBarHeight(getContext());
+        }
     }
 
     @Override

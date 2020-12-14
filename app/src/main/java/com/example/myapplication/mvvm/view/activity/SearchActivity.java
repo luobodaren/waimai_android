@@ -11,7 +11,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivitySearchBinding;
 import com.example.myapplication.mvvm.view.fragment.SearchHistoryFragment;
 import com.example.myapplication.mvvm.vm.SearchViewModel;
-import com.example.myapplication.util.DataBindingUtils;
+import com.example.myapplication.util.MyDataBindingUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 
@@ -50,7 +50,7 @@ public class SearchActivity extends BaseActivity {
     private void initDataBinding(){
         mViewModel = new SearchViewModel();
         ((ActivitySearchBinding)mViewDataBinding).setViewModel(mViewModel);
-        DataBindingUtils.addCallBack(this, mViewModel.cancelSearch, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.cancelSearch, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 popPage();

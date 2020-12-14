@@ -82,4 +82,16 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
         return fragment;
     }
 
+    public List<String> getPreferential() {
+        List<String> cashBackList = new ArrayList<>();
+        cashBackList.add("津贴优惠");
+        cashBackList.add("会员领红包");
+        cashBackList.add("满减优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        return cashBackList;
+    }
 }

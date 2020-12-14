@@ -4,12 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.myapplication.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-/**
- * @author xuexiang
- * @date 2017/11/21 上午10:44
- */
 public class PreferentialFlowTagAdapter extends BaseTagAdapter<String, TextView> {
 
     public PreferentialFlowTagAdapter(Context context) {
@@ -18,15 +15,12 @@ public class PreferentialFlowTagAdapter extends BaseTagAdapter<String, TextView>
 
     @Override
     protected TextView newViewHolder(View convertView) {
-//        return (TextView) convertView.findViewById(R.id.tv_tag);
-        return null;
-
+        return (TextView) convertView.findViewById(R.id.tv_tag);
     }
 
     @Override
     protected int getLayoutId() {
-//        return R.layout.adapter_item_tag;
-        return 1;
+        return R.layout.adapter_tag_item_preferential;
     }
 
     @Override

@@ -38,7 +38,7 @@ import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 import com.example.myapplication.mvvm.view.fragment.MessageFragment;
 import com.example.myapplication.mvvm.vm.BaseViewModel;
 import com.example.myapplication.mvvm.vm.waimai.WaiMaiViewModel;
-import com.example.myapplication.util.DataBindingUtils;
+import com.example.myapplication.util.MyDataBindingUtil;
 import com.example.myapplication.util.StatusBarUtils;
 import com.example.myapplication.util.Utils;
 import com.example.myapplication.views.MyTabSegmentTab;
@@ -49,6 +49,8 @@ import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
+
+import static android.Manifest.permission_group.LOCATION;
 
 @Page(name = "外卖", anim = CoreAnim.fade)
 public class WaimaiFragment extends BaseFragment {
@@ -75,8 +77,6 @@ public class WaimaiFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        addCallBack();
-
         initBanner();
         initSearchView();
         initFoodTypeRecycler();
@@ -90,6 +90,9 @@ public class WaimaiFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        addCallBack();
+
         FragmentWaimaiBinding mBinding = ((FragmentWaimaiBinding)mViewDataBinding);
         mBinding.myLlContentView.setOnScrollChangeListener(moveRatio -> {
             if(moveRatio == 1){
@@ -117,7 +120,14 @@ public class WaimaiFragment extends BaseFragment {
     }
 
     private void addCallBack() {
-        DataBindingUtils.addCallBack(this, mViewModel.goToSearch, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.goToLocat, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+//                pickCity();
+            }
+        });
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.goToSearch, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
                 LogUtil.d("跳转搜索页");
@@ -127,7 +137,7 @@ public class WaimaiFragment extends BaseFragment {
             }
         });
 
-        DataBindingUtils.addCallBack(this, mViewModel.goToMessage, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.goToMessage, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
                 LogUtil.d("跳转消息页");
@@ -316,6 +326,48 @@ public class WaimaiFragment extends BaseFragment {
         });
     }
 
+    /*@Permission(LOCATION)
+    private void pickCity() {
+        CityPicker.from(this)
+                .enableAnimation(mEnableAnimation)
+                .setAnimationStyle(mAnim)
+                .setLocatedCity(null)
+                .setHotCities(mHotCities)
+                .setOnPickListener(new OnPickListener() {
+
+                    OnBDLocationListener mListener = new OnBDLocationListener();
+
+                    @Override
+                    public void onPick(int position, City data) {
+                        tvCurrent.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
+                        XToastUtils.toast(String.format("点击的数据：%s，%s", data.getName(), data.getCode()));
+                        LocationService.stop(mListener);
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        XToastUtils.toast("取消选择");
+                        LocationService.stop(mListener);
+                    }
+
+                    @Override
+                    public void onLocate(final OnLocationListener locationListener) {
+                        //开始定位
+                        mListener.setOnLocationListener(locationListener);
+                        LocationService.start(mListener);
+//                                new Handler().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        //模拟定位成功
+//                                        locationListener.onLocationChanged(new LocatedCity("深圳", "广东", "101280601"), LocateState.SUCCESS);
+//                                    }
+//                                }, 5000);
+                    }
+
+                })
+                .show();
+    }*/
+
     private BaseRecyclerAdapter<IconStrData> getFoodRecyclerAdapter() {
         return new BaseRecyclerAdapter<IconStrData>(mViewModel.getMyFoodDataList()){
 
@@ -459,6 +511,6 @@ public class WaimaiFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        DataBindingUtils.removeFragmentCallBack(this);
+        MyDataBindingUtil.removeFragmentCallBack(this);
     }
 }

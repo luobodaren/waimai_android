@@ -78,7 +78,6 @@ public class Utils {
                         recycler.recycleView(view);
                     }
                 }
-                LogUtil.i("Height  " + Math.max(measuredHeight, myMeasureHeight));
                 setMeasuredDimension(measuredWidth, Math.max(measuredHeight, myMeasureHeight));
             }
         };

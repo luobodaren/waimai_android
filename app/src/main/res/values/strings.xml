@@ -36,6 +36,8 @@
     <string name="to_settle_accounts">去结算</string>
     <string name="chose_specification">选规格</string>
     <string name="go_spell_list">去拼单</string>
+    <string name="screen">筛选</string>
+    <string name="locacl_unknow">未知</string>
 
 
 </resources>

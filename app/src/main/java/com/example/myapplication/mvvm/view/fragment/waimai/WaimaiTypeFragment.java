@@ -2,11 +2,13 @@ package com.example.myapplication.mvvm.view.fragment.waimai;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
@@ -15,8 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.base.utils.LogUtil;
 import com.example.base.utils.UIUtils;
 import com.example.myapplication.R;
+import com.example.myapplication.adapter.PreferentialFlowTagAdapter;
 import com.example.myapplication.adapter.SelectedPositionRecylerViewAdapter;
 import com.example.myapplication.bean.ui.IconStrData;
 import com.example.myapplication.databinding.FragmentWaimaiTypeBinding;
@@ -27,7 +31,6 @@ import com.example.myapplication.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xui.utils.ResUtils;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
 @Page(name = "外卖子类型页",anim = CoreAnim.slide)
@@ -99,15 +102,21 @@ public class WaimaiTypeFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
         adapter.setmSelectedListener((holder, item) -> {
+            mBinding.recyclerFoodSubtype.scrollToPosition(adapter.getSelectedPosition());
+            handleSelectedSign();
             refreshSortType(item.getIconType());
             refreshShopContent();
         });
+
+        addOnScrollListener(mBinding.recyclerFoodSubtype);
     }
 
+    LinearLayoutManager layoutManager;
     private void initSubtypeRecycler(){
-        mBinding.recyclerFoodSubtype.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        adapter = getSubtypeRecyclerAdapter();
+        layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        mBinding.recyclerFoodSubtype.setLayoutManager(layoutManager);
 
+        adapter = getSubtypeRecyclerAdapter();
         mBinding.recyclerFoodSubtype.setAdapter(adapter);
         mBinding.recyclerFoodSubtype.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -120,10 +129,22 @@ public class WaimaiTypeFragment extends BaseFragment {
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                                        @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.left = (int)(40* UIUtils.getInstance(getContext()).getHorValue());
+                int position = parent.getChildAdapterPosition(view);
+                if(position == 0){
+                    outRect.left = (int)(22* UIUtils.getInstance(getContext()).getHorValue());
+                }else{
+                    outRect.left = (int)(8* UIUtils.getInstance(getContext()).getHorValue());
+                    if(position == state.getItemCount()-1){
+                        outRect.right = (int)(22* UIUtils.getInstance(getContext()).getHorValue());
+                    }
+                }
             }
         });
 
+        //往上移 覆盖部分选中标志 已达到选中标志滚动，背景延伸的效果
+        ViewGroup.MarginLayoutParams layoutParams =
+                (ViewGroup.MarginLayoutParams) mBinding.stickyNavigationLayout.getLayoutParams();
+        layoutParams.topMargin = -getResources().getDimensionPixelOffset(R.dimen.waimai_subtype_content_bg_radius);
     }
 
     private SelectedPositionRecylerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
@@ -140,33 +161,105 @@ public class WaimaiTypeFragment extends BaseFragment {
                 if(selected){
                     holder.setBackgroundRes(R.id.tv_subtype_name,R.drawable.sr_bg_full_corners_white);
                     holder.setTextColor(R.id.tv_subtype_name,getResources().getColor(R.color.colorTheme));
+                    holder.setVisible(R.id.iv_selected_sign,true);
+                    holder.setVisible(R.id.view_tl_tr_24_radius,true);
                 }else{
                     holder.setBackgroundColor(R.id.tv_subtype_name,getResources().getColor(R.color.transparent));
                     holder.setTextColor(R.id.tv_subtype_name,getResources().getColor(R.color.white));
+                    holder.setVisible(R.id.iv_selected_sign,false);
+                    holder.setVisible(R.id.view_tl_tr_24_radius,false);
                 }
             }
         };
     }
 
-    private void refreshShopContent() {
-
+    private void addOnScrollListener(RecyclerView recyclerFoodSubtype) {
+        recyclerFoodSubtype.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                handleSelectedSign();
+            }
+        });
     }
 
+    private int currentSelectedPosition = -1;
+    private View selectedView;
+    private int halfWidth = -1;
+    /**
+     * 处理滚动tab底部指示标志
+     */
+    private void handleSelectedSign(){
+        int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
+        int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+        if(currentSelectedPosition != adapter.getSelectedPosition()){
+            currentSelectedPosition = adapter.getSelectedPosition();
+            selectedView = layoutManager.getChildAt(adapter.getSelectedPosition()-firstVisiblePosition);
+            LogUtil.d("selectedView getSelectedPosition:" + adapter.getSelectedPosition());
+            if(halfWidth == -1){
+                halfWidth = selectedView.getWidth()/2;  //仅计算一次
+            }
+        }
 
-    private void refreshSortType(String typeName){
+        if(firstVisiblePosition > currentSelectedPosition){ //左滑消失
+            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius_bg);
+        }else if(lastVisiblePosition < currentSelectedPosition){    //右滑消失
+            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius_bg);
+        }else{
+            //选中的itemView显示在屏幕上
+            Rect rect = new Rect();
+            if(firstVisiblePosition == adapter.getSelectedPosition()){  //第一个为选中的
+                selectedView = layoutManager.getChildAt(0);
+                selectedView.getGlobalVisibleRect(rect);
+                if((rect.right-rect.left) < halfWidth){
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius_bg);
+                }else{
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius_bg);
+                }
+            }else if(lastVisiblePosition == adapter.getSelectedPosition()){ //最后一个为选中的
+                selectedView = layoutManager.getChildAt(layoutManager.getChildCount() - 1);
+                if(selectedView.getGlobalVisibleRect(rect)){
+                    //若显示
+                    if((rect.right-rect.left) < halfWidth){
+                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius_bg);
+                    }else{
+                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius_bg);
+                    }
+                }else{
+                    //若不显示
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius_bg);
+                }
+            }else{  //显示在中间
+                setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius_bg);
+            }
+        }
+    }
 
+    private int currentStickyLayoutBackgroundId = -1;
+    private void setStickyNavigationLayoutBackground(@DrawableRes int drawableId){
+        if(currentStickyLayoutBackgroundId != drawableId){
+            currentStickyLayoutBackgroundId = drawableId;
+            mBinding.stickyNavigationLayout.setBackgroundResource(drawableId);
+        }
     }
 
     private void initFlowLayout() {
-//        FlowTagAdapter tagAdapter = new FlowTagAdapter(getContext());
-//        mMultiFlowTagLayout.setAdapter(tagAdapter);
-//        mMultiFlowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
-//        mMultiFlowTagLayout.setOnTagSelectListener((parent, position, selectedList) -> XToastUtils.toast(getSelectedText(parent, selectedList)));
-//        tagAdapter.addTags(ResUtils.getStringArray(R.array.tags_values));
-//        tagAdapter.setSelectedPositions(2, 3, 4);
+        PreferentialFlowTagAdapter tagAdapter = new PreferentialFlowTagAdapter(getContext());
+        mBinding.stickyView.flowlayoutPreferential.setAdapter(tagAdapter);
+        mBinding.stickyView.flowlayoutPreferential.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
+        mBinding.stickyView.flowlayoutPreferential.setOnTagSelectListener((parent, position, selectedList) -> {
+            refreshShopContent();
+        });
+        tagAdapter.addTags(mViewModel.getPreferential());
+        tagAdapter.setSelectedPositions(2, 3, 4);
 
-//        mMultiFlowTagLayout.setItems("1111", "2222", "3333", "4444");
-//        mMultiFlowTagLayout.setSelectedItems("3333", "4444");
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_screen_gray);
+        drawable.setBounds(0,0,
+                (int) (getResources().getDimensionPixelOffset(R.dimen.sort_layout_text_size)
+                        * UIUtils.getInstance(getContext()).getHorValue()),
+                (int) (getResources().getDimensionPixelOffset(R.dimen.sort_layout_text_size)
+                        * UIUtils.getInstance(getContext()).getHorValue()));
+        mBinding.stickyView.tvScreen.setCompoundDrawables(null,null,drawable,null);
     }
 
     private void initShopContent() {
@@ -175,6 +268,17 @@ public class WaimaiTypeFragment extends BaseFragment {
 
         ft.add(R.id.adaptive_size_view,mViewModel.getRecommendedFragment(),null);
         ft.commit();
+    }
+
+    private void refreshSortType(String typeName){
+
+    }
+
+    /**
+     *
+     */
+    private void refreshShopContent() {
+
     }
 
 }

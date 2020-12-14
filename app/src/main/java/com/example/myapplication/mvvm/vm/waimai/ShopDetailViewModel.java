@@ -37,6 +37,9 @@ public class ShopDetailViewModel extends BaseViewModel {
         cashBackList.add("40减20");
         cashBackList.add("60减25");
         cashBackList.add("40减20");
+        cashBackList.add("40减20");
+        cashBackList.add("60减25");
+        cashBackList.add("40减20");
         return cashBackList;
     }
 

@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.base.views.UiAdapterRelativeLayout;
 
 import java.lang.reflect.Field;
@@ -87,60 +85,22 @@ public class UIUtils {
     // FIXME: 2020/12/10 background圆角角度适配添加
     public void autoAdapterUI(View view){
         if(isScale(view)) {    //防止多次放大
-            float scaleX = getHorValue();
-            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-//                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
-            if(layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT)
-                layoutParams.width = (int) (layoutParams.width * scaleX);
-            if(layoutParams.height != ViewGroup.LayoutParams.MATCH_PARENT)
-                layoutParams.height = (int) (layoutParams.height * scaleX);
+            scaleView(view,getHorValue());
             setScaleTag(view);
         }
     }
 
     public void autoAdapterUI(ViewGroup viewGroup) {
-        float scaleX = getHorValue();
-        float scaleY = getVerValue();
-        ViewGroup.LayoutParams lp = viewGroup.getLayoutParams();
         if(isScale(viewGroup)){//防止多次放大
-            if(lp.width != ViewGroup.LayoutParams.MATCH_PARENT)
-                lp.width = (int) (lp.width * scaleX);
-            if(lp.height != ViewGroup.LayoutParams.MATCH_PARENT)
-                lp.height = (int) (lp.height * scaleX);
-            if(lp instanceof ViewGroup.MarginLayoutParams){
-                ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) lp;
-                marginLayoutParams.leftMargin = (int) (marginLayoutParams.leftMargin * scaleX);
-                marginLayoutParams.rightMargin = (int) (marginLayoutParams.rightMargin * scaleX);
-                marginLayoutParams.topMargin = (int) (marginLayoutParams.topMargin * scaleX);
-                marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
-            }
+            scaleView(viewGroup,getHorValue());
             setScaleTag(viewGroup);
-            viewGroup.setLayoutParams(lp);
         }
 
         int count = viewGroup.getChildCount();
         for(int i = 0; i < count; i++){
             View child = viewGroup.getChildAt(i);
             if(isScale(child)){    //防止多次放大
-                ViewGroup.LayoutParams layoutParams = child.getLayoutParams();
-//                LogUtil.e("tag=" + child.getTag() + "  begin width=" + layoutParams.width + " height=" + layoutParams.height);
-                if(layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT)
-                    layoutParams.width = (int) (layoutParams.width * scaleX);
-                if(layoutParams.height != ViewGroup.LayoutParams.MATCH_PARENT)
-                    layoutParams.height = (int) (layoutParams.height * scaleX);
-//                LogUtil.e("tag=" + child.getTag() + "  end   width=" + layoutParams.width + " height=" + layoutParams.height);
-                if(layoutParams instanceof ViewGroup.MarginLayoutParams){
-                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
-                    marginLayoutParams.leftMargin = (int) (marginLayoutParams.leftMargin * scaleX);
-                    marginLayoutParams.rightMargin = (int) (marginLayoutParams.rightMargin * scaleX);
-                    marginLayoutParams.topMargin = (int) (marginLayoutParams.topMargin * scaleX);
-                    marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
-                }
-                child.setLayoutParams(layoutParams);
-                if(child instanceof TextView){
-                    ((TextView) child).setTextSize
-                            (pxTosp(((TextView) child).getTextSize() * scaleX));
-                }
+                scaleView(child,getHorValue());
                 setScaleTag(child);
                 if(child instanceof ViewGroup){
                     autoAdapterUI((ViewGroup) child);
@@ -265,6 +225,36 @@ public class UIUtils {
     public int getViewMeasureHeight(View view) {
         view.measure(0,0);
         return view.getMeasuredHeight();
+    }
+
+
+    /**
+     * 对View进行缩放
+     * @param view view
+     * @param scaleX 缩放倍数
+     */
+    private void scaleView(View view, float scaleX){
+        view.setPadding((int)(view.getPaddingStart() * scaleX),
+                (int)(view.getPaddingTop() * scaleX),
+                (int)(view.getPaddingEnd() * scaleX),
+                (int)(view.getPaddingBottom() * scaleX));
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        if(layoutParams.width != ViewGroup.LayoutParams.MATCH_PARENT)
+            layoutParams.width = (int) (layoutParams.width * scaleX);
+        if(layoutParams.height != ViewGroup.LayoutParams.MATCH_PARENT)
+            layoutParams.height = (int) (layoutParams.height * scaleX);
+        if(layoutParams instanceof ViewGroup.MarginLayoutParams){
+            ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+            marginLayoutParams.leftMargin = (int) (marginLayoutParams.leftMargin * scaleX);
+            marginLayoutParams.rightMargin = (int) (marginLayoutParams.rightMargin * scaleX);
+            marginLayoutParams.topMargin = (int) (marginLayoutParams.topMargin * scaleX);
+            marginLayoutParams.bottomMargin = (int) (marginLayoutParams.bottomMargin * scaleX);
+        }
+        view.setLayoutParams(layoutParams);
+        if(view instanceof TextView){
+            TextView textView = (TextView) view;
+            textView.setTextSize(pxTosp(textView.getTextSize() * scaleX));
+        }
     }
 
     //用于反射系统的属性

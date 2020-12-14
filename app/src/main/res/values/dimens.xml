@@ -78,4 +78,9 @@
 
     <dimen name="waimai_type_tabbar_item_space">6px</dimen>
     <dimen name="waimai_subtype_recycler_item_text_size">24px</dimen>
+    <dimen name="waimai_subtype_content_bg_radius">24px</dimen>
+
+    <dimen name="sort_layout_text_size">26px</dimen>
+    <dimen name="sort_layout_preferential_text_size">20px</dimen>
+
 </resources>

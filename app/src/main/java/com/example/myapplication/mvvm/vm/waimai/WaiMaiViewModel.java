@@ -25,6 +25,7 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     public BaseObservable goToSearch = new ObservableInt();
     public BaseObservable goToMessage = new ObservableInt();
+    public BaseObservable goToLocat = new ObservableInt();
 
     String mLocation;
     private RecommendedFragment recommendedFragment;
@@ -48,6 +49,14 @@ public class WaiMaiViewModel extends BaseViewModel {
     public void initData() {
         initBannerList();
         initFoodRecyclerData();
+    }
+
+    /**
+     *  点击定位
+     * @param view
+     */
+    public void onLocatLayoutClick(View view){
+        goToLocat.notifyChange();
     }
 
     /**

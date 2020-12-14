@@ -7,7 +7,7 @@ import androidx.databinding.Observable;
 import com.example.myapplication.mvvm.view.activity.BaseActivity;
 import com.example.myapplication.mvvm.view.fragment.BaseFragment;
 
-public class DataBindingUtils {
+public class MyDataBindingUtil {
 
     private static ArrayMap<BaseActivity, ArrayMap<Observable, Observable.OnPropertyChangedCallback>> activityCommonMap = new ArrayMap<>();
 
