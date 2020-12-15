@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.example.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_group"
     android:orientation="vertical"
@@ -42,4 +42,4 @@
         android:id="@+id/layout_room_for_shopping_cart_bar"
         layout="@layout/widget_room_for_shopping_card"/>
 
-</com.example.base.views.UiAdapterLinearLayout>
+</com.life.base.views.UiAdapterLinearLayout>

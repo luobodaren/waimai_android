@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.waimai.WaimaiExclusiveViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaimaiExclusiveViewModel" />
     </data>
 
     <FrameLayout
@@ -18,7 +18,7 @@
             android:adjustViewBounds="true"
             android:src="@mipmap/png_bg_mipmap_exclusive"/>
 
-        <com.example.base.views.UiAdapterLinearLayout
+        <com.life.base.views.UiAdapterLinearLayout
             android:id="@+id/my_ll_content_view"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        </com.example.base.views.UiAdapterLinearLayout>
+        </com.life.base.views.UiAdapterLinearLayout>
 
     </FrameLayout>
 

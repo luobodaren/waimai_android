@@ -5,14 +5,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.waimai.ShopDetailViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
     </data>
 
-    <com.example.base.views.UiAdapterFrameLayout
+    <com.life.base.views.UiAdapterFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.myapplication.views.StickyNavigationLayout
+        <com.life.waimaishuo.views.StickyNavigationLayout
             android:id="@+id/sticky_navigation_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
-        </com.example.myapplication.views.StickyNavigationLayout>
+        </com.life.waimaishuo.views.StickyNavigationLayout>
 
         <include
             layout="@layout/layout_shopping_cart"
@@ -128,7 +128,7 @@
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/interval_size_xs"/>
 
-    </com.example.base.views.UiAdapterFrameLayout>
+    </com.life.base.views.UiAdapterFrameLayout>
 
 
 </layout>

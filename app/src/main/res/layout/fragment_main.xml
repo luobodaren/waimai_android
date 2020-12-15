@@ -6,10 +6,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.MainViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.MainViewModel" />
     </data>
 
-    <com.example.base.views.UiAdapterLinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -24,7 +24,7 @@
             style="@style/main_tab_bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-    </com.example.base.views.UiAdapterLinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 
 
 </layout>

@@ -5,10 +5,10 @@
     <data>
         <variable
             name="item"
-            type="com.example.myapplication.bean.ui.IconStrData" />
+            type="com.life.waimaishuo.bean.ui.IconStrData" />
     </data>
 
-    <com.example.base.views.UiAdapterLinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
@@ -36,5 +36,5 @@
             android:includeFontPadding="false" />
 
 
-    </com.example.base.views.UiAdapterLinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 </layout>

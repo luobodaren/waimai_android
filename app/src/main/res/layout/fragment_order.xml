@@ -5,10 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.order.OrderViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.order.OrderViewModel" />
     </data>
 
-    <com.example.base.views.UiAdapterLinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,5 +28,5 @@
             android:layout_height="match_parent"
             android:background="@color/background"/>
 
-    </com.example.base.views.UiAdapterLinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 </layout>

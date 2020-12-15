@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.base.views.UiAdapterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -11,4 +11,4 @@
         android:scaleType="centerCrop"
         app:riv_corner_radius="20px"/>
 
-</com.example.base.views.UiAdapterFrameLayout>
+</com.life.base.views.UiAdapterFrameLayout>

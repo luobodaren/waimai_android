@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/interval_size_xs"
     android:background="@drawable/sr_bg_16radius_white">
 
-    <com.example.myapplication.views.FilletImageView
+    <com.life.waimaishuo.views.FilletImageView
         android:id="@+id/iv_goods_img"
         android:scaleType="centerCrop"
         android:layout_width="342px"

@@ -5,7 +5,7 @@
 
     </data>
 
-    <com.example.base.views.UiAdapterLinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,5 +60,5 @@
             android:layout_height="0px"
             android:layout_weight="1"/>
 
-    </com.example.base.views.UiAdapterLinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 </layout>

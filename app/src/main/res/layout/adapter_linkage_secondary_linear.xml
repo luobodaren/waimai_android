@@ -15,7 +15,7 @@
   ~
   -->
 
-<com.example.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -183,4 +183,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.example.base.views.UiAdapterLinearLayout>
+</com.life.base.views.UiAdapterLinearLayout>

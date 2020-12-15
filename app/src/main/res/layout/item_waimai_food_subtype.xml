@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
@@ -38,4 +38,4 @@
         android:layout_height="24px"
         android:background="@drawable/sr_bg_tl_tr_24radius_bg"/>
 
-</com.example.base.views.UiAdapterLinearLayout>
+</com.life.base.views.UiAdapterLinearLayout>

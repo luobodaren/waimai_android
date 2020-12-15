@@ -4,10 +4,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.MessageViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.MessageViewModel" />
     </data>
 
-    <com.example.base.views.UiAdapterLinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,6 +31,6 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </com.example.base.views.UiAdapterLinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 
 </layout>

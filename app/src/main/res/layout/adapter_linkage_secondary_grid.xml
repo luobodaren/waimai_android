@@ -15,7 +15,7 @@
   ~
   -->
 
-<com.example.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/iv_goods_item"
@@ -73,4 +73,4 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="@+id/iv_goods_price" />-->
 
-</com.example.base.views.UiAdapterConstrainLayout>
+</com.life.base.views.UiAdapterConstrainLayout>

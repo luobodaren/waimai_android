@@ -5,10 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.waimai.WaiMaiTypeViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiTypeViewModel" />
     </data>
 
-    <com.example.base.views.UiAdapterFrameLayout
+    <com.life.base.views.UiAdapterFrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,7 +37,7 @@
                 android:layout_marginTop="@dimen/interval_size_xs"
                 android:overScrollMode="never"/>
 
-            <com.example.myapplication.views.StickyNavigationLayout
+            <com.life.waimaishuo.views.StickyNavigationLayout
                 android:id="@+id/sticky_navigation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,9 +79,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
-            </com.example.myapplication.views.StickyNavigationLayout>
+            </com.life.waimaishuo.views.StickyNavigationLayout>
 
         </LinearLayout>
-
-    </com.example.base.views.UiAdapterFrameLayout>
+    </com.life.base.views.UiAdapterFrameLayout>
 </layout>

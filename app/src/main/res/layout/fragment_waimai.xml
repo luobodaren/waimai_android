@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.mvvm.vm.waimai.WaiMaiViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel" />
     </data>
 
 
@@ -14,7 +14,7 @@
     <!--            android:layout_width="match_parent"-->
     <!--            android:layout_height="match_parent">-->
     <!--嵌套滑动父控件-->
-    <com.example.myapplication.views.StickyNavigationLayout
+    <com.life.waimaishuo.views.StickyNavigationLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                         android:layout_marginTop="16px"
                         android:overScrollMode="never"/>
 
-                    <com.example.myapplication.views.MySimpleImageBanner
+                    <com.life.waimaishuo.views.MySimpleImageBanner
                         android:id="@+id/simpleImageBanner"
                         android:layout_width="match_parent"
                         android:layout_height="172px"
@@ -317,7 +317,7 @@
             android:layout_height="match_parent"
             android:background="@color/background" />
 
-    </com.example.myapplication.views.StickyNavigationLayout>
+    </com.life.waimaishuo.views.StickyNavigationLayout>
     <!--        </ScrollView>-->
 
 </layout>
