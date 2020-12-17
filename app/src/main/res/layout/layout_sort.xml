@@ -12,8 +12,11 @@
         android:background="@color/background">
 
         <LinearLayout
+            android:id="@+id/ll_sort_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/interval_size_xs"
+            android:paddingEnd="@dimen/interval_size_xs"
             android:orientation="horizontal">
 
             <TextView
@@ -28,6 +31,7 @@
                 android:drawableRight="@drawable/ic_arrow_down_gray_solid" />
 
             <TextView
+                android:id="@+id/tv_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
@@ -37,6 +41,7 @@
                 android:layout_marginStart="56px" />
 
             <TextView
+                android:id="@+id/tv_sales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"

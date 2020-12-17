@@ -18,7 +18,7 @@ import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.databinding.FragmentOrderListBinding;
 import com.life.waimaishuo.databinding.ItemGoodInfoBinding;
-import com.life.waimaishuo.enumtype.OrderState;
+import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseChildFragment;
 import com.life.waimaishuo.mvvm.vm.BaseRecyclerViewModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -85,7 +85,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
                         .into((ImageView) headView.findViewById(R.id.iv_shopIcon));
                 ((TextView)headView.findViewById(R.id.tv_shopName)).setText(item.getShopName());
                 ((TextView)headView.findViewById(R.id.tv_order_date)).setText(item.getOrderCreateTime());
-                ((TextView)headView.findViewById(R.id.tv_order_state)).setText(OrderState.getState(item.getOrderState()));
+                ((TextView)headView.findViewById(R.id.tv_order_state)).setText(OrderStateEnum.getState(item.getOrderState()));
 
                 adapter1.addHeaderView(headView);
                 View footView = View.inflate(MyApplication.getMyApplication(),R.layout.foot_order_unpay,null);

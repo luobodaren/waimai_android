@@ -51,16 +51,18 @@ public class RecommendedFragment extends BaseChildFragment {
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
-    public void setData(List<Shop> shopList) {
-        mShopList = shopList;
-        // TODO: 2020/12/2 刷新列表
-    }
-
     @Override
     protected void initViews() {
         super.initViews();
         initRecycler(findViewById(R.id.recycler_recommended_shop));
     }
+
+    public void setData(List<Shop> shopList) {
+        mShopList = shopList;
+        // TODO: 2020/12/2 刷新列表
+    }
+
+
 
     private void initRecycler(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
@@ -83,13 +85,16 @@ public class RecommendedFragment extends BaseChildFragment {
             }
         });
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            int top_interval = -1;
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
-                if(position != 0){
-                    outRect.top = (int)(getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs)* UIUtils.getInstance(getContext()).getHorValue());
+                if(top_interval == -1){
+                    top_interval = (int)UIUtils.getInstance(getContext()).scalePx(
+                            getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
                 }
+                outRect.top = (position == 0) ? 0: top_interval;
             }
         });
     }

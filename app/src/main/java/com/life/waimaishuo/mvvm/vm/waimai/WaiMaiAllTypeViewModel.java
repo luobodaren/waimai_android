@@ -63,4 +63,7 @@ public class WaiMaiAllTypeViewModel extends BaseViewModel {
         return (List)waimaiTypeList;
     }
 
+    public String getAdvertisingUrl() {
+        return "https://img.pic88.com/16067341360375.jpg";
+    }
 }

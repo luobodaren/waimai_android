@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SelectedPositionRecylerViewAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
@@ -26,7 +27,7 @@ public abstract class SelectedPositionRecylerViewAdapter<T> extends RecyclerView
         this.data = data;
     }
 
-    public void setmSelectedListener(OnSelectedListener<T> mSelectedListener) {
+    public void setSelectedListener(OnSelectedListener<T> mSelectedListener) {
         this.mSelectedListener = mSelectedListener;
     }
 
@@ -71,6 +72,14 @@ public abstract class SelectedPositionRecylerViewAdapter<T> extends RecyclerView
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public List<T> getData() {
+        return data;
+    }
+
+    public void setData(List<T> data) {
+        this.data = data;
     }
 
     public abstract int getLayoutId();

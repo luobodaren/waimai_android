@@ -2,7 +2,7 @@ package com.life.waimaishuo.mvvm.vm.order;
 
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Order;
-import com.life.waimaishuo.enumtype.OrderState;
+import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.order.OrderBarItemModel;
 import com.life.waimaishuo.mvvm.vm.BaseRecyclerViewModel;
@@ -39,15 +39,15 @@ public class OrderListItemViewModel extends BaseViewModel {
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderState.UNDELIVER.getCode(),goodsList));
+                OrderStateEnum.UNDELIVER.getCode(),goodsList));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderState.UNDELIVER.getCode(),goodsList));
+                OrderStateEnum.UNDELIVER.getCode(),goodsList));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderState.UNDELIVER.getCode(),goodsList));
+                OrderStateEnum.UNDELIVER.getCode(),goodsList));
     }
 
     public List getOrderData() {

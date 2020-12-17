@@ -1,10 +1,12 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.bumptech.glide.Glide;
+import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
@@ -84,6 +86,18 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
                                      BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 //        SnackbarUtils.Short(view, item.info.getTitle()).show();
+        // FIXME: 2020/12/15 bundle传入频道与子类型
+        Bundle bundle = new Bundle();
+        bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY,item.info.getContent());
+        openPage(WaimaiTypeFragment.class,bundle);
+    }
+
+    @Override
+    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder,
+                                     BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+        if(item.isHeader){
+            openPage(WaimaiTypeFragment.class);
+        }
     }
 
 
@@ -107,7 +121,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
         imageView.setCornerRadius(24);
         frameLayout.addView(imageView);
         Glide.with(this)
-                .load("https://img.pic88.com/16067341360375.jpg")
+                .load(mViewModel.getAdvertisingUrl())
                 .placeholder(R.drawable.ic_waimai_brand)
                 .centerCrop()
                 .into(imageView);

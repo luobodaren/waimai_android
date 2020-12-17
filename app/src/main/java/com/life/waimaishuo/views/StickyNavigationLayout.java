@@ -23,16 +23,25 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.NestedScrollingParent2;
 import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
 
+import com.life.base.utils.LogUtil;
+import com.life.base.utils.UIUtils;
 import com.life.base.views.UiAdapterLinearLayout;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.utils.StatusBarUtils;
 
+/**
+ * 支持导航栏与viewpager 导航栏吸附
+ *
+ * 顶部支持滚动布局
+ */
 public class StickyNavigationLayout extends UiAdapterLinearLayout implements NestedScrollingParent2 {
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper;
@@ -67,9 +76,27 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
     }
 
-
     @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
+        if(mTopView instanceof NestedScrollView){ //若topView也为scrollView 则交由顶部处理
+            if(target.getId() == mTopView.getId()){
+                if(dy > 0) { //若向上滚动
+                    if (mTopView.canScrollVertically(1)) {
+                        mTopView.scrollBy(0, dy);
+                        consumed[1] = dy;
+                        return;
+                    }
+                }else{  //向下 交由父布局处理后，再又topView处理
+                    if(getScrollY() > 0){
+                        scrollBy(0,dy);
+                        consumed[1] = dy;
+                        return;
+                    }
+                }
+            }
+        }
+
+        //若topView不处理滚动 则先判断父布局的滚动情况
         //如果子view欲向上滑动，则先交给父view滑动
         boolean hideTop = dy > 0 && getScrollY() < mCanScrollDistance;
         //如果子view欲向下滑动，必须要子view不能向下滑动后，才能交给父view滑动
@@ -144,7 +171,6 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
         if(mainTabBarHeight == 0){
             mainTabBarHeight = getContext().getResources().getDimensionPixelSize(R.dimen.main_tab_height);
-//            mainTabBarHeight *= UIUtils.getInstance(getContext()).getHorValue();
         }
 
         //ViewPager修改后的高度= 总高度-TabLayout高度
@@ -172,6 +198,13 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         if(mIsFitStatusBar){
             mCanScrollDistance += StatusBarUtils.getStatusBarHeight(getContext());
         }
+
+//        if(mCanScrollDistance > UIUtils.getInstance(getContext()).getDisplayMetricsHeight()){
+//            mCanScrollDistance = UIUtils.getInstance(getContext()).getDisplayMetricsHeight()
+//                    - StatusBarUtils.getStatusBarHeight(getContext());
+//        }
+
+        LogUtil.d("StickyNavigation canScrollDistance=" + mCanScrollDistance);
     }
 
     @Override

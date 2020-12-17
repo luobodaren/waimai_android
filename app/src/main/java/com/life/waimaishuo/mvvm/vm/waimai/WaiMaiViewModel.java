@@ -183,4 +183,17 @@ public class WaiMaiViewModel extends BaseViewModel {
         mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","网红人气美谢限时抢购"));
         return mLimitedTimeGoodsDataList;
     }
+
+    public List<String> getPreferential() {
+        List<String> cashBackList = new ArrayList<>();
+        cashBackList.add("津贴优惠");
+        cashBackList.add("会员领红包");
+        cashBackList.add("满减优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        cashBackList.add("配送费优惠");
+        return cashBackList;
+    }
 }

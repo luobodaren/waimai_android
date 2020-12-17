@@ -1,6 +1,5 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,20 +23,24 @@ import com.life.waimaishuo.adapter.PreferentialFlowTagAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.FragmentWaimaiTypeBinding;
+import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiTypeViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.views.SortTypeView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
+import java.util.List;
+
 @Page(name = "外卖子类型页",anim = CoreAnim.slide)
 public class WaimaiTypeFragment extends BaseFragment {
 
     public static final String BUNDLE_FOOD_TYPE_STR_KEY = "my_food_type";
-    private static String mFoodType;
+    private String mFoodType;
 
     private WaiMaiTypeViewModel mViewModel;
     private FragmentWaimaiTypeBinding mBinding;
@@ -71,11 +74,11 @@ public class WaimaiTypeFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-        mFoodType = getArguments().getString(BUNDLE_FOOD_TYPE_STR_KEY);
-
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
         setStatusBarShowByType(SHOW_STATUS_BAR);
+
+        mFoodType = getArguments().getString(BUNDLE_FOOD_TYPE_STR_KEY);
     }
 
     @Override
@@ -86,9 +89,8 @@ public class WaimaiTypeFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
-
         initSubtypeRecycler();
-        initFlowLayout();
+        initSortView();
         initShopContent();
     }
 
@@ -101,10 +103,11 @@ public class WaimaiTypeFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-        adapter.setmSelectedListener((holder, item) -> {
+        adapter.setSelectedListener((holder, item) -> {
+            mFoodType = item.getIconType();
             mBinding.recyclerFoodSubtype.scrollToPosition(adapter.getSelectedPosition());
-            handleSelectedSign();
-            refreshSortType(item.getIconType());
+            handleSelectedSign();   //重置recyclerView底部延伸栏状态
+            refreshSortType(SortTypeEnum.SCORE);
             refreshShopContent();
         });
 
@@ -119,25 +122,22 @@ public class WaimaiTypeFragment extends BaseFragment {
         adapter = getSubtypeRecyclerAdapter();
         mBinding.recyclerFoodSubtype.setAdapter(adapter);
         mBinding.recyclerFoodSubtype.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent
-                    , @NonNull RecyclerView.State state) {
-                super.onDraw(c, parent, state);
-            }
+            int left_interval_22 = -1;
+            int left_interval_8 = -1;
 
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                                        @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
-                if(position == 0){
-                    outRect.left = (int)(22* UIUtils.getInstance(getContext()).getHorValue());
-                }else{
-                    outRect.left = (int)(8* UIUtils.getInstance(getContext()).getHorValue());
-                    if(position == state.getItemCount()-1){
-                        outRect.right = (int)(22* UIUtils.getInstance(getContext()).getHorValue());
-                    }
+                if(left_interval_22 == -1){
+                    left_interval_22 = (int)UIUtils.getInstance(getContext()).scalePx(22);
                 }
+                if(left_interval_8 == -1){
+                    left_interval_8 = (int)UIUtils.getInstance(getContext()).scalePx(8);
+                }
+                outRect.left = (position == 0) ? left_interval_22 : left_interval_8;
+                outRect.right = (position == state.getItemCount()-1) ? left_interval_22 : 0;
             }
         });
 
@@ -145,7 +145,30 @@ public class WaimaiTypeFragment extends BaseFragment {
         ViewGroup.MarginLayoutParams layoutParams =
                 (ViewGroup.MarginLayoutParams) mBinding.stickyNavigationLayout.getLayoutParams();
         layoutParams.topMargin = -getResources().getDimensionPixelOffset(R.dimen.waimai_subtype_content_bg_radius);
+
+        initFirstPosition();
     }
+
+    /**
+     * 初始化页面展示的初始数据
+     */
+    private void initFirstPosition() {
+        if(mFoodType != null && !"".equals(mFoodType)){
+            int position = 0;
+            for (IconStrData iconStrData : adapter.getData()) {
+                if(mFoodType.equals(iconStrData.getIconType())){
+                    mBinding.recyclerFoodSubtype.scrollToPosition(position);
+                    adapter.setSelectedPosition(position);
+//                    handleSelectedSign();   //重置recyclerView底部延伸栏状态 未进行绘制无法调用 也无需调用
+//                    refreshSortType(SortTypeEnum.SCORE);
+//                    refreshShopContent();
+                    break;
+                }
+                position++;
+            }
+        }
+    }
+
 
     private SelectedPositionRecylerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
         return new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getSubtypeTitles()){
@@ -187,7 +210,8 @@ public class WaimaiTypeFragment extends BaseFragment {
     private View selectedView;
     private int halfWidth = -1;
     /**
-     * 处理滚动tab底部指示标志
+     * 处理店铺内容背景样式
+     * 根据外部recyclerView的选中与滚动状态决定
      */
     private void handleSelectedSign(){
         int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
@@ -243,23 +267,24 @@ public class WaimaiTypeFragment extends BaseFragment {
         }
     }
 
-    private void initFlowLayout() {
-        PreferentialFlowTagAdapter tagAdapter = new PreferentialFlowTagAdapter(getContext());
-        mBinding.stickyView.flowlayoutPreferential.setAdapter(tagAdapter);
-        mBinding.stickyView.flowlayoutPreferential.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
-        mBinding.stickyView.flowlayoutPreferential.setOnTagSelectListener((parent, position, selectedList) -> {
-            refreshShopContent();
-        });
-        tagAdapter.addTags(mViewModel.getPreferential());
-        tagAdapter.setSelectedPositions(2, 3, 4);
+    private void initSortView(){
+        mBinding.stickyView.setPreferentialTab(mViewModel.getPreferential());
+        mBinding.stickyView.setOnSortTypeChangeListener(new SortTypeView.onSortTypeChangeListener() {
+            @Override
+            public void onSortPopShow() {
+                // TODO: 2020/12/16 StickyView滚动到最上面 
+            }
 
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_screen_gray);
-        drawable.setBounds(0,0,
-                (int) (getResources().getDimensionPixelOffset(R.dimen.sort_layout_text_size)
-                        * UIUtils.getInstance(getContext()).getHorValue()),
-                (int) (getResources().getDimensionPixelOffset(R.dimen.sort_layout_text_size)
-                        * UIUtils.getInstance(getContext()).getHorValue()));
-        mBinding.stickyView.tvScreen.setCompoundDrawables(null,null,drawable,null);
+            @Override
+            public void onSortTypeChange(SortTypeEnum sortTypeEnum) {
+                refreshShopContent();
+            }
+
+            @Override
+            public void onPreferentialChange(List<Integer> selectedList) {
+                refreshShopContent();
+            }
+        });
     }
 
     private void initShopContent() {
@@ -270,15 +295,15 @@ public class WaimaiTypeFragment extends BaseFragment {
         ft.commit();
     }
 
-    private void refreshSortType(String typeName){
-
+    private void refreshSortType(SortTypeEnum sortType){
+        mBinding.stickyView.setSortType(sortType);
     }
 
     /**
-     *
+     * 重置内容（排序 或重新获取列表数据）
      */
     private void refreshShopContent() {
-
+        LogUtil.e("重置内容");
     }
 
 }

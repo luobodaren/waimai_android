@@ -43,8 +43,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/interval_size_xs"
-                android:paddingStart="@dimen/interval_size_xs"
-                android:paddingEnd="@dimen/interval_size_xs"
                 android:background="@drawable/sr_bg_tl_tr_24radius_bg"
                 app:fitStatusBar="false">
 
@@ -68,8 +66,7 @@
 
                 </LinearLayout>
 
-                <include
-                    layout="@layout/layout_sort"
+                <com.life.waimaishuo.views.SortTypeView
                     android:id="@+id/sticky_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

@@ -1,6 +1,6 @@
 package com.life.waimaishuo.enumtype;
 
-public enum OrderState {
+public enum OrderStateEnum {
 
     UNPAY("未付款",1),
     UNDELIVER("待配送",2),
@@ -12,7 +12,7 @@ public enum OrderState {
     private String state;
     private int code;
 
-    OrderState(String state, int i) {
+    OrderStateEnum(String state, int i) {
         this.state = state;
         code = i;
     }

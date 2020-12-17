@@ -1,7 +1,11 @@
 package com.life.waimaishuo.mvvm.view.fragment.order;
 
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.core.content.ContextCompat;
 
@@ -55,21 +59,26 @@ public class OrderFragment extends BaseFragment {
     protected TitleBar initTitleBar() {
         TitleBar titleBar = super.initTitleBar();
         titleBar.setLeftImageDrawable(null);
-        titleBar.addAction(new TitleBar.ImageAction(R.drawable.ic_search_black){
+        ImageView imageView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.drawable.ic_search_black){
             @Override
             public void performAction(View view) {
                 ((BaseActivity)getActivity())
                         .showToast("点击了图标");
             }
         });
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+        layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;   // FIXME: 2020/12/15 改为动态设置大小
+        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        layoutParams.gravity = Gravity.CENTER_VERTICAL;
+        imageView.setLayoutParams(layoutParams);
+
         titleBar.setBackgroundColor(Color.WHITE);
         titleBar.setTitleColor(getContext().getResources().getColor(R.color.text_normal));
-        titleBar.setHeight((int)(getContext().getResources()
-                .getDimensionPixelOffset(
-                        R.dimen.titlebar_height)* UIUtils.getInstance(getContext()).getHorValue()));
-        titleBar.setTitleSize((int)(getContext().getResources()
-                .getDimensionPixelOffset(
-                        R.dimen.titlebar_text_size)));
+        titleBar.setHeight((int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources()
+                .getDimensionPixelSize(R.dimen.titlebar_height)));
+        titleBar.setTitleSize((int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources()
+                .getDimensionPixelOffset(R.dimen.titlebar_text_size)));
         return titleBar;
     }
 

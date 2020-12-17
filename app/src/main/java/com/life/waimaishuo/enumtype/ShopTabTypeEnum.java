@@ -1,6 +1,6 @@
 package com.life.waimaishuo.enumtype;
 
-public enum ShopTabType {
+public enum ShopTabTypeEnum {
 
     ORDER_DISHES("点餐"),
     EVALUATION("评价"),
@@ -8,7 +8,7 @@ public enum ShopTabType {
 
     private String name;
 
-    ShopTabType(String name) {
+    ShopTabTypeEnum(String name) {
         this.name = name;
     }
 

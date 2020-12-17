@@ -10,7 +10,7 @@ import com.life.waimaishuo.adapter.CashBackTagAdapter;
 import com.life.waimaishuo.adapter.RecyclerViewBannerAdapter;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.databinding.FragmentShopDetailBinding;
-import com.life.waimaishuo.enumtype.ShopTabType;
+import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
@@ -152,7 +152,7 @@ public class ShopDetailFragment extends BaseFragment {
      */
     private void initNavigationTab() {
         space = getResources().getDimensionPixelOffset(R.dimen.waimai_shop_tabbar_item_space);
-        List<ShopTabType> shopTabTypes = mViewModel.getRecommendedTitle();
+        List<ShopTabTypeEnum> shopTabTypes = mViewModel.getRecommendedTitle();
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
@@ -181,10 +181,10 @@ public class ShopDetailFragment extends BaseFragment {
     }
 
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
-                        List<ShopTabType> titles){
-        Iterator<ShopTabType> iterator = titles.iterator();
+                        List<ShopTabTypeEnum> titles){
+        Iterator<ShopTabTypeEnum> iterator = titles.iterator();
         while (iterator.hasNext()){
-            ShopTabType shopTabType = iterator.next();
+            ShopTabTypeEnum shopTabType = iterator.next();
             String title = shopTabType.getName();
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
             tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_shop_tabbar_item_text_size_selected));

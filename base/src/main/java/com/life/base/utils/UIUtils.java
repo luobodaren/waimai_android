@@ -2,7 +2,9 @@ package com.life.base.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextPaint;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -110,6 +112,33 @@ public class UIUtils {
     }
 
     /**
+     * 自动缩放像素
+     * @param px
+     * @return
+     */
+    public float scalePx(float px){
+        return px * getHorValue();
+    }
+
+    /**
+     * 自动缩放dp
+     * @param dp
+     * @return
+     */
+    public float scaleDp(float dp){
+        return dp * getHorValue();
+    }
+
+    /**
+     * 自动缩放Sp
+     * @param sp
+     * @return
+     */
+    public float scaleSp(float sp){
+        return sp * getHorValue();
+    }
+
+    /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      *
      * @param dp      dp的值
@@ -150,6 +179,29 @@ public class UIUtils {
         //DisplayMetrics类中属性scaledDensity
         final float fontScale = scaledDensity;
         return (int) (sp * scaledDensity + 0.5f);
+    }
+
+    public void setFakeBoldText(TextView textView, boolean bold){
+        TextPaint tp = textView.getPaint();
+        tp.setFakeBoldText(bold);
+    }
+
+    /**
+     *  设置字体大小，自动缩放（UiUtil）
+     * @param textView
+     * @param size pixel
+     */
+    public void setTextPxSizeAutoScale(TextView textView, int size) {
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,size * getHorValue());
+    }
+
+    /**
+     * 同上
+     * @param textView
+     * @param size sp
+     */
+    public void setTextSpSizeAutoScale(TextView textView, int size) {
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,size * getHorValue());
     }
 
     /**

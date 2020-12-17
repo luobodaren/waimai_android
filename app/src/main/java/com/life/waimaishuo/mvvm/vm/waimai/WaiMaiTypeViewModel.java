@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.IconStrData;
+import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -10,7 +11,9 @@ import com.life.waimaishuo.mvvm.view.fragment.waimai.RecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class WaiMaiTypeViewModel extends BaseViewModel {
 
@@ -94,4 +97,6 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
         cashBackList.add("配送费优惠");
         return cashBackList;
     }
+
+
 }

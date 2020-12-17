@@ -45,7 +45,7 @@ public class StaggeredDividerItemDecoration extends RecyclerView.ItemDecoration 
             LogUtil.d("mItemViewWidth = " + mItemViewWidth);
         }
         if(mCenterInterval == 0){
-            mCenterInterval = (int)((screenWidth/2 - mItemViewWidth)/2 * UIUtils.getInstance(context).getHorValue());
+            mCenterInterval = (int)(UIUtils.getInstance(context).scalePx((screenWidth/2 - mItemViewWidth)/2));
             LogUtil.e("mCenterInterval = " + mCenterInterval);
         }
 

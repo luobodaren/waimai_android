@@ -21,280 +21,293 @@
         android:orientation="vertical"
         android:background="@drawable/sr_bg_theme_color_gradient">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/top_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/titlebar_height"
-                android:layout_marginStart="@dimen/interval_size_xs"
-                android:layout_marginEnd="@dimen/interval_size_xs">
-
-                <LinearLayout
-                    android:id="@+id/ll_local"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:onClick="@{(v)->viewModel.onLocatLayoutClick(v)}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <ImageView
-                        android:id="@+id/iv_local"
-                        android:layout_width="44px"
-                        android:layout_height="43px"
-                        android:src="@drawable/ic_local_white"/>
-
-                    <TextView
-                        android:id="@+id/tv_location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="36px"
-                        android:textColor="@color/white"
-                        android:includeFontPadding="false"
-                        android:layout_marginStart="8px"
-                        android:layout_marginEnd="8px"
-                        android:text="@string/locacl_unknow"/>
-
-                    <ImageView
-                        android:layout_width="24px"
-                        android:layout_height="24px"
-                        android:src="@drawable/ic_arrow_down_white"
-                        android:scaleType="centerCrop"/>
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/iv_message"
-                    android:layout_width="44px"
-                    android:layout_height="44px"
-                    android:layout_marginEnd="24px"
-                    android:src="@drawable/ic_message_white"
-                    android:scaleType="centerCrop"
-                    android:onClick="@{(v)->viewModel.onMessageIvClick(v)}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/iv_scan"
-                    android:layout_width="44px"
-                    android:layout_height="44px"
-                    android:layout_marginEnd="24px"
-                    android:src="@drawable/ic_scan_white"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toStartOf="@id/iv_message"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-                <ImageView
-                    android:id="@+id/iv_change_skin"
-                    android:layout_width="44px"
-                    android:layout_height="44px"
-                    android:layout_marginEnd="24px"
-                    android:src="@drawable/ic_change_skin_white"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toStartOf="@id/iv_scan"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@drawable/sr_bg_waimai">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24px">
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/search_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
-
-                        <TextView
-                            android:id="@+id/et_search"
-                            android:layout_width="match_parent"
-                            android:layout_height="68px"
-                            android:drawableStart="@drawable/ic_search_gray"
-                            android:drawablePadding="8px"
-                            android:background="@drawable/sr_bg_search"
-                            android:gravity="center_vertical"
-                            android:paddingStart="24px"
-                            android:hint="  搜索词"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <Button
-                            android:id="@+id/bt_search"
-                            android:layout_width="108px"
-                            android:layout_height="52px"
-                            android:layout_marginEnd="8px"
-                            android:text="@string/search"
-                            android:textColor="@color/white"
-                            android:textSize="26px"
-                            android:background="@drawable/sr_bt_search"
-                            android:focusable="false"
-                            android:clickable="false"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/search_record"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16px"
-                        android:overScrollMode="never"/>
-
-                    <com.life.waimaishuo.views.MySimpleImageBanner
-                        android:id="@+id/simpleImageBanner"
-                        android:layout_width="match_parent"
-                        android:layout_height="172px"
-                        android:layout_marginTop="24px"
-                        app:bb_scale="0.2450" />
-                </LinearLayout>
-
-                <!--                    <com.meetsl.scardview.SCardView-->
-                <!--                        android:layout_width="match_parent"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:layout_marginTop="24px"-->
-                <!--                        android:layout_marginStart="24px"-->
-                <!--                        android:layout_marginEnd="24px"-->
-                <!--                        app:cardCornerRadius="8dp"-->
-                <!--                        app:cardElevation="6px"-->
-                <!--                        app:cardLightDirection="LT">-->
-                <!--                    </com.meetsl.scardview.SCardView>-->
-
-                <!--<com.meetsl.scardview.SCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24px"
-                    android:layout_marginStart="24px"
-                    android:layout_marginEnd="24px">
-                </com.meetsl.scardview.SCardView>-->
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_food_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24px"
-                    android:layout_marginTop="24px"
-                    android:layout_marginEnd="24px"
-                    android:background="@drawable/sr_bg_card_view_white"
-                    android:overScrollMode="never"
-                    android:padding="24px" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_my_exclusive"
-                    android:layout_width="match_parent"
-                    android:layout_height="626px"
-                    android:layout_marginTop="24px"
-                    android:layout_marginStart="24px"
-                    android:layout_marginEnd="24px"
-                    android:padding="24px"
-                    android:background="@drawable/sr_bg_card_view_white"
-                    android:overScrollMode="never"/>
-
-                <!--<com.meetsl.scardview.SCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24px"
-                    android:layout_marginStart="24px"
-                    android:layout_marginEnd="24px">
-                </com.meetsl.scardview.SCardView>-->
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="340px"
-                    android:layout_marginTop="24px"
-                    android:layout_marginStart="24px"
-                    android:layout_marginEnd="24px"
-                    android:background="@drawable/sr_bg_card_view_white">
+                    android:layout_height="@dimen/titlebar_height"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginEnd="@dimen/interval_size_xs">
 
-                    <TextView
-                        android:id="@+id/text2"
+                    <LinearLayout
+                        android:id="@+id/ll_local"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24px"
-                        android:layout_marginTop="24px"
-                        android:includeFontPadding="false"
-                        android:text="限时秒杀"
-                        android:textColor="@color/text_normal"
-                        android:textSize="36px"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:onClick="@{(v)->viewModel.onLocatLayoutClick(v)}"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
 
-                    <include
-                        layout="@layout/layout_countting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16px"
-                        app:layout_constraintStart_toEndOf="@id/text2"
-                        app:layout_constraintTop_toTopOf="@id/text2" />
+                        <ImageView
+                            android:id="@+id/iv_local"
+                            android:layout_width="44px"
+                            android:layout_height="43px"
+                            android:src="@drawable/ic_local_white"/>
 
-                    <TextView
-                        android:id="@+id/text3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:includeFontPadding="false"
-                        android:text="0元配送"
-                        android:textColor="@color/text_normal"
-                        android:textSize="36px"
-                        android:layout_marginStart="12px"
-                        app:layout_constraintTop_toTopOf="@id/text2"
-                        app:layout_constraintStart_toStartOf="@id/guideline_50percent"/>
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="36px"
+                            android:textColor="@color/white"
+                            android:includeFontPadding="false"
+                            android:layout_marginStart="8px"
+                            android:layout_marginEnd="8px"
+                            android:text="@string/locacl_unknow"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="海量放心选择"
-                        android:textSize="18px"
-                        app:layout_constraintStart_toEndOf="@id/text3"
-                        app:layout_constraintTop_toTopOf="@id/text3"
-                        app:layout_constraintBottom_toBottomOf="@id/text3"
-                        android:layout_marginStart="8px"
-                        android:paddingTop="7px"
-                        android:paddingBottom="7px"
-                        android:paddingStart="14px"
-                        android:paddingEnd="14px"
-                        android:background="@drawable/sr_bg_pink_radius"
-                        android:textColor="@color/colorTheme"/>
+                        <ImageView
+                            android:layout_width="24px"
+                            android:layout_height="24px"
+                            android:src="@drawable/ic_arrow_down_white"
+                            android:scaleType="centerCrop"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_seconds_kill"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="24px"
-                        android:overScrollMode="never"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text2" />
+                    </LinearLayout>
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline_50percent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.5" />
+                    <ImageView
+                        android:id="@+id/iv_message"
+                        android:layout_width="44px"
+                        android:layout_height="44px"
+                        android:layout_marginEnd="24px"
+                        android:src="@drawable/ic_message_white"
+                        android:scaleType="centerCrop"
+                        android:onClick="@{(v)->viewModel.onMessageIvClick(v)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_scan"
+                        android:layout_width="44px"
+                        android:layout_height="44px"
+                        android:layout_marginEnd="24px"
+                        android:src="@drawable/ic_scan_white"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toStartOf="@id/iv_message"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_change_skin"
+                        android:layout_width="44px"
+                        android:layout_height="44px"
+                        android:layout_marginEnd="24px"
+                        android:src="@drawable/ic_change_skin_white"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toStartOf="@id/iv_scan"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/sr_bg_waimai">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24px">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/search_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
+
+                            <TextView
+                                android:id="@+id/et_search"
+                                android:layout_width="match_parent"
+                                android:layout_height="68px"
+                                android:drawableStart="@drawable/ic_search_gray"
+                                android:drawablePadding="8px"
+                                android:background="@drawable/sr_bg_search"
+                                android:gravity="center_vertical"
+                                android:paddingStart="24px"
+                                android:hint="  搜索词"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <Button
+                                android:id="@+id/bt_search"
+                                android:layout_width="108px"
+                                android:layout_height="52px"
+                                android:layout_marginEnd="8px"
+                                android:text="@string/search"
+                                android:textColor="@color/white"
+                                android:textSize="26px"
+                                android:background="@drawable/sr_bt_search"
+                                android:focusable="false"
+                                android:clickable="false"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/search_record"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16px"
+                            android:overScrollMode="never"/>
+
+                        <com.life.waimaishuo.views.MySimpleImageBanner
+                            android:id="@+id/simpleImageBanner"
+                            android:layout_width="match_parent"
+                            android:layout_height="172px"
+                            android:layout_marginTop="24px"
+                            app:bb_scale="0.2450" />
+                    </LinearLayout>
+
+                    <!--                    <com.meetsl.scardview.SCardView-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginTop="24px"-->
+                    <!--                        android:layout_marginStart="24px"-->
+                    <!--                        android:layout_marginEnd="24px"-->
+                    <!--                        app:cardCornerRadius="8dp"-->
+                    <!--                        app:cardElevation="6px"-->
+                    <!--                        app:cardLightDirection="LT">-->
+                    <!--                    </com.meetsl.scardview.SCardView>-->
+
+                    <!--<com.meetsl.scardview.SCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:layout_marginStart="24px"
+                        android:layout_marginEnd="24px">
+                    </com.meetsl.scardview.SCardView>-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_food_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24px"
+                        android:layout_marginTop="24px"
+                        android:layout_marginEnd="24px"
+                        android:background="@drawable/sr_bg_card_view_white"
+                        android:overScrollMode="never"
+                        android:padding="24px" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_my_exclusive"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24px"
+                            android:layout_marginStart="24px"
+                            android:layout_marginEnd="24px"
+                            android:padding="24px"
+                            android:background="@drawable/sr_bg_card_view_white"
+                            android:overScrollMode="never"/>
+                    </RelativeLayout>
+
+                    <!--<com.meetsl.scardview.SCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:layout_marginStart="24px"
+                        android:layout_marginEnd="24px">
+                    </com.meetsl.scardview.SCardView>-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:layout_marginStart="24px"
+                        android:layout_marginEnd="24px"
+                        android:background="@drawable/sr_bg_card_view_white">
+
+                        <TextView
+                            android:id="@+id/text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24px"
+                            android:layout_marginTop="24px"
+                            android:includeFontPadding="false"
+                            android:text="限时秒杀"
+                            android:textColor="@color/text_normal"
+                            android:textSize="36px"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <include
+                            layout="@layout/layout_countting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16px"
+                            app:layout_constraintStart_toEndOf="@id/text2"
+                            app:layout_constraintTop_toTopOf="@id/text2" />
+
+                        <TextView
+                            android:id="@+id/text3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:includeFontPadding="false"
+                            android:text="0元配送"
+                            android:textColor="@color/text_normal"
+                            android:textSize="36px"
+                            android:layout_marginStart="12px"
+                            app:layout_constraintTop_toTopOf="@id/text2"
+                            app:layout_constraintStart_toStartOf="@id/guideline_50percent"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="海量放心选择"
+                            android:textSize="18px"
+                            app:layout_constraintStart_toEndOf="@id/text3"
+                            app:layout_constraintTop_toTopOf="@id/text3"
+                            app:layout_constraintBottom_toBottomOf="@id/text3"
+                            android:layout_marginStart="8px"
+                            android:paddingTop="7px"
+                            android:paddingBottom="7px"
+                            android:paddingStart="14px"
+                            android:paddingEnd="14px"
+                            android:background="@drawable/sr_bg_pink_radius"
+                            android:textColor="@color/colorTheme"/>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text2" >
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recycler_seconds_kill"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="24px"
+                                android:overScrollMode="never"/>
+                        </RelativeLayout>
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_50percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <!--TabLayout-->
         <com.xuexiang.xui.widget.tabbar.TabSegment
@@ -305,10 +318,10 @@
             android:paddingTop="40px"
             android:paddingEnd="30px" />
 
-        <include layout="@layout/layout_sort"
+        <com.life.waimaishuo.views.SortTypeView
             android:id="@+id/content_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <!--ViewPager-->
         <androidx.viewpager.widget.ViewPager

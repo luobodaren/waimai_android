@@ -89,7 +89,8 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
                                  final BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 
         ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
-        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
+        Glide.with(mContext).load(R.mipmap.ic_food_all_subtype).into((ImageView) holder.getView(R.id.iv_goods_img));
+//        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img)); // FIXME: 2020/12/15 暂时修改为读取本地图片
 
         ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
         viewGroup.setOnClickListener(v -> {
@@ -102,8 +103,12 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
                                        BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
-
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
+        holder.getView(R.id.secondary_header_right).setOnClickListener(v ->{
+            if(mItemClickListener != null){
+                mItemClickListener.onSecondaryHeadClick(holder,item);
+            }
+        });
     }
 
     @Override

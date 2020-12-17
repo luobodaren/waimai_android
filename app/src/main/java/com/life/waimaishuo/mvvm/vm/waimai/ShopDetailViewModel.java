@@ -2,7 +2,7 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 
 import com.life.waimaishuo.bean.MemberCard;
 import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.enumtype.ShopTabType;
+import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.ShopDetailModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -61,16 +61,16 @@ public class ShopDetailViewModel extends BaseViewModel {
         return shop;
     }
 
-    List<ShopTabType> titleList = new ArrayList<>();
+    List<ShopTabTypeEnum> titleList = new ArrayList<>();
 
-    public List<ShopTabType> getRecommendedTitle() {
-        titleList.add(ShopTabType.ORDER_DISHES);
-        titleList.add(ShopTabType.EVALUATION);
-        titleList.add(ShopTabType.MERCHANT);
+    public List<ShopTabTypeEnum> getRecommendedTitle() {
+        titleList.add(ShopTabTypeEnum.ORDER_DISHES);
+        titleList.add(ShopTabTypeEnum.EVALUATION);
+        titleList.add(ShopTabTypeEnum.MERCHANT);
         return titleList;
     }
 
-    public BaseFragment getTabBarFragment(ShopTabType title) {
+    public BaseFragment getTabBarFragment(ShopTabTypeEnum title) {
         BaseFragment baseFragment = null;
         switch (title){
             case ORDER_DISHES:

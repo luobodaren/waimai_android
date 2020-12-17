@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
@@ -78,6 +79,11 @@ public class ShopOrderDishesFragment extends BaseFragment
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+
+    }
+
+    @Override
+    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 
     }
 
