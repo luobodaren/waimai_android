@@ -2,7 +2,6 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -39,7 +38,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.MessageFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel;
-import com.life.waimaishuo.util.LocationService;
+import com.life.waimaishuo.util.BaiDuLocationService;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.Utils;
@@ -49,6 +48,7 @@ import com.xuexiang.citypicker.CityPicker;
 import com.xuexiang.citypicker.adapter.OnLocationListener;
 import com.xuexiang.citypicker.adapter.OnPickListener;
 import com.xuexiang.citypicker.model.City;
+import com.xuexiang.xaop.annotation.Permission;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -226,7 +226,7 @@ public class WaimaiFragment extends BaseFragment {
                     top_interval_40 = (int)UIUtils.getInstance(getContext()).scalePx(40);
                 if(top_interval_32 == -1)
                     top_interval_32 = (int)UIUtils.getInstance(getContext()).scalePx(32);
-                outRect.top = (5 < position && position < 10) ? top_interval_40:top_interval_32;
+                outRect.top = position < 5 ? 0 : (position < 10 ? top_interval_40 : top_interval_32);
             }
         });
     }
@@ -247,15 +247,13 @@ public class WaimaiFragment extends BaseFragment {
         ((TextView)view.findViewById(R.id.left_text)).setText("专属早餐");
         ((TextView)view.findViewById(R.id.right_tv)).setText("更多好店");
         ((ImageView)view.findViewById(R.id.right_iv)).setImageResource(R.drawable.ic_arrow_right_gray);
-//        adapter.addHeaderView(view);
+        adapter.addHeaderView(view);
 
         int spanCount = 2;
         binding.recyclerMyExclusive.setAdapter(adapter);
-//        binding.recyclerMyExclusive.setLayoutManager(
-//                Utils.getGridLayoutManagerWithHead(getContext(),spanCount));
         binding.recyclerMyExclusive.setLayoutManager(
-                Utils.getGridLayoutManagerAdapterHeight(getContext(),spanCount,binding.recyclerMyExclusive));
-        binding.recyclerSecondsKill.addItemDecoration(new RecyclerView.ItemDecoration(){
+                Utils.getGridLayoutManagerWithHead(getContext(),spanCount));
+        binding.recyclerMyExclusive.addItemDecoration(new RecyclerView.ItemDecoration(){
             int top_interval = -1;
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
@@ -264,7 +262,12 @@ public class WaimaiFragment extends BaseFragment {
                 int position = parent.getChildAdapterPosition(view);
                 if(top_interval == -1)
                     top_interval = (int)UIUtils.getInstance(getContext()).scalePx(40);
-                outRect.top = position >= spanCount ? top_interval:0;
+                if(position > 0){
+                    outRect.top = top_interval;
+//                    if((position - adapter.getHeaderLayoutCount()) % 2 == 1){
+//                        outRect.left
+//                    }
+                }
             }
         });
     }
@@ -286,13 +289,17 @@ public class WaimaiFragment extends BaseFragment {
                         helper.setText(R.id.tv_goods_name,item.getShopName());
                     }
                 };
-
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                openPage(WaimaiLimitedTimeGoodsFragment.class);
+            }
+        });
         binding.recyclerSecondsKill.setAdapter(adapter);
-//        binding.recyclerSecondsKill.setLayoutManager(
-//                Utils.getGridLayoutManagerWithHead(getContext(),2));
+        binding.recyclerSecondsKill.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-        binding.recyclerSecondsKill.setLayoutManager(
-                Utils.getGridLayoutManagerAdapterHeight(getContext(),2,binding.recyclerSecondsKill));
+//        binding.recyclerSecondsKill.setLayoutManager(
+//                Utils.getGridLayoutManagerAdapterHeight(getContext(),2,binding.recyclerSecondsKill));
     }
 
     private int space;
@@ -314,7 +321,6 @@ public class WaimaiFragment extends BaseFragment {
         binding.stickyView.setHasIndicator(false);
         binding.stickyView.setMode(TabSegment.MODE_SCROLLABLE);
         binding.stickyView.setItemSpaceInScrollMode(space);
-        binding.stickyView.setPadding(space, 0, space, 0);
         binding.stickyView.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
         binding.stickyView.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
         binding.stickyView.setTabTextSize(textSizeNormal);
@@ -350,7 +356,7 @@ public class WaimaiFragment extends BaseFragment {
 
 //    @Permission(LOCATION)
     private void pickCity() {
-        /*CityPicker.from(this)
+       /* CityPicker.from(this)
                 .enableAnimation(mEnableAnimation)
                 .setAnimationStyle(mAnim)
                 .setLocatedCity(null)
@@ -363,20 +369,20 @@ public class WaimaiFragment extends BaseFragment {
                     public void onPick(int position, City data) {
                         tvCurrent.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
                         XToastUtils.toast(String.format("点击的数据：%s，%s", data.getName(), data.getCode()));
-                        LocationService.stop(mListener);
+                        BaiDuLocationService.stop(mListener);
                     }
 
                     @Override
                     public void onCancel() {
                         XToastUtils.toast("取消选择");
-                        LocationService.stop(mListener);
+                        BaiDuLocationService.stop(mListener);
                     }
 
                     @Override
                     public void onLocate(final OnLocationListener locationListener) {
                         //开始定位
                         mListener.setOnLocationListener(locationListener);
-                        LocationService.start(mListener);
+                        BaiDuLocationService.start(mListener);
 //                                new Handler().postDelayed(new Runnable() {
 //                                    @Override
 //                                    public void run() {
@@ -442,11 +448,14 @@ public class WaimaiFragment extends BaseFragment {
             protected void initView(BaseViewHolder helper, ExclusiveShopData item) {
                 helper.setText(R.id.tv_shopName,item.getShopName());
                 helper.setText(R.id.tv_recent,item.getRecent());
+
+                ((ImageView)helper.getView(R.id.iv_shopIcon)).setImageResource(R.drawable.ic_waimai_brand);
+
                 Glide.with(WaimaiFragment.this)
                         .load(item.getShopIconStr())
                         .centerCrop()
                         .placeholder(R.drawable.ic_waimai_brand)
-                        .into((ImageView)helper.getView(R.id.iv_shopIcon));
+                        .into((ImageView)helper.getView(R.id.iv_goodsIcon));
             }
         };
     }

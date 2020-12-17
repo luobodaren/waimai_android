@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_top_image_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/png_bg_mipmap_exclusive"/>
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+               <TextView
+                   android:id="@+id/tv_introduce_1"
+                   style="@style/limited_fragment_introduce_tv"
+                   android:text="@string/limited_second_kill"
+                   android:layout_marginTop="9px"
+                   app:layout_constraintHorizontal_chainStyle="packed"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintEnd_toStartOf="@id/tv_introduce_2"/>
+
+               <TextView
+                   android:id="@+id/tv_introduce_2"
+                   style="@style/limited_fragment_introduce_tv"
+                   android:text="@string/limited_second_kill"
+                   android:layout_marginStart="@dimen/interval_size_xs"
+                   app:layout_constraintTop_toTopOf="@id/tv_introduce_1"
+                   app:layout_constraintStart_toEndOf="@id/tv_introduce_1"
+                   app:layout_constraintEnd_toStartOf="@id/tv_introduce_3"/>
+
+               <TextView
+                   android:id="@+id/tv_introduce_3"
+                   style="@style/limited_fragment_introduce_tv"
+                   android:text="@string/limited_second_kill"
+                   android:layout_marginStart="@dimen/interval_size_xs"
+                   app:layout_constraintTop_toTopOf="@id/tv_introduce_1"
+                   app:layout_constraintStart_toEndOf="@id/tv_introduce_2"
+                   app:layout_constraintEnd_toEndOf="parent"/>
+
+
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/recycler_limited_time"
+                   android:layout_width="match_parent"
+                   android:layout_height="132px"
+                   android:layout_marginTop="40px"
+                   android:background="@color/transparent"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/tv_introduce_1"/>
+
+               <androidx.recyclerview.widget.RecyclerView
+                   android:id="@+id/recycler_goods_list"
+                   android:layout_width="match_parent"
+                   android:layout_height="0px"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/recycler_limited_time"
+                   app:layout_constraintBottom_toBottomOf="parent"/>
+
+           </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

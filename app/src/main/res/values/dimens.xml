@@ -2,6 +2,8 @@
 <resources>
     <dimen name="titlebar_height">88px</dimen>
     <dimen name="titlebar_text_size">42px</dimen>
+    <dimen name="titlebar_drawable_size">44px</dimen>
+
     <dimen name="tabbar_height">98px</dimen>
 
     <dimen name="font_size_36">36px</dimen>
@@ -82,5 +84,11 @@
 
     <dimen name="sort_layout_text_size">26px</dimen>
     <dimen name="sort_layout_preferential_text_size">20px</dimen>
+
+    <dimen name="waimai_limited_introduce_ic_size">22px</dimen>
+    <dimen name="waimai_limited_select_time_text_size">44px</dimen>
+    <dimen name="waimai_limited_select_state_text_size">28px</dimen>
+    <dimen name="waimai_limited_unselect_time_text_size">34px</dimen>
+    <dimen name="waimai_limited_unselect_state_text_size">24px</dimen>
 
 </resources>

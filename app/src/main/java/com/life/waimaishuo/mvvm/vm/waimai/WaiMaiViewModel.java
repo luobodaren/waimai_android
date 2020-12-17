@@ -161,17 +161,21 @@ public class WaiMaiViewModel extends BaseViewModel {
     public List getExclusiveShopData() {
         mExclusiveShopDataList.add(new ExclusiveShopData(
                 "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "星巴克代购",
-                "最近有一万人下单了呢"));
-        mExclusiveShopDataList.add(new ExclusiveShopData(
                 "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "星巴克代购",
                 "最近有一万人下单了呢"));
         mExclusiveShopDataList.add(new ExclusiveShopData(
                 "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "星巴克代购",
                 "最近有一万人下单了呢"));
         mExclusiveShopDataList.add(new ExclusiveShopData(
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
+                "星巴克代购",
+                "最近有一万人下单了呢"));
+        mExclusiveShopDataList.add(new ExclusiveShopData(
+                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "星巴克代购",
                 "最近有一万人下单了呢"));

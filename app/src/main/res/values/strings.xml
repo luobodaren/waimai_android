@@ -38,6 +38,7 @@
     <string name="go_spell_list">去拼单</string>
     <string name="screen">筛选</string>
     <string name="locacl_unknow">未知</string>
+    <string name="limited_second_kill">限时秒杀</string>
 
 
 </resources>

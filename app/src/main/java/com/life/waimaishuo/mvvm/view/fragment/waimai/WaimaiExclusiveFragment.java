@@ -1,6 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Goods;
@@ -64,12 +66,15 @@ public class WaimaiExclusiveFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         TitleBar titleBar = super.initTitleBar();
-        titleBar.setLeftImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_left_white));
-
-        titleBar.setBackgroundColor(getResources().getColor(R.color.white));
         titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
         titleBar.setCenterTextBold(true);
         titleBar.setTitleColor(getResources().getColor(R.color.white));
+        titleBar.setBackgroundColor(getResources().getColor(R.color.transparent));
+
+        int titleBarDrawableSizes = (int)UIUtils.getInstance(getContext()).scalePx(R.dimen.titlebar_drawable_size);
+        Drawable leftDrawable = getResources().getDrawable(R.drawable.ic_arrow_left_white);
+        leftDrawable.setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
+        titleBar.setLeftImageDrawable(leftDrawable);
         ImageView imageView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.drawable.ic_share) {
             @Override
             public void performAction(View view) {
@@ -82,7 +87,7 @@ public class WaimaiExclusiveFragment extends BaseFragment {
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         layoutParams.gravity = Gravity.CENTER_VERTICAL;
         imageView.setLayoutParams(layoutParams);
-        titleBar.setBackgroundColor(getResources().getColor(R.color.transparent));
+        imageView.getDrawable().setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
         return titleBar;
     }
 

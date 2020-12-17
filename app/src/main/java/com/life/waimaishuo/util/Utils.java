@@ -49,6 +49,13 @@ public class Utils {
         return gridLayoutManager;
     }
 
+    /**
+     * 自适应高度的GridLayoutManager
+     * @param context
+     * @param spanCount
+     * @param recyclerView
+     * @return
+     */
     public static GridLayoutManager getGridLayoutManagerAdapterHeight(Context context,int spanCount, RecyclerView recyclerView){
         GridLayoutManager gridLayoutManager = new GridLayoutManager(
                 context,

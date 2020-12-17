@@ -48,8 +48,8 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
     private View mTopView;
     private View mNavigationView;
+    private View mContentLayout;    //位于Navigation(TabBar)与AdaptiveView(ViewPager)中间的布局
     private View mAdaptiveSizeView;
-    private View mContentLayout;    //位于Navigation(TabBar)与ViewPager中间的布局
 
     private boolean mIsFitStatusBar;
 
@@ -170,12 +170,23 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         if(mainTabBarHeight == 0){
-            mainTabBarHeight = getContext().getResources().getDimensionPixelSize(R.dimen.main_tab_height);
+            mainTabBarHeight = (int)UIUtils.getInstance(
+                    getContext()).scalePx(getContext().getResources().getDimensionPixelSize(R.dimen.main_tab_height));
+        }
+
+        if(mContentLayout != null){ //计算contentLayout大小
+            if(mContentLayout.getMeasuredHeight() == 0){
+                mContentLayout.measure(0,0);
+                ViewGroup.LayoutParams lp = mContentLayout.getLayoutParams();
+                lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                lp.height = mContentLayout.getMeasuredHeight();
+                mContentLayout.setLayoutParams(lp);
+                LogUtil.e("mContentLayout height:" + mContentLayout.getMeasuredHeight());
+            }
         }
 
         //ViewPager修改后的高度= 总高度-TabLayout高度
         ViewGroup.LayoutParams lp = mAdaptiveSizeView.getLayoutParams();
-//        LogUtil.e("onMeasure start " + lp.height + "  mCanScrollDistance：" + mCanScrollDistance);
         if(mContentLayout != null){
             lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
                     - mContentLayout.getMeasuredHeight() - mainTabBarHeight

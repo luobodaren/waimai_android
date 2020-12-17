@@ -1,16 +1,10 @@
 package com.life.waimaishuo.util;
 
 import android.content.Context;
-import android.location.Criteria;
-import android.location.LocationManager;
 
 import com.life.base.utils.LogUtil;
-import com.xuexiang.citypicker.adapter.OnLocationListener;
 import com.xuexiang.citypicker.model.LocatedCity;
 import com.xuexiang.xaop.annotation.Permission;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static android.Manifest.permission_group.LOCATION;
 
@@ -29,81 +23,76 @@ import static com.xuexiang.xaop.consts.PermissionConsts.LOCATION;*/
 /**
  * 定位服务
  */
-public class LocationService {
+public class BaiDuLocationService {
 
-    /*private static volatile LocationService sInstance = null;
+/*    private static volatile BaiDuLocationService sInstance = null;
 
     private LocationClient mClient = null;
     private LocationClientOption mOption, mDIYOption;
 
-    private LocationManager mLocationManager;
-    private List<OnLocationListener> mLocationListeners = new ArrayList<>();
-
     private LocatedCity mLocatedCity = null;
 
-    private LocationService() {
+    private BaiDuLocationService() {
 
     }
 
-    **
+    *//***
      * 初始化
      * @param context
-
+     *//*
     public void init(Context context) {
         if (mClient == null) {
-            mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
             mClient = new LocationClient(context.getApplicationContext());
             mClient.setLocOption(getDefaultLocationClientOption());
         }
     }
 
-    *
+    *//**
      * 获取单例
      *
      * @return
-
-    public static LocationService get() {
+     *//*
+    public static BaiDuLocationService get() {
         if (sInstance == null) {
-            synchronized (LocationService.class) {
+            synchronized (BaiDuLocationService.class) {
                 if (sInstance == null) {
-                    sInstance = new LocationService();
+                    sInstance = new BaiDuLocationService();
                 }
             }
         }
         return sInstance;
     }
 
-    **
+    *//***
      * 注册定位监听
      * @param listener
      * @return
+     *//*
 
-
-    public LocationService registerListener(OnLocationListener listener) {
-        if (listener != null && !mLocationListeners.contains(listener)) {
-            mLocationListeners.add(listener);
+    public BaiDuLocationService registerListener(BDAbstractLocationListener listener) {
+        if (listener != null) {
+            mClient.registerLocationListener(listener);
         }
         return this;
     }
 
-    *
+    *//**
      * 注销定位监听
      *
      * @param listener
-
-    public LocationService unregisterListener(OnLocationListener listener) {
-        if (listener != null && mLocationListeners.contains(listener)) {
-            mLocationListeners.remove(listener);
+     *//*
+    public BaiDuLocationService unregisterListener(BDAbstractLocationListener listener) {
+        if (listener != null) {
+            mClient.unRegisterLocationListener(listener);
         }
         return this;
     }
 
-    **
+    *//***
      * 设置定位参数
      * @param option
      * @return
-
+     *//*
     public boolean setLocationOption(LocationClientOption option) {
         if (option != null) {
             if (mClient.isStarted()) {
@@ -116,22 +105,11 @@ public class LocationService {
         return false;
     }
 
-    **
+    *//***
      *
      * @return DefaultLocationClientOption  默认O设置
-
+     *//*
     public LocationClientOption getDefaultLocationClientOption() {
-
-        // 设置选择条件
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);//低精度，如果设置为高精度，依然获取不了location。
-        criteria.setAltitudeRequired(false);//不要求海拔
-        criteria.setBearingRequired(false);//不要求方位
-        criteria.setCostAllowed(true);//允许有花费
-        criteria.setPowerRequirement(Criteria.POWER_LOW);//低功耗
-
-
-
         if (mOption == null) {
             mOption = new LocationClientOption();
             mOption.setLocationMode(LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
@@ -153,9 +131,9 @@ public class LocationService {
     }
 
 
-    *
+    *//**
      * @return DIYOption 自定义Option设置
-
+     *//*
     public LocationClientOption getOption() {
         if (mDIYOption == null) {
             mDIYOption = new LocationClientOption();
@@ -163,37 +141,37 @@ public class LocationService {
         return mDIYOption;
     }
 
-    *
+    *//**
      * 开始定位
      *
      * @param listener
-
+     *//*
     @Permission(LOCATION)
     public static void start(BDAbstractLocationListener listener) {
         get().registerListener(listener).start();
     }
 
-    *
+    *//**
      * 开始定位
-
-    public LocationService start() {
+     *//*
+    public BaiDuLocationService start() {
         if (mClient != null && !mClient.isStarted()) {
             mClient.start();
         }
         return this;
     }
 
-    *
+    *//**
      * 停止定位
-
+     *//*
     public static void stop(BDAbstractLocationListener listener) {
         get().unregisterListener(listener).stop();
     }
 
-    *
+    *//**
      * 停止定位
-
-    public LocationService stop() {
+     *//*
+    public BaiDuLocationService stop() {
         if (mClient != null && mClient.isStarted()) {
             mClient.stop();
         }
@@ -208,12 +186,12 @@ public class LocationService {
         return mClient.requestHotSpotState();
     }
 
-    *
+    *//**
      * 当收到定位信息
      *
      * @param bdLocation
      * @return
-
+     *//*
     public static LocatedCity onReceiveLocation(BDLocation bdLocation) {
         if (get().mLocatedCity == null || bdLocation.getCity() != null) {
             get().mLocatedCity = new LocatedCity(bdLocation.getCity(), bdLocation.getProvince(), bdLocation.getCityCode());
@@ -221,7 +199,7 @@ public class LocationService {
         return get().mLocatedCity;
     }
 
-    public LocationService setLocatedCity(LocatedCity locatedCity) {
+    public BaiDuLocationService setLocatedCity(LocatedCity locatedCity) {
         mLocatedCity = locatedCity;
         return this;
     }
@@ -230,19 +208,19 @@ public class LocationService {
         return mLocatedCity;
     }
 
-    *
+    *//**
      * 打印地址信息
      *
      * @param location
-
+     *//*
     public static void printLocationInfo(BDLocation location) {
         if (null != location && location.getLocType() != BDLocation.TypeServerError) {
             StringBuilder sb = new StringBuilder(256);
             sb.append("time : ");
-            *
+            *//**
              * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
              * location.getTime() 是指服务端出本次结果的时间，如果位置不发生变化，则时间不变
-
+             *//*
             sb.append(location.getTime());
             sb.append("\nlocType : ");// 定位类型
             sb.append(location.getLocType());

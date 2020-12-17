@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_limited_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="34px"
+        android:includeFontPadding="false"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/tv_limited_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:textSize="22px"
+        android:layout_marginTop="16px"
+        android:paddingLeft="33px"
+        android:paddingTop="13px"
+        android:paddingEnd="33px"
+        android:paddingBottom="13px"
+        tools:text="正在热抢"/>
+
+</LinearLayout>
