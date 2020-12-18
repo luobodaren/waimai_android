@@ -50,10 +50,9 @@ public class ScoreView extends FrameLayout {
         this.addView(view);
     }
 
-    public void setScore(float score){
+    public void setScore(int score){
         this.score = score;
-        int tem = (int)score;
-        switch (tem){
+        switch (score){
             case 0:
                 break;
             case 1:

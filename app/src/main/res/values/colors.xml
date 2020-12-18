@@ -4,6 +4,7 @@
     <color name="colorTheme">#FE4036</color>
     <!-- colorAssist 辅助色 -->
     <color name="colorAssist">#F84500</color>
+    <color name="colorAssist_2">#FF3B30</color>
     <color name="colorTheme_60_percent">#99FE4036</color>
     <color name="colorTheme_50_percent">#80FE4036</color>
     <color name="colorTheme_30_percent">#4DFE4036</color>
@@ -17,8 +18,10 @@
 
     <color name="bg_80_black">#80000000</color>
 
+    <color name="text_deep_black">#FF232323</color>
     <color name="text_normal">#333333</color>
     <color name="text_uncheck">#666666</color>
+    <color name="text_deleted">#FF858585</color>
     <color name="text_tip">#999999</color>
     <color name="text_assist">#bbbbbb</color>
 
@@ -41,7 +44,7 @@
     <color name="shadowEndColor">@color/black</color>
     <color name="pop_bg_80_black">#CC000000</color>
 
-    <color name="bg_recycler_swipe_item1">#FF3B30</color>
+    <color name="bg_recycler_swipe_item1">@color/colorAssist_2</color>
     <color name="bg_recycler_swipe_item2">#FED15B</color>
 
     <color name="linkage_primary_item_bg_default">#F5F5F5</color>

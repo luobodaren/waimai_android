@@ -1,6 +1,13 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -10,12 +17,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.bean.LimitedFoods;
 import com.life.waimaishuo.bean.LimitedTime;
 import com.life.waimaishuo.databinding.FragmentLimitedTimeGoodsBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -114,11 +126,16 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
 
     private void initLimitedTimeRecycler() {
         mBinding.recyclerLimitedTime.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        mBinding.recyclerLimitedTime.setAdapter(new SelectedPositionRecylerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData()) {
-            int time_selected_size = (int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_time_text_size);
-            int time_unselected_size = (int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_time_text_size));
-            int state_selected_size = (int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_state_text_size));
-            int state_unselected_size = (int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_state_text_size));
+        SelectedPositionRecylerViewAdapter<LimitedTime> adapter = new SelectedPositionRecylerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData()) {
+            int time_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_time_text_size);
+            int time_unselected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_time_text_size);
+            int state_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_state_text_size);
+            int state_unselected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_state_text_size);
+
+            int time_selected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(time_selected_size);
+            int time_unselected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(time_unselected_size);
+            int state_selected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(state_selected_size);
+            int state_unselected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(state_unselected_size);
 
             int colorTransparent = getResources().getColor(R.color.transparent);
             int redColorId = getResources().getColor(R.color.red);
@@ -137,26 +154,124 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
                 time.setText(item.getTime());
                 state.setText(item.getState().getState());
 
-                if(selected){
-                    time.setTextSize(time_selected_size);
-                    state.setTextSize(state_selected_size);
-                    state.setBackgroundResource(R.drawable.sr_bg_full_corners_white);
-                    state.setTextColor(redColorId);
-                }else{
-                    time.setTextSize(time_unselected_size);
-                    state.setTextSize(state_unselected_size);
-                    state.setBackgroundColor(colorTransparent);
-                    state.setTextColor(whiteColorId);
+                if(UIUtils.getInstance(getContext()).isNeedScale(time)){
+                    if(selected){
+                        time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_selected_size);
+                        state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_selected_size);
+                        state.setBackgroundResource(R.drawable.sr_bg_full_corners_white);
+                        state.setTextColor(redColorId);
+                        UIUtils.getInstance(getContext()).setFakeBoldText(state,true);
+                    }else{
+                        time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_unselected_size);
+                        state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_unselected_size);
+                        state.setBackgroundColor(colorTransparent);
+                        state.setTextColor(whiteColorId);
+                        UIUtils.getInstance(getContext()).setFakeBoldText(state,false);
+                    }
+                    UIUtils.getInstance(getContext()).autoAdapterUI(time);
+                    UIUtils.getInstance(getContext()).autoAdapterUI(state);
+                }else{  //已进行大小适配处理
+                    if(selected){
+                        time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_selected_size_scale);
+                        state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_selected_size_scale);
+                        state.setBackgroundResource(R.drawable.sr_bg_full_corners_white);
+                        state.setTextColor(redColorId);
+                        UIUtils.getInstance(getContext()).setFakeBoldText(state,true);
+                    }else{
+                        time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_unselected_size_scale);
+                        state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_unselected_size_scale);
+                        state.setBackgroundColor(colorTransparent);
+                        state.setTextColor(whiteColorId);
+                        UIUtils.getInstance(getContext()).setFakeBoldText(state,false);
+                    }
                 }
             }
 
+        };
+        adapter.setSelectedListener((holder, item) -> {
+            updateGoodsInfo();
         });
-
-        // TODO: 2020/12/17 添加点击监听器
+        mBinding.recyclerLimitedTime.setAdapter(adapter);
 
     }
 
     private void initGoodsRecycler() {
+        mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedFoods>(R.layout.item_recycler_limited_goods, mViewModel.getLimitedGoodsList(), null) {
+            @Override
+            protected void initView(BaseViewHolder helper, LimitedFoods item) {
+                Glide.with(getContext())
+                        .load(item.getFoods().getFoodsImgUrl())
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_waimai_brand)
+                        .into((ImageView)helper.getView(R.id.iv_foods_img));
+
+                helper.setText(R.id.tv_foods_name,item.getFoods().getName());
+                helper.setText(R.id.tv_shop_name,"超辣啊火锅店（长风）");
+                helper.setText(R.id.tv_foods_deliver_info,getString(R.string.arrive_in_minutes_2,"30"));    //送达时间
+                helper.setText(R.id.tv_foods_price_pre, getStrikethroughSpanSpannable("189"));  //原始价格
+                helper.setText(R.id.tv_foods_price_divider, getString(R.string.limited_divider_price,"3")); //配送费
+                helper.setText(R.id.tv_foods_all_count, getString(R.string.limited_goods_count,"200")); //商品总数
+
+                helper.setText(R.id.tv_limited_kill_price,getLimitedPriceSpannable(item.getLimitedPrice()));
+                helper.setText(R.id.tv_limited_state,item.getLimitedTimeStateEnum().getState());
+                helper.setText(R.id.tv_remaining_foods_count,getString(R.string.limited_goods_remaining_count,item.getRemainingCount()));
+
+                switch (item.getLimitedTimeStateEnum()){
+                    case NO_START:
+                        helper.setBackgroundRes(R.id.cl_limited_sale_detail_info,R.drawable.ic_limited_no_start);
+                        break;
+                    case STARTING:
+                    case ROBBING:
+                        helper.setBackgroundRes(R.id.cl_limited_sale_detail_info,R.drawable.ic_limited_start);
+                        break;
+                    case SALE_OUT:
+                        helper.getView(R.id.tv_remaining_foods_count).setVisibility(View.GONE);
+                        helper.setBackgroundRes(R.id.cl_limited_sale_detail_info,R.drawable.ic_limited_goods_sale_out);
+                        break;
+                }
+            }
+        });
+        mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
+            int interval = (int)UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int position = parent.getChildAdapterPosition(view);
+                if(position != RecyclerView.NO_POSITION){
+                    outRect.top = interval;
+                    if(position == state.getItemCount()-1){
+                        outRect.bottom = interval;
+                    }
+                }
+            }
+        });
+    }
+
+    int limitedPriceTextSize = -1;
+    private SpannableString getLimitedPriceSpannable(String price){
+        if(limitedPriceTextSize == -1){
+            limitedPriceTextSize = (int)UIUtils.getInstance(getContext()).scalePx(40f);
+        }
+        SpannableString spannableString = new SpannableString(getResources().getString(R.string.limited_second_kill_price,price));
+        spannableString.setSpan(new AbsoluteSizeSpan(limitedPriceTextSize,false),1,price.length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    /**
+     * 添加删除线
+     * @param prePrice
+     * @return
+     */
+    private SpannableString getStrikethroughSpanSpannable(String prePrice){
+        SpannableString spannableString = new SpannableString("￥" + prePrice);
+        spannableString.setSpan(new StrikethroughSpan(),0,spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
+    private void updateGoodsInfo() {
 
     }
+
 }

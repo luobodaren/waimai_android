@@ -22,20 +22,28 @@
         android:textColor="@color/white"
         android:textSize="@dimen/waimai_subtype_recycler_item_text_size"/>
 
-    <ImageView
-        android:id="@+id/iv_selected_sign"
-        android:layout_width="48px"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/ic_arrow_starlike"
-        android:layout_marginTop="8px"
-        android:visibility="invisible"/>
-
-    <View
-        android:id="@+id/view_tl_tr_24_radius"
+    <LinearLayout
+        android:id="@+id/ll_selected_sign"
         android:layout_width="match_parent"
-        android:layout_height="24px"
-        android:background="@drawable/sr_bg_tl_tr_24radius_bg"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/iv_selected_sign"
+            android:layout_width="48px"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/ic_arrow_starlike"
+            android:layout_marginTop="8px"
+            android:visibility="invisible"/>
+
+        <View
+            android:id="@+id/view_tl_tr_24_radius"
+            android:layout_width="match_parent"
+            android:layout_height="24px"
+            android:background="@drawable/sr_bg_tl_tr_24radius_bg"/>
+    </LinearLayout>
 
 </com.life.base.views.UiAdapterLinearLayout>

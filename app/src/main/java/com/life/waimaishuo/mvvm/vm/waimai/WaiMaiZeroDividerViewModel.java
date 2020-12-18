@@ -1,25 +1,26 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
+import androidx.fragment.app.Fragment;
+
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
-import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
-import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.model.waimai.WaiMaiZeroDividerModel;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.RecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WaiMaiTypeViewModel extends BaseViewModel {
+public class WaiMaiZeroDividerViewModel extends BaseViewModel {
 
-    private WaimaiModel mModel;
+    private WaiMaiZeroDividerModel mModel;
 
     @Override
     public BaseModel getModel() {
         if(mModel == null){
-            mModel = new WaimaiModel();
+            mModel = new WaiMaiZeroDividerModel();
         }
         return mModel;
     }
@@ -27,6 +28,11 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
     @Override
     public void initData() {
         initFoodRecyclerData();
+    }
+
+    @Override
+    public void init() {
+        super.init();
     }
 
     public List<IconStrData> getSubtypeTitles() {
@@ -54,13 +60,7 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
         mFoodSubtypeList.add(new IconStrData(R.mipmap.ic_food_all_subtype,"全部分类"));
     }
 
-    public BaseFragment getRecommendedFragment() {
-        /*if(recommendedFragment == null){
-            recommendedFragment = new RecommendedFragment();
-            recommendedFragment.setData(mShopList);
-        }
-        return recommendedFragment;*/
-
+    public Fragment getRecommendedFragment() {
         List<Shop> list = new ArrayList<>();
         list.add(new Shop("嘉禾一品粥(国展店)"));
         list.add(new Shop("嘉禾一品粥(国展店)"));
@@ -94,6 +94,4 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
         cashBackList.add("配送费优惠");
         return cashBackList;
     }
-
-
 }

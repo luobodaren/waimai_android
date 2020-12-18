@@ -11,4 +11,10 @@
         <attr name="fitStatusBar" format="boolean"/>
     </declare-styleable>
 
+    <declare-styleable name="SortTypeView">
+        <attr name="sortViewBackground" format="reference|color"/>
+        <attr name="showFlowTag" format="boolean"/>
+        <attr name="flowTagBackground" format="reference|color"/>
+    </declare-styleable>
+
 </resources>

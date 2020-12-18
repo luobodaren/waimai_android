@@ -5,7 +5,7 @@
     <data>
         <variable
             name="goods"
-            type="com.life.waimaishuo.bean.Goods" />
+            type="com.life.waimaishuo.bean.Foods" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

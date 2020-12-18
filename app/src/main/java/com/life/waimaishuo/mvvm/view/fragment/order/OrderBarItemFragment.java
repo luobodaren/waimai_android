@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.waimaishuo.MyApplication;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.Foods;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.databinding.FragmentOrderListBinding;
 import com.life.waimaishuo.databinding.ItemGoodInfoBinding;
@@ -74,7 +74,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
                 , mViewModel.getTopRecyclerViewModelList()) {
             @Override
             protected void initView(BaseViewHolder helper,Order item) {
-                GoodRecyclerAdapter adapter1 = new GoodRecyclerAdapter(R.layout.item_good_info,item.getGoodsList(),null);
+                GoodRecyclerAdapter adapter1 = new GoodRecyclerAdapter(R.layout.item_good_info,item.getFoodsList(),null);
 
                 View headView = View.inflate(MyApplication.getMyApplication(),R.layout.head_order_unpay,null);
 
@@ -104,18 +104,18 @@ public class OrderBarItemFragment extends BaseChildFragment {
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    public class GoodRecyclerAdapter extends MyBaseRecyclerAdapter<Goods> {
+    public class GoodRecyclerAdapter extends MyBaseRecyclerAdapter<Foods> {
 
         public GoodRecyclerAdapter(int layoutResId, @Nullable List data, @NonNull List<BaseRecyclerViewModel> mItemViewModelList) {
             super(layoutResId, data, mItemViewModelList);
         }
 
         @Override
-        protected void initView(BaseViewHolder helper, Goods item) {
+        protected void initView(BaseViewHolder helper, Foods item) {
             int position = getData().indexOf(item);
             ItemGoodInfoBinding itemGoodInfoBinding = ItemGoodInfoBinding.bind(helper.itemView);
             Glide.with(MyApplication.getMyApplication())
-                    .load(item.getGoodsImgUrl())
+                    .load(item.getFoodsImgUrl())
                     .centerCrop()
                     .placeholder(R.drawable.ic_waimai_brand)
                     .into(itemGoodInfoBinding.ivGoodsImg);

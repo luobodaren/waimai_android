@@ -1,6 +1,6 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
-import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.Foods;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -12,7 +12,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
 
     WaimaiModel model;
 
-    private List<Goods> mBreakFastList = new ArrayList<>();
+    private List<Foods> mBreakFastList = new ArrayList<>();
 
     @Override
     public BaseModel getModel() {
@@ -32,100 +32,100 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
 
     }
 
-    public List<Goods> getmBreakFastList() {
+    public List<Foods> getmBreakFastList() {
         return mBreakFastList;
     }
 
     private void initExclusiveBreakfast() {
-        Goods goods = new Goods();
-        goods.setName("饭戒(西丽店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        Foods foods = new Foods();
+        foods.setName("饭戒(西丽店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("独家秘制黄焖鸡米饭(大学城店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("独家秘制黄焖鸡米饭(大学城店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("饭戒(西丽店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("饭戒(西丽店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("独家秘制黄焖鸡米饭(大学城店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("独家秘制黄焖鸡米饭(大学城店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("饭戒(西丽店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("饭戒(西丽店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("独家秘制黄焖鸡米饭(大学城店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("独家秘制黄焖鸡米饭(大学城店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("饭戒(西丽店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("饭戒(西丽店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("独家秘制黄焖鸡米饭(大学城店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("独家秘制黄焖鸡米饭(大学城店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("饭戒(西丽店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("饭戒(西丽店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
 
-        goods = new Goods();
-        goods.setName("独家秘制黄焖鸡米饭(大学城店)");
-        goods.setScore("4.8");
-        goods.setPrice_deliver("20");
-        goods.setTime_send(40);
-        goods.setCount_per_month(1998);
-        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
-        mBreakFastList.add(goods);
+        foods = new Foods();
+        foods.setName("独家秘制黄焖鸡米饭(大学城店)");
+        foods.setScore("4.8");
+        foods.setPrice_deliver("20");
+        foods.setTime_send(40);
+        foods.setCount_per_month(1998);
+        foods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        mBreakFastList.add(foods);
     }
 
 

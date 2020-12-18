@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="132px"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/tv_limited_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textSize="34px"
+        android:textSize="@dimen/waimai_limited_select_time_text_size"
         android:includeFontPadding="false"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@id/tv_limited_state"
+        app:layout_constraintEnd_toEndOf="@id/tv_limited_state"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_limited_state"
+        tools:text="14:00"/>
 
     <TextView
         android:id="@+id/tv_limited_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
-        android:textColor="@color/white"
-        android:textSize="22px"
+        android:textColor="@color/red"
+        android:textSize="@dimen/waimai_limited_select_state_text_size"
+        android:background="@drawable/sr_bg_full_corners_white"
         android:layout_marginTop="16px"
         android:paddingLeft="33px"
         android:paddingTop="13px"
         android:paddingEnd="33px"
         android:paddingBottom="13px"
+        app:layout_constraintTop_toBottomOf="@id/tv_limited_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:text="正在热抢"/>
 
-</LinearLayout>
+</com.life.base.views.UiAdapterConstrainLayout>

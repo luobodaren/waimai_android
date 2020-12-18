@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/interval_size_xs"
+        android:background="@drawable/sr_bg_card_view_white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_foods_img"
+                android:layout_width="220px"
+                android:layout_height="220px"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="16px"
+                android:src="@drawable/ic_waimai_brand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_foods_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="34px"
+                android:textStyle="bold"
+                android:textColor="@color/text_deep_black"
+                app:layout_constraintTop_toTopOf="@id/iv_foods_img"
+                app:layout_constraintStart_toEndOf="@id/iv_foods_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24px"
+                android:includeFontPadding="false"
+                tools:text="麻辣牛肉火锅"/>
+
+
+            <TextView
+                android:id="@+id/tv_shop_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_normal"
+                android:textSize="26px"
+                android:layout_marginTop="8px"
+                app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_foods_name"
+                tools:text="火锅店(长风)"/>
+
+            <TextView
+                android:id="@+id/tv_foods_deliver_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="30分钟"
+                android:textSize="@dimen/font_size_24"
+                android:textColor="@color/text_tip"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_shop_name"/>
+
+            <TextView
+                android:id="@+id/tv_foods_price_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="36px"
+                android:layout_marginTop="10px"
+                tools:text="￥189"
+                android:textColor="@color/text_deleted"
+                android:includeFontPadding="false"
+                app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_shop_name"/>
+
+            <TextView
+                android:id="@+id/tv_foods_price_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                tools:text="配送￥3"
+                android:textSize="24px"
+                android:textColor="@color/text_tip"
+                app:layout_constraintStart_toEndOf="@id/tv_foods_price_pre"
+                app:layout_constraintBottom_toBottomOf="@id/tv_foods_price_pre"/>
+
+            <TextView
+                android:id="@+id/tv_foods_all_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                tools:text="限量200份"
+                android:textSize="24px"
+                android:textColor="@color/colorAssist_2"
+                app:layout_constraintStart_toEndOf="@id/tv_foods_price_divider"
+                app:layout_constraintBottom_toBottomOf="@id/tv_foods_price_divider"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_limited_sale_detail_info"
+                android:layout_width="0px"
+                android:layout_height="69px"
+                android:layout_marginTop="18px"
+                app:layout_constraintTop_toBottomOf="@id/tv_foods_price_pre"
+                app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/ic_limited_start">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_vertical_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5"/>
+
+                <TextView
+                    android:id="@+id/tv_limited_kill_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAssist_2"
+                    android:textSize="18px"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/gl_vertical_center"
+                    tools:text="￥209秒杀价"/>
+
+                <TextView
+                    android:id="@+id/tv_limited_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="30px"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_remaining_foods_count"
+                    app:layout_constraintStart_toEndOf="@id/gl_vertical_center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="已开抢"/>
+                <TextView
+                    android:id="@+id/tv_remaining_foods_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18px"
+                    android:textColor="@color/white"
+                    android:includeFontPadding="false"
+                    app:layout_constraintStart_toEndOf="@id/gl_vertical_center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_limited_state"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="剩余132件"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

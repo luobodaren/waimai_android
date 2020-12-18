@@ -97,17 +97,17 @@ public class ShopDetailFragment extends BaseFragment {
     private void initHeadDetail() {
         Shop shop = mViewModel.getShopDetail();
 
-        mBinding.layoutShopDetails.tvShopName.setText(shop.getShopName());
-        mBinding.layoutShopDetails.layoutScoreAndFans.setScore(shop.getScore());
+        mBinding.layoutShopDetails.tvShopName.setText(shop.getShop_name());
+        mBinding.layoutShopDetails.layoutScoreAndFans.setScore((int) Float.parseFloat(shop.getFavorable_rate()));
         mBinding.layoutShopDetails.layoutScoreAndFans.
-                setFansStr(getString(R.string.number_of_fans,shop.getNumber_of_fans()));
+                setFansStr(getString(R.string.number_of_fans, shop.getNumber_of_fans()));
         mBinding.layoutShopDetails.tvShopDescribe1.
                 setText("月售" + shop.getSale_count_per_month() + "+ 配送约60分钟");
         mBinding.layoutShopDetails.tvMorePreferential.
                 setText(getString(R.string.more_preferential,4));
         mBinding.layoutShopDetails.tvShopAnnouncement.
-                setText(getString(R.string.announcement,shop.getAnnouncement()));
-        Glide.with(this).load(shop.getShopIcon()).
+                setText(getString(R.string.notice, shop.getNotice()));
+        Glide.with(this).load(shop.getShop_head_portrait()).
                 placeholder(R.drawable.ic_waimai_brand).centerCrop().
                 into(mBinding.layoutShopDetails.ivShopIcon);
         initCashBackFlowTagLayout();
@@ -132,7 +132,7 @@ public class ShopDetailFragment extends BaseFragment {
         });
         mBinding.layoutMembers.tvShopMembersCardName.setText(shop.getMemberCard().getName());
         mBinding.layoutMembers.tvShopMembersCardDescribe.setText(shop.getMemberCard().getDescribe());
-        Glide.with(this).load(shop.getShopIcon()).
+        Glide.with(this).load(shop.getShop_head_portrait()).
                 placeholder(R.drawable.ic_waimai_brand).centerCrop().
                 into(mBinding.layoutMembers.ivShopIcon);
 

@@ -89,6 +89,7 @@ public class WaimaiTypeFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
+        initTitleView();
         initSubtypeRecycler();
         initSortView();
         initShopContent();
@@ -112,6 +113,16 @@ public class WaimaiTypeFragment extends BaseFragment {
         });
 
         addOnScrollListener(mBinding.recyclerFoodSubtype);
+    }
+
+    /**
+     * 隐藏分享按钮
+     */
+    private void initTitleView(){
+        View view = getRootView().findViewById(R.id.iv_share);
+        if(view != null){
+            view.setVisibility(View.GONE);
+        }
     }
 
     LinearLayoutManager layoutManager;
@@ -179,6 +190,10 @@ public class WaimaiTypeFragment extends BaseFragment {
 
             @Override
             public void onBindViewHolder(BaseViewHolder holder, boolean selected, IconStrData item) {
+                View view = holder.getView(R.id.ll_selected_sign);
+                if(view.getVisibility() != View.VISIBLE)
+                    view.setVisibility(View.VISIBLE);
+
                 holder.setImageResource(R.id.iv_subtype_icon,item.getResImgId());
                 holder.setText(R.id.tv_subtype_name,item.getIconType());
                 if(selected){

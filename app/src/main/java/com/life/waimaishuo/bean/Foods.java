@@ -5,11 +5,12 @@ import android.os.Parcelable;
 
 import androidx.databinding.BaseObservable;
 
-public class Goods extends BaseObservable implements Parcelable {
+public class Foods extends BaseObservable implements Parcelable {
 
     private String name;
+    private String shopName;
     private String details;
-    private String goodsImgUrl;
+    private String foodsImgUrl;
     private String buyNum;
 
     private String price;
@@ -21,30 +22,30 @@ public class Goods extends BaseObservable implements Parcelable {
     private int count_per_month;
     private String score;
 
-    public Goods() {
+    public Foods() {
     }
 
-    public Goods(String name, int time_send, String goodsImgUrl, String price_deliver, int count_per_month, String score) {
+    public Foods(String name, int time_send, String foodsImgUrl, String price_deliver, int count_per_month, String score) {
         this.name = name;
-        this.goodsImgUrl = goodsImgUrl;
+        this.foodsImgUrl = foodsImgUrl;
         this.time_send = time_send;
         this.price_deliver = price_deliver;
         this.count_per_month = count_per_month;
         this.score = score;
     }
 
-    public Goods(String name, String describe, String goodsImgUrl, String buyNum, String price) {
+    public Foods(String name, String describe, String foodsImgUrl, String buyNum, String price) {
         this.name = name;
         this.details = describe;
-        this.goodsImgUrl = goodsImgUrl;
+        this.foodsImgUrl = foodsImgUrl;
         this.buyNum = buyNum;
         this.price = price;
     }
 
-    protected Goods(Parcel in) {
+    protected Foods(Parcel in) {
         name = in.readString();
         details = in.readString();
-        goodsImgUrl = in.readString();
+        foodsImgUrl = in.readString();
         buyNum = in.readString();
         price = in.readString();
         time_send = in.readInt();
@@ -54,15 +55,15 @@ public class Goods extends BaseObservable implements Parcelable {
         score = in.readString();
     }
 
-    public static final Creator<Goods> CREATOR = new Creator<Goods>() {
+    public static final Creator<Foods> CREATOR = new Creator<Foods>() {
         @Override
-        public Goods createFromParcel(Parcel in) {
-            return new Goods(in);
+        public Foods createFromParcel(Parcel in) {
+            return new Foods(in);
         }
 
         @Override
-        public Goods[] newArray(int size) {
-            return new Goods[size];
+        public Foods[] newArray(int size) {
+            return new Foods[size];
         }
     };
 
@@ -102,12 +103,12 @@ public class Goods extends BaseObservable implements Parcelable {
         this.price = price;
     }
 
-    public String getGoodsImgUrl() {
-        return goodsImgUrl;
+    public String getFoodsImgUrl() {
+        return foodsImgUrl;
     }
 
-    public void setGoodsImgUrl(String goodsImgUrl) {
-        this.goodsImgUrl = goodsImgUrl;
+    public void setFoodsImgUrl(String foodsImgUrl) {
+        this.foodsImgUrl = foodsImgUrl;
     }
 
     public String getBuyNum() {
@@ -159,7 +160,7 @@ public class Goods extends BaseObservable implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(details);
-        dest.writeString(goodsImgUrl);
+        dest.writeString(foodsImgUrl);
         dest.writeString(buyNum);
         dest.writeString(price);
         dest.writeInt(time_send);

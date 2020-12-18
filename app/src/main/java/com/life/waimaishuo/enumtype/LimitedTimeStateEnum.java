@@ -3,8 +3,9 @@ package com.life.waimaishuo.enumtype;
 public enum LimitedTimeStateEnum {
 
     STARTING("已开抢",1),
-    ROBBING("正在热抢中",2),
-    NO_START("未开始",3);
+    ROBBING("正在热抢",2),
+    NO_START("未开始",3),
+    SALE_OUT("已抢完",4);
 
     private String state;
     private int code;

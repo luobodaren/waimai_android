@@ -13,14 +13,14 @@ public class Order implements Parcelable {
     int orderState;
 
 
-    List<Goods> goodsList;
+    List<Foods> foodsList;
 
-    public Order(String shopName, String shopIconUrl, String orderCreateTime, int orderState, List<Goods> goodsList) {
+    public Order(String shopName, String shopIconUrl, String orderCreateTime, int orderState, List<Foods> foodsList) {
         this.shopName = shopName;
         this.shopIconUrl = shopIconUrl;
         this.orderCreateTime = orderCreateTime;
         this.orderState = orderState;
-        this.goodsList = goodsList;
+        this.foodsList = foodsList;
     }
 
     protected Order(Parcel in) {
@@ -28,7 +28,7 @@ public class Order implements Parcelable {
         shopIconUrl = in.readString();
         orderCreateTime = in.readString();
         orderState = in.readInt();
-        goodsList = in.createTypedArrayList(Goods.CREATOR);
+        foodsList = in.createTypedArrayList(Foods.CREATOR);
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -75,12 +75,12 @@ public class Order implements Parcelable {
         this.orderState = orderState;
     }
 
-    public List<Goods> getGoodsList() {
-        return goodsList;
+    public List<Foods> getFoodsList() {
+        return foodsList;
     }
 
-    public void setGoodsList(List<Goods> goodsList) {
-        this.goodsList = goodsList;
+    public void setFoodsList(List<Foods> foodsList) {
+        this.foodsList = foodsList;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class Order implements Parcelable {
         dest.writeString(shopIconUrl);
         dest.writeString(orderCreateTime);
         dest.writeInt(orderState);
-        dest.writeTypedList(goodsList);
+        dest.writeTypedList(foodsList);
     }
 
 }

@@ -28,7 +28,7 @@
             android:ellipsize="end"
             android:textSize="30px"
             android:textColor="@color/text_normal"
-            android:text="@{goods.name}"
+            android:text="@{foods.name}"
             app:layout_constraintTop_toTopOf="@id/iv_goods_img"
             app:layout_constraintStart_toEndOf="@id/iv_goods_img"
             app:layout_constraintEnd_toEndOf="parent"

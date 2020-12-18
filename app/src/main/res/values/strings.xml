@@ -25,11 +25,12 @@
     <string name="message_swipe_item2">删除</string>
 
     <string name="arrive_in_minutes">%s分钟送达</string>
+    <string name="arrive_in_minutes_2">%s分钟</string>
     <string name="price_of_sending">￥%s起送</string>
     <string name="sale_count_a_month">月售%d</string>
-    <string name="score">评分</string>
+    <string name="favorable_rate">评分</string>
     <string name="number_of_fans">粉丝数%s万</string>
-    <string name="announcement">公告：%s</string>
+    <string name="notice">公告：%s</string>
     <string name="more_preferential">%d个优惠</string>
     <string name="tv_sign_in_members">入会有礼</string>
     <string name="connect_merchants">联系商家</string>
@@ -38,7 +39,12 @@
     <string name="go_spell_list">去拼单</string>
     <string name="screen">筛选</string>
     <string name="locacl_unknow">未知</string>
+
     <string name="limited_second_kill">限时秒杀</string>
+    <string name="limited_second_kill_price">￥%s秒杀价</string>
+    <string name="limited_divider_price">配送￥%s</string>
+    <string name="limited_goods_count"> 限量%s份</string>
+    <string name="limited_goods_remaining_count">剩余%s件</string>
 
 
 </resources>

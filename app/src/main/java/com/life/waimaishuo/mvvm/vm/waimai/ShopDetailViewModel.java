@@ -46,15 +46,15 @@ public class ShopDetailViewModel extends BaseViewModel {
     public Shop getShopDetail() {
         if(shop == null){
             shop = new Shop();
-            shop.setAnnouncement("感受一碗粥的小幸福的小幸福。");
+            shop.setNotice("感受一碗粥的小幸福的小幸福。");
             shop.setNumber_of_fans("21");
             shop.setSale_count_per_month("2000");
-            shop.setScore(4.5f);
-            shop.setShopName("1点点奶茶店");
-            shop.setShopIcon("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1907944722,1971859883&fm=26&gp=0.jpg");
+            shop.setFavorable_rate("4.5");
+            shop.setShop_name("1点点奶茶店");
+            shop.setShop_head_portrait("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1907944722,1971859883&fm=26&gp=0.jpg");
 
             MemberCard memberCard = new MemberCard();
-            memberCard.setName(shop.getShopName());
+            memberCard.setName(shop.getShop_name());
             memberCard.setDescribe("新会员注册即可享受海量优惠");
             shop.setMemberCard(memberCard);
         }

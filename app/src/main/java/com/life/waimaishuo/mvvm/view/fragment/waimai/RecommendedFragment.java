@@ -67,7 +67,7 @@ public class RecommendedFragment extends BaseChildFragment {
     private void initRecycler(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(
-                new BaseQuickAdapter<Shop,BaseViewHolder>(R.layout.item_recommended_shop,mShopList) {
+                new BaseQuickAdapter<Shop,BaseViewHolder>(R.layout.item_recommended_shop, mShopList) {
                     @Override
                     protected void convert(@NonNull BaseViewHolder helper, Shop item) {
 

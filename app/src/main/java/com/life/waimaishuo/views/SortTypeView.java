@@ -1,11 +1,14 @@
 package com.life.waimaishuo.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -24,18 +27,20 @@ import java.util.List;
 
 public class SortTypeView extends FrameLayout {
 
-    private LayoutSortBinding mBinding;
-
-    private onSortTypeChangeListener mOnSortTypeChangeListener;
+    private int sortViewBackground;
+    private boolean isShowFlowTabLayout;
+    private int flowTagBackground;
 
     private int textUnCheckColor;
     private int textCheckColor;
 
+    private LayoutSortBinding mBinding;
+
     private PreferentialFlowTagAdapter tagAdapter;  //流布局-优惠 的适配器
+    private onSortTypeChangeListener mOnSortTypeChangeListener;
+    int currentSelectedSort = 1;    //当前选中的排序类型
 
     private SortPopup mSortPopup;    //综合排序点击弹出pop
-
-    int currentSelectedSort = 1;    //当前选中的排序类型
 
     @Override
     public View getRootView() {
@@ -52,6 +57,11 @@ public class SortTypeView extends FrameLayout {
 
     public SortTypeView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StickyNavigationLayout);
+        sortViewBackground = typedArray.getResourceId(R.styleable.SortTypeView_sortViewBackground, R.color.background);
+        isShowFlowTabLayout = typedArray.getBoolean(R.styleable.SortTypeView_showFlowTag,true);
+        flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
+
         initAttribute();
         addSortTypeView();
         initFlowTag();
@@ -79,11 +89,14 @@ public class SortTypeView extends FrameLayout {
     }
 
     public void setPreferentialTab(List<String> preferentialList){
-        tagAdapter.clearAndAddTags(preferentialList);
+        if(tagAdapter != null)
+            tagAdapter.clearAndAddTags(preferentialList);
     }
 
     private void addSortTypeView(){
         View sortTypeView = View.inflate(getContext(), R.layout.layout_sort,null);
+        sortTypeView.setBackgroundColor(getContext().getResources().getColor(sortViewBackground));
+
         mBinding = LayoutSortBinding.bind(sortTypeView);
         addView(sortTypeView);
         initSortTypeView();
@@ -107,9 +120,14 @@ public class SortTypeView extends FrameLayout {
     }
 
     private void initFlowTag() {
+        if(!isShowFlowTabLayout){
+            return;
+        }
+
         tagAdapter = new PreferentialFlowTagAdapter(getContext());
         tagAdapter.setSelectedPositions(2, 3, 4);   // TODO: 2020/12/16 默认选中 后续需要删除该默认选中
 
+        mBinding.flowlayoutPreferential.setBackgroundColor(getContext().getResources().getColor(flowTagBackground));
         mBinding.flowlayoutPreferential.setAdapter(tagAdapter);
         mBinding.flowlayoutPreferential.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
         mBinding.flowlayoutPreferential.setOnTagSelectListener((parent, position, selectedList) -> {

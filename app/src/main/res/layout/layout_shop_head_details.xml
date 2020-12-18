@@ -72,7 +72,7 @@
                 android:maxLines="1"
                 android:maxWidth="540px"
                 android:ellipsize="end"
-                android:text="@string/announcement"
+                android:text="@string/notice"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@id/tv_shopName"
                 app:layout_constraintEnd_toStartOf="@id/tv_more_preferential"

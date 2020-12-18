@@ -78,14 +78,14 @@ public class UIUtils {
 
     // FIXME: 2020/12/10 background圆角角度适配添加
     public void autoAdapterUI(View view){
-        if(isScale(view)) {    //防止多次放大
+        if(isNeedScale(view)) {    //防止多次放大
             scaleView(view,getHorValue());
             setScaleTag(view);
         }
     }
 
     public void autoAdapterUI(ViewGroup viewGroup) {
-        if(isScale(viewGroup)){//防止多次放大
+        if(isNeedScale(viewGroup)){//防止多次放大
             scaleView(viewGroup,getHorValue());
             setScaleTag(viewGroup);
         }
@@ -93,7 +93,7 @@ public class UIUtils {
         int count = viewGroup.getChildCount();
         for(int i = 0; i < count; i++){
             View child = viewGroup.getChildAt(i);
-            if(isScale(child)){    //防止多次放大
+            if(isNeedScale(child)){    //防止多次放大
                 scaleView(child,getHorValue());
                 setScaleTag(child);
                 if(child instanceof ViewGroup){
@@ -297,7 +297,7 @@ public class UIUtils {
         view.setLayoutParams(layoutParams);
         if(view instanceof TextView){
             TextView textView = (TextView) view;
-            textView.setTextSize(pxTosp(textView.getTextSize() * scaleX));
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,textView.getTextSize() * scaleX);
         }
     }
 
@@ -326,7 +326,7 @@ public class UIUtils {
         }
     }
 
-    public boolean isScale(View view){
+    public boolean isNeedScale(View view){
         if(view.getTag(SCALE_KEY) == null){
             return true;
         }else{

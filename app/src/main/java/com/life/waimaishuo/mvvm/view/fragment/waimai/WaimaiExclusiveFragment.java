@@ -1,7 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -23,7 +22,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.Foods;
 import com.life.waimaishuo.databinding.FragmentExclusiveBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -110,10 +109,10 @@ public class WaimaiExclusiveFragment extends BaseFragment {
                 spanCount,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new StaggeredDividerItemDecoration(getContext(),R.dimen.interval_size_xs,spanCount));
-        recyclerView.setAdapter(new MyBaseRecyclerAdapter<Goods>(R.layout.item_exclusive_goods_info,
+        recyclerView.setAdapter(new MyBaseRecyclerAdapter<Foods>(R.layout.item_exclusive_goods_info,
                 viewModel.getmBreakFastList(),null) {
             @Override
-            protected void initView(BaseViewHolder helper, Goods item) {
+            protected void initView(BaseViewHolder helper, Foods item) {
                 helper.setText(R.id.tv_goods_name,item.getName());
                 helper.setText(R.id.tv_img_describe,getString(R.string.arrive_in_minutes,String.valueOf(item.getTime_send())));
                 helper.setText(R.id.tv_goods_deliver_info,item.getScore() +
@@ -122,7 +121,7 @@ public class WaimaiExclusiveFragment extends BaseFragment {
                 Glide.with(WaimaiExclusiveFragment.this)
                         .asBitmap()
                         .placeholder(R.drawable.ic_waimai_brand)
-                        .load(item.getGoodsImgUrl())
+                        .load(item.getFoodsImgUrl())
                         .into(new CustomTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

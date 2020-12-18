@@ -5,10 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiTypeViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiZeroDividerViewModel" />
     </data>
 
-    <com.life.base.views.UiAdapterFrameLayout
+    <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@mipmap/png_bg_health_food" />
+            android:src="@mipmap/png_bg_mipmap_exclusive"/>
 
         <LinearLayout
             android:id="@+id/my_ll_content_view"
@@ -43,43 +43,26 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/interval_size_xs"
-                android:background="@drawable/sr_bg_tl_tr_24radius_bg"
+                android:background="@color/transparent"
                 app:fitStatusBar="false">
 
-                <LinearLayout
-                    android:id="@+id/top_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <com.xuexiang.xui.widget.imageview.RadiusImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="260px"
-                        android:src="@mipmap/png_health_food_adbertising"
-                        android:scaleType="centerCrop"
-                        android:layout_marginStart="@dimen/interval_size_xs"
-                        android:layout_marginEnd="@dimen/interval_size_xs"
-                        app:riv_corner_radius="12px"
-                        app:riv_border_width="0dp"/>
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/interval_size_xs"/>
-
-                </LinearLayout>
 
                 <com.life.waimaishuo.views.SortTypeView
                     android:id="@+id/sticky_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    app:showFlowTag="false"
+                    app:sortViewBackground="@color/transparent"/>
 
                 <FrameLayout
                     android:id="@+id/adaptive_size_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"/>
 
             </com.life.waimaishuo.views.StickyNavigationLayout>
 
         </LinearLayout>
-    </com.life.base.views.UiAdapterFrameLayout>
+    </FrameLayout>
 </layout>

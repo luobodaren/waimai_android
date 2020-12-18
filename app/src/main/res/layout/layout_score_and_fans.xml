@@ -10,7 +10,7 @@
         android:includeFontPadding="false"
         android:textColor="@color/text_normal"
         android:textSize="20px"
-        android:text="@string/score"/>
+        android:text="@string/favorable_rate"/>
 
     <ImageView
         android:id="@+id/iv_star_1"
