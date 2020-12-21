@@ -1,15 +1,19 @@
 package com.life.waimaishuo.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.mvvm.vm.BaseRecyclerViewModel;
 
 import java.util.List;
 
@@ -17,24 +21,17 @@ import java.util.List;
  * mvvm 实现界面与业务分离
  * @param <T>
  */
-public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
+public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
 
-    protected List<BaseRecyclerViewModel> mItemViewModelList;
+    private int variableId;
 
-
-    public MyBaseRecyclerAdapter(@Nullable List data, List<BaseRecyclerViewModel> mItemViewModelList) {
-        super(data);
-        this.mItemViewModelList = mItemViewModelList;
+    public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data) {
+        this(layoutResId, data, -1);
     }
 
-    public MyBaseRecyclerAdapter(int layoutResId, List<BaseRecyclerViewModel> mItemViewModelList) {
-        super(layoutResId);
-        this.mItemViewModelList = mItemViewModelList;
-    }
-
-    public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data, List<BaseRecyclerViewModel> mItemViewModelList) {
+    public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data, int variableId) {
         super(layoutResId, data);
-        this.mItemViewModelList = mItemViewModelList;
+        this.variableId = variableId;
     }
 
     @NonNull
@@ -45,16 +42,11 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
 
     @Override
     protected void convert(@NonNull BaseViewHolder holder, T item) {
-        int headCount = getHeaderLayoutCount();
-        int position = getData().indexOf(item);
-
-        BaseRecyclerViewModel vm= getItemViewModel(position);
-
-        //分离界面控制与业务逻辑
+        //dataBinding
+        if(variableId != -1)
+            DataBindingUtil.bind(holder.itemView).setVariable(variableId,item);
+        //特殊需求通过此方法实现
         initView(holder,item);
-        if(vm != null){ //若不传入viewModel 则直接在initView中处理数据
-            vm.bindModel( holder,vm.getModel(),this);
-        }
 
         //屏幕适配
         if(holder.itemView instanceof ViewGroup){
@@ -64,14 +56,6 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
         }
     }
 
-
-    public BaseRecyclerViewModel getItemViewModel(int index) {
-        if (index < getItemCount()){
-            if(mItemViewModelList != null && mItemViewModelList.size()>index)
-                return mItemViewModelList.get(index);
-        }
-        return null;
-    }
 
     @Override
     public int addHeaderView(View header, int index, int orientation) {
@@ -95,10 +79,8 @@ public abstract class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseV
         return result;
     }
 
-    public List<BaseRecyclerViewModel> getmItemViewModelList() {
-        return mItemViewModelList;
-    }
+    protected void initView(BaseViewHolder helper,T item){
 
-    protected abstract void initView(BaseViewHolder helper,T item);
+    }
 
 }

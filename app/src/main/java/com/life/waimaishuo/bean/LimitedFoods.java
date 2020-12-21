@@ -14,12 +14,15 @@ public class LimitedFoods {
 
     String goodsTotalCount;
 
-    public LimitedFoods(Foods foods, String limitedPrice, String remainingCount, String goodsTotalCount, LimitedTimeStateEnum limitedTimeStateEnum) {
+    String shopName;
+
+    public LimitedFoods(Foods foods, String limitedPrice, String remainingCount, String goodsTotalCount, LimitedTimeStateEnum limitedTimeStateEnum, String shopName) {
         this.foods = foods;
         this.limitedPrice = limitedPrice;
         this.remainingCount = remainingCount;
         this.goodsTotalCount = goodsTotalCount;
         this.limitedTimeStateEnum = limitedTimeStateEnum;
+        this.shopName = shopName;
     }
 
     public Foods getFoods() {
@@ -60,5 +63,13 @@ public class LimitedFoods {
 
     public void setLimitedTimeStateEnum(LimitedTimeStateEnum limitedTimeStateEnum) {
         this.limitedTimeStateEnum = limitedTimeStateEnum;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 }

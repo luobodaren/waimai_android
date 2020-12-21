@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.xuexiang.xui.widget.imageview.RadiusImageView
-        android:id="@+id/iv_goods_img"
-        android:layout_width="315px"
-        android:layout_height="193px"
-        android:scaleType="centerCrop"
-        app:riv_corner_radius="24px"
-        />
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ui.LimitedTimeGoodsData" />
+    </data>
 
-    <TextView
-        android:id="@+id/tv_goods_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:layout_marginTop="16px"
-        android:textSize="24px"
-        android:maxWidth="315px"
-        android:ellipsize="end"
-        android:maxLines="1" />
+    <com.life.base.views.UiAdapterLinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</com.life.base.views.UiAdapterLinearLayout>
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_goods_img"
+            android:layout_width="315px"
+            android:layout_height="193px"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="24px"
+            app:imageUrl="@{item.shopIconStr}"/>
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginTop="16px"
+            android:textSize="24px"
+            android:maxWidth="315px"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.shopName}"/>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

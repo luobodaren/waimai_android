@@ -5,7 +5,6 @@ import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.order.OrderBarItemModel;
-import com.life.waimaishuo.mvvm.vm.BaseRecyclerViewModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -54,14 +53,4 @@ public class OrderListItemViewModel extends BaseViewModel {
         return orderList;
     }
 
-    public List getTopRecyclerViewModelList() {
-        List<BaseRecyclerViewModel> baseViewHolders = new ArrayList<>();
-        int orderCount = orderList.size();
-        for(int i = 0; i<orderCount; i++){
-            OrderItemViewModel orderItemViewModel = new OrderItemViewModel();
-            orderItemViewModel.setData(orderList.get(i));
-            baseViewHolders.add(orderItemViewModel);
-        }
-        return baseViewHolders;
-    }
 }

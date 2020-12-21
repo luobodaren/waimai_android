@@ -16,6 +16,7 @@ import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.RecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
+import com.xuexiang.citypicker.model.HotCity;
 import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class WaiMaiViewModel extends BaseViewModel {
     public BaseObservable goToMessage = new ObservableInt();
     public BaseObservable goToLocat = new ObservableInt();
 
-    String mLocation;
+    public String mLocation;
     private RecommendedFragment recommendedFragment;
 
     private List<Shop> mShopList = new ArrayList<>();
@@ -199,5 +200,15 @@ public class WaiMaiViewModel extends BaseViewModel {
         cashBackList.add("配送费优惠");
         cashBackList.add("配送费优惠");
         return cashBackList;
+    }
+
+    public List<HotCity> getHotCities() {
+        List<HotCity> hotCities = new ArrayList<>();
+        hotCities.add(new HotCity("北京", "北京", "10101"));
+        hotCities.add(new HotCity("上海", "上海", "10102"));
+        hotCities.add(new HotCity("广州", "广东", "10120"));
+        hotCities.add(new HotCity("深圳", "广东", "10128"));
+        hotCities.add(new HotCity("杭州", "浙江", "10121"));
+        return hotCities;
     }
 }

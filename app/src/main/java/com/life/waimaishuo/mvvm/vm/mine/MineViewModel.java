@@ -5,7 +5,6 @@ import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.TypeCountData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mine.MineModel;
-import com.life.waimaishuo.mvvm.vm.BaseRecyclerViewModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -46,26 +45,6 @@ public class MineViewModel extends BaseViewModel {
 
     public List<IconStrData> getMoreRecommenedData() {
         return mMoreRecommendData;
-    }
-
-    public List<BaseRecyclerViewModel> getTopRecyclerViewModelList() {
-        List<BaseRecyclerViewModel> list = new ArrayList<>();
-        for(int i = 0; i< mTopDataList.size(); i++){
-            TopRecyclerViewModel topRecyclerViewModel = new TopRecyclerViewModel();
-            topRecyclerViewModel.setData(mTopDataList.get(i));
-            list.add(topRecyclerViewModel);
-        }
-        return list;
-    }
-
-    public List<BaseRecyclerViewModel> getGoodLogisticsRecyclerViewModelList() {
-        List<BaseRecyclerViewModel> list = new ArrayList<>();
-        for(int i = 0; i< mGoodLogisticsData.size(); i++){
-            GoodLogisticsViewModel goodLogisticsViewModel = new GoodLogisticsViewModel();
-            goodLogisticsViewModel.setData(mGoodLogisticsData.get(i));
-            list.add(goodLogisticsViewModel);
-        }
-        return list;
     }
 
     private void initTopRecyclerData(){

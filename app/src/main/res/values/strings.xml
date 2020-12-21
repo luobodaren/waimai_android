@@ -4,6 +4,8 @@
     <string name="agreement">《用户服务协议》</string>
     <string name="policy">《隐私政策》</string>
 
+    <string name="zh_money_symbol">￥</string>
+
     <string name="login_by_machine">本机号码一键登录</string>
     <string name="login_by_phone">手机号登录</string>
     <string name="login_by_other">使用其他手机号登录</string>
@@ -24,10 +26,15 @@
     <string name="message_swipe_item1">置顶</string>
     <string name="message_swipe_item2">删除</string>
 
-    <string name="arrive_in_minutes">%s分钟送达</string>
-    <string name="arrive_in_minutes_2">%s分钟</string>
-    <string name="price_of_sending">￥%s起送</string>
-    <string name="sale_count_a_month">月售%d</string>
+    <string name="score">分</string>
+    <string name="limited">限量</string>
+    <string name="goods_units">份</string>
+    <string name="remaining">剩余</string>
+
+    <string name="arrive_in_minutes">分钟送达</string>
+    <string name="arrive_in_minutes_2">分钟</string>
+    <string name="price_of_sending">起送</string>
+    <string name="sale_count_a_month">月售</string>
     <string name="favorable_rate">评分</string>
     <string name="number_of_fans">粉丝数%s万</string>
     <string name="notice">公告：%s</string>
@@ -42,9 +49,7 @@
 
     <string name="limited_second_kill">限时秒杀</string>
     <string name="limited_second_kill_price">￥%s秒杀价</string>
-    <string name="limited_divider_price">配送￥%s</string>
-    <string name="limited_goods_count"> 限量%s份</string>
-    <string name="limited_goods_remaining_count">剩余%s件</string>
+    <string name="limited_divider_price">配送￥</string>
 
 
 </resources>

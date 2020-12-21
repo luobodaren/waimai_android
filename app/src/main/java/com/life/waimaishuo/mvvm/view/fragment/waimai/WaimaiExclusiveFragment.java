@@ -20,6 +20,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Foods;
@@ -110,30 +111,6 @@ public class WaimaiExclusiveFragment extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new StaggeredDividerItemDecoration(getContext(),R.dimen.interval_size_xs,spanCount));
         recyclerView.setAdapter(new MyBaseRecyclerAdapter<Foods>(R.layout.item_exclusive_goods_info,
-                viewModel.getmBreakFastList(),null) {
-            @Override
-            protected void initView(BaseViewHolder helper, Foods item) {
-                helper.setText(R.id.tv_goods_name,item.getName());
-                helper.setText(R.id.tv_img_describe,getString(R.string.arrive_in_minutes,String.valueOf(item.getTime_send())));
-                helper.setText(R.id.tv_goods_deliver_info,item.getScore() +
-                        " " +getString(R.string.price_of_sending,item.getPrice_deliver())
-                        + " " + getString(R.string.sale_count_a_month,item.getCount_per_month()));
-                Glide.with(WaimaiExclusiveFragment.this)
-                        .asBitmap()
-                        .placeholder(R.drawable.ic_waimai_brand)
-                        .load(item.getFoodsImgUrl())
-                        .into(new CustomTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                ((FilletImageView)helper.getView(R.id.iv_goods_img)).setImageBitmap(resource);
-                            }
-
-                            @Override
-                            public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                            }
-                        });
-            }
-        });
+                viewModel.getmBreakFastList(), BR.goods));
     }
 }

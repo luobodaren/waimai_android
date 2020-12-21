@@ -1,70 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/rl_img_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <com.xuexiang.xui.widget.imageview.RadiusImageView
-            android:id="@+id/iv_goodsIcon"
-            android:scaleType="centerCrop"
-            android:layout_width="315px"
-            android:layout_height="150px"
-            app:riv_corner_radius="24px"/>
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ExclusiveShopData" />
+    </data>
 
-        <com.xuexiang.xui.widget.imageview.RadiusImageView
-            android:id="@+id/iv_shopIcon"
-            android:layout_width="56px"
-            android:layout_height="56px"
-            android:layout_marginEnd="10px"
-            android:layout_alignRight="@id/iv_goodsIcon"
-            android:layout_below="@id/iv_goodsIcon"
-            app:riv_corner_radius="5px"
-            android:layout_marginTop="-50px"/>
-    </RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_shopName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:textColor="@color/text_normal"
-        android:maxWidth="260px"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:layout_marginTop="20px"
-        android:textSize="26px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rl_img_layout"/>
+        <RelativeLayout
+            android:id="@+id/rl_img_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_recent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:maxWidth="260px"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textColor="#A27700"
-        android:layout_marginTop="16px"
-        android:textSize="22px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_shopName" />
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_goodsIcon"
+                android:scaleType="centerCrop"
+                android:layout_width="315px"
+                android:layout_height="150px"
+                app:riv_corner_radius="24px"
+                app:imageUrl="@{item.goodsIconStr}"/>
 
-    <ImageView
-        android:id="@+id/bt_cancel"
-        android:layout_width="32px"
-        android:layout_height="32px"
-        android:scaleType="center"
-        android:src="@drawable/ic_close_gray"
-        android:background="@drawable/sr_stroke_1px_1radius"
-        app:layout_constraintEnd_toEndOf="@id/rl_img_layout"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_shopIcon"
+                android:layout_width="56px"
+                android:layout_height="56px"
+                android:layout_marginEnd="10px"
+                android:layout_alignRight="@id/iv_goodsIcon"
+                android:layout_below="@id/iv_goodsIcon"
+                app:riv_corner_radius="5px"
+                android:layout_marginTop="-50px"
+                app:imageUrl="@{item.shopIconStr}"/>
+        </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_shopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_normal"
+            android:maxWidth="260px"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="20px"
+            android:textSize="26px"
+            android:text="@{item.shopName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rl_img_layout" />
+
+        <TextView
+            android:id="@+id/tv_recent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:maxWidth="260px"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#A27700"
+            android:layout_marginTop="16px"
+            android:textSize="22px"
+            android:text="@{item.recent}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_shopName" />
+
+        <ImageView
+            android:id="@+id/bt_cancel"
+            android:layout_width="32px"
+            android:layout_height="32px"
+            android:scaleType="center"
+            android:src="@drawable/ic_close_gray"
+            android:background="@drawable/sr_stroke_1px_1radius"
+            app:layout_constraintEnd_toEndOf="@id/rl_img_layout"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

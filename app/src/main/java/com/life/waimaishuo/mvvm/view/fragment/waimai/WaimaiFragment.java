@@ -22,6 +22,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SearchRecordTagWaimaiAdapter;
@@ -277,18 +278,8 @@ public class WaimaiFragment extends BaseFragment {
      */
     private void initLimitedTimeRecycler() {
         MyBaseRecyclerAdapter<LimitedTimeGoodsData> adapter =
-                new MyBaseRecyclerAdapter<LimitedTimeGoodsData>(R.layout.item_simple_goods
-                        ,mViewModel.getLimitedTimeGoodsData(),null) {
-                    @Override
-                    protected void initView(BaseViewHolder helper, LimitedTimeGoodsData item) {
-                        Glide.with(WaimaiFragment.this)
-                                .load(item.getShopIconStr())
-                                .centerCrop()
-                                .placeholder(R.drawable.ic_waimai_brand)
-                                .into(((ImageView)helper.getView(R.id.iv_goods_img)));
-                        helper.setText(R.id.tv_goods_name,item.getShopName());
-                    }
-                };
+                new MyBaseRecyclerAdapter<>(R.layout.item_simple_goods
+                        ,mViewModel.getLimitedTimeGoodsData(), com.life.waimaishuo.BR.item);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -358,19 +349,20 @@ public class WaimaiFragment extends BaseFragment {
         binding.contentLayout.setSortType(sortType);
     }
 
-//    @Permission(LOCATION)
+    @Permission(LOCATION)
     private void pickCity() {
-       /* CityPicker.from(this)
+/*        CityPicker.from(this)
                 .enableAnimation(mEnableAnimation)
-                .setAnimationStyle(mAnim)
+                .setAnimationStyle(R.style.CityPickerAnimation)
                 .setLocatedCity(null)
-                .setHotCities(mHotCities)
+                .setHotCities(mViewModel.getHotCities())
                 .setOnPickListener(new OnPickListener() {
 
-                    OnBDLocationListener mListener = new OnBDLocationListener();
+//                    OnBDLocationListener mListener = new OnBDLocationListener();
 
                     @Override
                     public void onPick(int position, City data) {
+                        mViewModel.onLocatLayoutClick();
                         tvCurrent.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
                         XToastUtils.toast(String.format("点击的数据：%s，%s", data.getName(), data.getCode()));
                         BaiDuLocationService.stop(mListener);
@@ -446,22 +438,8 @@ public class WaimaiFragment extends BaseFragment {
     }
 
     private MyBaseRecyclerAdapter<ExclusiveShopData> getExclusiveRecyclerAdapter() {
-        return new MyBaseRecyclerAdapter<ExclusiveShopData>(R.layout.item_waimai_exclusive_shop
-                ,mViewModel.getExclusiveShopData(),null) {
-            @Override
-            protected void initView(BaseViewHolder helper, ExclusiveShopData item) {
-                helper.setText(R.id.tv_shopName,item.getShopName());
-                helper.setText(R.id.tv_recent,item.getRecent());
-
-                ((ImageView)helper.getView(R.id.iv_shopIcon)).setImageResource(R.drawable.ic_waimai_brand);
-
-                Glide.with(WaimaiFragment.this)
-                        .load(item.getShopIconStr())
-                        .centerCrop()
-                        .placeholder(R.drawable.ic_waimai_brand)
-                        .into((ImageView)helper.getView(R.id.iv_goodsIcon));
-            }
-        };
+        return new MyBaseRecyclerAdapter<>(R.layout.item_waimai_exclusive_shop
+                ,mViewModel.getExclusiveShopData(), BR.item);
     }
 
     /**

@@ -1,9 +1,15 @@
 package com.life.waimaishuo.bean;
 
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 import androidx.databinding.BaseObservable;
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.life.waimaishuo.R;
 
 public class Foods extends BaseObservable implements Parcelable {
 
@@ -169,4 +175,5 @@ public class Foods extends BaseObservable implements Parcelable {
         dest.writeInt(count_per_month);
         dest.writeString(score);
     }
+
 }

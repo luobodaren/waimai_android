@@ -3,6 +3,8 @@ package com.life.waimaishuo.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.life.waimaishuo.enumtype.OrderStateEnum;
+
 import java.util.List;
 
 public class Order implements Parcelable {
@@ -69,6 +71,10 @@ public class Order implements Parcelable {
 
     public int getOrderState() {
         return orderState;
+    }
+
+    public String getOrderStateString(){
+        return OrderStateEnum.getState(orderState);
     }
 
     public void setOrderState(int orderState) {

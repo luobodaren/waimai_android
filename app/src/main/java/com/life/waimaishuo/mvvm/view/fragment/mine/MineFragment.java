@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
@@ -72,12 +73,7 @@ public class MineFragment extends BaseFragment {
 
         MyBaseRecyclerAdapter<TypeCountData> myBaseRecyclerAdapter
                 = new MyBaseRecyclerAdapter<TypeCountData>(R.layout.item_vertical_data_show,mViewModel.getmTopDataList()
-                ,mViewModel.getTopRecyclerViewModelList()){
-            @Override
-            protected void initView(BaseViewHolder helper, TypeCountData item) {
-
-            }
-        };
+                , BR.item){};
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4, LinearLayoutManager.VERTICAL,false);
 
         fragmentMineBinding.recyclerTopData.setAdapter(myBaseRecyclerAdapter);
@@ -89,12 +85,7 @@ public class MineFragment extends BaseFragment {
 
         MyBaseRecyclerAdapter<IconStrData> myBaseRecyclerAdapter =
                 new MyBaseRecyclerAdapter<IconStrData>(R.layout.item_mine_recycler_good_logistics,mViewModel.getGoodLogisticsdata()
-                        ,mViewModel.getGoodLogisticsRecyclerViewModelList()){
-                    @Override
-                    protected void initView(BaseViewHolder helper, IconStrData item) {
-
-                    }
-                };
+                        , BR.item);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),5, LinearLayoutManager.VERTICAL,false);
 
         fragmentMineBinding.recyclerGoodsLogistics.setAdapter(myBaseRecyclerAdapter);
@@ -129,16 +120,7 @@ public class MineFragment extends BaseFragment {
     }
 
     private MyBaseRecyclerAdapter<IconStrData> getFunctionRecyclerAdapter() {
-        return new MyBaseRecyclerAdapter<IconStrData>
-                (R.layout.item_mine_recycler_more_recommended
-                        ,mViewModel.getMoreRecommenedData()
-                        ,null){
-            @Override
-            protected void initView(BaseViewHolder holder, IconStrData item) {
-                ItemMineRecyclerMoreRecommendedBinding binding = DataBindingUtil.bind(holder.itemView);
-                binding.setItem(item);
-            }
-
-        };
+        return new MyBaseRecyclerAdapter<>
+                (R.layout.item_mine_recycler_more_recommended,mViewModel.getMoreRecommenedData(),BR.item);
     }
 }

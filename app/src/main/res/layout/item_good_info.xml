@@ -18,7 +18,8 @@
             android:layout_width="160px"
             android:layout_height="160px"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:imageUrl="@{goods.foodsImgUrl}"/>
 
         <TextView
             android:id="@+id/tv_goods_name"

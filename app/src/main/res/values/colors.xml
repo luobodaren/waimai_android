@@ -5,6 +5,7 @@
     <!-- colorAssist 辅助色 -->
     <color name="colorAssist">#F84500</color>
     <color name="colorAssist_2">#FF3B30</color>
+    <color name="colorAssist_3">#fb5900</color>
     <color name="colorTheme_60_percent">#99FE4036</color>
     <color name="colorTheme_50_percent">#80FE4036</color>
     <color name="colorTheme_30_percent">#4DFE4036</color>
@@ -31,7 +32,7 @@
     <color name="login_bt_machine_start">@color/colorTheme_gradient_start</color>
     <color name="login_bt_machine_end">@color/colorTheme_gradient_end</color>
     <color name="login_bt_unable">#80ffffff</color>
-    <color name="login_bt_able">#fffb5900</color>
+    <color name="login_bt_able">@color/colorAssist_3</color>
 
     <color name="interval_color">#333333</color>
 

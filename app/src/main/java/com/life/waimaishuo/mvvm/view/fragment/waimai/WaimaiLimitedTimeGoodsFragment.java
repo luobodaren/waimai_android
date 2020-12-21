@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
@@ -36,6 +37,7 @@ import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+
 
 @Page(name = "限时秒杀",anim = CoreAnim.slide)
 public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
@@ -197,25 +199,11 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
 
     private void initGoodsRecycler() {
         mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedFoods>(R.layout.item_recycler_limited_goods, mViewModel.getLimitedGoodsList(), null) {
+        mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedFoods>(R.layout.item_recycler_limited_goods, mViewModel.getLimitedGoodsList(), BR.item) {
             @Override
             protected void initView(BaseViewHolder helper, LimitedFoods item) {
-                Glide.with(getContext())
-                        .load(item.getFoods().getFoodsImgUrl())
-                        .centerCrop()
-                        .placeholder(R.drawable.ic_waimai_brand)
-                        .into((ImageView)helper.getView(R.id.iv_foods_img));
-
-                helper.setText(R.id.tv_foods_name,item.getFoods().getName());
-                helper.setText(R.id.tv_shop_name,"超辣啊火锅店（长风）");
-                helper.setText(R.id.tv_foods_deliver_info,getString(R.string.arrive_in_minutes_2,"30"));    //送达时间
-                helper.setText(R.id.tv_foods_price_pre, getStrikethroughSpanSpannable("189"));  //原始价格
-                helper.setText(R.id.tv_foods_price_divider, getString(R.string.limited_divider_price,"3")); //配送费
-                helper.setText(R.id.tv_foods_all_count, getString(R.string.limited_goods_count,"200")); //商品总数
-
+                helper.setText(R.id.tv_foods_price_pre, getStrikeThroughSpanSpannable("189"));  //原始价格
                 helper.setText(R.id.tv_limited_kill_price,getLimitedPriceSpannable(item.getLimitedPrice()));
-                helper.setText(R.id.tv_limited_state,item.getLimitedTimeStateEnum().getState());
-                helper.setText(R.id.tv_remaining_foods_count,getString(R.string.limited_goods_remaining_count,item.getRemainingCount()));
 
                 switch (item.getLimitedTimeStateEnum()){
                     case NO_START:
@@ -264,7 +252,7 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
      * @param prePrice
      * @return
      */
-    private SpannableString getStrikethroughSpanSpannable(String prePrice){
+    private SpannableString getStrikeThroughSpanSpannable(String prePrice){
         SpannableString spannableString = new SpannableString("￥" + prePrice);
         spannableString.setSpan(new StrikethroughSpan(),0,spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
