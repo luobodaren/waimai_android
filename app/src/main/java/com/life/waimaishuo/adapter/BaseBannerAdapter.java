@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2019 xuexiangjys(xuexiangjys@163.com)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
 package com.life.waimaishuo.adapter;
 
 import android.graphics.Color;
@@ -34,8 +17,9 @@ import com.xuexiang.xui.widget.imageview.strategy.DiskCacheStrategyEnum;
 import java.util.Arrays;
 import java.util.List;
 
+public class BaseBannerAdapter extends BaseRecyclerAdapter<String> {
 
-public class RecyclerViewBannerAdapter extends BaseRecyclerAdapter<String> {
+    private int layoutId;
 
     /**
      * 默认加载图片
@@ -50,18 +34,21 @@ public class RecyclerViewBannerAdapter extends BaseRecyclerAdapter<String> {
     private BannerLayout.OnBannerItemClickListener mOnBannerItemClickListener;
 
 
-    public RecyclerViewBannerAdapter() {
+    public BaseBannerAdapter(int layoutId) {
         super();
+        this.layoutId = layoutId;
         mColorDrawable = new ColorDrawable(Color.parseColor("#555555"));
     }
 
-    public RecyclerViewBannerAdapter(List<String> list) {
+    public BaseBannerAdapter(List<String> list, int layoutId) {
         super(list);
+        this.layoutId = layoutId;
         mColorDrawable = new ColorDrawable(Color.parseColor("#555555"));
     }
 
-    public RecyclerViewBannerAdapter(String[] list) {
+    public BaseBannerAdapter(String[] list, int layoutId) {
         super(Arrays.asList(list));
+        this.layoutId = layoutId;
         mColorDrawable = new ColorDrawable(Color.parseColor("#555555"));
     }
 
@@ -73,7 +60,7 @@ public class RecyclerViewBannerAdapter extends BaseRecyclerAdapter<String> {
      */
     @Override
     public int getItemLayoutId(int viewType) {
-        return R.layout.adapter_recycler_view_banner_image_item;
+        return layoutId;
     }
 
     /**
@@ -107,7 +94,7 @@ public class RecyclerViewBannerAdapter extends BaseRecyclerAdapter<String> {
      * @param enableCache
      * @return
      */
-    public RecyclerViewBannerAdapter enableCache(boolean enableCache) {
+    public BaseBannerAdapter enableCache(boolean enableCache) {
         mEnableCache = enableCache;
         return this;
     }
@@ -125,13 +112,14 @@ public class RecyclerViewBannerAdapter extends BaseRecyclerAdapter<String> {
         return mColorDrawable;
     }
 
-    public RecyclerViewBannerAdapter setColorDrawable(ColorDrawable colorDrawable) {
+    public BaseBannerAdapter setColorDrawable(ColorDrawable colorDrawable) {
         mColorDrawable = colorDrawable;
         return this;
     }
 
-    public RecyclerViewBannerAdapter setOnBannerItemClickListener(BannerLayout.OnBannerItemClickListener onBannerItemClickListener) {
+    public BaseBannerAdapter setOnBannerItemClickListener(BannerLayout.OnBannerItemClickListener onBannerItemClickListener) {
         mOnBannerItemClickListener = onBannerItemClickListener;
         return this;
     }
+
 }

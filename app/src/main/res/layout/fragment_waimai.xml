@@ -11,10 +11,10 @@
 
     <!--嵌套滑动父控件-->
     <com.life.waimaishuo.views.StickyNavigationLayout
-        android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        app:fitStatusBar="false"
         android:background="@drawable/sr_bg_theme_color_gradient">
 
         <androidx.core.widget.NestedScrollView
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never">
             <LinearLayout
+                android:id="@+id/my_ll_content_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -159,12 +160,15 @@
                             android:layout_marginTop="16px"
                             android:overScrollMode="never"/>
 
-                        <com.life.waimaishuo.views.MySimpleImageBanner
+                        <com.xuexiang.xui.widget.banner.recycler.BannerLayout
                             android:id="@+id/simpleImageBanner"
                             android:layout_width="match_parent"
                             android:layout_height="172px"
-                            android:layout_marginTop="24px"
-                            app:bb_scale="0.2450" />
+                            app:bl_showIndicator="false"
+                            app:bl_autoPlaying="true"
+                            app:bl_centerScale="1"
+                            app:bl_moveSpeed="1.8" />
+
                     </LinearLayout>
 
                     <!--                    <com.meetsl.scardview.SCardView-->

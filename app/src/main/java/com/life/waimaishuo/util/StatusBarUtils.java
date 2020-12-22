@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import androidx.annotation.ColorInt;
 
@@ -39,7 +40,6 @@ public class StatusBarUtils {
      * 配合状态栏透明，实现渐变式状态栏
      */
     public static void fitStatusBarHeight(BaseActivity baseActivity){    // FIXME: 2020/12/7 搜索界面没有效果
-        int statusBarHeight = com.xuexiang.xui.utils.StatusBarUtils.getStatusBarHeight(baseActivity);
         //根布局添加占位状态栏
         ViewGroup decorView = (ViewGroup) baseActivity.getWindow().getDecorView();
         ViewGroup contentView = decorView.findViewById(R.id.my_ll_content_view);
@@ -49,13 +49,10 @@ public class StatusBarUtils {
             return;
         }
 
-        View statusBarView = new View(baseActivity);
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                statusBarHeight);
-        statusBarView.setBackgroundColor(Color.TRANSPARENT);
-        //这里获取的为屏幕状态栏高度 不需要在绘制时被放大
-        UIUtils.getInstance(baseActivity.context).setScaleTag(statusBarView);
-        contentView.addView(statusBarView,0,lp);
+        if(contentView instanceof LinearLayout)
+            fitStatusBarHeight((LinearLayout) contentView);
+        else
+            LogUtil.e("添加StatusBar占位view失败，contentView不是LinerLayout");
     }
 
     /**
@@ -63,7 +60,6 @@ public class StatusBarUtils {
      * @param baseFragment
      */
     public static void fitStatusBarHeight(BaseFragment baseFragment){
-        int statusBarHeight = com.xuexiang.xui.utils.StatusBarUtils.getStatusBarHeight(baseFragment.getContext());
         ViewGroup rootView = (ViewGroup) baseFragment.getRootView();
         ViewGroup contentView = rootView.findViewById(R.id.my_ll_content_view);
 
@@ -72,14 +68,31 @@ public class StatusBarUtils {
             return;
         }
 
+        if(contentView instanceof LinearLayout)
+            fitStatusBarHeight((LinearLayout) contentView);
+        else
+            LogUtil.e("添加StatusBar占位view失败，contentView不是LinerLayout");
+    }
+
+    /**
+     * 同上
+     * @param rootView
+     */
+    public static void fitStatusBarHeight(LinearLayout rootView){
+        if(rootView == null){
+            LogUtil.e("Fragment FitStatusBarHeight Fail，contentView == null");
+            return;
+        }
+
+        int statusBarHeight = com.xuexiang.xui.utils.StatusBarUtils.getStatusBarHeight(rootView.getContext());
 //        根布局添加占位状态栏
-        View statusBarView = new View(baseFragment.getContext());
+        View statusBarView = new View(rootView.getContext());
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 statusBarHeight);
         statusBarView.setBackgroundColor(Color.TRANSPARENT);
         //这里获取的为屏幕状态栏高度 不需要在绘制时被放大
-        UIUtils.getInstance(baseFragment.getContext()).setScaleTag(statusBarView);
-        contentView.addView(statusBarView,0,lp);
+        UIUtils.getInstance(rootView.getContext()).setScaleTag(statusBarView);
+        rootView.addView(statusBarView,0,lp);
     }
 
 

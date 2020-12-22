@@ -2,7 +2,6 @@ package com.life.waimaishuo.mvvm.view.fragment;
 
 import android.graphics.Color;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,11 +23,11 @@ import com.life.waimaishuo.databinding.FragmentMessageBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.MessageViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
-import com.xuexiang.xui.widget.popupwindow.PopWindow;
 import com.yanzhenjie.recyclerview.OnItemMenuClickListener;
 import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
@@ -44,13 +43,8 @@ public class MessageFragment extends BaseFragment {
 
     private MessageRecyclerAdapter mMessageReyclerAdapter;
 
-    private PopWindow mAllMessageReadPopWindow;
-    private Runnable mCancelPopRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mAllMessageReadPopWindow.dismiss();
-        }
-    };
+    private MyCheckRoundTextInfoPop mAllMessageReadPopWindow;
+    private Runnable mCancelPopRunnable;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -91,7 +85,7 @@ public class MessageFragment extends BaseFragment {
         TextView actionTextView = (TextView) titleBar.addAction(new TitleBar.TextAction(getString(R.string.read_all_message_bt)) {
             @Override
             public void performAction(View view) {
-                doReadAllMessage();
+                doReadAllMessage(getString(R.string.read_all_message_success_tip),true);
             }
         });
         actionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimension(R.dimen.font_size_30));
@@ -124,11 +118,11 @@ public class MessageFragment extends BaseFragment {
         super.onLifecycleDestroy();
     }
 
-    private void doReadAllMessage(){
+    private void doReadAllMessage(String info, boolean successful){
         // TODO: 2020/12/1 viewModel层读消息
         // TODO: 2020/12/1 改为在回调时调用
         if(mAllMessageReadPopWindow == null){
-            mAllMessageReadPopWindow = new PopWindow(getContext(),R.layout.pop_read_all_message);
+            mAllMessageReadPopWindow = new MyCheckRoundTextInfoPop(getContext(), info, successful);
             mAllMessageReadPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
@@ -136,7 +130,17 @@ public class MessageFragment extends BaseFragment {
                 }
             });
         }
-        mAllMessageReadPopWindow.showAtLocation(mRootView, Gravity.CENTER,0,0);
+
+        if(mCancelPopRunnable == null){
+             mCancelPopRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    mAllMessageReadPopWindow.dismiss();
+                }
+            };
+        }
+
+        mAllMessageReadPopWindow.showAtCenter(mRootView);
         mHandler.postDelayed(mCancelPopRunnable, Constant.POP_WINDOW_SHOW_TIME);
     }
 
@@ -144,7 +148,7 @@ public class MessageFragment extends BaseFragment {
         FragmentMessageBinding binding = ((FragmentMessageBinding)mViewDataBinding);
 //        WidgetUtils.initRecyclerView(binding.swipeRecyclerView);
         binding.swipeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-//        binding.swipeRecyclerView.addItemDecoration(new DividerItemDecoration(binding.swipeRecyclerView.getContext(), VERTICAL));
+//        binding.swipeRecyclerView.addItemDecoration(new CityPickerDividerItemDecoration(binding.swipeRecyclerView.getContext(), VERTICAL));
 //        binding.swipeRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //必须在setAdapter之前调用

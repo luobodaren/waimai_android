@@ -71,7 +71,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     public StickyNavigationLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StickyNavigationLayout);
-        mIsFitStatusBar = typedArray.getBoolean(R.styleable.StickyNavigationLayout_fitStatusBar,true);
+        mIsFitStatusBar = typedArray.getBoolean(R.styleable.StickyNavigationLayout_fitStatusBar,false);
         setOrientation(LinearLayout.VERTICAL);
         mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
     }

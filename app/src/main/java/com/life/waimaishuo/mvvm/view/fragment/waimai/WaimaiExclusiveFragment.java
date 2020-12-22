@@ -1,6 +1,5 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -10,15 +9,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
@@ -28,9 +21,8 @@ import com.life.waimaishuo.databinding.FragmentExclusiveBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiExclusiveViewModel;
-import com.life.waimaishuo.views.FilletImageView;
 import com.life.waimaishuo.util.StatusBarUtils;
-import com.life.waimaishuo.views.widget.StaggeredDividerItemDecoration;
+import com.life.waimaishuo.adapter.decoration.StaggeredDividerItemDecoration;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;

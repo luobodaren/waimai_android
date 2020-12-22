@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +32,7 @@
             android:textSize="28px"
             android:layout_marginStart="16px"
             android:drawablePadding="8px"
-            android:drawableLeft="@drawable/ic_members_card"
+            android:drawableLeft="@drawable/ic_members_sign_black"
             app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
             app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
             tools:text="一点点会员阿卡" />
@@ -58,6 +60,7 @@
             android:paddingEnd="21px"
             android:paddingTop="11px"
             android:paddingBottom="11px"
+            android:onClick="@{(v)-> viewModel.onMembersCodeClick(v)}"
             app:sb_radius="24px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

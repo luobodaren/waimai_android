@@ -234,7 +234,6 @@ public class WaimaiTypeFragment extends BaseFragment {
         if(currentSelectedPosition != adapter.getSelectedPosition()){
             currentSelectedPosition = adapter.getSelectedPosition();
             selectedView = layoutManager.getChildAt(adapter.getSelectedPosition()-firstVisiblePosition);
-            LogUtil.d("selectedView getSelectedPosition:" + adapter.getSelectedPosition());
             if(halfWidth == -1){
                 halfWidth = selectedView.getWidth()/2;  //仅计算一次
             }

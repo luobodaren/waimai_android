@@ -5,6 +5,44 @@
         <item name="android:background">@color/transparent</item>
     </style>
 
+    <style name="mySimpleNoTitleDialog" parent="Theme.AppCompat.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!--标题  -->
+        <item name="android:windowNoTitle">false</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--透明背景-->
+        <item name="android:background">@android:color/transparent</item>
+        <!--窗口背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--弹窗背景是否变暗-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="MyCityPickerTheme" parent="CityPickerTheme">
+        <!--城市列表样式-->
+        <item name="cpListItemHeight">76px</item>
+        <item name="cpListItemTextSize">28px</item>
+        <item name="cpListItemTextColor">@color/text_normal</item>
+
+        <!--  热门城市  -->
+        <item name="cpGridItemSpace">@dimen/interval_size_xs</item>
+
+        <!-- 悬浮栏 -->
+        <item name="cpSectionTextSize">@dimen/font_size_28</item>
+        <item name="cpSectionBackground">@color/white</item>
+
+        <!-- 分割线 -->
+        <item name="mCpDividerBackground">@color/city_picker_divider_bg</item>
+
+        <!--右侧字母索引-->
+        <item name="cpIndexBarTextSize">@dimen/font_size_22</item>
+        <item name="cpIndexBarSelectedTextColor">@color/white</item>
+    </style>
+
     <style name="login_iv_icon">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -185,4 +223,5 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <color name="city_picker_divider_bg">#F1F1F1</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.life.waimaishuo.views.widget;
+package com.life.waimaishuo.adapter.decoration;
 
 import android.content.Context;
 import android.graphics.Rect;

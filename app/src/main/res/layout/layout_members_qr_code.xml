@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/members_qr_code_dialog_width"
+    android:layout_height="@dimen/members_qr_code_dialog_height"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/ic_members_qr_code_bg"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font_size_26"
+        android:layout_marginTop="32px"
+        android:text="@string/verification_by_scan_qr"/>
+
+    <TextView
+        android:id="@+id/tv_qr_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textSize="@dimen/font_size_26"
+        android:textColor="@color/text_normal"
+        android:layout_marginTop="88px"
+        tools:text="1865801080" />
+
+    <ImageView
+        android:id="@+id/iv_qr_code"
+        android:layout_width="309px"
+        android:layout_height="183px"
+        android:scaleType="centerInside"
+        android:layout_marginTop="32px"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_24"
+        android:textColor="@color/text_tip"
+        android:includeFontPadding="false"
+        android:layout_marginTop="80px"
+        android:text="为了您的会员及资金安全\n切勿将会员码泄露给他人"/>
+
+    <Button
+        android:id="@+id/bt_members_center"
+        android:layout_width="wrap_content"
+        android:layout_height="54.44px"
+        android:paddingLeft="18px"
+        android:layout_marginTop="61px"
+        android:gravity="center_vertical"
+        android:background="@drawable/sr_bg_full_corners_theme"
+        android:drawableStart="@drawable/ic_members_sign_white"
+        android:drawablePadding="6px"
+        android:textColor="@color/white"
+        android:textSize="24px"
+        android:text="@string/members_center"/>
+
+</com.life.base.views.UiAdapterLinearLayout>

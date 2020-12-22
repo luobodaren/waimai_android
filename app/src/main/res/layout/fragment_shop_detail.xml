@@ -109,6 +109,7 @@
                 android:layout_height="180px"
                 android:layout_marginTop="20px"
                 android:layout_marginBottom="20px"
+                app:bl_showIndicator="false"
                 app:bl_autoPlaying="true"
                 app:bl_centerScale="1"
                 app:bl_itemSpace="20px"

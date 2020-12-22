@@ -91,4 +91,10 @@
     <dimen name="waimai_limited_unselect_time_text_size">34px</dimen>
     <dimen name="waimai_limited_unselect_state_text_size">24px</dimen>
 
+    <dimen name="cp_grid_item_padding">16px</dimen>
+    <dimen name="cp_grid_item_padding_start">40px</dimen>
+    <dimen name="message_all_read_check_round_size">77px</dimen>
+    <dimen name="members_qr_code_dialog_width">485px</dimen>
+    <dimen name="members_qr_code_dialog_height">676px</dimen>
+
 </resources>

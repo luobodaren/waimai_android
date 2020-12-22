@@ -144,7 +144,7 @@ public class UIUtils {
      * @param dp      dp的值
      * @return px的值
      */
-    public int dpTopx(float dp) {
+    public int dpToPx(float dp) {
         return (int) (dp * density + 0.5f);
     }
 
@@ -154,7 +154,7 @@ public class UIUtils {
      * @param px      px的值
      * @return dp的值
      */
-    public int pxTodp(float px) {
+    public int pxToDp(float px) {
         return (int) (px / density + 0.5f);
     }
 
@@ -164,7 +164,7 @@ public class UIUtils {
      * @param px      px的值
      * @return sp的值
      */
-    public int pxTosp(float px) {
+    public int pxToSp(float px) {
         //DisplayMetrics类中属性scaledDensity
         return (int) (px / scaledDensity + 0.5f);
     }
@@ -175,7 +175,7 @@ public class UIUtils {
      * @param sp      sp的值
      * @return px的值
      */
-    public int spTopx(float sp) {
+    public int spToPx(float sp) {
         //DisplayMetrics类中属性scaledDensity
         final float fontScale = scaledDensity;
         return (int) (sp * scaledDensity + 0.5f);

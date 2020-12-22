@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cp_search_view"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/titlebar_height"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/interval_size_xs"
+    android:paddingEnd="@dimen/interval_size_xs">
+
+    <EditText
+        android:id="@+id/cp_search_box"
+        android:layout_width="0dp"
+        android:layout_height="60px"
+        android:layout_weight="1"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:drawableStart="@drawable/ic_search_gray"
+        android:drawablePadding="8px"
+        android:background="@drawable/sr_bg_search"
+        android:gravity="center_vertical"
+        android:paddingStart="24px"
+        android:hint="@string/search_by_input_city_name"/>
+
+
+    <ImageView
+        android:id="@+id/cp_clear_all"
+        android:layout_width="20dp"
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:visibility="gone"
+        android:scaleType="fitCenter"
+        android:src="?attr/cpClearTextIcon" />
+
+    <TextView
+        android:id="@+id/cp_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cp_cancel"
+        android:textColor="?attr/cpCancelTextColor"
+        android:textSize="?attr/cpCancelTextSize"
+        android:visibility="gone"/>
+</LinearLayout>

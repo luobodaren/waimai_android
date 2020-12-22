@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_ll_content_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <include
+        layout="@layout/title_simple"/>
+
+    <include layout="@layout/cp_search_view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cp_city_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/cp_overlay"
+            android:layout_width="?attr/cpOverlayWidth"
+            android:layout_height="?attr/cpOverlayHeight"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textSize="?attr/cpOverlayTextSize"
+            android:textColor="?attr/cpOverlayTextColor"
+            android:background="?attr/cpOverlayBackground"/>
+
+        <!--右侧字母导航-->
+        <com.life.waimaishuo.views.SideIndexBar
+            android:id="@+id/cp_side_index_bar"
+            android:layout_width="72px"
+            android:layout_height="850px"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
+
+        <include layout="@layout/cp_empty_view"/>
+    </RelativeLayout>
+</com.life.base.views.UiAdapterLinearLayout>

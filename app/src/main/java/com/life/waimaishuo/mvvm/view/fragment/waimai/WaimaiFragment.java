@@ -12,18 +12,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
@@ -37,18 +39,19 @@ import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.activity.SearchActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.MessageFragment;
+import com.life.waimaishuo.mvvm.view.fragment.city.CityPickerDialogFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel;
-import com.life.waimaishuo.util.BaiDuLocationService;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.Utils;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.SortTypeView;
-import com.xuexiang.citypicker.CityPicker;
 import com.xuexiang.citypicker.adapter.OnLocationListener;
 import com.xuexiang.citypicker.adapter.OnPickListener;
 import com.xuexiang.citypicker.model.City;
+import com.xuexiang.citypicker.model.LocateState;
+import com.xuexiang.citypicker.model.LocatedCity;
 import com.xuexiang.xaop.annotation.Permission;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -58,6 +61,7 @@ import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static android.Manifest.permission_group.LOCATION;
@@ -65,8 +69,11 @@ import static android.Manifest.permission_group.LOCATION;
 @Page(name = "外卖", anim = CoreAnim.fade)
 public class WaimaiFragment extends BaseFragment {
 
-    FragmentWaimaiBinding binding;
-    WaiMaiViewModel mViewModel;
+    private FragmentWaimaiBinding binding;
+    private WaiMaiViewModel mViewModel;
+
+    private WeakReference<FragmentManager> mFragmentManager;
+    private LocatedCity mLocatedCity = null;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -88,6 +95,8 @@ public class WaimaiFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
+
+        initMyLocation();
 
         initBanner();
         initSearchView();
@@ -139,6 +148,10 @@ public class WaimaiFragment extends BaseFragment {
         return null;
     }
 
+    private void initMyLocation() {
+        mViewModel.mLocation.set(getString(R.string.location_unknow));
+    }
+
     private void addCallBack() {
         MyDataBindingUtil.addCallBack(this, mViewModel.goToLocat, new Observable.OnPropertyChangedCallback() {
             @Override
@@ -187,12 +200,11 @@ public class WaimaiFragment extends BaseFragment {
      * 初始化轮播图
      */
     private void initBanner(){
-        binding.simpleImageBanner
-                .setSource(mViewModel.getBannerItemList())
-                .setOnItemClickListener((view,t,position)->{
-                    Toast.makeText(getContext(),"点击了轮播图",Toast.LENGTH_SHORT).show();
-                })
-                .setIsOnePageLoop(false).startScroll();
+        BaseBannerAdapter mAdapterHorizontal
+                = new BaseBannerAdapter(mViewModel.getBannerItemList(),R.layout.adapter_simple_image);
+        mAdapterHorizontal.setOnBannerItemClickListener(position ->
+                Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
+        binding.simpleImageBanner.setAdapter(mAdapterHorizontal);
     }
 
     /**
@@ -348,37 +360,64 @@ public class WaimaiFragment extends BaseFragment {
     private void refreshSortType(SortTypeEnum sortType){
         binding.contentLayout.setSortType(sortType);
     }
-
     @Permission(LOCATION)
     private void pickCity() {
-/*        CityPicker.from(this)
-                .enableAnimation(mEnableAnimation)
+        /*CityPicker.from(this)
+                .enableAnimation(true)
                 .setAnimationStyle(R.style.CityPickerAnimation)
-                .setLocatedCity(null)
+                .setLocatedCity(locatedCity)
                 .setHotCities(mViewModel.getHotCities())
-                .setOnPickListener(new OnPickListener() {
+                .setOnPickListener()
+        .show();*/
+        showCityPickerDialog();
+    }
 
+    private void showCityPickerDialog(){
+        if(mFragmentManager == null){
+            mFragmentManager = new WeakReference<>(this.getChildFragmentManager());
+        }
+        FragmentTransaction ft = mFragmentManager.get().beginTransaction();
+        final Fragment prev = mFragmentManager.get().findFragmentByTag("CityPicker");
+        if (prev != null) {
+            ft.remove(prev).commit();
+            ft = mFragmentManager.get().beginTransaction();
+        }
+        ft.addToBackStack(null);
+
+        final CityPickerDialogFragment cityPickerFragment =
+                CityPickerDialogFragment.newInstance(true);
+        cityPickerFragment.setLocatedCity(mLocatedCity);
+        cityPickerFragment.setHotCities(mViewModel.getHotCities());
+        cityPickerFragment.setAnimationStyle(R.style.CityPickerAnimation);
+        cityPickerFragment.setOnPickListener(getOnPickListener());
+        cityPickerFragment.show(ft, "CityPicker");
+    }
+
+    private OnPickListener getOnPickListener(){
+        return new OnPickListener() {
 //                    OnBDLocationListener mListener = new OnBDLocationListener();
 
-                    @Override
-                    public void onPick(int position, City data) {
-                        mViewModel.onLocatLayoutClick();
-                        tvCurrent.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
-                        XToastUtils.toast(String.format("点击的数据：%s，%s", data.getName(), data.getCode()));
-                        BaiDuLocationService.stop(mListener);
-                    }
+            @Override
+            public void onPick(int position, City data) {
+                mLocatedCity = new LocatedCity(data.getName(),data.getProvince(),data.getCode());
+                mViewModel.mLocation.set(data.getName());
+//                        tvCurrent.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
+//                        XToastUtils.toast(String.format("点击的数据：%s，%s", data.getName(), data.getCode()));
+//                        BaiDuLocationService.stop(mListener);
+            }
 
-                    @Override
-                    public void onCancel() {
-                        XToastUtils.toast("取消选择");
-                        BaiDuLocationService.stop(mListener);
-                    }
+            @Override
+            public void onCancel() {
+                Toast.makeText(getContext(), "取消选择", Toast.LENGTH_SHORT).show();
+//                        BaiDuLocationService.stop(mListener);
+            }
 
-                    @Override
-                    public void onLocate(final OnLocationListener locationListener) {
-                        //开始定位
-                        mListener.setOnLocationListener(locationListener);
-                        BaiDuLocationService.start(mListener);
+            @Override
+            public void onLocate(final OnLocationListener locationListener) {
+                //开始定位
+                locationListener.onLocationChanged(new LocatedCity("深圳","广东","101280601"), LocateState.SUCCESS);
+//                        mListener.setOnLocationListener(locationListener);
+//                        BaiDuLocationService.start(mListener);
 //                                new Handler().postDelayed(new Runnable() {
 //                                    @Override
 //                                    public void run() {
@@ -386,10 +425,9 @@ public class WaimaiFragment extends BaseFragment {
 //                                        locationListener.onLocationChanged(new LocatedCity("深圳", "广东", "101280601"), LocateState.SUCCESS);
 //                                    }
 //                                }, 5000);
-                    }
+            }
 
-                })
-                .show();*/
+        };
     }
 
     private BaseRecyclerAdapter<IconStrData> getFoodRecyclerAdapter() {

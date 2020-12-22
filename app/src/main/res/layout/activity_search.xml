@@ -8,7 +8,7 @@
             type="com.life.waimaishuo.mvvm.vm.SearchViewModel" />
     </data>
 
-    <com.life.base.views.UiAdapterLinearLayout
+    <LinearLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,8 +34,6 @@
                 android:drawablePadding="8px"
                 android:background="@drawable/sr_bg_search"
                 android:gravity="center_vertical"
-                android:layout_marginStart="16px"
-                android:paddingStart="24px"
                 android:text="@={viewModel.searchStr}"
                 android:hint="搜索词"/>
 
@@ -55,8 +53,7 @@
         <FrameLayout
             android:id="@id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"></FrameLayout>
+            android:layout_height="match_parent"/>
 
-    </com.life.base.views.UiAdapterLinearLayout>
+    </LinearLayout>
 </layout>

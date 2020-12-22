@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/iv_text"
         android:layout_width="270px"
         android:layout_height="270px"
-        android:text="@string/read_all_message_tip"
         android:textColor="@color/white"
-        android:textSize="32px"
         android:drawableTop="@drawable/ic_check_round"
+        android:textSize="32px"
         android:paddingTop="68px"
         android:drawablePadding="40px"
         android:gravity="center_horizontal"
-        android:background="@drawable/pop_bg_read_all_message"/>
+        android:background="@drawable/pop_bg_read_all_message"
+        tools:text="@string/read_all_message_success_tip"/>
 
 </LinearLayout>

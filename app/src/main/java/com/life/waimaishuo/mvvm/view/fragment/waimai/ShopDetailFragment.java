@@ -1,21 +1,35 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
+import android.app.Dialog;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import androidx.databinding.Observable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CashBackTagAdapter;
-import com.life.waimaishuo.adapter.RecyclerViewBannerAdapter;
 import com.life.waimaishuo.bean.Shop;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentShopDetailBinding;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.views.MyTabSegmentTab;
+import com.life.waimaishuo.views.widget.dialog.MyBottomDialog;
+import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -31,6 +45,10 @@ public class ShopDetailFragment extends BaseFragment {
     private FragmentShopDetailBinding mBinding;
     private ShopDetailViewModel mViewModel;
 
+    private MyCheckRoundTextInfoPop mAddMemberInfoPopWindow;
+    private Runnable mCancelPopRunnable;
+
+
     @Override
     protected BaseViewModel setViewModel() {
         if(mViewModel == null){
@@ -43,6 +61,7 @@ public class ShopDetailFragment extends BaseFragment {
     protected void bindViewModel() {
         ((FragmentShopDetailBinding)mViewDataBinding).setViewModel(mViewModel);
         mBinding = (FragmentShopDetailBinding)mViewDataBinding;
+        mBinding.layoutMembers.setViewModel(mViewModel);
     }
 
     @Override
@@ -76,6 +95,8 @@ public class ShopDetailFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+        addCallback();
+
         mBinding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {    // FIXME: 2020/12/10  没效果
             if(moveRatio == 1){
                 setStatusBarShowByType(HIDE_STATUS_BAR);
@@ -92,6 +113,15 @@ public class ShopDetailFragment extends BaseFragment {
     protected void onLifecycleResume() {
         super.onLifecycleResume();
         changeStatusBarMode();
+    }
+
+    private void addCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.onMembersCodeClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                showMembersQrCodeDialog();
+            }
+        });
     }
 
     private void initHeadDetail() {
@@ -139,8 +169,8 @@ public class ShopDetailFragment extends BaseFragment {
     }
 
     private void initBanner(){
-        RecyclerViewBannerAdapter mAdapterHorizontal
-                = new RecyclerViewBannerAdapter(mViewModel.getBannerSource());
+        BaseBannerAdapter mAdapterHorizontal
+                = new BaseBannerAdapter(mViewModel.getBannerSource(),R.layout.adapter_recycler_view_banner_image_item);
         mAdapterHorizontal.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
         mBinding.contentLayout.setAdapter(mAdapterHorizontal);
@@ -192,4 +222,88 @@ public class ShopDetailFragment extends BaseFragment {
             tabSegment.addTab(tab);
         }
     }
+
+    /**
+     * 显示会员二维码
+     */
+    private void showMembersQrCodeDialog() {
+        Dialog dialog = new Dialog(requireContext(),R.style.mySimpleNoTitleDialog);
+
+        View view = View.inflate(requireContext(),R.layout.layout_members_qr_code,null);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_width),
+                getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_height));
+        view.setLayoutParams(layoutParams);
+
+        view.findViewById(R.id.bt_members_center).setOnClickListener(new BaseActivity.OnMultiClickListener() {
+            @Override
+            public void onMultiClick(View view) {
+                dialog.dismiss();
+                showAddMemberInfo("加入会员成功",true);
+            }
+        });
+
+        dialog.addContentView(view,layoutParams);
+        dialog.setCanceledOnTouchOutside(true);
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.gravity = Gravity.BOTTOM | Gravity.CENTER;
+        params.width = layoutParams.width;
+        params.height = layoutParams.height;
+        dialog.getWindow().setAttributes(params);
+        dialog.show();
+
+//        PopWindow popWindow = new PopWindow(getContext(),R.layout.layout_members_qr_code);
+//        popWindow.findViewById(R.id.bt_members_center).setOnClickListener(new BaseActivity.OnMultiClickListener() {
+//            @Override
+//            public void onMultiClick(View view) {
+//                showAddMemberInfo("加入会员成功",true);
+//            }
+//        });
+//        popWindow.showAtLocation(this.getRootView(),Gravity.CENTER,0,0);
+    }
+
+    private void showAddMemberInfo(String info, boolean successful){
+        // TODO: 2020/12/1 viewModel层读消息
+        // TODO: 2020/12/1 改为在回调时调用
+        if(mAddMemberInfoPopWindow == null){
+            mAddMemberInfoPopWindow = new MyCheckRoundTextInfoPop(getContext(),info,successful);
+            mAddMemberInfoPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    mHandler.removeCallbacks(mCancelPopRunnable);
+                }
+            });
+        }
+
+        if(mCancelPopRunnable == null){
+            mCancelPopRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    mAddMemberInfoPopWindow.dismiss();
+                }
+            };
+        }
+
+        mAddMemberInfoPopWindow.showAtCenter(mRootView);
+        mHandler.postDelayed(mCancelPopRunnable, Constant.POP_WINDOW_SHOW_TIME);
+    }
+
+    private void showSimpleBottomSheetList() {
+        initPreferentialContentView();
+
+        MyBottomDialog dialog = new MyBottomDialog(getContext());
+        dialog.setContentView();
+    }
+
+    private void initPreferentialContentView() {
+        View view = View.inflate(getContext(),R.layout.layout_dialog_shop_more_preferential,null);
+
+
+
+        RecyclerView preferentialRecycler = view.findViewById(R.id.preferential_content_recyclerView);
+        preferentialRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+//        preferentialRecycler.setHasFixedSize(true);
+        preferentialRecycler.setAdapter();
+    }
+
 }

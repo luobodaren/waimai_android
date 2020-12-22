@@ -36,7 +36,6 @@ public class SearchHistoryFragment extends BaseFragment {
     protected void initArgs() {
         super.initArgs();
         setFitStatusBarHeight(false);
-
     }
 
     @Override

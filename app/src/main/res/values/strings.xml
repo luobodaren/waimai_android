@@ -6,6 +6,8 @@
 
     <string name="zh_money_symbol">￥</string>
 
+    <string name="members_center">会员中心</string>
+
     <string name="login_by_machine">本机号码一键登录</string>
     <string name="login_by_phone">手机号登录</string>
     <string name="login_by_other">使用其他手机号登录</string>
@@ -22,7 +24,7 @@
     <string name="cancel">取消</string>
     <string name="cancel_order">取消订单</string>
     <string name="read_all_message_bt">全部已读</string>
-    <string name="read_all_message_tip">全部消息已读</string>
+    <string name="read_all_message_success_tip">全部消息已读</string>
     <string name="message_swipe_item1">置顶</string>
     <string name="message_swipe_item2">删除</string>
 
@@ -40,16 +42,23 @@
     <string name="notice">公告：%s</string>
     <string name="more_preferential">%d个优惠</string>
     <string name="tv_sign_in_members">入会有礼</string>
+    <string name="verification_by_scan_qr">请扫描一下二维码验证</string>
     <string name="connect_merchants">联系商家</string>
     <string name="to_settle_accounts">去结算</string>
     <string name="chose_specification">选规格</string>
     <string name="go_spell_list">去拼单</string>
     <string name="screen">筛选</string>
-    <string name="locacl_unknow">未知</string>
+    <string name="location_unknow">未知</string>
 
     <string name="limited_second_kill">限时秒杀</string>
     <string name="limited_second_kill_price">￥%s秒杀价</string>
     <string name="limited_divider_price">配送￥</string>
+
+    <string name="city_picker">城市选择</string>
+    <string name="current_positioning_city">当前定位城市</string>
+    <string name="search_by_input_city_name">输入城市名或拼音进行搜索</string>
+    <string name="red_packet">红包</string>
+    <string name="preferential_activity">优惠活动</string>
 
 
 </resources>

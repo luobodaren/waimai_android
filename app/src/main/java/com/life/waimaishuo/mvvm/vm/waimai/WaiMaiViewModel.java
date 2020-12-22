@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 import android.view.View;
 
 import androidx.databinding.BaseObservable;
+import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.R;
@@ -28,12 +29,13 @@ public class WaiMaiViewModel extends BaseViewModel {
     public BaseObservable goToMessage = new ObservableInt();
     public BaseObservable goToLocat = new ObservableInt();
 
-    public String mLocation;
+    public ObservableField<String> mLocation = new ObservableField<>();
+
     private RecommendedFragment recommendedFragment;
 
     private List<Shop> mShopList = new ArrayList<>();
     private List<IconStrData> mFoodTypeList = new ArrayList<>();
-    private List<BannerItem> mBannerItemList = new ArrayList<>();
+    private List<String> mBannerItemList = new ArrayList<>();
     private List<ExclusiveShopData> mExclusiveShopDataList = new ArrayList<>();
     private List<LimitedTimeGoodsData> mLimitedTimeGoodsDataList = new ArrayList<>();
 
@@ -76,7 +78,7 @@ public class WaiMaiViewModel extends BaseViewModel {
         goToMessage.notifyChange();
     }
 
-    public List<BannerItem> getBannerItemList() {
+    public List<String> getBannerItemList() {
         return mBannerItemList;
     }
 
@@ -131,12 +133,9 @@ public class WaiMaiViewModel extends BaseViewModel {
     }
 
     private void initBannerList(){
-        BannerItem bannerItem2 = new BannerItem();
-        bannerItem2.setImgUrl("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg");
-        BannerItem bannerItem3 = new BannerItem();
-        bannerItem3.setImgUrl("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2755313968,2418553549&fm=26&gp=0.jpg");
-        mBannerItemList.add(bannerItem2);
-        mBannerItemList.add(bannerItem3);
+        mBannerItemList.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg");
+        mBannerItemList.add("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2755313968,2418553549&fm=26&gp=0.jpg");
+        mBannerItemList.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg");
     }
 
     private void initFoodRecyclerData(){

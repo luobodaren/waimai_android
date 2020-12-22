@@ -1,5 +1,10 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
+import android.view.View;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.ObservableInt;
+
 import com.life.waimaishuo.bean.MemberCard;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
@@ -14,6 +19,8 @@ import java.util.List;
 
 public class ShopDetailViewModel extends BaseViewModel {
 
+    public BaseObservable onMembersCodeClick = new ObservableInt();
+
     ShopDetailModel model;
     Shop shop;
 
@@ -26,6 +33,14 @@ public class ShopDetailViewModel extends BaseViewModel {
     @Override
     public void initData() {
 
+    }
+
+    /**
+     * 点击会员码
+     * @param view
+     */
+    public void onMembersCodeClick(View view){
+        onMembersCodeClick.notifyChange();
     }
 
     public List<String> getCashBackData() {

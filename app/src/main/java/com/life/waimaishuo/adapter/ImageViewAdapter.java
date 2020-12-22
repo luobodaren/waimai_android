@@ -19,7 +19,7 @@ import com.life.waimaishuo.views.FilletImageView;
 
 public class ImageViewAdapter {
 
-/*    @BindingAdapter("android:src")
+    @BindingAdapter("android:src")
     public static void setSrc(ImageView view, Bitmap bitmap) {
         view.setImageBitmap(bitmap);
     }
@@ -27,7 +27,7 @@ public class ImageViewAdapter {
     @BindingAdapter("android:src")
     public static void setSrc(ImageView view, int resId) {
         view.setImageResource(resId);
-    }*/
+    }
 
     @BindingAdapter("imageUrl")
     public static void setSrc(ImageView imageView, String url) {

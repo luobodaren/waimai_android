@@ -17,4 +17,7 @@
         <attr name="flowTagBackground" format="reference|color"/>
     </declare-styleable>
 
+    <!-- 城市选择器自定义列表分割线颜色 -->
+    <attr format="reference" name="mCpDividerBackground"/>
+
 </resources>
