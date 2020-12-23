@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,7 +75,7 @@
                 android:maxLines="1"
                 android:maxWidth="540px"
                 android:ellipsize="end"
-                android:text="@string/notice"
+                android:text="@string/notice_content"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="@id/tv_shopName"
                 app:layout_constraintEnd_toStartOf="@id/tv_more_preferential"
@@ -89,7 +92,8 @@
                 android:maxWidth="540px"
                 android:drawableRight="@drawable/ic_arrow_down_gray"
                 android:drawablePadding="8px"
-                android:text="@string/more_preferential"
+                tools:text="@string/more_preferential"
+                android:onClick="@{(v)->viewModel.onMorePreferentialClick(v)}"
                 app:layout_constraintStart_toEndOf="@id/tv_shop_announcement"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_shop_announcement" />

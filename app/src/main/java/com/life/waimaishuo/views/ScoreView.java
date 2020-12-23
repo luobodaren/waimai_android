@@ -23,6 +23,7 @@ public class ScoreView extends FrameLayout {
     private ImageView iv_star_4;
     private ImageView iv_star_5;
 
+    private TextView tv_title;
     private TextView tv_fans;
 
     public ScoreView(@NonNull Context context) {
@@ -46,6 +47,7 @@ public class ScoreView extends FrameLayout {
         iv_star_4 = view.findViewById(R.id.iv_star_4);
         iv_star_5 = view.findViewById(R.id.iv_star_5);
 
+        tv_title = view.findViewById(R.id.tv_title);
         tv_fans = view.findViewById(R.id.tv_fans);
         this.addView(view);
     }
@@ -97,14 +99,28 @@ public class ScoreView extends FrameLayout {
                 iv_star_4.setImageResource(R.drawable.ic_star_gray);
                 iv_star_5.setImageResource(R.drawable.ic_star_gray);
                 break;
-
-
         }
     }
 
     public void setFansStr(String str){
         number_of_fans = str;
         tv_fans.setText(str);
+    }
+
+    public void hideTitle(){
+        tv_title.setVisibility(GONE);
+    }
+
+    public void hideFans(){
+        tv_fans.setVisibility(GONE);
+    }
+
+    public void showTitle(){
+        tv_title.setVisibility(VISIBLE);
+    }
+
+    public void showFans(){
+        tv_fans.setVisibility(VISIBLE);
     }
 
 }

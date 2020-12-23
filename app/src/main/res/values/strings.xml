@@ -39,7 +39,8 @@
     <string name="sale_count_a_month">月售</string>
     <string name="favorable_rate">评分</string>
     <string name="number_of_fans">粉丝数%s万</string>
-    <string name="notice">公告：%s</string>
+    <string name="notice">公告</string>
+    <string name="notice_content">公告：%s</string>
     <string name="more_preferential">%d个优惠</string>
     <string name="tv_sign_in_members">入会有礼</string>
     <string name="verification_by_scan_qr">请扫描一下二维码验证</string>
@@ -59,6 +60,13 @@
     <string name="search_by_input_city_name">输入城市名或拼音进行搜索</string>
     <string name="red_packet">红包</string>
     <string name="preferential_activity">优惠活动</string>
+    <string name="merchants_service">商家服務</string>
+    <string name="receive">领取</string>
+    <string name="received">已领取</string>
+    <string name="merchants_score">商家评分</string>
+    <string name="diliver_satisfaction">配送满意度</string>
+    <string name="packing">包装</string>
+    <string name="taste">味道</string>
 
 
 </resources>

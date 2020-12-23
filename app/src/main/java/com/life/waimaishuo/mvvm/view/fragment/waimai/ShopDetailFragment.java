@@ -1,25 +1,40 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.app.Dialog;
+import android.graphics.Rect;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CashBackTagAdapter;
+import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
+import com.life.waimaishuo.bean.MerchantsService;
+import com.life.waimaishuo.bean.PreferentialActivity;
+import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentShopDetailBinding;
+import com.life.waimaishuo.databinding.LayoutDialogShopMorePreferentialBinding;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -62,6 +77,7 @@ public class ShopDetailFragment extends BaseFragment {
         ((FragmentShopDetailBinding)mViewDataBinding).setViewModel(mViewModel);
         mBinding = (FragmentShopDetailBinding)mViewDataBinding;
         mBinding.layoutMembers.setViewModel(mViewModel);
+        mBinding.layoutShopDetails.setViewModel(mViewModel);
     }
 
     @Override
@@ -88,7 +104,6 @@ public class ShopDetailFragment extends BaseFragment {
         initHeadDetail();
         initMemberCard();
 
-        initBanner();
         initNavigationTab();
     }
 
@@ -122,6 +137,18 @@ public class ShopDetailFragment extends BaseFragment {
                 showMembersQrCodeDialog();
             }
         });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onMorePreferentialClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                showBottomPreferentialDialog();
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onCancelDialogClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                closePreferentialDialog();
+            }
+        });
     }
 
     private void initHeadDetail() {
@@ -136,7 +163,7 @@ public class ShopDetailFragment extends BaseFragment {
         mBinding.layoutShopDetails.tvMorePreferential.
                 setText(getString(R.string.more_preferential,4));
         mBinding.layoutShopDetails.tvShopAnnouncement.
-                setText(getString(R.string.notice, shop.getNotice()));
+                setText(getString(R.string.notice_content, shop.getNotice()));
         Glide.with(this).load(shop.getShop_head_portrait()).
                 placeholder(R.drawable.ic_waimai_brand).centerCrop().
                 into(mBinding.layoutShopDetails.ivShopIcon);
@@ -166,14 +193,6 @@ public class ShopDetailFragment extends BaseFragment {
                 placeholder(R.drawable.ic_waimai_brand).centerCrop().
                 into(mBinding.layoutMembers.ivShopIcon);
 
-    }
-
-    private void initBanner(){
-        BaseBannerAdapter mAdapterHorizontal
-                = new BaseBannerAdapter(mViewModel.getBannerSource(),R.layout.adapter_recycler_view_banner_image_item);
-        mAdapterHorizontal.setOnBannerItemClickListener(position ->
-                Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
-        mBinding.contentLayout.setAdapter(mAdapterHorizontal);
     }
 
     private int space;
@@ -222,44 +241,36 @@ public class ShopDetailFragment extends BaseFragment {
             tabSegment.addTab(tab);
         }
     }
-
+    private Dialog mMembersQeCardDialog;
     /**
      * 显示会员二维码
      */
     private void showMembersQrCodeDialog() {
-        Dialog dialog = new Dialog(requireContext(),R.style.mySimpleNoTitleDialog);
+        if(mMembersQeCardDialog == null){
+            mMembersQeCardDialog = new Dialog(requireContext(),R.style.mySimpleNoTitleDialog);
+            View view = View.inflate(requireContext(),R.layout.layout_members_qr_code,null);
+            view.findViewById(R.id.bt_members_center).setOnClickListener(new BaseActivity.OnMultiClickListener() {
+                @Override
+                public void onMultiClick(View view) {
+                    mMembersQeCardDialog.dismiss();
+                    showAddMemberInfo("加入会员成功",true);
+                }
+            });
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            mMembersQeCardDialog.setContentView(view,layoutParams);
 
-        View view = View.inflate(requireContext(),R.layout.layout_members_qr_code,null);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
-                getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_width),
-                getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_height));
-        view.setLayoutParams(layoutParams);
-
-        view.findViewById(R.id.bt_members_center).setOnClickListener(new BaseActivity.OnMultiClickListener() {
-            @Override
-            public void onMultiClick(View view) {
-                dialog.dismiss();
-                showAddMemberInfo("加入会员成功",true);
-            }
-        });
-
-        dialog.addContentView(view,layoutParams);
-        dialog.setCanceledOnTouchOutside(true);
-        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
-        params.gravity = Gravity.BOTTOM | Gravity.CENTER;
-        params.width = layoutParams.width;
-        params.height = layoutParams.height;
-        dialog.getWindow().setAttributes(params);
-        dialog.show();
-
-//        PopWindow popWindow = new PopWindow(getContext(),R.layout.layout_members_qr_code);
-//        popWindow.findViewById(R.id.bt_members_center).setOnClickListener(new BaseActivity.OnMultiClickListener() {
-//            @Override
-//            public void onMultiClick(View view) {
-//                showAddMemberInfo("加入会员成功",true);
-//            }
-//        });
-//        popWindow.showAtLocation(this.getRootView(),Gravity.CENTER,0,0);
+            mMembersQeCardDialog.setCanceledOnTouchOutside(true);
+            WindowManager.LayoutParams params = mMembersQeCardDialog.getWindow().getAttributes();
+            params.gravity = Gravity.CENTER;
+            params.width = (int)UIUtils.getInstance(requireContext()).scalePx(
+                    getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_width));
+            params.height = (int)UIUtils.getInstance(requireContext()).scalePx(
+                    getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_height));
+            mMembersQeCardDialog.getWindow().setAttributes(params);
+        }
+        mMembersQeCardDialog.show();
     }
 
     private void showAddMemberInfo(String info, boolean successful){
@@ -288,22 +299,109 @@ public class ShopDetailFragment extends BaseFragment {
         mHandler.postDelayed(mCancelPopRunnable, Constant.POP_WINDOW_SHOW_TIME);
     }
 
-    private void showSimpleBottomSheetList() {
-        initPreferentialContentView();
-
-        MyBottomDialog dialog = new MyBottomDialog(getContext());
-        dialog.setContentView();
+    private MyBottomDialog mPreferentialDialog;
+    private void showBottomPreferentialDialog() {
+        if(mPreferentialDialog == null){
+            View contentView = initPreferentialContentView();
+            mPreferentialDialog = new MyBottomDialog(requireContext(),R.style.mySimpleNoTitleDialog);
+            mPreferentialDialog.setContentView(contentView,
+                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
+        mPreferentialDialog.show();
     }
 
-    private void initPreferentialContentView() {
+    private void closePreferentialDialog() {
+        mPreferentialDialog.dismiss();
+    }
+    private View initPreferentialContentView() {
         View view = View.inflate(getContext(),R.layout.layout_dialog_shop_more_preferential,null);
+        LayoutDialogShopMorePreferentialBinding binding = LayoutDialogShopMorePreferentialBinding.bind(view);
+        binding.setViewModel(mViewModel);
 
+        binding.tvShopName.setText(mViewModel.getShopDetail().getShop_name());
 
+        binding.redPacketRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        binding.redPacketRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            int interval = (int)UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.top = interval;
+            }
+        });
+        binding.redPacketRecyclerView.setAdapter(new MyBaseRecyclerAdapter<RedPacket>(
+                R.layout.item_red_packet,mViewModel.getPreferentialData().getRedPacketList(), BR.item){
+            String receiveStr = "";
+            String receivedStr = "";
+            @Override
+            protected void initView(BaseViewHolder helper, RedPacket item) {
+                super.initView(helper, item);
+                if(receiveStr.equals("")){
+                    receiveStr = getResources().getString(R.string.receive);
+                }
+                if(receivedStr.equals("")){
+                    receivedStr = getResources().getString(R.string.received);
+                }
 
-        RecyclerView preferentialRecycler = view.findViewById(R.id.preferential_content_recyclerView);
-        preferentialRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-//        preferentialRecycler.setHasFixedSize(true);
-        preferentialRecycler.setAdapter();
+                SpannableStringBuilder builder = new SpannableStringBuilder("￥" + item.getPriceValue());
+                builder.setSpan(new AbsoluteSizeSpan((int)UIUtils.getInstance(requireContext()).scalePx(28)),
+                        0,
+                        1,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ((TextView)helper.getView(R.id.tv_price)).setText(builder);
+
+                Button receiveBt = helper.getView(R.id.bt_receive);
+                if(item.isGet()){
+                    receiveBt.setBackground(getResources().getDrawable(R.drawable.sr_stroke_1px_full_raduis_red));
+                    receiveBt.setText(receivedStr);
+                    receiveBt.setTextColor(getResources().getColor(R.color.colorTheme));
+                }else{
+                    receiveBt.setBackground(getResources().getDrawable(R.drawable.sr_bg_full_corners_theme));
+                    receiveBt.setText(receiveStr);
+                    receiveBt.setTextColor(getResources().getColor(R.color.white));
+                }
+            }
+        });
+
+        binding.preferentialRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        binding.preferentialRecyclerView.addItemDecoration(getItemDecoration());
+        binding.preferentialRecyclerView.setAdapter(new MyBaseRecyclerAdapter<PreferentialActivity>(
+                R.layout.item_recycler_preferential_activity,mViewModel.getPreferentialData().getPreferentialActivityList(), BR.item){
+            @Override
+            protected void initView(BaseViewHolder helper, PreferentialActivity item) {
+                super.initView(helper, item);
+                helper.setText(R.id.tv_tag,item.getName());
+            }
+        });
+
+        binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        binding.serviceRecyclerView.addItemDecoration(getItemDecoration());
+        binding.serviceRecyclerView.setAdapter(new MyBaseRecyclerAdapter<MerchantsService>(
+                R.layout.item_recycler_merchants_service,mViewModel.getPreferentialData().getMerchantsServiceList(), BR.item){
+            @Override
+            protected void initView(BaseViewHolder helper, MerchantsService item) {
+                super.initView(helper, item);
+                helper.setText(R.id.tv_tag,item.getName());
+            }
+        });
+
+        binding.tvNoticeContent.setText(getResources().getString(R.string.notice_content,mViewModel.getPreferentialData().getNotice()));
+
+        return view;
+
+    }
+
+    private RecyclerView.ItemDecoration getItemDecoration(){
+        return new RecyclerView.ItemDecoration() {
+            int interval = (int)UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.preferential_item_space));
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                if(parent.getChildAdapterPosition(view) != 0){
+                    outRect.top = interval;
+                }
+            }
+        };
     }
 
 }

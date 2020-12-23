@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/interval_size_xs"
-                android:background="@drawable/sr_bg_tl_tr_24radius_bg"
+                android:background="@drawable/sr_bg_tl_tr_24radius"
                 app:fitStatusBar="false">
 
                 <LinearLayout

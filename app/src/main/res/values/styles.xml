@@ -76,7 +76,7 @@
     </style>
 
     <style name="login_bt_by_other" parent="button_login_base">
-        <item name="android:background">@drawable/sr_stroke_1px_50radius</item>
+        <item name="android:background">@drawable/sr_stroke_1px_full_raduis_white</item>
         <item name="android:layout_marginTop">@dimen/interval_size_s</item>
         <item name="android:text">@string/login_by_other</item>
     </style>
@@ -149,7 +149,7 @@
         <item name="android:text">@string/get_verification</item>
         <item name="sSelectorNormalColor">@color/transparent</item>
         <item name="sSelectorPressedColor">@color/gray</item>
-        <item name="android:background">@drawable/sr_stroke_1px_50radius</item>
+        <item name="android:background">@drawable/sr_stroke_1px_full_raduis_white</item>
         <item name="android:layout_marginBottom">@dimen/login_bt_getVerification_marginBottom</item>
     </style>
 
@@ -220,6 +220,22 @@
         <item name="android:textSize">22px</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:drawablePadding">9px</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="text_shop_evaluation_score_type">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_uncheck</item>
+        <item name="android:textSize">@dimen/font_size_22</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="text_shop_evaluation_score_value">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_normal</item>
+        <item name="android:textSize">@dimen/font_size_36</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 

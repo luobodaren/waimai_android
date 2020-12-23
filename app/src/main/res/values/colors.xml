@@ -9,7 +9,7 @@
     <color name="colorTheme_60_percent">#99FE4036</color>
     <color name="colorTheme_50_percent">#80FE4036</color>
     <color name="colorTheme_30_percent">#4DFE4036</color>
-    <color name="colorTheme_10_percent">#1AF84500</color>
+    <color name="colorTheme_10_percent">#1AFE4036</color>
 
     <color name="colorTheme_gradient_start">#FF9468</color>
     <color name="colorTheme_gradient_end">#FE4036</color>
@@ -51,7 +51,7 @@
     <color name="linkage_primary_item_bg_default">#F5F5F5</color>
     <color name="linkage_primary_item_bg_selected">#FFFFFF</color>
 
-    <color name="score_text">#FF3B30</color>
+    <color name="score_text">@color/colorAssist_2</color>
     <color name="shop_menbers_cardview_bg">#FFFFF0E7</color>
     <color name="shopping_cart_background">#FF272727</color>
 </resources>

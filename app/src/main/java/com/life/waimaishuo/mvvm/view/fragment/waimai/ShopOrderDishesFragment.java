@@ -2,9 +2,11 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
@@ -69,6 +71,7 @@ public class ShopOrderDishesFragment extends BaseFragment
     @Override
     protected void initViews() {
         super.initViews();
+        initBanner();
         initLinkageRecycler();
     }
 
@@ -85,6 +88,14 @@ public class ShopOrderDishesFragment extends BaseFragment
     @Override
     public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
 
+    }
+
+    private void initBanner(){
+        BaseBannerAdapter mAdapterHorizontal
+                = new BaseBannerAdapter(mViewModel.getBannerSource(),R.layout.adapter_recycler_view_banner_image_item);
+        mAdapterHorizontal.setOnBannerItemClickListener(position ->
+                Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
+        mBinding.contentLayout.setAdapter(mAdapterHorizontal);
     }
 
     private void initLinkageRecycler() {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.Comment" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/interval_size_xs"
+        android:background="@drawable/sr_bg_card_view_white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_user_img"
+                android:layout_width="72px"
+                android:layout_height="72px"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_waimai_brand"
+                app:riv_corner_radius="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                imageUrl="@{item.userIcon}"/>
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="30px"
+                android:textColor="@color/text_normal"
+                android:text="@{item.userName}"
+                app:layout_constraintTop_toTopOf="@id/iv_user_img"
+                app:layout_constraintStart_toEndOf="@id/iv_user_img"
+                app:layout_constraintEnd_toStartOf="@id/tv_comment_time"
+                android:layout_marginStart="24px"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/tv_comment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="@dimen/font_size_26"
+                android:textColor="@color/text_tip"
+                android:text="@{item.createData}"
+                app:layout_constraintTop_toTopOf="@id/tv_user_name"
+                app:layout_constraintStart_toEndOf="@id/tv_user_name"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <com.life.waimaishuo.views.ScoreView
+                android:id="@+id/score_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14px"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+                app:layout_constraintStart_toStartOf="@id/tv_user_name"/>
+
+            <TextView
+                android:id="@+id/tv_comment_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:textColor="@color/text_normal"
+                android:textSize="26px"
+                android:text="@{item.commentContent}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_user_img"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_comment_picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_comment_content" />
+
+            <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+                android:id="@+id/flow_layout_goods_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_comment_picture"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

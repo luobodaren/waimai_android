@@ -18,6 +18,8 @@ import android.view.animation.TranslateAnimation;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.life.base.utils.LogUtil;
+import com.life.base.utils.UIUtils;
 import com.xuexiang.xui.logs.UILog;
 import com.xuexiang.xui.utils.Utils;
 
@@ -54,8 +56,9 @@ public class MyBottomDialog extends Dialog {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
         // 在底部，宽度撑满
-        int screenWidth = Utils.getScreenWidth(getContext());
-        int screenHeight = Utils.getScreenHeight(getContext());
+        int screenWidth = (int) UIUtils.getInstance(getContext()).getDisplayMetricsWidth();
+        int screenHeight = (int) UIUtils.getInstance(getContext()).getDisplayMetricsHeight();
+        LogUtil.e("screenWidth:" + screenWidth + " screenHeight:" + screenHeight);
         params.gravity = Gravity.BOTTOM | Gravity.CENTER;
         params.width = Math.min(screenWidth, screenHeight);
         getWindow().setAttributes(params);

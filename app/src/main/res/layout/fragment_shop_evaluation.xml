@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopEvaluationViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="60px"
+                android:textColor="@color/colorTheme"
+                android:layout_marginTop="48px"
+                android:layout_marginBottom="48px"
+                android:layout_marginStart="48px"
+                android:text="@{viewModel.scoreObservable}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="4.8" />
+
+            <TextView
+                android:id="@+id/tv_merchants_score"
+                style="@style/text_shop_evaluation_score_type"
+                android:text="@string/merchants_score"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/layout_five_star"
+                app:layout_constraintStart_toEndOf="@id/tv_score"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.life.waimaishuo.views.ScoreView
+                android:id="@+id/layout_five_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14px"
+                app:layout_constraintTop_toBottomOf="@id/tv_merchants_score"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_merchants_score" />
+
+            <TextView
+                android:id="@+id/tv_deliver_satisfaction"
+                style="@style/text_shop_evaluation_score_type"
+                android:text="@string/diliver_satisfaction"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_deliver_satisfaction_value"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_deliver_satisfaction_value"
+                style="@style/text_shop_evaluation_score_value"
+                android:layout_marginTop="16px"
+                android:text="@{viewModel.deliverScoreObservable}"
+                app:layout_constraintTop_toBottomOf="@id/tv_deliver_satisfaction"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_deliver_satisfaction"
+                app:layout_constraintEnd_toEndOf="@id/tv_deliver_satisfaction"
+                tools:text="4.8" />
+
+            <TextView
+                android:id="@+id/divider"
+                android:layout_width="1px"
+                android:layout_height="0px"
+                android:layout_marginEnd="32px"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toStartOf="@id/tv_deliver_satisfaction"
+                app:layout_constraintTop_toTopOf="@id/tv_deliver_satisfaction"
+                app:layout_constraintBottom_toBottomOf="@id/tv_deliver_satisfaction_value" />
+
+            <TextView
+                android:id="@+id/tv_packing"
+                style="@style/text_shop_evaluation_score_type"
+                android:text="@string/packing"
+                android:layout_marginEnd="32px"
+                app:layout_constraintEnd_toStartOf="@id/divider"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_packing_value"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_packing_value"
+                style="@style/text_shop_evaluation_score_value"
+                android:layout_marginTop="16px"
+                android:text="@{viewModel.packingScoreObservable}"
+                app:layout_constraintTop_toBottomOf="@id/tv_packing"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_packing"
+                app:layout_constraintEnd_toEndOf="@id/tv_packing"
+                tools:text="4.8" />
+
+            <TextView
+                android:id="@+id/tv_taste"
+                style="@style/text_shop_evaluation_score_type"
+                android:text="@string/taste"
+                android:layout_marginEnd="65px"
+                app:layout_constraintEnd_toStartOf="@id/tv_packing"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_taste_value"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_taste_value"
+                style="@style/text_shop_evaluation_score_value"
+                android:layout_marginTop="16px"
+                android:text="@{viewModel.tasteScoreObservable}"
+                app:layout_constraintTop_toBottomOf="@id/tv_taste"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_taste"
+                app:layout_constraintEnd_toEndOf="@id/tv_taste"
+                tools:text="4.8" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+            android:id="@+id/flow_layout_comments_type"
+            android:layout_width="match_parent"
+            android:layout_height="102px"
+            android:background="@drawable/sr_bg_bl_br_24radius_white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_comments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:paddingStart="@dimen/interval_size_xs"
+            android:paddingEnd="@dimen/interval_size_xs" />
+
+    </LinearLayout>
+</layout>

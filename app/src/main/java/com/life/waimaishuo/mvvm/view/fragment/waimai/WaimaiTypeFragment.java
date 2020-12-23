@@ -1,7 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.PreferentialFlowTagAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.FragmentWaimaiTypeBinding;
@@ -32,7 +30,6 @@ import com.life.waimaishuo.views.SortTypeView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
 import java.util.List;
 
@@ -240,9 +237,9 @@ public class WaimaiTypeFragment extends BaseFragment {
         }
 
         if(firstVisiblePosition > currentSelectedPosition){ //左滑消失
-            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius_bg);
+            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius);
         }else if(lastVisiblePosition < currentSelectedPosition){    //右滑消失
-            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius_bg);
+            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius);
         }else{
             //选中的itemView显示在屏幕上
             Rect rect = new Rect();
@@ -250,25 +247,25 @@ public class WaimaiTypeFragment extends BaseFragment {
                 selectedView = layoutManager.getChildAt(0);
                 selectedView.getGlobalVisibleRect(rect);
                 if((rect.right-rect.left) < halfWidth){
-                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius_bg);
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius);
                 }else{
-                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius_bg);
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius);
                 }
             }else if(lastVisiblePosition == adapter.getSelectedPosition()){ //最后一个为选中的
                 selectedView = layoutManager.getChildAt(layoutManager.getChildCount() - 1);
                 if(selectedView.getGlobalVisibleRect(rect)){
                     //若显示
                     if((rect.right-rect.left) < halfWidth){
-                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius_bg);
+                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius);
                     }else{
-                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius_bg);
+                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius);
                     }
                 }else{
                     //若不显示
-                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius_bg);
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius);
                 }
             }else{  //显示在中间
-                setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius_bg);
+                setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius);
             }
         }
     }

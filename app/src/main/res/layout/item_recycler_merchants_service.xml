@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.MerchantsService" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <include layout="@layout/adapter_tag_item_cash_back_gray"></include>
+
+        <TextView
+            android:id="@+id/tv_service_introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_uncheck"
+            android:textSize="24px"
+            android:layout_marginStart="8px"
+            android:text="@{item.introduce}"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="满60元减20元，满80元减30元" />
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

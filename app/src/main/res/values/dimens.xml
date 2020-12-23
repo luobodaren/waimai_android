@@ -96,5 +96,7 @@
     <dimen name="message_all_read_check_round_size">77px</dimen>
     <dimen name="members_qr_code_dialog_width">485px</dimen>
     <dimen name="members_qr_code_dialog_height">676px</dimen>
+    <dimen name="preferential_item_space">16px</dimen>
+    <dimen name="shop_comment_picture_size">207px</dimen>
 
 </resources>

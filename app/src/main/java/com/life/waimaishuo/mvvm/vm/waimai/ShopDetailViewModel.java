@@ -6,11 +6,16 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.bean.MemberCard;
+import com.life.waimaishuo.bean.MerchantsService;
+import com.life.waimaishuo.bean.Preferential;
+import com.life.waimaishuo.bean.PreferentialActivity;
+import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.ShopDetailModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.ShopEvaluationFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.ShopOrderDishesFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
@@ -20,6 +25,8 @@ import java.util.List;
 public class ShopDetailViewModel extends BaseViewModel {
 
     public BaseObservable onMembersCodeClick = new ObservableInt();
+    public BaseObservable onMorePreferentialClick = new ObservableInt();
+    public BaseObservable onCancelDialogClick = new ObservableInt();
 
     ShopDetailModel model;
     Shop shop;
@@ -41,6 +48,22 @@ public class ShopDetailViewModel extends BaseViewModel {
      */
     public void onMembersCodeClick(View view){
         onMembersCodeClick.notifyChange();
+    }
+
+    /**
+     * 点击了优惠
+     * @param view
+     */
+    public void onMorePreferentialClick(View view){
+        onMorePreferentialClick.notifyChange();
+    }
+
+    /**
+     * 关闭底部弹出窗
+     * @return
+     */
+    public void onCancelDialogClick(View view){
+        onCancelDialogClick.notifyChange();
     }
 
     public List<String> getCashBackData() {
@@ -92,7 +115,7 @@ public class ShopDetailViewModel extends BaseViewModel {
                 baseFragment = new ShopOrderDishesFragment();
                 break;
             case EVALUATION:
-                baseFragment = new ShopOrderDishesFragment();
+                baseFragment = new ShopEvaluationFragment();
                 break;
             case MERCHANT:
                 baseFragment = new ShopOrderDishesFragment();
@@ -101,9 +124,34 @@ public class ShopDetailViewModel extends BaseViewModel {
         return baseFragment;
     }
 
-    public String[] getBannerSource() {
-        return new String[]{"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2515911597,1913645471&fm=26&gp=0.jpg",
-                "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg",
-                "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2755313968,2418553549&fm=26&gp=0.jpg"};
+    private Preferential preferential;
+    public Preferential getPreferentialData() {
+        if(preferential == null){
+            preferential = new Preferential();
+
+            List<RedPacket> redPackets = new ArrayList<>();
+            redPackets.add(new RedPacket("吃货红包","2","满30可用，2020.10.27到期",false));
+            redPackets.add(new RedPacket("吃货红包","2","满30可用，2020.10.27到期",true));
+            redPackets.add(new RedPacket("吃货红包","2","满30可用，2020.10.27到期",false));
+            redPackets.add(new RedPacket("吃货红包","2","满30可用，2020.10.27到期",true));
+            preferential.setRedPacketList(redPackets);
+
+            List<PreferentialActivity> preferentialActivities = new ArrayList<>();
+            preferentialActivities.add(new PreferentialActivity("满减","满30可用，2020.10.27到期"));
+            preferentialActivities.add(new PreferentialActivity("配送","配送费立减3元"));
+            preferentialActivities.add(new PreferentialActivity("折扣","折扣商品98折起"));
+            preferentialActivities.add(new PreferentialActivity("特价","特价商品3元起"));
+            preferential.setPreferentialActivityList(preferentialActivities);
+
+            List<MerchantsService> merchantsServices = new ArrayList<>();
+            merchantsServices.add(new MerchantsService("无忧","该商户已购买食品安全责任险，食品安全有保障"));
+            merchantsServices.add(new MerchantsService("无忧","该商户已购买食品安全责任险，食品安全有保障"));
+            merchantsServices.add(new MerchantsService("无忧","该商户已购买食品安全责任险，食品安全有保障"));
+            merchantsServices.add(new MerchantsService("无忧","该商户已购买食品安全责任险，食品安全有保障"));
+            preferential.setMerchantsServiceList(merchantsServices);
+
+            preferential.setNotice("公告：感谢光临1点点奶茶店，温馨提示 用餐高峰期请提早20分钟下单，科技园区的小伙伴们燥起来，如果您对我们的出品有任何意见和问题，来电13147046323，我们会及时处理");
+        }
+        return preferential;
     }
 }

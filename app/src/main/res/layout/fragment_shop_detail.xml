@@ -69,8 +69,7 @@
                             android:id="@+id/layout_members"
                             layout="@layout/layout_shop_members_view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/interval_size_xs" />
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -103,22 +102,11 @@
 
             </LinearLayout>
 
-            <com.xuexiang.xui.widget.banner.recycler.BannerLayout
-                android:id="@+id/content_layout"
-                android:layout_width="match_parent"
-                android:layout_height="180px"
-                android:layout_marginTop="20px"
-                android:layout_marginBottom="20px"
-                app:bl_showIndicator="false"
-                app:bl_autoPlaying="true"
-                app:bl_centerScale="1"
-                app:bl_itemSpace="20px"
-                app:bl_moveSpeed="1.8" />
-
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/adaptive_size_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:paddingTop="20px"/>
 
         </com.life.waimaishuo.views.StickyNavigationLayout>
 
