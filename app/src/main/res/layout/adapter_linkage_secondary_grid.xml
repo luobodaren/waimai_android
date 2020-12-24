@@ -1,60 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/iv_goods_item"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_goods_img"
-        android:layout_width="110px"
-        android:layout_height="110px"
-        android:src="@mipmap/ic_food_all_subtype"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- fixme 完善数据绑定 -->
 
-    <TextView
-        android:id="@+id/iv_goods_name"
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.LinkageGroupedItemShopGoods.ItemInfo" />
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:id="@+id/iv_goods_item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:layout_marginTop="8px"
-        android:textSize="@dimen/linkageSecondary_grid_item_text_size"
-        android:textColor="@color/text_normal"
-        app:layout_constraintStart_toStartOf="@+id/iv_goods_img"
-        app:layout_constraintEnd_toEndOf="@id/iv_goods_img"
-        app:layout_constraintTop_toBottomOf="@+id/iv_goods_img"
-        tools:text="水果" />
+        android:layout_height="wrap_content">
 
-<!--    <TextView-->
-<!--        android:id="@+id/iv_goods_detail"-->
-<!--        style="@style/TextStyle.Explain"-->
-<!--        android:text="爆款"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/iv_goods_img"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/iv_goods_name" />-->
+        <ImageView
+            android:id="@+id/iv_goods_img"
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:src="@mipmap/ic_food_all_subtype"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            imageUrl="@{item.imgUrl}"/>
 
-<!--    <TextView-->
-<!--        android:id="@+id/iv_goods_price"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:text="¥18.8"-->
-<!--        android:textColor="@color/red"-->
-<!--        android:textSize="17sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/iv_goods_img"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/iv_goods_detail" />-->
+        <TextView
+            android:id="@+id/iv_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:layout_marginTop="8px"
+            android:textSize="@dimen/linkageSecondary_grid_item_text_size"
+            android:textColor="@color/text_normal"
+            android:text="@{item.title}"
+            app:layout_constraintStart_toStartOf="@+id/iv_goods_img"
+            app:layout_constraintEnd_toEndOf="@id/iv_goods_img"
+            app:layout_constraintTop_toBottomOf="@+id/iv_goods_img"
+            tools:text="水果" />
 
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:id="@+id/iv_goods_add"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:src="@drawable/ic_close_gray"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/iv_goods_price" />-->
+        <!--    <TextView-->
+        <!--        android:id="@+id/iv_goods_detail"-->
+        <!--        style="@style/TextStyle.Explain"-->
+        <!--        android:text="爆款"-->
+        <!--        app:layout_constraintStart_toStartOf="@+id/iv_goods_img"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/iv_goods_name" />-->
 
-</com.life.base.views.UiAdapterConstrainLayout>
+        <!--    <TextView-->
+        <!--        android:id="@+id/iv_goods_price"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginTop="5dp"-->
+        <!--        android:text="¥18.8"-->
+        <!--        android:textColor="@color/red"-->
+        <!--        android:textSize="17sp"-->
+        <!--        android:textStyle="bold"-->
+        <!--        app:layout_constraintStart_toStartOf="@+id/iv_goods_img"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/iv_goods_detail" />-->
+
+        <!--    <androidx.appcompat.widget.AppCompatImageView-->
+        <!--        android:id="@+id/iv_goods_add"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginEnd="10dp"-->
+        <!--        android:src="@drawable/ic_close_gray"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintTop_toTopOf="@+id/iv_goods_price" />-->
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

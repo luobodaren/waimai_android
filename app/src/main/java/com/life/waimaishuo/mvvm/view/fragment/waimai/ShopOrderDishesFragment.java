@@ -5,14 +5,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
+import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
+import com.life.waimaishuo.bean.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
 import com.life.waimaishuo.databinding.FragmentShopOrderDishesBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
+import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -29,7 +32,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 @Page(name = "点餐",anim = CoreAnim.slide)
 public class ShopOrderDishesFragment extends BaseFragment
         implements OnPrimaryItemClickListener,
-        OnSecondaryItemClickListener {
+        OnSecondaryShopGoodsItemClickListener {
 
     private FragmentShopOrderDishesBinding mBinding;
     ShopOrderDishesViewModel mViewModel;
@@ -81,28 +84,29 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     @Override
-    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
 
     }
 
     @Override
-    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
 
     }
 
     private void initBanner(){
         BaseBannerAdapter mAdapterHorizontal
-                = new BaseBannerAdapter(mViewModel.getBannerSource(),R.layout.adapter_recycler_view_banner_image_item);
+                = new BaseBannerAdapter(mViewModel.getBannerSource(),R.layout.adapter_banner_image_item_shop_detail);
         mAdapterHorizontal.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
         mBinding.contentLayout.setAdapter(mAdapterHorizontal);
+        mBinding.contentLayout.setItemSpace((int) UIUtils.getInstance(getContext()).scalePx(20));
     }
 
     private void initLinkageRecycler() {
-        LinkageRecyclerView<LinkageGroupedItemWaimaiType.ItemInfo> linkage = mBinding.linkageWaimaiType;
+        LinkageRecyclerView<LinkageGroupedItemShopGoods.ItemInfo> linkage = mBinding.linkageWaimaiType;
         linkage.init(mViewModel.getShopGoodsItems(),
                 new CustomLinkagePrimaryShopGoodsAdapterConfig<>(this,linkage),
-                new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this,linkage));
+                new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this,linkage,mViewModel));
         linkage.setGridMode(false);
     }
 

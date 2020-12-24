@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.mvvm.view.fragment.BaseChildFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -66,18 +67,7 @@ public class RecommendedFragment extends BaseChildFragment {
 
     private void initRecycler(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(
-                new BaseQuickAdapter<Shop,BaseViewHolder>(R.layout.item_recycler_recommended_shop, mShopList) {
-                    @Override
-                    protected void convert(@NonNull BaseViewHolder helper, Shop item) {
-
-                    }
-
-                    @Override
-                    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-
-                    }
-                });
+        recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_recommended_shop, mShopList));
         ((BaseQuickAdapter)recyclerView.getAdapter()).setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -85,16 +75,12 @@ public class RecommendedFragment extends BaseChildFragment {
             }
         });
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int top_interval = -1;
+            int top_interval =(int)UIUtils.getInstance(getContext()).scalePx(
+                    getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                int position = parent.getChildAdapterPosition(view);
-                if(top_interval == -1){
-                    top_interval = (int)UIUtils.getInstance(getContext()).scalePx(
-                            getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
-                }
-                outRect.top = (position == 0) ? 0: top_interval;
+                outRect.top = top_interval;
             }
         });
     }

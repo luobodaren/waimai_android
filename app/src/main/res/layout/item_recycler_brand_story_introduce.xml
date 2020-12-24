@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="item"
+            type="java.lang.String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_radius"
+            android:layout_width="343px"
+            android:layout_height="200px"
+            imageUrl="@{item}"/>
+
+        <TextView
+            android:id="@+id/tv_introduce"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="24px"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:text="文字描述"/>
+
+    </LinearLayout>
+</layout>

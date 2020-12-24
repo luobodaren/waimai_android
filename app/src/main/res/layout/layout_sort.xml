@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/interval_size_xs"
             android:paddingEnd="@dimen/interval_size_xs"
-            android:paddingBottom="@dimen/interval_size_xs"
             android:orientation="horizontal">
 
             <TextView
@@ -73,8 +72,10 @@
             android:id="@+id/flowlayout_preferential"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/interval_size_xs"
             android:paddingStart="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs"/>
+            android:paddingEnd="@dimen/interval_size_xs"
+            android:visibility="gone"/>
 
     </LinearLayout>
 </layout>

@@ -16,6 +16,7 @@ import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.ShopDetailModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.ShopEvaluationFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.ShopMerchantsInfoFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.ShopOrderDishesFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
@@ -118,7 +119,7 @@ public class ShopDetailViewModel extends BaseViewModel {
                 baseFragment = new ShopEvaluationFragment();
                 break;
             case MERCHANT:
-                baseFragment = new ShopOrderDishesFragment();
+                baseFragment = new ShopMerchantsInfoFragment();
                 break;
         }
         return baseFragment;

@@ -26,9 +26,6 @@ public class CommentTypeTagAdapter extends BaseTagAdapter<String, TextView> {
     @Override
     protected void convert(TextView textView, String item, int position) {
         textView.setText(item);
-        if(position == 0){
-            ((ViewGroup.MarginLayoutParams)textView.getLayoutParams()).setMarginStart(0);
-        }
     }
 
 

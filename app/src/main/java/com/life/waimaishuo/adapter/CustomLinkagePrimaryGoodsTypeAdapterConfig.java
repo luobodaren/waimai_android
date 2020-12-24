@@ -34,12 +34,6 @@ import com.kunminx.linkage.contract.ILinkagePrimaryAdapterConfig;
 
 import java.lang.ref.WeakReference;
 
-/**
- * 自定义主菜单适配器
- *
- * @author xuexiang
- * @since 2019-11-25 17:17
- */
 public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkagePrimaryAdapterConfig {
 
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;

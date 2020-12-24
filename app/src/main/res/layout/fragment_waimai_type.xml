@@ -71,7 +71,8 @@
                 <com.life.waimaishuo.views.SortTypeView
                     android:id="@+id/sticky_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    app:showFlowTag="true"/>
 
                 <FrameLayout
                     android:id="@+id/adaptive_size_view"

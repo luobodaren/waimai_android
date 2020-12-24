@@ -130,20 +130,14 @@ public class WaimaiTypeFragment extends BaseFragment {
         adapter = getSubtypeRecyclerAdapter();
         mBinding.recyclerFoodSubtype.setAdapter(adapter);
         mBinding.recyclerFoodSubtype.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int left_interval_22 = -1;
-            int left_interval_8 = -1;
+            int left_interval_22 = (int)UIUtils.getInstance(getContext()).scalePx(22);
+            int left_interval_8 = (int)UIUtils.getInstance(getContext()).scalePx(8);
 
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                                        @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
-                if(left_interval_22 == -1){
-                    left_interval_22 = (int)UIUtils.getInstance(getContext()).scalePx(22);
-                }
-                if(left_interval_8 == -1){
-                    left_interval_8 = (int)UIUtils.getInstance(getContext()).scalePx(8);
-                }
                 outRect.left = (position == 0) ? left_interval_22 : left_interval_8;
                 outRect.right = (position == state.getItemCount()-1) ? left_interval_22 : 0;
             }

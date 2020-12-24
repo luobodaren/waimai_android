@@ -15,6 +15,7 @@
         <attr name="sortViewBackground" format="reference|color"/>
         <attr name="showFlowTag" format="boolean"/>
         <attr name="flowTagBackground" format="reference|color"/>
+        <attr name="sortTextColor" format="color"/>
     </declare-styleable>
 
     <!-- 城市选择器自定义列表分割线颜色 -->

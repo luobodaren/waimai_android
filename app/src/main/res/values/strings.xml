@@ -67,6 +67,10 @@
     <string name="diliver_satisfaction">配送满意度</string>
     <string name="packing">包装</string>
     <string name="taste">味道</string>
+    <string name="merchants_info">商家信息</string>
+    <string name="report_merchants">举报商家</string>
+    <string name="brand_introduce">品牌介绍</string>
+    <string name="video_introduce">视频介绍</string>
 
 
 </resources>

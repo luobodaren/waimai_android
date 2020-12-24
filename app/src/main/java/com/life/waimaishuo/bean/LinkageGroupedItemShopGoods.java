@@ -30,7 +30,7 @@ public class LinkageGroupedItemShopGoods extends BaseGroupedItem<LinkageGroupedI
         super(info);
     }
 
-    public static class ItemInfo extends BaseGroupedItem.ItemInfo {
+    public static class ItemInfo extends BaseGroupedItem.ItemInfo { // FIXME: 2020/12/24 后续对接时 完善数据属性 并在layout文件中进行数据绑定
         private String content;
         private String imgUrl;
         private String cost;

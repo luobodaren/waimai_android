@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopMerchantsInfoViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_my_simple_style"
+                android:textColor="@color/text_normal"
+                android:textSize="30px"
+                android:text="@string/merchants_info"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:layout_marginStart="@dimen/interval_size_xs" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_shop_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24px" />
+
+            <TextView
+                android:id="@+id/tv_shop_introduce"
+                style="@style/text_my_simple_style"
+                android:layout_margin="@dimen/interval_size_xs"
+                android:textColor="@color/text_tip"
+                android:textSize="26px"
+                android:text="@{viewModel.shopIntroduce}"
+                tools:text="感受一碗粥的小幸福的小幸福。感受一碗粥的小幸福的小幸福。感受一碗粥的小幸福的小幸福。" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_info_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_report_the_merchants"
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:background="@drawable/sr_bg_gradient_full_radius_theme"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:text="@string/report_merchants"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+
+    </RelativeLayout>
+</layout>

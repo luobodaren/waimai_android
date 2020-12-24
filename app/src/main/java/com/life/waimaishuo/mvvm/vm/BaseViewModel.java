@@ -11,7 +11,7 @@ public abstract class BaseViewModel {
     }
 
     /**
-     * 初始化
+     * 初始化 在initView之前会被调用
      */
     public void init(){
         mMode = getModel();

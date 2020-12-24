@@ -22,7 +22,7 @@
             app:bl_showIndicator="false"
             app:bl_autoPlaying="true"
             app:bl_centerScale="1"
-            app:bl_itemSpace="20px"
+            app:bl_itemSpace="0px"
             app:bl_moveSpeed="1.8" />
 
         <com.kunminx.linkage.LinkageRecyclerView

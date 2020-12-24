@@ -201,10 +201,12 @@ public class WaimaiFragment extends BaseFragment {
      */
     private void initBanner(){
         BaseBannerAdapter mAdapterHorizontal
-                = new BaseBannerAdapter(mViewModel.getBannerItemList(),R.layout.adapter_simple_image);
+                = new BaseBannerAdapter(mViewModel.getBannerItemList(),R.layout.adapter_banner_image_item_waimai);
         mAdapterHorizontal.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
-        binding.simpleImageBanner.setAdapter(mAdapterHorizontal);
+        binding.bannerLayout.setAdapter(mAdapterHorizontal);
+        binding.bannerLayout.setItemSpace((int) UIUtils.getInstance(getContext()).scalePx(
+                getResources().getDimensionPixelSize(R.dimen.interval_size_xs)));
     }
 
     /**
@@ -257,9 +259,9 @@ public class WaimaiFragment extends BaseFragment {
         });
 
         View view = View.inflate(getContext(),R.layout.head_cart_view,null);
-        ((TextView)view.findViewById(R.id.left_text)).setText("专属早餐");
-        ((TextView)view.findViewById(R.id.right_tv)).setText("更多好店");
-        ((ImageView)view.findViewById(R.id.right_iv)).setImageResource(R.drawable.ic_arrow_right_gray);
+        ((TextView)view.findViewById(R.id.text_left)).setText("专属早餐");
+        ((TextView)view.findViewById(R.id.tv_right)).setText("更多好店");
+        ((ImageView)view.findViewById(R.id.iv_right)).setImageResource(R.drawable.ic_arrow_right_gray);
         adapter.addHeaderView(view);
 
         int spanCount = 2;

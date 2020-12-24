@@ -52,8 +52,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
+                    android:layout_marginTop="34px"
                     app:showFlowTag="false"
-                    app:sortViewBackground="@color/transparent"/>
+                    app:sortViewBackground="@color/transparent"
+                    app:sortTextColor="@color/white"/>
 
                 <FrameLayout
                     android:id="@+id/adaptive_size_view"

@@ -112,11 +112,22 @@ public class ShopDetailFragment extends BaseFragment {
         super.initListeners();
         addCallback();
 
-        mBinding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {    // FIXME: 2020/12/10  没效果
+        mBinding.stickyNavigationLayout.setOnScrollChangeListener(moveRatio -> {
             if(moveRatio == 1){
                 setStatusBarShowByType(HIDE_STATUS_BAR);
             } else {
                 setStatusBarShowByType(SHOW_STATUS_BAR);
+            }
+        });
+        mBinding.adaptiveSizeView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                //TODO: 2020/12/3 viewpager切换
+                if(position == 0){
+                    mBinding.layoutShoppingCart.llShoppingCart.setVisibility(View.VISIBLE);
+                }else{
+                    mBinding.layoutShoppingCart.llShoppingCart.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -184,9 +195,6 @@ public class ShopDetailFragment extends BaseFragment {
 
     private void initMemberCard() {
         Shop shop = mViewModel.getShopDetail();
-        mBinding.layoutMembers.btSignIn.setOnClickListener((v) ->{
-            Toast.makeText(ShopDetailFragment.this.getContext(), "点击了入会", Toast.LENGTH_SHORT).show();
-        });
         mBinding.layoutMembers.tvShopMembersCardName.setText(shop.getMemberCard().getName());
         mBinding.layoutMembers.tvShopMembersCardDescribe.setText(shop.getMemberCard().getDescribe());
         Glide.with(this).load(shop.getShop_head_portrait()).
@@ -219,14 +227,6 @@ public class ShopDetailFragment extends BaseFragment {
 
         mBinding.adaptiveSizeView.setOffscreenPageLimit(shopTabTypes.size() - 1);
         mBinding.adaptiveSizeView.setAdapter(adapter);
-        mBinding.adaptiveSizeView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position) {
-                 //TODO: 2020/12/3 刷新内容
-
-            }
-        });
-
     }
 
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,

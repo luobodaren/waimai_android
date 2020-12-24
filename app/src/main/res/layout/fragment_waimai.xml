@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:fitStatusBar="false"
-        android:background="@drawable/sr_bg_theme_color_gradient">
+        android:background="@drawable/sr_bg_gradient_theme_color">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/top_view"
@@ -116,7 +116,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="24px">
+                        android:paddingTop="@dimen/interval_size_xs">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/search_layout"
                             android:layout_width="match_parent"
@@ -132,6 +132,8 @@
                                 android:background="@drawable/sr_bg_search"
                                 android:gravity="center_vertical"
                                 android:paddingStart="24px"
+                                android:layout_marginStart="@dimen/interval_size_xs"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
                                 android:hint="  搜索词"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -161,12 +163,14 @@
                             android:overScrollMode="never"/>
 
                         <com.xuexiang.xui.widget.banner.recycler.BannerLayout
-                            android:id="@+id/simpleImageBanner"
+                            android:id="@+id/banner_layout"
                             android:layout_width="match_parent"
                             android:layout_height="172px"
+                            android:layout_marginTop="@dimen/interval_size_xs"
                             app:bl_showIndicator="false"
                             app:bl_autoPlaying="true"
                             app:bl_centerScale="1"
+                            app:bl_itemSpace="0px"
                             app:bl_moveSpeed="1.8" />
 
                     </LinearLayout>
@@ -331,7 +335,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
-            android:paddingTop="30px"/>
+            android:paddingTop="30px"
+            app:showFlowTag="true"/>
 
         <!--ViewPager-->
         <androidx.viewpager.widget.ViewPager

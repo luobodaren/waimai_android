@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="50dp"/>
+            <gradient
+                android:startColor="@color/login_bt_machine_start"
+                android:endColor="@color/login_bt_machine_end"
+                android:angle="0"
+                />
+        </shape>
+    </item>
+</selector>

@@ -28,6 +28,7 @@
 
     <color name="view_uncheck">#666666</color>
     <color name="view_check">@color/colorTheme</color>
+    <color name="view_press">@color/background</color>
 
     <color name="login_bt_machine_start">@color/colorTheme_gradient_start</color>
     <color name="login_bt_machine_end">@color/colorTheme_gradient_end</color>

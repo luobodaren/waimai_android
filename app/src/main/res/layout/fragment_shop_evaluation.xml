@@ -131,7 +131,7 @@
         <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
             android:id="@+id/flow_layout_comments_type"
             android:layout_width="match_parent"
-            android:layout_height="102px"
+            android:layout_height="wrap_content"
             android:background="@drawable/sr_bg_bl_br_24radius_white" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -141,7 +141,7 @@
             android:background="@color/background"
             android:layout_marginTop="@dimen/interval_size_xs"
             android:paddingStart="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs" />
+            android:paddingEnd="@dimen/interval_size_xs"/>
 
     </LinearLayout>
 </layout>

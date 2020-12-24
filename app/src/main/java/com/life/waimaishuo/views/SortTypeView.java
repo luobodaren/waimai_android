@@ -2,10 +2,13 @@ package com.life.waimaishuo.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
@@ -39,6 +42,7 @@ public class SortTypeView extends FrameLayout {
     private PreferentialFlowTagAdapter tagAdapter;  //流布局-优惠 的适配器
     private onSortTypeChangeListener mOnSortTypeChangeListener;
     int currentSelectedSort = 1;    //当前选中的排序类型
+    private SortTypeEnum currentSortTypeEnum = SortTypeEnum.SCORE; //当前选择的排序Enum
 
     private SortPopup mSortPopup;    //综合排序点击弹出pop
 
@@ -57,10 +61,14 @@ public class SortTypeView extends FrameLayout {
 
     public SortTypeView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StickyNavigationLayout);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SortTypeView);
         sortViewBackground = typedArray.getResourceId(R.styleable.SortTypeView_sortViewBackground, R.color.background);
-        isShowFlowTabLayout = typedArray.getBoolean(R.styleable.SortTypeView_showFlowTag,true);
+        isShowFlowTabLayout = typedArray.getBoolean(R.styleable.SortTypeView_showFlowTag,false);
         flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
+        flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
+
+        int textUnCheckColorId = typedArray.getResourceId(R.styleable.SortTypeView_sortTextColor,R.color.text_uncheck);
+        textUnCheckColor = getContext().getResources().getColor(textUnCheckColorId);
 
         initAttribute();
         addSortTypeView();
@@ -98,12 +106,17 @@ public class SortTypeView extends FrameLayout {
         sortTypeView.setBackgroundColor(getContext().getResources().getColor(sortViewBackground));
 
         mBinding = LayoutSortBinding.bind(sortTypeView);
+
+        mBinding.tvSortType.setTextColor(textUnCheckColor);
+        mBinding.tvDistance.setTextColor(textUnCheckColor);
+        mBinding.tvSales.setTextColor(textUnCheckColor);
+        mBinding.tvScreen.setTextColor(textUnCheckColor);
+
         addView(sortTypeView);
         initSortTypeView();
     }
 
     private void initAttribute() {
-        textUnCheckColor = getContext().getResources().getColor(R.color.text_uncheck);
         textCheckColor = getContext().getResources().getColor(R.color.text_normal);
     }
 
@@ -112,7 +125,14 @@ public class SortTypeView extends FrameLayout {
         mBinding.tvDistance.setOnClickListener(this::onDistanceClick);
         mBinding.tvSales.setOnClickListener(this::onSalesClick);
 
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_screen_gray);
+
+        Drawable drawable;
+        if(textUnCheckColor == R.color.text_uncheck){
+            drawable = getResources().getDrawable(R.drawable.ic_screen_gray);
+        }else{
+            drawable = getResources().getDrawable(R.drawable.ic_screen_white);
+        }
+
         int drawableSize = (int)UIUtils.getInstance(getContext())
                 .scalePx(getResources().getDimensionPixelSize(R.dimen.sort_layout_text_size));
         drawable.setBounds(0,0,drawableSize,drawableSize);
@@ -121,12 +141,13 @@ public class SortTypeView extends FrameLayout {
 
     private void initFlowTag() {
         if(!isShowFlowTabLayout){
+            LogUtil.d("不显示flowTagLayout");
             return;
         }
 
         tagAdapter = new PreferentialFlowTagAdapter(getContext());
         tagAdapter.setSelectedPositions(2, 3, 4);   // TODO: 2020/12/16 默认选中 后续需要删除该默认选中
-
+        mBinding.flowlayoutPreferential.setVisibility(VISIBLE);
         mBinding.flowlayoutPreferential.setBackgroundColor(getContext().getResources().getColor(flowTagBackground));
         mBinding.flowlayoutPreferential.setAdapter(tagAdapter);
         mBinding.flowlayoutPreferential.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
@@ -145,12 +166,13 @@ public class SortTypeView extends FrameLayout {
         }
         setSelectedSort(1);
         if(mOnSortTypeChangeListener != null){
-            mOnSortTypeChangeListener.onSortPopShow();
+            mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
         }
     }
 
     private void onDistanceClick(View view){
         setSelectedSort(2);
+        currentSortTypeEnum = SortTypeEnum.DISTANCE;
         if(mOnSortTypeChangeListener != null){
             mOnSortTypeChangeListener.onSortTypeChange(SortTypeEnum.DISTANCE);
         }
@@ -158,6 +180,7 @@ public class SortTypeView extends FrameLayout {
 
     private void onSalesClick(View view){
         setSelectedSort(3);
+        currentSortTypeEnum = SortTypeEnum.SALES;
         if(mOnSortTypeChangeListener != null){
             mOnSortTypeChangeListener.onSortTypeChange(SortTypeEnum.SALES);
         }
@@ -192,6 +215,7 @@ public class SortTypeView extends FrameLayout {
         mSortPopup.setAnimStyle(XUIPopup.DIRECTION_TOP);
         mSortPopup.setPreferredDirection(XUIPopup.DIRECTION_NONE);
         mSortPopup.show(mBinding.llSortLayout);
+        mOnSortTypeChangeListener.onSortPopShow();
     }
 
     private void initListPopupIfNeed() {
@@ -200,9 +224,9 @@ public class SortTypeView extends FrameLayout {
             mSortPopup = new SortPopup(getContext(), XUIListPopup.DIRECTION_NONE,adapter);
             mSortPopup.create((int)UIUtils.getInstance(getContext()).getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
                 mSortPopup.dismiss();
-                SortTypeEnum sortTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
-                mBinding.tvSortType.setText(sortTypeEnum.getType());
-                mOnSortTypeChangeListener.onSortTypeChange(sortTypeEnum);
+                currentSortTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
+                mBinding.tvSortType.setText(currentSortTypeEnum.getType());
+                mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
             });
             mSortPopup.setOnDismissListener(() -> LogUtil.e("排序pop dismiss"));
         }

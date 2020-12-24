@@ -22,9 +22,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+
 import com.bumptech.glide.Glide;
+import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.bean.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
+import com.life.waimaishuo.databinding.AdapterLinkageSecondaryGridBinding;
+import com.life.waimaishuo.databinding.AdapterLinkageSecondaryLinearBinding;
 import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
@@ -32,25 +39,33 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
+import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
+import com.life.waimaishuo.mvvm.vm.BaseViewModel;
+import com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel;
 
 import java.lang.ref.WeakReference;
 
-public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemWaimaiType.ItemInfo> {
+public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemShopGoods.ItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
     private Context mContext;
 
-    private OnSecondaryItemClickListener mItemClickListener;
+    private OnSecondaryShopGoodsItemClickListener mItemClickListener;
 
     private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
 
-    public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
+    private WeakReference<ShopOrderDishesViewModel> mShopOrderDishesViewModel;
+
+    public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryShopGoodsItemClickListener itemClickListener,
+                                                        LinkageRecyclerView<T> linkageRecyclerView,
+                                                        ShopOrderDishesViewModel shopOrderDishesViewModel) {
         mItemClickListener = itemClickListener;
         mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
+        mShopOrderDishesViewModel = new WeakReference<>(shopOrderDishesViewModel);
     }
 
-    public CustomLinkageSecondaryShopGoodsAdapterConfig setOnItemClickListner(OnSecondaryItemClickListener itemClickListener) {
+    public CustomLinkageSecondaryShopGoodsAdapterConfig setOnItemClickListner(OnSecondaryShopGoodsItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
         return this;
     }
@@ -90,30 +105,48 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
         return SPAN_COUNT;
     }
 
+
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
-                                 final BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
-        ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
-        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
+                                 final BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+        //DataBinding 绑定布局
+        /*if(!isGetModeType){
+            isGridMode = mLinkageRecyclerView.get().isGridMode();
+            isGetModeType = true;
+        }
+        if(isGridMode){
+            AdapterLinkageSecondaryGridBinding binding = AdapterLinkageSecondaryGridBinding.bind(holder.itemView);  //这样绑定会导致重复绑定 然后报错
+            binding.setItem(item.info);
+            binding.setViewModel(mShopOrderDishesViewModel.get());
+        }else{
+            AdapterLinkageSecondaryLinearBinding binding = AdapterLinkageSecondaryLinearBinding.bind(holder.itemView);
+        }*/
+
+        ViewDataBinding binding = DataBindingUtil.bind(holder.itemView);
+        binding.setVariable(com.life.waimaishuo.BR.item,item.info);
+        binding.setVariable(com.life.waimaishuo.BR.viewModel,mShopOrderDishesViewModel.get());
 
         ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
         viewGroup.setOnClickListener(v -> {
             if (mItemClickListener != null) {
-                mItemClickListener.onSecondaryItemClick(holder, viewGroup, item);
+                mItemClickListener.onSecondaryItemClick(holder, viewGroup, (BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo>) item);
             }
         });
+
+        //处理item点击事件
+
     }
 
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
 
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
     }
 
     @Override
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
 
     }
 

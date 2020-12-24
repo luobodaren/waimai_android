@@ -1,5 +1,7 @@
 package com.life.waimaishuo.bean;
 
+import com.life.waimaishuo.bean.ui.ImageViewInfo;
+
 import java.util.List;
 
 public class Comment {
@@ -10,11 +12,11 @@ public class Comment {
     String createData;
     String commentContent;
 
-    List<String> commentPictureList;
+    List<ImageViewInfo> commentPictureList;
 
     List<String> goodsList; //购买的商品名称列表
 
-    public Comment(String userIcon, String userName, String score, String createData, String commentContent, List<String> commentPictureList, List<String> goodsList) {
+    public Comment(String userIcon, String userName, String score, String createData, String commentContent, List<ImageViewInfo> commentPictureList, List<String> goodsList) {
         this.userIcon = userIcon;
         this.userName = userName;
         this.score = score;
@@ -64,11 +66,11 @@ public class Comment {
         this.commentContent = commentContent;
     }
 
-    public List<String> getCommentPictureList() {
+    public List<ImageViewInfo> getCommentPictureList() {
         return commentPictureList;
     }
 
-    public void setCommentPictureList(List<String> commentPictureList) {
+    public void setCommentPictureList(List<ImageViewInfo> commentPictureList) {
         this.commentPictureList = commentPictureList;
     }
 

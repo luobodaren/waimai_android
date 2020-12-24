@@ -31,7 +31,7 @@
 
                <TextView
                    android:id="@+id/tv_introduce_1"
-                   style="@style/limited_fragment_introduce_tv"
+                   style="@style/text_limited_fragment_introduce"
                    android:text="@string/limited_second_kill"
                    android:layout_marginTop="9px"
                    app:layout_constraintHorizontal_chainStyle="packed"
@@ -41,7 +41,7 @@
 
                <TextView
                    android:id="@+id/tv_introduce_2"
-                   style="@style/limited_fragment_introduce_tv"
+                   style="@style/text_limited_fragment_introduce"
                    android:text="@string/limited_second_kill"
                    android:layout_marginStart="@dimen/interval_size_xs"
                    app:layout_constraintTop_toTopOf="@id/tv_introduce_1"
@@ -50,7 +50,7 @@
 
                <TextView
                    android:id="@+id/tv_introduce_3"
-                   style="@style/limited_fragment_introduce_tv"
+                   style="@style/text_limited_fragment_introduce"
                    android:text="@string/limited_second_kill"
                    android:layout_marginStart="@dimen/interval_size_xs"
                    app:layout_constraintTop_toTopOf="@id/tv_introduce_1"
