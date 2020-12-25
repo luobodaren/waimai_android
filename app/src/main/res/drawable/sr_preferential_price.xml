@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <solid android:color="@color/bg_shopping_cart_preferential"/>
+            <corners android:topLeftRadius="@dimen/radius_shopping_cart_preferential"
+                android:topRightRadius="@dimen/radius_shopping_cart_preferential"/>
+        </shape>
+    </item>
+
+</selector>

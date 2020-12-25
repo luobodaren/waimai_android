@@ -81,6 +81,9 @@ public class RecommendedFragment extends BaseChildFragment {
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 outRect.top = top_interval;
+                if(parent.getChildAdapterPosition(view) == state.getItemCount()-1){   //最后一项
+                    outRect.bottom = top_interval;
+                }
             }
         });
     }

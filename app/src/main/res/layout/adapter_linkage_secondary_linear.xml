@@ -30,7 +30,7 @@
             type="com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel" />
     </data>
 
-    <com.life.base.views.UiAdapterLinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -200,5 +200,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.life.base.views.UiAdapterLinearLayout>
+    </LinearLayout>
 </layout>

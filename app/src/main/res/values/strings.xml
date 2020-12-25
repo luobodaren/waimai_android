@@ -71,6 +71,8 @@
     <string name="report_merchants">举报商家</string>
     <string name="brand_introduce">品牌介绍</string>
     <string name="video_introduce">视频介绍</string>
+    <string name="empty">清空</string>
+    <string name="has_been_reduced_to">已减%s</string>
 
 
 </resources>

@@ -163,16 +163,10 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     }
 
 
-    int mainTabBarHeight = 0;
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //先测量一次
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        if(mainTabBarHeight == 0){
-            mainTabBarHeight = (int)UIUtils.getInstance(
-                    getContext()).scalePx(getContext().getResources().getDimensionPixelSize(R.dimen.main_tab_height));
-        }
 
         if(mContentLayout != null){ //计算contentLayout大小
             if(mContentLayout.getMeasuredHeight() == 0){
@@ -185,17 +179,20 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
             }
         }
 
-        //ViewPager修改后的高度= 总高度-TabLayout高度
+        //ViewPager修改后的高度
         ViewGroup.LayoutParams lp = mAdaptiveSizeView.getLayoutParams();
         if(mContentLayout != null){
             lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
-                    - mContentLayout.getMeasuredHeight() - mainTabBarHeight
-                    + StatusBarUtils.getStatusBarHeight(getContext());
+                    - mContentLayout.getMeasuredHeight();
+//            LogUtil.d("getMeasuredHeight:" + getMeasuredHeight() + "  mNavigationView:" + mNavigationView.getMeasuredHeight() + "  mContentLayout:" + mContentLayout.getMeasuredHeight() + "  mainTabBarHeight:" + mainTabBarHeight + " StatusBarHeight:" + StatusBarUtils.getStatusBarHeight(getContext()));
+
         }else{
-            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
-                    - mainTabBarHeight + StatusBarUtils.getStatusBarHeight(getContext());
+            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight();
+//            LogUtil.d("getMeasuredHeight:" + getMeasuredHeight() + "  mNavigationView:" + mNavigationView.getMeasuredHeight() + "  mainTabBarHeight:" + mainTabBarHeight + " StatusBarHeight:" + StatusBarUtils.getStatusBarHeight(getContext()));
         }
+        LogUtil.d("viewPagerHeight:" + lp.height);
         mAdaptiveSizeView.setLayoutParams(lp);
+
         //因为ViewPager修改了高度，所以需要重新测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -242,7 +239,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         /**
          * 移动监听
          *
-         * @param moveRatio 移动比例
+         * @param moveRatio 移动比例 范围0-1 0表示未滑动 1表示滑动完全完成
          */
         void onScroll(float moveRatio);
     }

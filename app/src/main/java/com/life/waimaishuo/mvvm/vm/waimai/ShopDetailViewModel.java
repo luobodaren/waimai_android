@@ -11,6 +11,7 @@ import com.life.waimaishuo.bean.Preferential;
 import com.life.waimaishuo.bean.PreferentialActivity;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.Shop;
+import com.life.waimaishuo.bean.ui.ShoppingCartGood;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.ShopDetailModel;
@@ -28,6 +29,8 @@ public class ShopDetailViewModel extends BaseViewModel {
     public BaseObservable onMembersCodeClick = new ObservableInt();
     public BaseObservable onMorePreferentialClick = new ObservableInt();
     public BaseObservable onCancelDialogClick = new ObservableInt();
+    public BaseObservable onShowShoppingCart = new ObservableInt();
+
 
     ShopDetailModel model;
     Shop shop;
@@ -66,6 +69,12 @@ public class ShopDetailViewModel extends BaseViewModel {
     public void onCancelDialogClick(View view){
         onCancelDialogClick.notifyChange();
     }
+
+    /**
+     * 展示购物车
+     * @param view
+     */
+    public void onShowShoppingCart(View view){onShowShoppingCart.notifyChange();}
 
     public List<String> getCashBackData() {
         List<String> cashBackList = new ArrayList<>();
@@ -154,5 +163,14 @@ public class ShopDetailViewModel extends BaseViewModel {
             preferential.setNotice("公告：感谢光临1点点奶茶店，温馨提示 用餐高峰期请提早20分钟下单，科技园区的小伙伴们燥起来，如果您对我们的出品有任何意见和问题，来电13147046323，我们会及时处理");
         }
         return preferential;
+    }
+
+    public List<ShoppingCartGood> getShoppingCartData() {
+        List<ShoppingCartGood> list = new ArrayList<>();
+        list.add(new ShoppingCartGood("现切呀沙瓜","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
+        list.add(new ShoppingCartGood("现切呀沙瓜","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
+        list.add(new ShoppingCartGood("现切呀沙瓜","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
+        list.add(new ShoppingCartGood("现切呀沙瓜","https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
+        return list;
     }
 }

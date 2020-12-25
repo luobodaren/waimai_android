@@ -101,5 +101,6 @@
     <dimen name="shop_picture_size">207px</dimen>
     <dimen name="shop_info_text_item_height">94px</dimen>
     <dimen name="shop_picture_padding">16px</dimen>
+    <dimen name="radius_shopping_cart_preferential">8dp</dimen>
 
 </resources>

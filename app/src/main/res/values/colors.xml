@@ -55,4 +55,7 @@
     <color name="score_text">@color/colorAssist_2</color>
     <color name="shop_menbers_cardview_bg">#FFFFF0E7</color>
     <color name="shopping_cart_background">#FF272727</color>
+
+    <color name="city_picker_divider_bg">#F1F1F1</color>
+    <color name="bg_shopping_cart_preferential">#FFFFF5D3</color>
 </resources>
