@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.Order" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shop_info_text_item_height"
+        android:clickable="true"
+        android:background="@drawable/sl_white_to_gray">
+
+        <TextView
+            android:id="@+id/tv_order_note"
+            style="@style/text_shop_merchants_info"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="@string/merchants_info" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="24px"
+            android:layout_height="24px"
+            android:background="@drawable/ic_arrow_right_gray"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            app:layout_constraintTop_toTopOf="@id/tv_order_note"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_note"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:textSize="26px"
+            android:textColor="@color/text_tip"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            android:gravity="end"
+            android:layout_marginStart="150px"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            app:layout_constraintTop_toTopOf="@id/tv_order_note"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_note"
+            app:layout_constraintStart_toEndOf="@id/tv_order_note"
+            app:layout_constraintEnd_toStartOf="@id/iv_right"
+            tools:text="广州市朝阳区东风中路258号1109-2220" />
+
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="32px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:background="@color/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -72,7 +72,7 @@ public class ShopEvaluationViewModel extends BaseViewModel {
                         "2020-12-23",
                         "小米南瓜粥非常棒，很好喝，下次还来点。小米南瓜粥非常棒，很好喝，下次还来点。",
                         goodsPicture,
-                        goodsTypeList);
+                        goodsTypeList,"");
                 commentList.add(comment);
             }
 

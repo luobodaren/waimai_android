@@ -20,7 +20,7 @@ public class StatusBarUtils {
 
     public static int STATUS_BAR_MODE_LIGHT = 0;
     public static int STATUS_BAR_MODE_DARK = 1;
-    public static int STATUS_BAR_MODE_NO_HANDLE = 1;
+    public static int STATUS_BAR_MODE_NO_HANDLE = -1;
 
     /**
      * 默认颜色值0x40000000

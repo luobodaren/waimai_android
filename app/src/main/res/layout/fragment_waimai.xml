@@ -285,7 +285,7 @@
                             android:paddingBottom="7px"
                             android:paddingStart="14px"
                             android:paddingEnd="14px"
-                            android:background="@drawable/sr_bg_pink_radius"
+                            android:background="@drawable/sr_bg_4radius_pink"
                             android:textColor="@color/colorTheme"/>
 
                         <RelativeLayout
@@ -336,7 +336,7 @@
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:paddingTop="30px"
-            app:showFlowTag="true"/>
+            app:showTabSegment="true"/>
 
         <!--ViewPager-->
         <androidx.viewpager.widget.ViewPager

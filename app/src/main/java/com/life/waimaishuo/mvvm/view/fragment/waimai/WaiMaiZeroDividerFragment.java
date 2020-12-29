@@ -16,12 +16,11 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
-import com.life.waimaishuo.databinding.FragmentZeroPriceDividerBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiZeroPriceDividerBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiZeroDividerViewModel;
-import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.views.SortTypeView;
 import com.xuexiang.xpage.annotation.Page;
@@ -33,7 +32,7 @@ import java.util.List;
 @Page(name = "0元配送", anim = CoreAnim.slide)
 public class WaiMaiZeroDividerFragment extends BaseFragment {
 
-    private FragmentZeroPriceDividerBinding mBinding;
+    private FragmentWaimaiZeroPriceDividerBinding mBinding;
     private WaiMaiZeroDividerViewModel mViewModel;
 
     private SelectedPositionRecylerViewAdapter<IconStrData> adapter;
@@ -51,13 +50,13 @@ public class WaiMaiZeroDividerFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentZeroPriceDividerBinding) mViewDataBinding;
+        mBinding = (FragmentWaimaiZeroPriceDividerBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_zero_price_divider;
+        return R.layout.fragment_waimai_zero_price_divider;
     }
 
     @Override
@@ -131,9 +130,10 @@ public class WaiMaiZeroDividerFragment extends BaseFragment {
             }
 
             @Override
-            public void onPreferentialChange(List<Integer> selectedList) {
+            public void onPreferentialChange(int selectedPosition) {
                 refreshShopContent();
             }
+
         });
     }
 

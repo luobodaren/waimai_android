@@ -6,7 +6,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -21,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
@@ -30,7 +28,7 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.LimitedFoods;
 import com.life.waimaishuo.bean.LimitedTime;
-import com.life.waimaishuo.databinding.FragmentLimitedTimeGoodsBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiLimitedTimeGoodsBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
@@ -42,7 +40,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 @Page(name = "限时秒杀",anim = CoreAnim.slide)
 public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
 
-    private FragmentLimitedTimeGoodsBinding mBinding;
+    private FragmentWaimaiLimitedTimeGoodsBinding mBinding;
     private WaimaiLimitedViewModel mViewModel;
 
     @Override
@@ -55,7 +53,7 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentLimitedTimeGoodsBinding) mViewDataBinding;
+        mBinding = (FragmentWaimaiLimitedTimeGoodsBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 
@@ -64,6 +62,11 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
         super.initArgs();
         setFitStatusBarHeight(true);
 
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_waimai_limited_time_goods;
     }
 
     @Override
@@ -97,11 +100,6 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
     @Override
     public void setFitStatusBarHeight(boolean fitStatusBarHeight) {
         super.setFitStatusBarHeight(fitStatusBarHeight);
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_limited_time_goods;
     }
 
     @Override

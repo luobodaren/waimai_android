@@ -31,7 +31,8 @@
                 android:id="@+id/recycler_shop_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24px" />
+                android:layout_marginTop="24px"
+                android:overScrollMode="never"/>
 
             <TextView
                 android:id="@+id/tv_shop_introduce"
@@ -45,7 +46,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_info_detail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"/>
 
         </LinearLayout>
 
@@ -57,6 +59,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/interval_size_xs"
             android:layout_marginEnd="@dimen/interval_size_xs"
+            android:layout_marginBottom="@dimen/interval_size_xs"
             android:text="@string/report_merchants"
             android:gravity="center"
             android:textColor="@color/white"

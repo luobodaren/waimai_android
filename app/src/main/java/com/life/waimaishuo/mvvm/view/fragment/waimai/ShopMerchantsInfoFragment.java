@@ -3,21 +3,19 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ShopInfoItem;
 import com.life.waimaishuo.bean.ui.ImageViewInfo;
-import com.life.waimaishuo.databinding.FragmentShopMerchantsInfoBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiShopMerchantsInfoBinding;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -26,13 +24,12 @@ import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.PreViewUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xui.widget.imageview.preview.PreviewBuilder;
 
 @Page(name = "外卖商家信息")
 public class ShopMerchantsInfoFragment extends BaseFragment {
 
     private ShopMerchantsInfoViewModel mViewModel;
-    private FragmentShopMerchantsInfoBinding mBinding;
+    private FragmentWaimaiShopMerchantsInfoBinding mBinding;
 
 
     @Override
@@ -45,13 +42,13 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentShopMerchantsInfoBinding)mViewDataBinding;
+        mBinding = (FragmentWaimaiShopMerchantsInfoBinding)mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shop_merchants_info;
+        return R.layout.fragment_waimai_shop_merchants_info;
     }
 
     @Override
@@ -99,7 +96,7 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
             int paddingStartAndEnd = (int) UIUtils.getInstance(requireContext()).scalePx(
                     getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
             int padding = (int) UIUtils.getInstance(requireContext()).scalePx(
-                    getResources().getDimensionPixelSize(R.dimen.shop_picture_padding));
+                    getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
@@ -127,12 +124,21 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
                     helper.itemView.setOnClickListener(new BaseActivity.OnMultiClickListener() {
                         @Override
                         public void onMultiClick(View view) {
-                            openPage(BrandStoryFragment.class, new Bundle());   // FIXME: 2020/12/24 需要带入店铺或品牌的Id 或者是数据
+                            goToInfoDetailFragment(item.getName());
                         }
                     });
                 }
             }
         });
+
+    }
+
+    private void goToInfoDetailFragment(String name){  // FIXME: 2020/12/24 需要带入店铺或品牌的Id 或者是数据
+        if(name.equals(mViewModel.getShopInfoList().get(0).getName())){ // FIXME: 2020/12/28 判断逻辑需要修改
+            openPage(BrandStoryFragment.class, new Bundle());
+        }else if(name.equals(mViewModel.getShopInfoList().get(5).getName())){
+            openPage(WaiMaiBusinessQualification.class,new Bundle());
+        }
 
     }
 

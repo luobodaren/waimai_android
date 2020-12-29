@@ -187,7 +187,7 @@ public abstract class BaseFragment extends XPageFragment {
     protected void setStatusBarShowByType(int statusBarShowType){
         Activity activity = getActivity();
         if(activity == null){
-            LogUtil.e(getPageName() + " 状态栏：activity为null");
+            LogUtil.e(getPageTitle() + " 状态栏：activity为null");
             return;
         }
         if(statusBarShowType == SHOW_STATUS_BAR){

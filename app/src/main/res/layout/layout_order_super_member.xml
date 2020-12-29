@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sr_bg_8dp_white">
+
+    <TextView
+        android:id="@+id/tv_super_member_sign"
+        android:layout_width="160px"
+        android:layout_height="48px"
+        android:background="@drawable/ic_super_member"
+        android:text="@string/super_member"
+        android:textSize="22px"
+        android:gravity="right|center_vertical"
+        android:paddingEnd="16px"
+        android:textColor="#FFD7BC91"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        style="@style/text_my_simple_style"
+        android:layout_width="0px"
+        android:textStyle="bold"
+        android:textSize="30px"
+        android:textColor="@color/text_normal"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:text="成为会员，本单立减5元"
+        app:layout_constraintTop_toBottomOf="@id/tv_super_member_sign"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/interval_size_xs"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_check"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="@id/iv_check"
+        app:layout_constraintBottom_toBottomOf="@id/iv_check"
+        app:layout_constraintEnd_toStartOf="@id/iv_check"
+        android:layout_marginEnd="@dimen/interval_size_xs">
+
+        <TextView
+            android:id="@+id/tv_current_price"
+            style="@style/text_my_simple_style"
+            android:textSize="@dimen/font_size_22"
+            android:textColor="@color/text_normal"
+            android:textStyle="bold"/>
+
+        <TextView
+            style="@style/text_my_simple_style"
+            android:textSize="@dimen/font_size_20"
+            android:textColor="@color/text_tip"
+            android:textStyle="bold"
+            android:layout_marginTop="8px"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

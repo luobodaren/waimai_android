@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="goods"
+            type="com.life.waimaishuo.bean.Foods" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sr_bg_8dp_white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/interval_size_xs">
+
+        <com.life.waimaishuo.views.FilletImageView
+            android:id="@+id/iv_goods_img"
+            android:scaleType="centerCrop"
+            android:layout_width="342px"
+            android:layout_height="342px"
+            app:filletImageRadius="16px"
+            app:topLeftRightCorner="true"
+            app:imageUrlBitmap="@{goods.foodsImgUrl}"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs">
+            <TextView
+                android:id="@+id/tv_goods_name"
+                style="@style/text_my_simple_style"
+                android:textColor="@color/text_normal"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="28px"
+                android:text='@{goods.name}'
+                tools:text='goods.name' />
+
+            <TextView
+                android:id="@+id/tv_goods_sale_info"
+                style="@style/text_my_simple_style"
+                android:textColor="@color/text_tip"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textSize="28px"
+                android:layout_marginTop="16px"
+                android:text='@{goods.details}'
+                tools:text='goods.saleinfo' />
+
+            <include
+                layout="@layout/layout_goods_price_and_buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22px"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

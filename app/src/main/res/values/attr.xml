@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <declare-styleable name="FilletImageView">
         <attr name="topLeftRightCorner" format="boolean" />
@@ -13,12 +13,14 @@
 
     <declare-styleable name="SortTypeView">
         <attr name="sortViewBackground" format="reference|color"/>
-        <attr name="showFlowTag" format="boolean"/>
+        <attr name="showTabSegment" format="boolean"/>
         <attr name="flowTagBackground" format="reference|color"/>
         <attr name="sortTextColor" format="color"/>
     </declare-styleable>
 
     <!-- 城市选择器自定义列表分割线颜色 -->
     <attr format="reference" name="mCpDividerBackground"/>
+
+    <attr name="xui_bottom_sheet_grid_item_icon_marginTop">100dp</attr>
 
 </resources>

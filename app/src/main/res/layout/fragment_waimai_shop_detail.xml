@@ -130,10 +130,7 @@
                 layout="@layout/title_shop_details"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/titlebar_height"
-                android:layout_gravity="top"
-                app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_arrow_left_white"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                android:layout_gravity="top" />
         </LinearLayout>
 
         <!--<com.life.waimaishuo.views.StickyNavigationLayout

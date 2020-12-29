@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_shop_name"
+        style="@style/text_my_simple_style"
+        android:textColor="@color/text_normal"
+        android:textStyle="bold"
+        android:textSize="34px"
+        android:drawableRight="@drawable/ic_arrow_right_gray"
+        android:drawablePadding="8px"
+        tools:text="嘉禾一品粥 (国展店)"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:background="@drawable/sl_white_to_gray">
+
+        <TextView
+            android:id="@+id/tv_shop_location"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/text_normal"
+            android:textSize="36px"
+            android:layout_marginEnd="90px"
+            android:drawablePadding="6px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/iv_right"
+            tools:text="地址" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="24px"
+            android:layout_height="24px"
+            android:background="@drawable/ic_arrow_right_gray"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            app:layout_constraintTop_toTopOf="@id/tv_shop_location"
+            app:layout_constraintBottom_toBottomOf="@id/tv_shop_location"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:textSize="@dimen/font_size_30"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_location"
+            app:layout_constraintStart_toStartOf="@id/tv_shop_location"
+            tools:text="张三洗  28347345211"/>
+
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="32px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:background="@color/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_info"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

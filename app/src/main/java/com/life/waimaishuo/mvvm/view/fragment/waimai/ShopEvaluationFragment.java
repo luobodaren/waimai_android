@@ -2,7 +2,6 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Rect;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
@@ -20,8 +18,7 @@ import com.life.waimaishuo.adapter.CommentGoodsTagAdapter;
 import com.life.waimaishuo.adapter.CommentTypeTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Comment;
-import com.life.waimaishuo.bean.ui.ImageViewInfo;
-import com.life.waimaishuo.databinding.FragmentShopEvaluationBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiShopEvaluationBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopEvaluationViewModel;
@@ -33,13 +30,12 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.recyclerview.GridDividerItemDecoration;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
-import com.xuexiang.xui.widget.imageview.preview.PreviewBuilder;
 
 @Page(name = "外卖店铺评价", anim = CoreAnim.fade)
 public class ShopEvaluationFragment extends BaseFragment {
 
     ShopEvaluationViewModel mViewModel;
-    FragmentShopEvaluationBinding mBinding;
+    FragmentWaimaiShopEvaluationBinding mBinding;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -51,13 +47,13 @@ public class ShopEvaluationFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentShopEvaluationBinding)mViewDataBinding;
+        mBinding = (FragmentWaimaiShopEvaluationBinding)mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shop_evaluation;
+        return R.layout.fragment_waimai_shop_evaluation;
     }
 
     @Override
@@ -132,9 +128,9 @@ public class ShopEvaluationFragment extends BaseFragment {
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(),3,LinearLayoutManager.VERTICAL,false);
                 recyclerView.setLayoutManager(gridLayoutManager);
                 recyclerView.setAdapter(adapter);
-                recyclerView.addItemDecoration(new GridDividerItemDecoration(getContext(), 3,
+                recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
                         (int)UIUtils.getInstance(requireContext()).scalePx(
-                                getResources().getDimensionPixelSize(R.dimen.shop_picture_padding))));
+                                getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
                 PreViewUtil.initRecyclerPictureClickListener(ShopEvaluationFragment.this,adapter,gridLayoutManager);    //添加图片点击监听 看大图
 
 

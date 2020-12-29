@@ -155,7 +155,8 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:background="@drawable/sr_shopping_bar_right"
-                android:gravity="center">
+                android:gravity="center"
+                android:onClick="@{(v)->viewModel.goToSettleAccounts(v)}">
 
                 <TextView
                     android:id="@+id/tv_to_settle_accounts"

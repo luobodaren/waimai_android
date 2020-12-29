@@ -1,5 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -11,10 +12,8 @@ import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.bean.LinkageGroupedItemShopGoods;
-import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
-import com.life.waimaishuo.databinding.FragmentShopOrderDishesBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
-import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
 import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel;
@@ -34,7 +33,7 @@ public class ShopOrderDishesFragment extends BaseFragment
         implements OnPrimaryItemClickListener,
         OnSecondaryShopGoodsItemClickListener {
 
-    private FragmentShopOrderDishesBinding mBinding;
+    private FragmentWaimaiShopOrderDishesBinding mBinding;
     ShopOrderDishesViewModel mViewModel;
 
     @Override
@@ -45,13 +44,13 @@ public class ShopOrderDishesFragment extends BaseFragment
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentShopOrderDishesBinding) mViewDataBinding;
+        mBinding = (FragmentWaimaiShopOrderDishesBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shop_order_dishes;
+        return R.layout.fragment_waimai_shop_order_dishes;
     }
 
     @Override
@@ -85,7 +84,7 @@ public class ShopOrderDishesFragment extends BaseFragment
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
-
+        openPage(WaiMaiGoodsDetailFragment.class,new Bundle()); // FIXME: 2020/12/28 后续需要传入商品id
     }
 
     @Override

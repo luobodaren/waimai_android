@@ -30,7 +30,10 @@ public class ShopDetailViewModel extends BaseViewModel {
     public BaseObservable onMorePreferentialClick = new ObservableInt();
     public BaseObservable onCancelDialogClick = new ObservableInt();
     public BaseObservable onShowShoppingCart = new ObservableInt();
-
+    public BaseObservable onBackClick = new ObservableInt();
+    public BaseObservable onCollectClick = new ObservableInt();
+    public BaseObservable onShareClick = new ObservableInt();
+    public BaseObservable goToSettleAccounts = new ObservableInt();
 
     ShopDetailModel model;
     Shop shop;
@@ -46,6 +49,16 @@ public class ShopDetailViewModel extends BaseViewModel {
 
     }
 
+
+    public void onBackClick(View view){
+        onBackClick.notifyChange();
+    }
+    public void onCollectClick(View view){
+        onCollectClick.notifyChange();
+    }
+    public void onShareClick(View view){
+        onShareClick.notifyChange();
+    }
     /**
      * 点击会员码
      * @param view
@@ -75,6 +88,14 @@ public class ShopDetailViewModel extends BaseViewModel {
      * @param view
      */
     public void onShowShoppingCart(View view){onShowShoppingCart.notifyChange();}
+
+    /**
+     * 去结算
+     * @param view
+     */
+    public void goToSettleAccounts(View view){
+        goToSettleAccounts.notifyChange();
+    }
 
     public List<String> getCashBackData() {
         List<String> cashBackList = new ArrayList<>();

@@ -24,6 +24,7 @@
     <color name="text_uncheck">#666666</color>
     <color name="text_deleted">#FF858585</color>
     <color name="text_tip">#999999</color>
+    <color name="text_tip2">#FFC7C7C7</color>
     <color name="text_assist">#bbbbbb</color>
 
     <color name="view_uncheck">#666666</color>
@@ -58,4 +59,6 @@
 
     <color name="city_picker_divider_bg">#F1F1F1</color>
     <color name="bg_shopping_cart_preferential">#FFFFF5D3</color>
+
+    <color name="bg_merchants_reply">#EEEEEE</color>
 </resources>

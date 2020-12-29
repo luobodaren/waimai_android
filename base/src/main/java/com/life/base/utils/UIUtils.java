@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.xuexiang.xui.utils.StatusBarUtils;
+
 import java.lang.reflect.Field;
 import java.util.Random;
 
@@ -48,7 +50,7 @@ public class UIUtils {
                 || scaledDensity == 0.0f || density == 0.0f) {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-            systemBarHeight = getSystemBarHeight(context);
+            systemBarHeight = StatusBarUtils.getStatusBarHeight(context);
             // TODO: 2020/11/24 横竖屏切换时改变大小
             displayMetricsWidth = (float)displayMetrics.widthPixels;
             displayMetricsHeight = (float) displayMetrics.heightPixels - systemBarHeight;
@@ -302,7 +304,7 @@ public class UIUtils {
     }
 
     //用于反射系统的属性
-    private int getSystemBarHeight(Context context){
+    /*private int getSystemBarHeight(Context context){
         return getValue(context,DIME_CLASS,"system_bar_height",48);
     }
 
@@ -318,7 +320,7 @@ public class UIUtils {
             LogUtil.e("Util error " + a.getMessage());
         }
         return defaultValue;
-    }
+    }*/
 
     public void setScaleTag(View view){
         if(view.getTag(SCALE_KEY) == null){

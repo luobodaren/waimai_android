@@ -1,8 +1,10 @@
 package com.life.waimaishuo.mvvm.vm;
 
+import androidx.lifecycle.ViewModel;
+
 import com.life.waimaishuo.mvvm.model.BaseModel;
 
-public abstract class BaseViewModel {
+public abstract class BaseViewModel  {  //extends ViewModel
 
     protected BaseModel mMode;
 

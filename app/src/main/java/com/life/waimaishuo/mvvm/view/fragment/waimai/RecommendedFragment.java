@@ -14,6 +14,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.mvvm.view.fragment.BaseChildFragment;
+import com.life.waimaishuo.mvvm.view.fragment.BaseRecyclerFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
@@ -22,23 +23,13 @@ import com.xuexiang.xpage.utils.TitleBar;
 import java.util.List;
 
 @Page(name = "推荐列表")
-public class RecommendedFragment extends BaseChildFragment {
+public class RecommendedFragment extends BaseRecyclerFragment {
 
     private List<Shop> mShopList;
 
     @Override
     protected BaseViewModel setViewModel() {
         return null;
-    }
-
-    @Override
-    protected void bindViewModel() {
-
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_recommended_shop;
     }
 
     @Override
@@ -53,9 +44,56 @@ public class RecommendedFragment extends BaseChildFragment {
     }
 
     @Override
-    protected void initViews() {
-        super.initViews();
-        initRecycler(findViewById(R.id.recycler_recommended_shop));
+    protected int getItemLayoutId() {
+        return R.layout.item_recycler_recommended_shop;
+    }
+
+    @Override
+    protected RecyclerView.LayoutManager getRecyclerLayoutManager() {
+        return new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+    }
+
+    @Override
+    protected List getListData() {
+        return mShopList;
+    }
+
+    @Override
+    protected int getVariableId() {
+        return -1;  // FIXME: 2020/12/28 后续修改成正确的值
+    }
+
+    @Override
+    protected RecyclerView.ItemDecoration getItemDecoration() {
+        return new RecyclerView.ItemDecoration() {
+            int top_interval =(int)UIUtils.getInstance(getContext()).scalePx(
+                    getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int position = parent.getChildAdapterPosition(view);
+                if(position != 0) {
+                    outRect.top = top_interval;
+                }
+                if(position == state.getItemCount()-1){   //最后一项
+                    outRect.bottom = top_interval;
+                }
+            }
+        };
+    }
+
+    @Override
+    protected void onRecyclerBindViewHolder(BaseViewHolder helper, Object item) {
+
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+        ((BaseQuickAdapter)mRecyclerView.getAdapter()).setOnItemClickListener(
+                (adapter, view, position) -> {
+                    openPage(ShopDetailFragment.class);
+                });
     }
 
     public void setData(List<Shop> shopList) {
@@ -63,28 +101,4 @@ public class RecommendedFragment extends BaseChildFragment {
         // TODO: 2020/12/2 刷新列表
     }
 
-
-
-    private void initRecycler(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_recommended_shop, mShopList));
-        ((BaseQuickAdapter)recyclerView.getAdapter()).setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                openPage(ShopDetailFragment.class);
-            }
-        });
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int top_interval =(int)UIUtils.getInstance(getContext()).scalePx(
-                    getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = top_interval;
-                if(parent.getChildAdapterPosition(view) == state.getItemCount()-1){   //最后一项
-                    outRect.bottom = top_interval;
-                }
-            }
-        });
-    }
 }

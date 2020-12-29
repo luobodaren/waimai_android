@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_shopping_cart"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/shopping_cart_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--    <androidx.cardview.widget.CardView-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="@dimen/shopping_cart_height"-->
+        <!--        android:layout_marginStart="@dimen/interval_size_xs"-->
+        <!--        android:layout_marginEnd="@dimen/interval_size_xs"-->
+        <!--        android:background="@color/transparent"-->
+        <!--        android:layout_marginBottom="20px"-->
+        <!--        app:cardCornerRadius="44px"-->
+        <!--        app:cardElevation="20px">-->
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="大沙发沙发"/>-->
+
+        <!--    </androidx.cardview.widget.CardView>-->
+
+        <LinearLayout
+            android:id="@+id/ll_shopping_cart_left"
+            android:layout_width="542px"
+            android:layout_height="@dimen/shopping_cart_height"
+            android:background="@drawable/sr_shopping_bar_left"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/connect_merchants"
+                android:textColor="@color/white"
+                android:textSize="36px"
+                android:layout_marginStart="44px"/>
+
+            <TextView
+                android:id="@+id/tv_preferential_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/connect_merchants"
+                android:textColor="@color/white"
+                android:textSize="18px"
+                android:layout_marginStart="44px"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_shopping_cart_right"
+            android:layout_width="160px"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/sr_shopping_bar_right"
+            android:gravity="center"
+            android:onClick="@{(v)->viewModel.goToSettleAccounts(v)}">
+
+            <TextView
+                android:id="@+id/tv_to_settle_accounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/confirm_order"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_30" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

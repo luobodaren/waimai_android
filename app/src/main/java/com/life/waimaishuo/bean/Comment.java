@@ -12,11 +12,13 @@ public class Comment {
     String createData;
     String commentContent;
 
+    String merchantReply;
+
     List<ImageViewInfo> commentPictureList;
 
     List<String> goodsList; //购买的商品名称列表
 
-    public Comment(String userIcon, String userName, String score, String createData, String commentContent, List<ImageViewInfo> commentPictureList, List<String> goodsList) {
+    public Comment(String userIcon, String userName, String score, String createData, String commentContent, List<ImageViewInfo> commentPictureList, List<String> goodsList, String merchantReply) {
         this.userIcon = userIcon;
         this.userName = userName;
         this.score = score;
@@ -24,6 +26,7 @@ public class Comment {
         this.commentContent = commentContent;
         this.commentPictureList = commentPictureList;
         this.goodsList = goodsList;
+        this.merchantReply = merchantReply;
     }
 
     public String getUserIcon() {

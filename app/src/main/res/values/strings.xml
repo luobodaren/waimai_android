@@ -46,6 +46,7 @@
     <string name="verification_by_scan_qr">请扫描一下二维码验证</string>
     <string name="connect_merchants">联系商家</string>
     <string name="to_settle_accounts">去结算</string>
+    <string name="confirm_order">提交订单</string>
     <string name="chose_specification">选规格</string>
     <string name="go_spell_list">去拼单</string>
     <string name="screen">筛选</string>
@@ -73,6 +74,8 @@
     <string name="video_introduce">视频介绍</string>
     <string name="empty">清空</string>
     <string name="has_been_reduced_to">已减%s</string>
+    <string name="merchant_reply">卖家回复</string>
+    <string name="super_member">超级会员</string>
 
 
 </resources>

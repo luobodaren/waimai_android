@@ -2,36 +2,35 @@ package com.life.waimaishuo.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.PreferentialFlowTagAdapter;
 import com.life.waimaishuo.databinding.LayoutSortBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
-import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 import com.xuexiang.xui.widget.popupwindow.popup.XUIListPopup;
 import com.xuexiang.xui.widget.popupwindow.popup.XUIPopup;
+import com.xuexiang.xui.widget.tabbar.TabSegment;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SortTypeView extends FrameLayout {
 
     private int sortViewBackground;
-    private boolean isShowFlowTabLayout;
+    private boolean isShowTabSegment;
     private int flowTagBackground;
 
     private int textUnCheckColor;
@@ -39,7 +38,7 @@ public class SortTypeView extends FrameLayout {
 
     private LayoutSortBinding mBinding;
 
-    private PreferentialFlowTagAdapter tagAdapter;  //流布局-优惠 的适配器
+    List<String> tabTypes = new ArrayList<>();//tab title
     private onSortTypeChangeListener mOnSortTypeChangeListener;
     int currentSelectedSort = 1;    //当前选中的排序类型
     private SortTypeEnum currentSortTypeEnum = SortTypeEnum.SCORE; //当前选择的排序Enum
@@ -52,34 +51,34 @@ public class SortTypeView extends FrameLayout {
     }
 
     public SortTypeView(@NonNull Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public SortTypeView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public SortTypeView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SortTypeView);
         sortViewBackground = typedArray.getResourceId(R.styleable.SortTypeView_sortViewBackground, R.color.background);
-        isShowFlowTabLayout = typedArray.getBoolean(R.styleable.SortTypeView_showFlowTag,false);
+        isShowTabSegment = typedArray.getBoolean(R.styleable.SortTypeView_showTabSegment, false);
         flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
         flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
 
-        int textUnCheckColorId = typedArray.getResourceId(R.styleable.SortTypeView_sortTextColor,R.color.text_uncheck);
+        int textUnCheckColorId = typedArray.getResourceId(R.styleable.SortTypeView_sortTextColor, R.color.text_uncheck);
         textUnCheckColor = getContext().getResources().getColor(textUnCheckColorId);
 
         initAttribute();
         addSortTypeView();
-        initFlowTag();
+        initTabSegment();
     }
 
     /**
      * 更新排序
      */
-    public void setSortType(SortTypeEnum sortTypeEnum){
-        switch (sortTypeEnum){
+    public void setSortType(SortTypeEnum sortTypeEnum) {
+        switch (sortTypeEnum) {
             case DISTANCE:
                 setSelectedSort(2);
                 break;
@@ -96,13 +95,12 @@ public class SortTypeView extends FrameLayout {
         this.mOnSortTypeChangeListener = mOnSortTypeChangeListener;
     }
 
-    public void setPreferentialTab(List<String> preferentialList){
-        if(tagAdapter != null)
-            tagAdapter.clearAndAddTags(preferentialList);
+    public void setPreferentialTab(List<String> preferentialList) {
+        addTab(mBinding.tabSegment, preferentialList);
     }
 
-    private void addSortTypeView(){
-        View sortTypeView = View.inflate(getContext(), R.layout.layout_sort,null);
+    private void addSortTypeView() {
+        View sortTypeView = View.inflate(getContext(), R.layout.layout_sort, null);
         sortTypeView.setBackgroundColor(getContext().getResources().getColor(sortViewBackground));
 
         mBinding = LayoutSortBinding.bind(sortTypeView);
@@ -127,80 +125,112 @@ public class SortTypeView extends FrameLayout {
 
 
         Drawable drawable;
-        if(textUnCheckColor == R.color.text_uncheck){
+        if (textUnCheckColor == R.color.text_uncheck) {
             drawable = getResources().getDrawable(R.drawable.ic_screen_gray);
-        }else{
+        } else {
             drawable = getResources().getDrawable(R.drawable.ic_screen_white);
         }
 
-        int drawableSize = (int)UIUtils.getInstance(getContext())
+        int drawableSize = (int) UIUtils.getInstance(getContext())
                 .scalePx(getResources().getDimensionPixelSize(R.dimen.sort_layout_text_size));
-        drawable.setBounds(0,0,drawableSize,drawableSize);
-        mBinding.tvScreen.setCompoundDrawables(null,null,drawable,null);
+        drawable.setBounds(0, 0, drawableSize, drawableSize);
+        mBinding.tvScreen.setCompoundDrawables(null, null, drawable, null);
     }
 
-    private void initFlowTag() {
-        if(!isShowFlowTabLayout){
+    private void initTabSegment() {
+        if (!isShowTabSegment) {
             LogUtil.d("不显示flowTagLayout");
             return;
         }
 
-        tagAdapter = new PreferentialFlowTagAdapter(getContext());
-        tagAdapter.setSelectedPositions(2, 3, 4);   // TODO: 2020/12/16 默认选中 后续需要删除该默认选中
-        mBinding.flowlayoutPreferential.setVisibility(VISIBLE);
-        mBinding.flowlayoutPreferential.setBackgroundColor(getContext().getResources().getColor(flowTagBackground));
-        mBinding.flowlayoutPreferential.setAdapter(tagAdapter);
-        mBinding.flowlayoutPreferential.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
-        mBinding.flowlayoutPreferential.setOnTagSelectListener((parent, position, selectedList) -> {
-            mOnSortTypeChangeListener.onPreferentialChange(selectedList);
+        int space = getResources().getDimensionPixelOffset(R.dimen.preferential_item_space);
+
+        mBinding.tabSegment.setVisibility(VISIBLE);
+        mBinding.tabSegment.setItemSpaceInScrollMode(space);
+        mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.sort_layout_preferential_text_size));
+        addTab(mBinding.tabSegment, tabTypes);
+        mBinding.tabSegment.setOnTabClickListener(new TabSegment.OnTabClickListener() {
+            @Override
+            public void onTabClick(int index) {
+                mOnSortTypeChangeListener.onPreferentialChange(index);
+                // TODO: 2020/12/29 添加选中后的背景itemView的背景
+            }
         });
+    }
+
+    private void addTab(TabSegment tabSegment,
+                        List<String> titles) {
+        if (!isShowTabSegment) {
+            return;
+        }
+        tabSegment.reset();
+        Iterator<String> stringIterator = titles.iterator();
+        while (stringIterator.hasNext()) {
+            String s = stringIterator.next();
+            MyTabSegmentTab tab = new MyTabSegmentTab(s);
+            tabSegment.addTab(tab);
+        }
+        tabSegment.notifyDataChanged();
+        TabSegment.TabAdapter adapter = invokeGetAdapted(tabSegment);
+        if(adapter != null){
+            int size = adapter.getViews().size();
+            for (int i = 0; i < size; i++) {
+                TextView textView = adapter.getViews().get(i).getTextView();
+                textView.setBackgroundResource(R.drawable.sr_bg_10radius_white);
+                textView.setPadding(24,16,24,16);
+            }
+        }else{
+            LogUtil.e("反射getAdapter方法失败");
+        }
     }
 
     /**
      * 综合排序按钮点击处理
+     *
      * @param view
      */
-    private void onTypeClick(View view){
-        if(currentSelectedSort == 1){   //当前为已选中状态
-             showSortPop();//显示popWindow 选择排序方法
+    private void onTypeClick(View view) {
+        if (currentSelectedSort == 1) {   //当前为已选中状态
+            showSortPop();//显示popWindow 选择排序方法
         }
         setSelectedSort(1);
-        if(mOnSortTypeChangeListener != null){
+        if (mOnSortTypeChangeListener != null) {
             mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
         }
     }
 
-    private void onDistanceClick(View view){
+    private void onDistanceClick(View view) {
         setSelectedSort(2);
         currentSortTypeEnum = SortTypeEnum.DISTANCE;
-        if(mOnSortTypeChangeListener != null){
+        if (mOnSortTypeChangeListener != null) {
             mOnSortTypeChangeListener.onSortTypeChange(SortTypeEnum.DISTANCE);
         }
     }
 
-    private void onSalesClick(View view){
+    private void onSalesClick(View view) {
         setSelectedSort(3);
         currentSortTypeEnum = SortTypeEnum.SALES;
-        if(mOnSortTypeChangeListener != null){
+        if (mOnSortTypeChangeListener != null) {
             mOnSortTypeChangeListener.onSortTypeChange(SortTypeEnum.SALES);
         }
     }
 
     /**
      * 设置当前选中的排序类型
+     *
      * @param position 1：综合排序   2：距离    3：销量
      */
-    private void setSelectedSort(int position){
+    private void setSelectedSort(int position) {
         currentSelectedSort = position;
-        if(position == 1){
+        if (position == 1) {
             mBinding.tvSortType.setTextColor(textCheckColor);
             mBinding.tvDistance.setTextColor(textUnCheckColor);
             mBinding.tvSales.setTextColor(textUnCheckColor);
-        }else if(position == 2){
+        } else if (position == 2) {
             mBinding.tvSortType.setTextColor(textUnCheckColor);
             mBinding.tvDistance.setTextColor(textCheckColor);
             mBinding.tvSales.setTextColor(textUnCheckColor);
-        }else if(position == 3){
+        } else if (position == 3) {
             mBinding.tvSortType.setTextColor(textUnCheckColor);
             mBinding.tvDistance.setTextColor(textUnCheckColor);
             mBinding.tvSales.setTextColor(textCheckColor);
@@ -221,8 +251,8 @@ public class SortTypeView extends FrameLayout {
     private void initListPopupIfNeed() {
         if (mSortPopup == null) {
             XUISimpleAdapter adapter = XUISimpleAdapter.create(getContext(), SortTypeEnum.getKeyList());
-            mSortPopup = new SortPopup(getContext(), XUIListPopup.DIRECTION_NONE,adapter);
-            mSortPopup.create((int)UIUtils.getInstance(getContext()).getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
+            mSortPopup = new SortPopup(getContext(), XUIListPopup.DIRECTION_NONE, adapter);
+            mSortPopup.create((int) UIUtils.getInstance(getContext()).getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
                 mSortPopup.dismiss();
                 currentSortTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
                 mBinding.tvSortType.setText(currentSortTypeEnum.getType());
@@ -232,13 +262,40 @@ public class SortTypeView extends FrameLayout {
         }
     }
 
-    public interface onSortTypeChangeListener{
+    public interface onSortTypeChangeListener {
         void onSortPopShow();
 
         void onSortTypeChange(SortTypeEnum sortTypeEnum);
 
-        void onPreferentialChange(List<Integer> selectedList);
+        void onPreferentialChange(int selectedPosition);
     }
 
+    /**
+     * 获取并调用私有方法
+     */
+    private TabSegment.TabAdapter invokeGetAdapted(TabSegment tabSegment) {
+        try {
+            // 获取方法名为showName，参数为String类型的方法
+            Class<TabSegment> cls = (Class<TabSegment>) tabSegment.getClass();
+            Method method = cls.getDeclaredMethod("getAdapter", null);
+            // 若调用私有方法，必须抑制java对权限的检查
+            method.setAccessible(true);
+            // 使用invoke调用方法，并且获取方法的返回值，需要传入一个方法所在类的对象，new Object[]
+            // {"Kai"}是需要传入的参数，与上面的String.class相对应
+            TabSegment.TabAdapter adapter = (TabSegment.TabAdapter) method.invoke(tabSegment, null);
+            return adapter;
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterFrameLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/png_bg_mipmap_exclusive" />
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_menu_share_transparent" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"
+                android:layout_marginTop="@dimen/interval_size_xs">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0px"
+                            android:layout_marginTop="15px"
+                            android:background="@drawable/sr_bg_8dp_pink"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_order_access_type"
+                                android:layout_width="394px"
+                                android:layout_height="91px"
+                                android:text="外卖配送"
+                                android:textSize="32px"
+                                android:gravity="center"
+                                android:background="@drawable/ic_bg_order_access_type_left"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_order_access_type2"
+                                android:layout_width="394px"
+                                android:layout_height="91px"
+                                android:text="到店自取"
+                                android:textSize="32px"
+                                android:gravity="center"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/sr_bg_bl_br_24radius_white"
+                                android:padding="@dimen/interval_size_xs"
+                                android:orientation="vertical"
+                                app:layout_constraintTop_toBottomOf="@id/tv_order_access_type"
+                                app:layout_constraintStart_toStartOf="parent">
+
+                                <include layout="@layout/layout_waimai_order_title" />
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recycler_order_info"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sr_bg_8dp_white"
+                        android:padding="@dimen/interval_size_xs">
+
+                        <TextView
+                            android:id="@+id/tv_shop_name2"
+                            style="@style/text_my_simple_style"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            style="@style/text_my_simple_style"
+                            android:text="超级专送"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:layout_marginTop="@dimen/interval_size_xs"
+                            app:layout_constraintTop_toBottomOf="@id/tv_shop_name2"
+                            android:background="@color/divider" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_goods_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/interval_size_xs"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <include
+                        layout="@layout/layout_order_super_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs" />
+
+                    <include
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        layout="@layout/layout_order_note"
+                        android:layout_marginTop="@dimen/interval_size_xs" />
+
+                </LinearLayout>
+
+            </ScrollView>
+        </LinearLayout>
+
+        <include
+            layout="@layout/layout_confirm_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/interval_size_xs" />
+
+    </com.life.base.views.UiAdapterFrameLayout>
+</layout>

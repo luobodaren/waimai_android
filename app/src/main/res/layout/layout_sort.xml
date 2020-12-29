@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -68,14 +69,13 @@
             
         </LinearLayout>
 
-        <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
-            android:id="@+id/flowlayout_preferential"
+        <com.xuexiang.xui.widget.tabbar.TabSegment
+            android:id="@+id/tabSegment"
+            style="@style/sortLayoutTabSegment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:paddingStart="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs"
+            android:layout_height="@dimen/tabbar_height"
             android:visibility="gone"/>
+
 
     </LinearLayout>
 </layout>

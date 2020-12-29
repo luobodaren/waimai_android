@@ -16,12 +16,13 @@
         android:background="@drawable/sl_white_to_gray">
 
         <TextView
-            android:id="@+id/tv_item_name"
+            android:id="@+id/tv_order_note"
             style="@style/text_shop_merchants_info"
+            android:text="@{item.name}"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@{item.name}"
             tools:text="@string/merchants_info" />
 
         <ImageView
@@ -30,8 +31,8 @@
             android:layout_height="24px"
             android:background="@drawable/ic_arrow_right_gray"
             android:layout_marginEnd="@dimen/interval_size_xs"
-            app:layout_constraintTop_toTopOf="@id/tv_item_name"
-            app:layout_constraintBottom_toBottomOf="@id/tv_item_name"
+            app:layout_constraintTop_toTopOf="@id/tv_order_note"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_note"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
@@ -46,13 +47,14 @@
             android:gravity="end"
             android:layout_marginStart="150px"
             android:layout_marginEnd="@dimen/interval_size_xs"
-            app:layout_constraintTop_toTopOf="@id/tv_item_name"
-            app:layout_constraintBottom_toBottomOf="@id/tv_item_name"
-            app:layout_constraintStart_toEndOf="@id/tv_item_name"
+            app:layout_constraintTop_toTopOf="@id/tv_order_note"
+            app:layout_constraintBottom_toBottomOf="@id/tv_order_note"
+            app:layout_constraintStart_toEndOf="@id/tv_order_note"
             app:layout_constraintEnd_toStartOf="@id/iv_right"
             tools:text="广州市朝阳区东风中路258号1109-2220" />
 
         <TextView
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="32px"

@@ -1,88 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/interval_size_xs"
-    android:background="@drawable/sr_bg_card_view_white">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="foods"
+            type="com.life.waimaishuo.bean.Foods" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/interval_size_xs"
+        android:background="@drawable/sr_bg_card_view_white">
 
-        <ImageView
-            android:id="@+id/iv_goods_img"
-            android:layout_width="160px"
-            android:layout_height="160px"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_waimai_brand"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_goods_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="30px"
-            android:textColor="@color/text_normal"
-            android:text="@{foods.name}"
-            app:layout_constraintTop_toTopOf="@id/iv_goods_img"
-            app:layout_constraintStart_toEndOf="@id/iv_goods_img"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="24px"
-            android:includeFontPadding="false" />
+            <ImageView
+                android:id="@+id/iv_goods_img"
+                android:layout_width="160px"
+                android:layout_height="160px"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_waimai_brand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <include layout="@layout/layout_simple_score"
-            android:id="@+id/score_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            app:layout_constraintStart_toStartOf="@id/tv_goods_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
-            />
+            <TextView
+                android:id="@+id/tv_goods_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="30px"
+                android:textColor="@color/text_normal"
+                android:text="@{foods.name}"
+                app:layout_constraintTop_toTopOf="@id/iv_goods_img"
+                app:layout_constraintStart_toEndOf="@id/iv_goods_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24px"
+                android:includeFontPadding="false" />
 
-        <TextView
-            android:id="@+id/tv_sale_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textColor="@color/text_tip"
-            android:textSize="26px"
-            android:layout_marginStart="20px"
-            android:text="月售3035"
-            app:layout_constraintStart_toEndOf="@id/score_layout"
-            app:layout_constraintTop_toTopOf="@id/score_layout"
-            app:layout_constraintBottom_toBottomOf="@id/score_layout"/>
+            <include
+                layout="@layout/layout_simple_score"
+                android:id="@+id/score_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_goods_name" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30分钟   2.6km"
-            android:textSize="26px"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/score_layout"
-            app:layout_constraintBottom_toBottomOf="@id/score_layout"/>
+            <TextView
+                android:id="@+id/tv_sale_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_tip"
+                android:textSize="26px"
+                android:layout_marginStart="20px"
+                android:text="月售3035"
+                app:layout_constraintStart_toEndOf="@id/score_layout"
+                app:layout_constraintTop_toTopOf="@id/score_layout"
+                app:layout_constraintBottom_toBottomOf="@id/score_layout" />
 
-        <TextView
-            android:id="@+id/tv_shop_describe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="26px"
-            android:text="起送20元 配送5元 人均10元"
-            android:layout_marginTop="24px"
-            app:layout_constraintStart_toStartOf="@id/score_layout"
-            app:layout_constraintTop_toBottomOf="@id/score_layout"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30分钟   2.6km"
+                android:textSize="26px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/score_layout"
+                app:layout_constraintBottom_toBottomOf="@id/score_layout" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/score_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_shop_describe"/>
+            <TextView
+                android:id="@+id/tv_shop_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26px"
+                android:text="起送20元 配送5元 人均10元"
+                android:layout_marginTop="24px"
+                app:layout_constraintStart_toStartOf="@id/score_layout"
+                app:layout_constraintTop_toBottomOf="@id/score_layout" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/score_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_shop_describe" />
 
-</com.life.base.views.UiAdapterLinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

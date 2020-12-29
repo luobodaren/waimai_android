@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.model.waimai.WaiMaiGoodsDetailViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_menu_share" />
+
+            <com.life.waimaishuo.views.StickyNavigationLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/background">
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/top_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.xuexiang.xui.widget.banner.recycler.BannerLayout
+                            android:id="@+id/banner_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="750px"
+                            app:bl_showIndicator="false"
+                            app:bl_autoPlaying="true"
+                            app:bl_centerScale="1"
+                            app:bl_itemSpace="0px"
+                            app:bl_moveSpeed="1.8" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/sr_bg_bl_br_24radius_white">
+
+                            <TextView
+                                android:id="@+id/tv_goods_name"
+                                style="@style/text_my_simple_style"
+                                android:layout_width="0px"
+                                android:layout_marginTop="30px"
+                                android:layout_marginStart="@dimen/interval_size_xs"
+                                android:textSize="36px"
+                                android:textColor="@color/text_normal"
+                                android:textStyle="bold"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
+                                android:text="@{viewModel.goodNameObserable}"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/bt_chose_specification"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="现切压沙瓜" />
+
+                            <Button
+                                android:id="@+id/bt_chose_specification"
+                                android:layout_width="104px"
+                                android:layout_height="50px"
+                                android:includeFontPadding="false"
+                                android:background="@drawable/sr_bg_full_corners_theme"
+                                android:textSize="@dimen/font_size_24"
+                                android:textColor="@color/white"
+                                android:text="@string/chose_specification"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
+                                app:layout_constraintTop_toTopOf="@id/tv_goods_name"
+                                app:layout_constraintBottom_toBottomOf="@id/tv_goods_name"
+                                app:layout_constraintEnd_toEndOf="parent" />
+
+                            <!-- 出售详情 包括月售 和好评率 -->
+                            <TextView
+                                android:id="@+id/tv_sale_info"
+                                style="@style/text_my_simple_style"
+                                android:layout_marginTop="22px"
+                                android:textColor="@color/text_tip2"
+                                app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+                                app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
+                                tools:text="月售331  好评率99%" />
+
+                            <TextView
+                                android:id="@+id/tv_current_price"
+                                style="@style/text_my_simple_style"
+                                android:textSize="30px"
+                                android:textColor="@color/colorAssist_2"
+                                android:layout_marginTop="19px"
+                                app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+                                app:layout_constraintTop_toBottomOf="@id/tv_sale_info"
+                                tools:text="18.99" />
+
+                            <TextView
+                                android:id="@+id/tv_pre_price"
+                                style="@style/text_my_simple_style"
+                                android:textSize="25px"
+                                android:layout_marginStart="8px"
+                                android:textColor="@color/text_tip"
+                                app:layout_constraintStart_toEndOf="@id/tv_current_price"
+                                app:layout_constraintBottom_toBottomOf="@id/tv_current_price"
+                                app:layout_constraintTop_toTopOf="@id/tv_current_price"
+                                tools:text="18.99" />
+
+                            <include
+                                android:id="@+id/layout_preferential"
+                                layout="@layout/layout_preferential_sign_introduce"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16px"
+                                app:layout_constraintStart_toEndOf="@id/tv_pre_price"
+                                app:layout_constraintBottom_toBottomOf="@id/tv_current_price"
+                                app:layout_constraintTop_toTopOf="@id/tv_current_price" />
+
+                            <TextView
+                                android:id="@+id/tv_introduce"
+                                style="@style/text_my_simple_style"
+                                android:textColor="@color/text_tip"
+                                android:textSize="@dimen/font_size_26"
+                                android:layout_marginTop="19px"
+                                app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+                                app:layout_constraintTop_toBottomOf="@id/tv_current_price"
+                                tools:text="大家喜欢的，才是真好吃，图片仅供参考" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/interval_size_xs"/>
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.xuexiang.xui.widget.tabbar.TabSegment
+                        android:id="@+id/sticky_view"
+                        style="@style/goodsDetailTabSegment"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/tabbar_height"
+                        android:paddingBottom="@dimen/interval_size_xs"/>
+
+                    <TextView
+                        android:id="@+id/content_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/divider" />
+
+                </LinearLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/adaptive_size_view"
+                    android:paddingTop="@dimen/interval_size_xs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.life.waimaishuo.views.StickyNavigationLayout>
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/layout_shopping_cart"
+            layout="@layout/layout_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/interval_size_xs"/>
+
+    </com.life.base.views.UiAdapterFrameLayout>
+</layout>

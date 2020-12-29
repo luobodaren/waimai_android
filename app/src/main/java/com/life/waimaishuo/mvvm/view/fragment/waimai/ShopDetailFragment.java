@@ -36,7 +36,7 @@ import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.ShoppingCartGood;
 import com.life.waimaishuo.constant.Constant;
-import com.life.waimaishuo.databinding.FragmentShopDetailBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiShopDetailBinding;
 import com.life.waimaishuo.databinding.LayoutDialogShopMorePreferentialBinding;
 import com.life.waimaishuo.databinding.LayoutDialogShoppingCartExpandBinding;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
@@ -47,12 +47,12 @@ import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.views.MyTabSegmentTab;
-import com.life.waimaishuo.views.widget.dialog.MyBottomDialog;
 import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
+import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.util.Iterator;
@@ -61,7 +61,7 @@ import java.util.List;
 @Page(name = "店铺详情页", anim = CoreAnim.slide)
 public class ShopDetailFragment extends BaseFragment {
 
-    private FragmentShopDetailBinding mBinding;
+    private FragmentWaimaiShopDetailBinding mBinding;
     private ShopDetailViewModel mViewModel;
 
     private MyCheckRoundTextInfoPop mAddMemberInfoPopWindow;
@@ -78,8 +78,9 @@ public class ShopDetailFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        ((FragmentShopDetailBinding) mViewDataBinding).setViewModel(mViewModel);
-        mBinding = (FragmentShopDetailBinding) mViewDataBinding;
+        ((FragmentWaimaiShopDetailBinding) mViewDataBinding).setViewModel(mViewModel);
+        mBinding = (FragmentWaimaiShopDetailBinding) mViewDataBinding;
+        mBinding.layoutTitleShopDetail.setViewModel(mViewModel);
         mBinding.layoutMembers.setViewModel(mViewModel);
         mBinding.layoutShopDetails.setViewModel(mViewModel);
         mBinding.layoutShoppingCart.setViewModel(mViewModel);
@@ -87,7 +88,7 @@ public class ShopDetailFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_shop_detail;
+        return R.layout.fragment_waimai_shop_detail;
     }
 
     @Override
@@ -180,6 +181,24 @@ public class ShopDetailFragment extends BaseFragment {
     }
 
     private void addCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.onBackClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                popToBack();
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onShareClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                shopShareDialog();
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onCollectClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
         MyDataBindingUtil.addCallBack(this, mViewModel.onMembersCodeClick, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -204,11 +223,17 @@ public class ShopDetailFragment extends BaseFragment {
                 shopOrCloseShoppingCartDetailDialog();
             }
         });
+        MyDataBindingUtil.addCallBack(this, mViewModel.goToSettleAccounts, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                openPage(WaiMaiConfirmOrderFragment.class);
+            }
+        });
     }
 
     private void initAppBarLayoutToolbar() {
         ((ViewGroup.MarginLayoutParams) mBinding.appbarLayoutToolbar.getLayoutParams()).setMargins(
-                0, (int) (UIUtils.getInstance(requireContext()).getSystemBarHeight() / UIUtils.getInstance(requireContext()).getHorValue()), 0, 0);
+                0, (int) (UIUtils.getInstance(requireContext()).getSystemBarHeight()/UIUtils.getInstance(requireContext()).getHorValue()), 0, 0);
     }
 
     private boolean isCollect = false;
@@ -308,28 +333,21 @@ public class ShopDetailFragment extends BaseFragment {
         Glide.with(this).load(shop.getShop_head_portrait()).
                 placeholder(R.drawable.ic_waimai_brand).centerCrop().
                 into(mBinding.layoutMembers.ivShopIcon);
-
     }
-
-    private int space;
 
     /**
      * 初始化粘性导航栏
      */
     private void initNavigationTab() {
-        space = getResources().getDimensionPixelOffset(R.dimen.waimai_shop_tabbar_item_space);
+        int space = getResources().getDimensionPixelOffset(R.dimen.shop_detail_tabbar_item_space);
         List<ShopTabTypeEnum> shopTabTypes = mViewModel.getRecommendedTitle();
-
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
+        Drawable indicatorDrawable = getResources().getDrawable(R.drawable.sr_widght_horizontal_bar);
 
-        mBinding.tabSegment.setHasIndicator(true);
-        mBinding.tabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widght_horizontal_bar));
-        mBinding.tabSegment.setIndicatorWidthAdjustContent(false);
-        mBinding.tabSegment.setMode(TabSegment.MODE_SCROLLABLE);
         mBinding.tabSegment.setItemSpaceInScrollMode(space);
-        mBinding.tabSegment.setPadding(space, 0, space, 0);
-        mBinding.tabSegment.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
-        mBinding.tabSegment.setDefaultSelectedColor(getResources().getColor(R.color.text_uncheck));
+        mBinding.tabSegment.setIndicatorDrawable(indicatorDrawable);
+        mBinding.tabSegment.setIndicatorWidthAdjustContent(false);
+        mBinding.tabSegment.setHasIndicator(true);
         mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size));
         addTab(mBinding.tabSegment, adapter, shopTabTypes);
         mBinding.tabSegment.setupWithViewPager(mBinding.viewPager, true);
@@ -352,7 +370,6 @@ public class ShopDetailFragment extends BaseFragment {
     }
 
     private Dialog mMembersQeCardDialog;
-
     /**
      * 显示会员二维码
      */
@@ -410,15 +427,14 @@ public class ShopDetailFragment extends BaseFragment {
         mHandler.postDelayed(mCancelPopRunnable, Constant.POP_WINDOW_SHOW_TIME);
     }
 
-    private MyBottomDialog mPreferentialDialog;
-
+    private BottomSheet mPreferentialDialog;
     /**
      * 显示更多优惠dialog
      */
     private void showBottomPreferentialDialog() {
         if (mPreferentialDialog == null) {
             View contentView = initPreferentialContentView();
-            mPreferentialDialog = new MyBottomDialog(requireContext(), R.style.mySimpleNoTitleDialog);
+            mPreferentialDialog = new BottomSheet(requireContext());
             mPreferentialDialog.setContentView(contentView,
                     new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
@@ -488,7 +504,7 @@ public class ShopDetailFragment extends BaseFragment {
 
         binding.preferentialRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
-        binding.preferentialRecyclerView.addItemDecoration(getItemDecoration());
+        binding.preferentialRecyclerView.addItemDecoration(getPreferentialRecyclerItemDecoration());
         binding.preferentialRecyclerView.setAdapter(new MyBaseRecyclerAdapter<PreferentialActivity>(
                 R.layout.item_recycler_preferential_activity,
                 mViewModel.getPreferentialData().getPreferentialActivityList(), BR.item) {
@@ -501,7 +517,7 @@ public class ShopDetailFragment extends BaseFragment {
 
         binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
-        binding.serviceRecyclerView.addItemDecoration(getItemDecoration());
+        binding.serviceRecyclerView.addItemDecoration(getPreferentialRecyclerItemDecoration());
         binding.serviceRecyclerView.setAdapter(new MyBaseRecyclerAdapter<MerchantsService>(
                 R.layout.item_recycler_merchants_service,
                 mViewModel.getPreferentialData().getMerchantsServiceList(), BR.item) {
@@ -518,8 +534,22 @@ public class ShopDetailFragment extends BaseFragment {
 
     }
 
-    Dialog mShoppingCartDialog;
+    private RecyclerView.ItemDecoration getPreferentialRecyclerItemDecoration() {
+        return new RecyclerView.ItemDecoration() {
+            int interval = (int) UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.preferential_item_space));
 
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                                       @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                if (parent.getChildAdapterPosition(view) != 0) {
+                    outRect.top = interval;
+                }
+            }
+        };
+    }
+
+    BottomSheet mShoppingCartDialog;
     /**
      * 显示购物车详细信息
      */
@@ -527,7 +557,7 @@ public class ShopDetailFragment extends BaseFragment {
         LogUtil.d("显示购物车详情");
         if (mShoppingCartDialog == null) {
             View contentView = initShoppingCartDetailView();
-            mShoppingCartDialog = new MyBottomDialog(requireContext(), R.style.mySimpleNoTitleDialog);
+            mShoppingCartDialog = new BottomSheet(requireContext());
             mShoppingCartDialog.setContentView(
                     contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -545,7 +575,6 @@ public class ShopDetailFragment extends BaseFragment {
         binding.setViewModel(mViewModel);
 
         // FIXME: 2020/12/25  购物车按钮添加viemodel
-
 
         binding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
@@ -570,19 +599,29 @@ public class ShopDetailFragment extends BaseFragment {
         return view;
     }
 
-    private RecyclerView.ItemDecoration getItemDecoration() {
-        return new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.preferential_item_space));
+    BottomSheet shareDialog;
+    private void shopShareDialog(){
+        final int TAG_SHARE_WECHAT_FRIEND = 0;
+        final int TAG_SHARE_QQ = 1;
+        final int TAG_SHARE_WECHAT_MOMENT = 2;
+        final int TAG_SHARE_QZONE = 3;
+        final int TAG_SHARE_LOCAL = 4;
+        BottomSheet.BottomGridSheetBuilder builder = new BottomSheet.BottomGridSheetBuilder(getActivity()){
 
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
-                                       @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                if (parent.getChildAdapterPosition(view) != 0) {
-                    outRect.top = interval;
-                }
-            }
         };
+        shareDialog = builder
+                .addItem(R.drawable.ic_share_wechat, "微信", TAG_SHARE_WECHAT_FRIEND, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.ic_share_qq, "QQ", TAG_SHARE_QQ, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.ic_share_wechat_moment, "朋友圈", TAG_SHARE_WECHAT_MOMENT, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.drawable.ic_share_qzone, "QQ空间", TAG_SHARE_QZONE, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .setOnSheetItemClickListener((dialog, itemView) -> {
+                    dialog.dismiss();
+                    int tag = (int) itemView.getTag();
+                    LogUtil.e("tag:" + tag + ", content:" + itemView.toString());
+                }).build();
+        shareDialog.getContentView().setBackgroundResource(R.drawable.sr_bg_tl_tr_24radius);
+        ((TextView)shareDialog.getContentView().findViewById(R.id.bottom_sheet_close_button)).setText(R.string.cancel);
+        shareDialog.show();
     }
 
 }

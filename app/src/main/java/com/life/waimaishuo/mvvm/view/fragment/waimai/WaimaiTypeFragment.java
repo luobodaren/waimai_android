@@ -286,9 +286,10 @@ public class WaimaiTypeFragment extends BaseFragment {
             }
 
             @Override
-            public void onPreferentialChange(List<Integer> selectedList) {
+            public void onPreferentialChange(int selectedPosition) {
                 refreshShopContent();
             }
+
         });
     }
 

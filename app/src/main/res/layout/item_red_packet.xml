@@ -12,7 +12,7 @@
     <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="168px"
-        android:background="@drawable/sr_bg_16radius_white">
+        android:background="@drawable/sr_bg_8dp_white">
 
         <TextView
             android:id="@+id/tv_price"

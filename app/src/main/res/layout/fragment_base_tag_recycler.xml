@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <com.xuexiang.xui.widget.tabbar.TabSegment
+            android:id="@+id/tabSegment"
+            style="@style/baseRecyclerFragmentTabSegment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tabbar_height" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/interval_size_xs"
+            android:paddingEnd="@dimen/interval_size_xs"/>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

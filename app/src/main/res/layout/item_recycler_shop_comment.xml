@@ -94,6 +94,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recycler_comment_picture"/>
 
+            <LinearLayout
+                android:id="@+id/ll_merchant_reply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/sr_bg_merchants_reply"
+                android:paddingBottom="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/flow_layout_goods_list"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/text_my_simple_style"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/font_size_24"
+                    android:text="@string/merchant_reply"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:layout_marginStart="@dimen/interval_size_xs"/>
+
+                <TextView
+                    android:id="@+id/tv_reply_content"
+                    style="@style/text_my_simple_style"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/font_size_22"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="16px"
+                    android:text="@{item.commentContent}"
+                    tools:text="谢谢亲的喜欢与支持呀，感谢您的好评！我们会更加努力的～"/>
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Space
