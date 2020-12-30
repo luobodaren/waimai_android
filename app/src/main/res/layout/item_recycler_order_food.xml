@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ui.OrderItemFoods" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_goods_img"
+                android:layout_width="98px"
+                android:layout_height="98px"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_waimai_brand"
+                app:riv_corner_radius="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                imageUrl="@{item.imgUrl}"/>
+
+            <TextView
+                android:id="@+id/tv_goods_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="28px"
+                android:textColor="@color/text_normal"
+                android:text="@{item.foodName}"
+                app:layout_constraintTop_toTopOf="@id/iv_goods_img"
+                app:layout_constraintStart_toEndOf="@id/iv_goods_img"
+                app:layout_constraintEnd_toStartOf="@id/tv_price"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:layout_marginStart="24px"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.price}"
+                android:textSize="28px"
+                android:includeFontPadding="false"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_goods_name"/>
+
+            <TextView
+                android:id="@+id/tv_food_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24px"
+                android:text="@{item.ingredients}"
+                android:layout_marginTop="2px"
+                app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_goods_name" />
+
+            <TextView
+                android:id="@+id/tv_food_count"
+                style="@style/text_my_simple_style"
+                android:textSize="24px"
+                android:layout_marginTop="2px"
+                android:text="@{item.foodCount}"
+                app:layout_constraintTop_toBottomOf="@id/tv_food_ingredients"
+                app:layout_constraintStart_toStartOf="@id/tv_goods_name"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

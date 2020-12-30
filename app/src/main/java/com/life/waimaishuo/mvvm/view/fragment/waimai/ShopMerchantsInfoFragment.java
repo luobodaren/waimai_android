@@ -137,7 +137,7 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
         if(name.equals(mViewModel.getShopInfoList().get(0).getName())){ // FIXME: 2020/12/28 判断逻辑需要修改
             openPage(BrandStoryFragment.class, new Bundle());
         }else if(name.equals(mViewModel.getShopInfoList().get(5).getName())){
-            openPage(WaiMaiBusinessQualification.class,new Bundle());
+            openPage(WaiMaiBusinessQualificationFragment.class,new Bundle());
         }
 
     }

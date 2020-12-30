@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.Order" />
+            type="com.life.waimaishuo.bean.ui.IconStrData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,41 +15,33 @@
         android:clickable="true"
         android:background="@drawable/sl_white_to_gray">
 
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        
         <TextView
-            android:id="@+id/tv_order_note"
+            android:id="@+id/tv_pay_type_name"
             style="@style/text_shop_merchants_info"
+            android:text="@{item.iconType}"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_left"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="@string/merchants_info" />
 
         <ImageView
             android:id="@+id/iv_right"
-            android:layout_width="24px"
-            android:layout_height="24px"
-            android:background="@drawable/ic_arrow_right_gray"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_marginEnd="@dimen/interval_size_xs"
-            app:layout_constraintTop_toTopOf="@id/tv_order_note"
-            app:layout_constraintBottom_toBottomOf="@id/tv_order_note"
+            app:layout_constraintTop_toTopOf="@id/tv_pay_type_name"
+            app:layout_constraintBottom_toBottomOf="@id/tv_pay_type_name"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_right"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:textSize="26px"
-            android:textColor="@color/text_tip"
-            android:includeFontPadding="false"
-            android:maxLines="2"
-            android:gravity="end"
-            android:layout_marginStart="150px"
-            android:layout_marginEnd="@dimen/interval_size_xs"
-            app:layout_constraintTop_toTopOf="@id/tv_order_note"
-            app:layout_constraintBottom_toBottomOf="@id/tv_order_note"
-            app:layout_constraintStart_toEndOf="@id/tv_order_note"
-            app:layout_constraintEnd_toStartOf="@id/iv_right"
-            tools:text="广州市朝阳区东风中路258号1109-2220" />
 
         <TextView
             android:id="@+id/divider"
@@ -60,7 +52,7 @@
             android:layout_marginEnd="@dimen/interval_size_xs"
             android:background="@color/divider"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

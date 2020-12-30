@@ -33,8 +33,8 @@ import com.life.waimaishuo.bean.SearchRecord;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
 import com.life.waimaishuo.databinding.FragmentWaimaiBinding;
-import com.life.waimaishuo.databinding.ItemWaimaiRecyclerFoodTypeBinding;
-import com.life.waimaishuo.databinding.ItemWaimaiRecyclerFoodTypeSmallBinding;
+import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeBinding;
+import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeSmallBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.activity.SearchActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -62,7 +62,6 @@ import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 import static android.Manifest.permission_group.LOCATION;
 
@@ -442,12 +441,12 @@ public class WaimaiFragment extends BaseFragment {
             @Override
             protected void bindData(@NonNull RecyclerViewHolder holder, int position, IconStrData item) {
                 if(holder.getItemViewType() == mViewType[0]){
-                    ItemWaimaiRecyclerFoodTypeBinding binding
-                            = ItemWaimaiRecyclerFoodTypeBinding.bind(holder.itemView);
+                    ItemRecyclerWaimaiFoodTypeBinding binding
+                            = ItemRecyclerWaimaiFoodTypeBinding.bind(holder.itemView);
                     binding.setItem(item);
                 }else{
-                    ItemWaimaiRecyclerFoodTypeSmallBinding binding
-                            = ItemWaimaiRecyclerFoodTypeSmallBinding.bind(holder.itemView);
+                    ItemRecyclerWaimaiFoodTypeSmallBinding binding
+                            = ItemRecyclerWaimaiFoodTypeSmallBinding.bind(holder.itemView);
                     binding.setItem(item);
                 }
             }
@@ -455,11 +454,11 @@ public class WaimaiFragment extends BaseFragment {
             @Override
             protected int getItemLayoutId(int viewType) {
                 if(viewType == mViewType[0]){
-                    return R.layout.item_waimai_recycler_food_type;
+                    return R.layout.item_recycler_waimai_food_type;
                 }else if(viewType == mViewType[1]){
-                    return R.layout.item_waimai_recycler_food_type_small;
+                    return R.layout.item_recycler_waimai_food_type_small;
                 }
-                return R.layout.item_waimai_recycler_food_type;//默认
+                return R.layout.item_recycler_waimai_food_type;//默认
             }
 
             @NonNull

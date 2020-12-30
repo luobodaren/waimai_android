@@ -27,8 +27,6 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
-import java.util.List;
-
 @Page(name = "0元配送", anim = CoreAnim.slide)
 public class WaiMaiZeroDividerFragment extends BaseFragment {
 
@@ -56,7 +54,7 @@ public class WaiMaiZeroDividerFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_waimai_zero_price_divider;
+        return R.layout.fragment_waimai_zero_price_deliver;
     }
 
     @Override

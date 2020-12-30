@@ -61,4 +61,6 @@
     <color name="bg_shopping_cart_preferential">#FFFFF5D3</color>
 
     <color name="bg_merchants_reply">#EEEEEE</color>
+    <color name="bg_pick_up_time_left">#FFF0F0F0</color>
+    <color name="text_pick_up_time_left_normal">#FF777777</color>
 </resources>

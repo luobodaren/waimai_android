@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.MerchantsService" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <include
+            android:id="@+id/layout_tab"
+            layout="@layout/adapter_tag_item_cash_back"></include>
+
+        <TextView
+            android:id="@+id/tv_activity_introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_uncheck"
+            android:text="@{item.introduce}"
+            android:textSize="24px"
+            android:layout_marginStart="8px"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="每单限一份优惠"/>
+
+    </LinearLayout>
+</layout>

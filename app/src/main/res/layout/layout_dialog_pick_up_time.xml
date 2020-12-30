@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linkage_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sr_bg_tl_tr_24radius_white"
+    android:paddingTop="32px">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/text_my_simple_style"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/text_normal"
+            android:textSize="34px"
+            android:text="@string/please_selete_time_to_take_meal"
+            tools:text="嘉禾一品粥店（国展店）" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:src="@drawable/ic_close_gray"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:layout_marginTop="@dimen/interval_size_xs">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_primary"
+                android:layout_width="276px"
+                android:layout_height="match_parent"
+                android:background="@color/bg_pick_up_time_left"
+                android:overScrollMode="never"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_secondary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:background="@color/white"/>
+        </LinearLayout>
+
+
+</com.life.base.views.UiAdapterConstrainLayout>
