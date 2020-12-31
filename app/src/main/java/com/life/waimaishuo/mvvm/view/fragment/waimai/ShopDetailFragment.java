@@ -468,7 +468,7 @@ public class ShopDetailFragment extends BaseFragment {
             }
         });
         binding.redPacketRecyclerView.setAdapter(new MyBaseRecyclerAdapter<RedPacket>(
-                R.layout.item_red_packet, mViewModel.getPreferentialData().getRedPacketList(), BR.item) {
+                R.layout.item_recycler_red_packet, mViewModel.getPreferentialData().getRedPacketList(), BR.item) {
             String receiveStr = "";
             String receivedStr = "";
 
@@ -607,7 +607,10 @@ public class ShopDetailFragment extends BaseFragment {
         final int TAG_SHARE_QZONE = 3;
         final int TAG_SHARE_LOCAL = 4;
         BottomSheet.BottomGridSheetBuilder builder = new BottomSheet.BottomGridSheetBuilder(getActivity()){
-
+            @Override
+            protected int getItemViewLayoutId() {
+                return R.layout.item_share_dialog;
+            }
         };
         shareDialog = builder
                 .addItem(R.drawable.ic_share_wechat, "微信", TAG_SHARE_WECHAT_FRIEND, BottomSheet.BottomGridSheetBuilder.FIRST_LINE)

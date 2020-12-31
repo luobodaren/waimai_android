@@ -12,8 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/shop_info_text_item_height"
-        android:clickable="true"
-        android:background="@drawable/sl_white_to_gray">
+        style="@style/text_info_clickable_bg">
 
         <TextView
             android:id="@+id/tv_order_note"

@@ -17,7 +17,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/text_normal"
             android:textSize="34px"
-            android:text="@string/please_selete_time_to_take_meal"
+            android:text="@string/please_select_time_to_take_meal"
             tools:text="嘉禾一品粥店（国展店）" />
 
         <ImageView

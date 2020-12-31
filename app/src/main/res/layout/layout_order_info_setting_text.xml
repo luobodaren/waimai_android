@@ -22,8 +22,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shop_info_text_item_height"
-                android:clickable="true"
-                android:background="@drawable/sl_white_to_gray">
+                style="@style/text_info_clickable_bg">
 
                 <TextView
                     android:id="@+id/tv_order_phone_number"
@@ -44,22 +43,22 @@
                     app:layout_constraintBottom_toBottomOf="@id/tv_order_phone_number"
                     app:layout_constraintEnd_toEndOf="parent" />
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_right_phone_number"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
                     android:textSize="26px"
                     android:textColor="@color/text_tip"
                     android:includeFontPadding="false"
-                    android:maxLines="2"
-                    android:gravity="end"
-                    android:layout_marginStart="150px"
-                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginEnd="150px"
+                    android:background="@null"
+                    android:inputType="phone"
+                    android:layoutDirection="rtl"
                     app:layout_constraintTop_toTopOf="@id/tv_order_phone_number"
                     app:layout_constraintBottom_toBottomOf="@id/tv_order_phone_number"
-                    app:layout_constraintStart_toEndOf="@id/tv_order_phone_number"
-                    app:layout_constraintEnd_toStartOf="@id/iv_right_phone_number"
-                    tools:text="广州市朝阳区东风中路258号1109-2220" />
+                    app:layout_constraintStart_toEndOf="@id/iv_right_phone_number"
+                    app:layout_constraintEnd_toStartOf="@id/tv_order_phone_number"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -76,9 +75,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shop_info_text_item_height"
-                android:clickable="true"
-                android:onClick="@{(v)->viewModel.onAccessTimeClick(v)}"
-                android:background="@drawable/sl_white_to_gray">
+                style="@style/text_info_clickable_bg"
+                android:onClick="@{(v)->viewModel.onAccessTimeClick(v)}">
 
                 <TextView
                     android:id="@+id/tv_order_access_time"
@@ -106,15 +104,14 @@
                     android:textSize="26px"
                     android:textColor="@color/text_tip"
                     android:includeFontPadding="false"
-                    android:maxLines="2"
                     android:gravity="end"
                     android:layout_marginStart="150px"
                     android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:text="@{viewModel.pickUpTimeObservable}"
                     app:layout_constraintTop_toTopOf="@id/tv_order_access_time"
                     app:layout_constraintBottom_toBottomOf="@id/tv_order_access_time"
                     app:layout_constraintStart_toEndOf="@id/tv_order_access_time"
-                    app:layout_constraintEnd_toStartOf="@id/iv_right_access_time"
-                    tools:text="广州市朝阳区东风中路258号1109-2220" />
+                    app:layout_constraintEnd_toStartOf="@id/iv_right_access_time"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -131,8 +128,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/shop_info_text_item_height"
-                android:clickable="true"
-                android:background="@drawable/sl_white_to_gray">
+                style="@style/text_info_clickable_bg">
 
                 <TextView
                     android:id="@+id/tv_order_access_type"
@@ -183,8 +179,7 @@
             android:id="@+id/layout_order_access_type_waimai"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height"
-            android:clickable="true"
-            android:background="@drawable/sl_white_to_gray">
+            style="@style/text_info_clickable_bg">
 
             <TextView
                 android:id="@+id/tv_order_distribution_time"
@@ -212,7 +207,6 @@
                 android:textSize="26px"
                 android:textColor="@color/text_tip"
                 android:includeFontPadding="false"
-                android:maxLines="2"
                 android:gravity="end"
                 android:layout_marginStart="150px"
                 android:layout_marginEnd="@dimen/interval_size_xs"
@@ -237,9 +231,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height"
-            android:clickable="true"
-            android:onClick="@{(v)->viewModel.onPayTypeClick(v)}"
-            android:background="@drawable/sl_white_to_gray">
+            style="@style/text_info_clickable_bg"
+            android:onClick="@{(v)->viewModel.onPayTypeClick(v)}">
 
             <TextView
                 android:id="@+id/tv_order_pay"

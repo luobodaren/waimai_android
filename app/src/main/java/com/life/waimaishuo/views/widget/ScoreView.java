@@ -1,4 +1,4 @@
-package com.life.waimaishuo.views;
+package com.life.waimaishuo.views.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

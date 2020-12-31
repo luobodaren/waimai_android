@@ -15,7 +15,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32px">
 
             <com.xuexiang.xui.widget.imageview.RadiusImageView
                 android:id="@+id/iv_goods_img"
@@ -46,11 +47,10 @@
 
             <TextView
                 android:id="@+id/tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_my_simple_style"
                 android:text="@{item.price}"
                 android:textSize="28px"
-                android:includeFontPadding="false"
+                android:textColor="@color/text_normal"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_goods_name"/>

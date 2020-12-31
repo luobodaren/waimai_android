@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/shop_info_text_item_height"
+        style="@style/text_info_clickable_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/preferential_introduce"
+            android:textColor="@color/text_tip"
+            android:textSize="26px" />
+
+        <ImageView
+            android:layout_width="32px"
+            android:layout_height="32px"
+            android:layout_marginStart="8px"
+            android:src="@drawable/ic_question_mark" />
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/subtotal"
+            android:textColor="@color/text_tip"
+            android:textSize="26px" />
+
+        <TextView
+            android:id="@+id/tv_preferential_price"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="7px"
+            android:textColor="@color/text_normal"
+            android:textSize="32px"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</layout>

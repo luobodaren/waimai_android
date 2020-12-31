@@ -16,7 +16,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
-import com.life.waimaishuo.databinding.FragmentWaimaiZeroPriceDividerBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiZeroPriceDeliverBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -30,7 +30,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 @Page(name = "0元配送", anim = CoreAnim.slide)
 public class WaiMaiZeroDividerFragment extends BaseFragment {
 
-    private FragmentWaimaiZeroPriceDividerBinding mBinding;
+    private FragmentWaimaiZeroPriceDeliverBinding mBinding;
     private WaiMaiZeroDividerViewModel mViewModel;
 
     private SelectedPositionRecylerViewAdapter<IconStrData> adapter;
@@ -48,7 +48,7 @@ public class WaiMaiZeroDividerFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentWaimaiZeroPriceDividerBinding) mViewDataBinding;
+        mBinding = (FragmentWaimaiZeroPriceDeliverBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 

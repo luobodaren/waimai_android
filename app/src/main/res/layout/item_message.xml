@@ -10,6 +10,7 @@
         android:layout_width="96px"
         android:layout_height="96px"
         android:clickable="true"
+        android:focusable="true"
         app:riv_is_circle="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

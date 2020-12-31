@@ -84,9 +84,13 @@
     <string name="pak_out">打包带走</string>
     <string name="chose_pay_type">选择支付方式</string>
     <string name="store_dining">店内就餐</string>
-    <string name="please_selete_time_to_take_meal">请选择取餐时间</string>
+    <string name="please_select_time_to_take_meal">请选择取餐时间</string>
+    <string name="please_select_red_packet">请选择红包</string>
     <string name="tableware_note">餐具备份</string>
     <string name="order_note">订单备注</string>
+    <string name="preferential_introduce">优惠说明</string>
+    <string name="subtotal">小计</string>
+    <string name="the_number_of_take_food">取餐号</string>
 
 
 </resources>

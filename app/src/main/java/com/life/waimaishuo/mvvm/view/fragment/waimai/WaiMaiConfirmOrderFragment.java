@@ -1,6 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-import android.graphics.Rect;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
-import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.FragmentConfirmAnOrderBinding;
@@ -49,6 +49,8 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
     FragmentManager fm;
     FragmentTransaction ft;
 
+    String selectedRedPacketPrice = "";
+
     private OrderInfoSettingTextFragment infoSettingTextFragment;
 
     @Override
@@ -63,6 +65,7 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
     protected void bindViewModel() {
         mBinding = (FragmentConfirmAnOrderBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
+        mBinding.layoutOrderNote.setViewModel(mViewModel);
     }
 
     @Override
@@ -134,23 +137,22 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
     }
 
     private void addCallBack() {
-        MyDataBindingUtil.addCallBack(this, mViewModel.onAccessTimeClick, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.onAccessTimeClickObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 showPickUpTimeDialog();
             }
         });
-        MyDataBindingUtil.addCallBack(this, mViewModel.onPayTypeClick, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.onPayTypeClickObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 showPayTypeDialog();
             }
         });
-        MyDataBindingUtil.addCallBack(this, mViewModel.onTimePick, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this,mViewModel.onChoseTablewareClickObservable, new Observable.OnPropertyChangedCallback(){
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                closePickUpTimeDialog();
-                infoSettingTextFragment.setPickUpTime(pickedTime);
+                showChoseTablewareDialog();
             }
         });
     }
@@ -159,6 +161,8 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
      * 初始化数据
      */
     private void initData() {   // FIXME: 2020/12/30 初始化数据 部分数据可又跳转进来的地地方传入，如店铺名等
+        selectedRedPacketPrice = getString(R.string.please_select_red_packet);
+
         resetOrderTitleInfo();
 
         mBinding.tvShopName2.setText("嘉禾一品粥 (国展店)");
@@ -275,7 +279,6 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
 
     private SelectedPositionRecylerViewAdapter<String> leftAdapter;
     private SelectedPositionRecylerViewAdapter<String> rightAdapter;
-    private String pickedTime = "";
     private void initLeftRecycler(RecyclerView recyclerView){
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         leftAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getLeftPickUpTimeData()) {
@@ -323,8 +326,8 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
         rightAdapter.setSelectedListener(new SelectedPositionRecylerViewAdapter.OnSelectedListener<String>() {
             @Override
             public void onSelectedClick(BaseViewHolder holder, String item) {
-                pickedTime = item;
-                mViewModel.onTimePick.notifyChange();
+                mPickUpTimeDialog.dismiss();
+                mViewModel.pickUpTimeObservable.set(item);
             }
         });
     }
@@ -361,9 +364,9 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
                 holder.setText(R.id.tv_pay_type_name, item.getIconType());
                 holder.setImageResource(R.id.iv_left, item.getResImgId());
                 if (selected) {
-                    holder.setImageResource(R.id.iv_right, R.drawable.ic_check_round_red);
+                    holder.setImageResource(R.id.iv_right, R.drawable.ic_check_round_fill_red);
                 } else {
-                    holder.setImageResource(R.id.iv_right, R.drawable.ic_check_round_gray);
+                    holder.setImageResource(R.id.iv_right, R.drawable.ic_check_round_fill_gray);
                 }
             }
         });
@@ -376,32 +379,90 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
         return view;
     }
 
+    private BottomSheet myChoseTableWareDialog;
+    private void showChoseTablewareDialog(){
+        if(myChoseTableWareDialog == null){
+            myChoseTableWareDialog = new BottomSheet.BottomListSheetBuilder(getActivity()){
+                @Override
+                protected int getContentViewLayoutId() {
+                    return R.layout.layout_dialog_chose_tableware;
+                }
+            }
+                    .setTitle("选择餐具备份")
+                    .addItem("无需餐具")
+                    .addItem("1份")
+                    .addItem("2份")
+                    .setIsCenter(true)
+                    .setOnSheetItemClickListener((dialog, itemView, position, tag) -> {
+                        dialog.dismiss();
+                        mViewModel.tablewareObservable.set(tag);
+                    })
+                    .build();
+            myChoseTableWareDialog.getContentView().findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myChoseTableWareDialog.dismiss();
+                }
+            });
+        }
+        if(!myChoseTableWareDialog.isShowing()){
+            myChoseTableWareDialog.show();
+        }
+    }
+
 
     private void initOrderFoodsView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false){
+            @Override
+            public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+                return new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+            }
+        };
+        mBinding.recyclerGoodsList.setLayoutManager(linearLayoutManager);
+        mBinding.recyclerGoodsList.setAdapter(getGoodsListAdapter());
+    }
 
-        mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        mBinding.recyclerGoodsList.setAdapter(new BaseRecyclerAdapter<Object>() {
-            private int recycler = 1;
-            private int divider = 2;
+    private RecyclerView.Adapter getGoodsListAdapter() {
+        return new BaseRecyclerAdapter<Object>() {
+            private int divider = 1;
+            private int goodsList = 2;
+            private int preferential = 3;
+
+            @Override
+            protected View inflateView(ViewGroup parent, int layoutId) {
+                if(layoutId == R.layout.layout_recycler){
+                    return LayoutInflater.from(parent.getContext()).inflate(layoutId, null, false);
+                }else{
+                    return super.inflateView(parent,layoutId);
+                }
+            }
 
             @Override
             protected void bindData(@NonNull RecyclerViewHolder holder, int position, Object item) {
-                holder.getAdapterPosition()
+                if(holder.getItemViewType() == goodsList){
+                    RecyclerView recyclerView = (RecyclerView) holder.getView(R.id.recycler);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_order_food,mViewModel.getOrderFoods(), com.life.waimaishuo.BR.item));
+                }else if(holder.getItemViewType() == preferential){
+                    RecyclerView recyclerView = (RecyclerView) holder.getView(R.id.recycler);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_order_preferential,mViewModel.getPreferentialList(), com.life.waimaishuo.BR.item){
+                        @Override
+                        protected void initView(BaseViewHolder helper, Object item) {
+                            super.initView(helper, item);
+                            helper.setText(R.id.tv_tag,"配送费");
+                        }
+                    });
+                }
             }
 
             @Override
             protected int getItemLayoutId(int viewType) {
-                   /* return R.layout.item_recycler_order_food;
-                }else if(viewType == preferentialList){
-                    return R.layout.layout_divider;
-                }else if(viewType == redPackage){
-                    return ;
-                }else if(viewType == preferentialInstructions){
-                    return ;*/
 
-                if(viewType == recycler){
+                if(viewType == goodsList || viewType == preferential){
                     return R.layout.layout_recycler;
-                }else{
+                } else{
                     return R.layout.layout_divider;
                 }
             }
@@ -410,29 +471,25 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
             public int getItemViewType(int position) {
                 if(position == 1){
                     return divider;
-                }else if(position == 3) {
+                }else if(position == 0) {
+                    return goodsList;
+                }else if(position == 2){
+                    return preferential;
+                }else{
                     return divider;
-                }else if(position == 5){
-                    return divider;
-                }else {
-                    return recycler;
                 }
             }
 
             @Override
             public int getItemCount() {
-                return 6;
+                return 3;
             }
-        });
-        mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int top_interval =(int) UIUtils.getInstance(getContext()).scalePx(33);
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = top_interval;
 
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+                bindData(holder, position, null);
             }
-        });
+        };
     }
 
 }

@@ -108,14 +108,6 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
     }
 
     /**
-     * 设置取餐时间
-     * @param timeString
-     */
-    public void setPickUpTime(String timeString){
-        mBinding.tvRightAccessTime.setText(timeString);
-    }
-
-    /**
      * 获取订单设置信息，根据当前订单类型获取
      * @param type
      */
@@ -143,8 +135,8 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
      */
     private void initAccessTypeView(){
         int checkDrawableSize = (int) UIUtils.getInstance(requireContext()).scalePx(40);
-        checkDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_red);
-        uncheckDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_gray);
+        checkDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_red);
+        uncheckDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_gray);
 
         checkDrawableRight.setBounds(0,0,checkDrawableSize,checkDrawableSize);
         uncheckDrawableRight.setBounds(0,0,checkDrawableSize,checkDrawableSize);

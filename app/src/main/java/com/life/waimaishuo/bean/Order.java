@@ -14,7 +14,6 @@ public class Order implements Parcelable {
     String orderCreateTime;
     int orderState;
 
-
     List<Foods> foodsList;
 
     public Order(String shopName, String shopIconUrl, String orderCreateTime, int orderState, List<Foods> foodsList) {

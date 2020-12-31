@@ -11,6 +11,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="@dimen/interval_size_xs"
         android:background="@color/white">
 
         <TextView
@@ -25,11 +26,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_location"
+            style="@style/text_info_clickable_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:background="@drawable/sl_white_to_gray">
+            android:layout_marginTop="@dimen/interval_size_xs">
 
             <TextView
                 android:id="@+id/tv_shop_location"
@@ -70,7 +70,6 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginTop="32px"
-            android:layout_marginStart="@dimen/interval_size_xs"
             android:layout_marginEnd="@dimen/interval_size_xs"
             android:background="@color/divider"/>
 

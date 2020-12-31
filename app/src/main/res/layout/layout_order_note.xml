@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel" />
     </data>
 
     <LinearLayout
@@ -17,11 +19,11 @@
             android:id="@+id/cl_order_note"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height"
-            android:clickable="true">
+            style="@style/text_info_clickable_bg">
 
             <TextView
                 android:id="@+id/tv_order_note"
-                style="@style/text_order_info"
+                style="@style/text_order_setting_info"
                 android:textStyle="bold"
                 android:text="@string/order_note"
                 app:layout_constraintTop_toTopOf="parent"
@@ -74,11 +76,12 @@
             android:id="@+id/cl_tableware"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height"
-            android:clickable="true">
+            style="@style/text_info_clickable_bg"
+            android:onClick="@{(v)->viewModel.onChoseTablewareClick(v)}">
 
             <TextView
                 android:id="@+id/tv_tableware"
-                style="@style/text_order_info"
+                style="@style/text_order_setting_info"
                 android:textStyle="bold"
                 android:text="@string/tableware_note"
                 app:layout_constraintTop_toTopOf="parent"
@@ -102,10 +105,10 @@
                 android:textSize="26px"
                 android:textColor="@color/text_tip"
                 android:includeFontPadding="false"
-                android:maxLines="2"
                 android:gravity="end"
                 android:layout_marginStart="150px"
                 android:layout_marginEnd="@dimen/interval_size_xs"
+                android:text="@{viewModel.tablewareObservable}"
                 app:layout_constraintTop_toTopOf="@id/tv_tableware"
                 app:layout_constraintBottom_toBottomOf="@id/tv_tableware"
                 app:layout_constraintStart_toEndOf="@id/tv_tableware"

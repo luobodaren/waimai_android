@@ -2,11 +2,13 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 
 import android.view.View;
 
+import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.Order;
+import com.life.waimaishuo.bean.PreferentialActivity;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.OrderItemFoods;
 import com.life.waimaishuo.mvvm.model.BaseModel;
@@ -21,9 +23,12 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
 
     WaiMaiConfirmModel mModel;
 
-    public ObservableInt onAccessTimeClick = new ObservableInt();
-    public ObservableInt onPayTypeClick = new ObservableInt();
-    public ObservableInt onTimePick = new ObservableInt();
+    public ObservableInt onAccessTimeClickObservable = new ObservableInt();
+    public ObservableInt onPayTypeClickObservable = new ObservableInt();
+    public ObservableInt onChoseTablewareClickObservable = new ObservableInt();
+
+    public ObservableField<String> pickUpTimeObservable = new ObservableField<>();
+    public ObservableField<String> tablewareObservable = new ObservableField<>();
 
     private int currentAccessType = WaiMaiConfirmOrderFragment.ORDER_ACCESS_WAIMAI; //默认外卖配送
 
@@ -37,15 +42,20 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
 
     @Override
     public void initData() {
-
+        pickUpTimeObservable.set("请选择取餐时间"); // FIXME: 2020/12/31 设置默认值
+        tablewareObservable.set("请选择用餐备份");
     }
 
     public void onAccessTimeClick(View view){
-        onAccessTimeClick.notifyChange();
+        onAccessTimeClickObservable.notifyChange();
     }
 
     public void onPayTypeClick(View view){
-        onPayTypeClick.notifyChange();
+        onPayTypeClickObservable.notifyChange();
+    }
+
+    public void onChoseTablewareClick(View view){
+        onChoseTablewareClickObservable.notifyChange();
     }
 
     Order order;
@@ -120,6 +130,14 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
         list.add(new OrderItemFoods("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","五香茶叶蛋","+免费配料+香菜+葱","×2","￥18.00"));
         list.add(new OrderItemFoods("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","五香茶叶蛋","+免费配料+香菜+葱","×2","￥18.00"));
         list.add(new OrderItemFoods("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","五香茶叶蛋","+免费配料+香菜+葱","×2","￥18.00"));
+        return list;
+    }
+
+    public List<PreferentialActivity> getPreferentialList() {
+        List<PreferentialActivity> list = new ArrayList<>();
+        list.add(new PreferentialActivity("包装费","打包费","￥4.5"));
+        list.add(new PreferentialActivity("配送费","蜂鸟专送","￥4.5"));
+        list.add(new PreferentialActivity("拼团","拼团优惠","￥4.5"));
         return list;
     }
 }
