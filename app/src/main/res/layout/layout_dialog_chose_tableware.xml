@@ -9,7 +9,7 @@
     <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="114px"
-        android:background="@drawable/sr_bg_tl_tr_24radius_white">
+        android:background="@drawable/sr_bg_tl_tr_8dp_white">
 
         <TextView
             android:id="@+id/title"

@@ -5,18 +5,27 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.tagAdapter.ScreenTagAdapter;
 import com.life.waimaishuo.databinding.LayoutSortBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
+import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
+import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
+import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
+import com.xuexiang.xui.widget.picker.XRangeSlider;
+import com.xuexiang.xui.widget.popupwindow.PopWindow;
 import com.xuexiang.xui.widget.popupwindow.popup.XUIListPopup;
 import com.xuexiang.xui.widget.popupwindow.popup.XUIPopup;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
@@ -38,12 +47,15 @@ public class SortTypeView extends FrameLayout {
 
     private LayoutSortBinding mBinding;
 
-    List<String> tabTypes = new ArrayList<>();//tab title
+    private List<String> tabTypes = new ArrayList<>();//tab title
+    private SortPopup mSortPopup;    //综合排序点击弹出pop
+    private SortTypeEnum currentSortTypeEnum = SortTypeEnum.SCORE; //当前选择的排序Enum
     private onSortTypeChangeListener mOnSortTypeChangeListener;
     int currentSelectedSort = 1;    //当前选中的排序类型
-    private SortTypeEnum currentSortTypeEnum = SortTypeEnum.SCORE; //当前选择的排序Enum
 
-    private SortPopup mSortPopup;    //综合排序点击弹出pop
+    private XUIPopup screenPop;
+    private BaseRecyclerAdapter screenRecyclerAdapter;
+    private List<String> screenTitleList = new ArrayList<>();
 
     @Override
     public View getRootView() {
@@ -99,6 +111,18 @@ public class SortTypeView extends FrameLayout {
         addTab(mBinding.tabSegment, preferentialList);
     }
 
+    /**
+     * 更新排序内容
+     * @param screenData
+     */
+    public void setScreenData(List<String> screenData){
+        screenTitleList.clear();
+        screenTitleList.addAll(screenData);
+        if(screenRecyclerAdapter != null){
+            screenRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
     private void addSortTypeView() {
         View sortTypeView = View.inflate(getContext(), R.layout.layout_sort, null);
         sortTypeView.setBackgroundColor(getContext().getResources().getColor(sortViewBackground));
@@ -122,7 +146,7 @@ public class SortTypeView extends FrameLayout {
         mBinding.tvSortType.setOnClickListener(this::onTypeClick);
         mBinding.tvDistance.setOnClickListener(this::onDistanceClick);
         mBinding.tvSales.setOnClickListener(this::onSalesClick);
-
+        mBinding.tvScreen.setOnClickListener(this::onScreenClick);
 
         Drawable drawable;
         if (textUnCheckColor == R.color.text_uncheck) {
@@ -213,6 +237,90 @@ public class SortTypeView extends FrameLayout {
         if (mOnSortTypeChangeListener != null) {
             mOnSortTypeChangeListener.onSortTypeChange(SortTypeEnum.SALES);
         }
+    }
+
+    private void onScreenClick(View view) {
+        initScreenPop();
+        screenPop.show(mBinding.tabSegment);
+    }
+
+    private void initScreenPop(){
+        if(screenPop == null){
+            screenPop = new XUIPopup(getContext());
+            screenPop.setAnimStyle(XUIPopup.DIRECTION_TOP);
+            screenPop.setPreferredDirection(XUIPopup.DIRECTION_BOTTOM);
+            screenPop.setContentView(getScreenView());
+        }
+    }
+
+    private View getScreenView(){
+        int viewWeight = (int) UIUtils.getInstance(getContext()).getDisplayMetricsWidth();
+        int viewHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        View view = View.inflate(getContext(),R.layout.pop_screen,null);
+        view.setLayoutParams(new ViewGroup.LayoutParams(viewWeight,viewHeight));
+        initScreenRecyclerAdapter();
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(screenRecyclerAdapter);
+        return view;
+    }
+
+    private void initScreenRecyclerAdapter() {
+        screenRecyclerAdapter = new BaseRecyclerAdapter<String>(screenTitleList) {
+            int titleViewType = 0;
+            int flowTabViewType = 1;
+            int rangeSliderViewType = 2;
+            @Override
+            protected int getItemLayoutId(int viewType) {
+                if (viewType == titleViewType) {
+                    return R.layout.layout_screen_recycler_child_text;
+                } else if (viewType == flowTabViewType) {
+                    return R.layout.layout_simple_flowtag;
+                } else if (viewType == rangeSliderViewType){
+                    return R.layout.layout_range_slider;
+                }
+                return -1;
+            }
+
+            @Override
+            protected void bindData(@NonNull RecyclerViewHolder holder, int position, String item) {
+                if (holder.getItemViewType() == titleViewType) {
+                    holder.text(R.id.tv_title, item);
+                }
+                if (holder.getItemViewType() == flowTabViewType) {
+                    FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);  // FIXME: 2021/1/5 要解决换行布局位置错误的问题，需要重写onLayout方法
+                    ScreenTagAdapter tagAdapter = new ScreenTagAdapter(getContext());
+                    tagAdapter.setSelectedPosition(0);
+                    String[] strings = new String[]{"首单立减", "销量较高", "下单返利", "满减优惠","新客立减","津贴联盟"};
+
+                    flowTagLayout.setAdapter(tagAdapter);
+                    flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+                    flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
+                        @Override
+                        public void onItemSelect(FlowTagLayout parent, int tagPosition, List<Integer> selectedList) {
+                            LogUtil.d("流标签选中index:" + tagPosition);
+                        }
+                    });
+                    tagAdapter.addTags(strings); // FIXME: 2021/1/4 修改内容
+                }
+                if(holder.getItemViewType() == rangeSliderViewType){
+                    XRangeSlider xRangeSlider = holder.findViewById(R.id.rangeSlider);
+                }
+            }
+
+            @Override
+            public int getItemViewType(int position) {
+                if(position == getData().size()-1){
+                    return rangeSliderViewType;
+                }
+                if (position % 2 == 0) {
+                    return titleViewType;
+                } else {
+                    return flowTabViewType;
+                }
+            }
+        };
     }
 
     /**

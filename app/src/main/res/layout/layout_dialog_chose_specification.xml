@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:orientation="vertical"
+        android:layout_width="@dimen/width_of_specification_dialog"
+        android:layout_height="wrap_content"
+        android:paddingTop="67px"
+        android:paddingStart="32px"
+        android:paddingEnd="32px"
+        android:paddingBottom="32px"
+        android:background="@drawable/sr_bg_8dp_white">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_goods_img"
+            android:layout_width="160px"
+            android:layout_height="160px"
+            app:riv_corner_radius="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/text_my_simple_style"
+            android:textColor="@color/text_normal"
+            android:textSize="36px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            app:layout_constraintStart_toEndOf="@id/iv_goods_img"
+            app:layout_constraintTop_toTopOf="@id/iv_goods_img" />
+
+        <TextView
+            android:id="@+id/tv_selected_info"
+            style="@style/text_my_simple_style"
+            android:textColor="@color/text_tip"
+            android:textSize="28px"
+            android:layout_marginTop="12px"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            tools:text="已选：微微辣" />
+
+        <TextView
+            android:id="@+id/tv_goods_price"
+            style="@style/text_my_simple_style"
+            android:textSize="30px"
+            android:textColor="@color/colorTheme"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            app:layout_constraintBottom_toBottomOf="@id/iv_goods_img"
+            tools:text="18.99" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:src="@drawable/ic_close_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/layout_goods_option_add_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_goods_option_add_shopping_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_goods_img" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_specification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48px"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/iv_goods_img" />
+
+        <TextView
+            android:id="@+id/tv_instructions"
+            style="@style/text_my_simple_style"
+            android:textSize="@dimen/font_size_24"
+            android:textColor="@color/text_uncheck"
+            android:text="@string/the_prices_instructions_according_specification"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            app:layout_constraintStart_toStartOf="@id/recycler_specification"
+            app:layout_constraintTop_toBottomOf="@id/recycler_specification"/>
+
+        <Button
+            android:id="@+id/bt_add_shopping_cart"
+            android:layout_width="302px"
+            android:layout_height="88px"
+            android:layout_marginTop="150px"
+            android:text="@string/add_to_shopping_cart"
+            android:textSize="34px"
+            android:textColor="@color/white"
+            android:background="@drawable/sr_bg_gradient_full_radius_theme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_instructions" />
+
+        <TextView
+            android:id="@+id/tv"
+            style="@style/text_my_simple_style"
+            android:text="总计"
+            android:textColor="@color/text_uncheck"
+            android:textSize="30px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bt_add_shopping_cart"
+            app:layout_constraintBottom_toBottomOf="@id/bt_add_shopping_cart" />
+
+        <TextView
+            style="@style/text_my_simple_style"
+            android:text="¥18.99"
+            android:textColor="#ffff3b30"
+            android:textSize="40px"
+            android:layout_marginStart="10px"
+            app:layout_constraintStart_toEndOf="@id/tv"
+            app:layout_constraintTop_toTopOf="@id/bt_add_shopping_cart"
+            app:layout_constraintBottom_toBottomOf="@id/bt_add_shopping_cart" />
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

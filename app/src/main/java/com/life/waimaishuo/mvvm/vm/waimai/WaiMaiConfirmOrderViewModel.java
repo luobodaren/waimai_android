@@ -29,6 +29,10 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
 
     public ObservableField<String> pickUpTimeObservable = new ObservableField<>();
     public ObservableField<String> tablewareObservable = new ObservableField<>();
+    public ObservableField<String> orderPlaceTimeObservable = new ObservableField<>();
+    public ObservableField<String> payTypeObservable = new ObservableField<>();
+    public ObservableField<String> orderNumberObservable = new ObservableField<>();
+    public ObservableField<String> takeOrderNumberObservable = new ObservableField<>();
 
     private int currentAccessType = WaiMaiConfirmOrderFragment.ORDER_ACCESS_WAIMAI; //默认外卖配送
 
@@ -44,6 +48,8 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
     public void initData() {
         pickUpTimeObservable.set("请选择取餐时间"); // FIXME: 2020/12/31 设置默认值
         tablewareObservable.set("请选择用餐备份");
+
+        takeOrderNumberObservable.set("4394");
     }
 
     public void onAccessTimeClick(View view){

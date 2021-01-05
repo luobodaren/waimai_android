@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageButton
-        android:id="@+id/iv_remove"
-        android:layout_width="38px"
-        android:layout_height="38px"
-        android:src="@drawable/ic_remove_shopping_cart"/>
+    <data>
 
-    <TextView
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_tip"
-        android:textSize="26px"
-        android:layout_marginStart="16px"
-        android:layout_marginEnd="16px"
-        android:text="0"/>
+        android:gravity="center_vertical">
 
-    <ImageButton
-        android:id="@+id/ib_add"
-        android:layout_width="38px"
-        android:layout_height="38px"
-        android:src="@drawable/ic_add_shopping_cart"/>
+        <ImageButton
+            android:id="@+id/iv_remove"
+            android:layout_width="38px"
+            android:layout_height="38px"
+            android:src="@drawable/ic_remove_shopping_cart" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_tip"
+            android:textSize="26px"
+            android:layout_marginStart="16px"
+            android:layout_marginEnd="16px"
+            android:text="0" />
+
+        <ImageButton
+            android:id="@+id/iv_add"
+            android:layout_width="38px"
+            android:layout_height="38px"
+            android:src="@drawable/ic_add_shopping_cart" />
+
+    </LinearLayout>
+</layout>

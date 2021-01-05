@@ -53,17 +53,12 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        resetViewByType(((WaiMaiConfirmOrderViewModel) baseViewModel).getCurrentAccessType());
+        resetViewByType(getAccessType(((WaiMaiConfirmOrderViewModel) baseViewModel).getCurrentAccessType()));
 
         initAccessTypeView();
 
-        initReservedPhone();
-
     }
 
-    private void initReservedPhone() {
-        mBinding.ivRightPhoneNumber.setImageResource(R.drawable.ic_edit);
-    }
 
     @Override
     protected void initListeners() {
@@ -95,9 +90,11 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
         if(type == OrderInfoSettingTextFragment.ACCESS_WAIMAI){
             mBinding.layoutOrderAccessTypeZiqu.setVisibility(View.GONE);
             mBinding.layoutOrderAccessTypeWaimai.setVisibility(View.VISIBLE);
-        }
-        if(type == OrderInfoSettingTextFragment.ACCESS_ZIQU){
+        }else if(type == OrderInfoSettingTextFragment.ACCESS_ZIQU){
             mBinding.layoutOrderAccessTypeZiqu.setVisibility(View.VISIBLE);
+            mBinding.layoutOrderAccessTypeWaimai.setVisibility(View.GONE);
+        }else{
+            mBinding.layoutOrderAccessTypeZiqu.setVisibility(View.GONE);
             mBinding.layoutOrderAccessTypeWaimai.setVisibility(View.GONE);
         }
     }
@@ -105,6 +102,17 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
     public void resetPayType(IconStrData iconStrData){
         mBinding.tvRightPayType.setText(iconStrData.getIconType());
         mBinding.tvRightPayType.setCompoundDrawables(getPayTypeLeftDrawable(iconStrData.getResImgId()),null,null,null);
+    }
+
+    private int getAccessType(int type){
+        if(type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_WAIMAI || type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_WAIMAI_ONLY){
+            return ACCESS_WAIMAI;
+        }else if(type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_ZIQU || type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_ZIQU_ONLY){
+            return ACCESS_ZIQU;
+        }else if(type == WaiMaiConfirmOrderFragment.ORDER_ZIQU_PAY_SUCCESS){
+            return -1;
+        }
+        return -1;
     }
 
     /**

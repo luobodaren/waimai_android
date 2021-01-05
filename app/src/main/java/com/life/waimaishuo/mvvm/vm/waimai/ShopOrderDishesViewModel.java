@@ -126,4 +126,8 @@ public class ShopOrderDishesViewModel extends BaseViewModel {
         shopGoodsLinkageGroupList = GsonUtil.jsonToList(dataJson, LinkageGroupedItemShopGoods.class);
         return (List) shopGoodsLinkageGroupList;
     }
+
+    public String[] getGoodsSpecificationsInfo(int goodsId) {
+        return new String[]{"口味","规格","规格","规格"};
+    }
 }

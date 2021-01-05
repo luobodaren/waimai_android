@@ -1,4 +1,4 @@
-package com.life.waimaishuo.adapter;
+package com.life.waimaishuo.adapter.tagAdapter;
 
 import android.content.Context;
 import android.view.View;
@@ -8,8 +8,8 @@ import android.widget.TextView;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-public class CashBackTagAdapter extends BaseTagAdapter<String, TextView> {
-    public CashBackTagAdapter(Context context) {
+public class CommentTypeTagAdapter extends BaseTagAdapter<String, TextView> {
+    public CommentTypeTagAdapter(Context context) {
         super(context);
     }
 
@@ -20,15 +20,12 @@ public class CashBackTagAdapter extends BaseTagAdapter<String, TextView> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.adapter_tag_item_cash_back;
+        return R.layout.adapter_tag_item_comment_type;
     }
 
     @Override
     protected void convert(TextView textView, String item, int position) {
         textView.setText(item);
-        if(position == 0){
-            ((ViewGroup.MarginLayoutParams)textView.getLayoutParams()).setMarginStart(0);
-        }
     }
 
 

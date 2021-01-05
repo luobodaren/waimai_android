@@ -15,6 +15,7 @@
     <color name="colorTheme_gradient_end">#FE4036</color>
 
     <color name="background">#f8f8f8</color>
+    <color name="background2">#F5F5F5</color>
     <color name="divider">#E6E6E6</color>
 
     <color name="bg_80_black">#80000000</color>
@@ -50,7 +51,7 @@
     <color name="bg_recycler_swipe_item1">@color/colorAssist_2</color>
     <color name="bg_recycler_swipe_item2">#FED15B</color>
 
-    <color name="linkage_primary_item_bg_default">#F5F5F5</color>
+    <color name="linkage_primary_item_bg_default">@color/background2</color>
     <color name="linkage_primary_item_bg_selected">#FFFFFF</color>
 
     <color name="score_text">@color/colorAssist_2</color>
@@ -63,4 +64,7 @@
     <color name="bg_merchants_reply">#EEEEEE</color>
     <color name="bg_pick_up_time_left">#FFF0F0F0</color>
     <color name="text_pick_up_time_left_normal">#FF777777</color>
+
+    <color name="xrs_insideRangeLineColor">@color/colorTheme</color>
+    <color name="xrs_outsideRangeLineColor">#1AFB5900</color>
 </resources>

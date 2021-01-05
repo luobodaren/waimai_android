@@ -58,7 +58,7 @@
 
     <dimen name="message_recycler_swipe_width">100px</dimen> <!-- 菜单侧滑宽度 -->
 
-    <dimen name="my_cardview_default_radius">24px</dimen>
+    <dimen name="my_card_view_default_radius">8dp</dimen>
 
     <dimen name="linkageSecondary_grid_item_text_size">20px</dimen>
     <dimen name="linkageSecondary_grid_header_text_size">28px</dimen>
@@ -79,7 +79,6 @@
 
     <dimen name="waimai_type_tabbar_item_space">6px</dimen>
     <dimen name="waimai_subtype_recycler_item_text_size">24px</dimen>
-    <dimen name="waimai_subtype_content_bg_radius">24px</dimen>
 
     <dimen name="sort_layout_text_size">26px</dimen>
     <dimen name="sort_layout_preferential_text_size">20px</dimen>
@@ -109,5 +108,7 @@
 
     <dimen name="goods_comment_tabSegment_item_text_size">@dimen/font_size_24</dimen>
     <dimen name="goods_comment_tabSegment_item_space">16px</dimen>
+    <dimen name="specification_selete_sign_size">32px</dimen>
+    <dimen name="width_of_specification_dialog">702px</dimen>
 
 </resources>

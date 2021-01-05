@@ -31,8 +31,6 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
-import java.util.List;
-
 @Page(name = "外卖子类型页",anim = CoreAnim.slide)
 public class WaimaiTypeFragment extends BaseFragment {
 
@@ -146,7 +144,7 @@ public class WaimaiTypeFragment extends BaseFragment {
         //往上移 覆盖部分选中标志 已达到选中标志滚动，背景延伸的效果
         ViewGroup.MarginLayoutParams layoutParams =
                 (ViewGroup.MarginLayoutParams) mBinding.stickyNavigationLayout.getLayoutParams();
-        layoutParams.topMargin = -getResources().getDimensionPixelOffset(R.dimen.waimai_subtype_content_bg_radius);
+        layoutParams.topMargin = -getResources().getDimensionPixelOffset(R.dimen.my_card_view_default_radius);
 
         initFirstPosition();
     }
@@ -231,9 +229,9 @@ public class WaimaiTypeFragment extends BaseFragment {
         }
 
         if(firstVisiblePosition > currentSelectedPosition){ //左滑消失
-            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius);
+            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_8dp);
         }else if(lastVisiblePosition < currentSelectedPosition){    //右滑消失
-            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius);
+            setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_8dp);
         }else{
             //选中的itemView显示在屏幕上
             Rect rect = new Rect();
@@ -241,25 +239,25 @@ public class WaimaiTypeFragment extends BaseFragment {
                 selectedView = layoutManager.getChildAt(0);
                 selectedView.getGlobalVisibleRect(rect);
                 if((rect.right-rect.left) < halfWidth){
-                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_24radius);
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tr_8dp);
                 }else{
-                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius);
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_8dp);
                 }
             }else if(lastVisiblePosition == adapter.getSelectedPosition()){ //最后一个为选中的
                 selectedView = layoutManager.getChildAt(layoutManager.getChildCount() - 1);
                 if(selectedView.getGlobalVisibleRect(rect)){
                     //若显示
                     if((rect.right-rect.left) < halfWidth){
-                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius);
+                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_8dp);
                     }else{
-                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius);
+                        setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_8dp);
                     }
                 }else{
                     //若不显示
-                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_24radius);
+                    setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_8dp);
                 }
             }else{  //显示在中间
-                setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_24radius);
+                setStickyNavigationLayoutBackground(R.drawable.sr_bg_tl_tr_8dp);
             }
         }
     }

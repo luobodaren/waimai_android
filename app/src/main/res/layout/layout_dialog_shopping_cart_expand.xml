@@ -12,7 +12,7 @@
     <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sr_bg_tl_tr_24radius"
+        android:background="@drawable/sr_bg_tl_tr_8dp"
         android:paddingStart="@dimen/interval_size_xs"
         android:paddingEnd="@dimen/interval_size_xs"
         android:paddingTop="32px">

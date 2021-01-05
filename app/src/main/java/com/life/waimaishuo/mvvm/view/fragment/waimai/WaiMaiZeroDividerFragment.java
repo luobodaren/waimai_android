@@ -107,11 +107,6 @@ public class WaiMaiZeroDividerFragment extends BaseFragment {
                 outRect.right = (position == state.getItemCount()-1) ? left_interval_22 : 0;
             }
         });
-
-        //往上移 覆盖部分选中标志 已达到选中标志滚动，背景延伸的效果
-        ViewGroup.MarginLayoutParams layoutParams =
-                (ViewGroup.MarginLayoutParams) mBinding.stickyNavigationLayout.getLayoutParams();
-        layoutParams.topMargin = -getResources().getDimensionPixelOffset(R.dimen.waimai_subtype_content_bg_radius);
     }
 
     private void initSortView(){

@@ -51,7 +51,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/sr_bg_bl_br_24radius_white">
+                            android:background="@drawable/sr_bg_bl_br_8dp_white">
 
                             <TextView
                                 android:id="@+id/tv_goods_name"
@@ -63,7 +63,7 @@
                                 android:textColor="@color/text_normal"
                                 android:textStyle="bold"
                                 android:layout_marginEnd="@dimen/interval_size_xs"
-                                android:text="@{viewModel.goodNameObserable}"
+                                android:text="@{viewModel.goodNameObservable}"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/bt_chose_specification"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -89,6 +89,7 @@
                                 style="@style/text_my_simple_style"
                                 android:layout_marginTop="22px"
                                 android:textColor="@color/text_tip2"
+                                android:text="@{viewModel.goodSaleInfoObservable}"
                                 app:layout_constraintStart_toStartOf="@id/tv_goods_name"
                                 app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
                                 tools:text="月售331  好评率99%" />
@@ -99,6 +100,7 @@
                                 android:textSize="30px"
                                 android:textColor="@color/colorAssist_2"
                                 android:layout_marginTop="19px"
+                                android:text="@{viewModel.goodPriceObservable}"
                                 app:layout_constraintStart_toStartOf="@id/tv_goods_name"
                                 app:layout_constraintTop_toBottomOf="@id/tv_sale_info"
                                 tools:text="18.99" />
@@ -109,6 +111,7 @@
                                 android:textSize="25px"
                                 android:layout_marginStart="8px"
                                 android:textColor="@color/text_tip"
+                                android:text="@{viewModel.goodPrePriceObservable}"
                                 app:layout_constraintStart_toEndOf="@id/tv_current_price"
                                 app:layout_constraintBottom_toBottomOf="@id/tv_current_price"
                                 app:layout_constraintTop_toTopOf="@id/tv_current_price"

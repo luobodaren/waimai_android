@@ -1,69 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/ll_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
 
-        <TextView
-            android:id="@+id/tv_goods_discount_price"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:text="¥18.8"
-            android:textColor="@color/red"
-            android:textSize="28px" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_goods_pre_price"
+            <TextView
+                android:id="@+id/tv_goods_discount_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="¥18.8"
+                android:textColor="@color/red"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_goods_pre_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_marginStart="8px"
+                android:textSize="20px"
+                android:textColor="@color/text_tip"
+                android:text="￥18.8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_group_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:layout_marginStart="8px"
-            android:textSize="20px"
-            android:textColor="@color/text_tip"
-            android:text="￥18.8" />
-    </LinearLayout>
+            android:layout_marginTop="8px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_price">
 
-    <LinearLayout
-        android:id="@+id/ll_group_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_price">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorTheme"
+                android:textSize="20px"
+                android:text="拼团价" />
 
-        <TextView
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/fl_goods_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textColor="@color/colorTheme"
-            android:textSize="20px"
-            android:text="拼团价" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </LinearLayout>
+            <include
+                android:id="@+id/layout_goods_option_add_shopping_cart"
+                layout="@layout/layout_goods_option_add_shopping_cart" />
 
-    <RelativeLayout
-        android:id="@+id/fl_goods_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <include
+                android:id="@+id/layout_goods_option_chose"
+                layout="@layout/layout_goods_option_chose" />
 
-        <include layout="@layout/layout_goods_option_add_shopping_cart"/>
+        </RelativeLayout>
 
-        <include
-            layout="@layout/layout_goods_option_chose"/>
-
-    </RelativeLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

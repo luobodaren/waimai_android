@@ -12,7 +12,7 @@
     <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sr_bg_tl_tr_24radius_white"
+        android:background="@drawable/sr_bg_tl_tr_8dp_white"
         android:paddingTop="32px">
 
         <TextView

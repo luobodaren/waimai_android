@@ -42,8 +42,8 @@
         <View
             android:id="@+id/view_tl_tr_24_radius"
             android:layout_width="match_parent"
-            android:layout_height="24px"
-            android:background="@drawable/sr_bg_tl_tr_24radius"/>
+            android:layout_height="8dp"
+            android:background="@drawable/sr_bg_tl_tr_8dp"/>
     </LinearLayout>
 
 </com.life.base.views.UiAdapterLinearLayout>

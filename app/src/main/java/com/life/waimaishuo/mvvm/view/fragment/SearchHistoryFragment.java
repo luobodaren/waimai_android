@@ -3,7 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment;
 import android.content.Context;
 
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.SearchRecordTagAdapter;
+import com.life.waimaishuo.adapter.tagAdapter.SearchRecordTagAdapter;
 import com.life.waimaishuo.bean.SearchRecord;
 import com.life.waimaishuo.databinding.FragmentSearchHistoryBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;

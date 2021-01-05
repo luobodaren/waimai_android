@@ -18,6 +18,7 @@
 package com.life.waimaishuo.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel;
 
@@ -129,11 +131,21 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
         ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
         viewGroup.setOnClickListener(v -> {
             if (mItemClickListener != null) {
-                mItemClickListener.onSecondaryItemClick(holder, viewGroup, (BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo>) item);
+                mItemClickListener.onSecondaryItemClick(holder, viewGroup, item);
             }
         });
-
         //处理item点击事件
+        //判断显示“选规格”按钮还是 加减数量
+        if(binding instanceof AdapterLinkageSecondaryLinearBinding){
+            AdapterLinkageSecondaryLinearBinding binding1 = (AdapterLinkageSecondaryLinearBinding)binding;
+            binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.btChoseSpecification
+                    .setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View view) {
+                            mItemClickListener.onSecondaryChildClick(holder,view,item);
+                        }
+                    });
+        }
 
     }
 

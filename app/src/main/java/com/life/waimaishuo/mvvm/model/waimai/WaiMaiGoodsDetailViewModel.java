@@ -18,9 +18,11 @@ public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
 
     WaiMaiGoodsDetailModel mModel;
 
-    public ObservableField<String> goodNameObserable = new ObservableField<>();
-    public ObservableField<String> goodSaleInfoObserable = new ObservableField<>();
-    public ObservableField<String> goodIntroduceObserable = new ObservableField<>();
+    public ObservableField<String> goodNameObservable = new ObservableField<>();
+    public ObservableField<String> goodSaleInfoObservable = new ObservableField<>();
+    public ObservableField<String> goodIntroduceObservable = new ObservableField<>();
+    public ObservableField<String> goodPriceObservable = new ObservableField<>();
+    public ObservableField<String> goodPrePriceObservable = new ObservableField<>();
 
     @Override
     public BaseModel getModel() {
@@ -32,7 +34,11 @@ public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
 
     @Override
     public void initData() {
-
+        goodNameObservable.set("现切压沙瓜");
+        goodSaleInfoObservable.set("月售331  好评率99%");
+        goodIntroduceObservable.set("大家喜欢的，才是真好吃，图片仅供参考");
+        goodPriceObservable.set("￥18.99");
+        goodPrePriceObservable.set("￥28.99");
     }
 
     public List<String> getGoodsPictures() {

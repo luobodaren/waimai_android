@@ -28,7 +28,7 @@ import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.CashBackTagAdapter;
+import com.life.waimaishuo.adapter.tagAdapter.CashBackTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.MerchantsService;
 import com.life.waimaishuo.bean.PreferentialActivity;
@@ -66,7 +66,6 @@ public class ShopDetailFragment extends BaseFragment {
 
     private MyCheckRoundTextInfoPop mAddMemberInfoPopWindow;
     private Runnable mCancelPopRunnable;
-
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -451,7 +450,7 @@ public class ShopDetailFragment extends BaseFragment {
      * @return
      */
     private View initPreferentialContentView() {
-        View view = View.inflate(getContext(), R.layout.layout_dialog_shop_more_preferential, null);
+        View view = View.inflate(requireContext(), R.layout.layout_dialog_shop_more_preferential, null);
         LayoutDialogShopMorePreferentialBinding binding = LayoutDialogShopMorePreferentialBinding.bind(view);
         binding.setViewModel(mViewModel);
 
@@ -459,7 +458,7 @@ public class ShopDetailFragment extends BaseFragment {
 
         binding.redPacketRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.redPacketRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+            int interval = (int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
 
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -622,7 +621,7 @@ public class ShopDetailFragment extends BaseFragment {
                     int tag = (int) itemView.getTag();
                     LogUtil.e("tag:" + tag + ", content:" + itemView.toString());
                 }).build();
-        shareDialog.getContentView().setBackgroundResource(R.drawable.sr_bg_tl_tr_24radius);
+        shareDialog.getContentView().setBackgroundResource(R.drawable.sr_bg_tl_tr_8dp);
         ((TextView)shareDialog.getContentView().findViewById(R.id.bottom_sheet_close_button)).setText(R.string.cancel);
         shareDialog.show();
     }

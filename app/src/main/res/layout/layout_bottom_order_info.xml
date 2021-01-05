@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sr_bg_8dp_white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shop_info_text_item_height"
+            style="@style/text_info_clickable_bg">
+
+            <TextView
+                android:id="@+id/tv_order_note"
+                style="@style/text_order_setting_info"
+                android:textStyle="bold"
+                android:text="@string/order_info"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                style="@style/divider_in_order_bottom_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_order_number"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shop_info_text_item_height"
+            style="@style/text_info_clickable_bg">
+
+            <TextView
+                android:id="@+id/tv_tableware"
+                style="@style/text_order_setting_info"
+                android:text="@string/order_number"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_copy"
+                style="@style/text_my_simple_style"
+                android:text="@string/copy"
+                android:textSize="26px"
+                android:textColor="@color/colorTheme"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_divider"
+                android:layout_width="1px"
+                android:layout_height="26px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@color/text_tip"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_copy" />
+
+            <TextView
+                android:id="@+id/rv_ordernumber"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textSize="26px"
+                android:textColor="@color/text_tip"
+                android:includeFontPadding="false"
+                android:gravity="end"
+                android:layout_marginStart="150px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:text="@{viewModel.orderNumberObservable}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_tableware"
+                app:layout_constraintEnd_toStartOf="@id/tv_divider"
+                tools:text="广州市朝阳区东风中路258号1109-2220" />
+
+
+            <TextView
+                style="@style/divider_in_order_bottom_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_pay_type"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shop_info_text_item_height"
+            style="@style/text_info_clickable_bg">
+
+            <TextView
+                android:id="@+id/tv_pay_type"
+                style="@style/text_order_setting_info"
+                android:text="@string/pay_type"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_pay_type_name"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textSize="26px"
+                android:textColor="@color/text_tip"
+                android:includeFontPadding="false"
+                android:gravity="end"
+                android:layout_marginStart="150px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:text="@{viewModel.payTypeObservable}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="广州市朝阳区东风中路258号1109-2220" />
+
+            <TextView
+                style="@style/divider_in_order_bottom_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_order_create_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shop_info_text_item_height"
+            style="@style/text_info_clickable_bg">
+
+            <TextView
+                android:id="@+id/tv_order_create_time"
+                style="@style/text_order_setting_info"
+                android:text="@string/place_the_order_of_time"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:textSize="26px"
+                android:textColor="@color/text_tip"
+                android:includeFontPadding="false"
+                android:gravity="end"
+                android:layout_marginStart="150px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:text="@{viewModel.orderPlaceTimeObservable}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="广州市朝阳区东风中路258号1109-2220" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

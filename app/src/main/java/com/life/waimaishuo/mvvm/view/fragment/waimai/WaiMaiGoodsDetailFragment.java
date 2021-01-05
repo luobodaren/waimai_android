@@ -2,7 +2,10 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
@@ -18,6 +21,7 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
+import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.util.Iterator;
@@ -82,7 +86,13 @@ public class WaiMaiGoodsDetailFragment extends BaseFragment {
 
     private void initBanner() {
         BaseBannerAdapter mAdapterHorizontal
-                = new BaseBannerAdapter(mViewModel.getGoodsPictures(),R.layout.adapter_banner_image_item_brand_story);
+                = new BaseBannerAdapter(mViewModel.getGoodsPictures(),R.layout.adapter_banner_image_item_brand_story){
+            @Override
+            public void bindData(@NonNull RecyclerViewHolder holder, int position, String imgUrl) {
+                ((ImageView)holder.findViewById(R.id.iv_item)).setScaleType(ImageView.ScaleType.CENTER_CROP);
+                super.bindData(holder, position, imgUrl);
+            }
+        };
         mAdapterHorizontal.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
         mBinding.bannerLayout.setAdapter(mAdapterHorizontal);

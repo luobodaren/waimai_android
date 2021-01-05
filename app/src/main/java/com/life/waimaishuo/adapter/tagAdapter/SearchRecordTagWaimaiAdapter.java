@@ -1,4 +1,4 @@
-package com.life.waimaishuo.adapter;
+package com.life.waimaishuo.adapter.tagAdapter;
 
 import androidx.annotation.NonNull;
 

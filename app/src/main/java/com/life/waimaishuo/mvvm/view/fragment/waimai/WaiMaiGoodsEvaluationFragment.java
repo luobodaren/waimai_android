@@ -1,10 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,24 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.CommentTypeTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.databinding.FragmentBaseTagRecyclerBinding;
-import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
-import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.BaseRecyclerFragment;
 import com.life.waimaishuo.mvvm.view.fragment.BaseTabSegmentRecyclerFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiGoodsEvaluationViewModel;
 import com.life.waimaishuo.util.PreViewUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
-import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.adapter.recyclerview.GridDividerItemDecoration;
-import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.lang.reflect.InvocationTargetException;

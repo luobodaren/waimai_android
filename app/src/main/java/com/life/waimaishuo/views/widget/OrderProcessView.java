@@ -1,6 +1,7 @@
 package com.life.waimaishuo.views.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -35,18 +36,20 @@ public class OrderProcessView extends FrameLayout {
     public OrderProcessView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FilletImageView);
+        int process = typedArray.getInt(R.styleable.OrderProcessView_process,1); //默认进度为1
+        setProcess(process);
     }
 
 
     private void init(Context context) {
-        View view = View.inflate(context, R.layout.layout_order_process, null);
+        View view = View.inflate(context, R.layout.layout_order_process_view, null);
         tv_order_state = view.findViewById(R.id.tv_order_state);
         tv_make_status = view.findViewById(R.id.tv_make_status);
         tv_take_status = view.findViewById(R.id.tv_take_status);
         iv_first_dotted_line = view.findViewById(R.id.iv_first_dotted_line);
         iv_second_dotted_line = view.findViewById(R.id.iv_second_dotted_line);
         this.addView(view);
-
     }
 
     private boolean isInitDrawable = false;
@@ -70,6 +73,7 @@ public class OrderProcessView extends FrameLayout {
             tookDrawable.setBounds(0,0,size,size);
             redDottedLineDrawable = getContext().getResources().getDrawable(R.mipmap.ic_dotted_line_red);
             grayDottedLineDrawable = getContext().getResources().getDrawable(R.mipmap.ic_dotted_line_gray);
+
         }
     }
 

@@ -33,12 +33,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="@string/reserved_phone"/>
 
+
                 <ImageView
                     android:id="@+id/iv_right_phone_number"
                     android:layout_width="24px"
                     android:layout_height="24px"
                     android:layout_marginEnd="@dimen/interval_size_xs"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/ic_edit"
                     app:layout_constraintTop_toTopOf="@id/tv_order_phone_number"
                     app:layout_constraintBottom_toBottomOf="@id/tv_order_phone_number"
                     app:layout_constraintEnd_toEndOf="parent" />

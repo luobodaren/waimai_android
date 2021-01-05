@@ -210,4 +210,15 @@ public class WaiMaiViewModel extends BaseViewModel {
         hotCities.add(new HotCity("杭州", "浙江", "10121"));
         return hotCities;
     }
+
+    public List<String> getScreenData() {
+        List<String> screenData = new ArrayList<>();
+        screenData.add("优惠活动");
+        screenData.add("优惠活动");
+        screenData.add("商家服务");
+        screenData.add("商家服务");
+        screenData.add("品质");
+        screenData.add("品质");
+        return screenData;
+    }
 }

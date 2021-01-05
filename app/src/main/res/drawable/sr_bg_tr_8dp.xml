@@ -4,8 +4,7 @@
     <item>
         <shape>
             <solid android:color="@color/background"/>
-            <corners android:topLeftRadius="@dimen/waimai_subtype_content_bg_radius"
-                android:topRightRadius="@dimen/waimai_subtype_content_bg_radius"/>
+            <corners android:topRightRadius="@dimen/my_card_view_default_radius"/>
         </shape>
     </item>
 

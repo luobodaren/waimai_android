@@ -52,6 +52,7 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
     String selectedRedPacketPrice = "";
 
     private OrderInfoSettingTextFragment infoSettingTextFragment;
+    private OrderProcessFragment mOrderProcessFragment;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -85,13 +86,19 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
 
+    private static int type = 0;
     @Override
     protected void initViews() {
         super.initViews();
-        currentOrderType = 1;  // FIXME: 2020/12/29 后续更具实际情况修改
+        type += 1;
+        if(type > ORDER_ZIQU_PAY_SUCCESS){
+            type = ORDER_ACCESS_WAIMAI;
+        }
+        currentOrderType = type;  // FIXME: 2020/12/29 后续更具实际情况修改
         mViewModel.setCurrentAccessType(currentOrderType);
 
         mBinding.layoutTitle.tvTitle.setText(getPageName());
+        mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
 
         initOrderInfoFrameLayout();
 
@@ -177,6 +184,8 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
             ft = fm.beginTransaction();
         }
         if (currentOrderType != ORDER_ZIQU_PAY_SUCCESS) { //除开支付成功且店内自取
+            mBinding.layoutBottomOrderInfo.llContent.setVisibility(View.GONE);
+
             infoSettingTextFragment = new OrderInfoSettingTextFragment();
             infoSettingTextFragment.baseViewModel = mViewModel;
             ft.add(R.id.fl_order_info_set, infoSettingTextFragment).commit();
@@ -186,16 +195,24 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
                 mBinding.tvOrderAccessType.setVisibility(View.GONE);
                 mBinding.tvOrderAccessType2.setVisibility(View.GONE);
                 mBinding.llOrderInfoTitle.setBackgroundResource(R.drawable.sr_bg_8dp_white);
+
+                if (currentOrderType == ORDER_ACCESS_WAIMAI_ONLY) {
+                } else if (currentOrderType == ORDER_ACCESS_ZIQU_ONLY) {
+                    refreshOrderTitleView();
+                    mBinding.layoutOrderNote.clTableware.setVisibility(View.GONE);
+                }
             }
 
-            if (currentOrderType == ORDER_ACCESS_WAIMAI_ONLY) {
-
-            } else if (currentOrderType == ORDER_ACCESS_ZIQU_ONLY) {
-                mBinding.layoutOrderNote.clTableware.setVisibility(View.GONE);
-            }
         } else {  //  店内自取支付成功
+            mBinding.flOrderTopInfo.setVisibility(View.GONE);
+            mBinding.layoutOrderNote.llContent.setVisibility(View.GONE);
+            mBinding.layoutMembers.clContent.setVisibility(View.GONE);//隐藏会员界面
+            mBinding.layoutConfirmOrder.llShoppingCart.setVisibility(View.GONE);
+
             //另个一fragment
-            ft.add(infoSettingTextFragment, null).commit();
+            mOrderProcessFragment = new OrderProcessFragment();
+            mOrderProcessFragment.baseViewModel = mViewModel;
+            ft.replace(R.id.fl_take_food, mOrderProcessFragment).commit();
         }
     }
 
@@ -217,6 +234,10 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
      */
     private void refreshOrderAccessData() {
         refreshOrderInfoSetFrameLayout();
+        refreshOrderTitleView();
+    }
+
+    private void refreshOrderTitleView(){
         if (currentOrderType == ORDER_ACCESS_WAIMAI_ONLY || currentOrderType == ORDER_ACCESS_WAIMAI) {
             if(mBinding.layoutOrderTitle.clLocation.getVisibility() != View.VISIBLE){
                 mBinding.layoutOrderTitle.clLocation.setVisibility(View.VISIBLE);

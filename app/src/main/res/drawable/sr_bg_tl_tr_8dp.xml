@@ -4,7 +4,8 @@
     <item>
         <shape>
             <solid android:color="@color/background"/>
-            <corners android:topLeftRadius="24px"/>
+            <corners android:topLeftRadius="@dimen/my_card_view_default_radius"
+                android:topRightRadius="@dimen/my_card_view_default_radius"/>
         </shape>
     </item>
 

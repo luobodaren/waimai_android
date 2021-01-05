@@ -27,7 +27,7 @@ import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.adapter.SearchRecordTagWaimaiAdapter;
+import com.life.waimaishuo.adapter.tagAdapter.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchRecord;
 import com.life.waimaishuo.bean.ui.IconStrData;
@@ -340,6 +340,7 @@ public class WaimaiFragment extends BaseFragment {
 
     private void addSortViewClickListener() {
         binding.contentLayout.setPreferentialTab(mViewModel.getPreferential());
+        binding.contentLayout.setScreenData(mViewModel.getScreenData());
         binding.contentLayout.setOnSortTypeChangeListener(new SortTypeView.onSortTypeChangeListener() {
             @Override
             public void onSortPopShow() {
