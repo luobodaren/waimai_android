@@ -75,7 +75,13 @@ dependencies {
     //CityPicker
     implementation "com.github.xuexiangjys:CityPicker:1.0.2"
 
+    //PictureSelector图片选择
+    implementation 'com.github.xuexiangjys.PictureSelector:picture-core:1.0.5'
+
     //切片
     implementation 'com.github.xuexiangjys.XAOP:xaop-runtime:1.0.5x'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
 
 }

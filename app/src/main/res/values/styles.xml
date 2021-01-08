@@ -4,6 +4,28 @@
     <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:background">@color/transparent</item>
 
+        <!--标题栏的背景图片，优先使用背景图片，没有背景图片才使用背景颜色，可选-->
+        <item name="xpage_actionbar_background">@null</item>
+        <!--标题栏的背景颜色-->
+        <item name="xpage_actionbar_color">@color/white</item>
+        <!--是否支持沉浸式标题栏, 默认false-->
+        <item name="xpage_actionbar_immersive">false</item>
+        <!--标题栏返回箭头, 默认R.drawable.xpage_ic_navigation_back_white-->
+        <item name="xpage_actionbar_navigation_back">@drawable/ic_arrow_left_black</item>
+        <!--标题栏的高度，默认52dp-->
+        <item name="xpage_actionbar_height">@dimen/titlebar_height</item>
+        <!--标题栏标题文字的大小，默认18sp-->
+        <item name="xpage_actionbar_title_text_size">@dimen/titlebar_text_size</item>
+        <!--标题栏副标题文字的大小，默认12sp-->
+        <item name="xpage_actionbar_sub_text_size">14sp</item>
+        <!--标题栏动作文字的大小，默认15sp-->
+        <item name="xpage_actionbar_action_text_size">18sp</item>
+        <!--标题栏动作图片的padding，默认5dp-->
+        <item name="xpage_actionbar_action_padding">6dp</item>
+        <!--标题栏两侧文字的padding，默认14dp-->
+        <item name="xpage_actionbar_side_text_padding">16dp</item>
+<!--        <item name="XPageTitleBarStyle">@style/XPageTitleBar.Custom</item>-->
+
         <item name="xui_bottom_sheet_grid_item_paddingTop">25dp</item>
         <item name="xui_bottom_sheet_grid_item_paddingBottom">25dp</item>
 
@@ -103,7 +125,7 @@
     </style>
 
     <style name="login_bt_by_other" parent="button_login_base">
-        <item name="android:background">@drawable/sr_stroke_1px_full_raduis_white</item>
+        <item name="android:background">@drawable/sr_stroke_1px_full_radius_white</item>
         <item name="android:layout_marginTop">@dimen/interval_size_s</item>
         <item name="android:text">@string/login_by_other</item>
     </style>
@@ -176,7 +198,7 @@
         <item name="android:text">@string/get_verification</item>
         <item name="sSelectorNormalColor">@color/transparent</item>
         <item name="sSelectorPressedColor">@color/gray</item>
-        <item name="android:background">@drawable/sr_stroke_1px_full_raduis_white</item>
+        <item name="android:background">@drawable/sr_stroke_1px_full_radius_white</item>
         <item name="android:layout_marginBottom">@dimen/login_bt_getVerification_marginBottom</item>
     </style>
 
@@ -318,7 +340,7 @@
     <style name="text_info_clickable_bg">
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-        <item name="android:background">@drawable/sl_white_to_gray</item>
+        <item name="android:background">@drawable/sl_8dp_white_to_gray</item>
     </style>
 
     <style name="text_order_process" parent="text_my_simple_style">
@@ -351,5 +373,30 @@
         <item name="android:background">@color/divider</item>
     </style>
 
+    <style name="et_order_note">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/text_tip</item>
+        <item name="android:textSize">26px</item>
+        <item name="android:paddingStart">0px</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:hint">@string/note_hint_text</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="et_report_content">
+        <item name="android:background">@drawable/sr_bg_8dp_gray</item>
+        <item name="android:textColor">@color/text_tip</item>
+        <item name="android:textSize">28px</item>
+        <item name="android:paddingStart">0px</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:hint">@string/report_content_hint</item>
+        <item name="android:textColorHint">@color/text_tip</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+
     <dimen name="xui_bottom_sheet_list_item_text_size">16sp</dimen>
+    <string name="report_content_hint">请描述您的问题，以便我们尽快为您处理（必填）</string>
 </resources>

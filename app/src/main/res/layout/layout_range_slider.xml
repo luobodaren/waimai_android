@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -11,9 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/interval_size_xs"
         android:layout_marginEnd="@dimen/interval_size_xs"
+        app:xrs_numberTextSize="15dp"
+        app:xrs_numberMarginBottom="8dp"
         app:xrs_sliderIcon="@mipmap/ic_slider_icon"
         app:xrs_sliderIconFocus="@mipmap/ic_slider_icon"
         app:xrs_insideRangeLineColor="@color/xrs_insideRangeLineColor"
-        app:xrs_outsideRangeLineColor="@color/xrs_outsideRangeLineColor"/>
+        app:xrs_insideRangeLineStrokeWidth="2dp"
+        app:xrs_outsideRangeLineColor="@color/xrs_outsideRangeLineColor"
+        app:xrs_outsideRangeLineStrokeWidth="2dp"/>
 
-</LinearLayout>
+</com.life.base.views.UiAdapterLinearLayout>

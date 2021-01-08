@@ -219,6 +219,8 @@ public class WaiMaiViewModel extends BaseViewModel {
         screenData.add("商家服务");
         screenData.add("品质");
         screenData.add("品质");
+        screenData.add("人均价格带");
+        screenData.add("人均价格带");
         return screenData;
     }
 }

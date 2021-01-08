@@ -38,7 +38,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 
 
 @Page(name = "限时秒杀",anim = CoreAnim.slide)
-public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
+public class LimitedTimeGoodsFragment extends BaseFragment {
 
     private FragmentWaimaiLimitedTimeGoodsBinding mBinding;
     private WaimaiLimitedViewModel mViewModel;
@@ -72,6 +72,7 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         TitleBar titleBar = super.initTitleBar();
+        titleBar.setHeight((int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
         titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
         titleBar.setCenterTextBold(true);
         titleBar.setTitleColor(getResources().getColor(R.color.white));
@@ -142,7 +143,7 @@ public class WaimaiLimitedTimeGoodsFragment extends BaseFragment {
             int whiteColorId = getResources().getColor(R.color.white);
 
             @Override
-            public int getLayoutId() {
+            public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_limited_time;
             }
 

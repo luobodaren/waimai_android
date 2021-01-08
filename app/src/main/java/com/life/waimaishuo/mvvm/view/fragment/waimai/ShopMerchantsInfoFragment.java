@@ -75,6 +75,8 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
 
         //添加图片点击时间监听 看大图
         PreViewUtil.initRecyclerPictureClickListener(this,shopImgRecyclerAdapter, shopImgRecyclerLinearLayoutManager);
+
+        mBinding.btReportTheMerchants.setOnClickListener(v -> openPage(ShopReportMerchantsFragment.class));
     }
 
     private void addCallBack(){
@@ -135,9 +137,9 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
 
     private void goToInfoDetailFragment(String name){  // FIXME: 2020/12/24 需要带入店铺或品牌的Id 或者是数据
         if(name.equals(mViewModel.getShopInfoList().get(0).getName())){ // FIXME: 2020/12/28 判断逻辑需要修改
-            openPage(BrandStoryFragment.class, new Bundle());
+            openPage(ShopBrandStoryFragment.class, new Bundle());
         }else if(name.equals(mViewModel.getShopInfoList().get(5).getName())){
-            openPage(WaiMaiBusinessQualificationFragment.class,new Bundle());
+            openPage(ShopBusinessQualificationFragment.class,new Bundle());
         }
 
     }

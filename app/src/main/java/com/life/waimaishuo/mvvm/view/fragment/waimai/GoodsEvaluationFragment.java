@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Page(name = "评价")
-public class WaiMaiGoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
+public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
 
     WaiMaiGoodsEvaluationViewModel mViewModel;
 

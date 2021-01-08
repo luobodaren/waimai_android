@@ -39,7 +39,6 @@ public class ShopMerchantsInfoViewModel extends BaseViewModel {
         refreshIntroduceData.notifyChange();
     }
 
-
     public List<ImageViewInfo> getShopIntroducePictureUrl() {
         List<ImageViewInfo> imgUrl = new ArrayList<>();
         imgUrl.add(new ImageViewInfo("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.szthks.com%2Flocalimg%2F687474703a2f2f6777312e616c6963646e2e636f6d2f62616f2f75706c6f616465642f69362f5442316d6676746e72355942754e6a5373706f585862654e4658615f2121302d6974656d5f7069632e6a7067.jpg&refer=http%3A%2F%2Fwww.szthks.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611382905&t=71c9e5ee3a1472129d6cbaa9aa7f1060"));

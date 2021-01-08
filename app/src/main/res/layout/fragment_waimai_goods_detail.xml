@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.life.waimaishuo.mvvm.model.waimai.WaiMaiGoodsDetailViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiGoodsDetailViewModel" />
     </data>
 
     <com.life.base.views.UiAdapterFrameLayout

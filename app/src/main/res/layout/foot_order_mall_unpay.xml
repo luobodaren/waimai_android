@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16px">
+
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:includeFontPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/tv_goods_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:includeFontPadding="false"
+            android:layout_marginEnd="16px"
+            app:layout_constraintTop_toTopOf="@id/tv_goods_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_goods_price"/>
+
+        <Button
+            android:id="@+id/bt_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:background="@drawable/sr_stroke_1px_10radius_red"
+            android:layout_marginTop="24px"
+            android:text="@string/pay"
+            android:textColor="@color/colorTheme"
+            android:textSize="28px"
+            app:layout_constraintEnd_toEndOf="@id/tv_goods_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_goods_price"/>
+
+        <Button
+            android:id="@+id/bt_cancel_order"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            android:layout_marginEnd="16px"
+            android:text="@string/cancel_order"
+            android:textColor="@color/text_normal"
+            android:textSize="28px"
+            app:layout_constraintEnd_toStartOf="@id/bt_pay"
+            app:layout_constraintTop_toTopOf="@id/bt_pay"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="order"
+            type="com.life.waimaishuo.bean.Order" />
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sr_bg_8dp_white"
+        android:paddingTop="32px"
+        android:paddingStart="@dimen/interval_size_xs"
+        android:paddingEnd="@dimen/interval_size_xs"
+        android:paddingBottom="@dimen/interval_size_xs"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_head"
+            layout="@layout/head_order_waimai"/>
+
+        <TextView
+            android:id="@+id/tv_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider"
+            android:layout_marginTop="32px"
+            android:layout_marginStart="96px"
+            app:layout_constraintTop_toBottomOf="@id/layout_head"/>
+
+        <TextView
+            android:id="@+id/tv_foods_info"
+            android:layout_width="0px"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="30px"
+            android:textSize="26px"
+            android:textColor="@color/text_normal"
+            app:layout_constraintTop_toBottomOf="@id/tv_divider"
+            app:layout_constraintStart_toStartOf="@id/tv_divider"
+            app:layout_constraintEnd_toStartOf="@id/tv_foods_price"/>
+
+        <TextView
+            android:id="@+id/tv_foods_price"
+            style="@style/text_my_simple_style"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:layout_marginTop="32px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32px"
+            app:layout_constraintTop_toBottomOf="@id/tv_foods_info"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Space
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/bt_after_sale_process"
+                android:layout_width="wrap_content"
+                android:layout_height="60px"
+                android:layout_marginStart="16px"
+                android:paddingStart="18px"
+                android:paddingEnd="18px"
+                android:text="@string/after_sale_process"
+                android:textSize="28px"
+                android:textColor="@color/text_normal"
+                android:includeFontPadding="false"
+                android:background="@drawable/sr_stroke_1px_10radius_gray"/>
+
+        </LinearLayout>
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

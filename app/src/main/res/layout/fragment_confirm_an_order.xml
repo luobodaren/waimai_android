@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -161,20 +162,51 @@
                                 app:layout_constraintTop_toBottomOf="@id/recycler_goods_list"
                                 app:layout_constraintStart_toStartOf="parent"/>
 
-                            <include
-                                android:id="@+id/layout_order_red_packet"
+                            <LinearLayout
+                                android:id="@+id/ll_red_packet"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/shop_info_text_item_height"
-                                layout="@layout/layout_order_red_packet"
+                                style="@style/text_info_clickable_bg"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
                                 app:layout_constraintTop_toBottomOf="@id/divider_2"
-                                app:layout_constraintStart_toStartOf="parent"/>
+                                app:layout_constraintStart_toStartOf="parent">
+                                <ImageView
+                                    android:layout_width="40px"
+                                    android:layout_height="40px"
+                                    android:src="@drawable/ic_red_packet" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8px"
+                                    android:text="@string/red_packet"
+                                    android:textColor="@color/text_normal"
+                                    android:textSize="30px" />
+                                <Space
+                                    android:layout_width="0px"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1" />
+                                <TextView
+                                    android:id="@+id/tv_right"
+                                    style="@style/text_my_simple_style"
+                                    android:layout_marginEnd="@dimen/interval_size_xs"
+                                    android:textColor="@color/colorAssist_2"
+                                    android:textSize="30px"
+                                    android:text="@{viewModel.redPacketPriceValueObservable}"
+                                    tools:text="2220" />
+                                <ImageView
+                                    android:id="@+id/iv_right"
+                                    android:layout_width="24px"
+                                    android:layout_height="24px"
+                                    android:background="@drawable/ic_arrow_right_gray" />
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/divider_3"
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
                                 android:background="@color/divider"
-                                app:layout_constraintTop_toBottomOf="@id/layout_order_red_packet"
+                                app:layout_constraintTop_toBottomOf="@id/ll_red_packet"
                                 app:layout_constraintStart_toStartOf="parent"/>
 
                             <include

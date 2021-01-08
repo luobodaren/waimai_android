@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.ShopReportMerchantsViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_menu_share"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"/>
+
+            <TextView
+                style="@style/text_my_simple_style"
+                android:text="@string/report_merchants"
+                android:textColor="@color/text_normal"
+                android:textSize="30px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="40px"/>
+
+            <EditText
+                android:id="@+id/et"
+                style="@style/et_report_content"
+                android:layout_width="match_parent"
+                android:layout_height="340px"
+                android:text="@={viewModel.reportContentOvservabler}"
+                android:layout_marginTop="32px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:paddingTop="32px"
+                android:paddingBottom="32px"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_input_text_number" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_selected_picture"
+                android:layout_marginTop="32px"
+                android:overScrollMode="never"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_max_picture_count_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_26"
+                android:textColor="@color/text_assist"
+                android:text="@string/max_num_of_selected_picture"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginBottom="@dimen/interval_size_xs"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
+            <Button
+                android:id="@+id/bt_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:textColor="@color/white"
+                android:text="@string/confirm"
+                android:textSize="36px"
+                android:layout_marginTop="40px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_gradient_full_radius_theme"/>
+
+        </LinearLayout>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+
+</layout>

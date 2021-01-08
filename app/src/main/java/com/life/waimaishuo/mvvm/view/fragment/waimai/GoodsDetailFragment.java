@@ -11,8 +11,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.databinding.FragmentWaimaiGoodsDetailBinding;
-import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
-import com.life.waimaishuo.mvvm.model.waimai.WaiMaiGoodsDetailViewModel;
+import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiGoodsDetailViewModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -28,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Page(name = "商品详情", anim = CoreAnim.slide)
-public class WaiMaiGoodsDetailFragment extends BaseFragment {
+public class GoodsDetailFragment extends BaseFragment {
 
     FragmentWaimaiGoodsDetailBinding mBinding;
     WaiMaiGoodsDetailViewModel mViewModel;

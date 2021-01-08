@@ -253,7 +253,7 @@ public class WaimaiFragment extends BaseFragment {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                openPage(WaimaiExclusiveFragment.class);
+                openPage(ExclusiveBreakfastFragment.class);
             }
         });
 
@@ -297,9 +297,9 @@ public class WaimaiFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(position % 2 == 0){
-                    openPage(WaimaiLimitedTimeGoodsFragment.class);
+                    openPage(LimitedTimeGoodsFragment.class);
                 }else{
-                    openPage(WaiMaiZeroDividerFragment.class);
+                    openPage(ZeroDividerFragment.class);
                 }
             }
         });

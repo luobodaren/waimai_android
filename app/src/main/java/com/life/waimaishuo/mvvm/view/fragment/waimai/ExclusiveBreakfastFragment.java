@@ -28,7 +28,7 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
 @Page(name = "专属早餐",anim = CoreAnim.slide)
-public class WaimaiExclusiveFragment extends BaseFragment {
+public class ExclusiveBreakfastFragment extends BaseFragment {
 
     WaimaiExclusiveViewModel viewModel;
 
@@ -58,6 +58,7 @@ public class WaimaiExclusiveFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         TitleBar titleBar = super.initTitleBar();
+        titleBar.setHeight((int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
         titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
         titleBar.setCenterTextBold(true);
         titleBar.setTitleColor(getResources().getColor(R.color.white));

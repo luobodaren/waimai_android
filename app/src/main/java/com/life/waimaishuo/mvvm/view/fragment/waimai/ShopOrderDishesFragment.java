@@ -105,7 +105,7 @@ public class ShopOrderDishesFragment extends BaseFragment
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
-        openPage(WaiMaiGoodsDetailFragment.class, new Bundle()); // FIXME: 2020/12/28 后续需要传入商品id
+        openPage(GoodsDetailFragment.class, new Bundle()); // FIXME: 2020/12/28 后续需要传入商品id
     }
 
     @Override

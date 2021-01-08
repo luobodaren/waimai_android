@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16px">
+
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:includeFontPadding="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/tv_goods_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:includeFontPadding="false"
+            android:layout_marginEnd="16px"
+            app:layout_constraintTop_toTopOf="@id/tv_goods_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_goods_price"/>
+
+        <Button
+            android:id="@+id/bt_add_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:background="@drawable/sr_stroke_1px_10radius_red"
+            android:layout_marginTop="24px"
+            android:paddingStart="18px"
+            android:paddingEnd="18px"
+            android:text="@string/add_to_shopping_cart"
+            android:textColor="@color/colorTheme"
+            android:textSize="28px"
+            app:layout_constraintEnd_toEndOf="@id/tv_goods_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_goods_price"/>
+
+        <Button
+            android:id="@+id/bt_deleted_order"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:text="@string/deleted_order"
+            android:textSize="28px"
+            android:paddingStart="18px"
+            android:paddingEnd="18px"
+            android:layout_marginEnd="16px"
+            android:textColor="@color/text_normal"
+            android:includeFontPadding="false"
+            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            app:layout_constraintEnd_toStartOf="@id/bt_comment"
+            app:layout_constraintTop_toTopOf="@id/bt_add_shopping_cart"/>
+
+        <Button
+            android:id="@+id/bt_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:paddingStart="18px"
+            android:paddingEnd="18px"
+            android:layout_marginEnd="16px"
+            android:text="@string/evaluation"
+            android:textSize="28px"
+            android:textColor="@color/text_normal"
+            android:includeFontPadding="false"
+            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            app:layout_constraintEnd_toStartOf="@id/bt_add_shopping_cart"
+            app:layout_constraintTop_toTopOf="@id/bt_add_shopping_cart"/>
+
+        <ImageView
+            android:id="@+id/iv_menu"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/bt_add_shopping_cart"
+            app:layout_constraintBottom_toBottomOf="@id/bt_add_shopping_cart"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -52,6 +52,8 @@
                 android:gravity="end"
                 android:layout_marginStart="150px"
                 android:layout_marginEnd="@dimen/interval_size_xs"
+                android:ellipsize="end"
+                android:text="@{viewModel.orderNoteObservable}"
                 app:layout_constraintTop_toTopOf="@id/tv_order_note"
                 app:layout_constraintBottom_toBottomOf="@id/tv_order_note"
                 app:layout_constraintStart_toEndOf="@id/tv_order_note"

@@ -29,7 +29,7 @@ public class SortPopup extends XUIListPopup {
             space = (int) UIUtils.getInstance(getContext()).scalePx(
                     getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
         }
-        point.y += attachedView.getHeight() + space;
+        point.y += + space;
         return point;
     }
 }

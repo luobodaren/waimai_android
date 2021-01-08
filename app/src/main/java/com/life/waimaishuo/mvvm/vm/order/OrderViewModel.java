@@ -1,5 +1,6 @@
 package com.life.waimaishuo.mvvm.vm.order;
 
+import com.life.waimaishuo.enumtype.OrderPageEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.order.OrderModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -13,7 +14,7 @@ public class OrderViewModel extends BaseViewModel {
 
     OrderModel orderModel;
 
-    String[] pages = {"全部订单","待付款","待配送","配送中","已完成","售后"};
+
 
     @Override
     public BaseModel getModel() {
@@ -26,16 +27,16 @@ public class OrderViewModel extends BaseViewModel {
 
     }
 
-    public String[] getTabDatas() {
-        return pages;
+    public String[] getTabData() {
+        return OrderPageEnum.getStateStrings();
     }
 
     public List<BaseFragment> getTabFragment() {
         List<BaseFragment> fragmentList = new ArrayList<>();
-        int count = pages.length;
+        int count = OrderPageEnum.getStateStrings().length;
         for(int i = 0;i<count;i++){
             OrderBarItemFragment orderBarItemFragment = new OrderBarItemFragment();
-            orderBarItemFragment.setPageType(pages[i]);
+            orderBarItemFragment.setPageType(OrderPageEnum.values()[i]);
             fragmentList.add(orderBarItemFragment);
         }
         return fragmentList;

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="560px"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sr_bg_8dp_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_tip"
+        android:layout_width="456px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42px"
+        android:textSize="30px"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textColor="@color/text_normal"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px">
+
+        <Button
+            android:id="@+id/bt_left"
+            android:layout_width="0px"
+            android:layout_height="100px"
+            android:layout_weight="1"
+            android:background="@drawable/sl_white_to_gray_simple_confirm_dialog_left"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/font_size_36"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/bt_center"
+            android:layout_width="0px"
+            android:layout_height="100px"
+            android:layout_weight="1"
+            android:background="@drawable/sl_white_to_gray"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/font_size_36"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/bt_right"
+            android:layout_width="0px"
+            android:layout_height="100px"
+            android:layout_weight="1"
+            android:background="@drawable/sl_white_to_gray_simple_confirm_dialog_right"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/font_size_36"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+</com.life.base.views.UiAdapterLinearLayout>

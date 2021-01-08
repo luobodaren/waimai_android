@@ -41,16 +41,17 @@ public class StatusBarUtils {
      */
     public static void fitStatusBarHeight(BaseActivity baseActivity){    // FIXME: 2020/12/7 搜索界面没有效果
         //根布局添加占位状态栏
-        ViewGroup decorView = (ViewGroup) baseActivity.getWindow().getDecorView();
-        ViewGroup contentView = decorView.findViewById(R.id.my_ll_content_view);
+//        ViewGroup decorView = (ViewGroup) baseActivity.getWindow().getDecorView();
+        ViewGroup contentView = (ViewGroup) baseActivity.getContentView();
+        ViewGroup  ll_content_view= contentView.findViewById(R.id.my_ll_content_view);
 
-        if(contentView == null){
+        if(ll_content_view == null){
             LogUtil.e("Activity FitStatusBarHeight Fail，contentView == null");
             return;
         }
 
-        if(contentView instanceof LinearLayout)
-            fitStatusBarHeight((LinearLayout) contentView);
+        if(ll_content_view instanceof LinearLayout)
+            fitStatusBarHeight((LinearLayout) ll_content_view);
         else
             LogUtil.e("添加StatusBar占位view失败，contentView不是LinerLayout");
     }
@@ -75,7 +76,7 @@ public class StatusBarUtils {
     }
 
     /**
-     * 同上
+     * 添加占位view
      * @param rootView
      */
     public static void fitStatusBarHeight(LinearLayout rootView){

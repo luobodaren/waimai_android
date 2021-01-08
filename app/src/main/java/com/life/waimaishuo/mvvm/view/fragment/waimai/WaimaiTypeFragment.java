@@ -173,7 +173,7 @@ public class WaimaiTypeFragment extends BaseFragment {
     private SelectedPositionRecylerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
         return new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getSubtypeTitles()){
             @Override
-            public int getLayoutId() {
+            public int getLayoutId(int viewType) {
                 return R.layout.item_waimai_food_subtype;
             }
 

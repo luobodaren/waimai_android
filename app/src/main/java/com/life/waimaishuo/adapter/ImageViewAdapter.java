@@ -1,10 +1,8 @@
 package com.life.waimaishuo.adapter;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +12,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiExclusiveFragment;
-import com.life.waimaishuo.views.FilletImageView;
 
 public class ImageViewAdapter {
 

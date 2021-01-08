@@ -27,6 +27,9 @@ import com.xuexiang.xpage.utils.TitleUtils;
 @Page
 public abstract class BaseFragment extends XPageFragment {
 
+    protected static int RESULT_CODE_SUCCESS = 0;
+    protected static int RESULT_CODE_FALSE = 1;
+
     protected static int SHOW_STATUS_BAR = 1; //显示
     protected static int HIDE_STATUS_BAR = 0; //不显示
     protected static int NO_HANDLE_STATUS_BAR = -1;

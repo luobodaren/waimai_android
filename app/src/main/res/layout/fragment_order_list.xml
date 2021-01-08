@@ -14,7 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="24px"
-            android:paddingEnd="24px"/>
+            android:paddingEnd="24px"
+            android:overScrollMode="never"/>
         
     </LinearLayout>
 </layout>

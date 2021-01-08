@@ -12,7 +12,7 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 
 @Page(name = "营业资格")
-public class WaiMaiBusinessQualificationFragment extends BaseFragment {
+public class ShopBusinessQualificationFragment extends BaseFragment {
 
     LayoutBusinessQualificationBinding mBinding;
     WaiMaiBusinessQualificationViewModel mViewModel;

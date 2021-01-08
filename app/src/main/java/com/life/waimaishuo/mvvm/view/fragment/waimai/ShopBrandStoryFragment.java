@@ -23,7 +23,7 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
 @Page(name = "品牌故事", anim = CoreAnim.slide)
-public class BrandStoryFragment extends BaseFragment {
+public class ShopBrandStoryFragment extends BaseFragment {
 
     private FragmentWaimaiBrandStoryBinding mBinding;
     private BrandStoryViewModel mViewModel;

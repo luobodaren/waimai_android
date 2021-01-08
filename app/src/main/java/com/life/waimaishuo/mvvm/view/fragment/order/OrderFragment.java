@@ -98,7 +98,7 @@ public class OrderFragment extends BaseFragment {
         mBinding.tabSegment.setHasIndicator(false);
         mBinding.tabSegment.setMode(TabSegment.MODE_FIXED);
         mBinding.tabSegment.setBackgroundColor(getContext().getResources().getColor(R.color.white));
-        String[] tabData = myViewModel.getTabDatas();
+        String[] tabData = myViewModel.getTabData();
         List<BaseFragment> tabFragment = myViewModel.getTabFragment();
 
         int tabSize = tabData.length;

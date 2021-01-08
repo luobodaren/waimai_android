@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="line">
+            <stroke android:width="1px"
+                android:color="@color/divider"
+                android:dashGap="3px"
+                android:dashWidth="6px"
+                android:layerType="software"/>
+            <!--破折线宽度dashWith，破折线之间的间隙宽度dashGap，当dashGap=0dp时，为实线;
+            安卓4.0以上设备显示为实现，xml可加上layerType="software"
+            代码中可添加view.setLayerType(View.LAYER_TYPE_SOFTWARE,null);-->
+            <size android:height="1px"/>
+        </shape>
+    </item>
+
+</selector>

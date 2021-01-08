@@ -2,6 +2,7 @@ package com.life.waimaishuo.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -112,13 +113,14 @@ public class SortTypeView extends FrameLayout {
     }
 
     /**
-     * 更新排序内容
+     * 更新筛选内容
+     *
      * @param screenData
      */
-    public void setScreenData(List<String> screenData){
+    public void setScreenData(List<String> screenData) {
         screenTitleList.clear();
         screenTitleList.addAll(screenData);
-        if(screenRecyclerAdapter != null){
+        if (screenRecyclerAdapter != null) {
             screenRecyclerAdapter.notifyDataSetChanged();
         }
     }
@@ -196,14 +198,14 @@ public class SortTypeView extends FrameLayout {
         }
         tabSegment.notifyDataChanged();
         TabSegment.TabAdapter adapter = invokeGetAdapted(tabSegment);
-        if(adapter != null){
+        if (adapter != null) {
             int size = adapter.getViews().size();
             for (int i = 0; i < size; i++) {
                 TextView textView = adapter.getViews().get(i).getTextView();
                 textView.setBackgroundResource(R.drawable.sr_bg_10radius_white);
-                textView.setPadding(24,16,24,16);
+                textView.setPadding(24, 16, 24, 16);
             }
-        }else{
+        } else {
             LogUtil.e("反射getAdapter方法失败");
         }
     }
@@ -241,24 +243,36 @@ public class SortTypeView extends FrameLayout {
 
     private void onScreenClick(View view) {
         initScreenPop();
-        screenPop.show(mBinding.tabSegment);
+        screenPop.showDown(mBinding.llSortLayout);
     }
 
-    private void initScreenPop(){
-        if(screenPop == null){
-            screenPop = new XUIPopup(getContext());
+    private void initScreenPop() {
+        if (screenPop == null) {
+            screenPop = new XUIPopup(getContext()) {
+                int space = 0;
+                @Override
+                protected Point onShow(View attachedView) {
+                    Point point = super.onShow(attachedView);
+                    if(space == 0){
+                        space = (int) UIUtils.getInstance(getContext()).scalePx(
+                                getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+                    }
+                    point.y += space;
+                    return point;
+                }
+            };
             screenPop.setAnimStyle(XUIPopup.DIRECTION_TOP);
             screenPop.setPreferredDirection(XUIPopup.DIRECTION_BOTTOM);
             screenPop.setContentView(getScreenView());
         }
     }
 
-    private View getScreenView(){
+    private View getScreenView() {
         int viewWeight = (int) UIUtils.getInstance(getContext()).getDisplayMetricsWidth();
         int viewHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-        View view = View.inflate(getContext(),R.layout.pop_screen,null);
-        view.setLayoutParams(new ViewGroup.LayoutParams(viewWeight,viewHeight));
+        View view = View.inflate(getContext(), R.layout.pop_screen, null);
+        view.setLayoutParams(new ViewGroup.LayoutParams(viewWeight, viewHeight));
         initScreenRecyclerAdapter();
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -271,13 +285,14 @@ public class SortTypeView extends FrameLayout {
             int titleViewType = 0;
             int flowTabViewType = 1;
             int rangeSliderViewType = 2;
+
             @Override
             protected int getItemLayoutId(int viewType) {
                 if (viewType == titleViewType) {
                     return R.layout.layout_screen_recycler_child_text;
                 } else if (viewType == flowTabViewType) {
                     return R.layout.layout_simple_flowtag;
-                } else if (viewType == rangeSliderViewType){
+                } else if (viewType == rangeSliderViewType) {
                     return R.layout.layout_range_slider;
                 }
                 return -1;
@@ -286,13 +301,14 @@ public class SortTypeView extends FrameLayout {
             @Override
             protected void bindData(@NonNull RecyclerViewHolder holder, int position, String item) {
                 if (holder.getItemViewType() == titleViewType) {
+//                    ((TextView)holder.itemView).setText(item);
                     holder.text(R.id.tv_title, item);
                 }
                 if (holder.getItemViewType() == flowTabViewType) {
                     FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);  // FIXME: 2021/1/5 要解决换行布局位置错误的问题，需要重写onLayout方法
                     ScreenTagAdapter tagAdapter = new ScreenTagAdapter(getContext());
                     tagAdapter.setSelectedPosition(0);
-                    String[] strings = new String[]{"首单立减", "销量较高", "下单返利", "满减优惠","新客立减","津贴联盟"};
+                    String[] strings = new String[]{"首单立减", "销量较高", "下单返利", "满减优惠", "新客立减", "津贴联盟"};
 
                     flowTagLayout.setAdapter(tagAdapter);
                     flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
@@ -304,14 +320,15 @@ public class SortTypeView extends FrameLayout {
                     });
                     tagAdapter.addTags(strings); // FIXME: 2021/1/4 修改内容
                 }
-                if(holder.getItemViewType() == rangeSliderViewType){
+                if (holder.getItemViewType() == rangeSliderViewType) {
                     XRangeSlider xRangeSlider = holder.findViewById(R.id.rangeSlider);
                 }
             }
 
             @Override
             public int getItemViewType(int position) {
-                if(position == getData().size()-1){
+                int dataSize = getData().size();
+                if (position == dataSize - 1) {   //倒数第二个
                     return rangeSliderViewType;
                 }
                 if (position % 2 == 0) {
@@ -320,6 +337,13 @@ public class SortTypeView extends FrameLayout {
                     return flowTabViewType;
                 }
             }
+
+
+            @Override
+            public int getItemCount() {
+                return mData.size();
+            }
+
         };
     }
 
@@ -352,7 +376,7 @@ public class SortTypeView extends FrameLayout {
         initListPopupIfNeed();
         mSortPopup.setAnimStyle(XUIPopup.DIRECTION_TOP);
         mSortPopup.setPreferredDirection(XUIPopup.DIRECTION_NONE);
-        mSortPopup.show(mBinding.llSortLayout);
+        mSortPopup.showDown(mBinding.llSortLayout);
         mOnSortTypeChangeListener.onSortPopShow();
     }
 

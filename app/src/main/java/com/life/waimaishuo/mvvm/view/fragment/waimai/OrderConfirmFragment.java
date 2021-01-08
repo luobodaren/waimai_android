@@ -1,5 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,13 @@ import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.FragmentConfirmAnOrderBinding;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
+import com.life.waimaishuo.mvvm.vm.waimai.OrderSelectedRedPacketViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -33,7 +37,7 @@ import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 
 @Page(name = "确认订单", anim = CoreAnim.slide)
-public class WaiMaiConfirmOrderFragment extends BaseFragment {
+public class OrderConfirmFragment extends BaseFragment {
 
     int currentOrderType = -1; //初始值-1  1：外卖 2：自取 3：仅有外卖 4：仅有自取 5：均没有
 
@@ -42,6 +46,9 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
     public static int ORDER_ACCESS_WAIMAI_ONLY = 3;
     public static int ORDER_ACCESS_ZIQU_ONLY = 4;
     public static int ORDER_ZIQU_PAY_SUCCESS = 5;   //店内自取且支付成功的状态
+
+    private static int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
+    private static int REQUEST_CODE_ORDER_NOTE = 1001;
 
     FragmentConfirmAnOrderBinding mBinding;
     WaiMaiConfirmOrderViewModel mViewModel;
@@ -140,6 +147,15 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
                     refreshOrderAccessData();
                 }
             }
+        });
+
+        mBinding.llRedPacket.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            openPageForResult(OrderSelectedRedPacketFragment.class,bundle,REQUEST_CODE_CHOSE_RED_PACKET);
+        });
+        mBinding.layoutOrderNote.clOrderNote.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            openPageForResult(OrderNoteFragment.class,bundle,REQUEST_CODE_ORDER_NOTE);
         });
     }
 
@@ -304,7 +320,7 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         leftAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getLeftPickUpTimeData()) {
             @Override
-            public int getLayoutId() {
+            public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_pick_up_time_left;
             }
 
@@ -334,7 +350,7 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         rightAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getRightPikUpTimeDataByIndex(0)) {
             @Override
-            public int getLayoutId() {
+            public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_pick_up_time_right;
             }
 
@@ -376,7 +392,7 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getPayTypeList()) {
             @Override
-            public int getLayoutId() {
+            public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_pay_type;
             }
 
@@ -513,4 +529,25 @@ public class WaiMaiConfirmOrderFragment extends BaseFragment {
         };
     }
 
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Intent data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_CHOSE_RED_PACKET){
+            if(resultCode == RESULT_CODE_SUCCESS){
+                RedPacket redPacket = data.getParcelableExtra(OrderSelectedRedPacketFragment.RESULT_KEY_RED_PACKET_ID);
+                if(redPacket != null){
+                    mViewModel.redPacketPriceValueObservable.set("-" + redPacket.getPriceValue());
+                }
+            }
+        }
+        if(requestCode == REQUEST_CODE_ORDER_NOTE){
+            if(resultCode == RESULT_CODE_SUCCESS){
+                String note = data.getStringExtra(OrderNoteFragment.RESULT_KEY_NOTE);
+                if(note != null){
+                    mViewModel.orderNoteObservable.set(note);
+                }
+            }
+        }
+
+    }
 }

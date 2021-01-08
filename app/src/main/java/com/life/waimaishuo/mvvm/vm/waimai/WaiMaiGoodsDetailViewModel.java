@@ -1,14 +1,12 @@
-package com.life.waimaishuo.mvvm.model.waimai;
+package com.life.waimaishuo.mvvm.vm.waimai;
 
 import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
 
-import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
+import com.life.waimaishuo.mvvm.model.waimai.WaiMaiGoodsDetailModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.RecommendedFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.WaiMaiGoodsEvaluationFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.WaiMaiRecommendGoodsFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.GoodsEvaluationFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.GoodsRecommendFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -60,10 +58,10 @@ public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
         BaseFragment baseFragment = null;
         switch (title){
             case "搭配":
-                baseFragment = new WaiMaiRecommendGoodsFragment();
+                baseFragment = new GoodsRecommendFragment();
                 break;
             case "评价":
-                baseFragment = new WaiMaiGoodsEvaluationFragment();
+                baseFragment = new GoodsEvaluationFragment();
                 break;
         }
         return baseFragment;

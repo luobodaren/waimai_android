@@ -180,6 +180,7 @@ public class CityPickerDialogFragment extends DialogFragment implements TextWatc
 
     private void initTitleBar() {
         mContentView.findViewById(R.id.iv_back).setOnClickListener(this);
+        ((TextView)mContentView.findViewById(R.id.tv_title)).setText(getString(R.string.city_picker));
     }
 
     private void initData() {

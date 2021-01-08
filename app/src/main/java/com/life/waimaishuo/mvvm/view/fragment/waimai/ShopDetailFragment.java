@@ -225,7 +225,7 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.goToSettleAccounts, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                openPage(WaiMaiConfirmOrderFragment.class);
+                openPage(OrderConfirmFragment.class);
             }
         });
     }
@@ -467,7 +467,7 @@ public class ShopDetailFragment extends BaseFragment {
             }
         });
         binding.redPacketRecyclerView.setAdapter(new MyBaseRecyclerAdapter<RedPacket>(
-                R.layout.item_recycler_red_packet, mViewModel.getPreferentialData().getRedPacketList(), BR.item) {
+                R.layout.item_recycler_dialog_red_packet, mViewModel.getPreferentialData().getRedPacketList(), BR.item) {
             String receiveStr = "";
             String receivedStr = "";
 
@@ -490,7 +490,7 @@ public class ShopDetailFragment extends BaseFragment {
 
                 Button receiveBt = helper.getView(R.id.bt_receive);
                 if (item.isGet()) {
-                    receiveBt.setBackground(getResources().getDrawable(R.drawable.sr_stroke_1px_full_raduis_red));
+                    receiveBt.setBackground(getResources().getDrawable(R.drawable.sr_stroke_1px_full_radius_red));
                     receiveBt.setText(receivedStr);
                     receiveBt.setTextColor(getResources().getColor(R.color.colorTheme));
                 } else {

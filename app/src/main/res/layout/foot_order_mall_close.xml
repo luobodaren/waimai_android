@@ -34,28 +34,19 @@
             app:layout_constraintEnd_toStartOf="@id/tv_goods_price"/>
 
         <Button
-            android:id="@+id/bt_pay"
-            android:layout_width="148px"
+            android:id="@+id/bt_deleted_order"
+            android:layout_width="wrap_content"
             android:layout_height="60px"
-            android:background="@drawable/sr_stroke_1px_10radius_red"
-            android:layout_marginTop="24px"
-            android:text="@string/pay"
-            android:textColor="@color/colorTheme"
+            android:text="@string/deleted_order"
             android:textSize="28px"
-            app:layout_constraintEnd_toEndOf="@id/tv_goods_price"
-            app:layout_constraintTop_toBottomOf="@id/tv_goods_price"/>
-
-        <Button
-            android:id="@+id/bt_cancel_order"
-            android:layout_width="148px"
-            android:layout_height="60px"
-            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            android:paddingStart="18px"
+            android:paddingEnd="18px"
             android:layout_marginEnd="16px"
-            android:text="@string/cancel_order"
             android:textColor="@color/text_normal"
-            android:textSize="28px"
-            app:layout_constraintEnd_toStartOf="@id/bt_pay"
-            app:layout_constraintTop_toTopOf="@id/bt_pay"/>
+            android:includeFontPadding="false"
+            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            app:layout_constraintEnd_toStartOf="@id/tv_goods_price"
+            app:layout_constraintTop_toTopOf="@id/tv_goods_price"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

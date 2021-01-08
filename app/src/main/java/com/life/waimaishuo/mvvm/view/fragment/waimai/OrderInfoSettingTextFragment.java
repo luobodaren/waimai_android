@@ -105,11 +105,11 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
     }
 
     private int getAccessType(int type){
-        if(type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_WAIMAI || type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_WAIMAI_ONLY){
+        if(type == OrderConfirmFragment.ORDER_ACCESS_WAIMAI || type == OrderConfirmFragment.ORDER_ACCESS_WAIMAI_ONLY){
             return ACCESS_WAIMAI;
-        }else if(type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_ZIQU || type == WaiMaiConfirmOrderFragment.ORDER_ACCESS_ZIQU_ONLY){
+        }else if(type == OrderConfirmFragment.ORDER_ACCESS_ZIQU || type == OrderConfirmFragment.ORDER_ACCESS_ZIQU_ONLY){
             return ACCESS_ZIQU;
-        }else if(type == WaiMaiConfirmOrderFragment.ORDER_ZIQU_PAY_SUCCESS){
+        }else if(type == OrderConfirmFragment.ORDER_ZIQU_PAY_SUCCESS){
             return -1;
         }
         return -1;

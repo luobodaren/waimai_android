@@ -70,6 +70,7 @@
     <string name="taste">味道</string>
     <string name="merchants_info">商家信息</string>
     <string name="report_merchants">举报商家</string>
+    <string name="report_content">举报内容</string>
     <string name="brand_introduce">品牌介绍</string>
     <string name="video_introduce">视频介绍</string>
     <string name="empty">清空</string>
@@ -97,6 +98,30 @@
     <string name="place_the_order_of_time">下单时间</string>
     <string name="add_to_shopping_cart">加入购物车</string>
     <string name="the_prices_instructions_according_specification">说明：商品价格会根据所选规格变化</string>
-
+    <string name="reset">重置</string>
+    <string name="finish">完成</string>
+    <string name="note_hint_text">填写额外对商家和外卖小哥的备注信息</string>
+    <string name="usual_note">常用备注</string>
+    <string name="text_input_number">%1$d/%2$d个字</string>
+    <string name="confirm">提交</string>
+    <string name="ensure">确定</string>
+    <string name="max_num_of_selected_picture">(最多可添加%1$s张图片)</string>
+    <string name="evaluation">评价</string>
+    <string name="go_pay">去支付</string>
+    <string name="connect_online">在线联系</string>
+    <string name="connect_driver">电话骑手</string>
+    <string name="deleted_order">删除订单</string>
+    <string name="after_sale_process">售后进度</string>
+    <string name="foods_number">等%1$s件</string>
+    <string name="goods_price">￥%1$s元</string>
+    <string name="receipt_confirm">确认签收</string>
+    <string name="driver_info">骑手信息</string>
+    <string name="lengthen_receipt_time">延长收货</string>
+    <string name="application_for_drawback">申请退款</string>
+    <string name="remind_the_delivery">提醒发货</string>
+    <string name="sure_cancel_order">您确定取消订单吗</string>
+    <string name="dial">拨号</string>
+    <string name="sure_receipt_confirm">是否确认签收？</string>
+    <string name="lengthen_sure_receipt">您确定要延长收货吗</string>
 
 </resources>

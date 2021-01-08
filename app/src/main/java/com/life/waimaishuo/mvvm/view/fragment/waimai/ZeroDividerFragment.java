@@ -28,7 +28,7 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
 @Page(name = "0元配送", anim = CoreAnim.slide)
-public class WaiMaiZeroDividerFragment extends BaseFragment {
+public class ZeroDividerFragment extends BaseFragment {
 
     private FragmentWaimaiZeroPriceDeliverBinding mBinding;
     private WaiMaiZeroDividerViewModel mViewModel;
@@ -141,7 +141,7 @@ public class WaiMaiZeroDividerFragment extends BaseFragment {
     private SelectedPositionRecylerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
         return new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getSubtypeTitles()){
             @Override
-            public int getLayoutId() {
+            public int getLayoutId(int viewType) {
                 return R.layout.item_waimai_food_subtype;
             }
 

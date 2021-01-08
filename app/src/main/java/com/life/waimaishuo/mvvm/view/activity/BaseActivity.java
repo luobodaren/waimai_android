@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 
 import com.life.waimaishuo.util.ActivityCollector;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -32,7 +33,7 @@ public abstract class BaseActivity extends XPageActivity {
     //是否允许旋转屏幕
     private boolean isAllowScreenRotate = true;
     //是否设置沉浸式状态栏
-    private boolean isTransluecnt = true;
+    private boolean isTranslucent = true;
     //是否留出状态栏宽度
     private boolean isFitStatusBarHeight = true;
     //封装Toast对象
@@ -59,7 +60,7 @@ public abstract class BaseActivity extends XPageActivity {
         //activity管理
         ActivityCollector.addActivity(this);
 
-//        //MVVM 绑定布局
+        //MVVM 绑定布局
 //        mViewDataBinding = DataBindingUtil.setContentView(this,initLayout());
 //        baseViewModel = setViewModel();
 //        bindViewModel();
@@ -74,7 +75,7 @@ public abstract class BaseActivity extends XPageActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
                     , WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }else{
-            if(isTransluecnt){
+            if(isTranslucent){
                 StatusBarUtils.translucent(this, Color.TRANSPARENT);
                 if(isFitStatusBarHeight){
                     StatusBarUtils.fitStatusBarHeight(this);
@@ -127,7 +128,7 @@ public abstract class BaseActivity extends XPageActivity {
      * @param transluecnt
      */
     public void setTransluecnt(boolean transluecnt) {
-        isTransluecnt = transluecnt;
+        isTranslucent = transluecnt;
     }
 
     /**

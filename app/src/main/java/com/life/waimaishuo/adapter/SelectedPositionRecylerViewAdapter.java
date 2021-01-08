@@ -44,7 +44,7 @@ public abstract class SelectedPositionRecylerViewAdapter<T> extends RecyclerView
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        mView = LayoutInflater.from(mContext).inflate(getLayoutId(), parent, false);
+        mView = LayoutInflater.from(mContext).inflate(getLayoutId(viewType), parent, false);
         return new BaseViewHolder(mView);
     }
 
@@ -82,7 +82,7 @@ public abstract class SelectedPositionRecylerViewAdapter<T> extends RecyclerView
         this.data = data;
     }
 
-    public abstract int getLayoutId();
+    public abstract int getLayoutId(int viewType);
 
     public abstract void onBindViewHolder(BaseViewHolder holder, boolean selected, T item);
 

@@ -16,7 +16,7 @@ import com.xuexiang.xui.adapter.recyclerview.GridDividerItemDecoration;
 import java.util.List;
 
 @Page(name = "搭配")
-public class WaiMaiRecommendGoodsFragment extends BaseRecyclerFragment {
+public class GoodsRecommendFragment extends BaseRecyclerFragment {
 
     RecommendGoodsViewModel mViewModel;
 

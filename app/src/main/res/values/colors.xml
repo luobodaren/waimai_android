@@ -17,16 +17,20 @@
     <color name="background">#f8f8f8</color>
     <color name="background2">#F5F5F5</color>
     <color name="divider">#E6E6E6</color>
+    <color name="stroke">#E5E5E5</color>
 
     <color name="bg_80_black">#80000000</color>
 
     <color name="text_deep_black">#FF232323</color>
     <color name="text_normal">#333333</color>
+    <color name="text_disable">#66333333</color>
     <color name="text_uncheck">#666666</color>
     <color name="text_deleted">#FF858585</color>
     <color name="text_tip">#999999</color>
     <color name="text_tip2">#FFC7C7C7</color>
+    <color name="text_tip3">#B9B9B9</color>
     <color name="text_assist">#bbbbbb</color>
+
 
     <color name="view_uncheck">#666666</color>
     <color name="view_check">@color/colorTheme</color>
@@ -55,7 +59,7 @@
     <color name="linkage_primary_item_bg_selected">#FFFFFF</color>
 
     <color name="score_text">@color/colorAssist_2</color>
-    <color name="shop_menbers_cardview_bg">#FFFFF0E7</color>
+    <color name="shop_members_cardview_bg">#FFFFF0E7</color>
     <color name="shopping_cart_background">#FF272727</color>
 
     <color name="city_picker_divider_bg">#F1F1F1</color>

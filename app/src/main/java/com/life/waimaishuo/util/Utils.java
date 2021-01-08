@@ -1,10 +1,12 @@
 package com.life.waimaishuo.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,11 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.life.waimaishuo.R;
+import com.luck.picture.lib.PictureSelectionModel;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 
 public class Utils {
 
@@ -96,6 +103,53 @@ public class Utils {
             }
         });
         return gridLayoutManager;
+    }
+
+    //==========图片选择===========//
+
+    /**
+     * 获取图片选择的配置
+     *
+     * @param fragment
+     * @return
+     */
+    public static PictureSelectionModel getPictureSelector(Fragment fragment, int maxSelectNum) {
+        /*return PictureSelector.create(fragment)
+                .openGallery(PictureMimeType.ofImage())
+                .theme(SettingSPUtils.getInstance().isUseCustomTheme() ? R.style.XUIPictureStyle_Custom : R.style.XUIPictureStyle)  //自定义主题
+                .maxSelectNum(maxSelectNum)
+                .minSelectNum(1)
+                .selectionMode(PictureConfig.MULTIPLE)
+                .previewImage(true)
+                .isCamera(true)
+                .enableCrop(false)
+                .compress(true)
+                .previewEggs(true);*/
+        return PictureSelector.create(fragment)
+                .openGallery(PictureMimeType.ofImage())
+                .theme(R.style.XUIPictureStyle)
+                .maxSelectNum(maxSelectNum)
+                .minSelectNum(1)
+                .selectionMode(PictureConfig.MULTIPLE)
+                .previewImage(true)
+                .isCamera(true)
+                .enableCrop(false)
+                .compress(true)
+                .previewEggs(true);
+    }
+
+    public static PictureSelectionModel getPictureSelector(Activity activity, int maxSelectNum) {
+        return PictureSelector.create(activity)
+                .openGallery(PictureMimeType.ofImage())
+                .theme(R.style.XUIPictureStyle)
+                .maxSelectNum(maxSelectNum)
+                .minSelectNum(1)
+                .selectionMode(PictureConfig.MULTIPLE)
+                .previewImage(true)
+                .isCamera(true)
+                .enableCrop(false)
+                .compress(true)
+                .previewEggs(true);
     }
 
 }

@@ -3,7 +3,7 @@
     <item android:state_selected="true">
         <shape>
             <corners android:radius="10px"/>
-            <solid android:color="@color/colorTheme_10_percent"/>
+            <solid android:color="@color/colorTheme"/>
         </shape>
     </item>
 
