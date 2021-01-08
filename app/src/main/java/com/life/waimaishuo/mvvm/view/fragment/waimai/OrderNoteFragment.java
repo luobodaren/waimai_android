@@ -75,7 +75,7 @@ public class OrderNoteFragment extends BaseFragment {
     }
 
     private void initInputNoteEditText() {
-        mViewModel.orderNoteTextNumberObservable.set(getString(R.string.text_input_number,0,0));
+        mViewModel.orderNoteTextNumberObservable.set(getString(R.string.text_input_number,0,maxNoteCharts));
         InputFilter[] inputFilter = new InputFilter[]{new InputFilter.LengthFilter(maxNoteCharts)};
         mBinding.et.setFilters(inputFilter);    //设置最大字符数
         mBinding.et.addTextChangedListener(new TextWatcher() {

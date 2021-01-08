@@ -2,8 +2,12 @@ package com.life.waimaishuo.views;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
+
+import androidx.annotation.DrawableRes;
 
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
@@ -20,6 +24,7 @@ public class SortPopup extends XUIListPopup {
     }
 
     int space = 0;
+
     @Override
     protected Point onShow(View attachedView) {
         Point point = super.onShow(attachedView);
@@ -31,5 +36,9 @@ public class SortPopup extends XUIListPopup {
         }
         point.y += + space;
         return point;
+    }
+
+    public void setContentViewBackground(@DrawableRes int backgroundId){
+        mRootView.findViewById(R.id.box).setBackground(getContext().getResources().getDrawable(backgroundId));
     }
 }

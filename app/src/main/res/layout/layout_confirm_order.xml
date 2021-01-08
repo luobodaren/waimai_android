@@ -78,7 +78,7 @@
                 android:id="@+id/tv_to_settle_accounts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/confirm_order"
+                android:text="@string/submit_order"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_30" />
 

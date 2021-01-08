@@ -1,7 +1,10 @@
 package com.life.waimaishuo.mvvm.view.fragment.order;
 
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -30,6 +33,9 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
+import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
+import com.xuexiang.xui.widget.popupwindow.popup.XUIListPopup;
+import com.xuexiang.xui.widget.popupwindow.popup.XUIPopup;
 
 @Page(name = "订单页 ViewPager子页")
 public class OrderBarItemFragment extends BaseChildFragment {
@@ -37,6 +43,8 @@ public class OrderBarItemFragment extends BaseChildFragment {
     private OrderListItemViewModel mViewModel;
 
     private OrderPageEnum mPageType;
+
+    private XUIListPopup mListPopup;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -90,25 +98,27 @@ public class OrderBarItemFragment extends BaseChildFragment {
                     adapter1.addHeaderView(headView);
 
                     View footView;
-                    if(item.getOrderState() == OrderStateEnum.UN_PAY.getCode()){
+                    if (item.getOrderState() == OrderStateEnum.UN_PAY.getCode()) {
                         footView = View.inflate(MyApplication.getMyApplication(), R.layout.foot_order_mall_unpay, null);
                         adapter1.addFooterView(footView);
-                    } else if (item.getOrderState() == OrderStateEnum.UN_DELIVER.getCode()){
+                    } else if (item.getOrderState() == OrderStateEnum.UN_DELIVER.getCode()) {
                         footView = View.inflate(MyApplication.getMyApplication(), R.layout.foot_order_mall_un_deliver, null);
                         adapter1.addFooterView(footView);
-                    } else if (item.getOrderState() == OrderStateEnum.DELIVER.getCode()){
+                    } else if (item.getOrderState() == OrderStateEnum.DELIVER.getCode()) {
                         footView = View.inflate(MyApplication.getMyApplication(), R.layout.foot_order_mall_deliver, null);
                         footView.findViewById(R.id.bt_receipt_confirm).setOnClickListener(v -> onReceiptButtonClick(item));
                         footView.findViewById(R.id.bt_driver_info).setOnClickListener(v -> onDriverInfoButtonClick(item));
                         footView.findViewById(R.id.bt_lengthen_receipt_time).setOnClickListener(v -> onLengthenReceiptButtonClick(item));
                         adapter1.addFooterView(footView);
-                    } else if (item.getOrderState() == OrderStateEnum.FINISH.getCode()){
+                    } else if (item.getOrderState() == OrderStateEnum.FINISH.getCode()) {
                         footView = View.inflate(MyApplication.getMyApplication(), R.layout.foot_order_mall_finish, null);
+                        footView.findViewById(R.id.bt_comment).setOnClickListener(v -> onMallCommentButtonClick(item));
+                        footView.findViewById(R.id.iv_menu).setOnClickListener(v -> onIvMenuClick(v, item));
                         adapter1.addFooterView(footView);
-                    } else if (item.getOrderState() == OrderStateEnum.AFTER_SALES.getCode()){
+                    } else if (item.getOrderState() == OrderStateEnum.AFTER_SALES.getCode()) {
                         footView = View.inflate(MyApplication.getMyApplication(), R.layout.foot_order_mall_after_sale, null);
                         adapter1.addFooterView(footView);
-                    } else if (item.getOrderState() == OrderStateEnum.CLOSE.getCode()){
+                    } else if (item.getOrderState() == OrderStateEnum.CLOSE.getCode()) {
                         footView = View.inflate(MyApplication.getMyApplication(), R.layout.foot_order_mall_close, null);
                         adapter1.addFooterView(footView);
                     }
@@ -117,21 +127,24 @@ public class OrderBarItemFragment extends BaseChildFragment {
                                     LinearLayoutManager.VERTICAL, false));
                     ((RecyclerView) holder.getView(R.id.recycler_goods_list)).setAdapter(adapter1);
                 } else {    //外卖的布局
-                    if(viewType == waimai_un_pay || viewType == waimai_finish
-                            || viewType == waimai_after_sales){
+                    if (viewType == waimai_un_pay || viewType == waimai_finish
+                            || viewType == waimai_after_sales) {
                         item.setString_1(item.getOrderCreateTime());//处理头布局显示的info
 
-                        holder.text(R.id.tv_foods_info, getFoodsSimpleInfo(item,false));
-                        holder.text(R.id.tv_foods_price,getOrderPrice(item));
+                        holder.text(R.id.tv_foods_info, getFoodsSimpleInfo(item, false));
+                        holder.text(R.id.tv_foods_price, getOrderPrice(item));
 
-                        if(viewType == waimai_un_pay){
+                        if (viewType == waimai_un_pay) {
                             holder.click(R.id.bt_cancel_order, v -> onCancelOrderButtonClick(item));
+                        } else if (viewType == waimai_finish) {
+                            holder.click(R.id.bt_comment, v -> onWaimaiCommentButtonClick(item));
+                            holder.click(R.id.iv_menu,v -> onIvMenuClick(v,item));
                         }
 
-                    }else if(viewType == waimai_un_deliver || viewType == waimai_deliver){
-                        item.setString_1(getFoodsSimpleInfo(item,true));//处理头布局显示的info
+                    } else if (viewType == waimai_un_deliver || viewType == waimai_deliver) {
+                        item.setString_1(getFoodsSimpleInfo(item, true));//处理头布局显示的info
 
-                        holder.click(R.id.bt_connect_driver,v -> onConnectedDriverButtonClick(item));
+                        holder.click(R.id.bt_connect_driver, v -> onConnectedDriverButtonClick(item));
                         //处理地图信息
                     }
 
@@ -164,7 +177,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
                 // TODO: 2021/1/7 添加逻辑 判断是外卖还是商场
                 //若是商场，则用一个布局文件 完成内容切换
                 int orderType = getData().get(position).getOrderType();
-                if(orderType == OrderTypeEnum.WAI_MAI.getCode()){   //外卖类型布局
+                if (orderType == OrderTypeEnum.WAI_MAI.getCode()) {   //外卖类型布局
                     OrderStateEnum orderStateEnum =
                             OrderStateEnum.valueOf(getData().get(position).getOrderState());
                     if (orderStateEnum != null) {
@@ -183,7 +196,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
                     } else {
                         LogUtil.e("布局类型匹配失败");
                     }
-                } else if (orderType == OrderTypeEnum.MALL.getCode()){  //商城类型布局
+                } else if (orderType == OrderTypeEnum.MALL.getCode()) {  //商城类型布局
                     return mall;
                 }
 
@@ -198,6 +211,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             int space = (int) UIUtils.getInstance(requireContext()).scalePx(
                     getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
@@ -208,21 +222,22 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
     /**
      * 获得简要的订单商品信息
+     *
      * @param order
      * @param isWithPrice
      * @return
      */
-    private String getFoodsSimpleInfo(Order order, boolean isWithPrice){
+    private String getFoodsSimpleInfo(Order order, boolean isWithPrice) {
         String foodsInfo = "";
-        if(order.getFoodsList().size() > 1){
+        if (order.getFoodsList().size() > 1) {
             foodsInfo = order.getFoodsList().get(0).getName() + " " +
-                    getString(R.string.foods_number,String.valueOf(order.getFoodsList().size()));
-        }else if(order.getFoodsList().size() == 1){
+                    getString(R.string.foods_number, String.valueOf(order.getFoodsList().size()));
+        } else if (order.getFoodsList().size() == 1) {
             foodsInfo = order.getFoodsList().get(0).getName();
-        }else{
+        } else {
             LogUtil.d("订单商品信息出错，没有商品信息");
         }
-        if(isWithPrice){
+        if (isWithPrice) {
             foodsInfo = foodsInfo + " " + getOrderPrice(order);
         }
         return foodsInfo;
@@ -230,22 +245,24 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
     /**
      * 获得订单价格 带格式
+     *
      * @param order
      * @return
      */
-    private String getOrderPrice(Order order){
-        return getString(R.string.goods_price,String.valueOf(order.getOrderPrice()));
+    private String getOrderPrice(Order order) {
+        return getString(R.string.goods_price, String.valueOf(order.getOrderPrice()));
     }
 
     /**
      * 显示取消订单确认dialog
+     *
      * @param order
      */
-    private void onCancelOrderButtonClick(Order order){
+    private void onCancelOrderButtonClick(Order order) {
         new SimpleConfirmCancelDialog.Builder(requireContext())
-                .setContentString(getString(R.string.sure_cancel_order),R.color.text_normal)
-                .initLeftBt(getString(R.string.ensure),R.color.text_tip,false)
-                .initRightBt(getString(R.string.cancel),R.color.text_normal,true)
+                .setContentString(getString(R.string.sure_cancel_order), R.color.text_normal)
+                .initLeftBt(getString(R.string.confirm), R.color.text_tip, false)
+                .initRightBt(getString(R.string.cancel), R.color.text_normal, true)
                 .setOnButtonClickListener((view, position) -> {
 
                 })
@@ -254,13 +271,14 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
     /**
      * 显示联系骑手dialog
+     *
      * @param order
      */
-    private void onConnectedDriverButtonClick(Order order){
+    private void onConnectedDriverButtonClick(Order order) {
         new SimpleConfirmCancelDialog.Builder(requireContext())
-                .setContentString("13513153551",R.color.text_normal) // FIXME: 2021/1/7 写入骑手电话
-                .initLeftBt(getString(R.string.cancel),R.color.text_tip,false)
-                .initRightBt(getString(R.string.dial),R.color.text_normal,true)
+                .setContentString("13513153551", R.color.text_normal) // FIXME: 2021/1/7 写入骑手电话
+                .initLeftBt(getString(R.string.cancel), R.color.text_tip, false)
+                .initRightBt(getString(R.string.dial), R.color.text_normal, true)
                 .setOnButtonClickListener((view, position) -> {
 
                 })
@@ -269,13 +287,14 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
     /**
      * 显示确认签收dialog
+     *
      * @param order
      */
-    private void onReceiptButtonClick(Order order){
+    private void onReceiptButtonClick(Order order) {
         new SimpleConfirmCancelDialog.Builder(requireContext())
-                .setContentString(getString(R.string.sure_receipt_confirm),R.color.text_normal)
-                .initLeftBt(getString(R.string.cancel),R.color.text_normal,true)
-                .initRightBt(getString(R.string.ensure),R.color.text_normal,true)
+                .setContentString(getString(R.string.sure_receipt_confirm), R.color.text_normal)
+                .initLeftBt(getString(R.string.cancel), R.color.text_normal, true)
+                .initRightBt(getString(R.string.confirm), R.color.text_normal, true)
                 .setOnButtonClickListener((view, position) -> {
 
                 })
@@ -284,13 +303,14 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
     /**
      * 显示骑手信息dialog
+     *
      * @param order
      */
-    private void onDriverInfoButtonClick(Order order){
+    private void onDriverInfoButtonClick(Order order) {
         new SimpleConfirmCancelDialog.Builder(requireContext())
-                .setContentString("王小二\n400-333-222",R.color.text_normal) // FIXME: 2021/1/7 写入骑手信息
-                .initLeftBt(getString(R.string.cancel),R.color.text_normal,true)
-                .initRightBt(getString(R.string.dial),R.color.text_normal,true)
+                .setContentString("王小二\n400-333-222", R.color.text_normal) // FIXME: 2021/1/7 写入骑手信息
+                .initLeftBt(getString(R.string.cancel), R.color.text_normal, true)
+                .initRightBt(getString(R.string.dial), R.color.text_normal, true)
                 .setOnButtonClickListener((view, position) -> {
 
                 })
@@ -299,18 +319,75 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
     /**
      * 显示延长签收dialog
+     *
      * @param order
      */
-    private void onLengthenReceiptButtonClick(Order order){
+    private void onLengthenReceiptButtonClick(Order order) {
         new SimpleConfirmCancelDialog.Builder(requireContext())
-                .setContentString(getString(R.string.lengthen_sure_receipt),R.color.text_normal)
-                .initLeftBt(getString(R.string.cancel),R.color.text_normal,true)
-                .initRightBt(getString(R.string.ensure),R.color.text_normal,true)
+                .setContentString(getString(R.string.lengthen_sure_receipt), R.color.text_normal)
+                .initLeftBt(getString(R.string.cancel), R.color.text_normal, true)
+                .initRightBt(getString(R.string.confirm), R.color.text_normal, true)
                 .setOnButtonClickListener((view, position) -> {
 
                 })
                 .build().show();
     }
 
+    /**
+     * 商城订单评论按钮点击
+     */
+    private void onMallCommentButtonClick(Order order) {
+        Bundle bundle = new Bundle();
+        openPage(EvaluateMallFragment.class, bundle);
+    }
+
+    /**
+     * 外卖订单评论按钮点击
+     */
+    private void onWaimaiCommentButtonClick(Order order) {
+        Bundle bundle = new Bundle();
+        openPage(EvaluateWaiMaiFragment.class, bundle);
+    }
+
+    /**
+     * 菜单图标点击
+     */
+    private void onIvMenuClick(View v,Order order) {
+        initListPopupIfNeed();
+        setListPopupItemClickListener((parent, view, position, id) -> {
+            mListPopup.dismiss();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("order",order);    // TODO: 2021/1/8 改为fragment内的静态方法
+            openPage(ApplyAfterSalesFragment.class,bundle);
+        });
+        mListPopup.setAnimStyle(XUIPopup.ANIM_GROW_FROM_CENTER);
+        mListPopup.setPreferredDirection(XUIPopup.DIRECTION_BOTTOM);
+        mListPopup.show(v);
+    }
+
+    /**
+     * 初始化
+     */
+    private void initListPopupIfNeed() {
+        if (mListPopup == null) {
+            int margin = 0;
+            String[] listItems = new String[]{
+                    "申请售后"
+            };
+            XUISimpleAdapter adapter = XUISimpleAdapter.create(getContext(), listItems);
+            mListPopup = new XUIListPopup(getContext(), adapter);
+            mListPopup.create((int) UIUtils.getInstance(requireContext()).scalePx(152),
+                    (int) UIUtils.getInstance(
+                            requireContext()).scalePx(200), null);
+            FrameLayout.LayoutParams lp =
+                    (FrameLayout.LayoutParams)mListPopup.getListView().getLayoutParams();
+            lp.setMargins(0,margin,0,margin);
+            mListPopup.getListView().setLayoutParams(lp);
+        }
+    }
+
+    private void setListPopupItemClickListener(AdapterView.OnItemClickListener onItemClickListener){
+        mListPopup.getListView().setOnItemClickListener(onItemClickListener);
+    }
 
 }

@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.order.EvaluateViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_simple" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:padding="@dimen/interval_size_xs"
+                    android:background="@drawable/sr_bg_8dp_white">
+
+                    <com.xuexiang.xui.widget.imageview.RadiusImageView
+                        android:id="@+id/iv_shopIcon"
+                        android:layout_width="100px"
+                        android:layout_height="100px"
+                        android:src="@drawable/ic_waimai_brand"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:riv_corner_radius="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_shopName"
+                        style="@style/text_my_simple_style"
+                        android:layout_marginStart="@dimen/interval_size_xs"
+                        android:textColor="@color/text_normal"
+                        android:textSize="30px"
+                        app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
+                        app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+                        tools:text="德克士炸鸡店" />
+
+                    <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
+                        android:id="@+id/scale_rating_bar_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        app:srb_rating="4"
+                        app:srb_starPadding="36px"
+                        app:srb_drawableEmpty="@drawable/ic_star_gray"
+                        app:srb_drawableFilled="@drawable/ic_star_red"
+                        app:srb_stepSize="1"
+                        app:srb_starWidth="60px"
+                        app:srb_starHeight="60px"
+                        app:layout_constraintTop_toBottomOf="@id/iv_shopIcon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
+                        android:id="@+id/scale_rating_bar_packaging"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_rating="4"
+                        app:srb_starPadding="28px"
+                        app:srb_drawableEmpty="@drawable/ic_star_gray"
+                        app:srb_drawableFilled="@drawable/ic_star_red"
+                        app:srb_stepSize="1"
+                        app:srb_starWidth="36px"
+                        app:srb_starHeight="36px"
+                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_main"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
+                        android:id="@+id/scale_rating_bar_quality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srb_rating="4"
+                        app:srb_starPadding="28px"
+                        app:srb_drawableEmpty="@drawable/ic_star_gray"
+                        app:srb_drawableFilled="@drawable/ic_star_red"
+                        app:srb_stepSize="1"
+                        app:srb_starWidth="36px"
+                        app:srb_starHeight="36px"
+                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_packaging"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/packaging"
+                        android:textColor="@color/text_normal"
+                        android:textSize="28px"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_packaging"
+                        app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_packaging"
+                        app:layout_constraintEnd_toStartOf="@id/scale_rating_bar_packaging" />
+
+                    <TextView
+                        android:id="@+id/tv_packaging_score_info"
+                        style="@style/text_my_simple_style"
+                        android:textSize="@dimen/font_size_24"
+                        android:textColor="@color/colorTheme"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_packaging"
+                        app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_packaging"
+                        app:layout_constraintStart_toEndOf="@id/scale_rating_bar_packaging"
+                        tools:text="超赞" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quality"
+                        android:textColor="@color/text_normal"
+                        android:textSize="28px"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_quality"
+                        app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_quality"
+                        app:layout_constraintEnd_toStartOf="@id/scale_rating_bar_quality" />
+
+
+                    <TextView
+                        android:id="@+id/tv_quality_score_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_size_24"
+                        android:textColor="@color/colorTheme"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_quality"
+                        app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_quality"
+                        app:layout_constraintStart_toEndOf="@id/scale_rating_bar_quality"
+                        tools:text="超赞" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/sr_bg_8dp_gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_quality">
+
+                        <EditText
+                            android:id="@+id/et_shop_comment"
+                            style="@style/et_input_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="200px"
+                            android:layout_margin="@dimen/interval_size_xs"
+                            android:background="@null"
+                            android:text="@={viewModel.waimaiCommentContentObservable}"
+                            android:hint="@string/hint_text_shop_comment"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_selected_picture"
+                            android:layout_marginTop="32px"
+                            android:overScrollMode="never"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/et_shop_comment" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:padding="@dimen/interval_size_xs"
+                    android:background="@drawable/sr_bg_8dp_white">
+
+
+                    <com.xuexiang.xui.widget.imageview.RadiusImageView
+                        android:id="@+id/iv_driver_icon"
+                        android:layout_width="100px"
+                        android:layout_height="100px"
+                        android:src="@drawable/ic_waimai_brand"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:riv_corner_radius="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_driver_name"
+                        style="@style/text_my_simple_style"
+                        android:layout_marginTop="10px"
+                        android:layout_marginStart="@dimen/interval_size_xs"
+                        android:textColor="@color/text_normal"
+                        android:textSize="30px"
+                        app:layout_constraintTop_toTopOf="@id/iv_driver_icon"
+                        app:layout_constraintStart_toEndOf="@id/iv_driver_icon"
+                        tools:text="德克士炸鸡店" />
+
+                    <TextView
+                        android:id="@+id/tv_deliver_time"
+                        style="@style/text_my_simple_style"
+                        android:layout_marginStart="@dimen/interval_size_xs"
+                        android:layout_marginBottom="10px"
+                        android:textSize="30px"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_driver_icon"
+                        app:layout_constraintStart_toEndOf="@id/iv_driver_icon"
+                        tools:text="德克士炸鸡店" />
+
+                    <TextView
+                        style="@style/text_my_simple_style"
+                        android:text="@string/anonymous_to_driver"
+                        android:textSize="26px"
+                        android:textColor="@color/text_tip"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
+                        android:id="@+id/scale_rating_bar_driver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="60px"
+                        app:srb_rating="4"
+                        app:srb_starPadding="36px"
+                        app:srb_drawableEmpty="@drawable/ic_star_gray"
+                        app:srb_drawableFilled="@drawable/ic_star_red"
+                        app:srb_stepSize="1"
+                        app:srb_starWidth="60px"
+                        app:srb_starHeight="60px"
+                        app:layout_constraintTop_toBottomOf="@id/iv_driver_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+                        android:id="@+id/flowTagLayout_driver_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_driver"
+                        android:layout_marginTop="60px" />
+
+                    <EditText
+                        android:id="@+id/et_driver_comment"
+                        style="@style/et_input_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="180px"
+                        android:text="@={viewModel.driveCommentContentObservable}"
+                        android:hint="@string/hint_text_driver_comment"
+                        android:padding="@dimen/interval_size_xs"
+                        android:paddingStart="@dimen/interval_size_xs"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sr_bg_8dp_gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/flowTagLayout_driver_comment" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/bt_submit_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:layout_marginTop="40px"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:textColor="@color/white"
+                    android:textSize="36px"
+                    android:text="@string/submit_comment"
+                    android:background="@drawable/sr_bg_gradient_full_radius_theme" />
+            </LinearLayout>
+
+        </ScrollView>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

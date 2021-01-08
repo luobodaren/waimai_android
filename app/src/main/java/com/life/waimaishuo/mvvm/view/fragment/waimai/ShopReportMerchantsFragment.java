@@ -123,16 +123,20 @@ public class ShopReportMerchantsFragment extends BaseFragment {
     private void initSelectedPictureRecycler() {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 4, RecyclerView.VERTICAL, false);
         mBinding.recyclerSelectedPicture.setLayoutManager(manager);
-        mBinding.recyclerSelectedPicture.setAdapter(imageSelectGridAdapter = new ImageSelectGridAdapter(getActivity(), new ImageSelectGridAdapter.OnAddPicClickListener() {
+        mBinding.recyclerSelectedPicture.setAdapter(imageSelectGridAdapter =
+                new ImageSelectGridAdapter(
+                        getActivity(),
+                        () -> Utils.getPictureSelector(
+                                ShopReportMerchantsFragment.this, maxSelectNum)
+                .selectionMedia(mSelectList)
+                .forResult(PictureConfig.CHOOSE_REQUEST)) {
             @Override
-            public void onAddPicClick() {
-                Utils.getPictureSelector(ShopReportMerchantsFragment.this,maxSelectNum)
-                        .selectionMedia(mSelectList)
-                        .forResult(PictureConfig.CHOOSE_REQUEST);
+            public int getItemLayoutId() {
+                return R.layout.adapter_select_image_grid_item_report_merchants;
             }
-        }));
+        });
         imageSelectGridAdapter.setSelectList(mSelectList);
-        imageSelectGridAdapter.setSelectMax(8);
+        imageSelectGridAdapter.setSelectMax(maxSelectNum);
         imageSelectGridAdapter.setOnItemClickListener((position, v) -> PictureSelector.create(ShopReportMerchantsFragment.this).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList));
     }
 

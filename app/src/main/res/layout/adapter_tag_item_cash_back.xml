@@ -14,7 +14,7 @@
         android:paddingEnd="6px"
         android:layout_marginStart="7px"
         android:layout_marginTop="7px"
-        android:background="@drawable/sr_stroke_1px_4radius_red"
+        android:background="@drawable/sr_stroke_1px_2dp_red"
         android:textSize="22px"
         android:textColor="@color/colorTheme"
         tools:text="60减25"/>

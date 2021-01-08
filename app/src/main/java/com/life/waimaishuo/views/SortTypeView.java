@@ -390,6 +390,7 @@ public class SortTypeView extends FrameLayout {
                 mBinding.tvSortType.setText(currentSortTypeEnum.getType());
                 mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
             });
+            mSortPopup.setContentViewBackground(R.drawable.sr_bg_sort_pop); //必须在创建create方法后调用才能生效
             mSortPopup.setOnDismissListener(() -> LogUtil.e("排序pop dismiss"));
         }
     }

@@ -8,7 +8,7 @@
         android:id="@+id/tv_discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/sr_stroke_1px_4radius_red"
+        android:background="@drawable/sr_stroke_1px_2dp_red"
         android:textSize="22px"
         android:paddingStart="6px"
         android:paddingEnd="6px"

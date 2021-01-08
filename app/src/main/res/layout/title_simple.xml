@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/titlebar_height"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="44px"
-        android:layout_height="44px"
-        android:layout_marginStart="@dimen/interval_size_xs"
-        android:src="@drawable/ic_arrow_left_black"
-        android:layout_centerVertical="true"/>
+    <data>
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="36px"
-        android:textColor="@color/text_normal"
-        android:includeFontPadding="false"
-        android:layout_centerInParent="true"
-        tools:text="string/title"/>
+    </data>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:src="@drawable/ic_arrow_left_black"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="36px"
+            android:textColor="@color/text_normal"
+            android:includeFontPadding="false"
+            android:layout_centerInParent="true"
+            tools:text="string/title" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:textSize="30px"
+            android:textColor="@color/text_normal"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/interval_size_xs" />
+
+    </RelativeLayout>
+</layout>

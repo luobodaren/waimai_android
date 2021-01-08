@@ -57,7 +57,7 @@
             <TextView
                 android:id="@+id/tv_deliver_satisfaction"
                 style="@style/text_shop_evaluation_score_type"
-                android:text="@string/diliver_satisfaction"
+                android:text="@string/deliver_satisfaction"
                 android:layout_marginEnd="@dimen/interval_size_xs"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

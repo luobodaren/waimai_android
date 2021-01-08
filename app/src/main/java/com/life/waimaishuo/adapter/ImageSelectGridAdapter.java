@@ -20,7 +20,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageSelectGridAdapter extends RecyclerView.Adapter<ImageSelectGridAdapter.ViewHolder> {
+public abstract class ImageSelectGridAdapter extends RecyclerView.Adapter<ImageSelectGridAdapter.ViewHolder> {
     public static final int TYPE_CAMERA = 1;
     public static final int TYPE_PICTURE = 2;
     private LayoutInflater mInflater;
@@ -89,9 +89,15 @@ public class ImageSelectGridAdapter extends RecyclerView.Adapter<ImageSelectGrid
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.adapter_select_image_grid_item, viewGroup, false);
+        View view = mInflater.inflate(getItemLayoutId(), viewGroup, false);
         return new ViewHolder(view);
     }
+
+    /**
+     * 重写改方法返回自定义布局 注意对于ViewID
+     * @return
+     */
+    public abstract int getItemLayoutId();
 
     private boolean isShowAddItem(int position) {
         int size = mList.size();
@@ -105,7 +111,7 @@ public class ImageSelectGridAdapter extends RecyclerView.Adapter<ImageSelectGrid
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
         //少于8张，显示继续添加的图标
         if (getItemViewType(position) == TYPE_CAMERA) {
-            viewHolder.ivSelectPic.setImageResource(R.drawable.ic_add_picture);
+//            viewHolder.ivSelectPic.setImageResource(R.mipmap.ic_add_picture_2);
             viewHolder.ivSelectPic.setOnClickListener(v -> mOnAddPicClickListener.onAddPicClick());
             viewHolder.llDelete.setVisibility(View.INVISIBLE);
         } else {

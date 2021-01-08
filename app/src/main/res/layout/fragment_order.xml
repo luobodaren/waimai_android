@@ -8,12 +8,16 @@
             type="com.life.waimaishuo.mvvm.vm.order.OrderViewModel" />
     </data>
 
-    <com.life.base.views.UiAdapterLinearLayout
+    <LinearLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white">
+
+        <include
+            android:id="@+id/layout_title_order"
+            layout="@layout/title_order"/>
 
         <com.xuexiang.xui.widget.tabbar.TabSegment
             android:id="@+id/tabSegment"
@@ -28,5 +32,5 @@
             android:layout_height="match_parent"
             android:background="@color/background"/>
 
-    </com.life.base.views.UiAdapterLinearLayout>
+    </LinearLayout>
 </layout>

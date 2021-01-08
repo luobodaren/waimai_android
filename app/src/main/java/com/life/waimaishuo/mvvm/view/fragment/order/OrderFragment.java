@@ -32,6 +32,7 @@ import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 public class OrderFragment extends BaseFragment {
 
     OrderViewModel myViewModel;
+    FragmentOrderBinding mBinding;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -41,7 +42,8 @@ public class OrderFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        ((FragmentOrderBinding)mViewDataBinding).setViewModel(myViewModel);
+        mBinding = (FragmentOrderBinding)mViewDataBinding;
+        mBinding.setViewModel(myViewModel);
     }
 
     @Override
@@ -57,29 +59,7 @@ public class OrderFragment extends BaseFragment {
 
     @Override
     protected TitleBar initTitleBar() {
-        TitleBar titleBar = super.initTitleBar();
-        titleBar.setLeftImageDrawable(null);
-        ImageView imageView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.drawable.ic_search_black){
-            @Override
-            public void performAction(View view) {
-                ((BaseActivity)getActivity())
-                        .showToast("点击了图标");
-            }
-        });
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-        layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;   // FIXME: 2020/12/15 改为动态设置大小
-        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        layoutParams.gravity = Gravity.CENTER_VERTICAL;
-        imageView.setLayoutParams(layoutParams);
-
-        titleBar.setBackgroundColor(Color.WHITE);
-        titleBar.setTitleColor(getContext().getResources().getColor(R.color.text_normal));
-        titleBar.setHeight((int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources()
-                .getDimensionPixelSize(R.dimen.titlebar_height)));
-        titleBar.setTitleSize((int)UIUtils.getInstance(getContext()).scalePx(getContext().getResources()
-                .getDimensionPixelOffset(R.dimen.titlebar_text_size)));
-        return titleBar;
+        return null;
     }
 
     @Override
@@ -87,6 +67,14 @@ public class OrderFragment extends BaseFragment {
         super.initViews();
 
         initTabAndViewPager();
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+        mBinding.layoutTitleOrder.ivSearch.setOnClickListener(v -> {
+            mBinding.layoutTitleOrder.et.setVisibility(View.VISIBLE);
+        });
     }
 
     private void initTabAndViewPager(){
