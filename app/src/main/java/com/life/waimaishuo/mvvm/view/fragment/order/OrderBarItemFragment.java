@@ -26,6 +26,8 @@ import com.life.waimaishuo.enumtype.OrderPageEnum;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.enumtype.OrderTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseChildFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.waimai.ApplyAfterSalesFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.order.OrderListItemViewModel;
 import com.life.waimaishuo.views.widget.dialog.SimpleConfirmCancelDialog;
@@ -90,6 +92,17 @@ public class OrderBarItemFragment extends BaseChildFragment {
             @Override
             protected void bindData(@NonNull RecyclerViewHolder holder, int position, Order item) {
                 int viewType = holder.getItemViewType();
+
+                holder.getView(R.id.go_order_detail_page_layout).setOnClickListener(v -> {
+                    if(item.getOrderType() == OrderTypeEnum.WAI_MAI.getCode()){ //外卖
+                        OrderConfirmFragment.openPageWithOrder(OrderBarItemFragment.this,item);
+                    }else if(item.getOrderType() == OrderTypeEnum.MALL.getCode()){  //商城
+
+                    }else{
+                        LogUtil.e("订单类型匹配出错 orderType:" + item.getOrderType());
+                    }
+                });
+
                 if (viewType == mall) {
                     MyBaseRecyclerAdapter adapter1 = new MyBaseRecyclerAdapter<Foods>(R.layout.item_good_info, item.getFoodsList(), BR.goods);
 
@@ -154,6 +167,11 @@ public class OrderBarItemFragment extends BaseChildFragment {
                 }
             }
 
+            /**
+             * 所以布局最外层id为 go_order_detail_page_layout，用于设置点击事件 进入订单详情页。
+             * @param viewType
+             * @return
+             */
             @Override
             protected int getItemLayoutId(int viewType) {
                 switch (viewType) {
@@ -163,7 +181,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
                         return R.layout.item_recycler_order_unpay_waimai;
                     case waimai_un_deliver:
                     case waimai_deliver:
-                        return R.layout.item_recycler_order_deliver_waimai; //若有不同布局 记得修改bindData方法逻辑
+                        return R.layout.item_recycler_order_deliver_waimai; //若有不同布局 记得修改bindData方法内逻辑
                     case waimai_finish:
                         return R.layout.item_recycler_order_finish_waimai;
                     case waimai_after_sales:
@@ -358,7 +376,11 @@ public class OrderBarItemFragment extends BaseChildFragment {
             mListPopup.dismiss();
             Bundle bundle = new Bundle();
             bundle.putParcelable("order",order);    // TODO: 2021/1/8 改为fragment内的静态方法
-            openPage(ApplyAfterSalesFragment.class,bundle);
+            if(order.getOrderType() == OrderTypeEnum.WAI_MAI.getCode()){
+                openPage(ApplyAfterSalesFragment.class,bundle);
+            }else if(order.getOrderType() == OrderTypeEnum.MALL.getCode()){
+                openPage(com.life.waimaishuo.mvvm.view.fragment.order.mall.ApplyAfterSalesFragment.class,bundle);
+            }
         });
         mListPopup.setAnimStyle(XUIPopup.ANIM_GROW_FROM_CENTER);
         mListPopup.setPreferredDirection(XUIPopup.DIRECTION_BOTTOM);

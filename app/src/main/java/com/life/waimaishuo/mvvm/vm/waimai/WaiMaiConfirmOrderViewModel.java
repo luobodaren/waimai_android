@@ -13,7 +13,7 @@ import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.OrderItemFoods;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiConfirmModel;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.OrderConfirmFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -36,6 +36,11 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
 
     public ObservableField<String> redPacketPriceValueObservable = new ObservableField<>();
     public ObservableField<String> orderNoteObservable = new ObservableField<>();
+
+    public ObservableField<String> deliveryTimeObservable = new ObservableField<>();
+    public ObservableField<String> harvestAddressObservable = new ObservableField<>();
+    public ObservableField<String> distributionTypeObservable = new ObservableField<>();
+
 
     private int currentAccessType = OrderConfirmFragment.ORDER_ACCESS_WAIMAI; //默认外卖配送
 
@@ -69,8 +74,11 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
 
     Order order;
     public Order getOrderInfo() {
-
         return order;
+    }
+
+    public void setOrder(Order order){
+        this.order = order;
     }
 
     public List<IconStrData> getPayTypeList() {

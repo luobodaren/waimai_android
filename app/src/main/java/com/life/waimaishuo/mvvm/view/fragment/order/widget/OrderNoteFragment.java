@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment.waimai;
+package com.life.waimaishuo.mvvm.view.fragment.order.widget;
 
 import android.content.Intent;
 import android.text.Editable;

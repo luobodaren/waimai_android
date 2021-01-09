@@ -137,5 +137,27 @@
     <string name="logistics_service">物流服务</string>
     <string name="service_attitude">服务态度</string>
     <string name="hint_text_mall_comment">从多个角度评价商品，可以帮助更多想买的人</string>
+    <string name="deliver_info">配送信息</string>
+    <string name="delivery_time">送达时间</string>
+    <string name="harvest_address">收货地址</string>
+    <string name="distribution_type">配送方式</string>
+    <string name="wait_for_pay">等待支付</string>
+    <string name="pay_ASAP">请尽快支付</string>
+    <string name="merchants_are_stoccking_up">商家正在备货</string>
+    <string name="waimaishuo_deliver">外卖说快送</string>
+    <string name="reminder">催单</string>
+    <string name="order_delivered">订单已送达</string>
+    <string name="thank_words_order_finish">感谢您的信任，期待下次光临</string>
+    <string name="one_mode_order">再来一单</string>
+    <string name="apply_after_sales">申请售后</string>
+    <string name="refund">退款</string>
+    <string name="refund_return">退货退款</string>
+    <string name="want_refund">我要退款</string>
+    <string name="want_refund_return_goods">我要退货退款</string>
+    <string name="chose_service_type">选择服务类型</string>
+    <string name="refund_reason">退货原因</string>
+    <string name="please_input">请输入...</string>
+    <string name="goods_state">货物状态</string>
+    <string name="refund_price">退款金额</string>
 
 </resources>

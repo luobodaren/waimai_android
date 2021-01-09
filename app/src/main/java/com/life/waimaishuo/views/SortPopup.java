@@ -31,8 +31,9 @@ public class SortPopup extends XUIListPopup {
 //        if(mDirection == DIRECTION_NONE){   //无法判断mPreferredDirection
 //        }
         if(space == 0){
-            space = (int) UIUtils.getInstance(getContext()).scalePx(
-                    getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+            /*space = (int) UIUtils.getInstance(getContext()).scalePx(
+                    getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs));*/
+            space = getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs);
         }
         point.y += + space;
         return point;

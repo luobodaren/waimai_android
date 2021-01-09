@@ -42,6 +42,7 @@ import com.life.waimaishuo.databinding.LayoutDialogShoppingCartExpandBinding;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
@@ -225,7 +226,7 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.goToSettleAccounts, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                openPage(OrderConfirmFragment.class);
+                OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this,null,OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
             }
         });
     }

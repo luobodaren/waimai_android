@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment.waimai;
+package com.life.waimaishuo.mvvm.view.fragment.order.waimai;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,13 +19,20 @@ import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.FragmentConfirmAnOrderBinding;
+import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.widget.OrderDeliverFinishFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.widget.OrderInfoSettingTextFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.widget.OrderNoteFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.widget.OrderProcessFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.widget.OrderWaitDeliverFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.widget.OrderWaitPayFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
-import com.life.waimaishuo.mvvm.vm.waimai.OrderSelectedRedPacketViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -39,13 +46,20 @@ import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 @Page(name = "确认订单", anim = CoreAnim.slide)
 public class OrderConfirmFragment extends BaseFragment {
 
+    private final static String ORDER_PAGE_TYPE_INT_KEY = "order_page_type";
+    private final static String ORDER_DATA_KEY = "order";
     int currentOrderType = -1; //初始值-1  1：外卖 2：自取 3：仅有外卖 4：仅有自取 5：均没有
 
-    public static int ORDER_ACCESS_WAIMAI = 1;
-    public static int ORDER_ACCESS_ZIQU = 2;
-    public static int ORDER_ACCESS_WAIMAI_ONLY = 3;
-    public static int ORDER_ACCESS_ZIQU_ONLY = 4;
-    public static int ORDER_ZIQU_PAY_SUCCESS = 5;   //店内自取且支付成功的状态
+    public final static int ORDER_ACCESS_WAIMAI = 1;
+    public final static int ORDER_ACCESS_ZIQU = 2;
+    public final static int ORDER_ACCESS_WAIMAI_ONLY = 3;
+    public final static int ORDER_ACCESS_ZIQU_ONLY = 4;
+    //订单进行中到结束的状态
+    public final static int ORDER_WAIT_FOR_PAY = 5;
+    public final static int ORDER_WAIT_FOR_DELIVER = 6;
+    public final static int ORDER_DELIVERING = 7;
+    public final static int ORDER_DELIVERED = 8;
+    public final static int ORDER_ZIQU_PAY_SUCCESS = 9;   //店内自取且支付成功的状态
 
     private static int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
     private static int REQUEST_CODE_ORDER_NOTE = 1001;
@@ -59,7 +73,6 @@ public class OrderConfirmFragment extends BaseFragment {
     String selectedRedPacketPrice = "";
 
     private OrderInfoSettingTextFragment infoSettingTextFragment;
-    private OrderProcessFragment mOrderProcessFragment;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -91,18 +104,20 @@ public class OrderConfirmFragment extends BaseFragment {
         super.initArgs();
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
+
+        Bundle dataBundle = getArguments();
+        if(dataBundle != null){
+            currentOrderType =dataBundle.getInt(ORDER_PAGE_TYPE_INT_KEY);
+            mViewModel.setCurrentAccessType(currentOrderType);
+            mViewModel.setOrder(dataBundle.getParcelable(ORDER_DATA_KEY));
+        }else{
+            throw new Error("没有传入bundle 无法确定页面类型");
+        }
     }
 
-    private static int type = 0;
     @Override
     protected void initViews() {
         super.initViews();
-        type += 1;
-        if(type > ORDER_ZIQU_PAY_SUCCESS){
-            type = ORDER_ACCESS_WAIMAI;
-        }
-        currentOrderType = type;  // FIXME: 2020/12/29 后续更具实际情况修改
-        mViewModel.setCurrentAccessType(currentOrderType);
 
         mBinding.layoutTitle.tvTitle.setText(getPageName());
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
@@ -199,8 +214,10 @@ public class OrderConfirmFragment extends BaseFragment {
             fm = getChildFragmentManager();
             ft = fm.beginTransaction();
         }
-        if (currentOrderType != ORDER_ZIQU_PAY_SUCCESS) { //除开支付成功且店内自取
+
+        if(ORDER_ACCESS_WAIMAI <= currentOrderType && currentOrderType <= ORDER_ACCESS_ZIQU_ONLY){
             mBinding.layoutBottomOrderInfo.llContent.setVisibility(View.GONE);
+            mBinding.layoutBottomOrderDeliverInfo.llContent.setVisibility(View.GONE);
 
             infoSettingTextFragment = new OrderInfoSettingTextFragment();
             infoSettingTextFragment.baseViewModel = mViewModel;
@@ -218,17 +235,27 @@ public class OrderConfirmFragment extends BaseFragment {
                     mBinding.layoutOrderNote.clTableware.setVisibility(View.GONE);
                 }
             }
-
-        } else {  //  店内自取支付成功
+        }else{  //隐藏无关界面
             mBinding.flOrderTopInfo.setVisibility(View.GONE);
             mBinding.layoutOrderNote.llContent.setVisibility(View.GONE);
-            mBinding.layoutMembers.clContent.setVisibility(View.GONE);//隐藏会员界面
+            mBinding.layoutMembers.clContent.setVisibility(View.GONE);
             mBinding.layoutConfirmOrder.llShoppingCart.setVisibility(View.GONE);
-
-            //另个一fragment
-            mOrderProcessFragment = new OrderProcessFragment();
-            mOrderProcessFragment.baseViewModel = mViewModel;
-            ft.replace(R.id.fl_take_food, mOrderProcessFragment).commit();
+            BaseFragment replaceFragment = null;
+            if(currentOrderType == ORDER_WAIT_FOR_PAY){
+                replaceFragment = new OrderWaitPayFragment();
+            } else if (currentOrderType == ORDER_WAIT_FOR_DELIVER || currentOrderType == ORDER_DELIVERING){
+                replaceFragment = new OrderWaitDeliverFragment();
+            } else if (currentOrderType == ORDER_DELIVERED){
+                replaceFragment = new OrderDeliverFinishFragment();
+            } else if (currentOrderType == ORDER_ZIQU_PAY_SUCCESS) {   //店内自取支付成功
+                replaceFragment = new OrderProcessFragment();
+            }
+            if(replaceFragment != null){
+                replaceFragment.baseViewModel = mViewModel;
+                ft.replace(R.id.fl_order_state, replaceFragment).commit();
+            }else{
+                LogUtil.e("布局加载出错");
+            }
         }
     }
 
@@ -550,4 +577,47 @@ public class OrderConfirmFragment extends BaseFragment {
         }
 
     }
+
+    /**
+     * 外卖订单点击进入此订单详情页
+     * @param baseFragment
+     * @param order
+     */
+    public static void openPageWithOrder(BaseFragment baseFragment, Order order){
+        int orderPageType = -1;
+        switch (OrderStateEnum.valueOf(order.getOrderState())){
+            case UN_PAY:
+                orderPageType = ORDER_WAIT_FOR_PAY;
+                break;
+            case UN_DELIVER:
+                orderPageType = ORDER_WAIT_FOR_DELIVER;
+                break;
+            case DELIVER:
+                orderPageType = ORDER_DELIVERING;
+                break;
+            case FINISH:
+                orderPageType = ORDER_DELIVERED;
+                break;
+        }
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(ORDER_PAGE_TYPE_INT_KEY,orderPageType);
+        bundle.putParcelable(ORDER_DATA_KEY,order);
+        baseFragment.openPage(OrderConfirmFragment.class,bundle);
+
+    }
+
+    /**
+     * 根据样式打开页面确认订单
+     * @param baseFragment
+     * @param order
+     * @param deliverType
+     */
+    public static void openPageConfirmOrder(BaseFragment baseFragment, Order order, int deliverType){
+        Bundle bundle = new Bundle();
+        bundle.putInt(ORDER_PAGE_TYPE_INT_KEY,deliverType);
+        bundle.putParcelable(ORDER_DATA_KEY,order);
+        baseFragment.openPage(OrderConfirmFragment.class,bundle);
+    }
+
 }

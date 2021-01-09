@@ -243,7 +243,7 @@ public class SortTypeView extends FrameLayout {
 
     private void onScreenClick(View view) {
         initScreenPop();
-        screenPop.showDown(mBinding.llSortLayout);
+        screenPop.showDown(mBinding.tvScreen);
     }
 
     private void initScreenPop() {
@@ -254,8 +254,9 @@ public class SortTypeView extends FrameLayout {
                 protected Point onShow(View attachedView) {
                     Point point = super.onShow(attachedView);
                     if(space == 0){
-                        space = (int) UIUtils.getInstance(getContext()).scalePx(
-                                getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+                        /*space = (int) UIUtils.getInstance(getContext()).scalePx(
+                                getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs));*/
+                        space = getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs);
                     }
                     point.y += space;
                     return point;
@@ -264,6 +265,8 @@ public class SortTypeView extends FrameLayout {
             screenPop.setAnimStyle(XUIPopup.DIRECTION_TOP);
             screenPop.setPreferredDirection(XUIPopup.DIRECTION_BOTTOM);
             screenPop.setContentView(getScreenView());
+            screenPop.getPopupWindow().getContentView().findViewById(R.id.box).setBackground(
+                    getResources().getDrawable(R.drawable.sr_bg_sort_pop));
         }
     }
 
@@ -376,7 +379,7 @@ public class SortTypeView extends FrameLayout {
         initListPopupIfNeed();
         mSortPopup.setAnimStyle(XUIPopup.DIRECTION_TOP);
         mSortPopup.setPreferredDirection(XUIPopup.DIRECTION_NONE);
-        mSortPopup.showDown(mBinding.llSortLayout);
+        mSortPopup.showDown(mBinding.tvSortType);
         mOnSortTypeChangeListener.onSortPopShow();
     }
 

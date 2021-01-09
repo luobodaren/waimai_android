@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_menu_share"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:padding="@dimen/interval_size_xs"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16px"
+                android:background="@drawable/sr_bg_8dp_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/iv_shopIcon"
+                    android:layout_width="136px"
+                    android:layout_height="136px"
+                    android:src="@drawable/ic_waimai_brand"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:riv_corner_radius="4dp"/>
+
+                <TextView
+                    android:id="@+id/tv_shopName"
+                    style="@style/text_my_simple_style"
+                    android:layout_width="0px"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginEnd="83px"
+                    android:layout_marginTop="8px"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
+                    app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店" />
+
+                <TextView
+                    android:id="@+id/tv_goods_info"
+                    style="@style/text_my_simple_style"
+                    android:textColor="@color/text_tip"
+                    android:textSize="26px"
+                    android:layout_marginBottom="@dimen/interval_size_xs"
+                    app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
+                    tools:text="颜色分类：黄色"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_content"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sr_bg_8dp_white"
+                android:layout_marginTop="@dimen/interval_size_xs">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    style="@style/text_info_clickable_bg">
+
+                    <TextView
+                        android:id="@+id/tv_want_refund"
+                        style="@style/text_order_setting_info"
+                        android:layout_width="match_parent"
+                        android:gravity="center|left"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        android:text="@string/want_refund"
+                        android:drawableLeft="@drawable/ic_refund"
+                        android:drawableRight="@drawable/ic_arrow_right_black"
+                        android:drawablePadding="@dimen/interval_size_xs"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_order_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    style="@style/text_info_clickable_bg">
+
+                    <TextView
+                        android:id="@+id/tv_refund_return_goods"
+                        style="@style/text_order_setting_info"
+                        android:layout_width="match_parent"
+                        android:gravity="center|left"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        android:text="@string/want_refund_return_goods"
+                        android:drawableLeft="@drawable/ic_refunds_with_word"
+                        android:drawableRight="@drawable/ic_arrow_right_black"
+                        android:drawablePadding="@dimen/interval_size_xs"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

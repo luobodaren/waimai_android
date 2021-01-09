@@ -365,7 +365,7 @@
         <item name="android:layout_marginTop">-10px</item>
     </style>
 
-    <style name="divider_in_order_bottom_info">
+    <style name="divider_in_order_info">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>

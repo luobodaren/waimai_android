@@ -1,10 +1,9 @@
-package com.life.waimaishuo.mvvm.view.fragment.order;
+package com.life.waimaishuo.mvvm.view.fragment.order.mall;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
+import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.ImageSelectGridAdapter;
-import com.life.waimaishuo.databinding.FragmentApplyAfterSalesBinding;
+import com.life.waimaishuo.bean.Order;
+import com.life.waimaishuo.databinding.FragmentRefundBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.EvaluateWaiMaiFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
+import com.life.waimaishuo.mvvm.vm.order.RefundViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.Utils;
 import com.luck.picture.lib.PictureSelector;
@@ -27,36 +29,46 @@ import com.xuexiang.xpage.utils.TitleBar;
 import java.util.ArrayList;
 import java.util.List;
 
-@Page(name = "申请售后", anim = CoreAnim.slide)
-public class ApplyAfterSalesFragment extends BaseFragment {
+@Page(name = "退货退款", anim = CoreAnim.slide)
+public class RefundFragment extends BaseFragment {
 
-    FragmentApplyAfterSalesBinding mBinding;
+    private final static String IS_RETURN_GOODS_KEY = "is_return_goods";
+    private final static String DATA_KEY = "order";
 
-    private final int maxNoteCharts = 50;
-
+    FragmentRefundBinding mBinding;
+    RefundViewModel mViewModel;
 
     ImageSelectGridAdapter imageSelectGridAdapter;
     private int maxSelectNum = 6;   //注意若要修改时 需要连同提示语一起修改
     private List<LocalMedia> mSelectList = new ArrayList<>();
 
+    private boolean isReturnGoods = true;  //决定页面类型 退款 或 退货退款
+
     @Override
     protected BaseViewModel setViewModel() {
-        return null;
+        if(mViewModel == null){
+            mViewModel = new RefundViewModel();
+        }
+        return mViewModel;
     }
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentApplyAfterSalesBinding)mViewDataBinding;
+        mBinding = (FragmentRefundBinding)mViewDataBinding;
+        mBinding.setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_apply_after_sales;
+        return R.layout.fragment_refund;
     }
 
     @Override
     protected void initArgs() {
         super.initArgs();
+
+        isReturnGoods = getArguments().getBoolean(IS_RETURN_GOODS_KEY);
+
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }
@@ -70,8 +82,17 @@ public class ApplyAfterSalesFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        initTitle();
-        initInputNoteEditText();
+        if(isReturnGoods){
+            mBinding.layoutTitle.tvTitle.setText(getString(R.string.refund_return));
+        }else{
+            mBinding.clGoodsState.setVisibility(View.VISIBLE);
+            mBinding.layoutTitle.tvTitle.setText(getString(R.string.refund));
+        }
+        mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
+
+
+        init();
+
         initPictureSelectedRecycler();
     }
 
@@ -79,6 +100,9 @@ public class ApplyAfterSalesFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
+        mBinding.clGoodsState.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
@@ -98,52 +122,43 @@ public class ApplyAfterSalesFragment extends BaseFragment {
         }
     }
 
-    private void initTitle(){
-        mBinding.layoutTitle.tvTitle.setText(getPageName());
+    private void init() { // FIXME: 2021/1/8 暂时数据展示，后期修改
+        mBinding.tvShopName.setText("欧舒丹甜蜜樱花沐浴啫喱/身体乳套装沐/欧舒丹甜蜜樱花沐浴啫喱/身体乳套装沐...");
+        mBinding.tvGoodsInfo.setText("颜色分类：黄色");
+        mBinding.tvRefundPrice.setText("￥199.00");
     }
 
-    private void initInputNoteEditText() {
-        mBinding.tvInputTextNumber.setText(getString(R.string.text_input_number,0,maxNoteCharts));
-        InputFilter[] inputFilter = new InputFilter[]{new InputFilter.LengthFilter(maxNoteCharts)};
-        mBinding.et.setFilters(inputFilter);    //设置最大字符数
-        mBinding.et.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mBinding.tvInputTextNumber.setText(getString(R.string.text_input_number,s.length(),maxNoteCharts));
-            }
-        });
-    }
-
-    private void initPictureSelectedRecycler() {
+    private void initPictureSelectedRecycler(){
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 3, RecyclerView.VERTICAL, false);
         mBinding.recyclerSelectedPicture.setLayoutManager(manager);
         mBinding.recyclerSelectedPicture.setAdapter(imageSelectGridAdapter = new ImageSelectGridAdapter(getActivity(), new ImageSelectGridAdapter.OnAddPicClickListener() {
             @Override
             public void onAddPicClick() {
-                Utils.getPictureSelector(ApplyAfterSalesFragment.this, maxSelectNum)
+                Utils.getPictureSelector(RefundFragment.this, maxSelectNum)
                         .selectionMedia(mSelectList)
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             }
         }) {
             @Override
             public int getItemLayoutId() {
-                return R.layout.adapter_select_image_grid_item_apply_after_sales;
+                return R.layout.adapter_select_image_grid_item_shop_comment;
             }
         });
         imageSelectGridAdapter.setSelectList(mSelectList);
         imageSelectGridAdapter.setSelectMax(maxSelectNum);
-        imageSelectGridAdapter.setOnItemClickListener((position, v) -> PictureSelector.create(ApplyAfterSalesFragment.this).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList));
+        imageSelectGridAdapter.setOnItemClickListener((position, v) -> PictureSelector.create(RefundFragment.this).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList));
     }
 
+    /**
+     * 打开页面
+     * @param baseFragment
+     * @param isReturnGoods 决定页面类型 退货退款 或 仅退款
+     */
+    public static void openPageRefundReturn(BaseFragment baseFragment, Order order, boolean isReturnGoods){
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IS_RETURN_GOODS_KEY,isReturnGoods);
+        bundle.putParcelable(DATA_KEY,order);
+        baseFragment.openPage(RefundFragment.class, bundle);
+    }
 
 }

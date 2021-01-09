@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment.waimai;
+package com.life.waimaishuo.mvvm.view.fragment.order.widget;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -11,6 +11,7 @@ import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.LayoutOrderInfoSettingTextBinding;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel;
 import com.xuexiang.xpage.annotation.Page;

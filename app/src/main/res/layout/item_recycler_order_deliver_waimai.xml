@@ -10,6 +10,7 @@
     </data>
 
     <com.life.base.views.UiAdapterConstrainLayout
+        android:id="@+id/go_order_detail_page_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/sr_bg_8dp_white"

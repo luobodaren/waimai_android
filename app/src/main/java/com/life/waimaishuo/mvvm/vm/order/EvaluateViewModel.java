@@ -17,7 +17,7 @@ public class EvaluateViewModel extends BaseViewModel {
 
     public ObservableField<String> waimaiCommentContentObservable = new ObservableField<>();
 
-    public ObservableField<String> mallGoodsContentObservable = new ObservableField<>();
+    public ObservableField<String> mallGoodsCommentContentObservable = new ObservableField<>();
 
     @Override
     public BaseModel getModel() {

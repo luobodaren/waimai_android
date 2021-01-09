@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment.waimai;
+package com.life.waimaishuo.mvvm.view.fragment.order.widget;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.databinding.LayoutOrderProcessBinding;

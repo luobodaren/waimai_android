@@ -22,10 +22,10 @@
             style="@style/text_info_clickable_bg">
 
             <TextView
-                android:id="@+id/tv_order_note"
+                android:id="@+id/tv_deliver_info"
                 style="@style/text_order_setting_info"
                 android:textStyle="bold"
-                android:text="@string/order_info"
+                android:text="@string/deliver_info"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
@@ -46,36 +46,15 @@
             style="@style/text_info_clickable_bg">
 
             <TextView
-                android:id="@+id/tv_tableware"
+                android:id="@+id/tv_delivery_time"
                 style="@style/text_order_setting_info"
-                android:text="@string/order_number"
+                android:text="@string/delivery_time"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/tv_copy"
-                style="@style/text_my_simple_style"
-                android:text="@string/copy"
-                android:textSize="26px"
-                android:textColor="@color/colorTheme"
-                android:layout_marginEnd="@dimen/interval_size_xs"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <TextView
-                android:id="@+id/tv_divider"
-                android:layout_width="1px"
-                android:layout_height="26px"
-                android:layout_marginEnd="@dimen/interval_size_xs"
-                android:background="@color/text_tip"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/tv_copy" />
-
-            <TextView
-                android:id="@+id/rv_ordernumber"
+                android:id="@+id/rv_delivery_time"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:textSize="26px"
@@ -84,11 +63,10 @@
                 android:gravity="end"
                 android:layout_marginStart="150px"
                 android:layout_marginEnd="@dimen/interval_size_xs"
-                android:text="@{viewModel.orderNumberObservable}"
+                android:text="@{viewModel.deliveryTimeObservable}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tv_tableware"
-                app:layout_constraintEnd_toStartOf="@id/tv_divider"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="广州市朝阳区东风中路258号1109-2220" />
 
 
@@ -106,15 +84,15 @@
             style="@style/text_info_clickable_bg">
 
             <TextView
-                android:id="@+id/tv_pay_type"
+                android:id="@+id/tv_harvest_address"
                 style="@style/text_order_setting_info"
-                android:text="@string/pay_type"
+                android:text="@string/harvest_address"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/tv_pay_type_name"
+                android:id="@+id/tv_address"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:textSize="26px"
@@ -123,7 +101,7 @@
                 android:gravity="end"
                 android:layout_marginStart="150px"
                 android:layout_marginEnd="@dimen/interval_size_xs"
-                android:text="@{viewModel.payTypeObservable}"
+                android:text="@{viewModel.harvestAddressObservable}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -142,15 +120,15 @@
             style="@style/text_info_clickable_bg">
 
             <TextView
-                android:id="@+id/tv_order_create_time"
+                android:id="@+id/tv_distribution_type"
                 style="@style/text_order_setting_info"
-                android:text="@string/place_the_order_of_time"
+                android:text="@string/distribution_type"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_distribution"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:textSize="26px"
@@ -159,11 +137,12 @@
                 android:gravity="end"
                 android:layout_marginStart="150px"
                 android:layout_marginEnd="@dimen/interval_size_xs"
-                android:text="@{viewModel.orderPlaceTimeObservable}"
+                android:text="@{viewModel.distributionTypeObservable}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="广州市朝阳区东风中路258号1109-2220" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
