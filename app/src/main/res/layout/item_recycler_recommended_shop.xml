@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/interval_size_xs"
-        android:background="@drawable/sr_bg_card_view_white">
+        android:background="@drawable/sr_bg_8dp_white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

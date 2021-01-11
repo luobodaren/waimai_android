@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.ImageSelectGridAdapter;
 import com.life.waimaishuo.databinding.FragmentApplyAfterSalesMallBinding;
@@ -32,10 +33,11 @@ import java.util.List;
 @Page(name = "申请售后-商城", anim = CoreAnim.slide)
 public class ApplyAfterSalesFragment extends BaseFragment {
 
+    public final static String KEY_ORDER = "order_key";
+
     FragmentApplyAfterSalesMallBinding mBinding;
 
     private final int maxNoteCharts = 50;
-
 
     ImageSelectGridAdapter imageSelectGridAdapter;
     private int maxSelectNum = 6;   //注意若要修改时 需要连同提示语一起修改
@@ -48,7 +50,7 @@ public class ApplyAfterSalesFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentApplyAfterSalesMallBinding)mViewDataBinding;
+        mBinding = (FragmentApplyAfterSalesMallBinding) mViewDataBinding;
     }
 
     @Override
@@ -75,31 +77,34 @@ public class ApplyAfterSalesFragment extends BaseFragment {
         init();
 
         initTitle();
-
     }
 
     @Override
     protected void initListeners() {
         super.initListeners();
         mBinding.tvWantRefund.setOnClickListener(v -> {
-            RefundFragment.openPageRefundReturn(this,null,false);
+            if (getArguments() != null) {
+                RefundFragment.openPageRefundReturn(this, getArguments().getParcelable(KEY_ORDER), false);
+            }
+            LogUtil.e("bundle == null");
         });
         mBinding.tvRefundReturnGoods.setOnClickListener(v -> {
-            RefundFragment.openPageRefundReturn(this,null,true);
+            if (getArguments() != null) {
+                RefundFragment.openPageRefundReturn(this, getArguments().getParcelable(KEY_ORDER), true);
+            }
+            LogUtil.e("bundle == null");
         });
     }
 
-    private void init(){
+    private void init() {
         mBinding.tvShopName.setText("欧舒丹甜蜜樱花沐浴啫喱/身体乳套装沐/欧舒丹甜蜜樱花沐浴啫喱/身体乳套装沐...");
         mBinding.tvGoodsInfo.setText("颜色分类：黄色");
     }
 
-    private void initTitle(){
+    private void initTitle() {
         mBinding.layoutTitle.tvTitle.setText(requireContext().getString(R.string.chose_service_type));
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
     }
-
-
 
 
 }

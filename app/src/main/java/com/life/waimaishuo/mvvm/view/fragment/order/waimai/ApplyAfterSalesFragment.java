@@ -30,14 +30,15 @@ import java.util.List;
 @Page(name = "申请售后-外卖", anim = CoreAnim.slide)
 public class ApplyAfterSalesFragment extends BaseFragment {
 
+    public final static String KEY_ORDER = "order_key";
+
     FragmentApplyAfterSalesWaimaiBinding mBinding;
-
-    private final int maxNoteCharts = 50;
-
 
     ImageSelectGridAdapter imageSelectGridAdapter;
     private int maxSelectNum = 6;   //注意若要修改时 需要连同提示语一起修改
     private List<LocalMedia> mSelectList = new ArrayList<>();
+
+    private final int maxNoteCharts = 50;   //售后最大文字输入数
 
     @Override
     protected BaseViewModel setViewModel() {

@@ -374,11 +374,11 @@ public class OrderBarItemFragment extends BaseChildFragment {
         initListPopupIfNeed();
         setListPopupItemClickListener((parent, view, position, id) -> {
             mListPopup.dismiss();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("order",order);    // TODO: 2021/1/8 改为fragment内的静态方法
-            if(order.getOrderType() == OrderTypeEnum.WAI_MAI.getCode()){
+            Bundle bundle = new Bundle();if(order.getOrderType() == OrderTypeEnum.WAI_MAI.getCode()){
+                bundle.putParcelable(ApplyAfterSalesFragment.KEY_ORDER,order);    // TODO: 2021/1/8 改为fragment内的静态方法
                 openPage(ApplyAfterSalesFragment.class,bundle);
             }else if(order.getOrderType() == OrderTypeEnum.MALL.getCode()){
+                bundle.putParcelable(com.life.waimaishuo.mvvm.view.fragment.order.mall.ApplyAfterSalesFragment.KEY_ORDER,order);
                 openPage(com.life.waimaishuo.mvvm.view.fragment.order.mall.ApplyAfterSalesFragment.class,bundle);
             }
         });

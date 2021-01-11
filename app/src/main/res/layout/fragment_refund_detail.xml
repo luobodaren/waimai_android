@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.order.RefundDetailViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_menu_share" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"
+            android:padding="@dimen/interval_size_xs">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_refund_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_refund_state_layout_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/sr_bg_8dp_white"
+                    android:paddingStart="@dimen/interval_size_xs"
+                    android:paddingTop="34px"
+                    android:paddingBottom="34px"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.xuexiang.xui.widget.imageview.RadiusImageView
+                        android:id="@+id/iv_refund_icon"
+                        android:layout_width="80px"
+                        android:layout_height="80px"
+                        android:src="@drawable/ic_wait_refund_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_refund_state"
+                        style="@style/text_my_simple_style"
+                        android:layout_width="0px"
+                        android:layout_marginStart="@dimen/interval_size_xs"
+                        android:layout_marginEnd="83px"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/text_normal"
+                        android:textSize="30px"
+                        android:text="@{viewModel.refundStateObservable}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_refund_icon"
+                        app:layout_constraintTop_toTopOf="@id/iv_refund_icon"
+                        tools:text="请等待商家处理" />
+
+                    <TextView
+                        android:id="@+id/tv_refund_state_detail"
+                        style="@style/text_my_simple_style"
+                        android:textColor="@color/text_normal"
+                        android:textSize="24px"
+                        android:text="@{viewModel.refundStateDetailObservable}"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_refund_icon"
+                        app:layout_constraintStart_toStartOf="@id/tv_refund_state"
+                        tools:text="您已成功发起退款申请，等待商家处理" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_refund_state_layout_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_refund_application_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/sr_bg_8dp_white"
+                        android:paddingTop="40px"
+                        android:paddingBottom="@dimen/interval_size_xs"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/iv_application_result_icon"
+                            android:layout_width="88px"
+                            android:layout_height="88px"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_application_result"
+                            style="@style/text_my_simple_style"
+                            android:layout_marginTop="@dimen/interval_size_xs"
+                            android:textColor="@color/text_normal"
+                            android:textSize="30px"
+                            android:textStyle="bold"
+                            android:text="@{viewModel.applicationResultObservable}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_application_result_icon"
+                            tools:text="商家已同意退货退款，等待寄回商品" />
+
+                        <TextView
+                            android:id="@+id/tv_application_result_detail"
+                            style="@style/text_my_simple_style"
+                            android:textSize="@dimen/font_size_24"
+                            android:textColorHint="@color/text_normal"
+                            android:layout_marginTop="8px"
+                            android:text="@{viewModel.applicationResultDetailObservable}"
+                            app:layout_constraintTop_toBottomOf="@id/tv_application_result"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="商家驳回了你的申请"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_merchants_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sr_bg_8dp_white"
+                        android:paddingStart="@dimen/interval_size_xs"
+                        android:paddingTop="32px"
+                        android:paddingEnd="@dimen/interval_size_xs"
+                        android:paddingBottom="32px"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cl_refund_application_result">
+
+                        <TextView
+                            android:id="@+id/tv_merchants_address"
+                            style="@style/text_my_simple_style"
+                            android:text="@string/merchants_address"
+                            android:textColor="@color/text_normal"
+                            android:textSize="30px"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_name_phoneNumber"
+                            style="@style/text_my_simple_style"
+                            android:layout_marginTop="40px"
+                            android:textColor="@color/text_uncheck"
+                            android:textSize="26px"
+                            android:text="@{viewModel.merchantsNamePhoneNumberObservable}"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_merchants_address"
+                            tools:text="张三   16456488646" />
+
+                        <TextView
+                            android:id="@+id/tv_address_detail"
+                            style="@style/text_my_simple_style"
+                            android:layout_width="0px"
+                            android:layout_marginTop="@dimen/interval_size_xs"
+                            android:textColor="@color/text_uncheck"
+                            android:textSize="26px"
+                            android:text="@{viewModel.merchantsAddressObservable}"
+                            app:layout_constraintEnd_toStartOf="@id/iv_edit"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_name_phoneNumber"
+                            tools:text="山西省 太原市 小店区 南站国际商务港北区1号楼阿里巴巴创新中心" />
+
+                        <ImageView
+                            android:id="@+id/iv_edit"
+                            android:layout_width="36px"
+                            android:layout_height="36px"
+                            android:src="@drawable/ic_edit_2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_8dp_white"
+                android:padding="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_refund_state">
+
+                <TextView
+                    android:id="@+id/tv_refund_info"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginTop="8px"
+                    android:text="@string/refund_info"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/iv_shopIcon"
+                    android:layout_width="136px"
+                    android:layout_height="136px"
+                    android:layout_marginTop="32px"
+                    android:src="@drawable/ic_waimai_brand"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_refund_info"
+                    app:riv_corner_radius="4dp"
+                    imageUrl="@{viewModel.goodsImageUrlObservable}"/>
+
+                <TextView
+                    android:id="@+id/tv_shopName"
+                    style="@style/text_my_simple_style"
+                    android:layout_width="0px"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="8px"
+                    android:layout_marginEnd="83px"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    android:text="@{viewModel.goodsNameUrlObservable}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+                    app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
+                    tools:text="德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店" />
+
+                <TextView
+                    android:id="@+id/tv_goods_info"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginBottom="@dimen/interval_size_xs"
+                    android:textColor="@color/text_tip"
+                    android:textSize="26px"
+                    android:text="@{viewModel.goodsSpecificationObservable}"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
+                    app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                    tools:text="颜色分类：黄色" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_order_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32px"
+                    app:layout_constraintTop_toBottomOf="@id/iv_shopIcon" />
+
+                <TextView
+                    android:id="@+id/tv_option_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16px"
+                    android:background="@drawable/sr_stroke_1px_10radius_gray"
+                    android:paddingStart="16px"
+                    android:paddingTop="18px"
+                    android:paddingEnd="16px"
+                    android:paddingBottom="18px"
+                    android:text="@string/cancel_the_application"
+                    android:textColor="@color/text_normal"
+                    android:textSize="28px"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@id/tv_option_right"
+                    app:layout_constraintTop_toTopOf="@id/tv_option_right" />
+
+                <TextView
+                    android:id="@+id/tv_option_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40px"
+                    android:background="@drawable/sr_stroke_1px_10radius_red"
+                    android:paddingStart="16px"
+                    android:paddingTop="18px"
+                    android:paddingEnd="16px"
+                    android:paddingBottom="18px"
+                    android:text="@string/modify_application"
+                    android:textColor="@color/colorTheme"
+                    android:textSize="28px"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_order_info" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/bt_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+
+                android:background="@drawable/sr_bg_gradient_full_radius_theme"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_bottom_button_text"
+                style="@style/text_my_simple_style"
+                android:drawablePadding="8px"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="36px"
+                app:layout_constraintBottom_toBottomOf="@id/bt_bottom"
+                app:layout_constraintEnd_toEndOf="@id/bt_bottom"
+                app:layout_constraintStart_toStartOf="@id/bt_bottom"
+                app:layout_constraintTop_toTopOf="@id/bt_bottom"
+                tools:text="@string/connect_customer_service" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

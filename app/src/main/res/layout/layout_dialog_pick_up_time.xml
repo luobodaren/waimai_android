@@ -26,6 +26,7 @@
             android:layout_height="40px"
             android:src="@drawable/ic_close_gray"
             android:layout_marginEnd="@dimen/interval_size_xs"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

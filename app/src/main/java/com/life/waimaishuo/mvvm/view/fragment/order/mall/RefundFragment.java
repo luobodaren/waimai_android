@@ -2,19 +2,21 @@ package com.life.waimaishuo.mvvm.view.fragment.order.mall;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.ImageSelectGridAdapter;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.databinding.FragmentRefundBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.order.EvaluateWaiMaiFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.order.RefundViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -25,11 +27,12 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Page(name = "退货退款", anim = CoreAnim.slide)
+@Page(name = "申请售后——退款/退货退款", anim = CoreAnim.slide)
 public class RefundFragment extends BaseFragment {
 
     private final static String IS_RETURN_GOODS_KEY = "is_return_goods";
@@ -67,8 +70,11 @@ public class RefundFragment extends BaseFragment {
     protected void initArgs() {
         super.initArgs();
 
+        if(getArguments() == null){
+            throw new Error("没有传入bundle 没有订单信息");
+        }
         isReturnGoods = getArguments().getBoolean(IS_RETURN_GOODS_KEY);
-
+        mViewModel.setOrder(getArguments().getParcelable(DATA_KEY));
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }
@@ -101,7 +107,13 @@ public class RefundFragment extends BaseFragment {
         super.initListeners();
 
         mBinding.clGoodsState.setOnClickListener(v -> {
+            showGoodsStateBottomDialog();
+        });
 
+        mBinding.btSubmit.setOnClickListener(v -> {
+            //提交申请，等待网络请求结束后进行跳转页面
+            RefundDetailFragment.openPageWithState(
+                    this,RefundDetailFragment.STATE_WAIT_FOR_MERCHANTS_AGREE,mViewModel.getOrder());
         });
     }
 
@@ -147,6 +159,68 @@ public class RefundFragment extends BaseFragment {
         imageSelectGridAdapter.setSelectList(mSelectList);
         imageSelectGridAdapter.setSelectMax(maxSelectNum);
         imageSelectGridAdapter.setOnItemClickListener((position, v) -> PictureSelector.create(RefundFragment.this).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList));
+    }
+    private BottomSheet goodsStateDialog;
+    private void showGoodsStateBottomDialog() {
+
+        if(goodsStateDialog == null){
+            View view = getGoodsStateDialogView();
+
+            goodsStateDialog = new BottomSheet(requireContext());
+            goodsStateDialog.setContentView(view);
+        }
+        if(!goodsStateDialog.isShowing()){
+            goodsStateDialog.show();
+        }
+    }
+
+    private int currentSelectedPosition = 1;    //保存当前点击的位置 1:未收到货 2：已收到货
+    private View getGoodsStateDialogView() {
+        int drawableSize = (int) UIUtils.getInstance(requireContext()).scalePx(40);
+        Drawable checkDrawable = getResources().getDrawable(R.drawable.ic_check_round_fill_red);
+        Drawable noCheckDrawable = getResources().getDrawable(R.drawable.ic_check_round_fill_gray);
+
+        checkDrawable.setBounds(0,0,drawableSize,drawableSize);
+        noCheckDrawable.setBounds(0,0,drawableSize,drawableSize);
+
+        View view = View.inflate(requireContext(),R.layout.layout_dialog_goods_state,null);
+        TextView noReceived = view.findViewById(R.id.tv_not_received_goods);
+        noReceived.setCompoundDrawables(null,null,checkDrawable,null);
+        TextView received = view.findViewById(R.id.tv_have_received_goods);
+        received.setCompoundDrawables(null,null,noCheckDrawable,null);
+        noReceived.setOnClickListener(v -> {
+            if(currentSelectedPosition != 1){
+                currentSelectedPosition = 1;
+                noReceived.setCompoundDrawables(null,null,checkDrawable,null);
+                received.setCompoundDrawables(null,null,noCheckDrawable,null);
+            }
+        });
+        received.setOnClickListener(v -> {
+            if(currentSelectedPosition != 2){
+                currentSelectedPosition = 2;
+                noReceived.setCompoundDrawables(null,null,noCheckDrawable,null);
+                received.setCompoundDrawables(null,null,checkDrawable,null);
+            }
+        });
+
+        view.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodsStateDialog.dismiss();
+            }
+        });
+        view.findViewById(R.id.bt_finish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodsStateDialog.dismiss();
+                if(currentSelectedPosition == 1){
+                    mViewModel.goodsStateContentObservable.set(getString(R.string.not_received_goods));
+                }else if(currentSelectedPosition == 2){
+                    mViewModel.goodsStateContentObservable.set(getString(R.string.have_received_goods));
+                }
+            }
+        });
+        return view;
     }
 
     /**

@@ -117,7 +117,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
         RadiusImageView imageView = new RadiusImageView(getContext());
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(layoutParams);
-        imageView.setBackground(getResources().getDrawable(R.drawable.sr_bg_card_view_white));
+        imageView.setBackground(getResources().getDrawable(R.drawable.sr_bg_8dp_white));
         imageView.setCornerRadius(24);
         frameLayout.addView(imageView);
         Glide.with(this)

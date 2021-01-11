@@ -72,7 +72,7 @@
             android:text="@string/submit"
             android:textColor="@color/white"
             android:textSize="36px"
-            android:background="@drawable/sr_bg_gradient_8dp_theme_color"
+            android:background="@drawable/sr_bg_gradient_full_radius_theme"
             android:layout_marginStart="@dimen/interval_size_xs"
             android:layout_marginEnd="@dimen/interval_size_xs"/>
 

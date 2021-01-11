@@ -159,5 +159,20 @@
     <string name="please_input">请输入...</string>
     <string name="goods_state">货物状态</string>
     <string name="refund_price">退款金额</string>
+    <string name="not_received_goods">未收到货</string>
+    <string name="have_received_goods">已收到货</string>
+    <string name="refund_info">退款信息</string>
+    <string name="modify_application">修改申请</string>
+    <string name="cancel_the_application">撤销申请</string>
+    <string name="connect_customer_service">联系客服</string>
+    <string name="merchants_address">商家收货地址</string>
+    <string name="contact_number">联系号码</string>
+    <string name="logistics_number">物流单号</string>
+    <string name="filling_logistics_order_number">填写物流单号</string>
+    <string name="filling_phoneNumber">填写手机号</string>
+    <string name="return_goods">寄回商品</string>
+    <string name="connect_third_party_customer_service">联系第三方客服</string>
+    <string name="refund_detail">退款详情</string>
+    <string name="fail_detail">失败详情</string>
 
 </resources>

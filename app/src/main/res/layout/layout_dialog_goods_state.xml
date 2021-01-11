@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/interval_size_xs"
+    android:paddingEnd="@dimen/interval_size_xs"
+    android:background="@drawable/sr_bg_tl_tr_8dp_white">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/text_my_simple_style"
+        android:textColor="@color/text_normal"
+        android:textSize="34px"
+        android:text="@string/goods_state"
+        android:layout_marginTop="32px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="40px"
+        android:layout_height="40px"
+        android:src="@drawable/ic_close_gray"
+        android:layout_marginTop="32px"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_not_received_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="34px"
+        android:textColor="@color/text_normal"
+        android:text="@string/not_received_goods"
+        android:layout_marginTop="64px"
+        android:paddingTop="@dimen/interval_size_xs"
+        android:paddingBottom="@dimen/interval_size_xs"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_have_received_goods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="34px"
+        android:textColor="@color/text_normal"
+        android:text="@string/have_received_goods"
+        android:paddingTop="@dimen/interval_size_xs"
+        android:paddingBottom="@dimen/interval_size_xs"
+        android:includeFontPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_not_received_goods" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="300px"
+        app:layout_constraintTop_toBottomOf="@id/tv_have_received_goods"/>
+
+    <Button
+        android:id="@+id/bt_finish"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:text="@string/finish"
+        android:textColor="@color/white"
+        android:textSize="36px"
+        android:background="@drawable/sr_bg_gradient_full_radius_theme"
+        app:layout_constraintTop_toBottomOf="@id/space"/>
+
+</com.life.base.views.UiAdapterConstrainLayout>

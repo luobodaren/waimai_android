@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.order.RefundViewModel" />
@@ -20,195 +21,190 @@
             android:id="@+id/layout_title"
             layout="@layout/title_menu_share" />
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:background="@color/background">
+            android:background="@color/background"
+            android:padding="@dimen/interval_size_xs">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_goods_info"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@drawable/sr_bg_8dp_white"
+                android:padding="16px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/iv_shopIcon"
+                    android:layout_width="136px"
+                    android:layout_height="136px"
+                    android:src="@drawable/ic_waimai_brand"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_shopName"
+                    style="@style/text_my_simple_style"
+                    android:layout_width="0px"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="8px"
+                    android:layout_marginEnd="83px"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+                    app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
+                    tools:text="德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店" />
+
+                <TextView
+                    android:id="@+id/tv_goods_info"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginBottom="@dimen/interval_size_xs"
+                    android:textColor="@color/text_tip"
+                    android:textSize="26px"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
+                    app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                    tools:text="颜色分类：黄色" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24px"
+                android:background="@drawable/sr_bg_8dp_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_goods_info">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_goods_state"
+                    style="@style/text_info_clickable_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/interval_size_xs">
+                    android:layout_height="110px"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/cl_goods_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="16px"
-                        android:background="@drawable/sr_bg_8dp_white"
+                    <TextView
+                        android:id="@+id/tv_want_refund"
+                        style="@style/text_order_setting_info"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        android:gravity="center|left"
+                        android:text="@string/goods_state"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.xuexiang.xui.widget.imageview.RadiusImageView
-                            android:id="@+id/iv_shopIcon"
-                            android:layout_width="136px"
-                            android:layout_height="136px"
-                            android:src="@drawable/ic_waimai_brand"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:riv_corner_radius="4dp"/>
+                    <TextView
+                        android:id="@+id/tv_goods_state"
+                        style="@style/text_my_simple_style"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        android:drawableRight="@drawable/ic_arrow_right_black"
+                        android:drawablePadding="16px"
+                        android:text="@{viewModel.goodsStateContentObservable}"
+                        android:textColor="@color/text_tip"
+                        android:textSize="26px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/tv_shopName"
-                            style="@style/text_my_simple_style"
-                            android:layout_width="0px"
-                            android:layout_marginStart="@dimen/interval_size_xs"
-                            android:layout_marginEnd="83px"
-                            android:layout_marginTop="8px"
-                            android:textColor="@color/text_normal"
-                            android:textSize="30px"
-                            android:singleLine="true"
-                            android:ellipsize="end"
-                            app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
-                            app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            tools:text="德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店" />
-
-                        <TextView
-                            android:id="@+id/tv_goods_info"
-                            style="@style/text_my_simple_style"
-                            android:textColor="@color/text_tip"
-                            android:textSize="26px"
-                            android:layout_marginBottom="@dimen/interval_size_xs"
-                            app:layout_constraintStart_toStartOf="@id/tv_shopName"
-                            app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
-                            tools:text="颜色分类：黄色"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/sr_bg_8dp_white"
-                        android:layout_marginTop="44px"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cl_goods_info">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cl_goods_state"
-                            android:layout_width="match_parent"
-                            android:layout_height="110px"
-                            style="@style/text_info_clickable_bg"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="gone">
-
-                            <TextView
-                                android:id="@+id/tv_want_refund"
-                                style="@style/text_order_setting_info"
-                                android:layout_width="wrap_content"
-                                android:gravity="center|left"
-                                android:layout_marginEnd="@dimen/interval_size_xs"
-                                android:text="@string/goods_state"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent" />
-
-                            <TextView
-                                style="@style/text_my_simple_style"
-                                android:text="@string/goods_state"
-                                android:textColor="@color/text_tip"
-                                android:textSize="26px"
-                                android:layout_marginEnd="@dimen/interval_size_xs"
-                                android:drawableRight="@drawable/ic_arrow_right_black"
-                                android:drawablePadding="16px"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"/>
-
-                            <TextView
-                                style="@style/divider_in_order_info"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <TextView
-                            android:id="@+id/tv_refund_return_reason"
-                            style="@style/text_my_simple_style"
-                            android:textColor="@color/text_normal"
-                            android:textSize="30px"
-                            android:text="@string/refund_reason"
-                            android:layout_marginStart="@dimen/interval_size_xs"
-                            android:layout_marginTop="40px"
-                            app:layout_constraintTop_toBottomOf="@id/cl_goods_state"
-                            app:layout_constraintStart_toStartOf="@id/cl_goods_state"/>
-
-                        <EditText
-                            android:id="@+id/et_refund_reason"
-                            style="@style/et_input_comment"
-                            android:layout_width="match_parent"
-                            android:layout_height="220px"
-                            android:layout_margin="@dimen/interval_size_xs"
-                            android:background="@null"
-                            android:text="@={viewModel.refundReasonContentObservable}"
-                            android:hint="@string/please_input"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_refund_return_reason" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_selected_picture"
-                            android:layout_marginTop="32px"
-                            android:overScrollMode="never"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/et_refund_reason" />
-
-                        <TextView
-                            android:id="@+id/divider"
-                            style="@style/divider_in_order_info"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/recycler_selected_picture"/>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="110px"
-                            style="@style/text_info_clickable_bg"
-                            app:layout_constraintTop_toBottomOf="@id/divider"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                            <TextView
-                                style="@style/text_order_setting_info"
-                                android:layout_width="wrap_content"
-                                android:gravity="center|left"
-                                android:layout_marginEnd="@dimen/interval_size_xs"
-                                android:text="@string/refund_price"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tv_refund_price"
-                                style="@style/text_my_simple_style"
-                                android:textColor="@color/colorTheme"
-                                android:textSize="30px"
-                                android:layout_marginEnd="@dimen/interval_size_xs"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"/>
-
-                            <TextView
-                                style="@style/divider_in_order_info"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_refund_return_reason"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="40px"
+                    android:text="@string/refund_reason"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    app:layout_constraintStart_toStartOf="@id/cl_goods_state"
+                    app:layout_constraintTop_toBottomOf="@id/cl_goods_state" />
 
-        </ScrollView>
+                <EditText
+                    android:id="@+id/et_refund_reason"
+                    style="@style/et_input_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="220px"
+                    android:layout_margin="@dimen/interval_size_xs"
+                    android:background="@null"
+                    android:hint="@string/please_input"
+                    android:text="@={viewModel.refundReasonContentObservable}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_refund_return_reason" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_selected_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32px"
+                    android:overScrollMode="never"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_refund_reason" />
+
+                <TextView
+                    android:id="@+id/divider"
+                    style="@style/divider_in_order_info"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_selected_picture" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/text_info_clickable_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="110px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider">
+
+                    <TextView
+                        style="@style/text_order_setting_info"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        android:gravity="center|left"
+                        android:text="@string/refund_price"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_refund_price"
+                        style="@style/text_my_simple_style"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        android:textColor="@color/colorTheme"
+                        android:textSize="30px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/bt_submit"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="36px"
+                android:background="@drawable/sr_bg_gradient_full_radius_theme"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.life.base.views.UiAdapterLinearLayout>
 </layout>

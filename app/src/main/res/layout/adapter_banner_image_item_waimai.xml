@@ -9,6 +9,6 @@
         android:id="@+id/iv_item"
         android:layout_width="705px"
         android:layout_height="172px"
-        app:riv_corner_radius="12px"/>
+        app:riv_corner_radius="12dp"/>
 
 </com.life.base.views.UiAdapterLinearLayout>

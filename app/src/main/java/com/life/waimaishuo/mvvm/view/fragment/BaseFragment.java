@@ -224,10 +224,26 @@ public abstract class BaseFragment extends XPageFragment {
         }
     }
 
+    /**
+     * 设置view 是否可见  取值visible、gone
+     * @param view
+     * @param isVisibility
+     */
+    protected void setViewVisibility(View view,boolean isVisibility){
+        if(isVisibility){
+            if(view.getVisibility() != View.VISIBLE){
+                view.setVisibility(View.VISIBLE);
+            }
+        }else{
+            if(view.getVisibility() != View.GONE){
+                view.setVisibility(View.GONE);
+            }
+        }
+    }
+
     private void initMyHandle() {
         mHandler = new Handler(Looper.getMainLooper());
     }
-
 
     protected void onLifecycleCreate(){}
     protected void onLifecycleStart(){}
