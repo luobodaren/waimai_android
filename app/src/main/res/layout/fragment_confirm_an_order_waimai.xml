@@ -258,7 +258,7 @@
                             android:id="@+id/layout_bottom_order_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            layout="@layout/layout_bottom_order_info"
+                            layout="@layout/layout_bottom_order_info_waimai"
                             android:layout_marginTop="@dimen/interval_size_xs" />
 
                         <Space

@@ -1,7 +1,5 @@
 package com.life.waimaishuo.mvvm.vm.order;
 
-import android.os.Parcelable;
-
 import androidx.databinding.ObservableField;
 
 import com.life.waimaishuo.bean.Order;
@@ -52,7 +50,7 @@ public class RefundDetailViewModel extends BaseViewModel {
         merchantsNamePhoneNumberObservable.set("张三   12345678912");
         merchantsAddressObservable.set("山西省 太原市 小店区 南站国际商务港北区1号楼阿里巴巴创新中心");
 
-        goodsImageUrlObservable.set(order.getFoodsList().get(0).getFoodsImgUrl());
+        goodsImageUrlObservable.set(order.getGoodsList().get(0).getFoodsImgUrl());
         goodsNameUrlObservable.set("欧舒丹甜蜜樱花沐浴啫喱/身体甜蜜樱花沐浴…");
         goodsSpecificationObservable.set("颜色分类：黄色");
     }
@@ -67,5 +65,9 @@ public class RefundDetailViewModel extends BaseViewModel {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 }

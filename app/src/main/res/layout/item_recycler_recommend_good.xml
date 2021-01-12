@@ -6,7 +6,7 @@
     <data>
         <variable
             name="goods"
-            type="com.life.waimaishuo.bean.Foods" />
+            type="com.life.waimaishuo.bean.Goods" />
     </data>
 
     <com.life.base.views.UiAdapterLinearLayout

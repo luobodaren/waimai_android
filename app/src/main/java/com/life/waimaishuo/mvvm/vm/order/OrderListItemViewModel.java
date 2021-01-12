@@ -1,7 +1,7 @@
 package com.life.waimaishuo.mvvm.vm.order;
 
 import com.life.base.utils.LogUtil;
-import com.life.waimaishuo.bean.Foods;
+import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.enumtype.OrderPageEnum;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
@@ -36,106 +36,106 @@ public class OrderListItemViewModel extends BaseViewModel {
     }
 
     private void initOrderData() {
-        List<Foods> foodsList = new ArrayList<>();
-        Foods foods = new Foods("来吃烧烤！！！来吃烧烤！！！","这是一堆烧烤",
+        List<Goods> goodsList = new ArrayList<>();
+        Goods goods = new Goods("来吃烧烤！！！来吃烧烤！！！","这是一堆烧烤",
                 "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
                 "2","550.00");
-        foodsList.add(foods);
-        foodsList.add(foods);
-        foodsList.add(foods);
+        goodsList.add(goods);
+        goodsList.add(goods);
+        goodsList.add(goods);
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_PAY.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.UN_PAY.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_DELIVER.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.UN_DELIVER.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.DELIVER.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.DELIVER.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.DELIVER.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.DELIVER.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.FINISH.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.FINISH.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.AFTER_SALES.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.AFTER_SALES.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.AFTER_SALES.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.AFTER_SALES.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
 
         orderList1.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_PAY.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.UN_PAY.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList1.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_PAY.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.UN_PAY.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList1.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_PAY.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.UN_PAY.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
 
         orderList2.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_DELIVER.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.UN_DELIVER.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList2.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_DELIVER.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.UN_DELIVER.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList2.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.UN_DELIVER.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.UN_DELIVER.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
 
         orderList3.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.DELIVER.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.DELIVER.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList3.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.DELIVER.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.DELIVER.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList3.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.DELIVER.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.DELIVER.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
 
         orderList4.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.FINISH.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.FINISH.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList4.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.FINISH.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.FINISH.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList4.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.FINISH.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.FINISH.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
 
         orderList5.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.AFTER_SALES.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.AFTER_SALES.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
         orderList5.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.AFTER_SALES.getCode(), foodsList, OrderTypeEnum.MALL.getCode()));
+                OrderStateEnum.AFTER_SALES.getCode(), goodsList, OrderTypeEnum.MALL.getCode()));
         orderList5.add(new Order("烧烤店",
                 "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925352510,4053759500&fm=26&gp=0.jpg",
                 "2020-11-27",
-                OrderStateEnum.AFTER_SALES.getCode(), foodsList, OrderTypeEnum.WAI_MAI.getCode()));
+                OrderStateEnum.AFTER_SALES.getCode(), goodsList, OrderTypeEnum.WAI_MAI.getCode()));
     }
 
     /**

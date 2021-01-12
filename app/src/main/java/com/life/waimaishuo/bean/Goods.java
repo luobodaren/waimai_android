@@ -1,17 +1,11 @@
 package com.life.waimaishuo.bean;
 
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
 
 import androidx.databinding.BaseObservable;
-import androidx.databinding.BindingAdapter;
 
-import com.bumptech.glide.Glide;
-import com.life.waimaishuo.R;
-
-public class Foods extends BaseObservable implements Parcelable {
+public class Goods extends BaseObservable implements Parcelable {
 
     private String name;
     private String shopName;
@@ -28,10 +22,10 @@ public class Foods extends BaseObservable implements Parcelable {
     private int count_per_month;
     private String score;
 
-    public Foods() {
+    public Goods() {
     }
 
-    public Foods(String name, int time_send, String foodsImgUrl, String price_deliver, int count_per_month, String score) {
+    public Goods(String name, int time_send, String foodsImgUrl, String price_deliver, int count_per_month, String score) {
         this.name = name;
         this.foodsImgUrl = foodsImgUrl;
         this.time_send = time_send;
@@ -40,7 +34,7 @@ public class Foods extends BaseObservable implements Parcelable {
         this.score = score;
     }
 
-    public Foods(String name, String describe, String foodsImgUrl, String buyNum, String price) {
+    public Goods(String name, String describe, String foodsImgUrl, String buyNum, String price) {
         this.name = name;
         this.details = describe;
         this.foodsImgUrl = foodsImgUrl;
@@ -48,7 +42,7 @@ public class Foods extends BaseObservable implements Parcelable {
         this.price = price;
     }
 
-    protected Foods(Parcel in) {
+    protected Goods(Parcel in) {
         name = in.readString();
         details = in.readString();
         foodsImgUrl = in.readString();
@@ -61,15 +55,15 @@ public class Foods extends BaseObservable implements Parcelable {
         score = in.readString();
     }
 
-    public static final Creator<Foods> CREATOR = new Creator<Foods>() {
+    public static final Creator<Goods> CREATOR = new Creator<Goods>() {
         @Override
-        public Foods createFromParcel(Parcel in) {
-            return new Foods(in);
+        public Goods createFromParcel(Parcel in) {
+            return new Goods(in);
         }
 
         @Override
-        public Foods[] newArray(int size) {
-            return new Foods[size];
+        public Goods[] newArray(int size) {
+            return new Goods[size];
         }
     };
 

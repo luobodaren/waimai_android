@@ -16,7 +16,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.bean.Foods;
+import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.databinding.FragmentWaimaiExclusiveBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -103,7 +103,7 @@ public class ExclusiveBreakfastFragment extends BaseFragment {
                 spanCount,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new StaggeredDividerItemDecoration(getContext(),R.dimen.interval_size_xs,spanCount));
-        recyclerView.setAdapter(new MyBaseRecyclerAdapter<Foods>(R.layout.item_recycler_exclusive_goods_info,
+        recyclerView.setAdapter(new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_exclusive_goods_info,
                 viewModel.getmBreakFastList(), BR.goods));
     }
 }

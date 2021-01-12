@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/interval_size_xs"
+    android:background="@drawable/sr_bg_8dp_white"
+    android:padding="@dimen/interval_size_xs">
+
+    <com.xuexiang.xui.widget.imageview.RadiusImageView
+        android:id="@+id/iv_shop_icon"
+        android:layout_width="38px"
+        android:layout_height="38px"
+        android:src="@drawable/ic_waimai_brand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="100dp" />
+
+    <TextView
+        android:id="@+id/tv_shop_name"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="17px"
+        android:textColor="@color/text_normal"
+        android:textSize="30px"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+        app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
+        app:layout_constraintTop_toTopOf="@id/iv_shop_icon"
+        tools:text="店铺名称店铺名称店铺名称" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_goods_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@id/iv_shop_icon" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_order_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@id/recycler_goods_info" />
+
+    <TextView
+        android:id="@+id/tv_all_goods_price"
+        style="@style/text_my_simple_style"
+        android:layout_marginTop="40px"
+        android:textColor="@color/colorAssist_2"
+        android:textSize="30px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_order_info"
+        tools:text="￥899" />
+
+    <TextView
+        android:id="@+id/tv_all_goods_price_tip"
+        style="@style/text_my_simple_style"
+        android:layout_marginEnd="8px"
+        android:text="小计："
+        android:textColor="@color/text_normal"
+        android:textSize="26px"
+        app:layout_constraintBottom_toBottomOf="@id/tv_all_goods_price"
+        app:layout_constraintEnd_toStartOf="@id/tv_all_goods_price" />
+
+    <TextView
+        android:id="@+id/tv_goods_count"
+        style="@style/text_my_simple_style"
+        android:layout_marginEnd="24px"
+        android:textColor="@color/text_tip"
+        android:textSize="26px"
+        app:layout_constraintBottom_toBottomOf="@id/tv_all_goods_price"
+        app:layout_constraintEnd_toStartOf="@id/tv_all_goods_price_tip"
+        tools:text="共1件" />
+
+</com.life.base.views.UiAdapterConstrainLayout>

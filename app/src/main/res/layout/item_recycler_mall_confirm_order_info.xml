@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ui.TypeDescribeValue" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_goods_img">
+
+        <TextView
+            android:id="@+id/tv_type_name"
+            style="@style/text_my_simple_style"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:text="@{item.type}"
+            tools:text="配送方式" />
+
+        <TextView
+            android:id="@+id/tv_type_describe"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:textColor="@color/text_tip"
+            android:textSize="26px"
+            android:text="@{item.describe}"
+            tools:text="普通配送" />
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_type_value"
+            style="@style/text_my_simple_style"
+            android:textSize="26px"
+            android:text="@{item.value}"
+            tools:text="快递 免邮" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_right"
+            android:layout_width="24px"
+            android:layout_height="24px"
+            android:layout_gravity="center"
+            android:layout_marginStart="8px"
+            android:src="@drawable/ic_arrow_right_black" />
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

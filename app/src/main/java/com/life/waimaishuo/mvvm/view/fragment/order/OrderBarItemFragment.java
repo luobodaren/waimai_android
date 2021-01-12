@@ -17,7 +17,7 @@ import com.life.waimaishuo.BR;
 import com.life.waimaishuo.MyApplication;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.bean.Foods;
+import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.databinding.FragmentOrderListBinding;
 import com.life.waimaishuo.databinding.HeadOrderMallUnpayBinding;
@@ -104,7 +104,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
                 });
 
                 if (viewType == mall) {
-                    MyBaseRecyclerAdapter adapter1 = new MyBaseRecyclerAdapter<Foods>(R.layout.item_good_info, item.getFoodsList(), BR.goods);
+                    MyBaseRecyclerAdapter adapter1 = new MyBaseRecyclerAdapter<Goods>(R.layout.item_order_list_goods_info, item.getGoodsList(), BR.goods);
 
                     View headView = View.inflate(MyApplication.getMyApplication(), R.layout.head_order_mall_unpay, null);
                     ((HeadOrderMallUnpayBinding) DataBindingUtil.bind(headView)).setOrder(item);
@@ -144,8 +144,8 @@ public class OrderBarItemFragment extends BaseChildFragment {
                             || viewType == waimai_after_sales) {
                         item.setString_1(item.getOrderCreateTime());//处理头布局显示的info
 
-                        holder.text(R.id.tv_foods_info, getFoodsSimpleInfo(item, false));
-                        holder.text(R.id.tv_foods_price, getOrderPrice(item));
+                        holder.text(R.id.tv_foods_info, item.getFoodsSimpleInfo(requireContext(), false));
+                        holder.text(R.id.tv_foods_price, item.getOrderPrice(requireContext()));
 
                         if (viewType == waimai_un_pay) {
                             holder.click(R.id.bt_cancel_order, v -> onCancelOrderButtonClick(item));
@@ -155,7 +155,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
                         }
 
                     } else if (viewType == waimai_un_deliver || viewType == waimai_deliver) {
-                        item.setString_1(getFoodsSimpleInfo(item, true));//处理头布局显示的info
+                        item.setString_1(item.getFoodsSimpleInfo(requireContext(), true));//处理头布局显示的info
 
                         holder.click(R.id.bt_connect_driver, v -> onConnectedDriverButtonClick(item));
                         //处理地图信息
@@ -236,39 +236,6 @@ public class OrderBarItemFragment extends BaseChildFragment {
                 outRect.top = space;
             }
         });
-    }
-
-    /**
-     * 获得简要的订单商品信息
-     *
-     * @param order
-     * @param isWithPrice
-     * @return
-     */
-    private String getFoodsSimpleInfo(Order order, boolean isWithPrice) {
-        String foodsInfo = "";
-        if (order.getFoodsList().size() > 1) {
-            foodsInfo = order.getFoodsList().get(0).getName() + " " +
-                    getString(R.string.foods_number, String.valueOf(order.getFoodsList().size()));
-        } else if (order.getFoodsList().size() == 1) {
-            foodsInfo = order.getFoodsList().get(0).getName();
-        } else {
-            LogUtil.d("订单商品信息出错，没有商品信息");
-        }
-        if (isWithPrice) {
-            foodsInfo = foodsInfo + " " + getOrderPrice(order);
-        }
-        return foodsInfo;
-    }
-
-    /**
-     * 获得订单价格 带格式
-     *
-     * @param order
-     * @return
-     */
-    private String getOrderPrice(Order order) {
-        return getString(R.string.goods_price, String.valueOf(order.getOrderPrice()));
     }
 
     /**

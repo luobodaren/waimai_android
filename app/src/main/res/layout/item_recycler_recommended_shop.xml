@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="foods"
-            type="com.life.waimaishuo.bean.Foods" />
+            name="goods"
+            type="com.life.waimaishuo.bean.Goods" />
     </data>
 
     <com.life.base.views.UiAdapterLinearLayout
@@ -36,7 +36,7 @@
                 android:ellipsize="end"
                 android:textSize="30px"
                 android:textColor="@color/text_normal"
-                android:text="@{foods.name}"
+                android:text="@{goods.name}"
                 app:layout_constraintTop_toTopOf="@id/iv_goods_img"
                 app:layout_constraintStart_toEndOf="@id/iv_goods_img"
                 app:layout_constraintEnd_toEndOf="parent"

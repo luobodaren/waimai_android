@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.order.ApplyAfterSalesViewModel" />
     </data>
 
     <com.life.base.views.UiAdapterLinearLayout
@@ -34,16 +36,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.xuexiang.xui.widget.imageview.RadiusImageView
-                    android:id="@+id/iv_shopIcon"
+                    android:id="@+id/iv_goods_img"
                     android:layout_width="136px"
                     android:layout_height="136px"
-                    android:src="@drawable/ic_waimai_brand"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:riv_corner_radius="4dp" />
+                    app:riv_corner_radius="4dp"
+                    imageUrl="@{viewModel.order.firstFoods.foodsImgUrl}"/>
 
                 <TextView
-                    android:id="@+id/tv_shopName"
+                    android:id="@+id/tv_goods_name"
                     style="@style/text_my_simple_style"
                     android:layout_width="0px"
                     android:layout_marginStart="@dimen/interval_size_xs"
@@ -53,9 +55,10 @@
                     android:singleLine="true"
                     android:textColor="@color/text_normal"
                     android:textSize="30px"
+                    android:text="@{viewModel.order.firstFoods.name}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
-                    app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
+                    app:layout_constraintStart_toEndOf="@id/iv_goods_img"
+                    app:layout_constraintTop_toTopOf="@id/iv_goods_img"
                     tools:text="德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店" />
 
                 <TextView
@@ -64,8 +67,9 @@
                     android:layout_marginBottom="@dimen/interval_size_xs"
                     android:textColor="@color/text_tip"
                     android:textSize="26px"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
-                    app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                    android:text="@{viewModel.order.firstFoods.details}"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_goods_img"
+                    app:layout_constraintStart_toStartOf="@id/tv_goods_name"
                     tools:text="颜色分类：黄色" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

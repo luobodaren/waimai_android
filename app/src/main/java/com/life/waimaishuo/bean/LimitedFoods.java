@@ -4,7 +4,7 @@ import com.life.waimaishuo.enumtype.LimitedTimeStateEnum;
 
 public class LimitedFoods {
 
-    Foods foods;
+    Goods goods;
 
     String limitedPrice;
 
@@ -16,8 +16,8 @@ public class LimitedFoods {
 
     String shopName;
 
-    public LimitedFoods(Foods foods, String limitedPrice, String remainingCount, String goodsTotalCount, LimitedTimeStateEnum limitedTimeStateEnum, String shopName) {
-        this.foods = foods;
+    public LimitedFoods(Goods goods, String limitedPrice, String remainingCount, String goodsTotalCount, LimitedTimeStateEnum limitedTimeStateEnum, String shopName) {
+        this.goods = goods;
         this.limitedPrice = limitedPrice;
         this.remainingCount = remainingCount;
         this.goodsTotalCount = goodsTotalCount;
@@ -25,12 +25,12 @@ public class LimitedFoods {
         this.shopName = shopName;
     }
 
-    public Foods getFoods() {
-        return foods;
+    public Goods getGoods() {
+        return goods;
     }
 
-    public void setFoods(Foods foods) {
-        this.foods = foods;
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 
     public String getLimitedPrice() {

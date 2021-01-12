@@ -1,9 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.order.widget;
 
 import android.graphics.drawable.Drawable;
-import android.view.View;
-
-import androidx.databinding.Observable;
 
 import com.bumptech.glide.Glide;
 import com.life.base.utils.UIUtils;
@@ -12,7 +9,6 @@ import com.life.waimaishuo.databinding.LayoutOrderStateInfoTopBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel;
-import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 
@@ -67,7 +63,7 @@ public class OrderWaitDeliverFragment extends BaseFragment {
     }
 
     private void initData() {
-        mBinding.tvTitle.setText(requireContext().getString(R.string.merchants_are_stoccking_up));
+        mBinding.tvTitle.setText(requireContext().getString(R.string.merchants_are_stocking_up));
         mBinding.tvTitleInfo.setText("预计12：35送达");
         mBinding.tvInfo.setText("准时达服务：12:45前未送达，可获得赔付");
         mBinding.tvLeft.setText(requireContext().getString(R.string.reminder));

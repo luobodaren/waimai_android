@@ -28,7 +28,7 @@
             android:layout_centerVertical="true" />
 
 
-        <EditText
+       <!-- <EditText
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="60px"
@@ -42,7 +42,7 @@
             android:textSize="@dimen/font_size_24"
             android:textColor="@color/text_tip"
             android:textColorHint="@color/text_tip"
-            android:visibility="gone" />
+            android:visibility="gone" />-->
 
     </RelativeLayout>
 </layout>

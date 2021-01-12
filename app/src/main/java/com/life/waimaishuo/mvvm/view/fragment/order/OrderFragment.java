@@ -14,6 +14,7 @@ import com.life.waimaishuo.MyApplication;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.databinding.FragmentOrderBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.mall.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.order.OrderViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -73,7 +74,8 @@ public class OrderFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
         mBinding.layoutTitleOrder.ivSearch.setOnClickListener(v -> {
-            mBinding.layoutTitleOrder.et.setVisibility(View.VISIBLE);
+            //mBinding.layoutTitleOrder.et.setVisibility(View.VISIBLE);
+            openPage(OrderConfirmFragment.class);
         });
     }
 

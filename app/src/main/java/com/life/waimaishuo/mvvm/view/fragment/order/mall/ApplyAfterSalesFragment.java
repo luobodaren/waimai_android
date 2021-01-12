@@ -18,6 +18,7 @@ import com.life.waimaishuo.adapter.ImageSelectGridAdapter;
 import com.life.waimaishuo.databinding.FragmentApplyAfterSalesMallBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
+import com.life.waimaishuo.mvvm.vm.order.ApplyAfterSalesViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.Utils;
 import com.luck.picture.lib.PictureSelector;
@@ -35,17 +36,15 @@ public class ApplyAfterSalesFragment extends BaseFragment {
 
     public final static String KEY_ORDER = "order_key";
 
-    FragmentApplyAfterSalesMallBinding mBinding;
-
-    private final int maxNoteCharts = 50;
-
-    ImageSelectGridAdapter imageSelectGridAdapter;
-    private int maxSelectNum = 6;   //注意若要修改时 需要连同提示语一起修改
-    private List<LocalMedia> mSelectList = new ArrayList<>();
+    private FragmentApplyAfterSalesMallBinding mBinding;
+    private ApplyAfterSalesViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
-        return null;
+        if(mViewModel == null){
+            mViewModel = new ApplyAfterSalesViewModel();
+        }
+        return mViewModel;
     }
 
     @Override
@@ -63,6 +62,10 @@ public class ApplyAfterSalesFragment extends BaseFragment {
         super.initArgs();
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
+
+        if(getArguments() != null){
+            mViewModel.setOrder(getArguments().getParcelable(KEY_ORDER));
+        }
     }
 
     @Override
@@ -97,7 +100,6 @@ public class ApplyAfterSalesFragment extends BaseFragment {
     }
 
     private void init() {
-        mBinding.tvShopName.setText("欧舒丹甜蜜樱花沐浴啫喱/身体乳套装沐/欧舒丹甜蜜樱花沐浴啫喱/身体乳套装沐...");
         mBinding.tvGoodsInfo.setText("颜色分类：黄色");
     }
 

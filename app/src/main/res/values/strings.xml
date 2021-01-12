@@ -112,7 +112,8 @@
     <string name="connect_driver">电话骑手</string>
     <string name="deleted_order">删除订单</string>
     <string name="after_sale_process">售后进度</string>
-    <string name="foods_number">等%1$s件</string>
+    <string name="goods_number">等%1$s件</string>
+    <string name="goods_number_2">共%1$s件</string>
     <string name="goods_price">￥%1$s元</string>
     <string name="receipt_confirm">确认签收</string>
     <string name="driver_info">骑手信息</string>
@@ -143,7 +144,7 @@
     <string name="distribution_type">配送方式</string>
     <string name="wait_for_pay">等待支付</string>
     <string name="pay_ASAP">请尽快支付</string>
-    <string name="merchants_are_stoccking_up">商家正在备货</string>
+    <string name="merchants_are_stocking_up">商家正在备货</string>
     <string name="waimaishuo_deliver">外卖说快送</string>
     <string name="reminder">催单</string>
     <string name="order_delivered">订单已送达</string>
@@ -174,5 +175,7 @@
     <string name="connect_third_party_customer_service">联系第三方客服</string>
     <string name="refund_detail">退款详情</string>
     <string name="fail_detail">失败详情</string>
+    <string name="confirm_order">确认订单</string>
+    <string name="more_pay_type">更多支付方式</string>
 
 </resources>

@@ -27,7 +27,6 @@
             android:id="@+id/tv_pay_type_name"
             style="@style/text_shop_merchants_info"
             android:text="@{item.iconType}"
-            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_left"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/divider"
+            android:id="@+id/divider_top"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginStart="@dimen/interval_size_xs"
@@ -52,6 +51,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/divider_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:background="@color/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </com.life.base.views.UiAdapterConstrainLayout>
 </layout>

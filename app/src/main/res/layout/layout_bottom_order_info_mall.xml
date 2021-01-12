@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sr_bg_8dp_white"
+        android:orientation="vertical"
+        android:padding="@dimen/interval_size_xs">
+
+        <TextView
+            android:id="@+id/tv_order_note"
+            style="@style/text_my_simple_style"
+            android:text="@string/order_info"
+            android:textColor="@color/text_normal"
+            android:textSize="30px"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_customer_service_red" />
+
+            <Space
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/bt_one"
+                style="@style/text_mall_order_info"
+                android:layout_marginEnd="16px" />
+
+            <Button
+                android:id="@+id/bt_two"
+                style="@style/text_mall_order_info"
+                android:layout_marginEnd="16px" />
+
+            <Button
+                android:id="@+id/bt_three"
+                style="@style/text_mall_order_info" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

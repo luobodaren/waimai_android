@@ -12,7 +12,7 @@ import com.life.waimaishuo.bean.PreferentialActivity;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.OrderItemFoods;
 import com.life.waimaishuo.mvvm.model.BaseModel;
-import com.life.waimaishuo.mvvm.model.waimai.WaiMaiConfirmModel;
+import com.life.waimaishuo.mvvm.model.waimai.WaiMaiConfirmOrderModel;
 import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
 
-    WaiMaiConfirmModel mModel;
+    WaiMaiConfirmOrderModel mModel;
 
     public ObservableInt onAccessTimeClickObservable = new ObservableInt();
     public ObservableInt onPayTypeClickObservable = new ObservableInt();
@@ -47,7 +47,7 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
     @Override
     public BaseModel getModel() {
         if(mModel == null){
-            mModel = new WaiMaiConfirmModel();
+            mModel = new WaiMaiConfirmOrderModel();
         }
         return mModel;
     }

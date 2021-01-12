@@ -26,7 +26,7 @@
                 android:layout_height="220px"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="16px"
-                app:imageUrl="@{item.foods.foodsImgUrl}"
+                app:imageUrl="@{item.goods.foodsImgUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +39,7 @@
                 android:textSize="34px"
                 android:textStyle="bold"
                 android:textColor="@color/text_deep_black"
-                android:text="@{item.foods.name}"
+                android:text="@{item.goods.name}"
                 app:layout_constraintTop_toTopOf="@id/iv_foods_img"
                 app:layout_constraintStart_toEndOf="@id/iv_foods_img"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size_24"
                 android:textColor="@color/text_tip"
-                android:text='@{item.foods.price_deliver + @string/arrive_in_minutes_2}'
+                android:text="@{item.goods.price_deliver + @string/arrive_in_minutes_2}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_shop_name"/>
 
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/interval_size_xs"
                 tools:text="配送￥3"
-                android:text='@{@string/limited_divider_price + item.foods.price_deliver}'
+                android:text="@{@string/limited_divider_price + item.goods.price_deliver}"
                 android:textSize="24px"
                 android:textColor="@color/text_tip"
                 app:layout_constraintStart_toEndOf="@id/tv_foods_price_pre"

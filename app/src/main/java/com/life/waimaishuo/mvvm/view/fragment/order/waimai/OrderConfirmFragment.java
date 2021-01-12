@@ -22,7 +22,7 @@ import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.ui.IconStrData;
-import com.life.waimaishuo.databinding.FragmentConfirmAnOrderBinding;
+import com.life.waimaishuo.databinding.FragmentConfirmAnOrderWaimaiBinding;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -43,13 +43,13 @@ import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 
-@Page(name = "确认订单", anim = CoreAnim.slide)
+@Page(name = "确认订单-外卖", anim = CoreAnim.slide)
 public class OrderConfirmFragment extends BaseFragment {
 
     private final static String ORDER_PAGE_TYPE_INT_KEY = "order_page_type";
     private final static String ORDER_DATA_KEY = "order";
-    int currentOrderType = -1; //初始值-1  1：外卖 2：自取 3：仅有外卖 4：仅有自取 5：均没有
 
+    int currentOrderType = -1; //初始值-1  1：外卖 2：自取 3：仅有外卖 4：仅有自取 5：均没有
     public final static int ORDER_ACCESS_WAIMAI = 1;
     public final static int ORDER_ACCESS_ZIQU = 2;
     public final static int ORDER_ACCESS_WAIMAI_ONLY = 3;
@@ -64,7 +64,7 @@ public class OrderConfirmFragment extends BaseFragment {
     private static int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
     private static int REQUEST_CODE_ORDER_NOTE = 1001;
 
-    FragmentConfirmAnOrderBinding mBinding;
+    FragmentConfirmAnOrderWaimaiBinding mBinding;
     WaiMaiConfirmOrderViewModel mViewModel;
 
     FragmentManager fm;
@@ -84,14 +84,14 @@ public class OrderConfirmFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentConfirmAnOrderBinding) mViewDataBinding;
+        mBinding = (FragmentConfirmAnOrderWaimaiBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
         mBinding.layoutOrderNote.setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_confirm_an_order;
+        return R.layout.fragment_confirm_an_order_waimai;
     }
 
     @Override
@@ -119,13 +119,15 @@ public class OrderConfirmFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        mBinding.layoutTitle.tvTitle.setText(getPageName());
+        if (fm == null) {
+            fm = getChildFragmentManager();
+        }
+
+        mBinding.layoutTitle.tvTitle.setText(getString(R.string.confirm_order));
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
 
-        initOrderInfoFrameLayout();
-
+        setPageElementByOrderType();
         initOrderFoodsView();
-
         initData();
     }
 
@@ -133,6 +135,18 @@ public class OrderConfirmFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
         addCallBack();
+        
+        mBinding.layoutTitle.ivMenu.setOnClickListener(new View.OnClickListener() { // FIXME: 2021/1/12 删除
+            @Override
+            public void onClick(View v) {
+                currentOrderType++;
+                if(currentOrderType >9){
+                    currentOrderType = 1;
+                }
+                mViewModel.setCurrentAccessType(currentOrderType);
+                setPageElementByOrderType();
+            }
+        });
 
         mBinding.tvOrderAccessType.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
@@ -209,53 +223,71 @@ public class OrderConfirmFragment extends BaseFragment {
     /**
      * 初始化配送信息碎片（自取或配送）
      */
-    private void initOrderInfoFrameLayout() {
-        if (fm == null) {
-            fm = getChildFragmentManager();
-            ft = fm.beginTransaction();
+    private void setPageElementByOrderType() {
+        //设置标题
+        mBinding.layoutTitle.tvTitle.setText(getPageName());
+
+        if(ORDER_ACCESS_WAIMAI <= currentOrderType && currentOrderType <= ORDER_ACCESS_ZIQU_ONLY) {
+            setViewVisibility(mBinding.flOrderTopInfo, true);
+            setViewVisibility(mBinding.layoutOrderNote.llContent, true);
+            setViewVisibility(mBinding.layoutMembers.clContent, true);
+            setViewVisibility(mBinding.layoutConfirmOrder.llShoppingCart, true);
+            setViewVisibility(mBinding.flOrderState,false);
+            setViewVisibility(mBinding.layoutBottomOrderInfo.llContent,false);
+            setViewVisibility(mBinding.layoutBottomOrderDeliverInfo.llContent,false);
+
+            resetOrderTopInfoLayout();
+            refreshOrderTitleView();
+        }else{
+            setViewVisibility(mBinding.flOrderTopInfo, false);
+            setViewVisibility(mBinding.layoutOrderNote.llContent, false);
+            setViewVisibility(mBinding.layoutMembers.clContent, false);
+            setViewVisibility(mBinding.layoutConfirmOrder.llShoppingCart, false);
+            setViewVisibility(mBinding.flOrderState,true);
+            setViewVisibility(mBinding.layoutBottomOrderInfo.llContent,true);
+            setViewVisibility(mBinding.layoutBottomOrderDeliverInfo.llContent,true);
+
+            resetOrderStateLayout();
         }
+    }
 
-        if(ORDER_ACCESS_WAIMAI <= currentOrderType && currentOrderType <= ORDER_ACCESS_ZIQU_ONLY){
-            mBinding.layoutBottomOrderInfo.llContent.setVisibility(View.GONE);
-            mBinding.layoutBottomOrderDeliverInfo.llContent.setVisibility(View.GONE);
-
+    private void resetOrderTopInfoLayout(){
+        if(infoSettingTextFragment == null){
             infoSettingTextFragment = new OrderInfoSettingTextFragment();
             infoSettingTextFragment.baseViewModel = mViewModel;
+            ft = fm.beginTransaction();
             ft.add(R.id.fl_order_info_set, infoSettingTextFragment).commit();
-            if (currentOrderType == ORDER_ACCESS_WAIMAI || currentOrderType == ORDER_ACCESS_ZIQU) { //可以选择配送方式
-                //do nothing
-            } else {  //只有一种配送方式
-                mBinding.tvOrderAccessType.setVisibility(View.GONE);
-                mBinding.tvOrderAccessType2.setVisibility(View.GONE);
-                mBinding.llOrderInfoTitle.setBackgroundResource(R.drawable.sr_bg_8dp_white);
+        }
 
-                if (currentOrderType == ORDER_ACCESS_WAIMAI_ONLY) {
-                } else if (currentOrderType == ORDER_ACCESS_ZIQU_ONLY) {
-                    refreshOrderTitleView();
-                    mBinding.layoutOrderNote.clTableware.setVisibility(View.GONE);
-                }
-            }
-        }else{  //隐藏无关界面
-            mBinding.flOrderTopInfo.setVisibility(View.GONE);
-            mBinding.layoutOrderNote.llContent.setVisibility(View.GONE);
-            mBinding.layoutMembers.clContent.setVisibility(View.GONE);
-            mBinding.layoutConfirmOrder.llShoppingCart.setVisibility(View.GONE);
-            BaseFragment replaceFragment = null;
-            if(currentOrderType == ORDER_WAIT_FOR_PAY){
-                replaceFragment = new OrderWaitPayFragment();
-            } else if (currentOrderType == ORDER_WAIT_FOR_DELIVER || currentOrderType == ORDER_DELIVERING){
-                replaceFragment = new OrderWaitDeliverFragment();
-            } else if (currentOrderType == ORDER_DELIVERED){
-                replaceFragment = new OrderDeliverFinishFragment();
-            } else if (currentOrderType == ORDER_ZIQU_PAY_SUCCESS) {   //店内自取支付成功
-                replaceFragment = new OrderProcessFragment();
-            }
-            if(replaceFragment != null){
-                replaceFragment.baseViewModel = mViewModel;
-                ft.replace(R.id.fl_order_state, replaceFragment).commit();
-            }else{
-                LogUtil.e("布局加载出错");
-            }
+        //只有一种配送方式
+        if(currentOrderType == ORDER_ACCESS_WAIMAI_ONLY || currentOrderType == ORDER_ACCESS_ZIQU_ONLY){
+            setViewVisibility(mBinding.tvOrderAccessType,false);
+            setViewVisibility(mBinding.tvOrderAccessType2,false);
+            mBinding.llOrderInfoTitle.setBackgroundResource(R.drawable.sr_bg_8dp_white);
+        }else{
+            setViewVisibility(mBinding.tvOrderAccessType,true);
+            setViewVisibility(mBinding.tvOrderAccessType2,true);
+            mBinding.llOrderInfoTitle.setBackgroundResource(R.drawable.sr_bg_bl_br_8dp_white);
+        }
+    }
+
+    BaseFragment replaceFragment = null;
+    private void resetOrderStateLayout(){
+        if(currentOrderType == ORDER_WAIT_FOR_PAY){
+            replaceFragment = new OrderWaitPayFragment();
+        } else if (currentOrderType == ORDER_WAIT_FOR_DELIVER || currentOrderType == ORDER_DELIVERING){
+            replaceFragment = new OrderWaitDeliverFragment();
+        } else if (currentOrderType == ORDER_DELIVERED){
+            replaceFragment = new OrderDeliverFinishFragment();
+        } else if (currentOrderType == ORDER_ZIQU_PAY_SUCCESS) {   //店内自取支付成功
+            replaceFragment = new OrderProcessFragment();
+        }
+        if(replaceFragment != null){
+            replaceFragment.baseViewModel = mViewModel;
+            ft = fm.beginTransaction();
+            ft.replace(R.id.fl_order_state, replaceFragment).commit();
+        }else{
+            LogUtil.e("布局加载出错");
         }
     }
 
@@ -280,24 +312,6 @@ public class OrderConfirmFragment extends BaseFragment {
         refreshOrderTitleView();
     }
 
-    private void refreshOrderTitleView(){
-        if (currentOrderType == ORDER_ACCESS_WAIMAI_ONLY || currentOrderType == ORDER_ACCESS_WAIMAI) {
-            if(mBinding.layoutOrderTitle.clLocation.getVisibility() != View.VISIBLE){
-                mBinding.layoutOrderTitle.clLocation.setVisibility(View.VISIBLE);
-            }
-            if(mBinding.layoutOrderNote.clTableware.getVisibility() != View.VISIBLE){
-                mBinding.layoutOrderNote.clTableware.setVisibility(View.VISIBLE);
-            }
-            resetOrderTitleInfo();
-        }
-        if (currentOrderType == ORDER_ACCESS_ZIQU_ONLY || currentOrderType == ORDER_ACCESS_ZIQU) {
-            mBinding.layoutOrderTitle.clLocation.setVisibility(View.GONE);
-            mBinding.layoutOrderNote.clTableware.setVisibility(View.GONE);
-            resetOrderTitleInfo();
-        }
-    }
-
-
     /**
      * 切换外卖配送与自取时 碎片显示内容跟着切换
      */
@@ -308,7 +322,19 @@ public class OrderConfirmFragment extends BaseFragment {
         if (currentOrderType == ORDER_ACCESS_ZIQU_ONLY || currentOrderType == ORDER_ACCESS_ZIQU) {
             infoSettingTextFragment.resetViewByType(OrderInfoSettingTextFragment.ACCESS_ZIQU);
         }
+    }
 
+    private void refreshOrderTitleView(){
+        if (currentOrderType == ORDER_ACCESS_WAIMAI_ONLY || currentOrderType == ORDER_ACCESS_WAIMAI) {
+            setViewVisibility(mBinding.layoutOrderTitle.clLocation,true);
+            setViewVisibility(mBinding.layoutOrderNote.clTableware,true);
+            resetOrderTitleInfo();
+        }
+        if (currentOrderType == ORDER_ACCESS_ZIQU_ONLY || currentOrderType == ORDER_ACCESS_ZIQU) {
+            setViewVisibility(mBinding.layoutOrderTitle.clLocation,false);
+            setViewVisibility(mBinding.layoutOrderNote.clTableware,false);
+            resetOrderTitleInfo();
+        }
     }
 
     private BottomSheet mPickUpTimeDialog;
@@ -427,6 +453,7 @@ public class OrderConfirmFragment extends BaseFragment {
             public void onBindViewHolder(BaseViewHolder holder, boolean selected, IconStrData item) {
                 holder.setText(R.id.tv_pay_type_name, item.getIconType());
                 holder.setImageResource(R.id.iv_left, item.getResImgId());
+                holder.setVisible(R.id.divider_bottom,false);
                 if (selected) {
                     holder.setImageResource(R.id.iv_right, R.drawable.ic_check_round_fill_red);
                 } else {

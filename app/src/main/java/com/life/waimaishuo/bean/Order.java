@@ -1,8 +1,11 @@
 package com.life.waimaishuo.bean;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.life.base.utils.LogUtil;
+import com.life.waimaishuo.R;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
 
 import java.util.Iterator;
@@ -15,17 +18,17 @@ public class Order implements Parcelable {
     String orderCreateTime;
     int orderType;
     int orderState;
-    List<Foods> foodsList;
+    List<Goods> goodsList;
 
     String string_1; //可用于存储自定义信息
 
 
-    public Order(String shopName, String shopIconUrl, String orderCreateTime, int orderState, List<Foods> foodsList, int orderType) {
+    public Order(String shopName, String shopIconUrl, String orderCreateTime, int orderState, List<Goods> goodsList, int orderType) {
         this.shopName = shopName;
         this.shopIconUrl = shopIconUrl;
         this.orderCreateTime = orderCreateTime;
         this.orderState = orderState;
-        this.foodsList = foodsList;
+        this.goodsList = goodsList;
         this.orderType = orderType;
     }
 
@@ -34,7 +37,7 @@ public class Order implements Parcelable {
         shopIconUrl = in.readString();
         orderCreateTime = in.readString();
         orderState = in.readInt();
-        foodsList = in.createTypedArrayList(Foods.CREATOR);
+        goodsList = in.createTypedArrayList(Goods.CREATOR);
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -85,12 +88,12 @@ public class Order implements Parcelable {
         this.orderState = orderState;
     }
 
-    public List<Foods> getFoodsList() {
-        return foodsList;
+    public List<Goods> getGoodsList() {
+        return goodsList;
     }
 
-    public void setFoodsList(List<Foods> foodsList) {
-        this.foodsList = foodsList;
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
     }
 
     public int getOrderType() {
@@ -120,18 +123,55 @@ public class Order implements Parcelable {
         dest.writeString(shopIconUrl);
         dest.writeString(orderCreateTime);
         dest.writeInt(orderState);
-        dest.writeTypedList(foodsList);
+        dest.writeTypedList(goodsList);
+    }
+
+    /**
+     * 获得简要的订单商品信息 带格式
+     *
+     * @param isWithPrice
+     * @return
+     */
+    public String getFoodsSimpleInfo(Context context, boolean isWithPrice) {
+        String foodsInfo = "";
+        if (goodsList.size() > 1) {
+            foodsInfo = goodsList.get(0).getName() + " " +
+                    String.format(context.getString(R.string.goods_number), String.valueOf(goodsList.size()));
+        } else if (goodsList.size() == 1) {
+            foodsInfo = goodsList.get(0).getName();
+        } else {
+            LogUtil.d("订单商品信息出错，没有商品信息");
+        }
+        if (isWithPrice) {
+            foodsInfo = foodsInfo + " " + getOrderPrice(context);
+        }
+        return foodsInfo;
+    }
+
+    /**
+     * 获得订单价格 带格式
+     */
+    public String getOrderPrice(Context context) {
+        return context.getString(R.string.goods_price, String.valueOf(getOrderPrice()));
     }
 
     public double getOrderPrice(){
-        Foods foods;
+        Goods goods;
         double prices = 0f;
-        Iterator<Foods> iterator = foodsList.iterator();
+        Iterator<Goods> iterator = goodsList.iterator();
         if(iterator.hasNext()){
-            foods = iterator.next();
-            prices += Double.valueOf(foods.getPrice());
+            goods = iterator.next();
+            prices += Double.valueOf(goods.getPrice());
         }
         return prices;
+    }
+
+    public Goods getFirstFoods(){
+        if(goodsList != null && goodsList.size() >= 1){
+            return goodsList.get(0);
+        }else {
+            return null;
+        }
     }
 
 }

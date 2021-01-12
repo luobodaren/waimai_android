@@ -10,7 +10,7 @@
             type="com.life.waimaishuo.mvvm.vm.order.RefundViewModel" />
     </data>
 
-    <LinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -76,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_8dp_white"
                 android:paddingStart="@dimen/interval_size_xs"
                 android:paddingEnd="@dimen/interval_size_xs"
                 app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +106,7 @@
                         android:layout_marginStart="@dimen/interval_size_xs"
                         android:background="@null"
                         android:hint="@string/filling_logistics_order_number"
+                        android:inputType="phone"
                         android:textColor="@color/text_normal"
                         android:textColorHint="@color/text_tip"
                         android:textSize="26px">
@@ -157,5 +159,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 </layout>
