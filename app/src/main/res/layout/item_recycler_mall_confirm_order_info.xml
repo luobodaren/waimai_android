@@ -43,6 +43,7 @@
             style="@style/text_my_simple_style"
             android:textSize="26px"
             android:text="@{item.value}"
+            android:textColor="@color/text_uncheck"
             tools:text="快递 免邮" />
 
         <ImageView
@@ -51,7 +52,8 @@
             android:layout_height="24px"
             android:layout_gravity="center"
             android:layout_marginStart="8px"
-            android:src="@drawable/ic_arrow_right_black" />
+            android:src="@drawable/ic_arrow_right_black"
+            android:visibility="gone"/>
 
     </com.life.base.views.UiAdapterLinearLayout>
 </layout>

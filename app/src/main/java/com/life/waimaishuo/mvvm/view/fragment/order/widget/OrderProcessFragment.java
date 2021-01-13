@@ -38,7 +38,6 @@ public class OrderProcessFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        resetViewByType(((WaiMaiConfirmOrderViewModel) baseViewModel).getCurrentAccessType());
 
     }
 
@@ -49,14 +48,6 @@ public class OrderProcessFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-
-    }
-
-    /**
-     * 根据类型更新界面元素
-     * @param type
-     */
-    public void resetViewByType(int type){
 
     }
 

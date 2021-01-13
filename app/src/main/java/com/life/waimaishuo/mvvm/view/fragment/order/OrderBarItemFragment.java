@@ -2,6 +2,7 @@ package com.life.waimaishuo.mvvm.view.fragment.order;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
@@ -20,12 +21,13 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.databinding.FragmentOrderListBinding;
-import com.life.waimaishuo.databinding.HeadOrderMallUnpayBinding;
 import com.life.waimaishuo.databinding.HeadOrderWaimaiBinding;
+import com.life.waimaishuo.databinding.HeadShopOrderGoodsListBinding;
 import com.life.waimaishuo.enumtype.OrderPageEnum;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.enumtype.OrderTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseChildFragment;
+import com.life.waimaishuo.mvvm.view.fragment.order.mall.OrderDetailFragment;
 import com.life.waimaishuo.mvvm.view.fragment.order.waimai.ApplyAfterSalesFragment;
 import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -91,23 +93,23 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
             @Override
             protected void bindData(@NonNull RecyclerViewHolder holder, int position, Order item) {
-                int viewType = holder.getItemViewType();
-
-                holder.getView(R.id.go_order_detail_page_layout).setOnClickListener(v -> {
+                View goOrderDetail = holder.getView(R.id.go_order_detail_page_layout);
+                goOrderDetail.setOnClickListener(v -> {
                     if(item.getOrderType() == OrderTypeEnum.WAI_MAI.getCode()){ //外卖
                         OrderConfirmFragment.openPageWithOrder(OrderBarItemFragment.this,item);
-                    }else if(item.getOrderType() == OrderTypeEnum.MALL.getCode()){  //商城
-
+                    }else if (item.getOrderType() == OrderTypeEnum.MALL.getCode()){
+                        OrderDetailFragment.openPageWithOrder(OrderBarItemFragment.this,item);
                     }else{
                         LogUtil.e("订单类型匹配出错 orderType:" + item.getOrderType());
                     }
                 });
 
+                int viewType = holder.getItemViewType();
                 if (viewType == mall) {
-                    MyBaseRecyclerAdapter adapter1 = new MyBaseRecyclerAdapter<Goods>(R.layout.item_order_list_goods_info, item.getGoodsList(), BR.goods);
+                    MyBaseRecyclerAdapter adapter1 = new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_order_list_mall_goods_info, item.getGoodsList(), BR.goods);
 
-                    View headView = View.inflate(MyApplication.getMyApplication(), R.layout.head_order_mall_unpay, null);
-                    ((HeadOrderMallUnpayBinding) DataBindingUtil.bind(headView)).setOrder(item);
+                    View headView = View.inflate(MyApplication.getMyApplication(), R.layout.head_shop_order_goods_list, null);
+                    ((HeadShopOrderGoodsListBinding) DataBindingUtil.bind(headView)).setOrder(item);
                     adapter1.addHeaderView(headView);
 
                     View footView;
@@ -135,10 +137,20 @@ public class OrderBarItemFragment extends BaseChildFragment {
                         footView = View.inflate(MyApplication.getMyApplication(), R.layout.foot_order_mall_close, null);
                         adapter1.addFooterView(footView);
                     }
-                    ((RecyclerView) holder.getView(R.id.recycler_goods_list)).setLayoutManager(
+
+                    View goodsListRecycler = holder.getView(R.id.recycler_goods_list);
+                    goodsListRecycler.setOnTouchListener((v, event) -> {
+                        //这里因为recyclerView拦截了点击事件 使得点击事件不触发
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            goOrderDetail.performClick();//模拟父控件的点击
+                        }
+                        return false;
+                    });
+                    RecyclerView goodsListRecyclerView = (RecyclerView)goodsListRecycler;
+                    goodsListRecyclerView.setLayoutManager(
                             new LinearLayoutManager(MyApplication.getMyApplication(),
                                     LinearLayoutManager.VERTICAL, false));
-                    ((RecyclerView) holder.getView(R.id.recycler_goods_list)).setAdapter(adapter1);
+                    goodsListRecyclerView.setAdapter(adapter1);
                 } else {    //外卖的布局
                     if (viewType == waimai_un_pay || viewType == waimai_finish
                             || viewType == waimai_after_sales) {
@@ -176,16 +188,16 @@ public class OrderBarItemFragment extends BaseChildFragment {
             protected int getItemLayoutId(int viewType) {
                 switch (viewType) {
                     case mall:
-                        return R.layout.item_recycler_order_mall_list;
+                        return R.layout.item_recycler_mall_order_list;
                     case waimai_un_pay:
-                        return R.layout.item_recycler_order_unpay_waimai;
+                        return R.layout.item_recycler_waimai_order_unpay;
                     case waimai_un_deliver:
                     case waimai_deliver:
-                        return R.layout.item_recycler_order_deliver_waimai; //若有不同布局 记得修改bindData方法内逻辑
+                        return R.layout.item_recycler_waimai_order_deliver; //若有不同布局 记得修改bindData方法内逻辑
                     case waimai_finish:
-                        return R.layout.item_recycler_order_finish_waimai;
+                        return R.layout.item_recycler_waimai_order_finish;
                     case waimai_after_sales:
-                        return R.layout.item_recycler_order_after_sale_waimai;
+                        return R.layout.item_recycler_waimai_order_after_sale;
                 }
                 return -1;
             }

@@ -25,6 +25,7 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
 
     public static int FOOD_ACCESS_PACK_OUT = 11;        //打包带走
     public static int FOOD_ACCESS_STORE_DINING = 12;    //店内就餐
+
     private int shopFoodAccessType = FOOD_ACCESS_PACK_OUT;
 
     LayoutOrderInfoSettingTextBinding mBinding;
@@ -54,7 +55,7 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        resetViewByType(getAccessType(((WaiMaiConfirmOrderViewModel) baseViewModel).getCurrentAccessType()));
+        resetViewByType(shopFoodAccessType);
 
         initAccessTypeView();
 
@@ -105,7 +106,12 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
         mBinding.tvRightPayType.setCompoundDrawables(getPayTypeLeftDrawable(iconStrData.getResImgId()),null,null,null);
     }
 
-    private int getAccessType(int type){
+    /**
+     * 类型值转换，OrderConfirmFragment的type 转换为 本页面的accessType
+     * @param type  OrderConfirmFragment的type
+     * @return
+     */
+    public int getAccessType(int type){
         if(type == OrderConfirmFragment.ORDER_ACCESS_WAIMAI || type == OrderConfirmFragment.ORDER_ACCESS_WAIMAI_ONLY){
             return ACCESS_WAIMAI;
         }else if(type == OrderConfirmFragment.ORDER_ACCESS_ZIQU || type == OrderConfirmFragment.ORDER_ACCESS_ZIQU_ONLY){
@@ -114,6 +120,14 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
             return -1;
         }
         return -1;
+    }
+
+    public int getShopFoodAccessType() {
+        return shopFoodAccessType;
+    }
+
+    public void setShopFoodAccessType(int shopFoodAccessType) {
+        this.shopFoodAccessType = shopFoodAccessType;
     }
 
     /**

@@ -6,9 +6,11 @@
     <!-- fixme 完善数据绑定 -->
 
     <data>
+
         <variable
             name="item"
             type="com.life.waimaishuo.bean.LinkageGroupedItemShopGoods.ItemInfo" />
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel" />
@@ -16,31 +18,30 @@
 
     <com.life.base.views.UiAdapterConstrainLayout
         android:id="@+id/iv_goods_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_goods_img"
+            imageUrl="@{item.imgUrl}"
             android:layout_width="110px"
             android:layout_height="110px"
+            android:layout_marginTop="32px"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_food_all_subtype"
-            android:scaleType="centerInside"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            imageUrl="@{item.imgUrl}"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/iv_goods_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
+            style="@style/text_my_simple_style"
             android:layout_marginTop="8px"
-            android:textSize="@dimen/linkageSecondary_grid_item_text_size"
-            android:textColor="@color/text_normal"
             android:text="@{item.title}"
-            app:layout_constraintStart_toStartOf="@+id/iv_goods_img"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/linkageSecondary_grid_item_text_size"
             app:layout_constraintEnd_toEndOf="@id/iv_goods_img"
+            app:layout_constraintStart_toStartOf="@+id/iv_goods_img"
             app:layout_constraintTop_toBottomOf="@+id/iv_goods_img"
             tools:text="水果" />
 

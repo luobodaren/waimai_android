@@ -71,4 +71,6 @@
 
     <color name="xrs_insideRangeLineColor">@color/colorTheme</color>
     <color name="xrs_outsideRangeLineColor">#1AFB5900</color>
+    <color name="logistics_process_color">#FFCCCCCC</color>
+    <color name="text_logistics_process">#FF888888</color>
 </resources>

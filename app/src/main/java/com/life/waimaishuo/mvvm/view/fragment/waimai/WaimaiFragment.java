@@ -257,7 +257,7 @@ public class WaimaiFragment extends BaseFragment {
             }
         });
 
-        View view = View.inflate(getContext(),R.layout.head_cart_view,null);
+        View view = View.inflate(getContext(),R.layout.head_exclusive_recycler,null);
         ((TextView)view.findViewById(R.id.text_left)).setText("专属早餐");
         ((TextView)view.findViewById(R.id.tv_right)).setText("更多好店");
         ((ImageView)view.findViewById(R.id.iv_right)).setImageResource(R.drawable.ic_arrow_right_gray);

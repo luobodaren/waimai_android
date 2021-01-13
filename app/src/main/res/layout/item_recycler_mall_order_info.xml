@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ui.TypeDescribeValue" />
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:id="@+id/cl_order_number"
+        android:layout_width="match_parent"
+        android:layout_height="66px">
+
+        <TextView
+            android:id="@+id/tv_left"
+            style="@style/text_my_simple_style"
+            android:text="@{item.type}"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_center"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="240px"
+            android:includeFontPadding="false"
+            android:text="@{item.describe}"
+            android:textColor="@color/text_tip"
+            android:textSize="26px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3242342424" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            style="@style/text_my_simple_style"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:text="@{item.value}"
+            android:textColor="@color/colorTheme"
+            android:textSize="26px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

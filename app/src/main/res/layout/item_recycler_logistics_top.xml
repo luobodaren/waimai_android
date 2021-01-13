@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ui.LogisticsData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_logistics_process_layout"
+            android:layout_width="85px"
+            android:layout_height="0px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_center_icon"
+                android:layout_width="16px"
+                android:layout_height="16px"
+                android:src="@drawable/ic_logistics_round_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
+                android:id="@+id/tv_line"
+                android:layout_width="2px"
+                android:layout_height="0px"
+                android:background="@color/colorTheme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_center_icon" />
+
+
+            <ImageView
+                android:id="@+id/iv_logistics_state_icon"
+                android:layout_width="38px"
+                android:layout_height="38px"
+                android:src="@drawable/ic_check_round_fill_red"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/space_top"
+            android:layout_width="wrap_content"
+            android:layout_height="40px"
+            app:layout_constraintStart_toEndOf="@id/cl_logistics_process_layout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_state"
+            style="@style/text_my_simple_style"
+            android:text="@{item.state}"
+            android:textSize="28px"
+            android:textColor="@color/colorTheme"
+            app:layout_constraintStart_toEndOf="@id/cl_logistics_process_layout"
+            app:layout_constraintTop_toBottomOf="@id/space_top"
+            tools:text="已签收" />
+
+        <TextView
+            android:id="@+id/tv_state_describe"
+            style="@style/text_my_simple_style"
+            android:layout_width="0px"
+            android:layout_marginEnd="100px"
+            android:text="@{item.state_describe}"
+            android:textColor="@color/text_logistics_process"
+            android:textSize="24px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_state"
+            app:layout_constraintTop_toBottomOf="@id/tv_state"
+            tools:text="签收人：高小姐，电话：14677839277" />
+
+        <TextView
+            android:id="@+id/tv_state_time"
+            style="@style/text_my_simple_style"
+            android:layout_marginBottom="40px"
+            android:text="@{item.time}"
+            android:textColor="@color/text_logistics_process"
+            android:textSize="24px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_state"
+            app:layout_constraintTop_toBottomOf="@id/tv_state_describe"
+            tools:text="2020-08-19 14:16" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

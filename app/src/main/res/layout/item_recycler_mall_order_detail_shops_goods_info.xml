@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ui.MallGoods" />
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_goods_img"
+            imageUrl="@{item.goodsImgUrl}"
+            android:layout_width="180px"
+            android:layout_height="180px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="4dp" />
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            style="@style/text_my_simple_style"
+            android:layout_width="0px"
+            android:layout_marginStart="17px"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{item.goodsName}"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_goods_img"
+            app:layout_constraintTop_toTopOf="@id/iv_goods_img"
+            tools:text="生活在左2020春夏新款绣花桑蚕丝真丝连衣裙女装修身中长款长裙子生活在左2020春夏新款绣花桑蚕丝真丝连衣裙女装修身中长款长裙子感到翻跟斗" />
+
+        <TextView
+            android:id="@+id/tv_goods_specification"
+            style="@style/text_my_simple_style"
+            android:background="@drawable/sr_bg_10radius_gray"
+            android:paddingStart="10px"
+            android:paddingTop="4px"
+            android:paddingEnd="10px"
+            android:paddingBottom="4px"
+            android:text="@{item.goodsSpecification}"
+            android:textColor="@color/text_uncheck"
+            android:textSize="26px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+            tools:text="白色，Ls" />
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

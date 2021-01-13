@@ -39,7 +39,7 @@
             android:layout_height="60px"
             android:background="@drawable/sr_stroke_1px_10radius_gray"
             android:layout_marginTop="24px"
-            android:text="@string/remind_the_delivery"
+            android:text="@string/remind_shipment"
             android:textColor="@color/text_normal"
             android:textSize="28px"
             app:layout_constraintEnd_toEndOf="@id/tv_goods_price"

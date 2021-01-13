@@ -41,9 +41,6 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
     public ObservableField<String> harvestAddressObservable = new ObservableField<>();
     public ObservableField<String> distributionTypeObservable = new ObservableField<>();
 
-
-    private int currentAccessType = OrderConfirmFragment.ORDER_ACCESS_WAIMAI; //默认外卖配送
-
     @Override
     public BaseModel getModel() {
         if(mModel == null){
@@ -89,15 +86,6 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
         iconStrData.add(new IconStrData(R.drawable.ic_alipay,"微信好友"));
         iconStrData.add(new IconStrData(R.drawable.ic_alipay,"支付宝好友"));
         return iconStrData;
-    }
-
-
-    public void setCurrentAccessType(int currentAccessType) {
-        this.currentAccessType = currentAccessType;
-    }
-
-    public int getCurrentAccessType() {
-        return currentAccessType;
     }
 
     List<String> stringList;

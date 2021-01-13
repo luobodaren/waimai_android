@@ -119,7 +119,7 @@
     <string name="driver_info">骑手信息</string>
     <string name="lengthen_receipt_time">延长收货</string>
     <string name="application_for_drawback">申请退款</string>
-    <string name="remind_the_delivery">提醒发货</string>
+    <string name="remind_shipment">提醒发货</string>
     <string name="sure_cancel_order">您确定取消订单吗</string>
     <string name="dial">拨号</string>
     <string name="sure_receipt_confirm">是否确认签收？</string>
@@ -142,6 +142,7 @@
     <string name="delivery_time">送达时间</string>
     <string name="harvest_address">收货地址</string>
     <string name="distribution_type">配送方式</string>
+    <string name="waiting_for_merchant_delivery">等待商家配送</string>
     <string name="wait_for_pay">等待支付</string>
     <string name="pay_ASAP">请尽快支付</string>
     <string name="merchants_are_stocking_up">商家正在备货</string>
@@ -177,5 +178,14 @@
     <string name="fail_detail">失败详情</string>
     <string name="confirm_order">确认订单</string>
     <string name="more_pay_type">更多支付方式</string>
+    <string name="real_payment">实付款</string>
+    <string name="view_logistics">查看物流</string>
+    <string name="wait_for_deliver">待配送</string>
+    <string name="delivering">配送中</string>
+    <string name="sign_for_goods">已签收</string>
+    <string name="expressage_delivering">快递配送中</string>
+    <string name="intra_city_service_delivering">同城配送中</string>
+    <string name="complete_transaction">交易完成</string>
+    <string name="order_detail">订单详情</string>
 
 </resources>

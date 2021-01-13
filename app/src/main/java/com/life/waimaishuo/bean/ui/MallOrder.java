@@ -10,7 +10,8 @@ public class MallOrder {
     Shop shop;
 
     List<MallGoods> mallGoodsList;  //保存订单的多个商品信息
-    List<TypeDescribeValue> typeDescribeValueList;  //保存其他信息 包括配送方式 店铺优惠等
+    List<TypeDescribeValue> shopOrderInfo;  //保存其他信息 包括配送方式 店铺优惠等
+    List<TypeDescribeValue> OrderInfo;  //保存订单信息
 
     public Shop getShop() {
         return shop;
@@ -28,12 +29,20 @@ public class MallOrder {
         this.mallGoodsList = mallGoodsList;
     }
 
-    public List<TypeDescribeValue> getTypeDescribeValueList() {
-        return typeDescribeValueList;
+    public List<TypeDescribeValue> getShopOrderInfo() {
+        return shopOrderInfo;
     }
 
-    public void setTypeDescribeValueList(List<TypeDescribeValue> typeDescribeValueList) {
-        this.typeDescribeValueList = typeDescribeValueList;
+    public void setShopOrderInfo(List<TypeDescribeValue> shopOrderInfo) {
+        this.shopOrderInfo = shopOrderInfo;
+    }
+
+    public List<TypeDescribeValue> getOrderInfo() {
+        return OrderInfo;
+    }
+
+    public void setOrderInfo(List<TypeDescribeValue> orderInfo) {
+        OrderInfo = orderInfo;
     }
 
     public double getOrderPrice(){

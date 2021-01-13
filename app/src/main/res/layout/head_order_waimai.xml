@@ -9,7 +9,7 @@
             type="com.life.waimaishuo.bean.Order" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -61,5 +61,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="订单状态"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.life.base.views.UiAdapterConstrainLayout>
 </layout>

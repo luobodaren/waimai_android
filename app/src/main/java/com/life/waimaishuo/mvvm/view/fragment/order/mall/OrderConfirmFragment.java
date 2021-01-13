@@ -33,15 +33,6 @@ import java.util.List;
 @Page(name = "确认订单-商城")
 public class OrderConfirmFragment extends BaseFragment {
 
-    private int mPageState = -1;
-    public final static int ORDER_CONFIRM = 1;
-    public final static int ORDER_CANCEL = 2;   //已取消
-    public final static int ORDER_WAIT_FOR_PAY = 3;
-    public final static int ORDER_WAIT_FOR_DELIVER = 4;
-    public final static int ORDER_DELIVERING_EXPRESSAGE = 5;    //快递配送
-    public final static int ORDER_DELIVERING_INTRA_CITY_SERVICE = 6;    //同城配送
-    public final static int ORDER_DELIVERED = 7;
-
     private FragmentConfirmAnOrderMallBinding mBinding;
     private MallConfirmOrderViewModel mViewModel;
 
@@ -83,9 +74,9 @@ public class OrderConfirmFragment extends BaseFragment {
 
         initTitle();
 
-        setPageElementByOrderType();
-
         initOrderShopsGoods();
+
+        initPayTypeLayout();
     }
 
     @Override
@@ -98,40 +89,13 @@ public class OrderConfirmFragment extends BaseFragment {
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
     }
 
-    private boolean hasInitPayType = false;
-    // 判断底部三个按钮的信息
-    private void setPageElementByOrderType(){
-
-        switch (mPageState){
-            case ORDER_CONFIRM:
-                setViewVisibility(mBinding.clDeliver,false);
-                setViewVisibility(mBinding.layoutPayType.llContent,true);
-
-                if(!hasInitPayType){
-                    hasInitPayType = true;
-                    initPayTypeLayout();
-                }
-
-                break;
-            case ORDER_CANCEL:
-            case ORDER_WAIT_FOR_PAY:
-                setViewVisibility(mBinding.clDeliver,false);
-                setViewVisibility(mBinding.layoutPayType.llContent,false);
-                break;
-            case ORDER_WAIT_FOR_DELIVER:
-            case ORDER_DELIVERING_EXPRESSAGE:
-            case ORDER_DELIVERING_INTRA_CITY_SERVICE:
-            case ORDER_DELIVERED:
-                setViewVisibility(mBinding.clDeliver,true);
-                setViewVisibility(mBinding.layoutPayType.llContent,false);
-                break;
-
-        }
-    }
-
+    /**
+     * 初始化商品展示布局
+     */
     private void initOrderShopsGoods(){
         mBinding.recyclerShopsGoods.setLayoutManager(
                 new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+
         mBinding.recyclerShopsGoods.setAdapter(
                 new MyBaseRecyclerAdapter<MallOrder>(R.layout.item_recycler_mall_comfirm_order_shops_goods,mViewModel.getMallOrder()){
                     @Override
@@ -150,7 +114,7 @@ public class OrderConfirmFragment extends BaseFragment {
                         initGoodsInfoRecycler(goodsInfoRecycler,item.getMallGoodsList());
 
                         RecyclerView orderInfoRecycler = helper.getView(R.id.recycler_order_info);
-                        initOrderInfoRecycler(orderInfoRecycler,item.getTypeDescribeValueList());
+                        initOrderInfoRecycler(orderInfoRecycler,item.getShopOrderInfo());
 
                         helper.setText(R.id.tv_all_goods_price_tip,String.valueOf(item.getOrderPrice()));
                         helper.setText(R.id.tv_goods_count,getString(R.string.goods_number_2,String.valueOf(item.getMallGoodsList().size())));

@@ -6,7 +6,7 @@
 
     </data>
 
-    <LinearLayout
+    <com.life.base.views.UiAdapterConstrainLayout
         android:id="@+id/go_order_detail_page_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,8 +16,10 @@
             android:id="@+id/recycler_goods_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/sr_bg_8dp_white"
+            android:overScrollMode="never"
             android:padding="24px"
-            android:background="@drawable/sr_bg_8dp_white"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </com.life.base.views.UiAdapterConstrainLayout>
 </layout>

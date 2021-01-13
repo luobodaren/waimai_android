@@ -21,6 +21,15 @@
     <declare-styleable name="OrderProcessView">
         <attr name="process" format="integer"/> <!-- 1-3 -->
     </declare-styleable>
+
+    <declare-styleable name="TimeLineView">
+        <attr name="timelineRadiusDistance" format="dimension"/>
+        <attr name="timelineRadius" format="dimension"/>
+        <attr name="timelineOtherColor" format="color"/>
+        <attr name="timelineCount" format="integer"/>
+        <attr name="timelineWidth" format="dimension"/>
+        <attr name="timelineMarginTop" format="dimension"/>
+    </declare-styleable>
     
     <!-- 城市选择器自定义列表分割线颜色 -->
     <attr format="reference" name="mCpDividerBackground"/>

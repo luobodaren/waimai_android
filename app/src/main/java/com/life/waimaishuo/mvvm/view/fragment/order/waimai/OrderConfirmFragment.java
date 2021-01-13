@@ -108,7 +108,6 @@ public class OrderConfirmFragment extends BaseFragment {
         Bundle dataBundle = getArguments();
         if(dataBundle != null){
             currentOrderType =dataBundle.getInt(ORDER_PAGE_TYPE_INT_KEY);
-            mViewModel.setCurrentAccessType(currentOrderType);
             mViewModel.setOrder(dataBundle.getParcelable(ORDER_DATA_KEY));
         }else{
             throw new Error("没有传入bundle 无法确定页面类型");
@@ -143,7 +142,6 @@ public class OrderConfirmFragment extends BaseFragment {
                 if(currentOrderType >9){
                     currentOrderType = 1;
                 }
-                mViewModel.setCurrentAccessType(currentOrderType);
                 setPageElementByOrderType();
             }
         });
@@ -157,7 +155,6 @@ public class OrderConfirmFragment extends BaseFragment {
                     mBinding.tvOrderAccessType.setBackgroundResource(R.drawable.ic_bg_order_access_type_left);
                     mBinding.tvOrderAccessType2.setBackgroundResource(R.color.transparent);
                     currentOrderType = ORDER_ACCESS_WAIMAI;
-                    mViewModel.setCurrentAccessType(currentOrderType);
                     refreshOrderAccessData();
                 }
             }
@@ -172,7 +169,6 @@ public class OrderConfirmFragment extends BaseFragment {
                     mBinding.tvOrderAccessType.setBackgroundResource(R.color.transparent);
                     mBinding.tvOrderAccessType2.setBackgroundResource(R.drawable.ic_bg_order_access_type_right);
                     currentOrderType = ORDER_ACCESS_ZIQU;
-                    mViewModel.setCurrentAccessType(currentOrderType);
                     refreshOrderAccessData();
                 }
             }
@@ -255,8 +251,10 @@ public class OrderConfirmFragment extends BaseFragment {
         if(infoSettingTextFragment == null){
             infoSettingTextFragment = new OrderInfoSettingTextFragment();
             infoSettingTextFragment.baseViewModel = mViewModel;
+            infoSettingTextFragment.setShopFoodAccessType(
+                    infoSettingTextFragment.getAccessType(currentOrderType));
             ft = fm.beginTransaction();
-            ft.add(R.id.fl_order_info_set, infoSettingTextFragment).commit();
+            ft.replace(R.id.fl_order_info_set, infoSettingTextFragment).commit();
         }
 
         //只有一种配送方式
@@ -272,6 +270,11 @@ public class OrderConfirmFragment extends BaseFragment {
     }
 
     BaseFragment replaceFragment = null;
+
+    /**
+     * 调用此方法 需要确保又订单信息（即ViewModel类的Order变量不为空
+     * 因为布局元素是依赖于订单信息存在的
+     */
     private void resetOrderStateLayout(){
         if(currentOrderType == ORDER_WAIT_FOR_PAY){
             replaceFragment = new OrderWaitPayFragment();
@@ -534,11 +537,11 @@ public class OrderConfirmFragment extends BaseFragment {
                 if(holder.getItemViewType() == goodsList){
                     RecyclerView recyclerView = (RecyclerView) holder.getView(R.id.recycler);
                     recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_order_food,mViewModel.getOrderFoods(), com.life.waimaishuo.BR.item));
+                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_waimai_order_food,mViewModel.getOrderFoods(), com.life.waimaishuo.BR.item));
                 }else if(holder.getItemViewType() == preferential){
                     RecyclerView recyclerView = (RecyclerView) holder.getView(R.id.recycler);
                     recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_order_preferential,mViewModel.getPreferentialList(), com.life.waimaishuo.BR.item){
+                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_waimai_order_preferential,mViewModel.getPreferentialList(), com.life.waimaishuo.BR.item){
                         @Override
                         protected void initView(BaseViewHolder helper, Object item) {
                             super.initView(helper, item);
@@ -631,7 +634,6 @@ public class OrderConfirmFragment extends BaseFragment {
         bundle.putInt(ORDER_PAGE_TYPE_INT_KEY,orderPageType);
         bundle.putParcelable(ORDER_DATA_KEY,order);
         baseFragment.openPage(OrderConfirmFragment.class,bundle);
-
     }
 
     /**
