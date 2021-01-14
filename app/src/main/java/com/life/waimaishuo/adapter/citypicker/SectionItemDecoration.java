@@ -55,7 +55,7 @@ public class SectionItemDecoration extends RecyclerView.ItemDecoration {
         mBgPaint.setColor(mBgColor);
 
         mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setTextSize(UIUtils.getInstance(context).scalePx(mTextSize));    //自适应放大字体大小
+        mTextPaint.setTextSize(UIUtils.getInstance().scalePx(mTextSize));    //自适应放大字体大小
         mTextPaint.setColor(mTextColor);
 
         mBounds = new Rect();

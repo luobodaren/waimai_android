@@ -14,6 +14,8 @@
     <color name="colorTheme_gradient_start">#FF9468</color>
     <color name="colorTheme_gradient_end">#FE4036</color>
 
+    <color name="color_transparent_red_gradient_start">#1AF24343</color>
+
     <color name="background">#f8f8f8</color>
     <color name="background2">#F5F5F5</color>
     <color name="divider">#E6E6E6</color>

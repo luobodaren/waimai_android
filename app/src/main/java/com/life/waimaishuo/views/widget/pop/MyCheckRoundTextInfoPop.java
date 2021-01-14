@@ -36,7 +36,7 @@ public class MyCheckRoundTextInfoPop extends PopWindow {
     private void init(){
 //        getContentView().setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 
-        int drawableSize = (int) UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.message_all_read_check_round_size));
+        int drawableSize = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.message_all_read_check_round_size));
         Drawable drawable = getContext().getResources().getDrawable(R.drawable.ic_check_round);
         drawable.setBounds(0,0, drawableSize, drawableSize);
 

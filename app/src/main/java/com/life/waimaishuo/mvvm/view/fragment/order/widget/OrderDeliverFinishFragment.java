@@ -44,7 +44,7 @@ public class OrderDeliverFinishFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        int drawableSize = (int) UIUtils.getInstance(getContext()).scalePx(44);
+        int drawableSize = (int) UIUtils.getInstance().scalePx(44);
         Drawable reminderDrawable = getResources().getDrawable(R.drawable.ic_one_more_order);
         reminderDrawable.setBounds(0,0, drawableSize, drawableSize);
         Drawable connectedMerchantsDrawable = getResources().getDrawable(R.drawable.ic_message_connect_meachants);

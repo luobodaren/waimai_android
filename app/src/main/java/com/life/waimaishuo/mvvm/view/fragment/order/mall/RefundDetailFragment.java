@@ -154,7 +154,7 @@ public class RefundDetailFragment extends BaseFragment {
             }
         });
         mBinding.recyclerOrderInfo.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(requireContext()).scalePx(40);
+            int interval = (int) UIUtils.getInstance().scalePx(40);
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
@@ -213,12 +213,12 @@ public class RefundDetailFragment extends BaseFragment {
      */
     private void resetResultLayout(){
         if (refundSuccessfulDrawable == null) {   //初始化申请成功图标
-            int size = (int) UIUtils.getInstance(requireContext()).scalePx(88);
+            int size = (int) UIUtils.getInstance().scalePx(88);
             refundSuccessfulDrawable = getResources().getDrawable(R.drawable.ic_check_round_fill_red);
             refundSuccessfulDrawable.setBounds(0, 0, size, size);
         }
         if (refundFailDrawable == null) {   //初始化申请失败图标
-            int size = (int) UIUtils.getInstance(requireContext()).scalePx(88);
+            int size = (int) UIUtils.getInstance().scalePx(88);
             refundFailDrawable = getResources().getDrawable(R.drawable.ic_error);
             refundFailDrawable.setBounds(0, 0, size, size);
         }
@@ -268,7 +268,7 @@ public class RefundDetailFragment extends BaseFragment {
      */
     private void resetBottomButton() {
         if (customerServiceDrawable == null) {   //初始化客服图标
-            int size = (int) UIUtils.getInstance(requireContext()).scalePx(36);
+            int size = (int) UIUtils.getInstance().scalePx(36);
             customerServiceDrawable = getResources().getDrawable(R.drawable.ic_customer_service_white);
             customerServiceDrawable.setBounds(0, 0, size, size);
         }

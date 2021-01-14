@@ -86,9 +86,9 @@ public class ShopBrandStoryFragment extends BaseFragment {
         mBinding.recyclerBrandImg.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
         mBinding.recyclerBrandImg.setAdapter(new MyBaseRecyclerAdapter<IconStrData>(R.layout.item_recycler_brand_story_introduce,mViewModel.getBrandStoryPictures(), com.life.waimaishuo.BR.item));   // FIXME: 2020/12/24 需要添加bean类引用到布局文件中,动态设置内容
         mBinding.recyclerBrandImg.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int paddingStartAndEnd = (int) UIUtils.getInstance(requireContext()).scalePx(
+            int paddingStartAndEnd = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
-            int padding = (int) UIUtils.getInstance(requireContext()).scalePx(
+            int padding = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {

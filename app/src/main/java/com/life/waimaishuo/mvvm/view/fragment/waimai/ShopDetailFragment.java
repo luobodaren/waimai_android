@@ -233,7 +233,7 @@ public class ShopDetailFragment extends BaseFragment {
 
     private void initAppBarLayoutToolbar() {
         ((ViewGroup.MarginLayoutParams) mBinding.appbarLayoutToolbar.getLayoutParams()).setMargins(
-                0, (int) (UIUtils.getInstance(requireContext()).getSystemBarHeight()/UIUtils.getInstance(requireContext()).getHorValue()), 0, 0);
+                0, (int) (UIUtils.getInstance().getSystemBarHeight()/UIUtils.getInstance().getHorValue()), 0, 0);
     }
 
     private boolean isCollect = false;
@@ -392,9 +392,9 @@ public class ShopDetailFragment extends BaseFragment {
             mMembersQeCardDialog.setCanceledOnTouchOutside(true);
             WindowManager.LayoutParams params = mMembersQeCardDialog.getWindow().getAttributes();
             params.gravity = Gravity.CENTER;
-            params.width = (int) UIUtils.getInstance(requireContext()).scalePx(
+            params.width = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_width));
-            params.height = (int) UIUtils.getInstance(requireContext()).scalePx(
+            params.height = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_height));
             mMembersQeCardDialog.getWindow().setAttributes(params);
         }
@@ -459,7 +459,7 @@ public class ShopDetailFragment extends BaseFragment {
 
         binding.redPacketRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.redPacketRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+            int interval = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
 
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -483,7 +483,7 @@ public class ShopDetailFragment extends BaseFragment {
                 }
 
                 SpannableStringBuilder builder = new SpannableStringBuilder("￥" + item.getPriceValue());
-                builder.setSpan(new AbsoluteSizeSpan((int) UIUtils.getInstance(requireContext()).scalePx(28)),
+                builder.setSpan(new AbsoluteSizeSpan((int) UIUtils.getInstance().scalePx(28)),
                         0,
                         1,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -536,7 +536,7 @@ public class ShopDetailFragment extends BaseFragment {
 
     private RecyclerView.ItemDecoration getPreferentialRecyclerItemDecoration() {
         return new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.preferential_item_space));
+            int interval = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.preferential_item_space));
 
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
@@ -581,7 +581,7 @@ public class ShopDetailFragment extends BaseFragment {
         binding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<ShoppingCartGood>(
                 R.layout.item_recycler_shopping_cart_goods, mViewModel.getShoppingCartData(), BR.item));
         binding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int top_interval = (int) UIUtils.getInstance(getContext()).scalePx(
+            int top_interval = (int) UIUtils.getInstance().scalePx(
                     getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,

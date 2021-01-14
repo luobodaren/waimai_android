@@ -176,7 +176,7 @@ public class RefundFragment extends BaseFragment {
 
     private int currentSelectedPosition = 1;    //保存当前点击的位置 1:未收到货 2：已收到货
     private View getGoodsStateDialogView() {
-        int drawableSize = (int) UIUtils.getInstance(requireContext()).scalePx(40);
+        int drawableSize = (int) UIUtils.getInstance().scalePx(40);
         Drawable checkDrawable = getResources().getDrawable(R.drawable.ic_check_round_fill_red);
         Drawable noCheckDrawable = getResources().getDrawable(R.drawable.ic_check_round_fill_gray);
 

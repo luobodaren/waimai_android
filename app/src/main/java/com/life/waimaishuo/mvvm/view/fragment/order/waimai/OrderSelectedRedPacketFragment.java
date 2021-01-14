@@ -58,9 +58,9 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         TitleBar titleBar = super.initTitleBar();
-        titleBar.setHeight((int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
+        titleBar.setHeight((int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
 
-        int titleBarDrawableSizes = (int) UIUtils.getInstance(getContext()).scalePx(R.dimen.titlebar_drawable_size);
+        int titleBarDrawableSizes = (int) UIUtils.getInstance().scalePx(R.dimen.titlebar_drawable_size);
         Drawable leftDrawable = getResources().getDrawable(R.drawable.ic_arrow_left_black);
         leftDrawable.setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
         titleBar.setLeftImageDrawable(leftDrawable);
@@ -156,7 +156,7 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
         mBinding.recyclerRedPacket.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.recyclerRedPacket.setAdapter(adapter);
         mBinding.recyclerRedPacket.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int space = (int) UIUtils.getInstance(requireContext()).scalePx(
+            int space = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {

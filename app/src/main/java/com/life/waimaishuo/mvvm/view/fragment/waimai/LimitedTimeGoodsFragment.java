@@ -32,6 +32,7 @@ import com.life.waimaishuo.databinding.FragmentWaimaiLimitedTimeGoodsBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
+import com.life.waimaishuo.util.TextUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -72,13 +73,13 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         TitleBar titleBar = super.initTitleBar();
-        titleBar.setHeight((int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
+        titleBar.setHeight((int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
         titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
         titleBar.setCenterTextBold(true);
         titleBar.setTitleColor(getResources().getColor(R.color.white));
         titleBar.setBackgroundColor(getResources().getColor(R.color.transparent));
 
-        int titleBarDrawableSizes = (int) UIUtils.getInstance(getContext()).scalePx(R.dimen.titlebar_drawable_size);
+        int titleBarDrawableSizes = (int) UIUtils.getInstance().scalePx(R.dimen.titlebar_drawable_size);
         Drawable leftDrawable = getResources().getDrawable(R.drawable.ic_arrow_left_white);
         leftDrawable.setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
         titleBar.setLeftImageDrawable(leftDrawable);
@@ -112,7 +113,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
     }
 
     private void initIntroduce() {
-        int drawableSize = (int) UIUtils.getInstance(getContext())
+        int drawableSize = (int) UIUtils.getInstance()
                 .scalePx(getResources().getDimensionPixelSize(R.dimen.waimai_limited_introduce_ic_size));
         Drawable drawable1 = getResources().getDrawable(R.drawable.ic_alarm_white);
         drawable1.setBounds(0,0,drawableSize,drawableSize);
@@ -133,10 +134,10 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
             int state_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_state_text_size);
             int state_unselected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_state_text_size);
 
-            int time_selected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(time_selected_size);
-            int time_unselected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(time_unselected_size);
-            int state_selected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(state_selected_size);
-            int state_unselected_size_scale = (int)UIUtils.getInstance(getContext()).scalePx(state_unselected_size);
+            int time_selected_size_scale = (int)UIUtils.getInstance().scalePx(time_selected_size);
+            int time_unselected_size_scale = (int)UIUtils.getInstance().scalePx(time_unselected_size);
+            int state_selected_size_scale = (int)UIUtils.getInstance().scalePx(state_selected_size);
+            int state_unselected_size_scale = (int)UIUtils.getInstance().scalePx(state_unselected_size);
 
             int colorTransparent = getResources().getColor(R.color.transparent);
             int redColorId = getResources().getColor(R.color.red);
@@ -155,35 +156,35 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                 time.setText(item.getTime());
                 state.setText(item.getState().getState());
 
-                if(UIUtils.getInstance(getContext()).isNeedScale(time)){
+                if(UIUtils.getInstance().isNeedScale(time)){
                     if(selected){
                         time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_selected_size);
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_selected_size);
                         state.setBackgroundResource(R.drawable.sr_bg_full_corners_white);
                         state.setTextColor(redColorId);
-                        UIUtils.getInstance(getContext()).setFakeBoldText(state,true);
+                        UIUtils.getInstance().setFakeBoldText(state,true);
                     }else{
                         time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_unselected_size);
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_unselected_size);
                         state.setBackgroundColor(colorTransparent);
                         state.setTextColor(whiteColorId);
-                        UIUtils.getInstance(getContext()).setFakeBoldText(state,false);
+                        UIUtils.getInstance().setFakeBoldText(state,false);
                     }
-                    UIUtils.getInstance(getContext()).autoAdapterUI(time);
-                    UIUtils.getInstance(getContext()).autoAdapterUI(state);
+                    UIUtils.getInstance().autoAdapterUI(time);
+                    UIUtils.getInstance().autoAdapterUI(state);
                 }else{  //已进行大小适配处理
                     if(selected){
                         time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_selected_size_scale);
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_selected_size_scale);
                         state.setBackgroundResource(R.drawable.sr_bg_full_corners_white);
                         state.setTextColor(redColorId);
-                        UIUtils.getInstance(getContext()).setFakeBoldText(state,true);
+                        UIUtils.getInstance().setFakeBoldText(state,true);
                     }else{
                         time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_unselected_size_scale);
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_unselected_size_scale);
                         state.setBackgroundColor(colorTransparent);
                         state.setTextColor(whiteColorId);
-                        UIUtils.getInstance(getContext()).setFakeBoldText(state,false);
+                        UIUtils.getInstance().setFakeBoldText(state,false);
                     }
                 }
             }
@@ -201,8 +202,13 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
         mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedFoods>(R.layout.item_recycler_limited_goods, mViewModel.getLimitedGoodsList(), BR.item) {
             @Override
             protected void initView(BaseViewHolder helper, LimitedFoods item) {
-                helper.setText(R.id.tv_foods_price_pre, getStrikeThroughSpanSpannable("189"));  //原始价格
-                helper.setText(R.id.tv_limited_kill_price,getLimitedPriceSpannable(item.getLimitedPrice()));
+                helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
+                helper.setText(R.id.tv_limited_kill_price,
+                        TextUtil.getAbsoluteSpannable(
+                                getResources().getString(R.string.limited_second_kill_price, item.getLimitedPrice()),
+                                40,
+                                1,
+                                item.getLimitedPrice().length()+1));
 
                 switch (item.getLimitedTimeStateEnum()){
                     case NO_START:
@@ -220,7 +226,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
             }
         });
         mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int)UIUtils.getInstance(getContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+            int interval = (int)UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
 
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -234,27 +240,6 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    int limitedPriceTextSize = -1;
-    private SpannableString getLimitedPriceSpannable(String price){
-        if(limitedPriceTextSize == -1){
-            limitedPriceTextSize = (int)UIUtils.getInstance(getContext()).scalePx(40f);
-        }
-        SpannableString spannableString = new SpannableString(getResources().getString(R.string.limited_second_kill_price,price));
-        spannableString.setSpan(new AbsoluteSizeSpan(limitedPriceTextSize,false),1,price.length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
-    }
-
-    /**
-     * 添加删除线
-     * @param prePrice
-     * @return
-     */
-    private SpannableString getStrikeThroughSpanSpannable(String prePrice){
-        SpannableString spannableString = new SpannableString("￥" + prePrice);
-        spannableString.setSpan(new StrikethroughSpan(),0,spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
     }
 
     private void updateGoodsInfo() {

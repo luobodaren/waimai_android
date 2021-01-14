@@ -35,17 +35,17 @@ public class StaggeredDividerItemDecoration extends RecyclerView.ItemDecoration 
         // 获取item在span中的下标 0为左 1为右
 //        int spanIndex = params.getSpanIndex();
 
-        float screenWidth = UIUtils.getInstance(context).getDisplayMetricsWidth();
+        float screenWidth = UIUtils.getInstance().getDisplayMetricsWidth();
         if(mItemViewWidth == 0){
             if(view.getMeasuredWidth() == 0){
-                mItemViewWidth = UIUtils.getInstance(context).getViewMeasureWidth(view);
+                mItemViewWidth = UIUtils.getInstance().getViewMeasureWidth(view);
             }else{
                 mItemViewWidth = view.getMeasuredWidth();
             }
             LogUtil.d("mItemViewWidth = " + mItemViewWidth);
         }
         if(mCenterInterval == 0){
-            mCenterInterval = (int)(UIUtils.getInstance(context).scalePx((screenWidth/2 - mItemViewWidth)/2));
+            mCenterInterval = (int)(UIUtils.getInstance().scalePx((screenWidth/2 - mItemViewWidth)/2));
             LogUtil.e("mCenterInterval = " + mCenterInterval);
         }
 

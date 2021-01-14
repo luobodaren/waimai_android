@@ -72,7 +72,7 @@ public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
     @Override
     protected RecyclerView.ItemDecoration getItemDecoration() {
         return new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
+            int interval = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
@@ -89,7 +89,7 @@ public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
-                (int)UIUtils.getInstance(requireContext()).scalePx(
+                (int)UIUtils.getInstance().scalePx(
                         getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
         PreViewUtil.initRecyclerPictureClickListener(this,adapter,gridLayoutManager);    //添加图片点击监听 看大图
     }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.mall.MallMainTypeViewModel" />
+    </data>
+
+
+    <com.life.waimaishuo.views.StickyNavigationLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/top_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.xuexiang.xui.widget.banner.widget.banner.SimpleImageBanner
+                    android:id="@+id/banner_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="300px"
+                    android:background="@color/transparent"
+                    app:bb_scale="0.4011"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="200px"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/banner_layout" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_four_quick_window"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:overScrollMode="never"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_activity" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sticky_view"
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_view" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/adaptive_size_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sticky_view" />
+
+
+    </com.life.waimaishuo.views.StickyNavigationLayout>
+
+</layout>

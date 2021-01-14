@@ -92,7 +92,7 @@ public class StatusBarUtils {
                 statusBarHeight);
         statusBarView.setBackgroundColor(Color.TRANSPARENT);
         //这里获取的为屏幕状态栏高度 不需要在绘制时被放大
-        UIUtils.getInstance(rootView.getContext()).setScaleTag(statusBarView);
+        UIUtils.getInstance().setScaleTag(statusBarView);
         rootView.addView(statusBarView,0,lp);
     }
 

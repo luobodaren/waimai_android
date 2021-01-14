@@ -85,7 +85,7 @@ public class LogisticsFragment extends BaseFragment {
     }
 
     private void init(){
-        int size = (int) UIUtils.getInstance(requireContext()).scalePx(24);
+        int size = (int) UIUtils.getInstance().scalePx(24);
         Drawable copyDrawable = getResources().getDrawable(R.drawable.ic_copy);
         copyDrawable.setBounds(0,0,size,size);
         mBinding.tvCourierInfo.setCompoundDrawables(null,null,copyDrawable,null);

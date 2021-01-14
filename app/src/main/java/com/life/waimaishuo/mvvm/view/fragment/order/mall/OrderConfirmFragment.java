@@ -128,7 +128,7 @@ public class OrderConfirmFragment extends BaseFragment {
         recyclerView.setAdapter(
                 new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_confirm_order_shops_goods_info,mallGoodsList, com.life.waimaishuo.BR.item));
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(requireContext()).scalePx(24);
+            int interval = (int) UIUtils.getInstance().scalePx(24);
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
@@ -143,7 +143,7 @@ public class OrderConfirmFragment extends BaseFragment {
         recyclerView.setAdapter(
                 new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_confirm_order_info,typeDescribeValueList, com.life.waimaishuo.BR.item));
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance(requireContext()).scalePx(40);
+            int interval = (int) UIUtils.getInstance().scalePx(40);
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);

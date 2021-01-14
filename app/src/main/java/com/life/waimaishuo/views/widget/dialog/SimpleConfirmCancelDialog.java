@@ -100,9 +100,9 @@ public class SimpleConfirmCancelDialog extends Dialog {
             initShowLocation = true;
             WindowManager.LayoutParams params = getWindow().getAttributes();
             params.gravity = Gravity.CENTER;
-//        params.width = (int) UIUtils.getInstance(requireContext()).scalePx(
+//        params.width = (int) UIUtils.getInstance().scalePx(
 //                getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_width));
-//        params.height = (int) UIUtils.getInstance(requireContext()).scalePx(
+//        params.height = (int) UIUtils.getInstance().scalePx(
 //                getResources().getDimensionPixelSize(R.dimen.members_qr_code_dialog_height));
             getWindow().setAttributes(params);
         }

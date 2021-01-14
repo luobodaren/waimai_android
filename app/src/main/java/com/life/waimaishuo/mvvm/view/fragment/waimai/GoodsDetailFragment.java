@@ -105,7 +105,7 @@ public class GoodsDetailFragment extends BaseFragment {
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
         Drawable indicatorDrawable = getResources().getDrawable(R.drawable.sr_widght_horizontal_bar);
         indicatorDrawable.setBounds(0,0,
-                (int) UIUtils.getInstance(requireContext()).scalePx(44), (int) UIUtils.getInstance(requireContext()).scalePx(6));
+                (int) UIUtils.getInstance().scalePx(44), (int) UIUtils.getInstance().scalePx(6));
 
         mBinding.stickyView.setItemSpaceInScrollMode(space);
         mBinding.stickyView.setIndicatorDrawable(indicatorDrawable);

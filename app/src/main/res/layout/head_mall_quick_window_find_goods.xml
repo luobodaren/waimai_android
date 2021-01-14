@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="84px"
+    android:background="@drawable/sr_bg_gradient_8dp_transparent_red"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:text="@string/qw_find_good_goods"
+        android:textColor="@color/text_normal"
+        android:textSize="32px"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_right_sign"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="8px"
+        android:background="@drawable/sr_bg_2dp_blue"
+        android:paddingStart="4px"
+        android:paddingTop="3px"
+        android:paddingEnd="4px"
+        android:paddingBottom="3px"
+        android:text="@string/qw_find_good_goods_sign"
+        android:textColor="@color/white"
+        android:textSize="18px"
+        app:layout_constraintBottom_toBottomOf="@id/tv_title"
+        app:layout_constraintStart_toEndOf="@id/tv_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>

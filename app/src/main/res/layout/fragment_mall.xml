@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.mall.MallViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1190px"
+            android:background="@drawable/sr_bg_gradient_purple_to_white" />
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_mall_fragment" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
+
+                <TextView
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="68px"
+                    android:background="@drawable/sr_bg_full_corners_white"
+                    android:drawableStart="@drawable/ic_search_gray"
+                    android:drawablePadding="8px"
+                    android:gravity="center_vertical"
+                    android:hint="搜索词"
+                    android:paddingStart="24px"
+                    android:textSize="26px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/bt_search"
+                    android:layout_width="108px"
+                    android:layout_height="52px"
+                    android:layout_marginEnd="8px"
+                    android:background="@drawable/sr_bt_search"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:text="@string/search"
+                    android:textColor="@color/white"
+                    android:textSize="26px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.xuexiang.xui.widget.tabbar.TabSegment
+                    android:id="@+id/tabSegment_goods_type"
+                    style="@style/mallTabSegment"
+                    android:layout_width="0px"
+                    android:layout_height="80px"
+                    android:layout_weight="1"
+                    android:paddingStart="@dimen/interval_size_xs"
+                    android:paddingEnd="@dimen/interval_size_xs" />
+
+                <ImageView
+                    android:id="@+id/iv_more_type"
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_classify"/>
+
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </com.life.base.views.UiAdapterFrameLayout>
+
+</layout>

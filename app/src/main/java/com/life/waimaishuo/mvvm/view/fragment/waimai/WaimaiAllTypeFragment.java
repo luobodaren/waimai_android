@@ -85,7 +85,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
                                      BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
-//        SnackbarUtils.Short(view, item.info.getTitle()).show();
+//        SnackbarUtils.Short(view, item.info.getGoodsTypeStrings()).show();
         // FIXME: 2020/12/15 bundle传入频道与子类型
         Bundle bundle = new Bundle();
         bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY,item.info.getContent());

@@ -95,8 +95,8 @@ public class ZeroDividerFragment extends BaseFragment {
         adapter = getSubtypeRecyclerAdapter();
         mBinding.recyclerFoodSubtype.setAdapter(adapter);
         mBinding.recyclerFoodSubtype.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int left_interval_22 = (int) UIUtils.getInstance(getContext()).scalePx(22);
-            int left_interval_8 = (int)UIUtils.getInstance(getContext()).scalePx(8);
+            int left_interval_22 = (int) UIUtils.getInstance().scalePx(22);
+            int left_interval_8 = (int)UIUtils.getInstance().scalePx(8);
 
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,

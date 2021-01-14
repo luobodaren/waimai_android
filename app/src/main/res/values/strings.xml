@@ -52,6 +52,14 @@
     <string name="screen">筛选</string>
     <string name="location_unknow">未知</string>
 
+    <string name="qw_seconds_kill_to_snap_up">秒杀抢购</string>
+    <string name="qw_find_good_goods">发现好物</string>
+    <string name="qw_find_good_goods_sign">品质好物</string>
+    <string name="qw_daily_good_shops">每日好店</string>
+    <string name="qw_daily_good_shops_sign">精选</string>
+    <string name="qw_fashion_accessories">时尚配饰</string>
+    <string name="qw_fashion_accessories_sign">品牌正品</string>
+    
     <string name="limited_second_kill">限时秒杀</string>
     <string name="limited_second_kill_price">￥%s秒杀价</string>
     <string name="limited_divider_price">配送￥</string>

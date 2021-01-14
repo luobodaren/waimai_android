@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel" />
@@ -13,15 +14,16 @@
     <com.life.waimaishuo.views.StickyNavigationLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/sr_bg_gradient_theme_color"
         android:orientation="vertical"
-        app:fitStatusBar="false"
-        android:background="@drawable/sr_bg_gradient_theme_color">
+        app:fitStatusBar="false">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/top_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never">
+
             <LinearLayout
                 android:id="@+id/my_ll_content_view"
                 android:layout_width="match_parent"
@@ -39,34 +41,34 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
                         android:onClick="@{(v)->viewModel.onLocatLayoutClick(v)}"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/iv_local"
                             android:layout_width="44px"
                             android:layout_height="43px"
-                            android:src="@drawable/ic_local_white"/>
+                            android:src="@drawable/ic_local_white" />
 
                         <TextView
                             android:id="@+id/tv_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="36px"
-                            android:textColor="@color/white"
-                            android:includeFontPadding="false"
                             android:layout_marginStart="8px"
                             android:layout_marginEnd="8px"
-                            android:text="@{viewModel.mLocation}"/>
+                            android:includeFontPadding="false"
+                            android:text="@{viewModel.mLocation}"
+                            android:textColor="@color/white"
+                            android:textSize="36px" />
 
                         <ImageView
                             android:layout_width="24px"
                             android:layout_height="24px"
-                            android:src="@drawable/ic_arrow_down_white"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_arrow_down_white" />
 
                     </LinearLayout>
 
@@ -75,48 +77,49 @@
                         android:layout_width="44px"
                         android:layout_height="44px"
                         android:layout_marginEnd="24px"
-                        android:src="@drawable/ic_message_white"
-                        android:scaleType="centerCrop"
                         android:onClick="@{(v)->viewModel.onMessageIvClick(v)}"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_message_white"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/iv_scan"
                         android:layout_width="44px"
                         android:layout_height="44px"
                         android:layout_marginEnd="24px"
-                        android:src="@drawable/ic_scan_white"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/ic_scan_white"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/iv_message"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/iv_change_skin"
                         android:layout_width="44px"
                         android:layout_height="44px"
                         android:layout_marginEnd="24px"
-                        android:src="@drawable/ic_change_skin_white"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/ic_change_skin_white"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/iv_scan"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/sr_bg_waimai">
+                    android:background="@drawable/sr_bg_waimai"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingTop="@dimen/interval_size_xs">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/search_layout"
                             android:layout_width="match_parent"
@@ -127,14 +130,15 @@
                                 android:id="@+id/et_search"
                                 android:layout_width="match_parent"
                                 android:layout_height="68px"
-                                android:drawableStart="@drawable/ic_search_gray"
-                                android:drawablePadding="8px"
-                                android:background="@drawable/sr_bg_search"
-                                android:gravity="center_vertical"
-                                android:paddingStart="24px"
                                 android:layout_marginStart="@dimen/interval_size_xs"
                                 android:layout_marginEnd="@dimen/interval_size_xs"
-                                android:hint="  搜索词"
+                                android:background="@drawable/sr_bg_search"
+                                android:drawableStart="@drawable/ic_search_gray"
+                                android:drawablePadding="8px"
+                                android:gravity="center_vertical"
+                                android:hint="搜索词"
+                                android:paddingStart="24px"
+                                android:textSize="26px"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -143,15 +147,15 @@
                                 android:layout_width="108px"
                                 android:layout_height="52px"
                                 android:layout_marginEnd="8px"
+                                android:background="@drawable/sr_bt_search"
+                                android:clickable="false"
+                                android:focusable="false"
                                 android:text="@string/search"
                                 android:textColor="@color/white"
                                 android:textSize="26px"
-                                android:background="@drawable/sr_bt_search"
-                                android:focusable="false"
-                                android:clickable="false"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -160,18 +164,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16px"
-                            android:overScrollMode="never"/>
+                            android:overScrollMode="never" />
 
                         <com.xuexiang.xui.widget.banner.recycler.BannerLayout
                             android:id="@+id/banner_layout"
                             android:layout_width="match_parent"
                             android:layout_height="172px"
                             android:layout_marginTop="@dimen/interval_size_xs"
-                            app:bl_showIndicator="false"
                             app:bl_autoPlaying="true"
                             app:bl_centerScale="1"
                             app:bl_itemSpace="0px"
-                            app:bl_moveSpeed="1.8" />
+                            app:bl_moveSpeed="1.8"
+                            app:bl_showIndicator="false" />
 
                     </LinearLayout>
 
@@ -201,26 +205,27 @@
                         android:layout_marginStart="@dimen/interval_size_xs"
                         android:layout_marginTop="@dimen/interval_size_xs"
                         android:layout_marginEnd="@dimen/interval_size_xs"
-                        android:paddingTop="@dimen/interval_size_xs"
-                        android:paddingBottom="@dimen/interval_size_xs"
                         android:background="@drawable/sr_bg_12dp_white"
-                        android:overScrollMode="never"/>
+                        android:overScrollMode="never"
+                        android:paddingTop="@dimen/interval_size_xs"
+                        android:paddingBottom="@dimen/interval_size_xs" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_my_exclusive"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/interval_size_xs"
                             android:layout_marginStart="@dimen/interval_size_xs"
+                            android:layout_marginTop="@dimen/interval_size_xs"
                             android:layout_marginEnd="@dimen/interval_size_xs"
-                            android:paddingTop="@dimen/interval_size_xs"
-                            android:paddingBottom="@dimen/interval_size_xs"
-                            android:paddingStart="@dimen/interval_size_xs"
                             android:background="@drawable/sr_bg_12dp_white"
-                            android:overScrollMode="never"/>
+                            android:overScrollMode="never"
+                            android:paddingStart="@dimen/interval_size_xs"
+                            android:paddingTop="@dimen/interval_size_xs"
+                            android:paddingBottom="@dimen/interval_size_xs" />
                     </RelativeLayout>
 
                     <!--<com.meetsl.scardview.SCardView
@@ -234,8 +239,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24px"
                         android:layout_marginStart="24px"
+                        android:layout_marginTop="24px"
                         android:layout_marginEnd="24px"
                         android:background="@drawable/sr_bg_12dp_white">
 
@@ -253,7 +258,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <include
-                            layout="@layout/layout_countting"
+                            layout="@layout/layout_counting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16px"
@@ -264,43 +269,44 @@
                             android:id="@+id/text3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="12px"
                             android:includeFontPadding="false"
                             android:text="0元配送"
                             android:textColor="@color/text_normal"
                             android:textSize="36px"
-                            android:layout_marginStart="12px"
-                            app:layout_constraintTop_toTopOf="@id/text2"
-                            app:layout_constraintStart_toStartOf="@id/guideline_50percent"/>
+                            app:layout_constraintStart_toStartOf="@id/guideline_50percent"
+                            app:layout_constraintTop_toTopOf="@id/text2" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="海量放心选择"
-                            android:textSize="18px"
-                            app:layout_constraintStart_toEndOf="@id/text3"
-                            app:layout_constraintTop_toTopOf="@id/text3"
-                            app:layout_constraintBottom_toBottomOf="@id/text3"
                             android:layout_marginStart="8px"
-                            android:paddingTop="7px"
-                            android:paddingBottom="7px"
-                            android:paddingStart="14px"
-                            android:paddingEnd="14px"
                             android:background="@drawable/sr_bg_4radius_pink"
-                            android:textColor="@color/colorTheme"/>
+                            android:paddingStart="14px"
+                            android:paddingTop="7px"
+                            android:paddingEnd="14px"
+                            android:paddingBottom="7px"
+                            android:text="海量放心选择"
+                            android:textColor="@color/colorTheme"
+                            android:textSize="18px"
+                            app:layout_constraintBottom_toBottomOf="@id/text3"
+                            app:layout_constraintStart_toEndOf="@id/text3"
+                            app:layout_constraintTop_toTopOf="@id/text3" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/text2" >
+                            app:layout_constraintTop_toBottomOf="@id/text2">
+
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_seconds_kill"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="@dimen/interval_size_xs"
-                                android:paddingBottom="@dimen/interval_size_xs"
+                                android:overScrollMode="never"
                                 android:paddingStart="@dimen/interval_size_xs"
-                                android:overScrollMode="never"/>
+                                android:paddingTop="@dimen/interval_size_xs"
+                                android:paddingBottom="@dimen/interval_size_xs" />
                             <!--     fixme 需要居中调整     -->
 
                         </RelativeLayout>
@@ -326,9 +332,9 @@
             style="@style/waimaiRecommendedTabSegment"
             android:layout_width="match_parent"
             android:layout_height="80px"
-            android:paddingTop="@dimen/interval_size_xs"
             android:paddingStart="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs"/>
+            android:paddingTop="@dimen/interval_size_xs"
+            android:paddingEnd="@dimen/interval_size_xs" />
 
         <com.life.waimaishuo.views.SortTypeView
             android:id="@+id/content_layout"
@@ -336,7 +342,7 @@
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:paddingTop="30px"
-            app:showTabSegment="true"/>
+            app:showTabSegment="true" />
 
         <!--ViewPager-->
         <androidx.viewpager.widget.ViewPager

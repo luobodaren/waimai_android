@@ -50,9 +50,9 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
 
         //屏幕适配
         if(holder.itemView instanceof ViewGroup){
-            UIUtils.getInstance(mContext).autoAdapterUI((ViewGroup)holder.itemView);
+            UIUtils.getInstance().autoAdapterUI((ViewGroup)holder.itemView);
         }else {
-            UIUtils.getInstance(mContext).autoAdapterUI(holder.itemView);
+            UIUtils.getInstance().autoAdapterUI(holder.itemView);
         }
     }
 
@@ -61,9 +61,9 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
     public int addHeaderView(View header, int index, int orientation) {
         int result = super.addHeaderView(header, index, orientation);
         if(header instanceof ViewGroup){
-            UIUtils.getInstance(mContext).autoAdapterUI((ViewGroup)header);
+            UIUtils.getInstance().autoAdapterUI((ViewGroup)header);
         }else {
-            UIUtils.getInstance(mContext).autoAdapterUI(header);
+            UIUtils.getInstance().autoAdapterUI(header);
         }
         return result;
     }
@@ -72,9 +72,9 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
     public int addFooterView(View footer, int index, int orientation) {
         int result = super.addFooterView(footer, index, orientation);
         if(footer instanceof ViewGroup){
-            UIUtils.getInstance(mContext).autoAdapterUI((ViewGroup)footer);
+            UIUtils.getInstance().autoAdapterUI((ViewGroup)footer);
         }else {
-            UIUtils.getInstance(mContext).autoAdapterUI(footer);
+            UIUtils.getInstance().autoAdapterUI(footer);
         }
         return result;
     }

@@ -57,7 +57,7 @@ public class OrderProcessView extends FrameLayout {
         if(!isInitDrawable){
             isInitDrawable = true;
 
-            int size = (int) UIUtils.getInstance(getContext()).scalePx(getDrawableSize());
+            int size = (int) UIUtils.getInstance().scalePx(getDrawableSize());
 
             orderPlaceDrawable = getContext().getResources().getDrawable(R.drawable.ic_order_confim);
             orderPlaceDrawable.setBounds(0,0,size,size);

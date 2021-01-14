@@ -157,7 +157,7 @@ public class SortTypeView extends FrameLayout {
             drawable = getResources().getDrawable(R.drawable.ic_screen_white);
         }
 
-        int drawableSize = (int) UIUtils.getInstance(getContext())
+        int drawableSize = (int) UIUtils.getInstance()
                 .scalePx(getResources().getDimensionPixelSize(R.dimen.sort_layout_text_size));
         drawable.setBounds(0, 0, drawableSize, drawableSize);
         mBinding.tvScreen.setCompoundDrawables(null, null, drawable, null);
@@ -254,7 +254,7 @@ public class SortTypeView extends FrameLayout {
                 protected Point onShow(View attachedView) {
                     Point point = super.onShow(attachedView);
                     if(space == 0){
-                        /*space = (int) UIUtils.getInstance(getContext()).scalePx(
+                        /*space = (int) UIUtils.getInstance().scalePx(
                                 getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs));*/
                         space = getContext().getResources().getDimensionPixelSize(R.dimen.interval_size_xs);
                     }
@@ -271,7 +271,7 @@ public class SortTypeView extends FrameLayout {
     }
 
     private View getScreenView() {
-        int viewWeight = (int) UIUtils.getInstance(getContext()).getDisplayMetricsWidth();
+        int viewWeight = (int) UIUtils.getInstance().getDisplayMetricsWidth();
         int viewHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
 
         View view = View.inflate(getContext(), R.layout.pop_screen, null);
@@ -387,7 +387,7 @@ public class SortTypeView extends FrameLayout {
         if (mSortPopup == null) {
             XUISimpleAdapter adapter = XUISimpleAdapter.create(getContext(), SortTypeEnum.getKeyList());
             mSortPopup = new SortPopup(getContext(), XUIListPopup.DIRECTION_NONE, adapter);
-            mSortPopup.create((int) UIUtils.getInstance(getContext()).getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
+            mSortPopup.create((int) UIUtils.getInstance().getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
                 mSortPopup.dismiss();
                 currentSortTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
                 mBinding.tvSortType.setText(currentSortTypeEnum.getType());

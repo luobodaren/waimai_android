@@ -66,7 +66,7 @@ public class RecommendedFragment extends BaseRecyclerFragment {
     @Override
     protected RecyclerView.ItemDecoration getItemDecoration() {
         return new RecyclerView.ItemDecoration() {
-            int top_interval =(int)UIUtils.getInstance(getContext()).scalePx(
+            int top_interval =(int)UIUtils.getInstance().scalePx(
                     getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {

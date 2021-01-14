@@ -17,33 +17,44 @@ import java.util.Random;
 
 public class UIUtils {
 
-    private static final int SCALE_KEY = new Random(System.currentTimeMillis()).nextInt();
+    private final int SCALE_KEY = new Random(System.currentTimeMillis()).nextInt();
 
-    private static final String DIME_CLASS = "com.android.internal.R$dimen";
+    private final String DIME_CLASS = "com.android.internal.R$dimen";
     //标准值
-    private static final float STANDRD_WIDTH = 750f;
-    private static final float STANDRD_HEIGHT = 1624f;
+    private final float STANDRD_WIDTH = 750f;
+    private final float STANDRD_HEIGHT = 1624f;
     //实际值 保存MMKV中
-    private static float displayMetricsWidth;
-    private static float displayMetricsHeight;
-    private static float scaledDensity;
-    private static float systemBarHeight;
-    private static float density;
-    private static float horValue;
-    private static float verValue;
-
-    private Context context;
-
+    private float displayMetricsWidth;
+    private float displayMetricsHeight;
+    private float scaledDensity;
+    private float systemBarHeight;
+    private float density;
+    private float horValue;
+    private float verValue;
     //单例
     private static UIUtils instance;
 
-    private UIUtils(Context context) {
+    private boolean hasInit = false;
+
+    private UIUtils() { }
+
+    public synchronized static UIUtils getInstance(){
+        if (instance == null){
+            instance = new UIUtils();
+        }
+        return instance;
+    }
+
+    /**
+     * 注意需要先初始化
+     * @param context
+     */
+    public void init(Context context){
         if(context == null){
             LogUtil.e("context == null");
             return;
         }
-
-        this.context = context;
+        hasInit = true;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         // TODO: 2020/11/24 从缓存中读取时间屏幕高宽值
         if(displayMetricsWidth == 0.0f || displayMetricsHeight == 0.0f
@@ -71,15 +82,11 @@ public class UIUtils {
         LogUtil.d("display Width=" + displayMetricsWidth + " height=" + displayMetricsHeight);
     }
 
-    public synchronized static UIUtils getInstance(Context context){
-        if (instance == null){
-            instance = new UIUtils(context);
-        }
-        return instance;
-    }
-
-    // FIXME: 2020/12/10 background圆角角度适配添加
     public void autoAdapterUI(View view){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+           return;
+        }
         if(isNeedScale(view)) {    //防止多次放大
             scaleView(view,getHorValue());
             setScaleTag(view);
@@ -87,6 +94,10 @@ public class UIUtils {
     }
 
     public void autoAdapterUI(ViewGroup viewGroup) {
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return;
+        }
         if(isNeedScale(viewGroup)){//防止多次放大
             scaleView(viewGroup,getHorValue());
             setScaleTag(viewGroup);
@@ -105,11 +116,15 @@ public class UIUtils {
         }
     }
 
-    public void autoAdapterDrawable(Context context,Drawable drawable){
+    public void autoAdapterDrawable(Drawable drawable){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return;
+        }
         if (drawable != null ) {
             drawable.setBounds(0, 0
-                    , (int)(drawable.getIntrinsicWidth()*getInstance(context).getHorValue())
-                    , (int)(drawable.getIntrinsicHeight()*getInstance(context).getHorValue()));
+                    , (int)(drawable.getIntrinsicWidth() * getHorValue())
+                    , (int)(drawable.getIntrinsicHeight() * getHorValue()));
         }
     }
 
@@ -119,6 +134,10 @@ public class UIUtils {
      * @return
      */
     public float scalePx(float px){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return px;
+        }
         return px * getHorValue();
     }
 
@@ -128,6 +147,10 @@ public class UIUtils {
      * @return
      */
     public float scaleDp(float dp){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return dp;
+        }
         return dp * getHorValue();
     }
 
@@ -137,6 +160,10 @@ public class UIUtils {
      * @return
      */
     public float scaleSp(float sp){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return sp;
+        }
         return sp * getHorValue();
     }
 
@@ -147,6 +174,10 @@ public class UIUtils {
      * @return px的值
      */
     public int dpToPx(float dp) {
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return (int) dp;
+        }
         return (int) (dp * density + 0.5f);
     }
 
@@ -157,6 +188,10 @@ public class UIUtils {
      * @return dp的值
      */
     public int pxToDp(float px) {
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return (int) px;
+        }
         return (int) (px / density + 0.5f);
     }
 
@@ -168,6 +203,10 @@ public class UIUtils {
      */
     public int pxToSp(float px) {
         //DisplayMetrics类中属性scaledDensity
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return (int)px;
+        }
         return (int) (px / scaledDensity + 0.5f);
     }
 
@@ -179,11 +218,19 @@ public class UIUtils {
      */
     public int spToPx(float sp) {
         //DisplayMetrics类中属性scaledDensity
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return (int)sp;
+        }
         final float fontScale = scaledDensity;
         return (int) (sp * scaledDensity + 0.5f);
     }
 
     public void setFakeBoldText(TextView textView, boolean bold){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return;
+        }
         TextPaint tp = textView.getPaint();
         tp.setFakeBoldText(bold);
     }
@@ -194,6 +241,10 @@ public class UIUtils {
      * @param size pixel
      */
     public void setTextPxSizeAutoScale(TextView textView, int size) {
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return;
+        }
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,size * getHorValue());
     }
 
@@ -203,6 +254,10 @@ public class UIUtils {
      * @param size sp
      */
     public void setTextSpSizeAutoScale(TextView textView, int size) {
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return;
+        }
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,size * getHorValue());
     }
 
@@ -211,7 +266,10 @@ public class UIUtils {
      * @return
      */
     public float getHorValue(){
-
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return 1;
+        }
         if(horValue == 0.0f){
             horValue = displayMetricsWidth/STANDRD_WIDTH;
             LogUtil.d("horValue=" + horValue);
@@ -224,6 +282,10 @@ public class UIUtils {
      * @return
      */
     public float getVerValue(){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return 1;
+        }
         if(verValue == 0.0f){
             verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight());
             LogUtil.d("verValue=" + verValue);
@@ -280,6 +342,10 @@ public class UIUtils {
      * @param scaleX 缩放倍数
      */
     private void scaleView(View view, float scaleX){
+        if(!hasInit){
+            LogUtil.e("尚未初始化");
+            return;
+        }
         view.setPadding((int)(view.getPaddingStart() * scaleX),
                 (int)(view.getPaddingTop() * scaleX),
                 (int)(view.getPaddingEnd() * scaleX),

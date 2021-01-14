@@ -239,6 +239,16 @@
         <item name="tabTextColor">@color/text_tip</item>
     </style>
 
+    <style name="mallTabSegment">
+        <item name="ts_has_indicator">false</item>
+        <item name="tabPaddingStart">20px</item>
+        <item name="tabPaddingEnd">20px</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="tabBackground">@color/transparent</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">@color/white</item>
+    </style>
+
     <style name="shopDetailTabSegment">
         <item name="android:background">@color/white</item>
         <item name="android:paddingStart">@dimen/interval_size_xs</item>

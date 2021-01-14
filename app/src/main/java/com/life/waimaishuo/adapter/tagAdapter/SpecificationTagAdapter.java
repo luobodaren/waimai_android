@@ -59,7 +59,7 @@ public class SpecificationTagAdapter extends BaseTagAdapter<String, TextView> {
     }
 
     private void initDrawable() {
-        int drawableSize = (int) UIUtils.getInstance(getContext()).scalePx(
+        int drawableSize = (int) UIUtils.getInstance().scalePx(
                 getContext().getResources().getDimensionPixelSize(R.dimen.specification_selete_sign_size));
         selected = getContext().getResources().getDrawable(R.drawable.ic_selected_sign);
         unSelected = getContext().getResources().getDrawable(R.drawable.ic_round_gray);

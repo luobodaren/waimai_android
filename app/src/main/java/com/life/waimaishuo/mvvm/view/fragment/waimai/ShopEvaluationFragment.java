@@ -129,7 +129,7 @@ public class ShopEvaluationFragment extends BaseFragment {
                 recyclerView.setLayoutManager(gridLayoutManager);
                 recyclerView.setAdapter(adapter);
                 recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
-                        (int)UIUtils.getInstance(requireContext()).scalePx(
+                        (int)UIUtils.getInstance().scalePx(
                                 getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
                 PreViewUtil.initRecyclerPictureClickListener(ShopEvaluationFragment.this,adapter,gridLayoutManager);    //添加图片点击监听 看大图
 
@@ -151,7 +151,7 @@ public class ShopEvaluationFragment extends BaseFragment {
             }
         });
         mBinding.recyclerComments.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int space = (int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+            int space = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);

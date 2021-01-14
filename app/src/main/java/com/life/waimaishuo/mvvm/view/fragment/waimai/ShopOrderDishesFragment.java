@@ -126,7 +126,7 @@ public class ShopOrderDishesFragment extends BaseFragment
         mAdapterHorizontal.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(), "点击了轮播图：" + position, Toast.LENGTH_SHORT).show());
         mBinding.contentLayout.setAdapter(mAdapterHorizontal);
-        mBinding.contentLayout.setItemSpace((int) UIUtils.getInstance(getContext()).scalePx(20));
+        mBinding.contentLayout.setItemSpace((int) UIUtils.getInstance().scalePx(20));
     }
 
     private void initLinkageRecycler() {
@@ -147,7 +147,7 @@ public class ShopOrderDishesFragment extends BaseFragment
             specificationDialog.setCanceledOnTouchOutside(true);
             WindowManager.LayoutParams params = specificationDialog.getWindow().getAttributes();
             params.gravity = Gravity.CENTER;
-            params.width = (int) UIUtils.getInstance(requireContext()).scalePx(
+            params.width = (int) UIUtils.getInstance().scalePx(
                     requireContext().getResources().getDimensionPixelSize(R.dimen.width_of_specification_dialog));
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             specificationDialog.getWindow().setAttributes(params);

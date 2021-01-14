@@ -19,7 +19,7 @@ public class BaseApplication implements IComponentApplication {
         XUI.init(application); //初始化UI框架
         XUI.debug(true);  //开启UI框架调试日志
 
-        UIUtils.getInstance(application);   //初始化UI适配工具
+        UIUtils.getInstance().init(application);   //初始化UI适配工具
     }
 
     private void initXPage(Application application){

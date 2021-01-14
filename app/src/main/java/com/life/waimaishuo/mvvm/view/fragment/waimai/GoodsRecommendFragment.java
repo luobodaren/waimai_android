@@ -51,7 +51,7 @@ public class GoodsRecommendFragment extends BaseRecyclerFragment {
     @Override
     protected RecyclerView.ItemDecoration getItemDecoration() {
         return new GridDividerItemDecoration(requireContext(),2,
-                (int) UIUtils.getInstance(requireContext()).scalePx(
+                (int) UIUtils.getInstance().scalePx(
                         getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding)));
     }
 

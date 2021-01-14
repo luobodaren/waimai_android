@@ -48,14 +48,14 @@ public class CityPickerDividerItemDecoration extends RecyclerView.ItemDecoration
 //        int right = parent.getWidth() - parent.getPaddingRight();
 
 //        left = view.getLeft()+view.getPaddingStart();
-//        right = view.getRight() - UIUtils.getInstance(view.getContext()).dpToPx(36);
+//        right = view.getRight() - UIUtils.getInstance().dpToPx(36);
         for (int i = 0; i < childCount - 1; i++) {
             View view = parent.getChildAt(i);
             float top = view.getBottom();
             float bottom = view.getBottom() + dividerHeight;
             if(firstDraw){
                 left = view.getPaddingStart();
-                right = parent.getWidth() - UIUtils.getInstance(view.getContext()).dpToPx(36);
+                right = parent.getWidth() - UIUtils.getInstance().dpToPx(36);
             }
             c.drawRect(left, top, right, bottom, mPaint);
         }

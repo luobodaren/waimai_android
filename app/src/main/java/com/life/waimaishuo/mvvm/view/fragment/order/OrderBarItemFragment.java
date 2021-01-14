@@ -239,7 +239,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
         recyclerView.setAdapter(baseRecyclerAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int space = (int) UIUtils.getInstance(requireContext()).scalePx(
+            int space = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
 
             @Override
@@ -377,9 +377,8 @@ public class OrderBarItemFragment extends BaseChildFragment {
             };
             XUISimpleAdapter adapter = XUISimpleAdapter.create(getContext(), listItems);
             mListPopup = new XUIListPopup(getContext(), adapter);
-            mListPopup.create((int) UIUtils.getInstance(requireContext()).scalePx(152),
-                    (int) UIUtils.getInstance(
-                            requireContext()).scalePx(200), null);
+            mListPopup.create((int) UIUtils.getInstance().scalePx(152),
+                    (int) UIUtils.getInstance().scalePx(200), null);
             FrameLayout.LayoutParams lp =
                     (FrameLayout.LayoutParams)mListPopup.getListView().getLayoutParams();
             lp.setMargins(0,margin,0,margin);

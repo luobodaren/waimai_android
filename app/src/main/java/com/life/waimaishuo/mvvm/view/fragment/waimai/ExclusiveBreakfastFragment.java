@@ -58,13 +58,13 @@ public class ExclusiveBreakfastFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         TitleBar titleBar = super.initTitleBar();
-        titleBar.setHeight((int) UIUtils.getInstance(requireContext()).scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
+        titleBar.setHeight((int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
         titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
         titleBar.setCenterTextBold(true);
         titleBar.setTitleColor(getResources().getColor(R.color.white));
         titleBar.setBackgroundColor(getResources().getColor(R.color.transparent));
 
-        int titleBarDrawableSizes = (int)UIUtils.getInstance(getContext()).scalePx(R.dimen.titlebar_drawable_size);
+        int titleBarDrawableSizes = (int)UIUtils.getInstance().scalePx(R.dimen.titlebar_drawable_size);
         Drawable leftDrawable = getResources().getDrawable(R.drawable.ic_arrow_left_white);
         leftDrawable.setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
         titleBar.setLeftImageDrawable(leftDrawable);

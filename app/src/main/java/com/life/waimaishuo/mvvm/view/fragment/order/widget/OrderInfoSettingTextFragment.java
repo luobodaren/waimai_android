@@ -144,7 +144,7 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
     }
 
     private Drawable getPayTypeLeftDrawable(@DrawableRes int drawableId) {
-        int payTypeDrawableSize = (int) UIUtils.getInstance(requireContext()).scalePx(44);
+        int payTypeDrawableSize = (int) UIUtils.getInstance().scalePx(44);
 
         Drawable drawable = getResources().getDrawable(drawableId);
         drawable.setBounds(0,0,payTypeDrawableSize,payTypeDrawableSize);
@@ -157,7 +157,7 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
      * 初始化取餐方式
      */
     private void initAccessTypeView(){
-        int checkDrawableSize = (int) UIUtils.getInstance(requireContext()).scalePx(40);
+        int checkDrawableSize = (int) UIUtils.getInstance().scalePx(40);
         checkDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_red);
         uncheckDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_gray);
 

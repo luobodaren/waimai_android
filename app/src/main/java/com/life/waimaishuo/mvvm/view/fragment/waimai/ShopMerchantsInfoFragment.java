@@ -95,9 +95,9 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
         mBinding.recyclerShopImg.setLayoutManager(shopImgRecyclerLinearLayoutManager);
         mBinding.recyclerShopImg.setAdapter(shopImgRecyclerAdapter);
         mBinding.recyclerShopImg.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int paddingStartAndEnd = (int) UIUtils.getInstance(requireContext()).scalePx(
+            int paddingStartAndEnd = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
-            int padding = (int) UIUtils.getInstance(requireContext()).scalePx(
+            int padding = (int) UIUtils.getInstance().scalePx(
                     getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding));
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {

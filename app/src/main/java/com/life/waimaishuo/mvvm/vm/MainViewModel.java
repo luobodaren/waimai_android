@@ -4,6 +4,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.MainModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mine.MineFragment;
 import com.life.waimaishuo.mvvm.view.fragment.order.OrderFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiFragment;
@@ -33,7 +34,7 @@ public class MainViewModel extends BaseViewModel {
     public List<BaseFragment> getTabFragment() {
         List<BaseFragment> fragmentList = new ArrayList<>();
         fragmentList.add(new WaimaiFragment());
-        fragmentList.add(new WaimaiFragment());
+        fragmentList.add(new MallFragment());
         fragmentList.add(new OrderFragment());
         fragmentList.add(new MineFragment());
 

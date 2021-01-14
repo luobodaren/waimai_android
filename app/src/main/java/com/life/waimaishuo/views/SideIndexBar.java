@@ -87,11 +87,11 @@ public class SideIndexBar extends View {
         mTextTouchedColor = context.getResources().getColor(typedValue.resourceId);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setTextSize(UIUtils.getInstance(context).scalePx(mTextSize));
+        mPaint.setTextSize(UIUtils.getInstance().scalePx(mTextSize));
         mPaint.setColor(mTextColor);
 
         mTouchedPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTouchedPaint.setTextSize(UIUtils.getInstance(context).scalePx(mTextSize));
+        mTouchedPaint.setTextSize(UIUtils.getInstance().scalePx(mTextSize));
         mTouchedPaint.setColor(mTextTouchedColor);
 
         //创建画笔

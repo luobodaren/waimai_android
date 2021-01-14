@@ -207,8 +207,8 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
             mCanScrollDistance += StatusBarUtils.getStatusBarHeight(getContext());
         }
 
-//        if(mCanScrollDistance > UIUtils.getInstance(getContext()).getDisplayMetricsHeight()){
-//            mCanScrollDistance = UIUtils.getInstance(getContext()).getDisplayMetricsHeight()
+//        if(mCanScrollDistance > UIUtils.getInstance().getDisplayMetricsHeight()){
+//            mCanScrollDistance = UIUtils.getInstance().getDisplayMetricsHeight()
 //                    - StatusBarUtils.getStatusBarHeight(getContext());
 //        }
 

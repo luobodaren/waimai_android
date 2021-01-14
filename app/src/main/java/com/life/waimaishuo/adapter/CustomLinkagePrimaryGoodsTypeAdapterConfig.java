@@ -79,9 +79,9 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
         if(drawable == null){
             drawable = mContext.getResources().getDrawable(R.drawable.sr_widght_vertical_bar);
             drawable.setBounds(0,0,
-                    (int) UIUtils.getInstance(mContext).scalePx(
+                    (int) UIUtils.getInstance().scalePx(
                             mContext.getResources().getDimensionPixelSize(R.dimen.linkagePrimary_left_icon_width)),
-                    (int) UIUtils.getInstance(mContext).scalePx(
+                    (int) UIUtils.getInstance().scalePx(
                             mContext.getResources().getDimensionPixelSize(R.dimen.linkagePrimary_left_icon_height)));
         }
 
@@ -92,12 +92,12 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
         if(selected){
             tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_selected ));
             tvTitle.setCompoundDrawablesRelative(drawable,null,null,null);
-            UIUtils.getInstance(mContext).setTextPxSizeAutoScale(tvTitle,30);
+            UIUtils.getInstance().setTextPxSizeAutoScale(tvTitle,30);
 //            TextUtil.setFakeBoldText(tvTitle,true);
         }else{
             tvTitle.setBackground(mContext.getResources().getDrawable(R.color.linkage_primary_item_bg_default));
             tvTitle.setCompoundDrawablesRelative(null,null,null,null);
-            UIUtils.getInstance(mContext).setTextPxSizeAutoScale(tvTitle,28);
+            UIUtils.getInstance().setTextPxSizeAutoScale(tvTitle,28);
 //            TextUtil.setFakeBoldText(tvTitle,false);
         }
         if(holder.getAdapterPosition() == (selectedPosition - 1)){  //上一个

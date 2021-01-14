@@ -204,7 +204,7 @@ public class WaimaiFragment extends BaseFragment {
         mAdapterHorizontal.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
         binding.bannerLayout.setAdapter(mAdapterHorizontal);
-        binding.bannerLayout.setItemSpace((int) UIUtils.getInstance(getContext()).scalePx(
+        binding.bannerLayout.setItemSpace((int) UIUtils.getInstance().scalePx(
                 getResources().getDimensionPixelSize(R.dimen.interval_size_xs)));
     }
 
@@ -237,9 +237,9 @@ public class WaimaiFragment extends BaseFragment {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
                 if(top_interval_40 == -1)
-                    top_interval_40 = (int)UIUtils.getInstance(getContext()).scalePx(40);
+                    top_interval_40 = (int)UIUtils.getInstance().scalePx(40);
                 if(top_interval_32 == -1)
-                    top_interval_32 = (int)UIUtils.getInstance(getContext()).scalePx(32);
+                    top_interval_32 = (int)UIUtils.getInstance().scalePx(32);
                 outRect.top = position < 5 ? 0 : (position < 10 ? top_interval_40 : top_interval_32);
             }
         });
@@ -275,7 +275,7 @@ public class WaimaiFragment extends BaseFragment {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
                 if(top_interval == -1)
-                    top_interval = (int)UIUtils.getInstance(getContext()).scalePx(40);
+                    top_interval = (int)UIUtils.getInstance().scalePx(40);
                 if(position > 0){
                     outRect.top = top_interval;
 //                    if((position - adapter.getHeaderLayoutCount()) % 2 == 1){
@@ -520,8 +520,8 @@ public class WaimaiFragment extends BaseFragment {
     private void resetTab(TabSegment tabSegment,String[] titles,
                           int selectedPosition){
         int position = 0;
-        int textSizeSelectedScale = (int) UIUtils.getInstance(getContext()).scalePx(textSizeSelected);
-        int textSizeNormalScale = (int) UIUtils.getInstance(getContext()).scalePx(textSizeNormal);
+        int textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
+        int textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
             tab.setTextSize(position == selectedPosition ? textSizeSelectedScale :textSizeNormalScale);

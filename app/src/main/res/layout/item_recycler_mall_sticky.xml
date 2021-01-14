@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/interval_size_xs"
+    android:paddingEnd="@dimen/interval_size_xs">
+
+    <TextView
+        android:id="@+id/tv_type"
+        style="@style/text_my_simple_style"
+        android:textColor="@color/text_normal"
+        android:textSize="28px"
+        android:textStyle="bold"
+        tools:text="发现" />
+
+    <TextView
+        android:id="@+id/tv_describe"
+        style="@style/text_my_simple_style"
+        android:layout_marginTop="6px"
+        android:paddingStart="11px"
+        android:paddingTop="8px"
+        android:paddingEnd="11px"
+        android:paddingBottom="8px"
+        android:textSize="22px"
+        tools:background="@drawable/sr_bg_full_corners_theme"
+        tools:text="猜你喜欢"
+        tools:textColor="@color/white" />
+
+</com.life.base.views.UiAdapterLinearLayout>

@@ -150,7 +150,7 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
     private Drawable getDrawableTop(){  // TODO: 2020/12/9 此处应该从服务获取icon?
         if(groupIcon == null){
             groupIcon = mContext.getResources().getDrawable(R.drawable.ic_hot_drinks);
-            int drawableSize = (int)UIUtils.getInstance(mContext).scalePx(
+            int drawableSize = (int)UIUtils.getInstance().scalePx(
                     mContext.getResources().getDimensionPixelSize(R.dimen.linkagePrimary_top_icon_size));
             groupIcon.setBounds(0,0,drawableSize, drawableSize);
         }

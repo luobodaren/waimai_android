@@ -31,7 +31,7 @@ public class UiAdapterRelativeLayout extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        UIUtils.getInstance(getContext()).autoAdapterUI(this);
+        UIUtils.getInstance().autoAdapterUI(this);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 

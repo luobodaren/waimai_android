@@ -48,7 +48,7 @@ public class OrderWaitPayFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        int drawableSize = (int) UIUtils.getInstance(getContext()).scalePx(44);
+        int drawableSize = (int) UIUtils.getInstance().scalePx(44);
         Drawable goPayDrawable = getResources().getDrawable(R.drawable.ic_go_pay);
         goPayDrawable.setBounds(0,0, drawableSize, drawableSize);
         Drawable cancelOrderDrawable = getResources().getDrawable(R.drawable.ic_cancel_order);
