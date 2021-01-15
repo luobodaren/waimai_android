@@ -21,7 +21,7 @@
             android:scaleType="centerCrop"
             android:layout_width="342px"
             android:layout_height="342px"
-            app:filletImageRadius="16px"
+            app:filletImageRadius="8dp"
             app:topLeftRightCorner="true"
             app:imageUrlBitmap="@{goods.foodsImgUrl}"/>
 
@@ -39,7 +39,7 @@
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textSize="28px"
-                android:text='@{goods.name}'
+                android:text="@{goods.name}"
                 tools:text='goods.name' />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:ellipsize="end"
                 android:textSize="28px"
                 android:layout_marginTop="16px"
-                android:text='@{goods.details}'
+                android:text="@{goods.details}"
                 tools:text='goods.saleinfo' />
 
             <include

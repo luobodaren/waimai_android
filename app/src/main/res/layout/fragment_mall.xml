@@ -9,9 +9,9 @@
             type="com.life.waimaishuo.mvvm.vm.mall.MallViewModel" />
     </data>
 
-    <com.life.base.views.UiAdapterFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="match_parent"
@@ -86,8 +86,9 @@
                     android:id="@+id/iv_more_type"
                     android:layout_width="44px"
                     android:layout_height="44px"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_classify"/>
+                    android:src="@drawable/ic_classify" />
 
             </LinearLayout>
 
@@ -97,6 +98,6 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-    </com.life.base.views.UiAdapterFrameLayout>
+    </FrameLayout>
 
 </layout>

@@ -3,102 +3,110 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="goods"
             type="com.life.waimaishuo.bean.Goods" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/interval_size_xs"
-        android:background="@drawable/sr_bg_8dp_white">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <com.life.waimaishuo.views.FilletImageView
-            android:id="@+id/iv_goods_img"
-            android:scaleType="centerCrop"
-            android:layout_width="342px"
-            android:layout_height="342px"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:filletImageRadius="16px"
-            app:topLeftRightCorner="true"
-            app:imageUrlBitmap="@{goods.foodsImgUrl}"/>
-
-        <TextView
-            android:id="@+id/tv_img_describe"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:background="@drawable/sr_bg_8radius_translucent_gray"
-            android:textColor="@color/white"
-            android:textSize="22px"
-            android:layout_margin="16px"
-            android:paddingTop="7px"
-            android:paddingBottom="7px"
-            android:paddingStart="12px"
-            android:paddingEnd="12px"
-            android:text='@{goods.price_deliver + @string/arrive_in_minutes}'
-            app:layout_constraintBottom_toBottomOf="@id/iv_goods_img"
-            app:layout_constraintStart_toStartOf="@id/iv_goods_img" />
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/sr_bg_8dp_white"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/interval_size_xs">
 
-        <TextView
-            android:id="@+id/tv_goods_name"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textColor="@color/text_normal"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textSize="28px"
-            android:layout_marginTop="16px"
-            android:paddingStart="24px"
-            android:paddingEnd="24px"
-            android:text='@{goods.name}'
-            app:layout_constraintStart_toStartOf="@id/iv_goods_img"
-            app:layout_constraintEnd_toEndOf="@id/iv_goods_img"
-            app:layout_constraintTop_toBottomOf="@id/iv_goods_img" />
+            <com.life.waimaishuo.views.FilletImageView
+                android:id="@+id/iv_goods_img"
+                android:layout_width="342px"
+                android:layout_height="342px"
+                android:scaleType="centerCrop"
+                app:filletImageRadius="16px"
+                app:imageUrlBitmap="@{goods.foodsImgUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:topLeftRightCorner="true" />
 
-        <TextView
-            android:id="@+id/tv_goods_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:textSize="24px"
-            android:layout_marginTop="8px"
-            android:paddingStart="24px"
-            android:textColor="@color/colorAssist_3"
-            android:text='@{goods.score + @string/score}'
-            app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
-            app:layout_constraintStart_toStartOf="@id/tv_goods_name" />
+            <TextView
+                android:id="@+id/tv_img_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16px"
+                android:background="@drawable/sr_bg_8radius_translucent_gray"
+                android:includeFontPadding="false"
+                android:paddingStart="12px"
+                android:paddingTop="7px"
+                android:paddingEnd="12px"
+                android:paddingBottom="7px"
+                android:text='@{goods.price_deliver + @string/arrive_in_minutes}'
+                android:textColor="@color/white"
+                android:textSize="22px"
+                app:layout_constraintBottom_toBottomOf="@id/iv_goods_img"
+                app:layout_constraintStart_toStartOf="@id/iv_goods_img" />
 
-        <TextView
-            android:id="@+id/tv_deliver_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textSize="24px"
-            android:paddingStart="16px"
-            android:textColor="@color/text_tip"
-            android:text='@{@string/zh_money_symbol + goods.price_deliver + @string/price_of_sending}'
-            app:layout_constraintTop_toTopOf="@id/tv_goods_score"
-            app:layout_constraintStart_toEndOf="@id/tv_goods_score"/>
+            <TextView
+                android:id="@+id/tv_goods_name"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16px"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="2"
+                android:paddingStart="24px"
+                android:paddingEnd="24px"
+                android:text='@{goods.name}'
+                android:textColor="@color/text_normal"
+                android:textSize="28px"
+                app:layout_constraintEnd_toEndOf="@id/iv_goods_img"
+                app:layout_constraintStart_toStartOf="@id/iv_goods_img"
+                app:layout_constraintTop_toBottomOf="@id/iv_goods_img" />
+
+            <TextView
+                android:id="@+id/tv_goods_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8px"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:paddingStart="24px"
+                android:text='@{goods.score + @string/score}'
+                android:textColor="@color/colorAssist_3"
+                android:textSize="24px"
+                app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_goods_name" />
+
+            <TextView
+                android:id="@+id/tv_deliver_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:paddingStart="16px"
+                android:text='@{@string/zh_money_symbol + goods.price_deliver + @string/price_of_sending}'
+                android:textColor="@color/text_tip"
+                android:textSize="24px"
+                app:layout_constraintStart_toEndOf="@id/tv_goods_score"
+                app:layout_constraintTop_toTopOf="@id/tv_goods_score" />
 
 
-        <TextView
-            android:id="@+id/tv_sale_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:textSize="24px"
-            android:paddingStart="16px"
-            android:textColor="@color/text_tip"
-            android:text='@{@string/sale_count_a_month + goods.count_per_month}'
-            app:layout_constraintTop_toTopOf="@id/tv_goods_score"
-            app:layout_constraintStart_toEndOf="@id/tv_deliver_price"/>
+            <TextView
+                android:id="@+id/tv_sale_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:paddingStart="16px"
+                android:text='@{@string/sale_count_a_month + goods.count_per_month}'
+                android:textColor="@color/text_tip"
+                android:textSize="24px"
+                app:layout_constraintStart_toEndOf="@id/tv_deliver_price"
+                app:layout_constraintTop_toTopOf="@id/tv_goods_score" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 </layout>

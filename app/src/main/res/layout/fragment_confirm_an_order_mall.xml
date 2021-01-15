@@ -31,7 +31,8 @@
                 android:layout_height="match_parent"
                 android:layout_below="@id/layout_title"
                 android:background="@color/background"
-                android:overScrollMode="never">
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,6 +55,7 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="40px"
                             app:layout_constraintTop_toTopOf="parent">
+
                             <ImageView
                                 android:id="@+id/iv_location"
                                 android:layout_width="44px"
@@ -122,10 +124,10 @@
 
                     <include
                         android:id="@+id/layout_pay_type"
+                        layout="@layout/layout_confirm_order_mall_bottom_pay_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/interval_size_xs"
-                        layout="@layout/layout_confirm_order_mall_bottom_pay_type" />
+                        android:layout_marginTop="@dimen/interval_size_xs" />
 
                     <Space
                         android:layout_width="match_parent"

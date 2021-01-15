@@ -6,8 +6,8 @@ import com.life.waimaishuo.bean.ui.TypeDescribeValue;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallMainTypeModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.LimitedTimeGoodsFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.RecommendedFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecommendFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiRecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
@@ -73,36 +73,16 @@ public class MallMainTypeViewModel extends BaseViewModel {
      * @param viewPagerAdapter
      */
     public void addViewPagerFragment(FragmentAdapter<BaseFragment> viewPagerAdapter) {
-        List<Shop> list = new ArrayList<>();
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        RecommendedFragment fragment;
-        fragment = new RecommendedFragment();
-        fragment.setData(list);
+        MallRecommendFragment fragment;
+        fragment = new MallRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"发现");
-
-        LimitedTimeGoodsFragment limitedTimeGoodsFragment = new LimitedTimeGoodsFragment();
-        viewPagerAdapter.addFragment(limitedTimeGoodsFragment,"限时秒杀");
-        fragment = new RecommendedFragment();
-        fragment.setData(list);
+        fragment = new MallRecommendFragment();
+        viewPagerAdapter.addFragment(fragment,"限时秒杀");
+        fragment = new MallRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"好店");
-        fragment = new RecommendedFragment();
-        fragment.setData(list);
+        fragment = new MallRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"领券中心");
-        fragment = new RecommendedFragment();
-        fragment.setData(list);
+        fragment = new MallRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"买家秀");
     }
 }

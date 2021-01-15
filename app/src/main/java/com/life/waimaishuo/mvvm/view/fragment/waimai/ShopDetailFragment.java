@@ -350,7 +350,7 @@ public class ShopDetailFragment extends BaseFragment {
         mBinding.tabSegment.setHasIndicator(true);
         mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size));
         addTab(mBinding.tabSegment, adapter, shopTabTypes);
-        mBinding.tabSegment.setupWithViewPager(mBinding.viewPager, true);
+        mBinding.tabSegment.setupWithViewPager(mBinding.viewPager, false);
 
         mBinding.viewPager.setOffscreenPageLimit(shopTabTypes.size() - 1);
         mBinding.viewPager.setAdapter(adapter);

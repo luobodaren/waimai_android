@@ -102,7 +102,9 @@ public class ExclusiveBreakfastFragment extends BaseFragment {
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(
                 spanCount,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new StaggeredDividerItemDecoration(getContext(),R.dimen.interval_size_xs,spanCount));
+        recyclerView.addItemDecoration(
+                new StaggeredDividerItemDecoration(requireContext(), R.dimen.interval_size_xs,
+                        (int) UIUtils.getInstance().scalePx(16), spanCount));
         recyclerView.setAdapter(new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_exclusive_goods_info,
                 viewModel.getmBreakFastList(), BR.goods));
     }

@@ -112,6 +112,7 @@ public class MallMainTypeFragment extends BaseFragment {
         mBinding.recyclerFourQuickWindow.setAdapter(
                 new MyBaseRecyclerAdapter<MallQuickWindowData>(R.layout.item_recycler_mall_quick_window
                         ,mViewModel.getMallQuickWindowDataList()){
+                    int textSize = (int) UIUtils.getInstance().scalePx(22);
                     @Override
                     protected void initView(BaseViewHolder helper, MallQuickWindowData item) {
                         super.initView(helper, item);
@@ -152,7 +153,7 @@ public class MallMainTypeFragment extends BaseFragment {
                                 .centerCrop()
                                 .into(imageView);
 
-                        currentPrice.setText(TextUtil.getAbsoluteSpannable("￥" + cp,22,0,1));
+                        currentPrice.setText(TextUtil.getAbsoluteSpannable("￥" + cp,textSize,0,1));
                         prePrice.setText(TextUtil.getStrikeThroughSpanSpannable("￥" + pp));
                     }
                 });

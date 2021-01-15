@@ -7,7 +7,7 @@ import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiZeroDividerModel;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.RecommendedFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiRecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public class WaiMaiZeroDividerViewModel extends BaseViewModel {
         list.add(new Shop("嘉禾一品粥(国展店)"));
         list.add(new Shop("嘉禾一品粥(国展店)"));
 
-        RecommendedFragment fragment = new RecommendedFragment();
+        WaimaiRecommendedFragment fragment = new WaimaiRecommendedFragment();
         fragment.setData(list);
         return fragment;
     }

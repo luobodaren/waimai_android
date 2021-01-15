@@ -4,100 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.BrandStoryViewModel" />
     </data>
 
 
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <com.life.base.views.UiAdapterLinearLayout
-            android:id="@+id/my_ll_content_view"
-            android:orientation="vertical"
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_menu_share" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:scrollbars="none">
 
-            <include
-                android:id="@+id/layout_title"
-                layout="@layout/title_menu_share"/>
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <com.xuexiang.xui.widget.banner.recycler.BannerLayout
+                    android:id="@+id/banner_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="430px"
+                    app:bl_autoPlaying="true"
+                    app:bl_centerScale="1"
+                    app:bl_itemSpace="0px"
+                    app:bl_moveSpeed="1.8"
+                    app:bl_showIndicator="false" />
+
+                <TextView
+                    android:id="@+id/tv_brand_title"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="40px"
+                    android:text="@{viewModel.brandStory}"
+                    android:textColor="@color/text_tip"
+                    android:textSize="26px"
+                    tools:text="品牌故事 | 现切压沙瓜" />
+
+                <TextView
+                    android:id="@+id/tv_brand_story_title"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="40px"
+                    android:text="@{viewModel.storyTitle}"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/font_size_30"
+                    tools:text="这是发生在很久很久以前的故事标题" />
+
+
+                <TextView
+                    android:id="@+id/tv_brand_introduce"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="32px"
+                    android:text="@string/brand_introduce"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/font_size_32" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_brand_img"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginTop="40px" />
 
-                    <com.xuexiang.xui.widget.banner.recycler.BannerLayout
-                        android:id="@+id/banner_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="430px"
-                        app:bl_showIndicator="false"
-                        app:bl_autoPlaying="true"
-                        app:bl_centerScale="1"
-                        app:bl_itemSpace="0px"
-                        app:bl_moveSpeed="1.8" />
+                <TextView
+                    android:id="@+id/tv_brand_introduce_video"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="32px"
+                    android:text="@string/video_introduce"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/font_size_32" />
 
-                    <TextView
-                        android:id="@+id/tv_brand_title"
-                        style="@style/text_my_simple_style"
-                        android:textSize="26px"
-                        android:textColor="@color/text_tip"
-                        android:layout_marginTop="40px"
-                        android:layout_marginStart="@dimen/interval_size_xs"
-                        android:text="@{viewModel.brandStory}"
-                        tools:text="品牌故事 | 现切压沙瓜" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="430px"
+                    android:layout_marginTop="32px"
+                    android:padding="@dimen/font_size_24"
+                    android:src="@drawable/ic_waimai_brand" />
 
-                    <TextView
-                        android:id="@+id/tv_brand_story_title"
-                        style="@style/text_my_simple_style"
-                        android:textSize="@dimen/font_size_30"
-                        android:textColor="@color/text_normal"
-                        android:layout_marginTop="40px"
-                        android:layout_marginStart="@dimen/interval_size_xs"
-                        android:text="@{viewModel.storyTitle}"
-                        tools:text="这是发生在很久很久以前的故事标题" />
+            </LinearLayout>
+
+        </ScrollView>
 
 
-                    <TextView
-                        android:id="@+id/tv_brand_introduce"
-                        style="@style/text_my_simple_style"
-                        android:textSize="@dimen/font_size_32"
-                        android:textColor="@color/text_normal"
-                        android:layout_marginTop="32px"
-                        android:layout_marginStart="@dimen/interval_size_xs"
-                        android:text="@string/brand_introduce" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_brand_img"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="40px" />
-
-                    <TextView
-                        android:id="@+id/tv_brand_introduce_video"
-                        style="@style/text_my_simple_style"
-                        android:textSize="@dimen/font_size_32"
-                        android:textColor="@color/text_normal"
-                        android:layout_marginTop="32px"
-                        android:layout_marginStart="@dimen/interval_size_xs"
-                        android:text="@string/video_introduce" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="430px"
-                        android:layout_marginTop="32px"
-                        android:padding="@dimen/font_size_24"
-                        android:src="@drawable/ic_waimai_brand" />
-
-                </LinearLayout>
-
-            </ScrollView>
-
-
-        </com.life.base.views.UiAdapterLinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 
 </layout>

@@ -26,7 +26,8 @@
             android:layout_height="match_parent"
             android:layout_below="@id/layout_title"
             android:background="@color/background"
-            android:overScrollMode="never">
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,21 +190,21 @@
 
                     <com.xuexiang.xui.widget.imageview.RadiusImageView
                         android:id="@+id/iv_shop_icon"
+                        imageUrl="@{viewModel.order.shopIconUrl}"
                         android:layout_width="38px"
                         android:layout_height="38px"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:riv_corner_radius="100dp"
-                        imageUrl="@{viewModel.order.shopIconUrl}"/>
+                        app:riv_corner_radius="100dp" />
 
                     <TextView
                         android:id="@+id/tv_shop_name"
                         style="@style/text_my_simple_style"
                         android:layout_marginStart="17px"
+                        android:text="@{viewModel.order.shopName}"
                         android:textColor="@color/text_normal"
                         android:textSize="30px"
                         android:textStyle="bold"
-                        android:text="@{viewModel.order.shopName}"
                         app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
                         app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
                         app:layout_constraintTop_toTopOf="@id/iv_shop_icon"

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.mine.MineViewModel" />
@@ -21,64 +22,63 @@
             <com.xuexiang.xui.widget.imageview.RadiusImageView
                 android:id="@+id/iv_head_portrait"
                 style="@style/mine_head_portrait"
-                android:src="@drawable/ic_waimai_brand"
-                android:background="@drawable/sr_bg_8dp_white"
                 android:layout_marginStart="24px"
-                android:layout_marginEnd="24px"
                 android:layout_marginTop="@dimen/mine_marginTop"
+                android:layout_marginEnd="24px"
+                android:background="@drawable/sr_bg_8dp_white"
+                android:src="@drawable/ic_waimai_brand"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="16px"
-                />
+                app:riv_corner_radius="16px" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24px"
-                android:textSize="@dimen/mine_tv_name_font_size"
                 android:maxWidth="360px"
                 android:maxLines="1"
-                android:textColor="@color/text_normal"
                 android:text="@string/login_please"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/mine_tv_name_font_size"
                 app:layout_constraintStart_toEndOf="@id/iv_head_portrait"
-                app:layout_constraintTop_toTopOf="@id/iv_head_portrait"/>
+                app:layout_constraintTop_toTopOf="@id/iv_head_portrait" />
 
             <TextView
                 android:id="@+id/tv_signature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
                 android:layout_marginTop="24px"
+                android:includeFontPadding="false"
                 android:maxWidth="380px"
                 android:maxLines="1"
                 android:textSize="@dimen/mine_tv_signature_font_size"
-                app:layout_constraintTop_toBottomOf="@id/tv_name"
-                app:layout_constraintStart_toStartOf="@id/tv_name" />
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
             <ImageView
                 android:id="@+id/iv_message"
                 style="@style/mine_head_icon"
-                android:src="@drawable/ic_message_black"
                 android:layout_marginEnd="24px"
-                app:layout_constraintTop_toTopOf="@id/tv_name"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                android:src="@drawable/ic_message_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_name" />
 
             <ImageView
                 android:id="@+id/iv_setting"
                 style="@style/mine_head_icon"
-                android:src="@drawable/ic_mine_setting"
                 android:layout_marginEnd="30px"
-                app:layout_constraintTop_toTopOf="@id/iv_message"
-                app:layout_constraintEnd_toStartOf="@id/iv_message"/>
+                android:src="@drawable/ic_mine_setting"
+                app:layout_constraintEnd_toStartOf="@id/iv_message"
+                app:layout_constraintTop_toTopOf="@id/iv_message" />
 
             <ImageView
                 android:id="@+id/iv_change_skin"
                 style="@style/mine_head_icon"
-                android:src="@drawable/ic_change_skin_black"
                 android:layout_marginEnd="30px"
-                app:layout_constraintTop_toTopOf="@id/iv_message"
-                app:layout_constraintEnd_toStartOf="@id/iv_setting"/>
+                android:src="@drawable/ic_change_skin_black"
+                app:layout_constraintEnd_toStartOf="@id/iv_setting"
+                app:layout_constraintTop_toTopOf="@id/iv_message" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -87,9 +87,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="54px"
                 android:overScrollMode="never"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_head_portrait"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_head_portrait" />
 
 
             <ScrollView
@@ -97,8 +97,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scrollbars="none"
-                app:layout_constraintTop_toBottomOf="@id/recycler_top_data"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_top_data">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -116,12 +116,13 @@
                         <com.meetsl.scardview.SCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="62px"
                             android:layout_marginStart="@dimen/interval_size_xs"
+                            android:layout_marginTop="62px"
                             android:layout_marginEnd="@dimen/interval_size_xs"
                             app:cardCornerRadius="8dp"
                             app:cardElevation="6px"
                             app:cardLightDirection="LT">
+
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_goods_logistics"
                                 style="@style/card_grid_recycler_view"
@@ -133,19 +134,20 @@
                         <com.meetsl.scardview.SCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="24px"
-                            android:layout_marginBottom="15px"
                             android:layout_marginStart="@dimen/interval_size_xs"
+                            android:layout_marginTop="24px"
                             android:layout_marginEnd="@dimen/interval_size_xs"
+                            android:layout_marginBottom="15px"
                             app:cardCornerRadius="8dp"
                             app:cardElevation="6px"
                             app:cardLightDirection="LT">
+
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_more_recommended"
                                 style="@style/card_grid_recycler_view"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:overScrollMode="never"/>
+                                android:overScrollMode="never" />
                         </com.meetsl.scardview.SCardView>
                     </LinearLayout>
 
@@ -155,5 +157,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.life.base.views.UiAdapterLinearLayout>
-    
+
 </layout>

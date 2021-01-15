@@ -258,7 +258,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <include
-                            layout="@layout/layout_counting"
+                            layout="@layout/layout_counting_32px_theme"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16px"

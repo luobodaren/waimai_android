@@ -200,13 +200,15 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
     private void initGoodsRecycler() {
         mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedFoods>(R.layout.item_recycler_limited_goods, mViewModel.getLimitedGoodsList(), BR.item) {
+
+            int textSize = (int) UIUtils.getInstance().scalePx(40);
             @Override
             protected void initView(BaseViewHolder helper, LimitedFoods item) {
                 helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
                 helper.setText(R.id.tv_limited_kill_price,
                         TextUtil.getAbsoluteSpannable(
                                 getResources().getString(R.string.limited_second_kill_price, item.getLimitedPrice()),
-                                40,
+                                textSize,
                                 1,
                                 item.getLimitedPrice().length()+1));
 

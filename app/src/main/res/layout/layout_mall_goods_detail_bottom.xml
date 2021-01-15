@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="10px"
+    android:paddingBottom="10px">
+
+    <TextView
+        android:id="@+id/tv_customer_service"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="32px"
+        android:drawablePadding="5px"
+        android:text="@string/customer_service"
+        android:textColor="@color/text_normal"
+        android:textSize="20px"
+        tools:drawableTop="@drawable/ic_customer_service_red" />
+
+    <TextView
+        android:id="@+id/tv_shop"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="48px"
+        android:drawablePadding="5px"
+        android:text="@string/shop"
+        android:textColor="@color/text_normal"
+        android:textSize="20px"
+        tools:drawableTop="@drawable/ic_customer_service_red" />
+
+    <TextView
+        android:id="@+id/tv_shopping_cart"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="48px"
+        android:drawablePadding="5px"
+        android:text="@string/shopping_cart"
+        android:textColor="@color/text_normal"
+        android:textSize="20px"
+        tools:drawableTop="@drawable/ic_customer_service_red" />
+
+    <Space
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/bt_add_to_shopping_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40px"
+        android:background="@drawable/sr_bg_gradient_full_radius_theme"
+        android:paddingStart="33px"
+        android:paddingTop="25px"
+        android:paddingEnd="33px"
+        android:paddingBottom="25px"
+        android:text="@string/add_to_shopping_cart"
+        android:textColor="@color/white"
+        android:textSize="28px" />
+
+    <Button
+        android:id="@+id/bt_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16px"
+        android:layout_marginEnd="@dimen/interval_size_xs"
+        android:background="@drawable/sr_bg_gradient_full_radius_theme"
+        android:paddingStart="33px"
+        android:paddingTop="25px"
+        android:paddingEnd="33px"
+        android:paddingBottom="25px"
+        android:text="@string/buy_now"
+        android:textColor="@color/white"
+        android:textSize="28px" />
+
+</LinearLayout>

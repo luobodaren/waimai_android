@@ -16,12 +16,15 @@
 
     <color name="color_transparent_red_gradient_start">#1AF24343</color>
 
-    <color name="background">#f8f8f8</color>
+    <color name="background">#F8F8F8</color>
     <color name="background2">#F5F5F5</color>
     <color name="divider">#E6E6E6</color>
     <color name="stroke">#E5E5E5</color>
 
-    <color name="bg_80_black">#80000000</color>
+    <color name="bg_50_black">#80000000</color>
+    <color name="bg_80_black">#CC000000</color>
+
+    <color name="bg_70_white">#b3FFFFFF</color>
 
     <color name="text_deep_black">#FF232323</color>
     <color name="text_normal">#333333</color>

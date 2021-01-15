@@ -23,7 +23,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 import java.util.List;
 
 @Page(name = "推荐列表")
-public class RecommendedFragment extends BaseRecyclerFragment {
+public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
 
     private List<Shop> mShopList;
 

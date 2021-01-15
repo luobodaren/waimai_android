@@ -11,13 +11,15 @@
 
     <com.life.waimaishuo.views.StickyNavigationLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/top_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
+            android:background="@mipmap/png_bg_mall_main_page"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

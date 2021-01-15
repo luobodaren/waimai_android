@@ -16,7 +16,7 @@ import com.xuexiang.xui.adapter.recyclerview.GridDividerItemDecoration;
 import java.util.List;
 
 @Page(name = "搭配")
-public class GoodsRecommendFragment extends BaseRecyclerFragment {
+public class GoodsMatchFragment extends BaseRecyclerFragment {
 
     RecommendGoodsViewModel mViewModel;
 
@@ -30,7 +30,7 @@ public class GoodsRecommendFragment extends BaseRecyclerFragment {
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.item_recycler_recommend_good;
+        return R.layout.item_recycler_goods_match;
     }
 
     @Override

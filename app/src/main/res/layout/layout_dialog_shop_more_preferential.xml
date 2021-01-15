@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
+
         <com.life.base.views.UiAdapterLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,21 +30,21 @@
                     android:id="@+id/tv_shopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40px"
+                    android:includeFontPadding="false"
                     android:textColor="@color/text_normal"
                     android:textSize="40px"
-                    android:includeFontPadding="false"
-                    android:layout_marginTop="40px"
-                    android:layout_centerHorizontal="true"
                     tools:text="一点点奶茶店" />
 
                 <Button
                     android:id="@+id/bt_cancel"
                     android:layout_width="40px"
                     android:layout_height="40px"
-                    android:background="@drawable/ic_close_gray"
-                    android:layout_alignParentRight="true"
                     android:layout_alignBottom="@id/tv_shopName"
-                    android:onClick="@{(v)->viewModel.onCancelDialogClick(v)}"/>
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ic_close_gray"
+                    android:onClick="@{(v)->viewModel.onCancelDialogClick(v)}" />
             </RelativeLayout>
 
             <LinearLayout
@@ -53,70 +55,70 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
                     android:layout_marginTop="48px"
-                    android:textSize="28px"
+                    android:includeFontPadding="false"
+                    android:text="@string/red_packet"
                     android:textColor="@color/text_normal"
-                    android:textStyle="bold"
-                    android:text="@string/red_packet" />
+                    android:textSize="28px"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/red_packet_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"/>
+                    android:overScrollMode="never" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:textSize="28px"
-                    android:textColor="@color/text_normal"
-                    android:textStyle="bold"
                     android:layout_marginTop="48px"
-                    android:text="@string/preferential_activity" />
+                    android:includeFontPadding="false"
+                    android:text="@string/preferential_activity"
+                    android:textColor="@color/text_normal"
+                    android:textSize="28px"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/preferential_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24px"
-                    android:overScrollMode="never"/>
+                    android:overScrollMode="never" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
                     android:layout_marginTop="48px"
-                    android:textSize="28px"
+                    android:includeFontPadding="false"
+                    android:text="@string/merchants_service"
                     android:textColor="@color/text_normal"
-                    android:textStyle="bold"
-                    android:text="@string/merchants_service" />
+                    android:textSize="28px"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/service_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24px"
-                    android:overScrollMode="never"/>
+                    android:overScrollMode="never" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
                     android:layout_marginTop="48px"
-                    android:textSize="28px"
+                    android:includeFontPadding="false"
+                    android:text="@string/notice"
                     android:textColor="@color/text_normal"
-                    android:textStyle="bold"
-                    android:text="@string/notice" />
+                    android:textSize="28px"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_notice_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
                     android:textColor="@color/text_uncheck"
-                    android:textSize="22px"
-                    android:layout_marginTop="24px"/>
+                    android:textSize="22px" />
             </LinearLayout>
 
         </com.life.base.views.UiAdapterLinearLayout>

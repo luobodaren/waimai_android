@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel" />
     </data>
 
     <com.life.base.views.UiAdapterFrameLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
@@ -33,8 +34,8 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:overScrollMode="never">
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -44,14 +45,15 @@
                     <FrameLayout
                         android:id="@+id/fl_order_state"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:paddingStart="@dimen/interval_size_xs"
-                        android:paddingEnd="@dimen/interval_size_xs"
-                        android:orientation="vertical">
+                        android:paddingEnd="@dimen/interval_size_xs">
+
                         <FrameLayout
                             android:id="@+id/fl_order_top_info"
                             android:layout_width="match_parent"
@@ -62,7 +64,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="15px"
-                                android:background="@drawable/sr_bg_8dp_pink"/>
+                                android:background="@drawable/sr_bg_8dp_pink" />
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
@@ -72,33 +74,33 @@
                                     android:id="@+id/tv_order_access_type"
                                     android:layout_width="394px"
                                     android:layout_height="91px"
+                                    android:background="@drawable/ic_bg_order_access_type_left"
+                                    android:gravity="center"
                                     android:text="外卖配送"
                                     android:textSize="32px"
-                                    android:gravity="center"
-                                    android:background="@drawable/ic_bg_order_access_type_left"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"/>
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <TextView
                                     android:id="@+id/tv_order_access_type2"
                                     android:layout_width="394px"
                                     android:layout_height="91px"
+                                    android:gravity="center"
                                     android:text="到店自取"
                                     android:textSize="32px"
-                                    android:gravity="center"
                                     app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"/>
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <LinearLayout
                                     android:id="@+id/ll_order_info_title"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/sr_bg_bl_br_8dp_white"
+                                    android:orientation="vertical"
                                     android:paddingTop="@dimen/interval_size_xs"
                                     android:paddingBottom="@dimen/interval_size_xs"
-                                    android:orientation="vertical"
-                                    app:layout_constraintTop_toBottomOf="@id/tv_order_access_type"
-                                    app:layout_constraintStart_toStartOf="parent">
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/tv_order_access_type">
 
                                     <include
                                         android:id="@+id/layout_order_title"
@@ -107,7 +109,7 @@
                                     <FrameLayout
                                         android:id="@+id/fl_order_info_set"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"/>
+                                        android:layout_height="wrap_content" />
 
                                 </LinearLayout>
 
@@ -118,8 +120,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/sr_bg_8dp_white"
                             android:layout_marginTop="@dimen/interval_size_xs"
+                            android:background="@drawable/sr_bg_8dp_white"
                             android:padding="@dimen/interval_size_xs">
 
                             <TextView
@@ -133,18 +135,18 @@
                             <TextView
                                 style="@style/text_my_simple_style"
                                 android:text="超级专送"
-                                android:textSize="22px"
                                 android:textColor="@color/text_normal"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent" />
+                                android:textSize="22px"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
                                 android:id="@+id/divider"
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
                                 android:layout_marginTop="@dimen/interval_size_xs"
-                                app:layout_constraintTop_toBottomOf="@id/tv_shop_name2"
-                                android:background="@color/divider" />
+                                android:background="@color/divider"
+                                app:layout_constraintTop_toBottomOf="@id/tv_shop_name2" />
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_goods_list"
@@ -157,24 +159,26 @@
                                 android:id="@+id/divider_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
-                                android:background="@color/divider"
                                 android:layout_marginTop="@dimen/interval_size_xs"
-                                app:layout_constraintTop_toBottomOf="@id/recycler_goods_list"
-                                app:layout_constraintStart_toStartOf="parent"/>
+                                android:background="@color/divider"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/recycler_goods_list" />
 
                             <LinearLayout
                                 android:id="@+id/ll_red_packet"
+                                style="@style/text_info_clickable_bg"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/shop_info_text_item_height"
-                                style="@style/text_info_clickable_bg"
                                 android:gravity="center_vertical"
                                 android:orientation="horizontal"
-                                app:layout_constraintTop_toBottomOf="@id/divider_2"
-                                app:layout_constraintStart_toStartOf="parent">
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider_2">
+
                                 <ImageView
                                     android:layout_width="40px"
                                     android:layout_height="40px"
                                     android:src="@drawable/ic_red_packet" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -182,18 +186,21 @@
                                     android:text="@string/red_packet"
                                     android:textColor="@color/text_normal"
                                     android:textSize="30px" />
+
                                 <Space
                                     android:layout_width="0px"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1" />
+
                                 <TextView
                                     android:id="@+id/tv_right"
                                     style="@style/text_my_simple_style"
                                     android:layout_marginEnd="@dimen/interval_size_xs"
+                                    android:text="@{viewModel.redPacketPriceValueObservable}"
                                     android:textColor="@color/colorAssist_2"
                                     android:textSize="30px"
-                                    android:text="@{viewModel.redPacketPriceValueObservable}"
                                     tools:text="2220" />
+
                                 <ImageView
                                     android:id="@+id/iv_right"
                                     android:layout_width="24px"
@@ -206,15 +213,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
                                 android:background="@color/divider"
-                                app:layout_constraintTop_toBottomOf="@id/ll_red_packet"
-                                app:layout_constraintStart_toStartOf="parent"/>
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/ll_red_packet" />
 
                             <include
                                 layout="@layout/layout_order_preferential_introduce"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/shop_info_text_item_height"
-                                app:layout_constraintTop_toBottomOf="@id/divider_3"
-                                app:layout_constraintStart_toStartOf="parent"/>
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider_3" />
                             <!--<TextView
                                 android:id="@+id/divider2"
                                 android:layout_width="match_parent"
@@ -242,28 +249,28 @@
 
                         <include
                             android:id="@+id/layout_order_note"
+                            layout="@layout/layout_order_note"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            layout="@layout/layout_order_note"
                             android:layout_marginTop="@dimen/interval_size_xs" />
 
                         <include
                             android:id="@+id/layout_bottom_order_deliver_info"
+                            layout="@layout/layout_bottom_order_deliver_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            layout="@layout/layout_bottom_order_deliver_info"
-                            android:layout_marginTop="@dimen/interval_size_xs"/>
+                            android:layout_marginTop="@dimen/interval_size_xs" />
 
                         <include
                             android:id="@+id/layout_bottom_order_info"
+                            layout="@layout/layout_bottom_order_info_waimai"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            layout="@layout/layout_bottom_order_info_waimai"
                             android:layout_marginTop="@dimen/interval_size_xs" />
 
                         <Space
                             android:layout_width="match_parent"
-                            android:layout_height="317px"/>
+                            android:layout_height="317px" />
                     </LinearLayout>
 
                 </LinearLayout>

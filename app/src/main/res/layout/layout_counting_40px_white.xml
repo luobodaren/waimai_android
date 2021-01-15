@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_hour"
+        style="@style/tv_counting_40px_white"
+        tools:text="46"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/white"
+        android:text=":"
+        android:textSize="32px"
+        android:paddingStart="5px"
+        android:paddingEnd="5px"/>
+
+    <TextView
+        android:id="@+id/tv_minute"
+        style="@style/tv_counting_40px_white"
+        tools:text="46"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:text=":"
+        android:textSize="32px"
+        android:textColor="@color/white"
+        android:paddingStart="5px"
+        android:paddingEnd="5px"/>
+
+
+    <TextView
+        android:id="@+id/tv_seconds"
+        style="@style/tv_counting_40px_white"
+        tools:text="46"/>
+</LinearLayout>

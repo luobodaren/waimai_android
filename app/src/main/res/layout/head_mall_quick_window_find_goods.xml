@@ -24,6 +24,7 @@
         android:id="@+id/tv_right_sign"
         style="@style/text_my_simple_style"
         android:layout_marginStart="8px"
+        android:layout_marginBottom="4px"
         android:background="@drawable/sr_bg_2dp_blue"
         android:paddingStart="4px"
         android:paddingTop="3px"

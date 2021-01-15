@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130px"
+    android:background="@mipmap/png_bg_mall_wait_to_rush"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_pre_price"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="120px"
+        android:layout_marginTop="33px"
+        android:textColor="@color/bg_70_white"
+        android:textSize="22px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="$999" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        style="@style/text_my_simple_style"
+        android:textColor="@color/white"
+        android:textSize="48px"
+        app:layout_constraintStart_toStartOf="@id/tv_pre_price"
+        app:layout_constraintTop_toBottomOf="@id/tv_pre_price"
+        tools:text="$999.00" />
+
+    <TextView
+        android:id="@+id/tv_describe_2"
+        style="@style/text_my_simple_style"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:layout_marginEnd="@dimen/interval_size_xs"
+        android:text="@string/popular_brand"
+        android:textColor="@color/white"
+        android:textSize="30px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/divider"
+        android:layout_width="1px"
+        android:layout_height="18px"
+        android:layout_marginEnd="13px"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/tv_describe_2"
+        app:layout_constraintEnd_toStartOf="@id/tv_describe_2"
+        app:layout_constraintTop_toTopOf="@id/tv_describe_2" />
+
+    <TextView
+        android:id="@+id/tv_describe_1"
+        style="@style/text_my_simple_style"
+        android:layout_marginEnd="13px"
+        android:text="@string/popular_brand"
+        android:textColor="@color/white"
+        android:textSize="30px"
+        app:layout_constraintEnd_toStartOf="@id/divider"
+        app:layout_constraintTop_toTopOf="@id/tv_describe_2" />
+
+    <include
+        android:id="@+id/layout_counting"
+        layout="@layout/layout_counting_40px_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/font_size_24"
+        android:layout_marginBottom="20px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        style="@style/text_my_simple_style"
+        android:layout_marginEnd="16px"
+        android:text="@string/time_before_start_rush_purchase"
+        android:textColor="@color/white"
+        android:textSize="26px"
+        app:layout_constraintBottom_toBottomOf="@id/layout_counting"
+        app:layout_constraintEnd_toStartOf="@id/layout_counting"
+        app:layout_constraintTop_toTopOf="@id/layout_counting" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

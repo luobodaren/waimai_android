@@ -6,7 +6,7 @@ import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiGoodsDetailModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.GoodsEvaluationFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.GoodsRecommendFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.GoodsMatchFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
         BaseFragment baseFragment = null;
         switch (title){
             case "搭配":
-                baseFragment = new GoodsRecommendFragment();
+                baseFragment = new GoodsMatchFragment();
                 break;
             case "评价":
                 baseFragment = new GoodsEvaluationFragment();

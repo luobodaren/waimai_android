@@ -110,5 +110,7 @@
     <dimen name="goods_comment_tabSegment_item_space">16px</dimen>
     <dimen name="specification_selete_sign_size">32px</dimen>
     <dimen name="width_of_specification_dialog">702px</dimen>
+    <dimen name="mall_tabbar_item_text_size_selected">36px</dimen>
+    <dimen name="mall_tabbar_item_text_size">30px</dimen>
 
 </resources>

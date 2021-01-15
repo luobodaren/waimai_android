@@ -25,8 +25,7 @@ public class TextUtil {
     /**
      * 修改局部字体大小
      */
-    public static SpannableString getAbsoluteSpannable(String s, int size, int start, int end){
-        int textSize = (int) UIUtils.getInstance().scalePx(size);
+    public static SpannableString getAbsoluteSpannable(String s, int textSize, int start, int end){
         SpannableString spannableString = new SpannableString(s);
         spannableString.setSpan(new AbsoluteSizeSpan(textSize,false),start,end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;

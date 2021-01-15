@@ -112,7 +112,7 @@ public class GoodsDetailFragment extends BaseFragment {
         mBinding.stickyView.setIndicatorWidthAdjustContent(false);
         mBinding.stickyView.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.goods_detail_tabbar_item_text_size));
         addTab(mBinding.stickyView, adapter, tabTitle);
-        mBinding.stickyView.setupWithViewPager(mBinding.adaptiveSizeView, true);
+        mBinding.stickyView.setupWithViewPager(mBinding.adaptiveSizeView, false);
 
         mBinding.adaptiveSizeView.setOffscreenPageLimit(tabTitle.size() - 1);
         mBinding.adaptiveSizeView.setAdapter(adapter);

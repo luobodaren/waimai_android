@@ -15,10 +15,9 @@ import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.RecommendedFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiRecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.xuexiang.citypicker.model.HotCity;
-import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     public ObservableField<String> mLocation = new ObservableField<>();
 
-    private RecommendedFragment recommendedFragment;
+    private WaimaiRecommendedFragment recommendedFragment;
 
     private List<Shop> mShopList = new ArrayList<>();
     private List<IconStrData> mFoodTypeList = new ArrayList<>();
@@ -88,7 +87,7 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     public BaseFragment getRecommendedFragment() {
         /*if(recommendedFragment == null){
-            recommendedFragment = new RecommendedFragment();
+            recommendedFragment = new WaimaiRecommendedFragment();
             recommendedFragment.setData(mShopList);
         }
         return recommendedFragment;*/
@@ -109,7 +108,7 @@ public class WaiMaiViewModel extends BaseViewModel {
         list.add(new Shop("嘉禾一品粥(国展店)"));
         list.add(new Shop("嘉禾一品粥(国展店)"));
 
-        RecommendedFragment fragment = new RecommendedFragment();
+        WaimaiRecommendedFragment fragment = new WaimaiRecommendedFragment();
         fragment.setData(list);
         return fragment;
     }

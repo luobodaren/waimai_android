@@ -6,7 +6,7 @@ import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallMainTypeFragment;
-import com.life.waimaishuo.mvvm.view.fragment.mall.MallOtherTypeFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecommendFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 public class MallViewModel extends BaseViewModel {
@@ -42,7 +42,7 @@ public class MallViewModel extends BaseViewModel {
         if("全部".equals(type)){
             return new MallMainTypeFragment();
         }else{
-            return new MallOtherTypeFragment();
+            return new MallRecommendFragment();
         }
     }
 }

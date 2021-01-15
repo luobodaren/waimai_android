@@ -325,14 +325,14 @@ public class WaimaiFragment extends BaseFragment {
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
-        addTab(binding.stickyView,adapter,titles);   // FIXME: 2020/12/10 第一次进入 拿不到tab 设置的大小
+        addTab(binding.stickyView,adapter,titles);
         binding.stickyView.setHasIndicator(false);
         binding.stickyView.setMode(TabSegment.MODE_SCROLLABLE);
         binding.stickyView.setItemSpaceInScrollMode(space);
         binding.stickyView.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
         binding.stickyView.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
-        binding.stickyView.setTabTextSize(textSizeNormal);
-        binding.stickyView.setupWithViewPager(binding.adaptiveSizeView,true);
+//        binding.stickyView.setTabTextSize(textSizeNormal);
+        binding.stickyView.setupWithViewPager(binding.adaptiveSizeView,false);
 
         binding.adaptiveSizeView.setOffscreenPageLimit(titles.length - 1);
         binding.adaptiveSizeView.setAdapter(adapter);
@@ -489,9 +489,10 @@ public class WaimaiFragment extends BaseFragment {
      */
     private void refreshTabViewStyle(TabSegment tabSegment,String[] titles,int position) {
         tabSegment.reset();
-        resetTab(tabSegment,titles,position);
 
+        resetTab(tabSegment,titles,position);
         refreshSortType(position);
+
         tabSegment.notifyDataChanged();
     }
 
@@ -506,13 +507,16 @@ public class WaimaiFragment extends BaseFragment {
             }else{
                 tab.setTextSize(textSizeNormal);
             }
+            LogUtil.d(title + "的textSize:" + tab.getTextSize());
             adapter.addFragment(mViewModel.getRecommendedFragment(), title);
             tabSegment.addTab(tab);
         }
     }
 
+    int textSizeSelectedScale = 0;
+    int textSizeNormalScale = 0;
     /**
-     * 仅更新 title 若需要改变个数 需要重写方法
+     * 仅更新 title 若需要改变个数 需要修改方法内逻辑
      * @param tabSegment
      * @param titles
      * @param selectedPosition
@@ -520,8 +524,10 @@ public class WaimaiFragment extends BaseFragment {
     private void resetTab(TabSegment tabSegment,String[] titles,
                           int selectedPosition){
         int position = 0;
-        int textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
-        int textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
+        if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
+            textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
+            textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
+        }
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
             tab.setTextSize(position == selectedPosition ? textSizeSelectedScale :textSizeNormalScale);
