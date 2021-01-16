@@ -94,9 +94,9 @@ public class MallRecommendFragment extends BaseFragment {
             }
         };
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(
+        /*recyclerView.addItemDecoration(
                 new StaggeredDividerItemDecoration(requireContext(),R.dimen.interval_size_xs,
-                        (int) UIUtils.getInstance().scalePx(16), spanCount));
+                        (int) UIUtils.getInstance().scalePx(16), spanCount));*/
         recyclerView.setAdapter(adapter);
     }
 

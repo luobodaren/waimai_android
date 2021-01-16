@@ -15,6 +15,7 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.bean.ui.MallGoods;
 import com.life.waimaishuo.bean.ui.TypeDescribeValue;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentOrderDetailBinding;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -71,7 +72,7 @@ public class OrderDetailFragment extends BaseFragment {
             mPageState = dataBundle.getInt(ORDER_PAGE_TYPE_INT_KEY);
             mViewModel.setOrder(dataBundle.getParcelable(ORDER_DATA_KEY));
         }else{
-            throw new Error("没有传入bundle 无法确定页面类型");
+            throw new Error(Constant.ERROR_MSG_NO_BUNDLE);
         }
     }
 

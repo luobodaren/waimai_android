@@ -3,9 +3,6 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 import android.app.Dialog;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.AbsoluteSizeSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +44,7 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TextUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
@@ -482,12 +480,9 @@ public class ShopDetailFragment extends BaseFragment {
                     receivedStr = getResources().getString(R.string.received);
                 }
 
-                SpannableStringBuilder builder = new SpannableStringBuilder("￥" + item.getPriceValue());
-                builder.setSpan(new AbsoluteSizeSpan((int) UIUtils.getInstance().scalePx(28)),
-                        0,
-                        1,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                ((TextView) helper.getView(R.id.tv_price)).setText(builder);
+                ((TextView) helper.getView(R.id.tv_price)).setText(
+                        TextUtil.getAbsoluteSpannable("￥" + item.getPriceValue(),
+                                (int) UIUtils.getInstance().scalePx(28),0,1));
 
                 Button receiveBt = helper.getView(R.id.bt_receive);
                 if (item.isGet()) {

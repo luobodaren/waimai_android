@@ -127,7 +127,7 @@
             android:orientation="vertical">
             <include
                 android:id="@+id/layout_title_shop_detail"
-                layout="@layout/title_shop_details"
+                layout="@layout/title_waimai_shop_details"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/titlebar_height"
                 android:layout_gravity="top" />

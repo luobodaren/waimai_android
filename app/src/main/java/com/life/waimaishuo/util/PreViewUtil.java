@@ -61,7 +61,7 @@ public class PreViewUtil {
             View itemView = layoutManager.findViewByPosition(i);
             Rect bounds = new Rect();
             if (itemView != null) {
-                ImageView imageView = itemView.findViewById(R.id.iv);
+                ImageView imageView = itemView.findViewById(R.id.iv_goods_img);
                 imageView.getGlobalVisibleRect(bounds);
             }
             ((ImageViewInfo)adapter.getItem(i)).setBounds(bounds);

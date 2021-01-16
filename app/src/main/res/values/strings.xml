@@ -209,5 +209,10 @@
     <string name="shop_recommended">店铺推荐</string>
     <string name="goods_pic_detail">图文详情</string>
     <string name="product_info">产品信息</string>
+    <string name="official_certification">官方认证</string>
+    <string name="comprehensive_experience">综合体验</string>
+    <string name="subscribe">关注</string>
+    <string name="all">全部</string>
+    <string name="guest_officer_interested">%1$s 个客官感兴趣</string>
 
 </resources>

@@ -22,6 +22,7 @@ import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.ui.IconStrData;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentConfirmAnOrderWaimaiBinding;
 import com.life.waimaishuo.enumtype.OrderStateEnum;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
@@ -110,7 +111,7 @@ public class OrderConfirmFragment extends BaseFragment {
             currentOrderType =dataBundle.getInt(ORDER_PAGE_TYPE_INT_KEY);
             mViewModel.setOrder(dataBundle.getParcelable(ORDER_DATA_KEY));
         }else{
-            throw new Error("没有传入bundle 无法确定页面类型");
+            throw new Error(Constant.ERROR_MSG_NO_BUNDLE);
         }
     }
 

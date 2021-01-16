@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/png_shop_background" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:contentScrim="@color/white"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:statusBarScrim="@color/transparent">
+
+                    <FrameLayout
+                        android:id="@+id/fl_folding"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- 需要在代码中 为改布局添加上paddingTop 状态栏高度加titleBar高度 -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_shop_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="16px"
+                            android:paddingBottom="16px">
+
+                            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                                android:id="@+id/iv_shop_icon"
+                                android:layout_width="73px"
+                                android:layout_height="73px"
+                                android:layout_marginStart="@dimen/interval_size_xs"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_waimai_brand"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_corner_radius="4dp" />
+
+                            <TextView
+                                android:id="@+id/tv_shop_name"
+                                style="@style/text_my_simple_style"
+                                android:layout_marginStart="16px"
+                                app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
+                                app:layout_constraintTop_toTopOf="@id/iv_shop_icon" />
+
+                            <TextView
+                                android:id="@+id/tv_official_certification"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16px"
+                                android:background="@drawable/sr_bg_full_corners_theme"
+                                android:paddingStart="8px"
+                                android:paddingTop="5px"
+                                android:paddingEnd="8px"
+                                android:paddingBottom="5px"
+                                android:text="@string/official_certification"
+                                android:textColor="@color/white"
+                                android:textSize="16px"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                                app:layout_constraintStart_toEndOf="@id/iv_shop_icon" />
+
+                            <TextView
+                                android:id="@+id/tv_fans_count"
+                                style="@style/text_my_simple_style"
+                                android:layout_marginStart="16px"
+                                android:textColor="@color/white"
+                                android:textSize="20px"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                                app:layout_constraintStart_toEndOf="@id/tv_official_certification"
+                                tools:text="粉丝数20万" />
+
+                            <include
+                                android:id="@+id/layout_comprehensive_experience"
+                                layout="@layout/layout_mall_shop_comprehensive_experience"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16px"
+                                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                                app:layout_constraintStart_toEndOf="@id/tv_fans_count" />
+
+                            <TextView
+                                android:id="@+id/tv_subscribe"
+                                style="@style/text_my_simple_style"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
+                                android:background="@drawable/sr_bg_full_corners_theme"
+                                android:paddingStart="28px"
+                                android:paddingTop="14px"
+                                android:paddingEnd="28px"
+                                android:paddingBottom="14px"
+                                android:text="@string/subscribe"
+                                android:textColor="@color/white"
+                                android:textSize="28px"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </FrameLayout>
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/appbar_layout_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/titlebar_height"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    <!--                        app:layout_collapseMode="parallax"-->
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <com.xuexiang.xui.widget.tabbar.TabSegment
+                    android:id="@+id/tabSegment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tabbar_height"
+                    android:background="@color/transparent"
+                    android:paddingStart="30px"
+                    android:paddingEnd="30px"
+                    app:ts_has_indicator="false"
+                    app:ts_mode="fixed"
+                    app:ts_normal_color="@color/white"
+                    app:ts_selected_color="@color/white" />
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/sr_bg_gradient_transparent_to_white" />
+
+            </LinearLayout>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_mall_shop" />
+
+        </LinearLayout>
+
+    </com.life.base.views.UiAdapterFrameLayout>
+</layout>

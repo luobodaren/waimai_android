@@ -15,6 +15,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.ImageSelectGridAdapter;
 import com.life.waimaishuo.bean.Order;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentRefundBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -71,7 +72,7 @@ public class RefundFragment extends BaseFragment {
         super.initArgs();
 
         if(getArguments() == null){
-            throw new Error("没有传入bundle 没有订单信息");
+            throw new Error(Constant.ERROR_MSG_NO_BUNDLE);
         }
         isReturnGoods = getArguments().getBoolean(IS_RETURN_GOODS_KEY);
         mViewModel.setOrder(getArguments().getParcelable(DATA_KEY));

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ui.TypeDescribeValue" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/interval_size_xs">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_goods_img"
+            imageUrl="@{item.type}"
+            android:layout_width="207px"
+            android:layout_height="207px"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="4dp" />
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:ellipsize="end"
+            android:maxWidth="182px"
+            android:maxLines="1"
+            android:text="@{item.describe}"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            app:layout_constraintStart_toStartOf="@id/iv_goods_img"
+            app:layout_constraintTop_toBottomOf="@id/iv_goods_img"
+            tools:text="欧舒丹甜蜜樱桃服装" />
+
+        <TextView
+            android:id="@+id/tv_goods_price"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="10px"
+            android:ellipsize="end"
+            android:text="@{item.value}"
+            android:textColor="@color/colorAssist_2"
+            android:textSize="30px"
+            app:layout_constraintStart_toStartOf="@id/iv_goods_img"
+            app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
+            tools:text="￥378.88" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

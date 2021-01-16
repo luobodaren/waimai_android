@@ -2,11 +2,6 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.StrikethroughSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;

@@ -1,10 +1,12 @@
 package com.life.waimaishuo.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.math.BigInteger;
 import java.util.List;
 
-public class Shop {
-
+public class Shop implements Parcelable {
 
     BigInteger organization_id; //组织ID
     BigInteger brand_id;    //品牌ID
@@ -82,6 +84,76 @@ public class Shop {
         this.shop_name = shop_name;
     }
 
+    protected Shop(Parcel in) {
+        shop_type = in.readInt();
+        shop_head_portrait = in.readString();
+        shop_name = in.readString();
+        reservation_call = in.readString();
+        alternate_phone = in.readString();
+        province = in.readString();
+        city = in.readString();
+        district = in.readString();
+        shop_address = in.readString();
+        shop_category = in.readString();
+        favorable_rate = in.readString();
+        goods_pictures = in.readString();
+        shop_image = in.readString();
+        shop_qr_code = in.readString();
+        shop_number = in.readString();
+        admin_phone = in.readString();
+        last_equipment_name = in.readString();
+        last_login_address = in.readString();
+        last_login_time = in.readString();
+        notice = in.readString();
+        synopsis = in.readString();
+        invoice = in.readString();
+        effective_date = in.readString();
+        tag_value = in.readString();
+        audit_state = in.readInt();
+        audit_cause = in.readString();
+        state = in.readInt();
+        sort = in.readDouble();
+        create_time = in.readString();
+        update_time = in.readString();
+        open_state = in.readInt();
+        polygon = in.readString();
+        create_name = in.readString();
+        account_number = in.readString();
+        user_pwd = in.readString();
+        shop_nature = in.readInt();
+        synopsis_img = in.createStringArrayList();
+        shop_sign = in.readString();
+        logistics_rate = in.readString();
+        serve_rate = in.readString();
+        dist_priority = in.readInt();
+        pick_priority = in.readInt();
+        return_province = in.readString();
+        return_city = in.readString();
+        return_district = in.readString();
+        return_address = in.readString();
+        return_contacts = in.readString();
+        return_phone = in.readString();
+        cash_deposit = in.readString();
+        is_message = in.readInt();
+        shop_province = in.readString();
+        shop_city = in.readString();
+        shop_district = in.readString();
+        number_of_fans = in.readString();
+        sale_count_per_month = in.readString();
+    }
+
+    public static final Creator<Shop> CREATOR = new Creator<Shop>() {
+        @Override
+        public Shop createFromParcel(Parcel in) {
+            return new Shop(in);
+        }
+
+        @Override
+        public Shop[] newArray(int size) {
+            return new Shop[size];
+        }
+    };
+
     public String getShop_name() {
         return shop_name;
     }
@@ -136,5 +208,69 @@ public class Shop {
 
     public void setMemberCard(MemberCard memberCard) {
         this.memberCard = memberCard;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(shop_type);
+        dest.writeString(shop_head_portrait);
+        dest.writeString(shop_name);
+        dest.writeString(reservation_call);
+        dest.writeString(alternate_phone);
+        dest.writeString(province);
+        dest.writeString(city);
+        dest.writeString(district);
+        dest.writeString(shop_address);
+        dest.writeString(shop_category);
+        dest.writeString(favorable_rate);
+        dest.writeString(goods_pictures);
+        dest.writeString(shop_image);
+        dest.writeString(shop_qr_code);
+        dest.writeString(shop_number);
+        dest.writeString(admin_phone);
+        dest.writeString(last_equipment_name);
+        dest.writeString(last_login_address);
+        dest.writeString(last_login_time);
+        dest.writeString(notice);
+        dest.writeString(synopsis);
+        dest.writeString(invoice);
+        dest.writeString(effective_date);
+        dest.writeString(tag_value);
+        dest.writeInt(audit_state);
+        dest.writeString(audit_cause);
+        dest.writeInt(state);
+        dest.writeDouble(sort);
+        dest.writeString(create_time);
+        dest.writeString(update_time);
+        dest.writeInt(open_state);
+        dest.writeString(polygon);
+        dest.writeString(create_name);
+        dest.writeString(account_number);
+        dest.writeString(user_pwd);
+        dest.writeInt(shop_nature);
+        dest.writeStringList(synopsis_img);
+        dest.writeString(shop_sign);
+        dest.writeString(logistics_rate);
+        dest.writeString(serve_rate);
+        dest.writeInt(dist_priority);
+        dest.writeInt(pick_priority);
+        dest.writeString(return_province);
+        dest.writeString(return_city);
+        dest.writeString(return_district);
+        dest.writeString(return_address);
+        dest.writeString(return_contacts);
+        dest.writeString(return_phone);
+        dest.writeString(cash_deposit);
+        dest.writeInt(is_message);
+        dest.writeString(shop_province);
+        dest.writeString(shop_city);
+        dest.writeString(shop_district);
+        dest.writeString(number_of_fans);
+        dest.writeString(sale_count_per_month);
     }
 }

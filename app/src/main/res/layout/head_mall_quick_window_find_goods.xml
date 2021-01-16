@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="84px"
-    android:background="@drawable/sr_bg_gradient_8dp_transparent_red"
+    android:background="@drawable/sr_bg_gradient_8dp_translucent_red"
     android:orientation="vertical">
 
 

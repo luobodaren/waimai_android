@@ -17,6 +17,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Order;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentRefundDetailBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -76,7 +77,7 @@ public class RefundDetailFragment extends BaseFragment {
             myPageState = bundle.getInt(KEY_STATE);
             mViewModel.setOrder(bundle.getParcelable(KEY_ORDER));
         } else {
-            throw new Error("没有传入bundle 无法确定页面类型");
+            throw new Error(Constant.ERROR_MSG_NO_BUNDLE);
         }
     }
 

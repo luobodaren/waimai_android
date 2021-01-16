@@ -1,11 +1,15 @@
 package com.life.waimaishuo.util;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
+
+import androidx.annotation.ColorInt;
 
 import com.life.base.utils.UIUtils;
 
@@ -30,6 +34,13 @@ public class TextUtil {
         spannableString.setSpan(new AbsoluteSizeSpan(textSize,false),start,end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
-
+    /**
+     * 修改局部字体颜色
+     */
+    public static SpannableString getColorSpannable(String s, @ColorInt int color, int start, int end){
+        SpannableString spannableString = new SpannableString(s);
+        spannableString.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
 
 }
