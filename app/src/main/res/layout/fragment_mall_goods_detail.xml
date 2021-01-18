@@ -292,6 +292,7 @@
                             app:layout_constraintTop_toTopOf="@id/tv_shop_recommend" />
 
                         <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_shop_recommend_goods"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"

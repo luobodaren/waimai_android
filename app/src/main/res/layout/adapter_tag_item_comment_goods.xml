@@ -15,7 +15,7 @@
         android:paddingStart="16px"
         android:paddingEnd="16px"
         android:layout_marginStart="16px"
-        android:background="@drawable/sr_bg_2radius_10theme"
+        android:background="@drawable/sr_bg_2dp_10theme"
         android:textSize="24px"
         android:textColor="@color/colorTheme"
         tools:text="60减25"/>

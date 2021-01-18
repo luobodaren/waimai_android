@@ -26,7 +26,7 @@
             app:bl_moveSpeed="1.8" />
 
         <com.kunminx.linkage.LinkageRecyclerView
-            android:id="@+id/linkage_waimai_type"
+            android:id="@+id/linkage_order_dishes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

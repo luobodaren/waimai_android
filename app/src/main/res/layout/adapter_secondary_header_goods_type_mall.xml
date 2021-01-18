@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24px"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/secondary_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_normal"
+        android:textSize="@dimen/linkageSecondary_grid_header_text_size"
+        android:singleLine="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</com.life.base.views.UiAdapterConstrainLayout>

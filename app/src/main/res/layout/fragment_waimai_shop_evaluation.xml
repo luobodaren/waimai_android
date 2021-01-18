@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.ShopEvaluationViewModel" />
@@ -23,26 +24,26 @@
                 android:id="@+id/tv_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
-                android:textSize="60px"
-                android:textColor="@color/colorTheme"
+                android:layout_marginStart="48px"
                 android:layout_marginTop="48px"
                 android:layout_marginBottom="48px"
-                android:layout_marginStart="48px"
+                android:includeFontPadding="false"
                 android:text="@{viewModel.scoreObservable}"
+                android:textColor="@color/colorTheme"
+                android:textSize="60px"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="4.8" />
 
             <TextView
                 android:id="@+id/tv_merchants_score"
                 style="@style/text_shop_evaluation_score_type"
-                android:text="@string/merchants_score"
                 android:layout_marginStart="@dimen/interval_size_xs"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/merchants_score"
                 app:layout_constraintBottom_toTopOf="@id/layout_five_star"
                 app:layout_constraintStart_toEndOf="@id/tv_score"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <com.life.waimaishuo.views.widget.ScoreView
@@ -50,18 +51,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14px"
-                app:layout_constraintTop_toBottomOf="@id/tv_merchants_score"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tv_merchants_score" />
+                app:layout_constraintStart_toStartOf="@id/tv_merchants_score"
+                app:layout_constraintTop_toBottomOf="@id/tv_merchants_score" />
 
             <TextView
                 android:id="@+id/tv_deliver_satisfaction"
                 style="@style/text_shop_evaluation_score_type"
-                android:text="@string/deliver_satisfaction"
                 android:layout_marginEnd="@dimen/interval_size_xs"
+                android:text="@string/deliver_satisfaction"
+                app:layout_constraintBottom_toTopOf="@id/tv_deliver_satisfaction_value"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tv_deliver_satisfaction_value"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
@@ -69,10 +70,10 @@
                 style="@style/text_shop_evaluation_score_value"
                 android:layout_marginTop="16px"
                 android:text="@{viewModel.deliverScoreObservable}"
-                app:layout_constraintTop_toBottomOf="@id/tv_deliver_satisfaction"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tv_deliver_satisfaction"
                 app:layout_constraintEnd_toEndOf="@id/tv_deliver_satisfaction"
+                app:layout_constraintStart_toStartOf="@id/tv_deliver_satisfaction"
+                app:layout_constraintTop_toBottomOf="@id/tv_deliver_satisfaction"
                 tools:text="4.8" />
 
             <TextView
@@ -81,18 +82,18 @@
                 android:layout_height="0px"
                 android:layout_marginEnd="32px"
                 android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="@id/tv_deliver_satisfaction_value"
                 app:layout_constraintEnd_toStartOf="@id/tv_deliver_satisfaction"
-                app:layout_constraintTop_toTopOf="@id/tv_deliver_satisfaction"
-                app:layout_constraintBottom_toBottomOf="@id/tv_deliver_satisfaction_value" />
+                app:layout_constraintTop_toTopOf="@id/tv_deliver_satisfaction" />
 
             <TextView
                 android:id="@+id/tv_packing"
                 style="@style/text_shop_evaluation_score_type"
-                android:text="@string/packing"
                 android:layout_marginEnd="32px"
+                android:text="@string/packing"
+                app:layout_constraintBottom_toTopOf="@id/tv_packing_value"
                 app:layout_constraintEnd_toStartOf="@id/divider"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tv_packing_value"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
@@ -100,20 +101,20 @@
                 style="@style/text_shop_evaluation_score_value"
                 android:layout_marginTop="16px"
                 android:text="@{viewModel.packingScoreObservable}"
-                app:layout_constraintTop_toBottomOf="@id/tv_packing"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tv_packing"
                 app:layout_constraintEnd_toEndOf="@id/tv_packing"
+                app:layout_constraintStart_toStartOf="@id/tv_packing"
+                app:layout_constraintTop_toBottomOf="@id/tv_packing"
                 tools:text="4.8" />
 
             <TextView
                 android:id="@+id/tv_taste"
                 style="@style/text_shop_evaluation_score_type"
-                android:text="@string/taste"
                 android:layout_marginEnd="65px"
+                android:text="@string/taste"
+                app:layout_constraintBottom_toTopOf="@id/tv_taste_value"
                 app:layout_constraintEnd_toStartOf="@id/tv_packing"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tv_taste_value"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
@@ -121,10 +122,10 @@
                 style="@style/text_shop_evaluation_score_value"
                 android:layout_marginTop="16px"
                 android:text="@{viewModel.tasteScoreObservable}"
-                app:layout_constraintTop_toBottomOf="@id/tv_taste"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tv_taste"
                 app:layout_constraintEnd_toEndOf="@id/tv_taste"
+                app:layout_constraintStart_toStartOf="@id/tv_taste"
+                app:layout_constraintTop_toBottomOf="@id/tv_taste"
                 tools:text="4.8" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -138,10 +139,11 @@
             android:id="@+id/recycler_comments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background"
             android:layout_marginTop="@dimen/interval_size_xs"
+            android:background="@color/background"
+            android:overScrollMode="never"
             android:paddingStart="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs"/>
+            android:paddingEnd="@dimen/interval_size_xs" />
 
     </LinearLayout>
 </layout>

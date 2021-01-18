@@ -55,7 +55,7 @@
         </LinearLayout>
 
         <com.kunminx.linkage.LinkageRecyclerView
-            android:id="@+id/linkage_waimai_type"
+            android:id="@+id/linkage_all_type"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1"/>

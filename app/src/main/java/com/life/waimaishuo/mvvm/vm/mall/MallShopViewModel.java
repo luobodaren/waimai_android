@@ -2,9 +2,10 @@ package com.life.waimaishuo.mvvm.vm.mall;
 
 import android.view.View;
 
-import com.life.waimaishuo.bean.Goods;
+import com.kunminx.linkage.bean.BaseGroupedItem;
+import com.life.base.utils.GsonUtil;
+import com.life.waimaishuo.bean.ui.LinkageGroupedItemMallShopClassification;
 import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.bean.ui.MallNewArrival;
 import com.life.waimaishuo.bean.ui.MallShopGoodGoods;
@@ -12,7 +13,9 @@ import com.life.waimaishuo.bean.ui.TypeDescribeValue;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallShopModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallAllPreciousGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecommendFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopClassificationFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopGoodGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopNewArrivalFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopRecommendFragment;
@@ -27,6 +30,8 @@ public class MallShopViewModel extends BaseViewModel {
 
     Shop shop;
 
+    List<String> pageList = new ArrayList<>();
+
     @Override
     public BaseModel getModel() {
         if(mModel == null){
@@ -37,7 +42,10 @@ public class MallShopViewModel extends BaseViewModel {
 
     @Override
     public void initData() {
-
+        pageList.add("全部宝贝");
+        pageList.add("商品");
+        pageList.add("分类");
+        pageList.add("联系客服");
     }
 
     public void onBackClick(View view){
@@ -52,11 +60,32 @@ public class MallShopViewModel extends BaseViewModel {
 
     }
 
-    public String[] getTabTitle() {
+    public List<String> getTabDataList() {
+        return pageList;
+    }
+
+    public List<BaseFragment> getTabFragment() {
+        List<BaseFragment> baseFragmentList = new ArrayList<>();
+        //全部宝贝
+        MallAllPreciousGoodsFragment mallAllPreciousGoodsFragment = new MallAllPreciousGoodsFragment();
+        mallAllPreciousGoodsFragment.baseViewModel = this;
+        baseFragmentList.add(mallAllPreciousGoodsFragment);
+        //商品
+        baseFragmentList.add(new MallRecommendFragment());
+        //分类
+        MallShopClassificationFragment mallShopClassificationFragment = new MallShopClassificationFragment();
+        mallShopClassificationFragment.baseViewModel = this;
+        baseFragmentList.add(mallShopClassificationFragment);
+        //联系客服
+        baseFragmentList.add(new MallRecommendFragment());
+        return baseFragmentList;
+    }
+
+    public String[] getAllPreciousTabTitle() {
         return new String[]{"推荐","宝贝","新品","好物","买家秀"};
     }
 
-    public BaseFragment getTabFragment(String title) {
+    public BaseFragment getAllPreciousTabFragment(String title) {
         if("推荐".equals(title)){
             MallShopRecommendFragment fragment = new MallShopRecommendFragment();
             fragment.baseViewModel = this;
@@ -152,5 +181,41 @@ public class MallShopViewModel extends BaseViewModel {
         list.add(new MallShopGoodGoods("picnic 苹果斜挎包","1581",null,imgUrlList));
         list.add(new MallShopGoodGoods("picnic 苹果斜挎包","1581",null,imgUrlList));
         return list;
+    }
+
+    public List<BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo>> getClassificationData() {
+        String dataJson = "[\n" +
+                "  {\n" +
+                "    \"header\": \"优惠\",\n" +
+                "    \"isHeader\": true\n" +
+                "  },\n" +
+                "  {\n" +
+                "    \"isHeader\": false,\"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全家桶\"  } },\n" +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全家\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全桶\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"家桶\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"全\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"家\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"优惠\",\"title\": \"桶\"  } }," +
+
+                "  {\"header\": \"热卖\",\"isHeader\": true}," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤全翅\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤翅\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤全\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"全\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"翅\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"热卖\",\"title\": \"烤\"  } }," +
+
+                "  {\"header\": \"超市便利\",\"isHeader\": true}," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤全翅\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤翅\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤全\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"全\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"翅\"  } }," +
+                "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤\"  } }" +
+                "]" ;
+        List<LinkageGroupedItemMallShopClassification> classificationList;
+        classificationList =  GsonUtil.jsonToList(dataJson,  LinkageGroupedItemMallShopClassification.class);
+        return (List)classificationList;
     }
 }

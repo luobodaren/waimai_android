@@ -40,7 +40,7 @@ public class SearchActivity extends BaseActivity {
 
 
     @Override
-    protected void initActivityAttritube() {
+    protected void initActivityAttribute() {
         setTransluecnt(true);
         setFitStatusBarHeight(true);
     }

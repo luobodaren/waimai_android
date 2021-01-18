@@ -75,13 +75,8 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
     }
 
     int maxPosition = -1;
-    Drawable drawable = null;
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
-        if(drawable == null){
-            drawable = mContext.getResources().getDrawable(R.drawable.sr_widght_vertical_bar);
-        }
-
         TextView tvTitle = ((TextView) holder.mGroupTitle);
         tvTitle.setText(title);
         int selectedPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getSelectedPosition();
@@ -101,11 +96,11 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
         }
 
         Drawable drawableTop = getDrawableTop();
+        tvTitle.setCompoundDrawablesRelative(null,drawableTop,null,null);
 
         View viewSelectMark = holder.mLayout.findViewById(R.id.iv_selected);
         if(selected){
             holder.mLayout.findViewById(R.id.layout_content).setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_selected));
-            tvTitle.setCompoundDrawablesRelative(drawable,drawableTop,null,null);
             TextPaint tp = tvTitle.getPaint();
             tp.setFakeBoldText(true);
             if(viewSelectMark.getVisibility() == View.GONE){
@@ -113,22 +108,19 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
             }
         }else{
             holder.mLayout.findViewById(R.id.layout_content).setBackgroundColor(mContext.getResources().getColor(R.color.transparent));
-            tvTitle.setCompoundDrawablesRelative(null,drawableTop,null,null);
             TextPaint tp = tvTitle.getPaint();
             tp.setFakeBoldText(false);
-            holder.mLayout.findViewById(R.id.iv_selected).setVisibility(View.GONE);
             if(viewSelectMark.getVisibility() == View.VISIBLE){
                 viewSelectMark.setVisibility(View.GONE);
             }
         }
-
-
 
 //        if(holder.getAdapterPosition() == (selectedPosition - 1)){  //上一个
 //            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_before_select));
 //        }else if(holder.getAdapterPosition() == (selectedPosition + 1)){    //下一个
 //            holder.mLayout.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_after_select));
 //        }
+
         tvTitle.setEllipsize(selected ? TextUtils.TruncateAt.MARQUEE : TextUtils.TruncateAt.END);
         tvTitle.setFocusable(selected);
         tvTitle.setFocusableInTouchMode(selected);

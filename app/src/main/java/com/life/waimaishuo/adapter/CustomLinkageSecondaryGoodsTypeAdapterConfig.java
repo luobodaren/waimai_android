@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
+import com.life.waimaishuo.bean.ui.LinkageGroupedItemGoodsType;
 import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
@@ -32,7 +32,7 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 
-public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemWaimaiType.ItemInfo> {
+public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemGoodsType.ItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
@@ -66,7 +66,7 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     @Override
     public int getHeaderLayoutId() {
-        return R.layout.adapter_waimai_secondary_header;
+        return R.layout.adapter_secondary_header_goods_type;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
-                                 final BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+                                 final BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
 
         ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
         Glide.with(mContext).load(R.mipmap.ic_food_all_subtype).into((ImageView) holder.getView(R.id.iv_goods_img));
@@ -102,7 +102,7 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
         holder.getView(R.id.secondary_header_right).setOnClickListener(v ->{
             if(mItemClickListener != null){
@@ -113,7 +113,7 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     @Override
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
 
     }
 

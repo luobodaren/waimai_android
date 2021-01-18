@@ -14,21 +14,33 @@ import java.util.List;
 
 public class MainViewModel extends BaseViewModel {
 
-    String[] pages = {"外卖","商场","订单","我的"};
+    List<String> pageList = new ArrayList<>();
+
+    private MainModel mModel;
 
     @Override
     public BaseModel getModel() {
-        return new MainModel();
+        if(mModel == null){
+            mModel = new MainModel();
+        }
+        return mModel;
     }
 
     @Override
     public void initData() {
-
+        pageList.add("外卖");
+        pageList.add("商城");
+        pageList.add("订单");
+        pageList.add("我的");
     }
 
 
-    public String[] getTabDatas(){
-        return pages;
+    public String[] getTabData(){
+        return pageList.toArray(new String[]{});
+    }
+
+    public List<String> getTabDataList(){
+        return pageList;
     }
 
     public List<BaseFragment> getTabFragment() {
@@ -54,4 +66,5 @@ public class MainViewModel extends BaseViewModel {
                 ,R.drawable.ic_main_tabbar_order_unselect
                 ,R.drawable.ic_main_tabbar_mine_unselect};
     }
+
 }

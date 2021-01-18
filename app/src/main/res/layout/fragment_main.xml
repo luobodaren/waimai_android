@@ -19,11 +19,17 @@
             android:layout_height="0px"
             android:layout_weight="1"/>
 
-        <com.xuexiang.xui.widget.tabbar.TabSegment
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"/>
+
+        <!--<com.xuexiang.xui.widget.tabbar.TabSegment
             android:id="@+id/tabSegment"
             style="@style/main_tab_bottom"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>-->
     </com.life.base.views.UiAdapterLinearLayout>
 
 

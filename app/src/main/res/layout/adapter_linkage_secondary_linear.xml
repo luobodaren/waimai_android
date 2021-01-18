@@ -24,10 +24,7 @@
     <data>
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.LinkageGroupedItemShopGoods.ItemInfo" />
-        <variable
-            name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel" />
+            type="com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods.ItemInfo" />
     </data>
 
     <com.life.base.views.UiAdapterConstrainLayout

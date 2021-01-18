@@ -10,14 +10,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.life.base.R;
 import com.xuexiang.xui.utils.StatusBarUtils;
 
 import java.lang.reflect.Field;
 import java.util.Random;
 
 public class UIUtils {
-
-    private final int SCALE_KEY = new Random(System.currentTimeMillis()).nextInt();
 
     private final String DIME_CLASS = "com.android.internal.R$dimen";
     //标准值
@@ -226,15 +225,6 @@ public class UIUtils {
         return (int) (sp * scaledDensity + 0.5f);
     }
 
-    public void setFakeBoldText(TextView textView, boolean bold){
-        if(!hasInit){
-            LogUtil.e("尚未初始化");
-            return;
-        }
-        TextPaint tp = textView.getPaint();
-        tp.setFakeBoldText(bold);
-    }
-
     /**
      *  设置字体大小，自动缩放（UiUtil）
      * @param textView
@@ -389,13 +379,13 @@ public class UIUtils {
     }*/
 
     public void setScaleTag(View view){
-        if(view.getTag(SCALE_KEY) == null){
-            view.setTag(SCALE_KEY,1);
+        if(view.getTag(R.id.tag_scale) == null){
+            view.setTag(R.id.tag_scale,1);
         }
     }
 
     public boolean isNeedScale(View view){
-        if(view.getTag(SCALE_KEY) == null){
+        if(view.getTag(R.id.tag_scale) == null){
             return true;
         }else{
             return false;

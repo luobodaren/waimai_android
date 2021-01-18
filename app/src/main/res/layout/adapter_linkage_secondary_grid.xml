@@ -9,11 +9,8 @@
 
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.LinkageGroupedItemShopGoods.ItemInfo" />
+            type="com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods.ItemInfo" />
 
-        <variable
-            name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel" />
     </data>
 
     <com.life.base.views.UiAdapterConstrainLayout

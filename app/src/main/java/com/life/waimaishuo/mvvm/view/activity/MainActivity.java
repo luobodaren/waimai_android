@@ -5,7 +5,7 @@ import com.life.waimaishuo.mvvm.view.fragment.MainFragment;
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void initActivityAttritube() {
+    protected void initActivityAttribute() {
         setTransluecnt(true);
         setFitStatusBarHeight(false);
     }

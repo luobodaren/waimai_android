@@ -3,7 +3,7 @@ package com.life.waimaishuo.mvvm.view.activity;
 public class MessageActivity extends BaseActivity {
 
     @Override
-    protected void initActivityAttritube() {
+    protected void initActivityAttribute() {
         setTransluecnt(true);
     }
 

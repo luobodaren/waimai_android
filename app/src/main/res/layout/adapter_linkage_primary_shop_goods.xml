@@ -14,7 +14,7 @@
             android:id="@+id/iv_selected"
             android:layout_width="6px"
             android:layout_height="0px"
-            android:background="@drawable/sr_widght_vertical_bar"
+            android:background="@drawable/sr_widght_vertical_bar_theme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,9 +22,7 @@
 
         <TextView
             android:id="@+id/tv_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:includeFontPadding="false"
+            style="@style/text_my_simple_style"
             android:background="@color/transparent"
             android:layout_marginTop="20px"
             android:layout_marginBottom="20px"

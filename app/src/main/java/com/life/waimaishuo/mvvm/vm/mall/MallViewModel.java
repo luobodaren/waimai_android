@@ -2,6 +2,8 @@ package com.life.waimaishuo.mvvm.vm.mall;
 
 import android.view.View;
 
+import androidx.databinding.ObservableInt;
+
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -12,6 +14,8 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 public class MallViewModel extends BaseViewModel {
 
     private MallModel mModel;
+
+    public ObservableInt onAllTypeClickObservable = new ObservableInt();
 
     @Override
     public BaseModel getModel() {
@@ -32,6 +36,14 @@ public class MallViewModel extends BaseViewModel {
      */
     public void onSearchBtClick(View view){
 
+    }
+
+    /**
+     * 全部点击
+     * @param view
+     */
+    public void onAllTypeClick(View view){
+        onAllTypeClickObservable.notifyChange();
     }
 
     public String[] getGoodsTypeStrings() {

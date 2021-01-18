@@ -15,18 +15,18 @@
  *
  */
 
-package com.life.waimaishuo.bean;
+package com.life.waimaishuo.bean.ui;
 
 import com.kunminx.linkage.bean.BaseGroupedItem;
 
-public class LinkageGroupedItemWaimaiType extends BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> {
+public class LinkageGroupedItemGoodsType extends BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> {
 
 
-    public LinkageGroupedItemWaimaiType(boolean isHeader, String header) {
+    public LinkageGroupedItemGoodsType(boolean isHeader, String header) {
         super(isHeader, header);
     }
 
-    public LinkageGroupedItemWaimaiType(ItemInfo info) {
+    public LinkageGroupedItemGoodsType(ItemInfo info) {
         super(info);
     }
 

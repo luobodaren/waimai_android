@@ -15,7 +15,7 @@
  *
  */
 
-package com.life.waimaishuo.bean;
+package com.life.waimaishuo.bean.ui;
 
 import com.kunminx.linkage.bean.BaseGroupedItem;
 

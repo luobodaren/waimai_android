@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
-import com.life.waimaishuo.bean.LinkageGroupedItemShopGoods;
+import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
 
 public interface OnSecondaryShopGoodsItemClickListener {
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_tag"
+        style="@style/text_my_simple_style"
+        android:background="@drawable/sr_bg_2dp_10theme"
+        android:layout_marginTop="8px"
+        android:layout_marginStart="8px"
+        android:paddingStart="4px"
+        android:paddingEnd="4px"
+        android:textSize="24px"
+        android:textColor="@color/colorTheme"
+        tools:text="不错" />
+
+</com.life.base.views.UiAdapterLinearLayout>

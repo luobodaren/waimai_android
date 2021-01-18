@@ -1,14 +1,24 @@
 package com.life.waimaishuo.mvvm.view.fragment.mall;
 
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
+import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.constant.Constant;
@@ -17,10 +27,12 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallGoodsDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
+import com.life.waimaishuo.util.PreViewUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xui.adapter.recyclerview.GridDividerItemDecoration;
 
 @Page(name = "商城商品详情页", anim = CoreAnim.slide)
 public class MallGoodsDetailFragment extends BaseFragment {
@@ -79,6 +91,9 @@ public class MallGoodsDetailFragment extends BaseFragment {
         super.initViews();
 
         initAppBarLayoutToolbar();
+        initEvaluationRecycler();
+
+        initBottomLayout();
     }
 
     @Override
@@ -135,6 +150,58 @@ public class MallGoodsDetailFragment extends BaseFragment {
 
     private void setTitleBarFoldingStyle(boolean isFolding) {
 
+    }
+
+    private void initEvaluationRecycler(){
+        MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_goods_detail_comment, mViewModel.getTopTwoComment(), com.life.waimaishuo.BR.item){
+            @Override
+            protected void initView(BaseViewHolder helper, Object item) {
+                super.initView(helper, item);
+                RecyclerView recyclerView = helper.getView(R.id.recycler_comment_picture);
+                MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture,((Comment)item).getCommentPictureList(), com.life.waimaishuo.BR.item);
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(),3,LinearLayoutManager.VERTICAL,false);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setAdapter(adapter);
+                recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
+                        (int)UIUtils.getInstance().scalePx(
+                                getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
+                PreViewUtil.initRecyclerPictureClickListener(MallGoodsDetailFragment.this,adapter,gridLayoutManager);
+
+                helper.setText(R.id.tv_goods_style_and_count,"普通款，1件");
+            }
+        };
+        adapter.addFooterView(getEvaluationFooterView());
+        mBinding.recyclerEvaluation.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        mBinding.recyclerEvaluation.setAdapter(adapter);
+        mBinding.recyclerEvaluation.addItemDecoration(new RecyclerView.ItemDecoration() {
+            int interval = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.top = interval;
+            }
+        });
+    }
+
+    private void initBottomLayout(){
+        initBottomLayoutDrawable();
+
+        mBinding.layoutBottom.tvCustomerService.setCompoundDrawables(null,customerServiceDrawable,null,null);
+        mBinding.layoutBottom.tvShop.setCompoundDrawables(null,shopDrawable,null,null);
+        mBinding.layoutBottom.tvShoppingCart.setCompoundDrawables(null,shoppingCartDrawable,null,null);
+    }
+
+    private Drawable customerServiceDrawable;
+    private Drawable shopDrawable;
+    private Drawable shoppingCartDrawable;
+    private void initBottomLayoutDrawable(){
+        int size = (int) UIUtils.getInstance().scalePx(40);
+        customerServiceDrawable = getResources().getDrawable(R.drawable.ic_customer_service_2_black);
+        customerServiceDrawable.setBounds(0,0,size,size);
+        shopDrawable = getResources().getDrawable(R.drawable.ic_shop_black);
+        shopDrawable.setBounds(0,0,size,size);
+        shoppingCartDrawable = getResources().getDrawable(R.drawable.ic_shopping_cart_black);
+        shoppingCartDrawable.setBounds(0,0,size,size);
     }
 
 }

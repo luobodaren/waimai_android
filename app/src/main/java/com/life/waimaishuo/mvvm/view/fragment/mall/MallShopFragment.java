@@ -4,12 +4,17 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMallShopBinding;
@@ -17,20 +22,28 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
-import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
-import com.xuexiang.xui.widget.tabbar.TabSegment;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 @Page(name = "商城店铺详情", anim = CoreAnim.slide)
 public class MallShopFragment extends BaseFragment {
 
     private final static String KEY_SHOP_DATA = "shop";
 
-    FragmentMallShopBinding mBinding;
-    MallShopViewModel mViewModel;
+    private FragmentMallShopBinding mBinding;
+    private MallShopViewModel mViewModel;
+
+    private SelectedPositionRecylerViewAdapter<String> mRecyclerItemSelectedAdapter;
+
+    private String[] animationAssetNames = {"tab_mine_dynamic_effect.json",
+            "tab_mall_dynamic_effect.json",
+            "tab_order_dynamic_effect.json",
+            "tab_waimai_dynamic_effect.json"};
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -67,7 +80,6 @@ public class MallShopFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         return null;
-
     }
 
     @Override
@@ -77,24 +89,16 @@ public class MallShopFragment extends BaseFragment {
         initAppBarLayoutToolbar();
         initShopInfoCl();
 
-        initTabSegment();
-
+        initTabRecycler();
+        initViewPager();
     }
 
     @Override
     protected void initListeners() {
         super.initListeners();
 
-        mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-            @Override
-            public void onPageSelected(int position) {
-                refreshTabViewStyle(mBinding.tabSegment,mViewModel.getTabTitle(),position);
-            }
-        });
-
         mBinding.appbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int folding = 0;
-
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {    // FIXME: 2020/12/25 存在问题：由于布局使用fitSystemWindow 布局会预留出状态栏空间，但activity又是沉浸式，所以会存在空白
                 if (folding == 0) {
@@ -124,6 +128,28 @@ public class MallShopFragment extends BaseFragment {
                 }
             }
         });
+
+        mRecyclerItemSelectedAdapter.setSelectedListener((holder, item) -> {
+            if(mRecyclerItemSelectedAdapter.getData().contains(item)){
+                int position = mRecyclerItemSelectedAdapter.getData().indexOf(item);
+                mBinding.viewPager.setCurrentItem(position);
+            }
+        });
+
+        mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                LogUtil.d("viewPager onPageSelected " + position);
+                mRecyclerItemSelectedAdapter.setSelectedPosition(position);
+            }
+        });
+    }
+
+    @Override
+    protected void onLifecycleStop() {
+        super.onLifecycleStop();
+        cancelTabViewAnimation();
     }
 
     private void setTitleBarFoldingStyle(boolean isFolding) {
@@ -179,72 +205,63 @@ public class MallShopFragment extends BaseFragment {
         mBinding.clShopInfo.setPadding(0,paddingTop,0,0);
     }
 
-    private int textSizeSelected = 46;
-    private int textSizeNormal = 32;
-    private void initTabSegment() {
-        String[] titles = mViewModel.getTabTitle();
-
-        FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
-
-        addTab(mBinding.tabSegment,adapter,titles);
-        mBinding.tabSegment.setHasIndicator(false);
-        mBinding.tabSegment.setMode(TabSegment.MODE_FIXED);
-//        mBinding.tabSegment.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
-//        mBinding.tabSegment.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
-        mBinding.tabSegment.setTabTextSize(textSizeNormal);
-        mBinding.tabSegment.setupWithViewPager(mBinding.viewPager,false);
-
-        mBinding.viewPager.setOffscreenPageLimit(titles.length - 1);
-        mBinding.viewPager.setAdapter(adapter);
-    }
-
-    private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
-                        String[] titles){
-        boolean isFirstItem = true;
-        for (String title : titles) {
-            MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            if(isFirstItem){
-                tab.setTextSize(textSizeSelected);
-                isFirstItem = false;
-            }else{
-                tab.setTextSize(textSizeNormal);
+    WeakReference<LottieAnimationView> lavReference;
+    private void initTabRecycler(){
+        mRecyclerItemSelectedAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getTabDataList()) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.layout_main_tab;
             }
-            LogUtil.d(title + "的textSize:" + tab.getTextSize());
-            adapter.addFragment(mViewModel.getTabFragment(title), title);
-            tabSegment.addTab(tab);
-        }
+
+            @Override
+            public void onBindViewHolder(BaseViewHolder holder, boolean selected, String item) {
+                int position = holder.getAdapterPosition();
+
+                holder.setText(R.id.tv_tab,mViewModel.getTabDataList().get(position));
+
+                String animationAssetName = animationAssetNames[position];
+                LottieAnimationView lottieAnimationView = holder.getView(R.id.animation_view);
+                if(lottieAnimationView.getTag(R.id.tag_animation_init) == null){
+                    lottieAnimationView.setAnimation(animationAssetName);
+                    lottieAnimationView.setTag(R.id.tag_animation_init,"1");
+                }
+                lottieAnimationView.setProgress(0);
+                lottieAnimationView.cancelAnimation();
+                if(selected){
+                    if(lavReference != null)
+                        lavReference.clear();
+                    lavReference = new WeakReference<>(lottieAnimationView);
+                    lottieAnimationView.playAnimation();
+                    holder.setTextColor(R.id.tv_tab,getResources().getColor(R.color.colorTheme));
+                }else{
+                    holder.setTextColor(R.id.tv_tab,getResources().getColor(R.color.text_uncheck));
+                }
+            }
+        };
+
+        mBinding.recyclerTab.setLayoutManager(
+                new GridLayoutManager(requireContext(),4, LinearLayoutManager.VERTICAL,false));
+        mBinding.recyclerTab.setAdapter(mRecyclerItemSelectedAdapter);
     }
 
-    /**
-     * 更新TabBar样式
-     */
-    private void refreshTabViewStyle(TabSegment tabSegment,String[] titles,int position) {
-        tabSegment.reset();
-        resetTab(tabSegment,titles,position);
-        tabSegment.notifyDataChanged();
+    private void cancelTabViewAnimation(){
+        LottieAnimationView lottieAnimationView = lavReference.get();
+        lottieAnimationView.cancelAnimation();
+        lavReference.clear();
     }
 
-    int textSizeSelectedScale = 0;
-    int textSizeNormalScale = 0;
-    /**
-     * 仅更新 title 若需要改变个数 需要修改方法内逻辑
-     * @param tabSegment
-     * @param titles
-     * @param selectedPosition
-     */
-    private void resetTab(TabSegment tabSegment,String[] titles,
-                          int selectedPosition){
-        int position = 0;
-        if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
-            textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
-            textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
+    private void initViewPager(){
+        List<BaseFragment> tabFragment = mViewModel.getTabFragment();
+        FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
+        List<String> tabData = mViewModel.getTabDataList();
+        int tabSize = tabData.size();
+        for(int i = 0;i < tabSize;i++){
+            String tabStr = tabData.get(i);
+            adapter.addFragment(tabFragment.get(i),tabStr);
         }
-        for (String title : titles) {
-            MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            tab.setTextSize(position == selectedPosition ? textSizeSelectedScale :textSizeNormalScale);
-            tabSegment.addTab(tab);
-            position++;
-        }
+        mBinding.viewPager.setOffscreenPageLimit(3);
+        mBinding.viewPager.setAdapter(adapter);
+        mBinding.viewPager.setCurrentItem(0,false);
     }
 
     public static void openPageWithShop(BaseFragment baseFragment, Shop shop){
@@ -252,6 +269,5 @@ public class MallShopFragment extends BaseFragment {
         bundle.putParcelable(KEY_SHOP_DATA,shop);
         baseFragment.openPage(MallShopFragment.class,bundle);
     }
-
 
 }

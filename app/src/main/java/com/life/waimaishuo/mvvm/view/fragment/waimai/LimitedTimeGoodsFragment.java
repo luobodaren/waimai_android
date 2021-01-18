@@ -157,13 +157,13 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_selected_size);
                         state.setBackgroundResource(R.drawable.sr_bg_full_corners_white);
                         state.setTextColor(redColorId);
-                        UIUtils.getInstance().setFakeBoldText(state,true);
+                        TextUtil.setFakeBoldText(state,true);
                     }else{
                         time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_unselected_size);
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_unselected_size);
                         state.setBackgroundColor(colorTransparent);
                         state.setTextColor(whiteColorId);
-                        UIUtils.getInstance().setFakeBoldText(state,false);
+                        TextUtil.setFakeBoldText(state,false);
                     }
                     UIUtils.getInstance().autoAdapterUI(time);
                     UIUtils.getInstance().autoAdapterUI(state);
@@ -173,13 +173,13 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_selected_size_scale);
                         state.setBackgroundResource(R.drawable.sr_bg_full_corners_white);
                         state.setTextColor(redColorId);
-                        UIUtils.getInstance().setFakeBoldText(state,true);
+                        TextUtil.setFakeBoldText(state,true);
                     }else{
                         time.setTextSize(TypedValue.COMPLEX_UNIT_PX, time_unselected_size_scale);
                         state.setTextSize(TypedValue.COMPLEX_UNIT_PX, state_unselected_size_scale);
                         state.setBackgroundColor(colorTransparent);
                         state.setTextColor(whiteColorId);
-                        UIUtils.getInstance().setFakeBoldText(state,false);
+                        TextUtil.setFakeBoldText(state,false);
                     }
                 }
             }

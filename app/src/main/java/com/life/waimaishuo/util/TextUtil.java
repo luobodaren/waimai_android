@@ -5,12 +5,15 @@ import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
+import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
 
+import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 
 public class TextUtil {
@@ -41,6 +44,11 @@ public class TextUtil {
         SpannableString spannableString = new SpannableString(s);
         spannableString.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
+    }
+
+    public static void setFakeBoldText(TextView textView, boolean bold){
+        TextPaint tp = textView.getPaint();
+        tp.setFakeBoldText(bold);
     }
 
 }

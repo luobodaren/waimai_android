@@ -1,5 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.mall;
 
+import androidx.databinding.Observable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.life.base.utils.LogUtil;
@@ -9,6 +10,7 @@ import com.life.waimaishuo.databinding.FragmentMallBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
@@ -65,6 +67,14 @@ public class MallFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.onAllTypeClickObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                openPage(MallAllTypeFragment.class);
+            }
+        });
+
         mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {

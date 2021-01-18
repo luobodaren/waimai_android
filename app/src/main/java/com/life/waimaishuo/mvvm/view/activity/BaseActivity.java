@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 
 import com.life.waimaishuo.util.ActivityCollector;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -65,7 +64,7 @@ public abstract class BaseActivity extends XPageActivity {
 //        baseViewModel = setViewModel();
 //        bindViewModel();
 
-        initActivityAttritube();
+        initActivityAttribute();
 
         if (!isShowTitle) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -98,7 +97,7 @@ public abstract class BaseActivity extends XPageActivity {
     /**
      * 设置Activity属性
      */
-    protected abstract void initActivityAttritube();
+    protected abstract void initActivityAttribute();
 
     /**
      * 初始化view

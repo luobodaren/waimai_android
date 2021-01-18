@@ -10,8 +10,8 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
-import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
-import com.life.waimaishuo.databinding.FragmentWaimaiAllTypeBinding;
+import com.life.waimaishuo.bean.ui.LinkageGroupedItemGoodsType;
+import com.life.waimaishuo.databinding.FragmentWaimaiMallAllTypeBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -27,12 +27,12 @@ import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.widget.imageview.RadiusImageView;
 
-@Page(name = "全部分类", anim = CoreAnim.slide)
+@Page(name = "全部分类-外卖", anim = CoreAnim.slide)
 public class WaimaiAllTypeFragment extends BaseFragment implements
         OnPrimaryItemClickListener,
         OnSecondaryItemClickListener {
 
-    private FragmentWaimaiAllTypeBinding mBinding;
+    private FragmentWaimaiMallAllTypeBinding mBinding;
     private WaiMaiAllTypeViewModel mViewModel;
 
     @Override
@@ -43,7 +43,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentWaimaiAllTypeBinding) mViewDataBinding;
+        mBinding = (FragmentWaimaiMallAllTypeBinding) mViewDataBinding;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_waimai_all_type;
+        return R.layout.fragment_waimai_mall_all_type;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
-                                     BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+                                     BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
 //        SnackbarUtils.Short(view, item.info.getGoodsTypeStrings()).show();
         // FIXME: 2020/12/15 bundle传入频道与子类型
         Bundle bundle = new Bundle();
@@ -94,7 +94,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
 
     @Override
     public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder,
-                                     BaseGroupedItem<LinkageGroupedItemWaimaiType.ItemInfo> item) {
+                                     BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
         if(item.isHeader){
             openPage(WaimaiTypeFragment.class);
         }
@@ -102,7 +102,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
 
 
     private void initLinkageRecycler(){
-        LinkageRecyclerView<LinkageGroupedItemWaimaiType.ItemInfo> linkage = mBinding.linkageWaimaiType;
+        LinkageRecyclerView<LinkageGroupedItemGoodsType.ItemInfo> linkage = mBinding.linkageAllType;
         FrameLayout rightTopCustomView = linkage.findViewById(R.id.right_top_custom);
         rightTopCustomView.setVisibility(View.VISIBLE);
         initRightTopCustomView(rightTopCustomView);

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.xuexiang.xui.widget.tabbar.TabSegment
+            android:id="@+id/tabSegment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tabbar_height"
+            android:background="@color/transparent"
+            android:paddingStart="30px"
+            android:paddingEnd="30px"
+            app:ts_has_indicator="false"
+            app:ts_mode="fixed"
+            app:ts_normal_color="@color/white"
+            app:ts_selected_color="@color/white" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/sr_bg_gradient_transparent_to_white" />
+
+    </LinearLayout>
+</layout>

@@ -20,20 +20,14 @@ package com.life.waimaishuo.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.bumptech.glide.Glide;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.bean.LinkageGroupedItemShopGoods;
-import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
-import com.life.waimaishuo.databinding.AdapterLinkageSecondaryGridBinding;
+import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.databinding.AdapterLinkageSecondaryLinearBinding;
-import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
@@ -42,8 +36,6 @@ import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
-import com.life.waimaishuo.mvvm.vm.BaseViewModel;
-import com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel;
 
 import java.lang.ref.WeakReference;
 
@@ -57,14 +49,10 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
 
     private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
 
-    private WeakReference<ShopOrderDishesViewModel> mShopOrderDishesViewModel;
-
     public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryShopGoodsItemClickListener itemClickListener,
-                                                        LinkageRecyclerView<T> linkageRecyclerView,
-                                                        ShopOrderDishesViewModel shopOrderDishesViewModel) {
+                                                        LinkageRecyclerView<T> linkageRecyclerView) {
         mItemClickListener = itemClickListener;
         mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
-        mShopOrderDishesViewModel = new WeakReference<>(shopOrderDishesViewModel);
     }
 
     public CustomLinkageSecondaryShopGoodsAdapterConfig setOnItemClickListner(OnSecondaryShopGoodsItemClickListener itemClickListener) {
@@ -89,7 +77,7 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
 
     @Override
     public int getHeaderLayoutId() {
-        return R.layout.adapter_waimai_secondary_header_shop_goods;
+        return R.layout.adapter_secondary_header_waimai_shop_goods;
     }
 
     @Override
@@ -126,7 +114,6 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
 
         ViewDataBinding binding = DataBindingUtil.bind(holder.itemView);
         binding.setVariable(com.life.waimaishuo.BR.item,item.info);
-        binding.setVariable(com.life.waimaishuo.BR.viewModel,mShopOrderDishesViewModel.get());
 
         ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
         viewGroup.setOnClickListener(v -> {

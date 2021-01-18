@@ -88,6 +88,7 @@
                     android:layout_height="44px"
                     android:layout_marginEnd="@dimen/interval_size_xs"
                     android:scaleType="centerCrop"
+                    android:onClick="@{v -> viewModel.onAllTypeClick(v)}"
                     android:src="@drawable/ic_classify" />
 
             </LinearLayout>

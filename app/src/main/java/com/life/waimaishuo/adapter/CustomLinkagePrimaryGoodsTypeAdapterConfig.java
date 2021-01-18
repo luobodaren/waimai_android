@@ -20,6 +20,7 @@ package com.life.waimaishuo.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkagePrimaryAdapterConfig;
+import com.life.waimaishuo.util.TextUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -77,7 +79,7 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
         if(drawable == null){
-            drawable = mContext.getResources().getDrawable(R.drawable.sr_widght_vertical_bar);
+            drawable = mContext.getResources().getDrawable(R.drawable.sr_widght_vertical_bar_theme);
             drawable.setBounds(0,0,
                     (int) UIUtils.getInstance().scalePx(
                             mContext.getResources().getDimensionPixelSize(R.dimen.linkagePrimary_left_icon_width)),
@@ -92,13 +94,17 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
         if(selected){
             tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_selected ));
             tvTitle.setCompoundDrawablesRelative(drawable,null,null,null);
+            tvTitle.setTextColor(tvTitle.getContext().getResources().getColor(R.color.text_normal));
+
             UIUtils.getInstance().setTextPxSizeAutoScale(tvTitle,30);
-//            TextUtil.setFakeBoldText(tvTitle,true);
+            TextUtil.setFakeBoldText(tvTitle,true);
         }else{
             tvTitle.setBackground(mContext.getResources().getDrawable(R.color.linkage_primary_item_bg_default));
             tvTitle.setCompoundDrawablesRelative(null,null,null,null);
+            tvTitle.setTextColor(tvTitle.getContext().getResources().getColor(R.color.text_deep_black));
+
             UIUtils.getInstance().setTextPxSizeAutoScale(tvTitle,28);
-//            TextUtil.setFakeBoldText(tvTitle,false);
+            TextUtil.setFakeBoldText(tvTitle,false);
         }
         if(holder.getAdapterPosition() == (selectedPosition - 1)){  //上一个
             tvTitle.setBackground(mContext.getResources().getDrawable(R.drawable.sr_linkage_primary_item_before_select));

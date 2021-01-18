@@ -21,7 +21,7 @@ import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.tagAdapter.SpecificationTagAdapter;
-import com.life.waimaishuo.bean.LinkageGroupedItemShopGoods;
+import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
 import com.life.waimaishuo.databinding.LayoutDialogChoseSpecificationBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
@@ -86,12 +86,6 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     @Override
-    protected void onLifecycleResume() {
-        super.onLifecycleResume();
-        changeStatusBarMode();
-    }
-
-    @Override
     protected void initViews() {
         super.initViews();
         initBanner();
@@ -130,10 +124,10 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     private void initLinkageRecycler() {
-        LinkageRecyclerView<LinkageGroupedItemShopGoods.ItemInfo> linkage = mBinding.linkageWaimaiType;
+        LinkageRecyclerView<LinkageGroupedItemShopGoods.ItemInfo> linkage = mBinding.linkageOrderDishes;
         linkage.init(mViewModel.getShopGoodsItems(),
                 new CustomLinkagePrimaryShopGoodsAdapterConfig<>(this, linkage),
-                new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this, linkage, mViewModel));
+                new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this, linkage));
         linkage.setGridMode(false);
     }
 

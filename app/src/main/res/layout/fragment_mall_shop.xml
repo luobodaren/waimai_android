@@ -51,8 +51,7 @@
                             android:id="@+id/cl_shop_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="16px"
-                            android:paddingBottom="16px">
+                            android:paddingTop="16px">
 
                             <com.xuexiang.xui.widget.imageview.RadiusImageView
                                 android:id="@+id/iv_shop_icon"
@@ -123,6 +122,12 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
+                            <Space
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/interval_size_xs"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/iv_shop_icon"/>
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </FrameLayout>
 
@@ -143,23 +148,16 @@
                 android:orientation="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <com.xuexiang.xui.widget.tabbar.TabSegment
-                    android:id="@+id/tabSegment"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/tabbar_height"
-                    android:background="@color/transparent"
-                    android:paddingStart="30px"
-                    android:paddingEnd="30px"
-                    app:ts_has_indicator="false"
-                    app:ts_mode="fixed"
-                    app:ts_normal_color="@color/white"
-                    app:ts_selected_color="@color/white" />
-
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0px"
+                    android:layout_weight="1"
                     android:background="@drawable/sr_bg_gradient_transparent_to_white" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tabbar_height"/>
 
             </LinearLayout>
 
@@ -169,7 +167,7 @@
         <LinearLayout
             android:id="@+id/my_ll_content_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -178,6 +176,16 @@
                 android:id="@+id/layout_title"
                 layout="@layout/title_mall_shop" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
         </LinearLayout>
 
     </com.life.base.views.UiAdapterFrameLayout>

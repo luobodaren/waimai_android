@@ -1,8 +1,7 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
 import com.life.base.utils.GsonUtil;
-import com.life.waimaishuo.bean.LinkageGroupedItemShopGoods;
-import com.life.waimaishuo.bean.LinkageGroupedItemWaimaiType;
+import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.ShopOrderDishesModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
