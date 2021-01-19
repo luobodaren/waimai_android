@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.BuyersShow" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/interval_size_xs"
+            android:background="@drawable/sr_bg_8dp_white"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/interval_size_xs">
+
+            <com.life.waimaishuo.views.FilletImageView
+                android:id="@+id/iv_evaluationImg"
+                imageUrlBitmap="@{item.evaluationImgUrl[0]}"
+                android:layout_width="342px"
+                android:layout_height="342px"
+                android:scaleType="centerCrop"
+                app:filletImageRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:topLeftRightCorner="true" />
+
+
+            <TextView
+                android:id="@+id/tv_evaluation"
+                style="@style/text_my_simple_style"
+                android:layout_width="0px"
+                android:layout_marginStart="16px"
+                android:layout_marginTop="16px"
+                android:layout_marginEnd="16px"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{item.evaluation}"
+                android:textColor="@color/text_normal"
+                android:textSize="28px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_evaluationImg" />
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_buyers_icon"
+                imageUrl="@{item.userIconUrl}"
+                android:layout_width="36px"
+                android:layout_height="36px"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="@id/tv_evaluation"
+                app:layout_constraintTop_toBottomOf="@id/tv_evaluation"
+                app:riv_corner_radius="50dp" />
+
+            <TextView
+                android:id="@+id/tv_buyers_name"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="8px"
+                android:ellipsize="end"
+                android:maxEms="4"
+                android:maxLines="1"
+                android:text="@{item.userName}"
+                android:textColor="@color/text_normal"
+                android:textSize="24px"
+                app:layout_constraintBottom_toBottomOf="@id/iv_buyers_icon"
+                app:layout_constraintStart_toEndOf="@id/iv_buyers_icon"
+                app:layout_constraintTop_toTopOf="@id/iv_buyers_icon"
+                tools:text="没有昵称的某某某" />
+
+            <TextView
+                android:id="@+id/tv_like_count"
+                style="@style/text_my_simple_style"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:drawablePadding="8px"
+                android:gravity="center_vertical"
+                android:text="@{item.likeCount}"
+                android:textColor="@color/text_tip"
+                android:textSize="20px"
+                app:layout_constraintBottom_toBottomOf="@id/iv_buyers_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_buyers_icon"
+                tools:text="1000" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

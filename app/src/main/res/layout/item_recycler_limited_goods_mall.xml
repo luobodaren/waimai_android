@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.LimitedGoods" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sr_bg_8dp_white"
+        android:padding="@dimen/interval_size_xs">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_foods_img"
+            imageUrl="@{item.goods.goodsImgUrl}"
+            android:layout_width="216px"
+            android:layout_height="216px"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="16px" />
+
+        <TextView
+            android:id="@+id/tv_foods_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24px"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="@{item.goods.name}"
+            android:textColor="@color/text_deep_black"
+            android:textSize="34px"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_foods_img"
+            app:layout_constraintTop_toTopOf="@id/iv_foods_img" />
+
+        <TextView
+            android:id="@+id/tv_lowest_price"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:text="@{@string/lowest_price_of_last_fiteen_days + item.goods.lowestPriceOf15Days}"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_foods_name" />
+
+        <com.xuexiang.xui.widget.progress.HorizontalProgressView
+            android:id="@+id/hpv_remaining_goods_count"
+            android:layout_width="192px"
+            android:layout_height="36px"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            app:hpv_end_color="@color/colorTheme_gradient_end"
+            app:hpv_end_progress="92"
+            app:hpv_isTracked="true"
+            app:hpv_progress_duration="2600"
+            app:hpv_progress_textColor="#EBEBEB"
+            app:hpv_progress_textVisibility="false"
+            app:hpv_start_color="@color/colorTheme_gradient_start"
+            app:hpv_track_color="#f4f4f4"
+            app:hpv_track_width="36px"
+            app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_lowest_price" />
+
+        <TextView
+            android:id="@+id/tv_foods_price_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:text="@{@string/limited_divider_price + item.goods.price_deliver}"
+            android:textColor="@color/text_tip"
+            android:textSize="24px"
+            app:layout_constraintBottom_toBottomOf="@id/hpv_remaining_goods_count"
+            app:layout_constraintStart_toEndOf="@id/hpv_remaining_goods_count"
+            tools:text="配送￥3" />
+
+
+        <TextView
+            android:id="@+id/tv_limited_kill_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8px"
+            android:includeFontPadding="false"
+            android:textColor="@color/colorAssist_2"
+            android:textSize="48px"
+            app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+            app:layout_constraintTop_toBottomOf="@id/hpv_remaining_goods_count"
+            tools:text="￥209" />
+
+        <TextView
+            android:id="@+id/tv_foods_price_pre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16px"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_deleted"
+            android:textSize="20px"
+            app:layout_constraintBottom_toBottomOf="@id/tv_limited_kill_price"
+            app:layout_constraintStart_toEndOf="@id/tv_limited_kill_price"
+            tools:text="￥189" />
+
+        <Button
+            android:id="@+id/bt_options"
+            android:layout_width="128px"
+            android:layout_height="64px"
+            android:background="@drawable/sr_bg_gradient_full_radius_theme"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30px"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="马上抢" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -43,7 +43,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:riv_corner_radius="4dp"
-                    imageUrl="@{viewModel.order.firstFoods.foodsImgUrl}"/>
+                    imageUrl="@{viewModel.order.firstFoods.goodsImgUrl}"/>
 
                 <TextView
                     android:id="@+id/tv_shopName"

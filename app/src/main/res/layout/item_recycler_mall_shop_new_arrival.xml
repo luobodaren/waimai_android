@@ -19,6 +19,7 @@
 
         <com.life.waimaishuo.views.FilletImageView
             android:id="@+id/iv_background_top"
+            imageUrlBitmap="@{item.topBackgroundImgUrl}"
             android:layout_width="match_parent"
             android:layout_height="150px"
             app:filletImageRadius="8dp"

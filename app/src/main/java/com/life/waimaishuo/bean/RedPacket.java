@@ -3,6 +3,9 @@ package com.life.waimaishuo.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * 红包
+ */
 public class RedPacket implements Parcelable {
 
     int id;

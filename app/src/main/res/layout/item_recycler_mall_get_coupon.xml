@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.Coupon" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:layout_marginEnd="@dimen/interval_size_xs"
+        android:orientation="vertical"
+        android:padding="@dimen/interval_size_xs">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_coupon_simple_info"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="71px"
+            app:layout_constraintEnd_toStartOf="@id/bt_get_coupon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_coupon_img"
+                android:layout_width="160px"
+                android:layout_height="160px"
+                imageUrl="@{item.couponUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="4dp" />
+
+            <TextView
+                android:id="@+id/tv_coupon_name"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:ellipsize="end"
+                android:maxEms="7"
+                android:maxLines="2"
+                android:textColor="@color/text_normal"
+                android:textSize="26px"
+                android:text="@{item.name}"
+                app:layout_constraintStart_toEndOf="@id/iv_coupon_img"
+                app:layout_constraintTop_toTopOf="@id/iv_coupon_img"
+                tools:text="充话费立减0.5元，充值中心专用…" />
+
+
+            <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+                android:id="@+id/flow_tag_layout_sign"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_coupon_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_coupon_name" />
+
+            <TextView
+                android:id="@+id/tv_coupon_describe"
+                style="@style/text_my_simple_style"
+                android:layout_marginTop="25px"
+                android:textColor="@color/text_tip"
+                android:textSize="20px"
+                android:text="@{item.introduce}"
+                app:layout_constraintStart_toStartOf="@id/tv_coupon_name"
+                app:layout_constraintTop_toBottomOf="@id/flow_tag_layout_sign"
+                tools:text="拼单价 ￥99" />
+
+            <TextView
+                android:id="@+id/tv_goods_preferential_price"
+                style="@style/text_my_simple_style"
+                android:layout_marginTop="8px"
+                android:textColor="#FFE02020"
+                android:textSize="20px"
+                android:text="@{item.pricePreferential}"
+                app:layout_constraintStart_toStartOf="@id/tv_coupon_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_coupon_describe"
+                tools:text="券后价 69" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_value_of_coupon"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="3px"
+            android:layout_marginEnd="13px"
+            android:textColor="@color/colorAssist_2"
+            android:textSize="60px"
+            android:text="@{item.priceValue}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0.5" />
+
+        <TextView
+            android:id="@+id/tv_coupon_user_limit"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="7px"
+            android:layout_marginEnd="8px"
+            android:textColor="@color/colorAssist_2"
+            android:textSize="22px"
+            android:text="@{item.useLimited}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_value_of_coupon"
+            tools:text="充48可用" />
+
+        <Button
+            android:id="@+id/bt_get_coupon"
+            android:layout_width="128px"
+            android:layout_height="46px"
+            android:layout_marginTop="10px"
+            android:background="@drawable/sr_bg_full_corners_theme"
+            android:includeFontPadding="false"
+            android:text="@string/receive_now"
+            android:textColor="@color/white"
+            android:textSize="24px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_coupon_user_limit" />
+
+        <com.xuexiang.xui.widget.progress.HorizontalProgressView
+            android:id="@+id/hpv_remaining_coupon_count"
+            android:layout_width="328px"
+            android:layout_height="30px"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            app:hpv_end_color="@color/colorTheme_gradient_end"
+            app:hpv_end_progress="92"
+            app:hpv_isTracked="true"
+            app:hpv_progress_duration="2600"
+            app:hpv_progress_textColor="#EBEBEB"
+            app:hpv_progress_textVisibility="false"
+            app:hpv_start_color="@color/colorTheme_gradient_start"
+            app:hpv_track_color="#f4f4f4"
+            app:hpv_track_width="12px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_coupon_simple_info" />
+
+        <TextView
+            android:id="@+id/tv_remaining_count_coupon"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:textColor="@color/text_tip"
+            android:textSize="20px"
+            android:text="@{@string/remaining_coupon + item.allCount + @string/sheet}"
+            app:layout_constraintBottom_toBottomOf="@id/hpv_remaining_coupon_count"
+            app:layout_constraintStart_toEndOf="@id/hpv_remaining_coupon_count" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

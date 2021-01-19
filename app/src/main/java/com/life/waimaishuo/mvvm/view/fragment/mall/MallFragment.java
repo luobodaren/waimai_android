@@ -159,7 +159,4 @@ public class MallFragment extends BaseFragment {
         }
     }
 
-
-
-
 }

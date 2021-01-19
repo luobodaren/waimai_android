@@ -91,22 +91,6 @@ public class MallShopNewArrivalFragment extends BaseFragment {
                     protected void initView(BaseViewHolder helper, MallNewArrival item) {
                         super.initView(helper, item);
 
-                        Glide.with(requireContext())
-                                .asBitmap()
-                                .load(item.getTopBackgroundImgUrl())
-                                .centerCrop()
-                                .placeholder(R.drawable.ic_waimai_brand)
-                                .into(new CustomTarget<Bitmap>() {
-                                    @Override
-                                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                        ((ImageView)helper.getView(R.id.iv_background_top))
-                                                .setImageBitmap(resource);
-                                    }
-
-                                    @Override
-                                    public void onLoadCleared(@Nullable Drawable placeholder) { }
-                                });
-
                         RecyclerView recyclerView = helper.getView(R.id.recycler_new_arrival_goods);
                         recyclerView.setLayoutManager(
                                 new GridLayoutManager(requireContext(),3,

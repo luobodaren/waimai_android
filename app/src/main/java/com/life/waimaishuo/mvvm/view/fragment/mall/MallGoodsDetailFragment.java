@@ -3,8 +3,12 @@ package com.life.waimaishuo.mvvm.view.fragment.mall;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
@@ -178,10 +182,29 @@ public class MallGoodsDetailFragment extends BaseFragment {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = interval;
+                if(parent.getChildAdapterPosition(view) != state.getItemCount() - 1){
+                    outRect.top = interval;
+                }
             }
         });
     }
+
+    private View getEvaluationFooterView(){
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+        layoutParams.bottomMargin = 32;
+        Button button = new Button(requireContext());
+        button.setText(getString(R.string.view_all_comments));
+        button.setTextColor(getResources().getColor(R.color.text_uncheck));
+        button.setTextSize(TypedValue.COMPLEX_UNIT_PX,24);
+        button.setBackgroundResource(R.drawable.sr_stroke_1px_full_radius_gray);
+        button.setPadding(24,20,24,20);
+        button.setGravity(Gravity.CENTER);
+        button.setLayoutParams(layoutParams);
+        return button;
+    }
+
 
     private void initBottomLayout(){
         initBottomLayoutDrawable();

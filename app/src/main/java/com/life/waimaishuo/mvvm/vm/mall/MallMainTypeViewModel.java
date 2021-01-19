@@ -1,13 +1,15 @@
 package com.life.waimaishuo.mvvm.vm.mall;
 
-import com.life.waimaishuo.bean.Shop;
+import com.life.waimaishuo.bean.BuyersShow;
+import com.life.waimaishuo.bean.Coupon;
 import com.life.waimaishuo.bean.ui.MallQuickWindowData;
 import com.life.waimaishuo.bean.ui.TypeDescribeValue;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallMainTypeModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecommendFragment;
-import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiRecommendedFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallMainBuyersShowFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecyclerRecommendFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallMainGetCouponCenterFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
@@ -47,13 +49,13 @@ public class MallMainTypeViewModel extends BaseViewModel {
     public List<MallQuickWindowData> getMallQuickWindowDataList() {
         List<MallQuickWindowData> list = new ArrayList<>();
         //四项对应 秒杀抢购 发现好物 每日好店 时尚配饰
-        list.add(new MallQuickWindowData("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
+        list.add(new MallQuickWindowData("秒杀抢购","https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.szthks.com%2Flocalimg%2F687474703a2f2f6777312e616c6963646e2e636f6d2f62616f2f75706c6f616465642f69352f5442325a725f48585f5a524d654a6a5373706b58585847705858615f21213739333430373635332e6a7067.jpg&refer=http%3A%2F%2Fwww.szthks.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613204347&t=0b0b4f865e43ba18dcb4270fdd72e40d","2000","3500"));
-        list.add(new MallQuickWindowData("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
+        list.add(new MallQuickWindowData("发现好物","https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.szthks.com%2Flocalimg%2F687474703a2f2f6777312e616c6963646e2e636f6d2f62616f2f75706c6f616465642f69352f5442325a725f48585f5a524d654a6a5373706b58585847705858615f21213739333430373635332e6a7067.jpg&refer=http%3A%2F%2Fwww.szthks.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613204347&t=0b0b4f865e43ba18dcb4270fdd72e40d","2000","3500"));
-        list.add(new MallQuickWindowData("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
+        list.add(new MallQuickWindowData("每日好店","https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.szthks.com%2Flocalimg%2F687474703a2f2f6777312e616c6963646e2e636f6d2f62616f2f75706c6f616465642f69352f5442325a725f48585f5a524d654a6a5373706b58585847705858615f21213739333430373635332e6a7067.jpg&refer=http%3A%2F%2Fwww.szthks.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613204347&t=0b0b4f865e43ba18dcb4270fdd72e40d","2000","3500"));
-        list.add(new MallQuickWindowData("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
+        list.add(new MallQuickWindowData("时尚配饰","https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2041797039,3390821396&fm=26&gp=0.jpg","100","200",
                 "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.szthks.com%2Flocalimg%2F687474703a2f2f6777312e616c6963646e2e636f6d2f62616f2f75706c6f616465642f69352f5442325a725f48585f5a524d654a6a5373706b58585847705858615f21213739333430373635332e6a7067.jpg&refer=http%3A%2F%2Fwww.szthks.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613204347&t=0b0b4f865e43ba18dcb4270fdd72e40d","2000","3500"));
         return list;
     }
@@ -73,16 +75,43 @@ public class MallMainTypeViewModel extends BaseViewModel {
      * @param viewPagerAdapter
      */
     public void addViewPagerFragment(FragmentAdapter<BaseFragment> viewPagerAdapter) {
-        MallRecommendFragment fragment;
-        fragment = new MallRecommendFragment();
+        MallRecyclerRecommendFragment fragment;
+        fragment = new MallRecyclerRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"发现");
-        fragment = new MallRecommendFragment();
+        fragment = new MallRecyclerRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"限时秒杀");
-        fragment = new MallRecommendFragment();
+        fragment = new MallRecyclerRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"好店");
-        fragment = new MallRecommendFragment();
-        viewPagerAdapter.addFragment(fragment,"领券中心");
-        fragment = new MallRecommendFragment();
-        viewPagerAdapter.addFragment(fragment,"买家秀");
+        MallMainGetCouponCenterFragment mallMainGetCouponCenterFragment = new MallMainGetCouponCenterFragment();
+        mallMainGetCouponCenterFragment.baseViewModel = this;
+        viewPagerAdapter.addFragment(mallMainGetCouponCenterFragment,"领券中心");
+        MallMainBuyersShowFragment mallMainBuyersShowFragment = new MallMainBuyersShowFragment();
+        mallMainBuyersShowFragment.baseViewModel = this;
+        viewPagerAdapter.addFragment(mallMainBuyersShowFragment,"买家秀");
+    }
+
+    public List<BuyersShow> getEvaluationList() {
+        String[] evaluationsImg = {"https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/c75c10385343fbf2a215c11bb17eca8065388fc8.jpg","https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/c75c10385343fbf2a215c11bb17eca8065388fc8.jpg"};
+        List<BuyersShow> list = new ArrayList<>();
+        list.add(new BuyersShow("没有昵称没有…","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201901%2F17%2F20190117092809_ffwKZ.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613617512&t=2698bd76db54daeb2d7649fce96a9c4e",
+                "第一次购买，发货很快东西马上查看了，…",evaluationsImg,"1000"));
+        list.add(new BuyersShow("没有昵称没有…","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201901%2F17%2F20190117092809_ffwKZ.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613617512&t=2698bd76db54daeb2d7649fce96a9c4e",
+                "第一次购买，发货很快东西马上查看了，…",evaluationsImg,"1000"));
+        list.add(new BuyersShow("没有昵称没有…","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201901%2F17%2F20190117092809_ffwKZ.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613617512&t=2698bd76db54daeb2d7649fce96a9c4e",
+                "第一次购买，发货很快东西马上查看了，…",evaluationsImg,"1000"));
+        list.add(new BuyersShow("没有昵称没有…","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201901%2F17%2F20190117092809_ffwKZ.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613617512&t=2698bd76db54daeb2d7649fce96a9c4e",
+                "第一次购买，发货很快东西马上查看了，…",evaluationsImg,"1000"));
+        return list;
+    }
+
+    public List<Coupon> getCouponDataList() {
+        List<Coupon> list = new ArrayList<>();
+        list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
+        list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
+        list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
+        list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
+        list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
+        list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
+        return list;
     }
 }

@@ -16,8 +16,12 @@
             android:id="@+id/iv_top_image_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@mipmap/png_bg_mipmap_exclusive"/>
+            android:adjustViewBounds="true"/>
+
+        <TextView
+            android:id="@+id/tv_background"
+            android:layout_width="match_parent"
+            android:layout_height="1200px"/>
 
         <LinearLayout
             android:id="@+id/my_ll_content_view"

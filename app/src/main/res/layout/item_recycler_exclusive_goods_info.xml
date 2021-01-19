@@ -23,11 +23,11 @@
 
             <com.life.waimaishuo.views.FilletImageView
                 android:id="@+id/iv_goods_img"
+                imageUrlBitmap="@{goods.goodsImgUrl}"
                 android:layout_width="342px"
                 android:layout_height="342px"
                 android:scaleType="centerCrop"
                 app:filletImageRadius="16px"
-                app:imageUrlBitmap="@{goods.foodsImgUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:topLeftRightCorner="true" />

@@ -43,7 +43,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -52,7 +52,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -61,7 +61,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -70,7 +70,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -79,7 +79,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -88,7 +88,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -97,7 +97,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -106,7 +106,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -115,7 +115,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
         goods = new Goods();
@@ -124,7 +124,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setCount_per_month(1998);
-        goods.setFoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
+        goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
     }
 

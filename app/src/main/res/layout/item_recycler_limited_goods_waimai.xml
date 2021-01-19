@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.LimitedGoods" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sr_bg_8dp_white"
+        android:padding="@dimen/interval_size_xs">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_foods_img"
+            imageUrl="@{item.goods.goodsImgUrl}"
+            android:layout_width="220px"
+            android:layout_height="220px"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="16px" />
+
+        <TextView
+            android:id="@+id/tv_foods_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24px"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="@{item.goods.name}"
+            android:textColor="@color/text_deep_black"
+            android:textSize="34px"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_foods_img"
+            app:layout_constraintTop_toTopOf="@id/iv_foods_img" />
+
+
+        <TextView
+            android:id="@+id/tv_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8px"
+            android:includeFontPadding="false"
+            android:text="@{item.shopName}"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_foods_name" />
+
+        <TextView
+            android:id="@+id/tv_foods_deliver_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.goods.price_deliver + @string/arrive_in_minutes_2}"
+            android:textColor="@color/text_tip"
+            android:textSize="@dimen/font_size_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_shop_name" />
+
+        <TextView
+            android:id="@+id/tv_foods_price_pre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10px"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_deleted"
+            android:textSize="36px"
+            app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_shop_name"
+            tools:text="￥189" />
+
+        <TextView
+            android:id="@+id/tv_foods_price_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:text="@{@string/limited_divider_price + item.goods.price_deliver}"
+            android:textColor="@color/text_tip"
+            android:textSize="24px"
+            app:layout_constraintBottom_toBottomOf="@id/tv_foods_price_pre"
+            app:layout_constraintStart_toEndOf="@id/tv_foods_price_pre"
+            tools:text="配送￥3" />
+
+        <TextView
+            android:id="@+id/tv_foods_all_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:text='@{@string/limited + item.goodsTotalCount + @string/goods_units}'
+            android:textColor="@color/colorAssist_2"
+            android:textSize="24px"
+            app:layout_constraintBottom_toBottomOf="@id/tv_foods_price_divider"
+            app:layout_constraintStart_toEndOf="@id/tv_foods_price_divider"
+            tools:text="限量200份" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_limited_sale_detail_info"
+            android:layout_width="0px"
+            android:layout_height="69px"
+            android:layout_marginTop="18px"
+            android:background="@drawable/ic_limited_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_foods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_foods_price_pre">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_vertical_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/tv_limited_kill_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorAssist_2"
+                android:textSize="18px"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/gl_vertical_center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="￥209秒杀价" />
+
+            <TextView
+                android:id="@+id/tv_limited_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@{item.limitedTimeStateEnum.name()}"
+                android:textColor="@color/white"
+                android:textSize="30px"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tv_remaining_foods_count"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/gl_vertical_center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="已开抢" />
+
+            <TextView
+                android:id="@+id/tv_remaining_foods_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text='@{@string/remaining + item.remainingCount + @string/goods_units}'
+                android:textColor="@color/white"
+                android:textSize="18px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/gl_vertical_center"
+                app:layout_constraintTop_toBottomOf="@id/tv_limited_state"
+                tools:text="剩余132件" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

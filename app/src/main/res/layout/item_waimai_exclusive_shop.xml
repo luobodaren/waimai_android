@@ -26,7 +26,7 @@
                 android:layout_width="315px"
                 android:layout_height="150px"
                 app:riv_corner_radius="24px"
-                app:imageUrl="@{item.goodsIconStr}"/>
+                imageUrl="@{item.goodsIconStr}"/>
 
             <com.xuexiang.xui.widget.imageview.RadiusImageView
                 android:id="@+id/iv_shopIcon"
@@ -37,7 +37,7 @@
                 android:layout_below="@id/iv_goodsIcon"
                 app:riv_corner_radius="5px"
                 android:layout_marginTop="-50px"
-                app:imageUrl="@{item.shopIconStr}"/>
+                imageUrl="@{item.shopIconStr}"/>
         </RelativeLayout>
 
         <TextView

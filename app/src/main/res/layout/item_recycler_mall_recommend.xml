@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.Goods" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sr_bg_12dp_white"
+        android:orientation="vertical"
+        android:padding="@dimen/interval_size_xs">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv"
+            android:layout_width="210px"
+            android:layout_height="210px"
+            imageUrl="@{item.goodsImgUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="4dp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/text_my_simple_style"
+            android:layout_width="0px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginEnd="8px"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{item.name}"
+            android:textColor="@color/black"
+            android:textSize="26px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv"
+            app:layout_constraintTop_toTopOf="@id/iv" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:textColor="@color/colorAssist_2"
+            android:textSize="40px"
+            android:text="@{item.price}"
+            app:layout_constraintBottom_toBottomOf="@id/iv"
+            app:layout_constraintStart_toEndOf="@id/iv"
+            tools:text="699" />
+
+        <TextView
+            android:id="@+id/tv_pre_price"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="10px"
+            android:textColor="@color/text_tip"
+            android:textSize="22px"
+            app:layout_constraintBottom_toBottomOf="@id/iv"
+            app:layout_constraintStart_toEndOf="@id/tv_price"
+            tools:text="699" />
+
+        <Button
+            android:id="@+id/bt_go_to_buy"
+            android:layout_width="135px"
+            android:layout_height="46px"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="26px"
+            android:gravity="center"
+            android:text="@string/go_to_buy"
+            android:background="@drawable/sr_bg_full_corners_theme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

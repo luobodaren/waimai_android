@@ -31,8 +31,10 @@
     <string name="score">分</string>
     <string name="limited">限量</string>
     <string name="goods_units">份</string>
+    <string name="sheet">张</string>
     <string name="remaining">剩余</string>
-
+    <string name="remaining_coupon">卷剩余</string>
+    
     <string name="arrive_in_minutes">分钟送达</string>
     <string name="arrive_in_minutes_2">分钟</string>
     <string name="price_of_sending">起送</string>
@@ -71,6 +73,7 @@
     <string name="red_packet">红包</string>
     <string name="preferential_activity">优惠活动</string>
     <string name="merchants_service">商家服務</string>
+    <string name="receive_now">立即领取</string>
     <string name="receive">领取</string>
     <string name="received">已领取</string>
     <string name="merchants_score">商家评分</string>
@@ -214,5 +217,7 @@
     <string name="subscribe">关注</string>
     <string name="all">全部</string>
     <string name="guest_officer_interested">%1$s 个客官感兴趣</string>
-
+    <string name="view_all_comments">查看全部评论</string>
+    <string name="go_to_buy">去购买</string>
+    <string name="lowest_price_of_last_fiteen_days">近15天全网最低价 ￥</string>
 </resources>

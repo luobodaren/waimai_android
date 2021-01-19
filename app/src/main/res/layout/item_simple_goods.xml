@@ -19,7 +19,7 @@
             android:layout_height="193px"
             android:scaleType="centerCrop"
             app:riv_corner_radius="24px"
-            app:imageUrl="@{item.shopIconStr}"/>
+            imageUrl="@{item.shopIconStr}"/>
 
         <TextView
             android:id="@+id/tv_goods_name"

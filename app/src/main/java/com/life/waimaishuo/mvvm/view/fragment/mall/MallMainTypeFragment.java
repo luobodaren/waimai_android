@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
@@ -23,8 +24,10 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
 import com.life.waimaishuo.bean.ui.MallQuickWindowData;
 import com.life.waimaishuo.bean.ui.TypeDescribeValue;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMallMainTypeBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.LimitedTimeGoodsFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallMainTypeViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
@@ -88,6 +91,26 @@ public class MallMainTypeFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        fourQuickWindowAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String title = mViewModel.getMallQuickWindowDataList().get(position).getTitle();
+                int backgroundTopDrawableId = 0;
+                if(position == 0){
+                    LimitedTimeGoodsFragment.openPageWithTitle(
+                            MallMainTypeFragment.this, Constant.PAGE_TYPE_MALL,R.drawable.sr_bg_gradient_mall_limited_time);
+                    return;
+                }else if(position == 1){
+                    backgroundTopDrawableId = R.mipmap.png_bg_good_goods;
+                }else if(position == 2){
+                    backgroundTopDrawableId = R.mipmap.png_bg_good_shop;
+                }else if(position == 3){
+                    backgroundTopDrawableId = R.mipmap.png_bg_fashion_accessories;
+                }
+                MallRecommendFragment.openPageWithTitle(MallMainTypeFragment.this,title,backgroundTopDrawableId);
+            }
+        });
     }
 
     private void initBanner(){
@@ -105,58 +128,11 @@ public class MallMainTypeFragment extends BaseFragment {
     }
 
     private void initFourQuickWindowRecycler(){
+        initFourQuickWindowRecyclerAdapter();
         mBinding.recyclerFourQuickWindow.setLayoutManager(
                 new GridLayoutManager(requireContext(),2,
                         LinearLayoutManager.VERTICAL,false));
-
-        mBinding.recyclerFourQuickWindow.setAdapter(
-                new MyBaseRecyclerAdapter<MallQuickWindowData>(R.layout.item_recycler_mall_quick_window
-                        ,mViewModel.getMallQuickWindowDataList()){
-                    int textSize = (int) UIUtils.getInstance().scalePx(22);
-                    @Override
-                    protected void initView(BaseViewHolder helper, MallQuickWindowData item) {
-                        super.initView(helper, item);
-                        View head;
-                        if(helper.getAdapterPosition() == 0){   //秒杀抢购
-                            head = View.inflate(requireContext(),R.layout.head_mall_quick_window_second_kill,null);
-                            ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
-                        }else if(helper.getAdapterPosition() == 1){ //发现好物
-                            head = View.inflate(requireContext(),R.layout.head_mall_quick_window_find_goods,null);
-                            ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
-                        }else if(helper.getAdapterPosition() == 2){ //每日好店
-                            head = View.inflate(requireContext(),R.layout.head_mall_quick_window_daily_good_shop,null);
-                            ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
-                        } else if(helper.getAdapterPosition() == 3){    //时尚配饰
-                            head = View.inflate(requireContext(),R.layout.head_mall_quick_window_fashion_accessories,null);
-                            ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
-                        }
-
-                        setOneGoodsData(helper.getView(R.id.iv_left),
-                                helper.getView(R.id.tv_left_current_price),
-                                helper.getView(R.id.tv_left_pre_price),
-                                item.getLeftImgUrl(),
-                                item.getLeftCurrentPrice(),
-                                item.getLeftPrePrice());
-                        setOneGoodsData(helper.getView(R.id.iv_right),
-                                helper.getView(R.id.tv_right_current_price),
-                                helper.getView(R.id.tv_right_pre_price),
-                                item.getRightImgUrl(),
-                                item.getRightCurrentPrice(),
-                                item.getRightPrePrice());
-                    }
-
-                    private void setOneGoodsData(ImageView imageView, TextView currentPrice,
-                                                 TextView prePrice, String url, String cp, String pp){
-                        Glide.with(requireContext())
-                                .load(url)
-                                .placeholder(R.drawable.ic_waimai_brand)
-                                .centerCrop()
-                                .into(imageView);
-
-                        currentPrice.setText(TextUtil.getAbsoluteSpannable("￥" + cp,textSize,0,1));
-                        prePrice.setText(TextUtil.getStrikeThroughSpanSpannable("￥" + pp));
-                    }
-                });
+        mBinding.recyclerFourQuickWindow.setAdapter(fourQuickWindowAdapter);
         mBinding.recyclerFourQuickWindow.addItemDecoration(new RecyclerView.ItemDecoration() {
             int interval = (int) UIUtils.getInstance().scalePx(16);
             @Override
@@ -165,6 +141,57 @@ public class MallMainTypeFragment extends BaseFragment {
                 outRect.bottom = interval;
             }
         });
+    }
+
+    MyBaseRecyclerAdapter<MallQuickWindowData> fourQuickWindowAdapter;
+    private void initFourQuickWindowRecyclerAdapter(){
+        fourQuickWindowAdapter = new MyBaseRecyclerAdapter<MallQuickWindowData>(R.layout.item_recycler_mall_quick_window
+                ,mViewModel.getMallQuickWindowDataList()){
+            int textSize = (int) UIUtils.getInstance().scalePx(22);
+            @Override
+            protected void initView(BaseViewHolder helper, MallQuickWindowData item) {
+                super.initView(helper, item);
+                View head;
+                if(helper.getAdapterPosition() == 0){   //秒杀抢购
+                    head = View.inflate(requireContext(),R.layout.head_mall_quick_window_second_kill,null);
+                    ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
+                }else if(helper.getAdapterPosition() == 1){ //发现好物
+                    head = View.inflate(requireContext(),R.layout.head_mall_quick_window_find_goods,null);
+                    ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
+                }else if(helper.getAdapterPosition() == 2){ //每日好店
+                    head = View.inflate(requireContext(),R.layout.head_mall_quick_window_daily_good_shop,null);
+                    ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
+                } else if(helper.getAdapterPosition() == 3){    //时尚配饰
+                    head = View.inflate(requireContext(),R.layout.head_mall_quick_window_fashion_accessories,null);
+                    ((FrameLayout)helper.getView(R.id.fl_head)).addView(head);
+                }
+
+                setOneGoodsData(helper.getView(R.id.iv_left),
+                        helper.getView(R.id.tv_left_current_price),
+                        helper.getView(R.id.tv_left_pre_price),
+                        item.getLeftImgUrl(),
+                        item.getLeftCurrentPrice(),
+                        item.getLeftPrePrice());
+                setOneGoodsData(helper.getView(R.id.iv_right),
+                        helper.getView(R.id.tv_right_current_price),
+                        helper.getView(R.id.tv_right_pre_price),
+                        item.getRightImgUrl(),
+                        item.getRightCurrentPrice(),
+                        item.getRightPrePrice());
+            }
+
+            private void setOneGoodsData(ImageView imageView, TextView currentPrice,
+                                         TextView prePrice, String url, String cp, String pp){
+                Glide.with(requireContext())
+                        .load(url)
+                        .placeholder(R.drawable.ic_waimai_brand)
+                        .centerCrop()
+                        .into(imageView);
+
+                currentPrice.setText(TextUtil.getAbsoluteSpannable("￥" + cp,textSize,0,1));
+                prePrice.setText(TextUtil.getStrikeThroughSpanSpannable("￥" + pp));
+            }
+        };
     }
 
     private void initStickyRecycler(){
@@ -192,7 +219,7 @@ public class MallMainTypeFragment extends BaseFragment {
             mBinding.adaptiveSizeView.setCurrentItem(viewPagerAdapter.getTitleList().indexOf(item.getType()),true);
             LogUtil.d("选择了" + item.getType());
         });
-        mBinding.stickyView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
+        mBinding.stickyView.setLayoutManager(new GridLayoutManager(requireContext(),5 ,LinearLayoutManager.VERTICAL,false));
         mBinding.stickyView.setAdapter(stickyRecyclerAdapter);
         mBinding.stickyView.addItemDecoration(new RecyclerView.ItemDecoration() {
             Paint mBgPaint;

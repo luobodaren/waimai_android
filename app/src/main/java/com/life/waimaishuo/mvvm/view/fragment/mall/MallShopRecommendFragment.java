@@ -64,7 +64,6 @@ public class MallShopRecommendFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
-        initMainImg();
         initGoodsTypeRecycler();
         initGoodsRecycler();
     }
@@ -72,25 +71,6 @@ public class MallShopRecommendFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-    }
-
-    private void initMainImg(){
-        Glide.with(requireContext())
-                .asBitmap()
-                .load(((MallShopViewModel)baseViewModel).getMainImgUrl())
-                .centerCrop()
-                .placeholder(R.drawable.ic_waimai_brand)
-                .into(new CustomTarget<Bitmap>() {
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        mBinding.ivMainImage.setImageBitmap(resource);
-                    }
-
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                    }
-                });
     }
 
     private void initGoodsTypeRecycler(){

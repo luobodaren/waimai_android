@@ -2,7 +2,7 @@ package com.life.waimaishuo.bean;
 
 import com.life.waimaishuo.enumtype.LimitedTimeStateEnum;
 
-public class LimitedFoods {
+public class LimitedGoods {
 
     Goods goods;
 
@@ -16,7 +16,7 @@ public class LimitedFoods {
 
     String shopName;
 
-    public LimitedFoods(Goods goods, String limitedPrice, String remainingCount, String goodsTotalCount, LimitedTimeStateEnum limitedTimeStateEnum, String shopName) {
+    public LimitedGoods(Goods goods, String limitedPrice, String remainingCount, String goodsTotalCount, LimitedTimeStateEnum limitedTimeStateEnum, String shopName) {
         this.goods = goods;
         this.limitedPrice = limitedPrice;
         this.remainingCount = remainingCount;

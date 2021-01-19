@@ -1,7 +1,8 @@
-package com.life.waimaishuo.mvvm.view.fragment.waimai;
+package com.life.waimaishuo.mvvm.view.fragment;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -11,33 +12,40 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
-import com.life.waimaishuo.bean.LimitedFoods;
+import com.life.waimaishuo.bean.LimitedGoods;
 import com.life.waimaishuo.bean.LimitedTime;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentWaimaiLimitedTimeGoodsBinding;
-import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
 import com.life.waimaishuo.util.TextUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xui.widget.progress.HorizontalProgressView;
 
 
 @Page(name = "限时秒杀",anim = CoreAnim.slide)
 public class LimitedTimeGoodsFragment extends BaseFragment {
 
+    private final static String KEY_BACKGROUND_ID = "background_id";
+
     private FragmentWaimaiLimitedTimeGoodsBinding mBinding;
     private WaimaiLimitedViewModel mViewModel;
+    private int mPageType;
+    private int mBackGroundDrawableId;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -56,8 +64,14 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
-        setFitStatusBarHeight(true);
 
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            mPageType = bundle.getInt(Constant.PAGE_TYPE);
+            mBackGroundDrawableId = bundle.getInt(KEY_BACKGROUND_ID);
+        }
+
+        setFitStatusBarHeight(true);
     }
 
     @Override
@@ -102,9 +116,25 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
+
+        initBackground();
         initIntroduce();
+
         initLimitedTimeRecycler();
-        initGoodsRecycler();
+        // FIXME: 2021/1/19 根据类型 选择不同的界面
+        if(mPageType == Constant.PAGE_TYPE_WAIMAI){
+            initWaiMaiLimitedGoodsRecycler();
+        }else if(mPageType == Constant.PAGE_TYPE_MALL){
+            initMallLimitedGoodsRecycler();
+        }
+    }
+
+    private void initBackground(){
+        if(mPageType == Constant.PAGE_TYPE_WAIMAI){
+            mBinding.ivTopImageBg.setImageResource(mBackGroundDrawableId);
+        }else if(mPageType == Constant.PAGE_TYPE_MALL){
+            mBinding.tvBackground.setBackgroundResource(mBackGroundDrawableId);
+        }
     }
 
     private void initIntroduce() {
@@ -123,7 +153,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
     private void initLimitedTimeRecycler() {
         mBinding.recyclerLimitedTime.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        SelectedPositionRecylerViewAdapter<LimitedTime> adapter = new SelectedPositionRecylerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData()) {
+        SelectedPositionRecylerViewAdapter<LimitedTime> adapter = new SelectedPositionRecylerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData(mPageType)) {
             int time_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_time_text_size);
             int time_unselected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_time_text_size);
             int state_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_state_text_size);
@@ -192,13 +222,13 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
     }
 
-    private void initGoodsRecycler() {
+    private void initWaiMaiLimitedGoodsRecycler() {
         mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedFoods>(R.layout.item_recycler_limited_goods, mViewModel.getLimitedGoodsList(), BR.item) {
+        mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedGoods>(R.layout.item_recycler_limited_goods_waimai, mViewModel.getLimitedGoodsList(mPageType), BR.item) {
 
             int textSize = (int) UIUtils.getInstance().scalePx(40);
             @Override
-            protected void initView(BaseViewHolder helper, LimitedFoods item) {
+            protected void initView(BaseViewHolder helper, LimitedGoods item) {
                 helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
                 helper.setText(R.id.tv_limited_kill_price,
                         TextUtil.getAbsoluteSpannable(
@@ -206,7 +236,6 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                                 textSize,
                                 1,
                                 item.getLimitedPrice().length()+1));
-
                 switch (item.getLimitedTimeStateEnum()){
                     case NO_START:
                         helper.setBackgroundRes(R.id.cl_limited_sale_detail_info,R.drawable.ic_limited_no_start);
@@ -239,8 +268,71 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
         });
     }
 
+    // FIXME: 2021/1/19  add headView
+    private void initMallLimitedGoodsRecycler(){
+        MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<LimitedGoods>(R.layout.item_recycler_limited_goods_mall, mViewModel.getLimitedGoodsList(mPageType), BR.item) {
+            int textSize = (int) UIUtils.getInstance().scalePx(28);
+            @Override
+            protected void initView(BaseViewHolder helper, LimitedGoods item) {
+                helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
+                helper.setText(R.id.tv_limited_kill_price,
+                        TextUtil.getAbsoluteSpannable(
+                                "$"+ item.getLimitedPrice(),
+                                textSize,
+                                1,
+                                item.getLimitedPrice().length()+1));
+                float progress = (Float.valueOf(item.getGoodsTotalCount()) - Float.valueOf(item.getRemainingCount()))
+                        / Float.valueOf(item.getGoodsTotalCount());
+                if(progress < 0){
+                    progress = 0;
+                    LogUtil.e("进度计算出错了 remaining:" + item.getRemainingCount() + " all:" + item.getGoodsTotalCount());
+                }
+                HorizontalProgressView horizontalProgressView = helper.getView(R.id.hpv_remaining_goods_count);
+                horizontalProgressView.setProgress(progress);
+                horizontalProgressView.startProgressAnimation();
+                switch (item.getLimitedTimeStateEnum()){
+                    case NO_START:
+
+                        break;
+                    case STARTING:
+                    case ROBBING:
+                        break;
+                    case SALE_OUT:
+
+                        break;
+                }
+            }
+        };
+        mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        mBinding.recyclerGoodsList.setAdapter(adapter);
+        mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
+            int interval = (int)UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int position = parent.getChildAdapterPosition(view);
+                if(position != RecyclerView.NO_POSITION){
+                    outRect.top = interval;
+                    if(position == state.getItemCount()-1){
+                        outRect.bottom = interval;
+                    }
+                }
+            }
+        });
+    }
+
     private void updateGoodsInfo() {
 
+    }
+
+    public static void openPageWithTitle(BaseFragment baseFragment, int pageType,
+                                         @DrawableRes int backgroundTopId){
+        LogUtil.d("type:" + pageType);
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constant.PAGE_TYPE,pageType);
+        bundle.putInt(KEY_BACKGROUND_ID,backgroundTopId);
+        baseFragment.openPage(LimitedTimeGoodsFragment.class,bundle);
     }
 
 }

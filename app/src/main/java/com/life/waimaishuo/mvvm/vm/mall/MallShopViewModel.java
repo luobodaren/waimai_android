@@ -14,7 +14,7 @@ import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallShopModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallAllPreciousGoodsFragment;
-import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecommendFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecyclerRecommendFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopClassificationFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopGoodGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopNewArrivalFragment;
@@ -71,13 +71,17 @@ public class MallShopViewModel extends BaseViewModel {
         mallAllPreciousGoodsFragment.baseViewModel = this;
         baseFragmentList.add(mallAllPreciousGoodsFragment);
         //商品
-        baseFragmentList.add(new MallRecommendFragment());
+        MallRecyclerRecommendFragment mallRecyclerRecommendFragment = new MallRecyclerRecommendFragment();
+        mallRecyclerRecommendFragment.baseViewModel = this;
+        baseFragmentList.add(mallRecyclerRecommendFragment);
         //分类
         MallShopClassificationFragment mallShopClassificationFragment = new MallShopClassificationFragment();
         mallShopClassificationFragment.baseViewModel = this;
         baseFragmentList.add(mallShopClassificationFragment);
         //联系客服
-        baseFragmentList.add(new MallRecommendFragment());
+        mallRecyclerRecommendFragment = new MallRecyclerRecommendFragment();
+        mallRecyclerRecommendFragment.baseViewModel = this;
+        baseFragmentList.add(mallRecyclerRecommendFragment);
         return baseFragmentList;
     }
 
@@ -91,7 +95,7 @@ public class MallShopViewModel extends BaseViewModel {
             fragment.baseViewModel = this;
             return fragment;
         } else if ("宝贝".equals(title)){
-            return new MallRecommendFragment();
+            return new MallRecyclerRecommendFragment();
         } else if("新品".equals(title)){
             MallShopNewArrivalFragment fragment = new MallShopNewArrivalFragment();
             fragment.baseViewModel = this;
@@ -101,7 +105,7 @@ public class MallShopViewModel extends BaseViewModel {
             fragment.baseViewModel = this;
             return fragment;
         }else if("买家秀".equals(title)){
-            return new MallRecommendFragment();
+            return new MallRecyclerRecommendFragment();
         }
         return null;
     }

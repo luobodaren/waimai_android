@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@mipmap/png_bg_mipmap_exclusive"/>
+            android:src="@mipmap/png_bg_waimai_limite_exclusive"/>
 
         <LinearLayout
             android:id="@+id/my_ll_content_view"

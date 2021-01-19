@@ -10,7 +10,7 @@ public class Goods extends BaseObservable implements Parcelable {
     private String name;
     private String shopName;
     private String details;
-    private String foodsImgUrl;
+    private String goodsImgUrl;
     private String buyNum;
 
     private String price;
@@ -21,31 +21,34 @@ public class Goods extends BaseObservable implements Parcelable {
     private String price_avg_per_man;
     private int count_per_month;
     private String score;
+    String lowestPriceOf15Days;
 
     public Goods() {
     }
 
-    public Goods(String name, int time_send, String foodsImgUrl, String price_deliver, int count_per_month, String score) {
+    public Goods(String name, int time_send, String goodsImgUrl, String price_deliver, int count_per_month, String score) {
         this.name = name;
-        this.foodsImgUrl = foodsImgUrl;
+        this.goodsImgUrl = goodsImgUrl;
         this.time_send = time_send;
         this.price_deliver = price_deliver;
         this.count_per_month = count_per_month;
         this.score = score;
     }
 
-    public Goods(String name, String describe, String foodsImgUrl, String buyNum, String price) {
+    public Goods(String name, String describe, String goodsImgUrl, String buyNum, String price) {
         this.name = name;
         this.details = describe;
-        this.foodsImgUrl = foodsImgUrl;
+        this.goodsImgUrl = goodsImgUrl;
         this.buyNum = buyNum;
         this.price = price;
     }
 
+
     protected Goods(Parcel in) {
         name = in.readString();
+        shopName = in.readString();
         details = in.readString();
-        foodsImgUrl = in.readString();
+        goodsImgUrl = in.readString();
         buyNum = in.readString();
         price = in.readString();
         time_send = in.readInt();
@@ -53,6 +56,7 @@ public class Goods extends BaseObservable implements Parcelable {
         price_avg_per_man = in.readString();
         count_per_month = in.readInt();
         score = in.readString();
+        lowestPriceOf15Days = in.readString();
     }
 
     public static final Creator<Goods> CREATOR = new Creator<Goods>() {
@@ -103,12 +107,12 @@ public class Goods extends BaseObservable implements Parcelable {
         this.price = price;
     }
 
-    public String getFoodsImgUrl() {
-        return foodsImgUrl;
+    public String getGoodsImgUrl() {
+        return goodsImgUrl;
     }
 
-    public void setFoodsImgUrl(String foodsImgUrl) {
-        this.foodsImgUrl = foodsImgUrl;
+    public void setGoodsImgUrl(String goodsImgUrl) {
+        this.goodsImgUrl = goodsImgUrl;
     }
 
     public String getBuyNum() {
@@ -151,6 +155,14 @@ public class Goods extends BaseObservable implements Parcelable {
         this.score = score;
     }
 
+    public String getLowestPriceOf15Days() {
+        return lowestPriceOf15Days;
+    }
+
+    public void setLowestPriceOf15Days(String lowestPriceOf15Days) {
+        this.lowestPriceOf15Days = lowestPriceOf15Days;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -159,8 +171,9 @@ public class Goods extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
+        dest.writeString(shopName);
         dest.writeString(details);
-        dest.writeString(foodsImgUrl);
+        dest.writeString(goodsImgUrl);
         dest.writeString(buyNum);
         dest.writeString(price);
         dest.writeInt(time_send);
@@ -168,6 +181,6 @@ public class Goods extends BaseObservable implements Parcelable {
         dest.writeString(price_avg_per_man);
         dest.writeInt(count_per_month);
         dest.writeString(score);
+        dest.writeString(lowestPriceOf15Days);
     }
-
 }

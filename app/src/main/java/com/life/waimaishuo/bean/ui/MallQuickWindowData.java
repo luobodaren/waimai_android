@@ -2,6 +2,8 @@ package com.life.waimaishuo.bean.ui;
 
 public class MallQuickWindowData {
 
+    String title;
+
     String leftImgUrl;
     String leftCurrentPrice;
     String leftPrePrice;
@@ -10,13 +12,22 @@ public class MallQuickWindowData {
     String rightCurrentPrice;
     String rightPrePrice;
 
-    public MallQuickWindowData(String leftImgUrl, String leftCurrentPrice, String leftPrePrice, String rightImgUrl, String rightCurrentPrice, String rightPrePrice) {
+    public MallQuickWindowData(String title, String leftImgUrl, String leftCurrentPrice, String leftPrePrice, String rightImgUrl, String rightCurrentPrice, String rightPrePrice) {
+        this.title = title;
         this.leftImgUrl = leftImgUrl;
         this.leftCurrentPrice = leftCurrentPrice;
         this.leftPrePrice = leftPrePrice;
         this.rightImgUrl = rightImgUrl;
         this.rightCurrentPrice = rightCurrentPrice;
         this.rightPrePrice = rightPrePrice;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLeftImgUrl() {

@@ -32,12 +32,14 @@ import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchRecord;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentWaimaiBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeSmallBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.activity.SearchActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.LimitedTimeGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.MessageFragment;
 import com.life.waimaishuo.mvvm.view.fragment.city.CityPickerDialogFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -297,6 +299,8 @@ public class WaimaiFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if(position % 2 == 0){
+                    LimitedTimeGoodsFragment.openPageWithTitle(
+                            WaimaiFragment.this, Constant.PAGE_TYPE_WAIMAI,R.mipmap.png_bg_waimai_limite_exclusive);
                     openPage(LimitedTimeGoodsFragment.class);
                 }else{
                     openPage(ZeroDividerFragment.class);
