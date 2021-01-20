@@ -9,7 +9,7 @@
             type="com.life.waimaishuo.bean.Coupon" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/interval_size_xs"
@@ -123,8 +123,7 @@
         <com.xuexiang.xui.widget.progress.HorizontalProgressView
             android:id="@+id/hpv_remaining_coupon_count"
             android:layout_width="328px"
-            android:layout_height="30px"
-            android:layout_marginTop="@dimen/interval_size_xs"
+            android:layout_height="36px"
             app:hpv_end_color="@color/colorTheme_gradient_end"
             app:hpv_end_progress="92"
             app:hpv_isTracked="true"
@@ -147,5 +146,5 @@
             app:layout_constraintBottom_toBottomOf="@id/hpv_remaining_coupon_count"
             app:layout_constraintStart_toEndOf="@id/hpv_remaining_coupon_count" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.life.base.views.UiAdapterConstrainLayout>
 </layout>

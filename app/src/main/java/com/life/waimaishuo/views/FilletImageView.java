@@ -25,7 +25,7 @@ public class FilletImageView extends AppCompatImageView {
     private Paint mPaint;
     private Matrix matrix;
     private BitmapShader bitmapShader;
-    private boolean topLeftRightCorner,bottomLeftRightCorner;//定义上面与下面的是否为圆角
+    private boolean topLeftCorner,topRightCorner,bottomLeftCorner,bottomRightCorner;//定义各个方向是否为圆角
     private int radius = 5;
     public FilletImageView(Context context) {
         this(context,null);
@@ -42,8 +42,10 @@ public class FilletImageView extends AppCompatImageView {
 
     private void init(Context context, AttributeSet attrs){
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FilletImageView);
-        topLeftRightCorner = typedArray.getBoolean(R.styleable.FilletImageView_topLeftRightCorner,false);
-        bottomLeftRightCorner = typedArray.getBoolean(R.styleable.FilletImageView_bottomLeftRightCorner,false);
+        topLeftCorner = typedArray.getBoolean(R.styleable.FilletImageView_topLeftCorner,false);
+        topRightCorner = typedArray.getBoolean(R.styleable.FilletImageView_topRightCorner,false);
+        bottomLeftCorner = typedArray.getBoolean(R.styleable.FilletImageView_bottomLeftCorner,false);
+        bottomRightCorner = typedArray.getBoolean(R.styleable.FilletImageView_bottomRightCorner,false);
         radius = typedArray.getDimensionPixelOffset(R.styleable.FilletImageView_filletImageRadius,16);
         typedArray.recycle();
         mPaint = new Paint();
@@ -92,20 +94,22 @@ public class FilletImageView extends AppCompatImageView {
         mPaint.setShader(bitmapShader);
         //纠正圆角
 //        int radius = (int) (getRadius() * scaleMax);
-        //画出我们需要的直角图形
+        //画出圆角
         canvas.drawRoundRect(drawRectF,radius,radius,mPaint);
-        if (topLeftRightCorner){
+
+        //画出我们需要的直角图形
+        if(!topLeftCorner){//左边顶部
+            canvas.drawRect(0,0,radius,radius,mPaint);
+        }
+        if(!topRightCorner){//右边顶部
+            canvas.drawRect(canvas.getWidth() - radius,0,canvas.getWidth(),radius,mPaint);
+        }
+        if(!bottomLeftCorner){
             //左边底部
             canvas.drawRect(0,canvas.getHeight() - radius ,radius,canvas.getHeight(),mPaint);
-            //右边底部
-            canvas.drawRect(canvas.getWidth() - radius, canvas.getHeight() - radius,canvas.getWidth(),canvas.getHeight(),mPaint);
         }
-
-        if (bottomLeftRightCorner){
-            //左边顶部
-            canvas.drawRect(0,0,radius,radius,mPaint);
-            //右边顶部
-            canvas.drawRect(canvas.getWidth() - radius,0,canvas.getWidth(),radius,mPaint);
+        if(!bottomRightCorner){//右边底部
+            canvas.drawRect(canvas.getWidth() - radius, canvas.getHeight() - radius,canvas.getWidth(),canvas.getHeight(),mPaint);
         }
     }
 

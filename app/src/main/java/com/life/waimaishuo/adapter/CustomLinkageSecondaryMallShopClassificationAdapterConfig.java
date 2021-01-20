@@ -32,7 +32,7 @@ import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.tagAdapter.MallShopClassificationTagAdapter;
+import com.life.waimaishuo.adapter.tagAdapter.MallShopSignAndClassificationTagAdapter;
 import com.life.waimaishuo.bean.ui.LinkageGroupedItemMallShopClassification;
 import com.life.waimaishuo.listener.OnSecondaryMallShopClassificationItemClickListener;
 import com.life.waimaishuo.util.TextUtil;
@@ -147,7 +147,7 @@ public class CustomLinkageSecondaryMallShopClassificationAdapterConfig<T extends
     }
 
     private void initItemFlowTag(FlowTagLayout flowTagLayout,String[] tags){
-        flowTagLayout.setAdapter(new MallShopClassificationTagAdapter(flowTagLayout.getContext()));
+        flowTagLayout.setAdapter(new MallShopSignAndClassificationTagAdapter(flowTagLayout.getContext()));
         flowTagLayout.addTags(tags);
     }
 

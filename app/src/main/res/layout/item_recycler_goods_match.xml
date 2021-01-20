@@ -24,7 +24,8 @@
             android:layout_height="342px"
             android:scaleType="centerCrop"
             app:filletImageRadius="8dp"
-            app:topLeftRightCorner="true" />
+            app:topLeftCorner="true"
+            app:topRightCorner="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"

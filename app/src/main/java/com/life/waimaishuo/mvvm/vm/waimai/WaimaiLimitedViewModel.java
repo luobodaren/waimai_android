@@ -49,12 +49,12 @@ public class WaimaiLimitedViewModel extends BaseViewModel {
                 "2","550.00");
 
         List<LimitedGoods> limitedFoods = new ArrayList<>();
-        limitedFoods.add(new LimitedGoods(goods,"50","150","500",LimitedTimeStateEnum.NO_START, "长安老牌牛肉店"));
+        limitedFoods.add(new LimitedGoods(goods,"50","500","500",LimitedTimeStateEnum.NO_START, "长安老牌牛肉店"));
         limitedFoods.add(new LimitedGoods(goods,"50","150","500",LimitedTimeStateEnum.STARTING, "长安老牌牛肉店"));
-        limitedFoods.add(new LimitedGoods(goods,"50","150","500",LimitedTimeStateEnum.SALE_OUT, "长安老牌牛肉店"));
-        limitedFoods.add(new LimitedGoods(goods,"50","150","500",LimitedTimeStateEnum.STARTING, "长安老牌牛肉店"));
-        limitedFoods.add(new LimitedGoods(goods,"50","150","500",LimitedTimeStateEnum.SALE_OUT, "长安老牌牛肉店"));
-        limitedFoods.add(new LimitedGoods(goods,"50","150","500",LimitedTimeStateEnum.STARTING, "长安老牌牛肉店"));
+        limitedFoods.add(new LimitedGoods(goods,"50","0","500",LimitedTimeStateEnum.SALE_OUT, "长安老牌牛肉店"));
+        limitedFoods.add(new LimitedGoods(goods,"50","0","500",LimitedTimeStateEnum.STARTING, "长安老牌牛肉店"));
+        limitedFoods.add(new LimitedGoods(goods,"50","0","500",LimitedTimeStateEnum.SALE_OUT, "长安老牌牛肉店"));
+        limitedFoods.add(new LimitedGoods(goods,"50","400","500",LimitedTimeStateEnum.STARTING, "长安老牌牛肉店"));
         return limitedFoods;
     }
 }

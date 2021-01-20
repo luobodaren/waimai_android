@@ -7,50 +7,65 @@
 
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.ui.TypeDescribeValue" />
+            type="com.life.waimaishuo.bean.Goods" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/interval_size_xs">
+        android:background="@drawable/sr_bg_8dp_white"
+        android:orientation="vertical">
 
-        <com.xuexiang.xui.widget.imageview.RadiusImageView
+        <com.life.waimaishuo.views.FilletImageView
             android:id="@+id/iv_goods_img"
-            imageUrl="@{item.type}"
-            android:layout_width="207px"
-            android:layout_height="207px"
+            imageUrlBitmap="@{item.goodsImgUrl}"
+            android:layout_width="260px"
+            android:layout_height="260px"
             android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:bottomLeftCorner="true"
+            app:filletImageRadius="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="4dp" />
+            app:topLeftCorner="true" />
 
         <TextView
             android:id="@+id/tv_goods_name"
             style="@style/text_my_simple_style"
+            android:layout_width="0px"
+            android:layout_marginStart="@dimen/interval_size_xs"
             android:layout_marginTop="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs"
             android:ellipsize="end"
-            android:maxWidth="182px"
             android:maxLines="1"
-            android:text="@{item.describe}"
+            android:text="@{item.name}"
             android:textColor="@color/text_normal"
             android:textSize="26px"
-            app:layout_constraintStart_toStartOf="@id/iv_goods_img"
-            app:layout_constraintTop_toBottomOf="@id/iv_goods_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_goods_img"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="欧舒丹甜蜜樱桃服装" />
+
+        <TextView
+            android:id="@+id/tv_goods_describe"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="32px"
+            android:text="@{item.details}"
+            android:textColor="@color/text_tip"
+            android:textSize="26px"
+            app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
+            tools:text="商品描述" />
 
         <TextView
             android:id="@+id/tv_goods_price"
             style="@style/text_my_simple_style"
-            android:layout_marginTop="10px"
+            android:layout_marginBottom="@dimen/interval_size_xs"
             android:ellipsize="end"
-            android:text="@{item.value}"
+            android:text="@{item.price}"
             android:textColor="@color/colorAssist_2"
             android:textSize="30px"
-            app:layout_constraintStart_toStartOf="@id/iv_goods_img"
-            app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_goods_name"
             tools:text="￥378.88" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

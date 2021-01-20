@@ -10,10 +10,10 @@
             type="com.life.waimaishuo.bean.LimitedGoods" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sr_bg_8dp_white"
+        android:background="@drawable/sr_bg_12dp_white"
         android:padding="@dimen/interval_size_xs">
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
@@ -52,18 +52,22 @@
             app:layout_constraintStart_toStartOf="@id/tv_foods_name"
             app:layout_constraintTop_toBottomOf="@id/tv_foods_name" />
 
-        <com.xuexiang.xui.widget.progress.HorizontalProgressView
+        <com.life.waimaishuo.views.MyHorizontalProgressView
             android:id="@+id/hpv_remaining_goods_count"
-            android:layout_width="192px"
+            android:layout_width="200px"
             android:layout_height="36px"
-            android:layout_marginTop="@dimen/interval_size_xs"
+            android:layout_marginTop="22px"
+            app:hpv_corner_radius="30dp"
             app:hpv_end_color="@color/colorTheme_gradient_end"
-            app:hpv_end_progress="92"
+            app:hpv_end_progress="100"
             app:hpv_isTracked="true"
             app:hpv_progress_duration="2600"
-            app:hpv_progress_textColor="#EBEBEB"
-            app:hpv_progress_textVisibility="false"
+            app:hpv_progress_textColor="#FFFE5945"
+            app:hpv_progress_textSize="22px"
+            app:hpv_progress_textVisibility="true"
             app:hpv_start_color="@color/colorTheme_gradient_start"
+            app:hpv_text_movedEnable="false"
+            app:hpv_text_padding_bottom="14px"
             app:hpv_track_color="#f4f4f4"
             app:hpv_track_width="36px"
             app:layout_constraintStart_toStartOf="@id/tv_foods_name"
@@ -73,7 +77,6 @@
             android:id="@+id/tv_foods_price_divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/interval_size_xs"
             android:text="@{@string/limited_divider_price + item.goods.price_deliver}"
             android:textColor="@color/text_tip"
             android:textSize="24px"
@@ -84,8 +87,7 @@
 
         <TextView
             android:id="@+id/tv_limited_kill_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_my_simple_style"
             android:layout_marginTop="8px"
             android:includeFontPadding="false"
             android:textColor="@color/colorAssist_2"
@@ -96,9 +98,9 @@
 
         <TextView
             android:id="@+id/tv_foods_price_pre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_my_simple_style"
             android:layout_marginStart="16px"
+            android:layout_marginBottom="8px"
             android:includeFontPadding="false"
             android:textColor="@color/text_deleted"
             android:textSize="20px"
@@ -118,5 +120,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="马上抢" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.life.base.views.UiAdapterConstrainLayout>
 </layout>

@@ -25,7 +25,8 @@
             app:filletImageRadius="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:topLeftRightCorner="true" />
+            app:topLeftCorner="true"
+            app:topRightCorner="true"/>
 
         <TextView
             android:id="@+id/tv_series_name"

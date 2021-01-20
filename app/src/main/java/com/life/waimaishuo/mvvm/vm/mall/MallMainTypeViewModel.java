@@ -2,12 +2,14 @@ package com.life.waimaishuo.mvvm.vm.mall;
 
 import com.life.waimaishuo.bean.BuyersShow;
 import com.life.waimaishuo.bean.Coupon;
+import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.MallQuickWindowData;
 import com.life.waimaishuo.bean.ui.TypeDescribeValue;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallMainTypeModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallMainBuyersShowFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallMainGoodShopFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecyclerRecommendFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallMainGetCouponCenterFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -63,7 +65,6 @@ public class MallMainTypeViewModel extends BaseViewModel {
     public List<TypeDescribeValue> getStickTabList() {
         List<TypeDescribeValue> list = new ArrayList<>();
         list.add(new TypeDescribeValue("发现","猜你喜欢",""));
-        list.add(new TypeDescribeValue("限时秒杀","疯狂抢购",""));
         list.add(new TypeDescribeValue("好店","品质精选",""));
         list.add(new TypeDescribeValue("领券中心","低价抢购",""));
         list.add(new TypeDescribeValue("买家秀","真实晒图",""));
@@ -78,10 +79,9 @@ public class MallMainTypeViewModel extends BaseViewModel {
         MallRecyclerRecommendFragment fragment;
         fragment = new MallRecyclerRecommendFragment();
         viewPagerAdapter.addFragment(fragment,"发现");
-        fragment = new MallRecyclerRecommendFragment();
-        viewPagerAdapter.addFragment(fragment,"限时秒杀");
-        fragment = new MallRecyclerRecommendFragment();
-        viewPagerAdapter.addFragment(fragment,"好店");
+        MallMainGoodShopFragment mallMainGoodShopFragment = new MallMainGoodShopFragment();
+        mallMainGoodShopFragment.baseViewModel = this;
+        viewPagerAdapter.addFragment(mallMainGoodShopFragment,"好店");
         MallMainGetCouponCenterFragment mallMainGetCouponCenterFragment = new MallMainGetCouponCenterFragment();
         mallMainGetCouponCenterFragment.baseViewModel = this;
         viewPagerAdapter.addFragment(mallMainGetCouponCenterFragment,"领券中心");
@@ -112,6 +112,36 @@ public class MallMainTypeViewModel extends BaseViewModel {
         list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
         list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
         list.add(new Coupon(1,"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1599007979,1484951390&fm=26&gp=0.jpg","正品连衣裙","9","90","拼单价 ￥99","无门槛","20","100"));
+        return list;
+    }
+
+    public List<Shop> getGoodShopData() {
+        List<Shop> list = new ArrayList<>();
+        List<String> imgList = new ArrayList<>();
+        imgList.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+
+        Shop shop = new Shop();
+        shop.setShop_name("嘉禾服装店 (国展店）");
+        shop.setShop_head_portrait("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        shop.setTag_value("品牌");
+        shop.setSynopsis_img(imgList);
+        list.add(shop);
+
+        shop = new Shop();
+        shop.setShop_name("嘉禾服装店 (国展店）");
+        shop.setShop_head_portrait("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        shop.setTag_value("品牌");
+        shop.setSynopsis_img(imgList);
+        list.add(shop);
+
+        shop = new Shop();
+        shop.setShop_name("嘉禾服装店 (国展店）");
+        shop.setShop_head_portrait("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        shop.setTag_value("品牌");
+        shop.setSynopsis_img(imgList);
+        list.add(shop);
         return list;
     }
 }

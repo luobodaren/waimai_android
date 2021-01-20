@@ -4,6 +4,9 @@ import android.view.View;
 
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.base.utils.GsonUtil;
+import com.life.waimaishuo.bean.Comment;
+import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.ui.ImageViewInfo;
 import com.life.waimaishuo.bean.ui.LinkageGroupedItemMallShopClassification;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
@@ -13,9 +16,10 @@ import com.life.waimaishuo.bean.ui.TypeDescribeValue;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mall.MallShopModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.mall.MallAllPreciousGoodsFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopAllPreciousGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallRecyclerRecommendFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopClassificationFragment;
+import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopEvaluationFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopGoodGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopNewArrivalFragment;
 import com.life.waimaishuo.mvvm.view.fragment.mall.MallShopRecommendFragment;
@@ -67,9 +71,9 @@ public class MallShopViewModel extends BaseViewModel {
     public List<BaseFragment> getTabFragment() {
         List<BaseFragment> baseFragmentList = new ArrayList<>();
         //全部宝贝
-        MallAllPreciousGoodsFragment mallAllPreciousGoodsFragment = new MallAllPreciousGoodsFragment();
-        mallAllPreciousGoodsFragment.baseViewModel = this;
-        baseFragmentList.add(mallAllPreciousGoodsFragment);
+        MallShopAllPreciousGoodsFragment mallShopAllPreciousGoodsFragment = new MallShopAllPreciousGoodsFragment();
+        mallShopAllPreciousGoodsFragment.baseViewModel = this;
+        baseFragmentList.add(mallShopAllPreciousGoodsFragment);
         //商品
         MallRecyclerRecommendFragment mallRecyclerRecommendFragment = new MallRecyclerRecommendFragment();
         mallRecyclerRecommendFragment.baseViewModel = this;
@@ -86,7 +90,7 @@ public class MallShopViewModel extends BaseViewModel {
     }
 
     public String[] getAllPreciousTabTitle() {
-        return new String[]{"推荐","宝贝","新品","好物","买家秀"};
+        return new String[]{"推荐","宝贝","新品","好物","评价"};
     }
 
     public BaseFragment getAllPreciousTabFragment(String title) {
@@ -104,8 +108,10 @@ public class MallShopViewModel extends BaseViewModel {
             MallShopGoodGoodsFragment fragment = new MallShopGoodGoodsFragment();
             fragment.baseViewModel = this;
             return fragment;
-        }else if("买家秀".equals(title)){
-            return new MallRecyclerRecommendFragment();
+        }else if("评价".equals(title)){
+            MallShopEvaluationFragment mallShopEvaluationFragment = new MallShopEvaluationFragment();
+            mallShopEvaluationFragment.baseViewModel = this;
+            return mallShopEvaluationFragment;
         }
         return null;
     }
@@ -133,23 +139,23 @@ public class MallShopViewModel extends BaseViewModel {
         return "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2638387768,1373713136&fm=26&gp=0.jpg";
     }
 
-    public List<TypeDescribeValue> getGoodsData() {
-        List<TypeDescribeValue> list = new ArrayList<>();
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
-        list.add(new TypeDescribeValue("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","欧舒丹甜蜜樱桃服装","$378.88"));
+    public List<Goods> getGoodsData() {
+        List<Goods> list = new ArrayList<>();
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
         return list;
     }
 
@@ -221,5 +227,39 @@ public class MallShopViewModel extends BaseViewModel {
         List<LinkageGroupedItemMallShopClassification> classificationList;
         classificationList =  GsonUtil.jsonToList(dataJson,  LinkageGroupedItemMallShopClassification.class);
         return (List)classificationList;
+    }
+
+    public List<Comment> getEvaluation() {
+        List<Comment> commentList = new ArrayList<>();
+        for(int i = 0; i < 5; i++){
+            List<ImageViewInfo> goodsPicture = new ArrayList<>();
+            goodsPicture.add(new ImageViewInfo("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fm.360buyimg.com%2Fmobilecms%2Fs750x750_jfs%2Ft15664%2F112%2F2098280724%2F297361%2Fb8c7a73%2F5a912a4aN819bfa82.jpg%21q80.jpg&refer=http%3A%2F%2Fm.360buyimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611311786&t=e572bfbe9cd710ec7a1f8bd31d6b5ffd"));
+            goodsPicture.add(new ImageViewInfo("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2059946940,1091050790&fm=26&gp=0.jpg"));
+            goodsPicture.add(new ImageViewInfo("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fm.360buyimg.com%2Fmobilecms%2Fs750x750_jfs%2Ft15664%2F112%2F2098280724%2F297361%2Fb8c7a73%2F5a912a4aN819bfa82.jpg%21q80.jpg&refer=http%3A%2F%2Fm.360buyimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611311786&t=e572bfbe9cd710ec7a1f8bd31d6b5ffd"));
+            goodsPicture.add(new ImageViewInfo("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2059946940,1091050790&fm=26&gp=0.jpg"));
+            goodsPicture.add(new ImageViewInfo("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fm.360buyimg.com%2Fmobilecms%2Fs750x750_jfs%2Ft15664%2F112%2F2098280724%2F297361%2Fb8c7a73%2F5a912a4aN819bfa82.jpg%21q80.jpg&refer=http%3A%2F%2Fm.360buyimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611311786&t=e572bfbe9cd710ec7a1f8bd31d6b5ffd"));
+            goodsPicture.add(new ImageViewInfo("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2059946940,1091050790&fm=26&gp=0.jpg"));
+
+            Comment comment = new Comment("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fmw690%2F006d49NDgy1ghwabkqtshj30ku0kumym.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611311715&t=dcbc7cb9227d453ece373af4c881bf7a",
+                    "huhu同学",
+                    "4",
+                    "2020-12-23",
+                    "小米南瓜粥非常棒，很好喝，下次还来点。小米南瓜粥非常棒，很好喝，下次还来点。",
+                    goodsPicture,
+                    null,
+                    "谢谢亲的喜欢和支持呀，感谢您的好评！！1");
+            commentList.add(comment);
+        }
+        return commentList;
+    }
+
+    public List<String> getCommentsType() {
+        List<String> commentType = new ArrayList<>();
+        commentType.add("全部");
+        commentType.add("有图95");
+        commentType.add("推荐100");
+        commentType.add("吐槽0");
+        commentType.add("赞不绝口100");
+        return commentType;
     }
 }

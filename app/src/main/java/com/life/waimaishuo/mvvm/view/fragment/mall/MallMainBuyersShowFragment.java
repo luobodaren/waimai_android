@@ -17,7 +17,7 @@ import com.life.waimaishuo.mvvm.vm.mall.MallMainTypeViewModel;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 
-@Page(name = "商城-买家秀")
+@Page(name = "商城-首页买家秀")
 public class MallMainBuyersShowFragment extends BaseFragment {
 
     private RecyclerView recyclerView;

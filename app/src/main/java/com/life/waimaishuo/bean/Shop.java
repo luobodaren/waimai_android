@@ -210,6 +210,446 @@ public class Shop implements Parcelable {
         this.memberCard = memberCard;
     }
 
+    public BigInteger getOrganization_id() {
+        return organization_id;
+    }
+
+    public void setOrganization_id(BigInteger organization_id) {
+        this.organization_id = organization_id;
+    }
+
+    public BigInteger getBrand_id() {
+        return brand_id;
+    }
+
+    public void setBrand_id(BigInteger brand_id) {
+        this.brand_id = brand_id;
+    }
+
+    public BigInteger getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(BigInteger account_id) {
+        this.account_id = account_id;
+    }
+
+    public int getShop_type() {
+        return shop_type;
+    }
+
+    public void setShop_type(int shop_type) {
+        this.shop_type = shop_type;
+    }
+
+    public String getReservation_call() {
+        return reservation_call;
+    }
+
+    public void setReservation_call(String reservation_call) {
+        this.reservation_call = reservation_call;
+    }
+
+    public String getAlternate_phone() {
+        return alternate_phone;
+    }
+
+    public void setAlternate_phone(String alternate_phone) {
+        this.alternate_phone = alternate_phone;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getShop_address() {
+        return shop_address;
+    }
+
+    public void setShop_address(String shop_address) {
+        this.shop_address = shop_address;
+    }
+
+    public String getShop_category() {
+        return shop_category;
+    }
+
+    public void setShop_category(String shop_category) {
+        this.shop_category = shop_category;
+    }
+
+    public String getGoods_pictures() {
+        return goods_pictures;
+    }
+
+    public void setGoods_pictures(String goods_pictures) {
+        this.goods_pictures = goods_pictures;
+    }
+
+    public String getShop_image() {
+        return shop_image;
+    }
+
+    public void setShop_image(String shop_image) {
+        this.shop_image = shop_image;
+    }
+
+    public String getShop_qr_code() {
+        return shop_qr_code;
+    }
+
+    public void setShop_qr_code(String shop_qr_code) {
+        this.shop_qr_code = shop_qr_code;
+    }
+
+    public String getShop_number() {
+        return shop_number;
+    }
+
+    public void setShop_number(String shop_number) {
+        this.shop_number = shop_number;
+    }
+
+    public String getAdmin_phone() {
+        return admin_phone;
+    }
+
+    public void setAdmin_phone(String admin_phone) {
+        this.admin_phone = admin_phone;
+    }
+
+    public String getLast_equipment_name() {
+        return last_equipment_name;
+    }
+
+    public void setLast_equipment_name(String last_equipment_name) {
+        this.last_equipment_name = last_equipment_name;
+    }
+
+    public String getLast_login_address() {
+        return last_login_address;
+    }
+
+    public void setLast_login_address(String last_login_address) {
+        this.last_login_address = last_login_address;
+    }
+
+    public String getLast_login_time() {
+        return last_login_time;
+    }
+
+    public void setLast_login_time(String last_login_time) {
+        this.last_login_time = last_login_time;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
+    public String getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(String invoice) {
+        this.invoice = invoice;
+    }
+
+    public String getEffective_date() {
+        return effective_date;
+    }
+
+    public void setEffective_date(String effective_date) {
+        this.effective_date = effective_date;
+    }
+
+    public String getTag_value() {
+        return tag_value;
+    }
+
+    public void setTag_value(String tag_value) {
+        this.tag_value = tag_value;
+    }
+
+    public int getAudit_state() {
+        return audit_state;
+    }
+
+    public void setAudit_state(int audit_state) {
+        this.audit_state = audit_state;
+    }
+
+    public String getAudit_cause() {
+        return audit_cause;
+    }
+
+    public void setAudit_cause(String audit_cause) {
+        this.audit_cause = audit_cause;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public double getSort() {
+        return sort;
+    }
+
+    public void setSort(double sort) {
+        this.sort = sort;
+    }
+
+    public BigInteger getCreate_id() {
+        return create_id;
+    }
+
+    public void setCreate_id(BigInteger create_id) {
+        this.create_id = create_id;
+    }
+
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
+    }
+
+    public BigInteger getUpdate_id() {
+        return update_id;
+    }
+
+    public void setUpdate_id(BigInteger update_id) {
+        this.update_id = update_id;
+    }
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
+    }
+
+    public int getOpen_state() {
+        return open_state;
+    }
+
+    public void setOpen_state(int open_state) {
+        this.open_state = open_state;
+    }
+
+    public String getPolygon() {
+        return polygon;
+    }
+
+    public void setPolygon(String polygon) {
+        this.polygon = polygon;
+    }
+
+    public String getCreate_name() {
+        return create_name;
+    }
+
+    public void setCreate_name(String create_name) {
+        this.create_name = create_name;
+    }
+
+    public String getAccount_number() {
+        return account_number;
+    }
+
+    public void setAccount_number(String account_number) {
+        this.account_number = account_number;
+    }
+
+    public String getUser_pwd() {
+        return user_pwd;
+    }
+
+    public void setUser_pwd(String user_pwd) {
+        this.user_pwd = user_pwd;
+    }
+
+    public int getShop_nature() {
+        return shop_nature;
+    }
+
+    public void setShop_nature(int shop_nature) {
+        this.shop_nature = shop_nature;
+    }
+
+    public List<String> getSynopsis_img() {
+        return synopsis_img;
+    }
+
+    public void setSynopsis_img(List<String> synopsis_img) {
+        this.synopsis_img = synopsis_img;
+    }
+
+    public String getShop_sign() {
+        return shop_sign;
+    }
+
+    public void setShop_sign(String shop_sign) {
+        this.shop_sign = shop_sign;
+    }
+
+    public String getLogistics_rate() {
+        return logistics_rate;
+    }
+
+    public void setLogistics_rate(String logistics_rate) {
+        this.logistics_rate = logistics_rate;
+    }
+
+    public String getServe_rate() {
+        return serve_rate;
+    }
+
+    public void setServe_rate(String serve_rate) {
+        this.serve_rate = serve_rate;
+    }
+
+    public int getDist_priority() {
+        return dist_priority;
+    }
+
+    public void setDist_priority(int dist_priority) {
+        this.dist_priority = dist_priority;
+    }
+
+    public int getPick_priority() {
+        return pick_priority;
+    }
+
+    public void setPick_priority(int pick_priority) {
+        this.pick_priority = pick_priority;
+    }
+
+    public String getReturn_province() {
+        return return_province;
+    }
+
+    public void setReturn_province(String return_province) {
+        this.return_province = return_province;
+    }
+
+    public String getReturn_city() {
+        return return_city;
+    }
+
+    public void setReturn_city(String return_city) {
+        this.return_city = return_city;
+    }
+
+    public String getReturn_district() {
+        return return_district;
+    }
+
+    public void setReturn_district(String return_district) {
+        this.return_district = return_district;
+    }
+
+    public String getReturn_address() {
+        return return_address;
+    }
+
+    public void setReturn_address(String return_address) {
+        this.return_address = return_address;
+    }
+
+    public String getReturn_contacts() {
+        return return_contacts;
+    }
+
+    public void setReturn_contacts(String return_contacts) {
+        this.return_contacts = return_contacts;
+    }
+
+    public String getReturn_phone() {
+        return return_phone;
+    }
+
+    public void setReturn_phone(String return_phone) {
+        this.return_phone = return_phone;
+    }
+
+    public String getCash_deposit() {
+        return cash_deposit;
+    }
+
+    public void setCash_deposit(String cash_deposit) {
+        this.cash_deposit = cash_deposit;
+    }
+
+    public int getIs_message() {
+        return is_message;
+    }
+
+    public void setIs_message(int is_message) {
+        this.is_message = is_message;
+    }
+
+    public String getShop_province() {
+        return shop_province;
+    }
+
+    public void setShop_province(String shop_province) {
+        this.shop_province = shop_province;
+    }
+
+    public String getShop_city() {
+        return shop_city;
+    }
+
+    public void setShop_city(String shop_city) {
+        this.shop_city = shop_city;
+    }
+
+    public String getShop_district() {
+        return shop_district;
+    }
+
+    public void setShop_district(String shop_district) {
+        this.shop_district = shop_district;
+    }
+
+    public BigInteger getRecommend_type() {
+        return recommend_type;
+    }
+
+    public void setRecommend_type(BigInteger recommend_type) {
+        this.recommend_type = recommend_type;
+    }
+
     @Override
     public int describeContents() {
         return 0;

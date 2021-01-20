@@ -68,24 +68,19 @@
                                 android:id="@+id/tv_shop_name"
                                 style="@style/text_my_simple_style"
                                 android:layout_marginStart="16px"
+                                android:textColor="@color/white"
+                                android:textSize="34px"
+                                android:textStyle="bold"
                                 app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
                                 app:layout_constraintTop_toTopOf="@id/iv_shop_icon" />
 
                             <TextView
-                                android:id="@+id/tv_official_certification"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16px"
-                                android:background="@drawable/sr_bg_full_corners_theme"
-                                android:paddingStart="8px"
-                                android:paddingTop="5px"
-                                android:paddingEnd="8px"
-                                android:paddingBottom="5px"
-                                android:text="@string/official_certification"
-                                android:textColor="@color/white"
-                                android:textSize="16px"
+                                android:id="@+id/tv_sign"
+                                style="@style/tv_sign"
+                                android:text="@{item.tag_value}"
                                 app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                                app:layout_constraintStart_toEndOf="@id/iv_shop_icon" />
+                                app:layout_constraintStart_toStartOf="@id/tv_shop_name"
+                                tools:text="品牌" />
 
                             <TextView
                                 android:id="@+id/tv_fans_count"
@@ -94,7 +89,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="20px"
                                 app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                                app:layout_constraintStart_toEndOf="@id/tv_official_certification"
+                                app:layout_constraintStart_toEndOf="@id/tv_sign"
                                 tools:text="粉丝数20万" />
 
                             <include

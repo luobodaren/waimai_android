@@ -114,14 +114,14 @@ public class ShopEvaluationFragment extends BaseFragment {
 
     private void initCommentRecycler() {
         mBinding.recyclerComments.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        mBinding.recyclerComments.setAdapter(new MyBaseRecyclerAdapter<Comment>(R.layout.item_recycler_shop_comment,mViewModel.getCommentsData(), com.life.waimaishuo.BR.item){
+        mBinding.recyclerComments.setAdapter(new MyBaseRecyclerAdapter<Comment>(R.layout.item_recycler_waimai_shop_comment,mViewModel.getCommentsData(), com.life.waimaishuo.BR.item){
             @Override
             protected void initView(BaseViewHolder helper, Comment item) {
                 super.initView(helper, item);
-                ScoreView scoreView = helper.getView(R.id.score_view);
-                scoreView.hideTitle();
-                scoreView.hideFans();
-                scoreView.setScore(Integer.parseInt(item.getScore()));
+//                ScoreView scoreView = helper.getView(R.id.score_view);
+//                scoreView.hideTitle();
+//                scoreView.hideFans();
+//                scoreView.setScore(Integer.parseInt(item.getScore()));
 
                 RecyclerView recyclerView = helper.getView(R.id.recycler_comment_picture);
                 MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture,item.getCommentPictureList(), com.life.waimaishuo.BR.item);

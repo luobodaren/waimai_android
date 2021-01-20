@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.Shop" />
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:layout_marginEnd="@dimen/interval_size_xs"
+        android:orientation="vertical"
+        android:background="@drawable/sr_bg_8dp_white"
+        android:padding="@dimen/interval_size_xs">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_shopIcon"
+                imageUrl="@{item.shop_head_portrait}"
+                android:layout_width="72px"
+                android:layout_height="72px"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_shopName"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:text="@{item.shop_name}"
+            android:textColor="@color/black"
+            android:textSize="30px"
+            app:layout_constraintStart_toEndOf="@id/image_cardView"
+            app:layout_constraintTop_toTopOf="@id/image_cardView"
+            tools:text="店铺名" />
+
+
+        <TextView
+            android:id="@+id/tv_sign"
+            style="@style/tv_sign"
+            android:text="@{item.tag_value}"
+            app:layout_constraintBottom_toBottomOf="@id/image_cardView"
+            app:layout_constraintStart_toStartOf="@id/tv_shopName"
+            tools:text="品牌" />
+
+        <com.life.waimaishuo.views.widget.ScoreView
+            android:id="@+id/score_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9px"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sign"
+            app:layout_constraintStart_toEndOf="@id/tv_sign" />
+
+        <Button
+            android:id="@+id/bt_go_to_shop"
+            android:layout_width="96px"
+            android:layout_height="48px"
+            android:background="@drawable/sr_bg_full_corners_assist_3"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@string/go_to_shop_2"
+            android:textColor="@color/white"
+            android:textSize="24px"
+            app:layout_constraintBottom_toBottomOf="@id/image_cardView"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_one"
+            imageUrl="@{item.synopsis_img.get(0)}"
+            android:layout_width="432px"
+            android:layout_height="432px"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toStartOf="@id/iv_two"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_cardView"
+            app:riv_corner_radius="4dp" />
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_two"
+            imageUrl="@{item.synopsis_img.get(1)}"
+            android:layout_width="208px"
+            android:layout_height="208px"
+            android:layout_marginStart="14px"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_one"
+            app:layout_constraintTop_toTopOf="@id/iv_one"
+            app:riv_corner_radius="4dp" />
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_three"
+            imageUrl="@{item.synopsis_img.get(2)}"
+            android:layout_width="208px"
+            android:layout_height="208px"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/iv_one"
+            app:layout_constraintStart_toStartOf="@id/iv_two"
+            app:riv_corner_radius="4dp" />
+
+        <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+            android:id="@+id/flowTagLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_one" />
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

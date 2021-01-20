@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,10 +32,10 @@ import com.life.waimaishuo.databinding.FragmentWaimaiLimitedTimeGoodsBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
 import com.life.waimaishuo.util.TextUtil;
+import com.life.waimaishuo.views.MyHorizontalProgressView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xui.widget.progress.HorizontalProgressView;
 
 
 @Page(name = "限时秒杀",anim = CoreAnim.slide)
@@ -270,7 +271,8 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
     // FIXME: 2021/1/19  add headView
     private void initMallLimitedGoodsRecycler(){
-        MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<LimitedGoods>(R.layout.item_recycler_limited_goods_mall, mViewModel.getLimitedGoodsList(mPageType), BR.item) {
+        MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<LimitedGoods>(
+                R.layout.item_recycler_limited_goods_mall, mViewModel.getLimitedGoodsList(mPageType), BR.item) {
             int textSize = (int) UIUtils.getInstance().scalePx(28);
             @Override
             protected void initView(BaseViewHolder helper, LimitedGoods item) {
@@ -282,23 +284,43 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                                 1,
                                 item.getLimitedPrice().length()+1));
                 float progress = (Float.valueOf(item.getGoodsTotalCount()) - Float.valueOf(item.getRemainingCount()))
-                        / Float.valueOf(item.getGoodsTotalCount());
+                        / Float.valueOf(item.getGoodsTotalCount()) * 100;
                 if(progress < 0){
                     progress = 0;
                     LogUtil.e("进度计算出错了 remaining:" + item.getRemainingCount() + " all:" + item.getGoodsTotalCount());
                 }
-                HorizontalProgressView horizontalProgressView = helper.getView(R.id.hpv_remaining_goods_count);
-                horizontalProgressView.setProgress(progress);
-                horizontalProgressView.startProgressAnimation();
+
+                Button button = helper.getView(R.id.bt_options);
+                MyHorizontalProgressView horizontalProgressView = helper.getView(R.id.hpv_remaining_goods_count);
                 switch (item.getLimitedTimeStateEnum()){
                     case NO_START:
-
+                        horizontalProgressView.setStrBeforeProgress(getContext().getString(R.string.wait_to_snapped_up));
+                        horizontalProgressView.setEndProgress(0);
+                        button.setText("提醒我");//fixme 根据情况切换 提醒我 与 取消提醒
                         break;
                     case STARTING:
                     case ROBBING:
+                        horizontalProgressView.setStrBeforeProgress(getContext().getString(R.string.has_snapped_up));
+                        horizontalProgressView.setEndProgress(progress);
+                        horizontalProgressView.startProgressAnimation();
+                        if(progress == 100){
+                            button.setText(getString(R.string.remind_me));
+                            button.setClickable(false);
+                            button.setBackground(getResources().getDrawable(R.drawable.sr_bg_full_corners_gray_translucent));
+                        }else{
+                            button.setText(getString(R.string.snapped_up_now));
+                            button.setClickable(true);
+                            button.setBackground(getResources().getDrawable(R.drawable.sr_bg_gradient_full_radius_theme));
+                        }
                         break;
                     case SALE_OUT:
+                        horizontalProgressView.setStrBeforeProgress(getContext().getString(R.string.has_snapped_up));
+                        horizontalProgressView.setEndProgress(100);
+                        horizontalProgressView.startProgressAnimation();
 
+                        button.setText(getString(R.string.remind_me));
+                        button.setClickable(false);
+                        button.setBackground(getResources().getDrawable(R.drawable.sr_bg_full_corners_gray_translucent));
                         break;
                 }
             }

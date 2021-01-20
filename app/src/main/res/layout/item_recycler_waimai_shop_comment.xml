@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="com.life.waimaishuo.bean.Comment" />
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/interval_size_xs"
-        android:background="@drawable/sr_bg_8dp_white">
+        android:background="@drawable/sr_bg_8dp_white"
+        android:orientation="vertical"
+        android:padding="@dimen/interval_size_xs">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,61 +23,71 @@
 
             <com.xuexiang.xui.widget.imageview.RadiusImageView
                 android:id="@+id/iv_user_img"
+                imageUrl="@{item.userIcon}"
                 android:layout_width="72px"
                 android:layout_height="72px"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_waimai_brand"
-                app:riv_corner_radius="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                imageUrl="@{item.userIcon}"/>
+                app:riv_corner_radius="4dp" />
 
             <TextView
                 android:id="@+id/tv_user_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textSize="30px"
-                android:textColor="@color/text_normal"
-                android:text="@{item.userName}"
-                app:layout_constraintTop_toTopOf="@id/iv_user_img"
-                app:layout_constraintStart_toEndOf="@id/iv_user_img"
-                app:layout_constraintEnd_toStartOf="@id/tv_comment_time"
                 android:layout_marginStart="24px"
-                android:includeFontPadding="false" />
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="@{item.userName}"
+                android:textColor="@color/text_normal"
+                android:textSize="30px"
+                app:layout_constraintEnd_toStartOf="@id/tv_comment_time"
+                app:layout_constraintStart_toEndOf="@id/iv_user_img"
+                app:layout_constraintTop_toTopOf="@id/iv_user_img" />
 
             <TextView
                 android:id="@+id/tv_comment_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:textSize="@dimen/font_size_26"
-                android:textColor="@color/text_tip"
                 android:text="@{item.createData}"
-                app:layout_constraintTop_toTopOf="@id/tv_user_name"
+                android:textColor="@color/text_tip"
+                android:textSize="@dimen/font_size_26"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_user_name"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="@id/tv_user_name" />
 
-            <com.life.waimaishuo.views.widget.ScoreView
+            <!--<com.life.waimaishuo.views.widget.ScoreView
                 android:id="@+id/score_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14px"
-                app:layout_constraintTop_toBottomOf="@id/tv_user_name"
-                app:layout_constraintStart_toStartOf="@id/tv_user_name"/>
+                app:layout_constraintStart_toStartOf="@id/tv_user_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name" />-->
+
+            <TextView
+                android:id="@+id/tv_like"
+                style="@style/text_my_simple_style"
+                android:layout_marginTop="14px"
+                android:drawablePadding="3px"
+                android:textColor="@color/text_tip"
+                android:textSize="22px"
+                app:layout_constraintStart_toStartOf="@id/tv_user_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
 
             <TextView
                 android:id="@+id/tv_comment_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
                 android:layout_marginTop="@dimen/interval_size_xs"
+                android:includeFontPadding="false"
+                android:text="@{item.commentContent}"
                 android:textColor="@color/text_normal"
                 android:textSize="26px"
-                android:text="@{item.commentContent}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_user_img"/>
+                app:layout_constraintTop_toBottomOf="@id/iv_user_img" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_comment_picture"
@@ -92,37 +103,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_size_xs"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_comment_picture"/>
+                app:layout_constraintTop_toBottomOf="@id/recycler_comment_picture" />
 
             <LinearLayout
                 android:id="@+id/ll_merchant_reply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@drawable/sr_bg_merchants_reply"
+                android:orientation="vertical"
                 android:paddingBottom="@dimen/interval_size_xs"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/flow_layout_goods_list"
-                android:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@id/flow_layout_goods_list">
 
                 <TextView
                     style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:text="@string/merchant_reply"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/font_size_24"
-                    android:text="@string/merchant_reply"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/interval_size_xs"
-                    android:layout_marginStart="@dimen/interval_size_xs"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_reply_content"
                     style="@style/text_my_simple_style"
-                    android:textColor="@color/text_normal"
-                    android:textSize="@dimen/font_size_22"
                     android:layout_marginStart="@dimen/interval_size_xs"
                     android:layout_marginTop="16px"
                     android:text="@{item.commentContent}"
-                    tools:text="谢谢亲的喜欢与支持呀，感谢您的好评！我们会更加努力的～"/>
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/font_size_22"
+                    tools:text="谢谢亲的喜欢与支持呀，感谢您的好评！我们会更加努力的～" />
 
             </LinearLayout>
 
@@ -132,7 +143,7 @@
             android:id="@+id/space"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/interval_size_xs"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 </layout>

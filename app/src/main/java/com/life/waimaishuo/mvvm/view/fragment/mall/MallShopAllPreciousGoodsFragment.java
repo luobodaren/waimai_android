@@ -16,7 +16,7 @@ import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 @Page(name = "商城-全部宝贝")
-public class MallAllPreciousGoodsFragment extends BaseFragment {
+public class MallShopAllPreciousGoodsFragment extends BaseFragment {
 
     private FragmentMallShopAllPreciousBinding mBinding;
 

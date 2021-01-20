@@ -7,9 +7,9 @@ import android.widget.TextView;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-public class MallShopClassificationTagAdapter extends BaseTagAdapter<String, TextView> {
+public class MallShopSignAndClassificationTagAdapter extends BaseTagAdapter<String, TextView> {
 
-    public MallShopClassificationTagAdapter(Context context) {
+    public MallShopSignAndClassificationTagAdapter(Context context) {
         super(context);
     }
 
@@ -20,7 +20,7 @@ public class MallShopClassificationTagAdapter extends BaseTagAdapter<String, Tex
 
     @Override
     protected int getLayoutId() {
-        return R.layout.adapter_tag_item_mall_shop_classifycation;
+        return R.layout.adapter_tag_item_mall_shop_sign_and_classifycation;
     }
 
     @Override

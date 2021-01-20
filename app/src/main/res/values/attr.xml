@@ -2,8 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <declare-styleable name="FilletImageView">
-        <attr name="topLeftRightCorner" format="boolean" />
-        <attr name="bottomLeftRightCorner" format="boolean" />
+        <attr name="topLeftCorner" format="boolean" />
+        <attr name="bottomLeftCorner" format="boolean" />
+        <attr name="topRightCorner" format="boolean" />
+        <attr name="bottomRightCorner" format="boolean" />
         <attr name="filletImageRadius" format="dimension"/>
     </declare-styleable>
 

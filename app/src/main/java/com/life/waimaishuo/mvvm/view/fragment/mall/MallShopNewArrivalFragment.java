@@ -96,7 +96,7 @@ public class MallShopNewArrivalFragment extends BaseFragment {
                                 new GridLayoutManager(requireContext(),3,
                                         LinearLayoutManager.VERTICAL,false));
                         recyclerView.setAdapter(
-                                new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_shop_recommend_goods,
+                                new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_shop_new_arrival_chiren,
                                         item.getGoodsList(),BR.item));
                     }
                 });

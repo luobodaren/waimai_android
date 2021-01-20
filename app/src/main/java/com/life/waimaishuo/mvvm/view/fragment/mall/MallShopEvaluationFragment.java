@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment.waimai;
+package com.life.waimaishuo.mvvm.view.fragment.mall;
 
 import android.graphics.Rect;
 import android.view.View;
@@ -19,7 +19,7 @@ import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.databinding.FragmentBaseTagRecyclerBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseTabSegmentRecyclerFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
-import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiGoodsEvaluationViewModel;
+import com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel;
 import com.life.waimaishuo.util.PreViewUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
@@ -31,10 +31,8 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
-@Page(name = "评价")
-public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
-
-    WaiMaiGoodsEvaluationViewModel mViewModel;
+@Page(name = "商城-店铺评价")
+public class MallShopEvaluationFragment extends BaseTabSegmentRecyclerFragment {
 
     @Override
     protected void initListeners() {
@@ -51,7 +49,7 @@ public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
 
     @Override
     protected int getItemLayoutId() {
-        return R.layout.item_recycler_waimai_shop_comment;
+        return R.layout.item_recycler_mall_shop_comment;
     }
 
     @Override
@@ -61,7 +59,7 @@ public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
 
     @Override
     protected List getListData() {
-        return mViewModel.getTopFiveComment();    // FIXME: 2020/12/29 修改获取数据的方式
+        return ((MallShopViewModel)baseViewModel).getEvaluation();    // FIXME: 2020/12/29 修改获取数据的方式
     }
 
     @Override
@@ -96,19 +94,13 @@ public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
 
     @Override
     protected BaseViewModel setViewModel() {
-        if(mViewModel == null){
-            mViewModel = new WaiMaiGoodsEvaluationViewModel();
-        }
-        return mViewModel;
+        return baseViewModel;
     }
 
-    /**
-     * 初始化粘性导航栏
-     */
     @Override
     public void initTabSegment() {
         int space = getResources().getDimensionPixelOffset(R.dimen.goods_comment_tabSegment_item_space);
-        List<String> commentsType = mViewModel.getCommentsType();
+        List<String> commentsType = ((MallShopViewModel)baseViewModel).getCommentsType();
 
         FragmentBaseTagRecyclerBinding mBinding = (FragmentBaseTagRecyclerBinding)mViewDataBinding;
         mBinding.tabSegment.setItemSpaceInScrollMode(space);
