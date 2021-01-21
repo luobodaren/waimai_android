@@ -1,185 +1,407 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_ll_content_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/layout_title"
-        layout="@layout/title_menu_share" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel" />
+    </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        android:padding="@dimen/interval_size_xs">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_menu_share" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_shop_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/interval_size_xs"
-            android:background="@drawable/sr_bg_8dp_white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@color/background"
+            android:padding="@dimen/interval_size_xs">
 
-            <com.xuexiang.xui.widget.imageview.RadiusImageView
-                android:id="@+id/iv_shop_icon"
-                android:layout_width="73px"
-                android:layout_height="73px"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_waimai_brand"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="4dp" />
-
-            <TextView
-                android:id="@+id/tv_shop_name"
-                style="@style/text_my_simple_style"
-                android:layout_marginStart="16px"
-                android:textColor="@color/text_normal"
-                android:textSize="34px"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
-                app:layout_constraintTop_toTopOf="@id/iv_shop_icon"
-                tools:text="优衣库官方旗舰店" />
-
-            <TextView
-                android:id="@+id/tv_sign"
-                style="@style/tv_sign"
-                android:text="@{item.tag_value}"
-                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                app:layout_constraintStart_toStartOf="@id/tv_shop_name"
-                tools:text="品牌" />
-
-            <TextView
-                android:id="@+id/tv_fans_count"
-                style="@style/text_my_simple_style"
-                android:layout_marginStart="16px"
-                android:textColor="@color/white"
-                android:textSize="20px"
-                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                app:layout_constraintStart_toEndOf="@id/tv_sign"
-                tools:text="粉丝数20万" />
-
-            <include
-                android:id="@+id/layout_comprehensive_experience"
-                layout="@layout/layout_mall_shop_comprehensive_experience"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16px"
-                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                app:layout_constraintStart_toEndOf="@id/tv_fans_count" />
-
-            <TextView
-                android:id="@+id/tv_subscribe"
-                style="@style/text_my_simple_style"
-                android:layout_marginEnd="@dimen/interval_size_xs"
-                android:background="@drawable/sr_bg_full_corners_theme"
-                android:paddingStart="28px"
-                android:paddingTop="14px"
-                android:paddingEnd="28px"
-                android:paddingBottom="14px"
-                android:text="@string/subscribe"
-                android:textColor="@color/white"
-                android:textSize="28px"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Space
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_shop_info"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/interval_size_xs"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sr_bg_8dp_white"
+                android:padding="@dimen/interval_size_xs"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_shop_icon" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/iv_shop_icon"
+                    android:layout_width="73px"
+                    android:layout_height="73px"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_waimai_brand"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_shop_name"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="16px"
+                    android:textColor="@color/text_normal"
+                    android:textSize="34px"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
+                    app:layout_constraintTop_toTopOf="@id/iv_shop_icon"
+                    tools:text="优衣库官方旗舰店" />
+
+                <TextView
+                    android:id="@+id/tv_sign"
+                    style="@style/tv_sign"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                    app:layout_constraintStart_toStartOf="@id/tv_shop_name"
+                    tools:text="品牌" />
+
+                <TextView
+                    android:id="@+id/tv_fans_count"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="16px"
+                    android:textColor="@color/white"
+                    android:textSize="20px"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                    app:layout_constraintStart_toEndOf="@id/tv_sign"
+                    tools:text="粉丝数20万" />
+
+                <include
+                    android:id="@+id/layout_comprehensive_experience"
+                    layout="@layout/layout_mall_shop_comprehensive_experience"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16px"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                    app:layout_constraintStart_toEndOf="@id/tv_fans_count" />
+
+                <TextView
+                    android:id="@+id/tv_subscribe"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:background="@drawable/sr_bg_full_corners_theme"
+                    android:paddingStart="28px"
+                    android:paddingTop="14px"
+                    android:paddingEnd="28px"
+                    android:paddingBottom="14px"
+                    android:text="@string/subscribe"
+                    android:textColor="@color/white"
+                    android:textSize="28px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/interval_size_xs"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_shop_icon" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_score"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_8dp_white"
+                android:padding="@dimen/interval_size_xs"
+                app:layout_constraintStart_toStartOf="@id/cl_shop_info"
+                app:layout_constraintTop_toBottomOf="@id/cl_shop_info">
+
+                <TextView
+                    android:id="@+id/tv_shop_score"
+                    style="@style/text_my_simple_style"
+                    android:text="@string/shop_score"
+                    android:textColor="@color/text_normal"
+                    android:textSize="34px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_goods_describe"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginTop="44px"
+                    android:text="@string/describe_consistent"
+                    android:textColor="@color/text_normal"
+                    android:textSize="28px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_shop_score" />
+
+                <TextView
+                    android:id="@+id/tv_logistics_service"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginTop="48px"
+                    android:text="@string/logistics_service"
+                    android:textColor="@color/text_normal"
+                    android:textSize="28px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_goods_describe" />
+
+                <TextView
+                    android:id="@+id/tv_service_attitude"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginTop="48px"
+                    android:text="@string/service_attitude"
+                    android:textColor="@color/text_normal"
+                    android:textSize="28px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_logistics_service" />
+
+                <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
+                    android:id="@+id/scale_rating_bar_describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_goods_describe"
+                    app:layout_constraintStart_toEndOf="@id/tv_goods_describe"
+                    app:layout_constraintTop_toTopOf="@id/tv_goods_describe"
+                    app:srb_drawableEmpty="@drawable/ic_star_gray"
+                    app:srb_drawableFilled="@drawable/ic_star_red"
+                    app:srb_rating="4"
+                    app:srb_starHeight="36px"
+                    app:srb_starPadding="28px"
+                    app:srb_starWidth="36px"
+                    app:srb_stepSize="1" />
+
+                <TextView
+                    android:id="@+id/tv_score_describe"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:textColor="@color/colorTheme"
+                    android:textSize="30px"
+                    app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_describe"
+                    app:layout_constraintStart_toEndOf="@id/scale_rating_bar_describe"
+                    app:layout_constraintTop_toTopOf="@id/scale_rating_bar_describe"
+                    tools:text="4.9" />
+
+                <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
+                    android:id="@+id/scale_rating_bar_attitude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_service_attitude"
+                    app:layout_constraintStart_toEndOf="@id/tv_service_attitude"
+                    app:layout_constraintTop_toTopOf="@id/tv_service_attitude"
+                    app:srb_drawableEmpty="@drawable/ic_star_gray"
+                    app:srb_drawableFilled="@drawable/ic_star_red"
+                    app:srb_rating="4"
+                    app:srb_starHeight="36px"
+                    app:srb_starPadding="28px"
+                    app:srb_starWidth="36px"
+                    app:srb_stepSize="1" />
+
+                <TextView
+                    android:id="@+id/tv_score_attitude"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:textColor="@color/colorTheme"
+                    android:textSize="30px"
+                    app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_attitude"
+                    app:layout_constraintStart_toEndOf="@id/scale_rating_bar_attitude"
+                    app:layout_constraintTop_toTopOf="@id/scale_rating_bar_attitude"
+                    tools:text="4.9" />
+
+                <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
+                    android:id="@+id/scale_rating_bar_logistics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_logistics_service"
+                    app:layout_constraintStart_toEndOf="@id/tv_logistics_service"
+                    app:layout_constraintTop_toTopOf="@id/tv_logistics_service"
+                    app:srb_drawableEmpty="@drawable/ic_star_gray"
+                    app:srb_drawableFilled="@drawable/ic_star_red"
+                    app:srb_rating="4"
+                    app:srb_starHeight="36px"
+                    app:srb_starPadding="28px"
+                    app:srb_starWidth="36px"
+                    app:srb_stepSize="1" />
+
+                <TextView
+                    android:id="@+id/tv_score_logistics"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:textColor="@color/colorTheme"
+                    android:textSize="30px"
+                    app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_logistics"
+                    app:layout_constraintStart_toEndOf="@id/scale_rating_bar_logistics"
+                    app:layout_constraintTop_toTopOf="@id/scale_rating_bar_logistics"
+                    tools:text="4.9" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_8dp_white"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_score">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/text_info_clickable_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shop_info_text_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_base_information"
+                        style="@style/text_shop_impression_info"
+                        android:text="@string/base_information"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/text_info_clickable_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shop_info_text_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_shop_name_info"
+                        style="@style/text_shop_impression_info"
+                        android:text="@string/shop_name"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/rv_shop_name_value"
+                        style="@style/text_shop_impression_info_value"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="广州市朝阳区东风中路258号1109-2220" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/text_info_clickable_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shop_info_text_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_connect_phone"
+                        style="@style/text_shop_impression_info"
+                        android:text="@string/contact_phone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_phoneNumber"
+                        style="@style/text_shop_impression_info_value"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="广州市朝阳区东风中路258号1109-2220" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/text_info_clickable_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shop_info_text_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_region_info"
+                        style="@style/text_shop_impression_info"
+                        android:text="@string/region"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_region_value"
+                        style="@style/text_shop_impression_info_value"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="广州市朝阳区东风中路258号1109-2220" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/text_info_clickable_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shop_info_text_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_qualification_info"
+                        style="@style/text_shop_impression_info"
+                        android:text="@string/qualification"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="24px"
+                        android:layout_height="24px"
+                        android:src="@drawable/ic_arrow_right_black"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/divider_in_order_info"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    style="@style/text_info_clickable_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shop_info_text_item_height">
+
+                    <TextView
+                        android:id="@+id/tv_start_time_info"
+                        style="@style/text_shop_impression_info"
+                        android:text="@string/shop_start_time"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_start_time_value"
+                        style="@style/text_shop_impression_info_value"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="广州市朝阳区东风中路258号1109-2220" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="@id/cl_shop_info"
-            app:layout_constraintTop_toBottomOf="@id/cl_shop_info">
-            <TextView
-                android:id="@+id/tv_goods_describe"
-                style="@style/text_my_simple_style"
-                android:text="@string/describe_consistent"
-                android:textColor="@color/text_normal"
-                android:textSize="28px"
-                android:layout_marginTop="44px"
-                app:layout_constraintTop_toBottomOf="@id/iv_shopIcon"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_logistics_service"
-                style="@style/text_my_simple_style"
-                android:text="@string/logistics_service"
-                android:textColor="@color/text_normal"
-                android:textSize="28px"
-                android:layout_marginTop="48px"
-                app:layout_constraintTop_toBottomOf="@id/tv_goods_describe"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <TextView
-                android:id="@+id/tv_service_attitude"
-                style="@style/text_my_simple_style"
-                android:text="@string/service_attitude"
-                android:textColor="@color/text_normal"
-                android:textSize="28px"
-                android:layout_marginTop="48px"
-                app:layout_constraintTop_toBottomOf="@id/tv_logistics_service"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
-                android:id="@+id/scale_rating_bar_describe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srb_rating="4"
-                app:srb_starPadding="28px"
-                app:srb_drawableEmpty="@drawable/ic_star_gray"
-                app:srb_drawableFilled="@drawable/ic_star_red"
-                app:srb_stepSize="1"
-                app:srb_starWidth="36px"
-                app:srb_starHeight="36px"
-                app:layout_constraintTop_toTopOf="@id/tv_goods_describe"
-                app:layout_constraintStart_toEndOf="@id/tv_goods_describe"
-                app:layout_constraintBottom_toBottomOf="@id/tv_goods_describe"/>
-
-            <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
-                android:id="@+id/scale_rating_bar_attitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srb_rating="4"
-                app:srb_starPadding="28px"
-                app:srb_drawableEmpty="@drawable/ic_star_gray"
-                app:srb_drawableFilled="@drawable/ic_star_red"
-                app:srb_stepSize="1"
-                app:srb_starWidth="36px"
-                app:srb_starHeight="36px"
-                app:layout_constraintTop_toTopOf="@id/tv_service_attitude"
-                app:layout_constraintBottom_toBottomOf="@id/tv_service_attitude"
-                app:layout_constraintStart_toEndOf="@id/tv_service_attitude"/>
-
-            <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
-                android:id="@+id/scale_rating_bar_logistics"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srb_rating="4"
-                app:srb_starPadding="28px"
-                app:srb_drawableEmpty="@drawable/ic_star_gray"
-                app:srb_drawableFilled="@drawable/ic_star_red"
-                app:srb_stepSize="1"
-                app:srb_starWidth="36px"
-                app:srb_starHeight="36px"
-                app:layout_constraintTop_toTopOf="@id/tv_logistics_service"
-                app:layout_constraintBottom_toBottomOf="@id/tv_logistics_service"
-                app:layout_constraintStart_toEndOf="@id/tv_logistics_service"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

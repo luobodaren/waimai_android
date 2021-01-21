@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
+import androidx.databinding.Observable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
@@ -21,6 +22,7 @@ import com.life.waimaishuo.databinding.FragmentMallShopBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -96,6 +98,13 @@ public class MallShopFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.onShopInfoClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                MallShopImpressionFragment.openPageWithShopData(MallShopFragment.this,new Shop());
+            }
+        });
 
         mBinding.appbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int folding = 0;

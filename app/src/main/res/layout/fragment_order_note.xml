@@ -17,7 +17,7 @@
 
         <include
             android:id="@+id/layout_title"
-            layout="@layout/title_order_note"/>
+            layout="@layout/title_menu_text"/>
         
         <TextView
             android:layout_width="match_parent"

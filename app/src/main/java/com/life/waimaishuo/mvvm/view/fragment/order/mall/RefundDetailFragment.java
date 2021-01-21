@@ -103,7 +103,7 @@ public class RefundDetailFragment extends BaseFragment {
 
         mBinding.layoutTitle.ivBack.setOnClickListener(v -> popToBack());
 
-        mBinding.tvOptionRight.setText(getString(R.string.modify_application)); //任何状态其点击时间均是一样的，可在这里初始化
+        mBinding.tvOptionRight.setText(R.string.modify_application); //任何状态其点击时间均是一样的，可在这里初始化
         mBinding.tvOptionRight.setOnClickListener(v -> modifyApplication());
 
         // FIXME: 2021/1/11 后续完善时删除
@@ -173,7 +173,7 @@ public class RefundDetailFragment extends BaseFragment {
     private void setPageElementByPageState() {
         //设置标题
         if(myPageState == STATE_REFUND_FAIL){
-            mBinding.layoutTitle.tvTitle.setText(getString(R.string.fail_detail));
+            mBinding.layoutTitle.tvTitle.setText(R.string.fail_detail);
         }else{
             mBinding.layoutTitle.tvTitle.setText(getPageName());
         }
@@ -255,10 +255,10 @@ public class RefundDetailFragment extends BaseFragment {
 
         if (myPageState == STATE_WAIT_FOR_MERCHANTS_AGREE) {
 
-            mBinding.tvOptionLeft.setText(getString(R.string.cancel_the_application));
+            mBinding.tvOptionLeft.setText(R.string.cancel_the_application);
             mBinding.tvOptionLeft.setOnClickListener(v -> cancelTheApplication());
         } else if (myPageState == STATE_REFUND_FAIL) {
-            mBinding.tvOptionLeft.setText(getString(R.string.connect_merchants));
+            mBinding.tvOptionLeft.setText(R.string.connect_merchants);
             mBinding.tvOptionLeft.setOnClickListener(v -> connectMerchants());
         }
     }
@@ -285,19 +285,19 @@ public class RefundDetailFragment extends BaseFragment {
         setViewVisibility(mBinding.tvBottomButtonText, true);
 
         if (myPageState == STATE_WAIT_FOR_MERCHANTS_AGREE) {
-            mBinding.tvBottomButtonText.setText(getString(R.string.connect_customer_service));
+            mBinding.tvBottomButtonText.setText(R.string.connect_customer_service);
             mBinding.tvBottomButtonText.setCompoundDrawables(customerServiceDrawable, null, null, null);
             mBinding.btBottom.setOnClickListener(v -> {
                 connectCustomerService();
             });
         } else if (myPageState == STATE_WAIT_FOR_FILLING_RETURN_LOGISTICS) {
-            mBinding.tvBottomButtonText.setText(getString(R.string.return_goods));
+            mBinding.tvBottomButtonText.setText(R.string.return_goods);
             mBinding.tvBottomButtonText.setCompoundDrawables(null, null, null, null);
             mBinding.btBottom.setOnClickListener(v -> {
                 fillingReturnLogistics();
             });
         } else if (myPageState == STATE_REFUND_FAIL) {
-            mBinding.tvBottomButtonText.setText(getString(R.string.connect_third_party_customer_service));
+            mBinding.tvBottomButtonText.setText(R.string.connect_third_party_customer_service);
             mBinding.tvBottomButtonText.setCompoundDrawables(customerServiceDrawable, null, null, null);
             mBinding.btBottom.setOnClickListener(v -> {
                 connectThirdPartyCustomerService();

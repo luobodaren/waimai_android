@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_select"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        android:layout_marginStart="@dimen/interval_size_xs" />
+
+    <ImageView
+        android:layout_width="30px"
+        android:layout_height="30px"
+        android:layout_marginStart="16px"
+        android:src="@drawable/ic_shop_black" />
+
+    <TextView
+        android:id="@+id/tv_shop_name"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="8px"
+        android:textColor="@color/text_normal"
+        android:textSize="30px"
+        android:textStyle="bold" />
+
+</com.life.base.views.UiAdapterLinearLayout>

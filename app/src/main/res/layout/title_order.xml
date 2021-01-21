@@ -32,7 +32,7 @@
             android:id="@+id/et"
             android:layout_width="match_parent"
             android:layout_height="60px"
-            android:background="@drawable/sr_bg_full_corners_gray"
+            android:background="@drawable/sr_bg_full_corners_background"
             android:drawableLeft="@drawable/ic_search_gray"
             android:drawablePadding="8px"
             android:layout_marginStart="@dimen/interval_size_xs"

@@ -24,7 +24,7 @@
         <item name="xpage_actionbar_action_padding">6dp</item>
         <!--标题栏两侧文字的padding，默认14dp-->
         <item name="xpage_actionbar_side_text_padding">16dp</item>
-<!--        <item name="XPageTitleBarStyle">@style/XPageTitleBar.Custom</item>-->
+        <!--        <item name="XPageTitleBarStyle">@style/XPageTitleBar.Custom</item>-->
 
         <item name="xui_bottom_sheet_grid_item_paddingTop">25dp</item>
         <item name="xui_bottom_sheet_grid_item_paddingBottom">25dp</item>
@@ -38,10 +38,19 @@
         <item name="xui_bottom_sheet_button_text_color">@color/text_normal</item>
         <item name="xui_bottom_sheet_button_background">@color/white</item>
         <item name="xui_bottom_sheet_grid_padding_vertical">15dp</item>
-        <item name="xui_bottom_sheet_grid_item_text_appearance">@style/xui_bottom_sheet_grid_item_text</item>
+        <item name="xui_bottom_sheet_grid_item_text_appearance">
+            @style/xui_bottom_sheet_grid_item_text
+        </item>
 
-        <item name="xui_bottom_sheet_list_item_text_style">@style/xui_bottom_sheet_list_item_text_style</item>
+        <item name="xui_bottom_sheet_list_item_text_style">
+            @style/xui_bottom_sheet_list_item_text_style
+        </item>
     </style>
+
+    <!-- 顶部折叠AppBarLayout -->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="xui_bottom_sheet_grid_item_text">
         <item name="android:textSize">15sp</item>
@@ -187,7 +196,8 @@
     <style name="login_bt_login" parent="button_login_base">
         <item name="android:background">@drawable/sr_login_bt_login_unable</item>
         <item name="android:text">@string/login</item>
-        <item name="android:layout_marginTop">@dimen/login_interval_size_verificationET_loginBT</item>
+        <item name="android:layout_marginTop">@dimen/login_interval_size_verificationET_loginBT
+        </item>
     </style>
 
     <style name="login_bt_get_verification">
@@ -256,7 +266,7 @@
         <item name="ts_normal_color">@color/text_uncheck</item>
         <item name="ts_has_indicator">true</item>
         <item name="ts_mode">scrollable</item>
-<!--        <item name="ts_indicator_height">6px</item>-->
+        <!--        <item name="ts_indicator_height">6px</item>-->
     </style>
 
     <style name="goodsDetailTabSegment">
@@ -324,10 +334,19 @@
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
     </style>
 
-    <style name="text_order_setting_info" parent="text_my_simple_style">
+    <style name="text_shop_impression_info" parent="text_my_simple_style">
         <item name="android:textColor">@color/text_normal</item>
-        <item name="android:textSize">30px</item>
+        <item name="android:textSize">34px</item>
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
+    </style>
+
+    <style name="text_shop_impression_info_value" parent="text_my_simple_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/text_uncheck</item>
+        <item name="android:textSize">28px</item>
+        <item name="android:layout_marginEnd">@dimen/interval_size_xs</item>
     </style>
 
     <style name="text_shop_merchants_info_right" parent="text_my_simple_style">
@@ -337,8 +356,11 @@
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="text_order_setting_info" parent="text_my_simple_style">
+        <item name="android:textColor">@color/text_normal</item>
+        <item name="android:textSize">30px</item>
+        <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
+    </style>
 
     <!-- BottomSheetDialog文字样式 -->
     <style name="xui_bottom_sheet_grid_item_text_appearance">
@@ -393,7 +415,7 @@
         <item name="android:hint">@string/note_hint_text</item>
         <item name="android:singleLine">false</item>
     </style>
-    
+
     <style name="et_input_comment">
         <item name="android:textColor">@color/text_tip</item>
         <item name="android:textSize">28px</item>

@@ -2,6 +2,8 @@ package com.life.waimaishuo.mvvm.vm.mall;
 
 import android.view.View;
 
+import androidx.databinding.ObservableInt;
+
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.base.utils.GsonUtil;
 import com.life.waimaishuo.bean.Comment;
@@ -36,6 +38,8 @@ public class MallShopViewModel extends BaseViewModel {
 
     List<String> pageList = new ArrayList<>();
 
+    public ObservableInt onShopInfoClick = new ObservableInt();
+
     @Override
     public BaseModel getModel() {
         if(mModel == null){
@@ -50,6 +54,10 @@ public class MallShopViewModel extends BaseViewModel {
         pageList.add("商品");
         pageList.add("分类");
         pageList.add("联系客服");
+    }
+
+    public void onShopInfoClick(View view){
+        onShopInfoClick.notifyChange();
     }
 
     public void onBackClick(View view){

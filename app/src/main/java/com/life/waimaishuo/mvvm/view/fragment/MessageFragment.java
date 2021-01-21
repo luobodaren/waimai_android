@@ -41,7 +41,7 @@ public class MessageFragment extends BaseFragment {
     MessageViewModel mViewModel;
     FragmentMessageBinding binding;
 
-    private MessageRecyclerAdapter mMessageReyclerAdapter;
+    private MessageRecyclerAdapter mMessageRecyclerAdapter;
 
     private MyCheckRoundTextInfoPop mAllMessageReadPopWindow;
     private Runnable mCancelPopRunnable;
@@ -156,8 +156,8 @@ public class MessageFragment extends BaseFragment {
         //必须在setAdapter之前调用
         binding.swipeRecyclerView.setOnItemMenuClickListener(mMenuItemClickListener);
 
-        mMessageReyclerAdapter = new MessageRecyclerAdapter(R.layout.item_message,mViewModel.getMessageData());
-        binding.swipeRecyclerView.setAdapter(mMessageReyclerAdapter);
+        mMessageRecyclerAdapter = new MessageRecyclerAdapter(R.layout.item_message,mViewModel.getMessageData());
+        binding.swipeRecyclerView.setAdapter(mMessageRecyclerAdapter);
 
         binding.swipeRefreshLayout.setColorSchemeColors(0xff0099cc, 0xffff4444, 0xff669900, 0xffaa66cc, 0xffff8800);
 
@@ -199,14 +199,14 @@ public class MessageFragment extends BaseFragment {
         // 添加右侧的，如果不添加，则右侧不会出现菜单。
         {
             SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()).setBackground(R.color.bg_recycler_swipe_item1)
-                    .setText(getString(R.string.message_swipe_item1))
+                    .setText(R.string.placed_at_the_top)
                     .setTextColor(Color.WHITE)
                     .setWidth(width)
                     .setHeight(height);
             swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
 
             SwipeMenuItem addItem = new SwipeMenuItem(getContext()).setBackground(R.color.bg_recycler_swipe_item2)
-                    .setText(getString(R.string.message_swipe_item2))
+                    .setText(R.string.deleted)
                     .setTextColor(Color.WHITE)
                     .setWidth(width)
                     .setHeight(height);
@@ -238,10 +238,10 @@ public class MessageFragment extends BaseFragment {
 
     private void loadData() {
         mHandler.postDelayed(()->{
-            List<Message> list =  mMessageReyclerAdapter.getData();
+            List<Message> list =  mMessageRecyclerAdapter.getData();
             list.clear();
             list.addAll(list);
-            mMessageReyclerAdapter.notifyDataSetChanged();
+            mMessageRecyclerAdapter.notifyDataSetChanged();
             if (binding.swipeRefreshLayout != null) {
                 binding.swipeRefreshLayout.setRefreshing(false);
             }

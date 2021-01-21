@@ -113,26 +113,26 @@ public class OrderDetailFragment extends BaseFragment {
         });
         setViewVisibility(mBinding.layoutTitle.ivShare,false);
 
-        mBinding.layoutTitle.tvTitle.setText(getString(R.string.order_detail));
+        mBinding.layoutTitle.tvTitle.setText(R.string.order_detail);
     }
 
     private void resetTitle(){
         switch (mPageState) {
             case ORDER_CANCEL:
-                mBinding.layoutTitle.tvTitle.setText(getString(R.string.cancel_order));
+                mBinding.layoutTitle.tvTitle.setText(R.string.cancel_order);
                 break;
             case ORDER_WAIT_FOR_PAY:
-                mBinding.layoutTitle.tvTitle.setText(getString(R.string.wait_for_pay));
+                mBinding.layoutTitle.tvTitle.setText(R.string.wait_for_pay);
                 break;
             case ORDER_WAIT_FOR_DELIVER:
-                mBinding.layoutTitle.tvTitle.setText(getString(R.string.waiting_for_merchant_delivery));
+                mBinding.layoutTitle.tvTitle.setText(R.string.waiting_for_merchant_delivery);
                 break;
             case ORDER_DELIVERING:
                 // FIXME: 2021/1/13 根据情况判断配送方式
-                mBinding.layoutTitle.tvTitle.setText(getString(R.string.expressage_delivering));
+                mBinding.layoutTitle.tvTitle.setText(R.string.expressage_delivering);
                 break;
             case ORDER_DELIVERED:
-                mBinding.layoutTitle.tvTitle.setText(getString(R.string.complete_transaction));
+                mBinding.layoutTitle.tvTitle.setText(R.string.complete_transaction);
                 break;
         }
     }
@@ -207,13 +207,13 @@ public class OrderDetailFragment extends BaseFragment {
     private void resetClDeliver(){
         if(mPageState == ORDER_WAIT_FOR_DELIVER){
             mBinding.ivDeliver.setImageResource(R.drawable.ic_car);
-            mBinding.tvDeliverState.setText(getString(R.string.wait_for_deliver));
+            mBinding.tvDeliverState.setText(R.string.wait_for_deliver);
         }else if(mPageState == ORDER_DELIVERING){
             mBinding.ivDeliver.setImageResource(R.drawable.ic_deliver_man);
-            mBinding.tvDeliverState.setText(getString(R.string.delivering));
+            mBinding.tvDeliverState.setText(R.string.delivering);
         }else{  //配送完成
             mBinding.ivDeliver.setImageResource(R.drawable.ic_car);
-            mBinding.tvDeliverState.setText(getString(R.string.sign_for_goods));
+            mBinding.tvDeliverState.setText(R.string.sign_for_goods);
         }
     }
 
@@ -245,7 +245,7 @@ public class OrderDetailFragment extends BaseFragment {
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btTwo, false);
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btThree, true);
 
-                mBinding.layoutBottomOrderInfo.btThree.setText(getString(R.string.deleted_order));
+                mBinding.layoutBottomOrderInfo.btThree.setText(R.string.deleted_order);
                 mBinding.layoutBottomOrderInfo.btThree.setOnClickListener(v -> deleteOrder());
                 break;
             case ORDER_WAIT_FOR_PAY:
@@ -254,9 +254,9 @@ public class OrderDetailFragment extends BaseFragment {
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btTwo, true);
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btThree, true);
 
-                mBinding.layoutBottomOrderInfo.btTwo.setText(getString(R.string.driver_info));
+                mBinding.layoutBottomOrderInfo.btTwo.setText(R.string.driver_info);
                 mBinding.layoutBottomOrderInfo.btTwo.setOnClickListener(v -> showDriverInfo());
-                mBinding.layoutBottomOrderInfo.btThree.setText(getString(R.string.pay));
+                mBinding.layoutBottomOrderInfo.btThree.setText(R.string.pay);
                 mBinding.layoutBottomOrderInfo.btThree.setOnClickListener(v -> pay());
 
                 hasChangeButtonStyle = true;//设置标志 修改了样式
@@ -269,9 +269,9 @@ public class OrderDetailFragment extends BaseFragment {
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btTwo, true);
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btThree, true);
 
-                mBinding.layoutBottomOrderInfo.btTwo.setText(getString(R.string.remind_shipment));
+                mBinding.layoutBottomOrderInfo.btTwo.setText(R.string.remind_shipment);
                 mBinding.layoutBottomOrderInfo.btTwo.setOnClickListener(v -> remindShipment());
-                mBinding.layoutBottomOrderInfo.btThree.setText(getString(R.string.view_logistics));
+                mBinding.layoutBottomOrderInfo.btThree.setText(R.string.view_logistics);
                 mBinding.layoutBottomOrderInfo.btThree.setOnClickListener(v -> viewLogistics());
                 break;
             case ORDER_DELIVERING:
@@ -280,11 +280,11 @@ public class OrderDetailFragment extends BaseFragment {
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btTwo, true);
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btThree, true);
 
-                mBinding.layoutBottomOrderInfo.btOne.setText(getString(R.string.lengthen_receipt_time));
+                mBinding.layoutBottomOrderInfo.btOne.setText(R.string.lengthen_receipt_time);
                 mBinding.layoutBottomOrderInfo.btOne.setOnClickListener(v -> lengthenReceiptTime());
-                mBinding.layoutBottomOrderInfo.btTwo.setText(getString(R.string.driver_info));
+                mBinding.layoutBottomOrderInfo.btTwo.setText(R.string.driver_info);
                 mBinding.layoutBottomOrderInfo.btTwo.setOnClickListener(v -> showDriverInfo());
-                mBinding.layoutBottomOrderInfo.btThree.setText(getString(R.string.receipt_confirm));
+                mBinding.layoutBottomOrderInfo.btThree.setText(R.string.receipt_confirm);
                 mBinding.layoutBottomOrderInfo.btThree.setOnClickListener(v -> receiptConfirm());
                 break;
             case ORDER_DELIVERED:
@@ -293,11 +293,11 @@ public class OrderDetailFragment extends BaseFragment {
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btTwo, true);
                 setViewVisibility(mBinding.layoutBottomOrderInfo.btThree, true);
 
-                mBinding.layoutBottomOrderInfo.btOne.setText(getString(R.string.deleted_order));
+                mBinding.layoutBottomOrderInfo.btOne.setText(R.string.deleted_order);
                 mBinding.layoutBottomOrderInfo.btOne.setOnClickListener(v -> deleteOrder());
-                mBinding.layoutBottomOrderInfo.btTwo.setText(getString(R.string.evaluation));
+                mBinding.layoutBottomOrderInfo.btTwo.setText(R.string.evaluation);
                 mBinding.layoutBottomOrderInfo.btTwo.setOnClickListener(v -> evaluation());
-                mBinding.layoutBottomOrderInfo.btThree.setText(getString(R.string.add_to_shopping_cart));
+                mBinding.layoutBottomOrderInfo.btThree.setText(R.string.add_to_shopping_cart);
                 mBinding.layoutBottomOrderInfo.btThree.setOnClickListener(v -> addShoppingCart());
                 break;
         }

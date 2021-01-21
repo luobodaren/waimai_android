@@ -301,7 +301,6 @@ public class WaimaiFragment extends BaseFragment {
                 if(position % 2 == 0){
                     LimitedTimeGoodsFragment.openPageWithTitle(
                             WaimaiFragment.this, Constant.PAGE_TYPE_WAIMAI,R.mipmap.png_bg_waimai_limite_exclusive);
-                    openPage(LimitedTimeGoodsFragment.class);
                 }else{
                     openPage(ZeroDividerFragment.class);
                 }
@@ -460,16 +459,9 @@ public class WaimaiFragment extends BaseFragment {
             protected int getItemLayoutId(int viewType) {
                 if(viewType == mViewType[0]){
                     return R.layout.item_recycler_waimai_food_type;
-                }else if(viewType == mViewType[1]){
+                }else{
                     return R.layout.item_recycler_waimai_food_type_small;
                 }
-                return R.layout.item_recycler_waimai_food_type;//默认
-            }
-
-            @NonNull
-            @Override
-            protected RecyclerViewHolder getViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return super.getViewHolder(parent, viewType);
             }
 
             @Override

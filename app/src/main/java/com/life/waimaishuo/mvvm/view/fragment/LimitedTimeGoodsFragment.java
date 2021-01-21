@@ -304,11 +304,11 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                         horizontalProgressView.setEndProgress(progress);
                         horizontalProgressView.startProgressAnimation();
                         if(progress == 100){
-                            button.setText(getString(R.string.remind_me));
+                            button.setText(R.string.remind_me);
                             button.setClickable(false);
                             button.setBackground(getResources().getDrawable(R.drawable.sr_bg_full_corners_gray_translucent));
                         }else{
-                            button.setText(getString(R.string.snapped_up_now));
+                            button.setText(R.string.snapped_up_now);
                             button.setClickable(true);
                             button.setBackground(getResources().getDrawable(R.drawable.sr_bg_gradient_full_radius_theme));
                         }
@@ -318,7 +318,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                         horizontalProgressView.setEndProgress(100);
                         horizontalProgressView.startProgressAnimation();
 
-                        button.setText(getString(R.string.remind_me));
+                        button.setText(R.string.remind_me);
                         button.setClickable(false);
                         button.setBackground(getResources().getDrawable(R.drawable.sr_bg_full_corners_gray_translucent));
                         break;

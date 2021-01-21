@@ -79,6 +79,6 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
         return result;
     }
 
-    protected void initView(BaseViewHolder helper,T item){ };
+    protected void initView(BaseViewHolder helper,T item){ }
 
 }

@@ -100,7 +100,7 @@ public class ApplyAfterSalesFragment extends BaseFragment {
     }
 
     private void initTitle(){
-        mBinding.layoutTitle.tvTitle.setText(getString(R.string.apply_after_sales));
+        mBinding.layoutTitle.tvTitle.setText(R.string.apply_after_sales);
     }
 
     private void initInputNoteEditText() {

@@ -64,6 +64,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
     protected void bindViewModel() {
         mBinding = (FragmentMallGoodsDetailBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
+        mBinding.layoutBottom.setViewModel(mViewModel);
     }
 
     @Override
@@ -112,6 +113,36 @@ public class MallGoodsDetailFragment extends BaseFragment {
                         MallShopFragment.openPageWithShop(MallGoodsDetailFragment.this,new Shop());
                     }
                 });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onCustomServiceClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onShopClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onShoppingCartClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                openPage(MallShoppingCartFragment.class);
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onAddShoppingCartClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onBuyNowClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
 
         mBinding.appbarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             int folding = 0;
@@ -195,7 +226,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
         layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
         layoutParams.bottomMargin = 32;
         Button button = new Button(requireContext());
-        button.setText(getString(R.string.view_all_comments));
+        button.setText(R.string.view_all_comments);
         button.setTextColor(getResources().getColor(R.color.text_uncheck));
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX,24);
         button.setBackgroundResource(R.drawable.sr_stroke_1px_full_radius_gray);

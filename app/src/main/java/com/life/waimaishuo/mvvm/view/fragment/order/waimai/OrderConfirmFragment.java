@@ -123,7 +123,7 @@ public class OrderConfirmFragment extends BaseFragment {
             fm = getChildFragmentManager();
         }
 
-        mBinding.layoutTitle.tvTitle.setText(getString(R.string.confirm_order));
+        mBinding.layoutTitle.tvTitle.setText(R.string.confirm_order);
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
 
         setPageElementByOrderType();

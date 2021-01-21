@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.vm.mall;
 import android.view.View;
 
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.bean.Goods;
@@ -17,6 +18,11 @@ import java.util.List;
 public class MallGoodsDetailViewModel extends BaseViewModel {
 
     public ObservableField<String> onGoToShopPageObservable = new ObservableField<>();
+    public ObservableInt onShoppingCartClick = new ObservableInt();
+    public ObservableInt onShopClick = new ObservableInt();
+    public ObservableInt onCustomServiceClick = new ObservableInt();
+    public ObservableInt onAddShoppingCartClick = new ObservableInt();
+    public ObservableInt onBuyNowClick = new ObservableInt();
 
     private MallGoodsDetailModel mModel;
 
@@ -33,6 +39,22 @@ public class MallGoodsDetailViewModel extends BaseViewModel {
     @Override
     public void initData() {
 
+    }
+
+    public void onShoppingCartClick(View view){
+        onShoppingCartClick.notifyChange();
+    }
+    public void onShopClick(View view){
+        onShopClick.notifyChange();
+    }
+    public void onCustomServiceClick(View view){
+        onCustomServiceClick.notifyChange();
+    }
+    public void onAddShoppingCartClick(View view){
+        onAddShoppingCartClick.notifyChange();
+    }
+    public void onBuyNowClick(View view){
+        onBuyNowClick.notifyChange();
     }
 
     public void onGoToShopPageClick(View view){

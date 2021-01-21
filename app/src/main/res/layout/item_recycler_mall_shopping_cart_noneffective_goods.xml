@@ -1,0 +1,76 @@
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/interval_size_xs"
+    android:paddingEnd="40px">
+
+    <TextView
+        android:id="@+id/tv_noneffective"
+        style="@style/text_my_simple_style"
+        android:background="@drawable/sr_bg_full_corners_gray"
+        android:paddingStart="18px"
+        android:paddingTop="2px"
+        android:paddingEnd="18px"
+        android:paddingBottom="2px"
+        android:text="@string/noneffective"
+        android:textColor="@color/white"
+        android:textSize="24px"
+        app:layout_constraintBottom_toBottomOf="@id/iv_goods_img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_goods_img" />
+
+    <com.xuexiang.xui.widget.imageview.RadiusImageView
+        android:id="@+id/iv_goods_img"
+        android:layout_width="151px"
+        android:layout_height="151px"
+        android:layout_marginStart="30px"
+        app:layout_constraintStart_toEndOf="@id/tv_noneffective"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="4dp" />
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        style="@style/text_my_simple_style"
+        android:layout_width="0px"
+        android:layout_marginStart="17px"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_normal"
+        android:textSize="26px"
+        app:layout_constraintBottom_toTopOf="@id/tv_goods_specification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_goods_img"
+        app:layout_constraintTop_toTopOf="@id/iv_goods_img"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:text="生活在左2020春夏新款绣花桑蚕丝真丝连衣裙女装修身中长款长裙子生活在左2020春夏新款绣花桑蚕丝真丝连衣裙女装修身中长款长裙子感到翻跟斗" />
+
+    <TextView
+        android:id="@+id/tv_goods_specification"
+        style="@style/text_my_simple_style"
+        android:background="@drawable/sr_bg_10radius_gray"
+        android:paddingStart="10px"
+        android:paddingTop="4px"
+        android:paddingEnd="10px"
+        android:paddingBottom="4px"
+        android:textColor="@color/text_uncheck"
+        android:textSize="26px"
+        app:layout_constraintBottom_toTopOf="@id/tv_purchase_limitation"
+        app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
+        tools:text="白色，Ls" />
+
+    <TextView
+        android:id="@+id/tv_purchase_limitation"
+        style="@style/text_my_simple_style"
+        android:textColor="@color/text_normal"
+        android:textSize="26px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_goods_specification"
+        tools:text="商品库存不足" />
+
+
+</com.life.base.views.UiAdapterConstrainLayout>

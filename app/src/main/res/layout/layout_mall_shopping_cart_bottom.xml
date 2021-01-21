@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tabbar_height"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_select_all"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="32px"
+            android:drawablePadding="8px"
+            android:text="@string/check_all"
+            android:textColor="@color/black"
+            android:textSize="22px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/bt_to_settle_accounts"
+            android:layout_width="wrap_content"
+            android:layout_height="78px"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:background="@drawable/sr_bg_full_corners_theme"
+            android:includeFontPadding="false"
+            android:paddingStart="32px"
+            android:paddingEnd="32px"
+            android:text="@string/to_settle_accounts"
+            android:textColor="@color/white"
+            android:textSize="28px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/text_my_simple_style"
+            android:layout_marginEnd="32px"
+            android:textColor="@color/colorTheme"
+            android:textSize="30px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/bt_to_settle_accounts"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="合计：999" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -90,10 +90,10 @@ public class RefundFragment extends BaseFragment {
         super.initViews();
 
         if(isReturnGoods){
-            mBinding.layoutTitle.tvTitle.setText(getString(R.string.refund_return));
+            mBinding.layoutTitle.tvTitle.setText(R.string.refund_return);
         }else{
             mBinding.clGoodsState.setVisibility(View.VISIBLE);
-            mBinding.layoutTitle.tvTitle.setText(getString(R.string.refund));
+            mBinding.layoutTitle.tvTitle.setText(R.string.refund);
         }
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
 

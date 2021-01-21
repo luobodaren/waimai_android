@@ -53,53 +53,61 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="16px">
 
-                            <com.xuexiang.xui.widget.imageview.RadiusImageView
-                                android:id="@+id/iv_shop_icon"
-                                android:layout_width="73px"
-                                android:layout_height="73px"
-                                android:layout_marginStart="@dimen/interval_size_xs"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/ic_waimai_brand"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:riv_corner_radius="4dp" />
-
-                            <TextView
-                                android:id="@+id/tv_shop_name"
-                                style="@style/text_my_simple_style"
-                                android:layout_marginStart="16px"
-                                android:textColor="@color/white"
-                                android:textSize="34px"
-                                android:textStyle="bold"
-                                app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
-                                app:layout_constraintTop_toTopOf="@id/iv_shop_icon" />
-
-                            <TextView
-                                android:id="@+id/tv_sign"
-                                style="@style/tv_sign"
-                                android:text="@{item.tag_value}"
-                                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                                app:layout_constraintStart_toStartOf="@id/tv_shop_name"
-                                tools:text="品牌" />
-
-                            <TextView
-                                android:id="@+id/tv_fans_count"
-                                style="@style/text_my_simple_style"
-                                android:layout_marginStart="16px"
-                                android:textColor="@color/white"
-                                android:textSize="20px"
-                                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                                app:layout_constraintStart_toEndOf="@id/tv_sign"
-                                tools:text="粉丝数20万" />
-
-                            <include
-                                android:id="@+id/layout_comprehensive_experience"
-                                layout="@layout/layout_mall_shop_comprehensive_experience"
+                            <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="16px"
-                                app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
-                                app:layout_constraintStart_toEndOf="@id/tv_fans_count" />
+                                android:layout_marginStart="@dimen/interval_size_xs"
+                                android:onClick="@{v -> viewModel.onShopInfoClick(v)}"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                                    android:id="@+id/iv_shop_icon"
+                                    android:layout_width="73px"
+                                    android:layout_height="73px"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/ic_waimai_brand"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:riv_corner_radius="4dp" />
+
+                                <TextView
+                                    android:id="@+id/tv_shop_name"
+                                    style="@style/text_my_simple_style"
+                                    android:layout_marginStart="16px"
+                                    android:textColor="@color/white"
+                                    android:textSize="34px"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
+                                    app:layout_constraintTop_toTopOf="@id/iv_shop_icon" />
+
+                                <TextView
+                                    android:id="@+id/tv_sign"
+                                    style="@style/tv_sign"
+                                    app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                                    app:layout_constraintStart_toStartOf="@id/tv_shop_name"
+                                    tools:text="品牌" />
+
+                                <TextView
+                                    android:id="@+id/tv_fans_count"
+                                    style="@style/text_my_simple_style"
+                                    android:layout_marginStart="16px"
+                                    android:textColor="@color/white"
+                                    android:textSize="20px"
+                                    app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                                    app:layout_constraintStart_toEndOf="@id/tv_sign"
+                                    tools:text="粉丝数20万" />
+
+                                <include
+                                    android:id="@+id/layout_comprehensive_experience"
+                                    layout="@layout/layout_mall_shop_comprehensive_experience"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16px"
+                                    app:layout_constraintBottom_toBottomOf="@id/iv_shop_icon"
+                                    app:layout_constraintStart_toEndOf="@id/tv_fans_count" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
                                 android:id="@+id/tv_subscribe"
@@ -121,7 +129,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/interval_size_xs"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/iv_shop_icon"/>
+                                app:layout_constraintTop_toBottomOf="@id/cl_shop_info"/>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </FrameLayout>
