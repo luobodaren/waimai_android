@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.ui.IconStrData;
@@ -371,11 +371,11 @@ public class OrderConfirmFragment extends BaseFragment {
         return view;
     }
 
-    private SelectedPositionRecylerViewAdapter<String> leftAdapter;
-    private SelectedPositionRecylerViewAdapter<String> rightAdapter;
+    private SelectedPositionRecyclerViewAdapter<String> leftAdapter;
+    private SelectedPositionRecyclerViewAdapter<String> rightAdapter;
     private void initLeftRecycler(RecyclerView recyclerView){
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        leftAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getLeftPickUpTimeData()) {
+        leftAdapter = new SelectedPositionRecyclerViewAdapter<String>(mViewModel.getLeftPickUpTimeData()) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_pick_up_time_left;
@@ -394,7 +394,7 @@ public class OrderConfirmFragment extends BaseFragment {
             }
         };
         recyclerView.setAdapter(leftAdapter);
-        leftAdapter.setSelectedListener(new SelectedPositionRecylerViewAdapter.OnSelectedListener<String>() {
+        leftAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<String>() {
             @Override
             public void onSelectedClick(BaseViewHolder holder, String item) {
                 rightAdapter.setData(mViewModel.getRightPikUpTimeDataByIndex(leftAdapter.getData().indexOf(item)));
@@ -405,7 +405,7 @@ public class OrderConfirmFragment extends BaseFragment {
 
     private void initRightRecycler(RecyclerView recyclerView){
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        rightAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getRightPikUpTimeDataByIndex(0)) {
+        rightAdapter = new SelectedPositionRecyclerViewAdapter<String>(mViewModel.getRightPikUpTimeDataByIndex(0)) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_pick_up_time_right;
@@ -417,7 +417,7 @@ public class OrderConfirmFragment extends BaseFragment {
             }
         };
         recyclerView.setAdapter(rightAdapter);
-        rightAdapter.setSelectedListener(new SelectedPositionRecylerViewAdapter.OnSelectedListener<String>() {
+        rightAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<String>() {
             @Override
             public void onSelectedClick(BaseViewHolder holder, String item) {
                 mPickUpTimeDialog.dismiss();
@@ -447,7 +447,7 @@ public class OrderConfirmFragment extends BaseFragment {
         ((TextView)view.findViewById(R.id.tv_title)).setText(R.string.chose_pay_type);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_pay_type_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getPayTypeList()) {
+        recyclerView.setAdapter(new SelectedPositionRecyclerViewAdapter<IconStrData>(mViewModel.getPayTypeList()) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_pay_type;
@@ -466,7 +466,7 @@ public class OrderConfirmFragment extends BaseFragment {
             }
         });
 
-        ((SelectedPositionRecylerViewAdapter<IconStrData>) recyclerView.getAdapter()).setSelectedListener((holder, item) -> {
+        ((SelectedPositionRecyclerViewAdapter<IconStrData>) recyclerView.getAdapter()).setSelectedListener((holder, item) -> {
             LogUtil.d("支付方式：" + item.getIconType());
             mPayTypeDialog.dismiss();
             infoSettingTextFragment.resetPayType(item);

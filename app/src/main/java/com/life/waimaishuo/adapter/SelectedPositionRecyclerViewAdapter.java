@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SelectedPositionRecylerViewAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
+public abstract class SelectedPositionRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     private Context mContext;
     private View mView;
@@ -23,7 +23,7 @@ public abstract class SelectedPositionRecylerViewAdapter<T> extends RecyclerView
 
     private OnSelectedListener<T> mSelectedListener;
 
-    public SelectedPositionRecylerViewAdapter(List<T> data) {
+    public SelectedPositionRecyclerViewAdapter(List<T> data) {
         this.data = data;
     }
 

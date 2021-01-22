@@ -6,6 +6,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StrikethroughSpan;
@@ -49,6 +50,26 @@ public class TextUtil {
     public static void setFakeBoldText(TextView textView, boolean bold){
         TextPaint tp = textView.getPaint();
         tp.setFakeBoldText(bold);
+    }
+
+    /**
+     * 隐藏手机号码中间几位
+     * @param phone 手机号码
+     * @return  返回处理的结果
+     */
+    public static String phoneHide(String phone) {
+        StringBuilder sb = new StringBuilder();
+        if (!TextUtils.isEmpty(phone) && phone.length() > 6) {
+            for (int i = 0; i < phone.length() ;i++) {
+                char c = phone.charAt(i);
+                if (3 <= i && i <= 6) {
+                    sb.append('*');
+                } else {
+                    sb.append(c);
+                }
+            }
+        }
+        return sb.toString();
     }
 
 }

@@ -1,6 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</LinearLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.mall.MallBuyersShopDetailViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_menu_share" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@color/background"
+            android:overScrollMode="never">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/interval_size_xs">
+
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/iv_user_img"
+                    android:layout_width="72px"
+                    android:layout_height="72px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_user_img"
+                    app:layout_constraintStart_toEndOf="@id/iv_user_img"
+                    app:layout_constraintTop_toTopOf="@id/iv_user_img" />
+
+                <TextView
+                    android:id="@+id/tv_create_time"
+                    style="@style/text_my_simple_style"
+                    android:textColor="@color/text_uncheck"
+                    android:textSize="26px"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_user_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_user_img"
+                    tools:text="2020-05-20" />
+
+                <com.life.waimaishuo.views.widget.RadiusImageBanner
+                    android:id="@+id/banner_layout"
+                    android:layout_width="702px"
+                    android:layout_height="702px"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:background="@color/transparent"
+                    app:bb_scale="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_user_img" />
+
+                <TextView
+                    android:id="@+id/tv_banner_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="21px"
+                    android:layout_marginBottom="9px"
+                    android:background="@drawable/sr_bg_full_corners_20black"
+                    android:gravity="center"
+                    android:paddingStart="20px"
+                    android:paddingEnd="20px"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_24"
+                    app:layout_constraintBottom_toBottomOf="@id/banner_layout"
+                    app:layout_constraintEnd_toEndOf="@id/banner_layout"
+                    tools:text="1/3" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_goods_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:background="@drawable/sr_bg_8dp_white"
+                    android:padding="16px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/banner_layout">
+
+                    <com.xuexiang.xui.widget.imageview.RadiusImageView
+                        android:id="@+id/iv_shopIcon"
+                        imageUrl=""
+                        android:layout_width="108px"
+                        android:layout_height="108px"
+                        android:src="@drawable/ic_waimai_brand"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="4dp" />
+
+                    <TextView
+                        android:id="@+id/tv_shopName"
+                        style="@style/text_my_simple_style"
+                        android:layout_width="0px"
+                        android:layout_marginStart="@dimen/interval_size_xs"
+                        android:layout_marginTop="10px"
+                        android:layout_marginEnd="83px"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textColor="@color/text_normal"
+                        android:textSize="30px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+                        app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
+                        tools:text="德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店德克士炸鸡店" />
+
+                    <TextView
+                        android:id="@+id/tv_goods_info"
+                        style="@style/text_my_simple_style"
+                        android:layout_marginBottom="16px"
+                        android:text=""
+                        android:textColor="@color/text_tip"
+                        android:textSize="26px"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
+                        app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                        tools:text="颜色分类：黄色" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_goods_introduce"
+                    style="@style/text_my_simple_style"
+                    android:layout_width="0px"
+                    android:layout_marginTop="24px"
+                    android:textColor="@color/text_uncheck"
+                    android:textSize="26px"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cl_goods_info" />
+
+                <TextView
+                    android:id="@+id/tv_all_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40px"
+                    android:text="@string/all_evaluate"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_goods_introduce" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="34px"
+                    android:overScrollMode="never"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_all_comment" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_input_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background2"
+            android:paddingStart="@dimen/interval_size_xs"
+            android:paddingTop="16px"
+            android:paddingEnd="@dimen/interval_size_xs"
+            android:paddingBottom="16px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <EditText
+                android:id="@+id/et_input_comment"
+                android:layout_width="0px"
+                android:layout_height="66px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_full_corners_white"
+                android:digits="@string/to_settle_accounts"
+                android:hint="@string/please_input_your_comment"
+                android:inputType="text"
+                android:textColor="@color/text_normal"
+                android:textColorHint="@color/text_tip"
+                android:textSize="22px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_like"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_like"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

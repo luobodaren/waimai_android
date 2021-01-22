@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/interval_size_xs"
     android:paddingEnd="@dimen/interval_size_xs"
-    android:background="@drawable/sr_bg_tl_tr_8dp_white">
+    android:background="@drawable/sr_bg_tl_tr_12dp_white">
 
     <TextView
         android:id="@+id/tv_title"

@@ -14,7 +14,7 @@ import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.MallGoods;
 import com.life.waimaishuo.bean.ui.MallOrder;
@@ -155,7 +155,7 @@ public class OrderConfirmFragment extends BaseFragment {
     private boolean isShowAllPayType = false;
     private int showCountOfPayType = 2;//支付方式显示个数
     private void initPayTypeLayout(){
-        SelectedPositionRecylerViewAdapter<IconStrData> adapter = new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getPayTypeList()) {
+        SelectedPositionRecyclerViewAdapter<IconStrData> adapter = new SelectedPositionRecyclerViewAdapter<IconStrData>(mViewModel.getPayTypeList()) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_pay_type;

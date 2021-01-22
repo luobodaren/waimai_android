@@ -22,6 +22,8 @@ import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
+import com.life.waimaishuo.bean.Address;
 import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
@@ -33,10 +35,14 @@ import com.life.waimaishuo.mvvm.vm.mall.MallGoodsDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.PreViewUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TextUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.recyclerview.GridDividerItemDecoration;
+import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
+
+import java.util.List;
 
 @Page(name = "商城商品详情页", anim = CoreAnim.slide)
 public class MallGoodsDetailFragment extends BaseFragment {
@@ -64,6 +70,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
     protected void bindViewModel() {
         mBinding = (FragmentMallGoodsDetailBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
+        mBinding.layoutGoodsOtherInfo.setViewModel(mViewModel);
         mBinding.layoutBottom.setViewModel(mViewModel);
     }
 
@@ -95,6 +102,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
+        initBanner();
         initAppBarLayoutToolbar();
         initEvaluationRecycler();
 
@@ -105,6 +113,30 @@ public class MallGoodsDetailFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
+        MyDataBindingUtil.addCallBack(this, mViewModel.preferentialClickObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.serviceClickObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.specificationsClickObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.shippingAddressClickObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                showSelectedAddressBottomDialog();
+            }
+        });
         MyDataBindingUtil.addCallBack(this, mViewModel.onGoToShopPageObservable,
                 new Observable.OnPropertyChangedCallback() {
                     @Override
@@ -176,6 +208,14 @@ public class MallGoodsDetailFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    private void initBanner(){
+        mBinding.bannerLayout.setItemLayoutId(R.layout.adapter_banner_image_item_mall_goods_detail);
+        mBinding.bannerLayout.setSource(mViewModel.getBannerItemList())
+                .setOnItemClickListener((view, t, position) -> {
+                })
+                .setIsOnePageLoop(false).startScroll();
     }
 
     private void initAppBarLayoutToolbar() {
@@ -256,6 +296,69 @@ public class MallGoodsDetailFragment extends BaseFragment {
         shopDrawable.setBounds(0,0,size,size);
         shoppingCartDrawable = getResources().getDrawable(R.drawable.ic_shopping_cart_black);
         shoppingCartDrawable.setBounds(0,0,size,size);
+    }
+
+    private BottomSheet selectAddressDialog;
+    private void showSelectedAddressBottomDialog() {
+        LogUtil.d("asdfdsfsddd");
+        if(selectAddressDialog == null){
+            View view = getSelectAddressDialogView();
+
+            selectAddressDialog = new BottomSheet(requireContext());
+            selectAddressDialog.setContentView(view);
+        }
+        if(!selectAddressDialog.isShowing()){
+            selectAddressDialog.show();
+        }
+    }
+
+    private View getSelectAddressDialogView(){  // FIXME: 2021/1/22 解决问题 失效地址不可选
+        View view = View.inflate(requireContext(),R.layout.layout_dialog_select_shipping_address,null);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_address_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        recyclerView.setAdapter(new SelectedPositionRecyclerViewAdapter<Address>(mViewModel.getAddressList()) {
+
+            boolean isFirstAddress;
+
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_recycler_address_info;
+            }
+
+            @Override
+            public void onBindViewHolder(BaseViewHolder holder, boolean selected, Address item) {
+                if(selected){   //选中图标设置
+                    holder.setImageResource(R.id.iv_selected,R.drawable.ic_selected_sign);
+                }else{
+                    if(item.isEffective()){
+                        holder.setImageResource(R.id.iv_selected,R.drawable.ic_round_gray);
+                    }else{
+                        holder.setImageResource(R.id.iv_selected,0);
+                    }
+                }
+                if(item.isDefaultAddress()){    //默认地址设置
+                    holder.setVisible(R.id.tv_default,true);
+                }else{
+                    holder.setVisible(R.id.tv_default,false);
+                }
+                holder.setText(R.id.tv_recipients_info,item.getUser_name() + "  " + TextUtil.phoneHide(item.getPhone()));
+
+                //设置文字颜色
+                if(item.isEffective()){
+                    if(isFirstAddress){
+                        isFirstAddress = false;
+                        holder.itemView.setLayoutParams(
+                                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                                        ,(int) UIUtils.getInstance().scalePx(204)));
+                    }
+                    holder.setTextColor(R.id.tv_address,getResources().getColor(R.color.text_normal));
+                }else{
+                    holder.setTextColor(R.id.tv_address,getResources().getColor(R.color.text_tip));
+                }
+            }
+        });
+        return view;
     }
 
 }

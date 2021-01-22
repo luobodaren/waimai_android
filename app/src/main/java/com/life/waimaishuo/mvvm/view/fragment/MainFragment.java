@@ -8,7 +8,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.databinding.FragmentMainBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.MainViewModel;
@@ -27,7 +27,7 @@ public class MainFragment extends BaseFragment {
 
     private MainViewModel mViewModel;
 
-    private SelectedPositionRecylerViewAdapter<String> mRecyclerItemSelectedAdapter;
+    private SelectedPositionRecyclerViewAdapter<String> mRecyclerItemSelectedAdapter;
 
     private String[] animationAssetNames = {"tab_waimai_dynamic_effect.json",
             "tab_mall_dynamic_effect.json",
@@ -95,7 +95,7 @@ public class MainFragment extends BaseFragment {
 
     WeakReference<LottieAnimationView> lavReference;
     private void initTabRecycler(){
-        mRecyclerItemSelectedAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getTabDataList()) {
+        mRecyclerItemSelectedAdapter = new SelectedPositionRecyclerViewAdapter<String>(mViewModel.getTabDataList()) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.layout_main_tab;

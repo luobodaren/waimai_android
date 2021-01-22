@@ -86,6 +86,7 @@ public class WaimaiFragment extends BaseFragment {
     protected void bindViewModel() {
         binding = ((FragmentWaimaiBinding)mViewDataBinding);
         binding.setViewModel(mViewModel);
+        binding.layoutTitle.setViewModel(mViewModel);
     }
 
     @Override

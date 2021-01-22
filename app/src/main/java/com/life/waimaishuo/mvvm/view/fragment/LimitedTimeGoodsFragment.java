@@ -24,7 +24,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.LimitedGoods;
 import com.life.waimaishuo.bean.LimitedTime;
 import com.life.waimaishuo.constant.Constant;
@@ -154,7 +154,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
     private void initLimitedTimeRecycler() {
         mBinding.recyclerLimitedTime.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        SelectedPositionRecylerViewAdapter<LimitedTime> adapter = new SelectedPositionRecylerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData(mPageType)) {
+        SelectedPositionRecyclerViewAdapter<LimitedTime> adapter = new SelectedPositionRecyclerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData(mPageType)) {
             int time_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_time_text_size);
             int time_unselected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_time_text_size);
             int state_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_state_text_size);
@@ -276,6 +276,11 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
             int textSize = (int) UIUtils.getInstance().scalePx(28);
             @Override
             protected void initView(BaseViewHolder helper, LimitedGoods item) {
+                int position = getData().indexOf(item);
+                if(position == 0){
+                    helper.getView(R.id.cl_content).setBackground(
+                            helper.itemView.getContext().getResources().getDrawable(R.drawable.sr_bg_bl_br_12dp_white));
+                }
                 helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
                 helper.setText(R.id.tv_limited_kill_price,
                         TextUtil.getAbsoluteSpannable(
@@ -325,6 +330,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                 }
             }
         };
+        adapter.addHeaderView(getMallLimitedRecyclerHeadView());
         mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.recyclerGoodsList.setAdapter(adapter);
         mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -334,8 +340,11 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
+
                 if(position != RecyclerView.NO_POSITION){
-                    outRect.top = interval;
+                    if(position != adapter.getHeaderLayoutCount()){ //位于头布局下面的一个不设置顶部距离 使其连接
+                        outRect.top = interval;
+                    }
                     if(position == state.getItemCount()-1){
                         outRect.bottom = interval;
                     }
@@ -344,6 +353,18 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
         });
     }
 
+    private View getMallLimitedRecyclerHeadView(){
+        View headView = View.inflate(requireContext(),R.layout.head_recycler_limited_goods_mall,null);
+
+        ((TextView)headView.findViewById(R.id.tv_activity_introduce)).setText("距本场结束");
+
+        headView.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        return headView;
+    }
+
+    /**
+     * 更新商城或外卖recycler
+     */
     private void updateGoodsInfo() {
 
     }

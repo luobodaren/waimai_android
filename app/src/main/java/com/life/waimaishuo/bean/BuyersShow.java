@@ -1,6 +1,9 @@
 package com.life.waimaishuo.bean;
 
-public class BuyersShow {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BuyersShow implements Parcelable {
 
     String userName;
     String userIconUrl;
@@ -15,6 +18,26 @@ public class BuyersShow {
         this.evaluationImgUrl = evaluationImgUrl;
         this.likeCount = likeCount;
     }
+
+    protected BuyersShow(Parcel in) {
+        userName = in.readString();
+        userIconUrl = in.readString();
+        evaluation = in.readString();
+        evaluationImgUrl = in.createStringArray();
+        likeCount = in.readString();
+    }
+
+    public static final Creator<BuyersShow> CREATOR = new Creator<BuyersShow>() {
+        @Override
+        public BuyersShow createFromParcel(Parcel in) {
+            return new BuyersShow(in);
+        }
+
+        @Override
+        public BuyersShow[] newArray(int size) {
+            return new BuyersShow[size];
+        }
+    };
 
     public String getUserName() {
         return userName;
@@ -54,5 +77,19 @@ public class BuyersShow {
 
     public void setLikeCount(String likeCount) {
         this.likeCount = likeCount;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userName);
+        dest.writeString(userIconUrl);
+        dest.writeString(evaluation);
+        dest.writeStringArray(evaluationImgUrl);
+        dest.writeString(likeCount);
     }
 }

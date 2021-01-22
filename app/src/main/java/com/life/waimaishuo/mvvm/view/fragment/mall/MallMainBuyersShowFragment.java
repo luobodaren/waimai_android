@@ -58,7 +58,7 @@ public class MallMainBuyersShowFragment extends BaseFragment {
         super.initListeners();
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
-
+            MallBuyersShowDetailFragment.openPageWhitData(this,new BuyersShow("","","",null,""));
         });
     }
 

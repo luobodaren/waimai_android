@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.Comment" />
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24px">
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_user_img"
+            android:layout_width="52px"
+            android:layout_height="52px"
+            imageUrl="@{item.userIcon}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="50dp" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:textColor="@color/text_normal"
+            android:textSize="26px"
+            android:text="@{item.userName}"
+            app:layout_constraintStart_toEndOf="@id/iv_user_img"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="才跟花儿小宝贝" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            style="@style/text_my_simple_style"
+            android:layout_width="0px"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:layout_marginEnd="50px"
+            android:textColor="@color/text_uncheck"
+            android:textSize="26px"
+            android:text="@{item.commentContent}"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/tv_user_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.84" />
+
+        <TextView
+            android:id="@+id/tv_like"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="18px"
+            android:drawablePadding="8px"
+            android:gravity="center"
+            android:scaleType="centerCrop"
+            android:textColor="@color/text_tip"
+            android:textSize="28px"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10" />
+
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

@@ -9,7 +9,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="42px"
-        android:background="@drawable/sr_bg_gradient_8dp_translucent_red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +30,7 @@
         android:text="热卖爆款尽在排行榜 GO"
         android:textColor="#FFFF1985"
         android:textSize="22px"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_title" />
 

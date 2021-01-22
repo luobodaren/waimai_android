@@ -2,79 +2,77 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="343px"
+        android:layout_width="347px"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:paddingBottom="12px"
         android:background="@drawable/sr_bg_8dp_white">
 
         <FrameLayout
             android:id="@+id/fl_head"
             android:layout_width="match_parent"
-            android:layout_height="84px"
+            android:layout_height="62px"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_left"
-            android:layout_width="110px"
-            android:layout_height="110px"
-            android:layout_marginStart="32px"
-            android:layout_marginTop="13px"
+            android:layout_width="126px"
+            android:layout_height="126px"
+            android:layout_marginStart="35px"
+            android:layout_marginTop="10px"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_head" />
 
         <ImageView
             android:id="@+id/iv_right"
-            android:layout_width="110px"
-            android:layout_height="110px"
-            android:layout_marginEnd="32px"
+            android:layout_width="126px"
+            android:layout_height="126px"
+            android:layout_marginEnd="35px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_left" />
 
         <TextView
             android:id="@+id/tv_left_current_price"
             style="@style/text_my_simple_style"
-            android:layout_marginTop="8px"
+            android:layout_marginTop="2px"
             android:textColor="@color/colorTheme"
-            android:textSize="32px"
-            app:layout_constraintEnd_toEndOf="@id/iv_left"
+            android:textSize="24px"
+            app:layout_constraintEnd_toStartOf="@id/tv_left_pre_price"
             app:layout_constraintStart_toStartOf="@id/iv_left"
             app:layout_constraintTop_toBottomOf="@id/iv_left" />
 
         <TextView
             android:id="@+id/tv_right_current_price"
             style="@style/text_my_simple_style"
-            android:layout_marginTop="8px"
+            android:layout_marginTop="2px"
             android:textColor="@color/colorTheme"
-            android:textSize="32px"
-            app:layout_constraintEnd_toEndOf="@id/iv_right"
+            android:textSize="24px"
+            app:layout_constraintEnd_toStartOf="@id/tv_right_pre_price"
             app:layout_constraintStart_toStartOf="@id/iv_right"
             app:layout_constraintTop_toBottomOf="@id/iv_right" />
 
         <TextView
             android:id="@+id/tv_left_pre_price"
             style="@style/text_my_simple_style"
-            android:layout_marginTop="9px"
-            android:layout_marginBottom="19px"
             android:textColor="@color/text_tip"
-            android:textSize="26px"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18px"
             app:layout_constraintEnd_toEndOf="@id/iv_left"
-            app:layout_constraintStart_toStartOf="@id/iv_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_left_current_price" />
+            app:layout_constraintStart_toEndOf="@id/tv_left_current_price"
+            app:layout_constraintTop_toTopOf="@id/tv_left_current_price"
+            app:layout_constraintBottom_toBottomOf="@id/tv_left_current_price"/>
 
         <TextView
             android:id="@+id/tv_right_pre_price"
             style="@style/text_my_simple_style"
-            android:layout_marginTop="9px"
             android:textColor="@color/text_tip"
-            android:textSize="26px"
+            android:textSize="18px"
             app:layout_constraintEnd_toEndOf="@id/iv_right"
-            app:layout_constraintStart_toStartOf="@id/iv_right"
-            app:layout_constraintTop_toBottomOf="@id/tv_right_current_price" />
+            app:layout_constraintStart_toEndOf="@id/tv_right_current_price"
+            app:layout_constraintTop_toTopOf="@id/tv_right_current_price"
+            app:layout_constraintBottom_toBottomOf="@id/tv_right_current_price"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

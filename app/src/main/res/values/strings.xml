@@ -237,4 +237,8 @@
     <string name="clean_noneffective_goods">清空失效商品</string>
     <string name="manager">管理</string>
     <string name="check_all">全选</string>
+    <string name="all_evaluate">全部评价</string>
+    <string name="please_input_your_comment">请输入你的评论...</string>
+    <string name="default_str">默认</string>
+    <string name="chose_shipping_address">选择收货地址</string>
 </resources>

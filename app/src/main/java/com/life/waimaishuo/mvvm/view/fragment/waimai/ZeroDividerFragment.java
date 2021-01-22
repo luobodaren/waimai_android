@@ -2,7 +2,6 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Rect;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -14,7 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.FragmentWaimaiZeroPriceDeliverBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
@@ -33,7 +32,7 @@ public class ZeroDividerFragment extends BaseFragment {
     private FragmentWaimaiZeroPriceDeliverBinding mBinding;
     private WaiMaiZeroDividerViewModel mViewModel;
 
-    private SelectedPositionRecylerViewAdapter<IconStrData> adapter;
+    private SelectedPositionRecyclerViewAdapter<IconStrData> adapter;
     private LinearLayoutManager layoutManager;
 
     private String mFoodType;   //选中的食物类别
@@ -138,8 +137,8 @@ public class ZeroDividerFragment extends BaseFragment {
         ft.commit();
     }
 
-    private SelectedPositionRecylerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
-        return new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getSubtypeTitles()){
+    private SelectedPositionRecyclerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
+        return new SelectedPositionRecyclerViewAdapter<IconStrData>(mViewModel.getSubtypeTitles()){
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_waimai_food_subtype;

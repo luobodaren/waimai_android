@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.databinding.FragmentWaimaiTypeBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
@@ -40,7 +40,7 @@ public class WaimaiTypeFragment extends BaseFragment {
     private WaiMaiTypeViewModel mViewModel;
     private FragmentWaimaiTypeBinding mBinding;
 
-    SelectedPositionRecylerViewAdapter<IconStrData> adapter;
+    SelectedPositionRecyclerViewAdapter<IconStrData> adapter;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -170,8 +170,8 @@ public class WaimaiTypeFragment extends BaseFragment {
     }
 
 
-    private SelectedPositionRecylerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
-        return new SelectedPositionRecylerViewAdapter<IconStrData>(mViewModel.getSubtypeTitles()){
+    private SelectedPositionRecyclerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
+        return new SelectedPositionRecyclerViewAdapter<IconStrData>(mViewModel.getSubtypeTitles()){
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_waimai_food_subtype;

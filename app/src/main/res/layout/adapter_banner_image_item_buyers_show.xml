@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="702px"
+    android:layout_height="702px">
+
+    <com.xuexiang.xui.widget.imageview.RadiusImageView
+        android:id="@+id/iv_item"
+        android:layout_width="702px"
+        android:layout_height="702px"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="8dp" />
+
+</com.life.base.views.UiAdapterLinearLayout>

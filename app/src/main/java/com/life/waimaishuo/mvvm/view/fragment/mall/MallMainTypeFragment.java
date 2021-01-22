@@ -21,7 +21,7 @@ import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.ui.MallQuickWindowData;
 import com.life.waimaishuo.bean.ui.TypeDescribeValue;
 import com.life.waimaishuo.constant.Constant;
@@ -43,7 +43,7 @@ public class MallMainTypeFragment extends BaseFragment {
     MallMainTypeViewModel mViewModel;
 
     FragmentAdapter<BaseFragment> viewPagerAdapter;  //
-    SelectedPositionRecylerViewAdapter<TypeDescribeValue> stickyRecyclerAdapter;
+    SelectedPositionRecyclerViewAdapter<TypeDescribeValue> stickyRecyclerAdapter;
     @Override
     protected BaseViewModel setViewModel() {
         if(mViewModel == null){
@@ -80,7 +80,6 @@ public class MallMainTypeFragment extends BaseFragment {
         super.initViews();
 
         initBanner();
-        initActivityImage();
 
         initFourQuickWindowRecycler();
 
@@ -114,17 +113,11 @@ public class MallMainTypeFragment extends BaseFragment {
     }
 
     private void initBanner(){
+        mBinding.bannerLayout.setItemLayoutId(R.layout.adapter_banner_image_item_mall_main);
         mBinding.bannerLayout.setSource(mViewModel.getBannerItemList())
                 .setOnItemClickListener((view, t, position) -> {
                 })
                 .setIsOnePageLoop(false).startScroll();
-    }
-
-    private void initActivityImage(){
-        Glide.with(requireActivity())
-                .load("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww.amaomb.com%2Fuploads%2Fallimg%2F140423%2F1-140423205030220.jpg&refer=http%3A%2F%2Fwww.amaomb.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613195483&t=bf1221942fe85542c05ded5d9a034d58")
-                .centerCrop()
-                .into(mBinding.ivActivity);
     }
 
     private void initFourQuickWindowRecycler(){
@@ -195,7 +188,7 @@ public class MallMainTypeFragment extends BaseFragment {
     }
 
     private void initStickyRecycler(){
-        stickyRecyclerAdapter = new SelectedPositionRecylerViewAdapter<TypeDescribeValue>(mViewModel.getStickTabList()) {
+        stickyRecyclerAdapter = new SelectedPositionRecyclerViewAdapter<TypeDescribeValue>(mViewModel.getStickTabList()) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_mall_sticky;

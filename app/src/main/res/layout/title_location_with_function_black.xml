@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.BaseViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:layout_marginEnd="@dimen/interval_size_xs">
+
+        <LinearLayout
+            android:id="@+id/ll_local"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:onClick="@{(v)->viewModel.onLocatLayoutClick(v)}"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_local"
+                android:layout_width="44px"
+                android:layout_height="43px"
+                android:src="@drawable/ic_local_black" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8px"
+                android:layout_marginEnd="8px"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.mLocation}"
+                android:textColor="@color/text_normal"
+                android:textSize="36px" />
+
+            <ImageView
+                android:layout_width="24px"
+                android:layout_height="24px"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_arrow_down_black" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_message"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginEnd="24px"
+            android:onClick="@{(v)->viewModel.onMessageIvClick(v)}"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_message_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginEnd="24px"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_scan_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_message"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_change_skin"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginEnd="24px"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_change_skin_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_scan"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -18,7 +18,7 @@ import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.databinding.FragmentChoseRedPacketBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -94,9 +94,9 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
         initRecyclerView();
     }
 
-    SelectedPositionRecylerViewAdapter<RedPacket> adapter;
+    SelectedPositionRecyclerViewAdapter<RedPacket> adapter;
     private void initRecyclerView() {
-        adapter = new SelectedPositionRecylerViewAdapter<RedPacket>(mViewModel.getRedPacketData()) {
+        adapter = new SelectedPositionRecyclerViewAdapter<RedPacket>(mViewModel.getRedPacketData()) {
             int viewType_usable = 1;
             int viewType_disable = 2;
 
@@ -143,7 +143,7 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
                 }
             }
         };
-        adapter.setSelectedListener(new SelectedPositionRecylerViewAdapter.OnSelectedListener<RedPacket>() {
+        adapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<RedPacket>() {
             @Override
             public void onSelectedClick(BaseViewHolder holder, RedPacket item) {
                 if(item.isGet()){

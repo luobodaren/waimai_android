@@ -18,6 +18,17 @@ public class Comment {
 
     List<String> goodsList; //购买的商品名称列表
 
+    boolean isClickedLike;
+    String countOfLike;
+
+    public Comment(String userIcon, String userName, String commentContent, boolean isClickedLike, String countOfLike) {
+        this.userIcon = userIcon;
+        this.userName = userName;
+        this.commentContent = commentContent;
+        this.isClickedLike = isClickedLike;
+        this.countOfLike = countOfLike;
+    }
+
     public Comment(String userIcon, String userName, String score, String createData, String commentContent, List<ImageViewInfo> commentPictureList, List<String> goodsList, String merchantReply) {
         this.userIcon = userIcon;
         this.userName = userName;
@@ -83,5 +94,29 @@ public class Comment {
 
     public void setGoodsList(List<String> goodsList) {
         this.goodsList = goodsList;
+    }
+
+    public String getMerchantReply() {
+        return merchantReply;
+    }
+
+    public void setMerchantReply(String merchantReply) {
+        this.merchantReply = merchantReply;
+    }
+
+    public boolean isClickedLike() {
+        return isClickedLike;
+    }
+
+    public void setClickedLike(boolean clickedLike) {
+        isClickedLike = clickedLike;
+    }
+
+    public String getCountOfLike() {
+        return countOfLike;
+    }
+
+    public void setCountOfLike(String countOfLike) {
+        this.countOfLike = countOfLike;
     }
 }

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiConfirmOrderViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.mall.MallGoodsDetailViewModel" />
     </data>
 
     <LinearLayout
@@ -18,6 +17,8 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_preferential"
+            android:onClick="@{v -> viewModel.onPreferentialClick(v)}"
             style="@style/text_info_clickable_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height">
@@ -66,7 +67,8 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_order_number"
+            android:id="@+id/cl_service"
+            android:onClick="@{v -> viewModel.onServiceClick(v)}"
             style="@style/text_info_clickable_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height">
@@ -109,7 +111,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_pay_type"
+            android:id="@+id/cl_specifications"
+            android:onClick="@{v -> viewModel.onSpecificationsClick(v)}"
             style="@style/text_info_clickable_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height">
@@ -152,8 +155,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_order_create_time"
+            android:id="@+id/cl_shipping_address"
             style="@style/text_info_clickable_bg"
+            android:onClick="@{v -> viewModel.onShippingAddressClick(v)}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/shop_info_text_item_height">
 

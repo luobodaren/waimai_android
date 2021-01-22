@@ -1,5 +1,8 @@
 package com.life.waimaishuo.mvvm.view.fragment.mall;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
 import androidx.databinding.Observable;
 import androidx.viewpager.widget.ViewPager;
 
@@ -61,7 +64,7 @@ public class MallFragment extends BaseFragment {
         super.initViews();
 
         initTitle();
-        initGoodsType();
+        initGoodsTypeTabSegment();
     }
 
     @Override
@@ -78,7 +81,6 @@ public class MallFragment extends BaseFragment {
         mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
-                refreshTabViewStyle(mBinding.tabSegmentGoodsType,mViewModel.getGoodsTypeStrings(),position);
                 // TODO: 2020/12/3 刷新内容
 
             }
@@ -90,16 +92,15 @@ public class MallFragment extends BaseFragment {
         mBinding.layoutTitle.tvTitle.setText(getPageTitle());
     }
 
-    private int textSizeSelected;
     private int textSizeNormal;
-    private void initGoodsType() {
-        textSizeSelected = getResources().getDimensionPixelSize(R.dimen.mall_tabbar_item_text_size_selected);
-        textSizeNormal = getResources().getDimensionPixelSize(R.dimen.mall_tabbar_item_text_size);
+    private void initGoodsTypeTabSegment() {
+        textSizeNormal = 24;
         String[] titles = mViewModel.getGoodsTypeStrings();
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
         addTab(mBinding.tabSegmentGoodsType,adapter,titles);
+        mBinding.tabSegmentGoodsType.setDefaultTabIconPosition(TabSegment.ICON_POSITION_TOP);
         mBinding.tabSegmentGoodsType.setHasIndicator(false);
         mBinding.tabSegmentGoodsType.setMode(TabSegment.MODE_FIXED);
         mBinding.tabSegmentGoodsType.setDefaultNormalColor(getResources().getColor(R.color.white));
@@ -113,50 +114,16 @@ public class MallFragment extends BaseFragment {
 
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
                         String[] titles){
-        boolean isFirstItem = true;
+        Drawable drawable;
+        Context context = requireContext();
         for (String title : titles) {
-            MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            if(isFirstItem){
-                tab.setTextSize(textSizeSelected);
-                isFirstItem = false;
-            }else{
-                tab.setTextSize(textSizeNormal);
-            }
+            drawable = mViewModel.getTitleDrawable(context,title);
+            MyTabSegmentTab tab = new MyTabSegmentTab(drawable,drawable,title,false);
+            tab.setTextSize(textSizeNormal);
             adapter.addFragment(mViewModel.getViewPagerFragment(title), title);
             tabSegment.addTab(tab);
         }
     }
 
-    /**
-     * 更新TabBar样式
-     */
-    private void refreshTabViewStyle(TabSegment tabSegment,String[] titles,int position) {
-        tabSegment.reset();
-        resetTab(tabSegment,titles,position);
-        tabSegment.notifyDataChanged();
-    }
-
-    int textSizeSelectedScale = 0;
-    int textSizeNormalScale = 0;
-    /**
-     * 仅更新 title 若需要改变个数 需要修改方法内逻辑
-     * @param tabSegment
-     * @param titles
-     * @param selectedPosition
-     */
-    private void resetTab(TabSegment tabSegment,String[] titles,
-                          int selectedPosition){
-        int position = 0;
-        if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
-            textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
-            textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
-        }
-        for (String title : titles) {
-            MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            tab.setTextSize(position == selectedPosition ? textSizeSelectedScale :textSizeNormalScale);
-            tabSegment.addTab(tab);
-            position++;
-        }
-    }
 
 }

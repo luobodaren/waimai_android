@@ -15,7 +15,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.SelectedPositionRecylerViewAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMallShopBinding;
@@ -40,7 +40,7 @@ public class MallShopFragment extends BaseFragment {
     private FragmentMallShopBinding mBinding;
     private MallShopViewModel mViewModel;
 
-    private SelectedPositionRecylerViewAdapter<String> mRecyclerItemSelectedAdapter;
+    private SelectedPositionRecyclerViewAdapter<String> mRecyclerItemSelectedAdapter;
 
     private String[] animationAssetNames = {"tab_mine_dynamic_effect.json",
             "tab_mall_dynamic_effect.json",
@@ -216,7 +216,7 @@ public class MallShopFragment extends BaseFragment {
 
     WeakReference<LottieAnimationView> lavReference;
     private void initTabRecycler(){
-        mRecyclerItemSelectedAdapter = new SelectedPositionRecylerViewAdapter<String>(mViewModel.getTabDataList()) {
+        mRecyclerItemSelectedAdapter = new SelectedPositionRecyclerViewAdapter<String>(mViewModel.getTabDataList()) {
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.layout_main_tab;
