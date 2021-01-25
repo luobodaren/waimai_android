@@ -1,5 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment;
 
+import android.os.Bundle;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
@@ -23,11 +25,13 @@ import java.util.List;
 @Page(name = "主页",anim = CoreAnim.fade)
 public class MainFragment extends BaseFragment {
 
+    public final static String KEY_PAGE_POSITION_STRING = "key_page_position";
     private FragmentMainBinding mBinding;
 
     private MainViewModel mViewModel;
 
     private SelectedPositionRecyclerViewAdapter<String> mRecyclerItemSelectedAdapter;
+    private WeakReference<LottieAnimationView> lavReference;    //底部TabBar选中的LottieAnimationView的弱引用
 
     private String[] animationAssetNames = {"tab_waimai_dynamic_effect.json",
             "tab_mall_dynamic_effect.json",
@@ -88,12 +92,34 @@ public class MainFragment extends BaseFragment {
     }
 
     @Override
+    public void onFragmentDataReset(Bundle bundle) {
+        super.onFragmentDataReset(bundle);
+        int position = bundle.getInt(KEY_PAGE_POSITION_STRING, -1);
+        switch (position){
+            case 0:
+                mBinding.viewPager.setCurrentItem(0);
+                break;
+            case 1:
+                mBinding.viewPager.setCurrentItem(1);
+                break;
+            case 2:
+                mBinding.viewPager.setCurrentItem(2);
+                break;
+            case 3:
+                mBinding.viewPager.setCurrentItem(3);
+                break;
+            default:
+                LogUtil.e("页面返回值错误 position=" + position);
+                break;
+        }
+    }
+
+    @Override
     protected void onLifecycleStop() {
         super.onLifecycleStop();
         cancelTabViewAnimation();
     }
 
-    WeakReference<LottieAnimationView> lavReference;
     private void initTabRecycler(){
         mRecyclerItemSelectedAdapter = new SelectedPositionRecyclerViewAdapter<String>(mViewModel.getTabDataList()) {
             @Override
@@ -147,9 +173,11 @@ public class MainFragment extends BaseFragment {
     }
 
     private void cancelTabViewAnimation(){
-        LottieAnimationView lottieAnimationView = lavReference.get();
-        lottieAnimationView.cancelAnimation();
-        lavReference.clear();
+        if(lavReference != null){
+            LottieAnimationView lottieAnimationView = lavReference.get();
+            lottieAnimationView.cancelAnimation();
+            lavReference.clear();
+        }
     }
 
     /*private void initTabAndViewPager(){

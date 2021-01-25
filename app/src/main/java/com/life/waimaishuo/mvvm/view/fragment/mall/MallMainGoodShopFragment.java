@@ -81,14 +81,16 @@ public class MallMainGoodShopFragment extends BaseFragment {
                         scoreView.hideFans();
                         scoreView.hideTitle();
 
-                        MallShopSignAndClassificationTagAdapter tagAdapter = new MallShopSignAndClassificationTagAdapter(requireContext());
                         FlowTagLayout flowTagLayout = helper.getView(R.id.flowTagLayout);
-                        flowTagLayout.setAdapter(tagAdapter);
-                        flowTagLayout.setOnTagClickListener((parent, view, position) ->{
+                        if(flowTagLayout.getAdapter() == null){
+                            MallShopSignAndClassificationTagAdapter tagAdapter = new MallShopSignAndClassificationTagAdapter(requireContext());
+                            flowTagLayout.setAdapter(tagAdapter);
+                            flowTagLayout.setOnTagClickListener((parent, view, position) ->{
 
-                        });
-                        String[] strings = {"正品保证","行业优质"};
-                        tagAdapter.addTags(strings);// FIXME: 2021/1/20 搞清楚数据来源
+                            });
+                            String[] strings = {"正品保证","行业优质"};
+                            tagAdapter.addTags(strings);// FIXME: 2021/1/20 搞清楚数据来源
+                        }
                     }
                 });
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {

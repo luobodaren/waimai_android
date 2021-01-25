@@ -10,6 +10,19 @@ public class Constant {
     public static final int PAGE_TYPE_WAIMAI = 1;
     public static final int PAGE_TYPE_MALL = 2;
 
+    /**
+     * openPageForResult的请求码
+     */
+    public static int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
+    public static int REQUEST_CODE_ORDER_NOTE = 1001;
+    public static int REQUEST_CODE_ADD_NEW_ADDRESS = 1002;
+    public static int REQUEST_CODE_FILLING_LOGISTICS = 1003;
+    /**
+     * 返回的 结果码
+     */
+    public static int RESULT_CODE_SUCCESS = 0;
+    public static int RESULT_CODE_FALSE = 1;
+
     //PopWindow 显示时常
     public static final int POP_WINDOW_SHOW_TIME = 1000;
 

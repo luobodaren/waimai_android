@@ -127,6 +127,6 @@ public class ShopOrderDishesViewModel extends BaseViewModel {
     }
 
     public String[] getGoodsSpecificationsInfo(int goodsId) {
-        return new String[]{"口味","规格","规格","规格"};
+        return new String[]{"口味","口味","规格","规格"};
     }
 }

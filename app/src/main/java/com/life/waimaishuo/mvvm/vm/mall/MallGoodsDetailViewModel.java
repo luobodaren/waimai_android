@@ -129,12 +129,17 @@ public class MallGoodsDetailViewModel extends BaseViewModel {
         return bannerItemList;
     }
 
-    public List<Address> getAddressList() { // FIXME: 2021/1/22 添加“失效地址整理”有序排序
+    public List<Address> getAddressList() {
         List<Address> addresses = new ArrayList<>();
         addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",true,true));
         addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,true));
         addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,true));
         addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,true));
+        return addresses;
+    }
+
+    public List<Address> getnoneEffectiveAddressList() {
+        List<Address> addresses = new ArrayList<>();
         addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,false));
         addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,false));
         addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,false));

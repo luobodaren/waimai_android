@@ -3,19 +3,17 @@ package com.life.waimaishuo.mvvm.view.fragment.mine;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.TypeCountData;
 import com.life.waimaishuo.databinding.FragmentMineBinding;
-import com.life.waimaishuo.databinding.ItemMineRecyclerMoreRecommendedBinding;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineViewModel;
@@ -27,7 +25,8 @@ import com.xuexiang.xpage.utils.TitleBar;
 @Page(name = "我的", anim = CoreAnim.fade)
 public class MineFragment extends BaseFragment {
 
-    MineViewModel mViewModel;
+    private FragmentMineBinding mBinding;
+    private MineViewModel mViewModel;
 
     RecyclerView mGoodLogisticsRecycler;
 
@@ -58,6 +57,18 @@ public class MineFragment extends BaseFragment {
     }
 
     @Override
+    protected void initListeners() {
+        super.initListeners();
+
+        mBinding.ivSetting.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                openPage(MinePersonalCenter.class);
+            }
+        });
+    }
+
+    @Override
     protected BaseViewModel setViewModel() {
         mViewModel =  new MineViewModel();
         return mViewModel;
@@ -65,36 +76,31 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        ((FragmentMineBinding)mViewDataBinding).setViewModel((MineViewModel)baseViewModel);
+        mBinding = (FragmentMineBinding)mViewDataBinding;
+        mBinding.setViewModel(mViewModel);
     }
 
     private void initTopRecycler(){
-        FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
-
         MyBaseRecyclerAdapter<TypeCountData> myBaseRecyclerAdapter
-                = new MyBaseRecyclerAdapter<TypeCountData>(R.layout.item_vertical_data_show,mViewModel.getmTopDataList()
+                = new MyBaseRecyclerAdapter<TypeCountData>(R.layout.item_vertical_data_show,mViewModel.getTopDataList()
                 , BR.item){};
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4, LinearLayoutManager.VERTICAL,false);
 
-        fragmentMineBinding.recyclerTopData.setAdapter(myBaseRecyclerAdapter);
-        fragmentMineBinding.recyclerTopData.setLayoutManager(gridLayoutManager);
+        mBinding.recyclerTopData.setAdapter(myBaseRecyclerAdapter);
+        mBinding.recyclerTopData.setLayoutManager(gridLayoutManager);
     }
 
     private void initLogisticsRecycler(){
-        FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
-
         MyBaseRecyclerAdapter<IconStrData> myBaseRecyclerAdapter =
                 new MyBaseRecyclerAdapter<IconStrData>(R.layout.item_mine_recycler_good_logistics,mViewModel.getGoodLogisticsdata()
                         , BR.item);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),5, LinearLayoutManager.VERTICAL,false);
 
-        fragmentMineBinding.recyclerGoodsLogistics.setAdapter(myBaseRecyclerAdapter);
-        fragmentMineBinding.recyclerGoodsLogistics.setLayoutManager(gridLayoutManager);
+        mBinding.recyclerGoodsLogistics.setAdapter(myBaseRecyclerAdapter);
+        mBinding.recyclerGoodsLogistics.setLayoutManager(gridLayoutManager);
     }
 
     private void initMoreRecommendedRecycler() {
-        FragmentMineBinding fragmentMineBinding = ((FragmentMineBinding)mViewDataBinding);
-
         MyBaseRecyclerAdapter<IconStrData> adapter = getFunctionRecyclerAdapter();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(
@@ -115,12 +121,20 @@ public class MineFragment extends BaseFragment {
         ((TextView)view.findViewById(R.id.tv_head)).setText(getContext().getString(R.string.more_recommended));
         adapter.addHeaderView(view);
 
-        fragmentMineBinding.recyclerMoreRecommended.setAdapter(adapter);
-        fragmentMineBinding.recyclerMoreRecommended.setLayoutManager(gridLayoutManager);
+        mBinding.recyclerMoreRecommended.setAdapter(adapter);
+        mBinding.recyclerMoreRecommended.setLayoutManager(gridLayoutManager);
     }
 
     private MyBaseRecyclerAdapter<IconStrData> getFunctionRecyclerAdapter() {
-        return new MyBaseRecyclerAdapter<>
-                (R.layout.item_mine_recycler_more_recommended,mViewModel.getMoreRecommenedData(),BR.item);
+        MyBaseRecyclerAdapter<IconStrData> adapter =  new MyBaseRecyclerAdapter<IconStrData>
+                (R.layout.item_mine_recycler_more_recommended,mViewModel.getMoreRecommendData(),BR.item);
+        adapter.setOnItemClickListener((adapter1, view, position) -> {
+            switch (position){
+                case 1:
+                    openPage(MineAddressManagerFragment.class);
+                    break;
+            }
+        });
+        return  adapter;
     }
 }

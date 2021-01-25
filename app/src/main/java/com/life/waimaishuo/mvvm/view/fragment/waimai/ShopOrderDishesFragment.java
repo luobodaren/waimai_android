@@ -20,7 +20,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
-import com.life.waimaishuo.adapter.tagAdapter.SpecificationTagAdapter;
+import com.life.waimaishuo.adapter.tagAdapter.WaiMaiSpecificationTagAdapter;
 import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
 import com.life.waimaishuo.databinding.LayoutDialogChoseSpecificationBinding;
@@ -210,38 +210,41 @@ public class ShopOrderDishesFragment extends BaseFragment
                 }
                 if (holder.getItemViewType() == flowTabViewType) {
                     FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);  // FIXME: 2021/1/5 要解决换行布局位置错误的问题，需要重写onLayout方法
-                    SpecificationTagAdapter tagAdapter = new SpecificationTagAdapter(getContext());
-                    tagAdapter.setSelectedPosition(0);
-                    tagAdapter.selectedIndex = 0;
-                    String[] strings = new String[]{"微微辣", "特辣", "中辣", "不要香菜"};
+                    if(flowTagLayout.getAdapter() == null){
+                        WaiMaiSpecificationTagAdapter tagAdapter = new WaiMaiSpecificationTagAdapter(getContext());
+                        tagAdapter.setSelectedPosition(0);
+                        tagAdapter.selectedIndex = 0;
+                        String[] strings = new String[]{"微微辣", "特辣", "中辣", "不要香菜"};
 
-                    flowTagLayout.setAdapter(tagAdapter);
-                    flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-                    flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
-                        @Override
-                        public void onItemSelect(FlowTagLayout parent, int tagPosition, List<Integer> selectedList) {
-                            LogUtil.d("流标签选中index:" + tagPosition);
-                            tagAdapter.selectedIndex = tagPosition;
-                            tagAdapter.setSelectedPosition(tagPosition);
-                            tagAdapter.notifyDataSetChanged();
+                        flowTagLayout.setAdapter(tagAdapter);
+                        flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+                        flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
+                            @Override
+                            public void onItemSelect(FlowTagLayout parent, int tagPosition, List<Integer> selectedList) {
+                                LogUtil.d("流标签选中index:" + tagPosition);
+                                tagAdapter.selectedIndex = tagPosition;
+                                tagAdapter.setSelectedPosition(tagPosition);
+                                tagAdapter.notifyDataSetChanged();
 
-                            if(!tagKeyList.contains(position)){
-                                tagKeyList.add(position);
-                            }else{
-                                tagStringMap.remove(position);
+                                //保存选中的数据
+                                if(!tagKeyList.contains(position)){
+                                    tagKeyList.add(position);
+                                }else{
+                                    tagStringMap.remove(position);
+                                }
+                                tagStringMap.put(position,strings[tagPosition]);
+
+                                StringBuilder selectedInfoBuilder = new StringBuilder("已选：");
+                                for(int key:tagKeyList){
+                                    selectedInfoBuilder.append(tagStringMap.get(key)).append(',');
+                                }
+                                selectedInfoBuilder.deleteCharAt(selectedInfoBuilder.length()-1);
+                                LogUtil.d("string selected : " + selectedInfoBuilder.toString());
+                                binding.tvSelectedInfo.setText(selectedInfoBuilder.toString());
                             }
-                            tagStringMap.put(position,strings[tagPosition]);
-
-                            StringBuilder selectedInfoBuilder = new StringBuilder("已选：");
-                            for(int key:tagKeyList){
-                                selectedInfoBuilder.append(tagStringMap.get(key)).append(',');
-                            }
-                            selectedInfoBuilder.deleteCharAt(selectedInfoBuilder.length()-1);
-                            LogUtil.d("string selected : " + selectedInfoBuilder.toString());
-                            binding.tvSelectedInfo.setText(selectedInfoBuilder.toString());
-                        }
-                    });
-                    tagAdapter.addTags(strings); // FIXME: 2021/1/4 修改内容
+                        });
+                        tagAdapter.addTags(strings); // FIXME: 2021/1/4 修改内容
+                    }
                 }
             }
 

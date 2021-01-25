@@ -14,7 +14,6 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="20px"
         android:layout_marginBottom="20px"
-        android:background="@color/white"
         android:orientation="vertical">
 
         <ImageView

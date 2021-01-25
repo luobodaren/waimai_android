@@ -86,7 +86,6 @@ public class WaimaiFragment extends BaseFragment {
     protected void bindViewModel() {
         binding = ((FragmentWaimaiBinding)mViewDataBinding);
         binding.setViewModel(mViewModel);
-        binding.layoutTitle.setViewModel(mViewModel);
     }
 
     @Override
@@ -125,6 +124,11 @@ public class WaimaiFragment extends BaseFragment {
 
             }
         });
+
+        binding.layoutTitle.llLocal.setOnClickListener(v -> pickCity());
+
+        binding.layoutTitle.ivMessage.setOnClickListener(v -> openPage(MessageFragment.class));
+
 //        binding.myLlContentView.setOnScrollChangeListener(moveRatio -> {
 //            if(moveRatio == 1){
 //                if(!isHideStatusBar()){
@@ -151,37 +155,16 @@ public class WaimaiFragment extends BaseFragment {
     }
 
     private void initMyLocation() {
-        mViewModel.mLocation.set(getString(R.string.location_unknow));
+        binding.layoutTitle.tvLocation.setText(R.string.location_unknow);
     }
 
     private void addCallBack() {
-        MyDataBindingUtil.addCallBack(this, mViewModel.goToLocat, new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                pickCity();
-            }
-        });
-
         MyDataBindingUtil.addCallBack(this, mViewModel.goToSearch, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
                 LogUtil.d("跳转搜索页");
 //                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
                 startActivity(new Intent(getContext(), SearchActivity.class));  // FIXME: 2020/11/30
-//                startActivity();
-            }
-        });
-
-        MyDataBindingUtil.addCallBack(this, mViewModel.goToMessage, new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                LogUtil.d("跳转消息页");
-//                PageOption.to(MessageFragment.class)
-//                        .setNewActivity(true).setAnim(CoreAnim.slide).open(WaimaiFragment.this);
-                openPage(MessageFragment.class);
-//                openPage(Mess)
-//                openNewPage(SearchHistoryFragment.class,SearchActivity.class);
-//                startActivity(new Intent(getContext(), SearchActivity.class));
 //                startActivity();
             }
         });
@@ -408,7 +391,8 @@ public class WaimaiFragment extends BaseFragment {
             @Override
             public void onPick(int position, City data) {
                 mLocatedCity = new LocatedCity(data.getName(),data.getProvince(),data.getCode());
-                mViewModel.mLocation.set(data.getName());
+
+                binding.layoutTitle.tvLocation.setText(data.getName());
 //                        tvCurrent.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
 //                        XToastUtils.toast(String.format("点击的数据：%s，%s", data.getName(), data.getCode()));
 //                        BaiDuLocationService.stop(mListener);

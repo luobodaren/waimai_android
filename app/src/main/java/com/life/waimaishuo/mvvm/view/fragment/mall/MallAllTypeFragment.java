@@ -85,11 +85,7 @@ public class MallAllTypeFragment extends BaseFragment implements
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
                                      BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
-//        SnackbarUtils.Short(view, item.info.getGoodsTypeStrings()).show();
-        // FIXME: 2020/12/15 bundle传入频道与子类型
-//        Bundle bundle = new Bundle();
-//        bundle.putString(.BUNDLE_FOOD_TYPE_STR_KEY,item.info.getContent());
-//        openPage(.class,bundle);
+        MallGoodsTypeFragment.openPageWithGoodsType(MallAllTypeFragment.this,item.info.getTitle());
     }
 
     @Override

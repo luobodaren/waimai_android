@@ -2,6 +2,7 @@ package com.life.waimaishuo.mvvm.view.fragment.mall;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.Observable;
@@ -19,6 +20,7 @@ import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMallShopBinding;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel;
@@ -59,6 +61,7 @@ public class MallShopFragment extends BaseFragment {
     protected void bindViewModel() {
         mBinding = (FragmentMallShopBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
+        mBinding.layoutTitle.setViewModel(mViewModel);
     }
 
     @Override
@@ -99,6 +102,12 @@ public class MallShopFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
+        MyDataBindingUtil.addCallBack(this, mViewModel.onMenuClick, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                ((BaseActivity)requireActivity()).showFunctionOfDirectDialog();
+            }
+        });
         MyDataBindingUtil.addCallBack(this, mViewModel.onShopInfoClick, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {

@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,10 +14,17 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 
+import com.life.base.utils.LogUtil;
+import com.life.waimaishuo.R;
+import com.life.waimaishuo.databinding.LayoutDialogDirectFunctionBinding;
+import com.life.waimaishuo.mvvm.view.fragment.MainFragment;
 import com.life.waimaishuo.util.ActivityCollector;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.views.widget.dialog.TopLightBackgroundDialog;
 import com.xuexiang.xpage.base.XPageActivity;
+import com.xuexiang.xpage.core.CoreSwitchBean;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
@@ -92,6 +100,82 @@ public abstract class BaseActivity extends XPageActivity {
 //        baseViewModel.init();
 
         initView();
+    }
+
+
+    TopLightBackgroundDialog directFunctionDialog;
+    int dialogClickId = 0;
+    private void initDirectFunctionDialog(){
+        if(directFunctionDialog == null){
+            directFunctionDialog = new TopLightBackgroundDialog(this);
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_dialog_direct_function
+                    , null);
+            initDirectView(view);
+
+            directFunctionDialog.setContentView(view);
+            directFunctionDialog.setOnDismissListener(dialog -> {
+                Bundle bundle = new Bundle();
+                switch (dialogClickId){
+                    case R.id.iv_close:
+                        break;
+                    case R.id.ll_waimai:
+                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING,0);
+                        gotoPage(new CoreSwitchBean("主页", bundle));
+                        break;
+                    case R.id.ll_mall:
+                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING,1);
+                        gotoPage(new CoreSwitchBean("主页", bundle));
+                        break;
+                    case R.id.ll_mine:
+                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING,3);
+                        gotoPage(new CoreSwitchBean("主页", bundle));
+                        break;
+                    case R.id.ll_shopping_cart:
+                        gotoPage(new CoreSwitchBean("商城-购物车", bundle));
+                        break;
+                    case R.id.ll_message:
+                        gotoPage(new CoreSwitchBean("消息中心", bundle));
+                        break;
+                    case R.id.ll_share:
+//                            gotoPage(new CoreSwitchBean("", null));
+                        break;
+                    case R.id.ll_feedback:
+//                            gotoPage(new CoreSwitchBean("", null));
+                        break;
+                }
+
+            });
+        }
+    }
+
+    private void initDirectView(View view){
+        LayoutDialogDirectFunctionBinding binding = DataBindingUtil.bind(view);
+        if(binding != null) {
+            BaseActivity.OnSingleClickListener singleClickListener = new BaseActivity.OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View view) {
+                    LogUtil.d("DirectFunctionDialog onClick: id" + view.getId());
+                    dialogClickId = view.getId();
+                    directFunctionDialog.dismiss(); //执行任何点击均关闭dialog
+                }
+            };
+            binding.ivClose.setOnClickListener(singleClickListener);
+            binding.llWaimai.setOnClickListener(singleClickListener);
+            binding.llMall.setOnClickListener(singleClickListener);
+            binding.llMine.setOnClickListener(singleClickListener);
+            binding.llShoppingCart.setOnClickListener(singleClickListener);
+            binding.llMessage.setOnClickListener(singleClickListener);
+            binding.llShare.setOnClickListener(singleClickListener);
+            binding.llFeedback.setOnClickListener(singleClickListener);
+        }
+    }
+
+    public void showFunctionOfDirectDialog(){
+        LogUtil.d("asdadsfasdfasfasfasdfasd");
+        initDirectFunctionDialog();
+        if(!directFunctionDialog.isShowing()){
+            directFunctionDialog.show();
+        }
     }
 
     /**

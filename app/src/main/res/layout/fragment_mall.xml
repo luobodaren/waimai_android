@@ -66,28 +66,39 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.xuexiang.xui.widget.tabbar.TabSegment
-                    android:id="@+id/tabSegment_goods_type"
-                    style="@style/mallTabSegment"
-                    android:layout_width="match_parent"
-                    android:layout_height="152px"
-                    android:paddingStart="@dimen/interval_size_xs"
-                    android:paddingEnd="@dimen/interval_size_xs" />
+                <!--                <com.xuexiang.xui.widget.tabbar.TabSegment-->
+                <!--                    android:id="@+id/tabSegment_goods_type"-->
+                <!--                    style="@style/mallTabSegment"-->
+                <!--                    android:layout_width="0px"-->
+                <!--                    android:layout_height="152px"-->
+                <!--                    android:layout_weight="1"-->
+                <!--                    android:paddingStart="@dimen/interval_size_xs"-->
+                <!--                    android:paddingEnd="@dimen/interval_size_xs" />-->
 
-                <TextView
-                    android:id="@+id/tv_type_all"
-                    style="@style/text_my_simple_style"
-                    android:textColor="@color/text_normal"
-                    android:textSize="24px" />
+                <com.life.waimaishuo.views.MyRightFadingEdgeRecycler
+                    android:id="@+id/recycler_tab"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fadingEdgeLength="60dp"
+                    android:overScrollMode="never"
+                    android:requiresFadingEdge="horizontal" />
+
+                <include
+                    android:id="@+id/layout_item_tab_all"
+                    layout="@layout/item_recycler_mall_tab_goods_type" />
 
             </LinearLayout>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/interval_size_xs" />
         </LinearLayout>
 
     </FrameLayout>

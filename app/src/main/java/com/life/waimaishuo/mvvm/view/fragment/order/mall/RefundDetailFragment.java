@@ -33,8 +33,6 @@ public class RefundDetailFragment extends BaseFragment {
     private final static String KEY_STATE = "state_key";
     private final static String KEY_ORDER = "order_key";
 
-    private final static int REQUEST_CODE_FILLING_LOGISTICS = 1001;
-
     public final static int STATE_WAIT_FOR_MERCHANTS_AGREE = 1;    //等待商家同意退款
     public final static int STATE_WAIT_FOR_REFUND = 2;  //商家同意退款，等待退款处理
     public final static int STATE_WAIT_FOR_FILLING_RETURN_LOGISTICS = 3;   //商家同意退货退款，等待填入退货订单
@@ -121,7 +119,7 @@ public class RefundDetailFragment extends BaseFragment {
     public void onFragmentResult(int requestCode, int resultCode, Intent data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
-            if(requestCode == REQUEST_CODE_FILLING_LOGISTICS){
+            if(requestCode == Constant.REQUEST_CODE_FILLING_LOGISTICS){
                 if(myPageState == STATE_WAIT_FOR_FILLING_RETURN_LOGISTICS){
                     myPageState++;
                     setPageElementByPageState();
@@ -346,7 +344,7 @@ public class RefundDetailFragment extends BaseFragment {
     private void fillingReturnLogistics(){
         Bundle bundle = new Bundle();
         bundle.putParcelable(KEY_ORDER,mViewModel.getOrder());
-        openPageForResult(FillingReturnLogisticsFragment.class,bundle,REQUEST_CODE_FILLING_LOGISTICS);
+        openPageForResult(FillingReturnLogisticsFragment.class,bundle,Constant.REQUEST_CODE_FILLING_LOGISTICS);
     }
 
 

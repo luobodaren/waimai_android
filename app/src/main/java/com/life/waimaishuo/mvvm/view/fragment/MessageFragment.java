@@ -46,6 +46,62 @@ public class MessageFragment extends BaseFragment {
     private MyCheckRoundTextInfoPop mAllMessageReadPopWindow;
     private Runnable mCancelPopRunnable;
 
+    /**
+     * 菜单创建器，在Item要创建菜单的时候调用。
+     */
+    private SwipeMenuCreator swipeMenuCreator = (swipeLeftMenu, swipeRightMenu, position) -> {
+        int width = getResources().getDimensionPixelSize(R.dimen.swipe_width_message_recycler);
+        int height = ViewGroup.LayoutParams.MATCH_PARENT;
+
+        // 添加左侧的，如果不添加，则左侧不会出现菜单。
+        /*{
+            SwipeMenuItem addItem = new SwipeMenuItem(getContext()).setBackgroundColor(R.drawable.menu_selector_green)
+                    .setImage(R.drawable.ic_swipe_menu_add)
+                    .setWidth(width)
+                    .setHeight(height);
+            swipeLeftMenu.addMenuItem(addItem); // 添加菜单到左侧。
+
+            SwipeMenuItem closeItem = new SwipeMenuItem(getContext()).setBackgroundColor(R.drawable.menu_selector_red)
+                    .setImage(R.drawable.ic_swipe_menu_close)
+                    .setWidth(width)
+                    .setHeight(height);
+            swipeLeftMenu.addMenuItem(closeItem); // 添加菜单到左侧。
+        }*/
+
+        // 添加右侧的，如果不添加，则右侧不会出现菜单。
+        {
+            SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()).setBackground(R.color.bg_recycler_swipe_item1)
+                    .setText(R.string.placed_at_the_top)
+                    .setTextColor(Color.WHITE)
+                    .setWidth(width)
+                    .setHeight(height);
+            swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
+
+            SwipeMenuItem addItem = new SwipeMenuItem(getContext()).setBackground(R.color.bg_recycler_swipe_item2)
+                    .setText(R.string.deleted)
+                    .setTextColor(Color.WHITE)
+                    .setWidth(width)
+                    .setHeight(height);
+            swipeRightMenu.addMenuItem(addItem); // 添加菜单到右侧。
+        }
+    };
+
+    /**
+     * RecyclerView的Item的Menu点击监听。
+     */
+    private OnItemMenuClickListener mMenuItemClickListener = (menuBridge, position) -> {
+        menuBridge.closeMenu();
+
+        int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
+        int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
+
+        if (direction == SwipeRecyclerView.RIGHT_DIRECTION) {
+            Toast.makeText(getContext(),"list第" + position + "; 右侧菜单第" + menuPosition,Toast.LENGTH_SHORT).show();
+        } else if (direction == SwipeRecyclerView.LEFT_DIRECTION) {
+            Toast.makeText(getContext(),"list第" + position + "; 左侧菜单第" + menuPosition,Toast.LENGTH_SHORT).show();
+        }
+    };
+
     @Override
     protected BaseViewModel setViewModel() {
         mViewModel = new MessageViewModel();
@@ -173,63 +229,6 @@ public class MessageFragment extends BaseFragment {
                 .into((ImageView) viewHolder.getView(R.id.iv_message_head_icon));*/
 
     }
-
-    /**
-     * 菜单创建器，在Item要创建菜单的时候调用。
-     */
-    private SwipeMenuCreator swipeMenuCreator = (swipeLeftMenu, swipeRightMenu, position) -> {
-        int width = getResources().getDimensionPixelSize(R.dimen.message_recycler_swipe_width);
-        int height = ViewGroup.LayoutParams.MATCH_PARENT;
-
-        // 添加左侧的，如果不添加，则左侧不会出现菜单。
-        /*{
-            SwipeMenuItem addItem = new SwipeMenuItem(getContext()).setBackgroundColor(R.drawable.menu_selector_green)
-                    .setImage(R.drawable.ic_swipe_menu_add)
-                    .setWidth(width)
-                    .setHeight(height);
-            swipeLeftMenu.addMenuItem(addItem); // 添加菜单到左侧。
-
-            SwipeMenuItem closeItem = new SwipeMenuItem(getContext()).setBackgroundColor(R.drawable.menu_selector_red)
-                    .setImage(R.drawable.ic_swipe_menu_close)
-                    .setWidth(width)
-                    .setHeight(height);
-            swipeLeftMenu.addMenuItem(closeItem); // 添加菜单到左侧。
-        }*/
-
-        // 添加右侧的，如果不添加，则右侧不会出现菜单。
-        {
-            SwipeMenuItem deleteItem = new SwipeMenuItem(getContext()).setBackground(R.color.bg_recycler_swipe_item1)
-                    .setText(R.string.placed_at_the_top)
-                    .setTextColor(Color.WHITE)
-                    .setWidth(width)
-                    .setHeight(height);
-            swipeRightMenu.addMenuItem(deleteItem);// 添加菜单到右侧。
-
-            SwipeMenuItem addItem = new SwipeMenuItem(getContext()).setBackground(R.color.bg_recycler_swipe_item2)
-                    .setText(R.string.deleted)
-                    .setTextColor(Color.WHITE)
-                    .setWidth(width)
-                    .setHeight(height);
-            swipeRightMenu.addMenuItem(addItem); // 添加菜单到右侧。
-        }
-    };
-
-    /**
-     * RecyclerView的Item的Menu点击监听。
-     */
-    private OnItemMenuClickListener mMenuItemClickListener = (menuBridge, position) -> {
-        menuBridge.closeMenu();
-
-        int direction = menuBridge.getDirection(); // 左侧还是右侧菜单。
-        int menuPosition = menuBridge.getPosition(); // 菜单在RecyclerView的Item中的Position。
-
-        if (direction == SwipeRecyclerView.RIGHT_DIRECTION) {
-            Toast.makeText(getContext(),"list第" + position + "; 右侧菜单第" + menuPosition,Toast.LENGTH_SHORT).show();
-        } else if (direction == SwipeRecyclerView.LEFT_DIRECTION) {
-            Toast.makeText(getContext(),"list第" + position + "; 左侧菜单第" + menuPosition,Toast.LENGTH_SHORT).show();
-        }
-    };
-
 
     private void refresh() {
         ((FragmentMessageBinding)mViewDataBinding).swipeRefreshLayout.setRefreshing(true);

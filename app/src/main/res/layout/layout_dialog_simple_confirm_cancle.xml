@@ -38,7 +38,7 @@
             android:layout_width="0px"
             android:layout_height="100px"
             android:layout_weight="1"
-            android:background="@drawable/sl_white_to_gray"
+            android:background="@drawable/sl_white_to_gray_1px_stroke"
             android:textColor="@color/text_normal"
             android:textSize="@dimen/font_size_36"
             android:gravity="center"

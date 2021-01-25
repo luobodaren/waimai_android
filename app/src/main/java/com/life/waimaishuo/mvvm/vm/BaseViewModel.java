@@ -1,13 +1,16 @@
 package com.life.waimaishuo.mvvm.vm;
 
+import android.view.View;
+
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.ViewModel;
 
 import com.life.waimaishuo.mvvm.model.BaseModel;
 
 public abstract class BaseViewModel  {  //extends ViewModel
 
-    protected BaseModel mMode;
     private boolean hasInit = false;
+    protected BaseModel mMode;
 
     void setMode(BaseModel mode){
         this.mMode = mode;

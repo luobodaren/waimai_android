@@ -19,12 +19,14 @@
     <color name="background">#F8F8F8</color>
     <color name="background2">#F5F5F5</color>
     <color name="divider">#E6E6E6</color>
+    <color name="divider_2">#DDDDDD</color>
     <color name="stroke">#E5E5E5</color>
 
     <color name="bg_20_black">#33000000</color>
     <color name="bg_50_black">#80000000</color>
     <color name="bg_80_black">#CC000000</color>
 
+    <color name="bg_20_white">#33FFFFFF</color>
     <color name="bg_70_white">#b3FFFFFF</color>
 
     <color name="text_deep_black">#FF232323</color>
@@ -37,6 +39,7 @@
     <color name="text_tip3">#B9B9B9</color>
     <color name="text_assist">#bbbbbb</color>
 
+    <color name="bg_switch_button">#BBBBBB</color>
 
     <color name="view_uncheck">#666666</color>
     <color name="view_check">@color/colorTheme</color>

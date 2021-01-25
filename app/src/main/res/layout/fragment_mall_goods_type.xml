@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_menu_share_transparent_black" />
+
+        <com.life.waimaishuo.views.MyRightFadingEdgeRecycler
+            android:id="@+id/recycler_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:fadingEdgeLength="60dp"
+            android:overScrollMode="never"
+            android:requiresFadingEdge="horizontal" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/interval_size_xs" />
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

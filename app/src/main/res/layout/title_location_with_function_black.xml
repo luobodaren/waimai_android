@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.BaseViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:onClick="@{(v)->viewModel.onLocatLayoutClick(v)}"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +35,6 @@
                 android:layout_marginStart="8px"
                 android:layout_marginEnd="8px"
                 android:includeFontPadding="false"
-                android:text="@{viewModel.mLocation}"
                 android:textColor="@color/text_normal"
                 android:textSize="36px" />
 
@@ -55,7 +51,6 @@
             android:layout_width="44px"
             android:layout_height="44px"
             android:layout_marginEnd="24px"
-            android:onClick="@{(v)->viewModel.onMessageIvClick(v)}"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_message_black"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.life.waimaishuo.mvvm.vm.mine.MineAddShippingAddressViewModel" />
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_simple" />
+
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_2" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_consignee_name"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <TextView
+                android:id="@+id/tv_consignee_name"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:text="@string/name"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_consignee_name"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="216px"
+                android:background="@null"
+                android:hint="@string/consignee_name"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:paddingStart="0px"
+                android:text="@{viewModel.consigneeNameObservable}"
+                android:textColor="@color/text_normal"
+                android:textColorHint="@color/text_tip"
+                android:textSize="30px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_phone"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:text="@string/phone"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="216px"
+                android:background="@null"
+                android:hint="@string/consignee_phone"
+                android:includeFontPadding="false"
+                android:inputType="phone"
+                android:paddingStart="0px"
+                android:text="@{viewModel.consigneePhoneObservable}"
+                android:textColor="@color/text_normal"
+                android:textColorHint="@color/text_tip"
+                android:textSize="30px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_region"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <TextView
+                android:id="@+id/tv_region"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:text="@string/region"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_region"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="216px"
+                android:background="@null"
+                android:hint="@string/select_region"
+                android:includeFontPadding="false"
+                android:paddingStart="0px"
+                android:text="@{viewModel.regionObservable}"
+                android:textColor="@color/text_normal"
+                android:textColorHint="@color/text_tip"
+                android:textSize="30px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_location"
+                android:layout_width="34px"
+                android:layout_height="34px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:src="@drawable/ic_local_theme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_address_detail"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <TextView
+                android:id="@+id/tv_address_detail"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:text="@string/detailed_address"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/et_address_detail"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="216px"
+                android:background="@null"
+                android:hint="@string/address_detail_introduce"
+                android:includeFontPadding="false"
+                android:paddingStart="0px"
+                android:text="@{viewModel.locationDetailObservable}"
+                android:textColor="@color/text_normal"
+                android:textColorHint="@color/text_tip"
+                android:textSize="30px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_set_default_address"
+            android:layout_width="match_parent"
+            android:layout_height="98px">
+
+            <TextView
+                android:id="@+id/tv_set_default_address"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:text="@string/set_default_address"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.xuexiang.xui.widget.button.switchbutton.SwitchButton
+                android:id="@+id/sb_set_default_address"
+                android:layout_width="80px"
+                android:layout_height="48px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:swb_thumbMargin="2px"
+                app:swb_thumbColor="@color/white"
+                app:swb_backColor="@drawable/sr_bg_switch_button"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/bt_save"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginTop="72px"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:background="@drawable/sr_bg_gradient_full_radius_theme"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="36px"/>
+
+        <Button
+            android:id="@+id/bt_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginTop="40px"
+            android:layout_marginEnd="@dimen/interval_size_xs"
+            android:background="@drawable/sr_stroke_1px_full_radius_gray"
+            android:text="@string/cancel"
+            android:textColor="@color/text_uncheck"
+            android:textSize="36px"/>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

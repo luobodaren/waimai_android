@@ -197,9 +197,11 @@ public class MallMainTypeFragment extends BaseFragment {
             @Override
             public void onBindViewHolder(BaseViewHolder holder, boolean selected, TypeDescribeValue item) {
                 if(selected){
+                    holder.setTextColor(R.id.tv_type,holder.itemView.getContext().getResources().getColor(R.color.colorTheme));
                     holder.setTextColor(R.id.tv_describe,getResources().getColor(R.color.white));
                     holder.setBackgroundRes(R.id.tv_describe,R.drawable.sr_bg_full_corners_theme);
                 }else{
+                    holder.setTextColor(R.id.tv_type,holder.itemView.getContext().getResources().getColor(R.color.text_normal));
                     holder.setTextColor(R.id.tv_describe,getResources().getColor(R.color.text_uncheck));
                     holder.setBackgroundRes(R.id.tv_describe,0);
                 }
@@ -212,11 +214,13 @@ public class MallMainTypeFragment extends BaseFragment {
             mBinding.adaptiveSizeView.setCurrentItem(viewPagerAdapter.getTitleList().indexOf(item.getType()),true);
             LogUtil.d("选择了" + item.getType());
         });
-        mBinding.stickyView.setLayoutManager(new GridLayoutManager(requireContext(),5 ,LinearLayoutManager.VERTICAL,false));
+        mBinding.stickyView.setLayoutManager(new GridLayoutManager(requireContext(),4 ,LinearLayoutManager.VERTICAL,false));
         mBinding.stickyView.setAdapter(stickyRecyclerAdapter);
         mBinding.stickyView.addItemDecoration(new RecyclerView.ItemDecoration() {
             Paint mBgPaint;
             boolean hasInitPaint = false;
+            int dividerTopSpace;
+            int dividerBottomSpace;
 
             @Override
             public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -225,7 +229,9 @@ public class MallMainTypeFragment extends BaseFragment {
                 if(!hasInitPaint){
                     hasInitPaint = true;
                     mBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-                    mBgPaint.setColor(getResources().getColor(R.color.background));
+                    mBgPaint.setColor(getResources().getColor(R.color.divider_2));
+                    dividerTopSpace = (int) UIUtils.getInstance().scalePx(44);
+                    dividerBottomSpace = (int) UIUtils.getInstance().scalePx(62);
                 }
 
                 //LinearLayoutManager linearLayoutManager = (LinearLayoutManager) parent.getLayoutManager();
@@ -238,9 +244,9 @@ public class MallMainTypeFragment extends BaseFragment {
                     // 判断是否位于边缘
                     if(position == 0) continue;
                     RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) child.getLayoutParams();
-                    top = child.getTop()-layoutParams.topMargin+33; //添加顶部与底部距离 33 53
-                    bottom = child.getBottom()+layoutParams.bottomMargin-53;
-                    left = child.getLeft() - layoutParams.leftMargin - 2;
+                    top = child.getTop() + dividerTopSpace; //添加顶部与底部距离 44 62   //+ -margin逻辑待确定
+                    bottom = child.getBottom() - dividerBottomSpace;
+                    left = child.getLeft() - 2;
                     right = left + 2;
                     c.drawRect(left,top,right,bottom,mBgPaint);
                 }

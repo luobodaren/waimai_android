@@ -135,13 +135,14 @@ public class ShopEvaluationFragment extends BaseFragment {
 
 
                 FlowTagLayout flowTagLayout = helper.getView(R.id.flow_layout_goods_list);
-                CommentGoodsTagAdapter tagAdapter = new CommentGoodsTagAdapter(getContext());
-
-                flowTagLayout.setAdapter(tagAdapter);
-                flowTagLayout.setOnTagClickListener((parent, view, position) ->
-                        Toast.makeText(getContext(), "点击了：" + parent.getAdapter().getItem(position),
-                                        Toast.LENGTH_SHORT).show());
-                tagAdapter.addTags(item.getGoodsList());
+                if(flowTagLayout.getAdapter() == null){
+                    CommentGoodsTagAdapter tagAdapter = new CommentGoodsTagAdapter(getContext());
+                    flowTagLayout.setAdapter(tagAdapter);
+                    flowTagLayout.setOnTagClickListener((parent, view, position) ->
+                            Toast.makeText(getContext(), "点击了：" + parent.getAdapter().getItem(position),
+                                    Toast.LENGTH_SHORT).show());
+                    tagAdapter.addTags(item.getGoodsList());
+                }
 
                 LogUtil.d(helper.getAdapterPosition() + "");
                 if(helper.getAdapterPosition() == mViewModel.getCommentsData().size()-1){   //最后一项添加占位view 为底下腾出空间

@@ -56,7 +56,9 @@
     <dimen name="waimai_shop_tabbar_item_space">80px</dimen>
     <dimen name="waimai_shop_tabbar_item_text_size_selected">@dimen/font_size_30</dimen>
 
-    <dimen name="message_recycler_swipe_width">100px</dimen> <!-- 菜单侧滑宽度 -->
+    <dimen name="swipe_width_message_recycler">100px</dimen> <!-- 菜单侧滑宽度 -->
+    <dimen name="swipe_width_shopping_cart_recycler_item">100px</dimen> <!-- 菜单侧滑宽度 -->
+    <dimen name="swipe_width_address_manager_recycler_item">144px</dimen> <!-- 菜单侧滑宽度 -->
 
     <dimen name="my_card_view_default_radius">8dp</dimen>
 

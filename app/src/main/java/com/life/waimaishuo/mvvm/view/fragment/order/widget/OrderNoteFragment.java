@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tagAdapter.OrderNoteTagAdapter;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentOrderNoteBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -111,7 +112,7 @@ public class OrderNoteFragment extends BaseFragment {
         if(!isReturnEmptyData){
             intent.putExtra(RESULT_KEY_NOTE,mViewModel.orderNoteObservable.get());
         }
-        setFragmentResult(RESULT_CODE_SUCCESS,intent);
+        setFragmentResult(Constant.RESULT_CODE_SUCCESS,intent);
         popToBack();
     }
 

@@ -309,19 +309,21 @@ public class SortTypeView extends FrameLayout {
                 }
                 if (holder.getItemViewType() == flowTabViewType) {
                     FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);  // FIXME: 2021/1/5 要解决换行布局位置错误的问题，需要重写onLayout方法
-                    ScreenTagAdapter tagAdapter = new ScreenTagAdapter(getContext());
-                    tagAdapter.setSelectedPosition(0);
-                    String[] strings = new String[]{"首单立减", "销量较高", "下单返利", "满减优惠", "新客立减", "津贴联盟"};
+                    if(flowTagLayout.getAdapter() == null){
+                        ScreenTagAdapter tagAdapter = new ScreenTagAdapter(getContext());
+                        tagAdapter.setSelectedPosition(0);
+                        String[] strings = new String[]{"首单立减", "销量较高", "下单返利", "满减优惠", "新客立减", "津贴联盟"};
 
-                    flowTagLayout.setAdapter(tagAdapter);
-                    flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-                    flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
-                        @Override
-                        public void onItemSelect(FlowTagLayout parent, int tagPosition, List<Integer> selectedList) {
-                            LogUtil.d("流标签选中index:" + tagPosition);
-                        }
-                    });
-                    tagAdapter.addTags(strings); // FIXME: 2021/1/4 修改内容
+                        flowTagLayout.setAdapter(tagAdapter);
+                        flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
+                        flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
+                            @Override
+                            public void onItemSelect(FlowTagLayout parent, int tagPosition, List<Integer> selectedList) {
+                                LogUtil.d("流标签选中index:" + tagPosition);
+                            }
+                        });
+                        tagAdapter.addTags(strings); // FIXME: 2021/1/4 修改内容
+                    }
                 }
                 if (holder.getItemViewType() == rangeSliderViewType) {
                     XRangeSlider xRangeSlider = holder.findViewById(R.id.rangeSlider);

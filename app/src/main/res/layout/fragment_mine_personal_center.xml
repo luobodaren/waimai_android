@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_simple" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="84px"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:includeFontPadding="false"
+                    android:paddingTop="48px"
+                    android:text="@string/base_info"
+                    android:textColor="@color/text_uncheck"
+                    android:textSize="28px" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_personal_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="84px"
+                    android:layout_gravity="top"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:includeFontPadding="false"
+                    android:paddingTop="48px"
+                    android:text="@string/account_binding"
+                    android:textColor="@color/text_uncheck"
+                    android:textSize="28px" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_account_binding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

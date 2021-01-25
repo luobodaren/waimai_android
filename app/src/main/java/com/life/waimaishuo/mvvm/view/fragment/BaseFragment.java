@@ -1,6 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -17,8 +18,11 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.databinding.LayoutDialogDirectFunctionBinding;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.views.widget.dialog.TopLightBackgroundDialog;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageFragment;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -26,9 +30,6 @@ import com.xuexiang.xpage.utils.TitleUtils;
 
 @Page
 public abstract class BaseFragment extends XPageFragment {
-
-    protected static int RESULT_CODE_SUCCESS = 0;
-    protected static int RESULT_CODE_FALSE = 1;
 
     protected static int SHOW_STATUS_BAR = 1; //显示
     protected static int HIDE_STATUS_BAR = 0; //不显示
@@ -135,7 +136,7 @@ public abstract class BaseFragment extends XPageFragment {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
+    public void setUserVisibleHint(boolean isVisibleToUser) {   // FIXME: 2021/1/25 方法被弃用 寻找替换方法
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             onFragmentShow();
@@ -144,8 +145,8 @@ public abstract class BaseFragment extends XPageFragment {
         }
     }
 
-    public void setFitStatusBarHeight(boolean fitStatusBarHeight) {
-        isFitStatusBarHeight = fitStatusBarHeight;
+    private void initMyHandle() {
+        mHandler = new Handler(Looper.getMainLooper());
     }
 
     protected void fitStatusBarHeight(){
@@ -153,12 +154,6 @@ public abstract class BaseFragment extends XPageFragment {
             StatusBarUtils.fitStatusBarHeight(this);
         }
     }
-
-    public void setStatusBarLightMode(int mStatusBarLightMode) {
-        this.mStatusBarLightMode = mStatusBarLightMode;
-//        changeStatusBarMode();
-    }
-
 
     protected boolean isShowStatusBar() {
         return mStatusBarShowType == SHOW_STATUS_BAR;
@@ -210,6 +205,9 @@ public abstract class BaseFragment extends XPageFragment {
         }
     }
 
+    /**
+     * 根据配置的状态栏状态，改变状态栏颜色
+     */
     protected void changeStatusBarMode() {
         if(mStatusBarLightMode == StatusBarUtils.STATUS_BAR_MODE_LIGHT){
             StatusBarUtils.setStatusBarLightMode(getActivity());
@@ -241,10 +239,6 @@ public abstract class BaseFragment extends XPageFragment {
         }
     }
 
-    private void initMyHandle() {
-        mHandler = new Handler(Looper.getMainLooper());
-    }
-
     protected void onLifecycleCreate(){}
     protected void onLifecycleStart(){}
     protected void onLifecycleResume(){}
@@ -253,4 +247,12 @@ public abstract class BaseFragment extends XPageFragment {
     protected void onLifecycleDestroy(){}
     protected void onLifecycleAny(){}
 
+    public void setStatusBarLightMode(int mStatusBarLightMode) {
+        this.mStatusBarLightMode = mStatusBarLightMode;
+//        changeStatusBarMode();
+    }
+
+    public void setFitStatusBarHeight(boolean fitStatusBarHeight) {
+        isFitStatusBarHeight = fitStatusBarHeight;
+    }
 }

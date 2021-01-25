@@ -45,7 +45,7 @@ public class MyFlowTagLayout extends FlowTagLayout {
             if (childLeft + realChildWidth > flowWidth - getPaddingLeft() - getPaddingRight()) {
                 //换行处理
                 childTop += realChildHeight;
-                childLeft = 0;
+                childLeft = 0;  //这里换行 距离left改为0
             }
             //布局
             if (isRtl()) {

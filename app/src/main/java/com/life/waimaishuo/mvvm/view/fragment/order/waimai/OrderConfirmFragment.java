@@ -62,9 +62,6 @@ public class OrderConfirmFragment extends BaseFragment {
     public final static int ORDER_DELIVERED = 8;
     public final static int ORDER_ZIQU_PAY_SUCCESS = 9;   //店内自取且支付成功的状态
 
-    private static int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
-    private static int REQUEST_CODE_ORDER_NOTE = 1001;
-
     FragmentConfirmAnOrderWaimaiBinding mBinding;
     WaiMaiConfirmOrderViewModel mViewModel;
 
@@ -177,11 +174,11 @@ public class OrderConfirmFragment extends BaseFragment {
 
         mBinding.llRedPacket.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            openPageForResult(OrderSelectedRedPacketFragment.class,bundle,REQUEST_CODE_CHOSE_RED_PACKET);
+            openPageForResult(OrderSelectedRedPacketFragment.class,bundle,Constant.REQUEST_CODE_CHOSE_RED_PACKET);
         });
         mBinding.layoutOrderNote.clOrderNote.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            openPageForResult(OrderNoteFragment.class,bundle,REQUEST_CODE_ORDER_NOTE);
+            openPageForResult(OrderNoteFragment.class,bundle,Constant.REQUEST_CODE_ORDER_NOTE);
         });
     }
 
@@ -590,16 +587,16 @@ public class OrderConfirmFragment extends BaseFragment {
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Intent data) {
         super.onFragmentResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE_CHOSE_RED_PACKET){
-            if(resultCode == RESULT_CODE_SUCCESS){
+        if(requestCode == Constant.REQUEST_CODE_CHOSE_RED_PACKET){
+            if(resultCode == Constant.RESULT_CODE_SUCCESS){
                 RedPacket redPacket = data.getParcelableExtra(OrderSelectedRedPacketFragment.RESULT_KEY_RED_PACKET_ID);
                 if(redPacket != null){
                     mViewModel.redPacketPriceValueObservable.set("-" + redPacket.getPriceValue());
                 }
             }
         }
-        if(requestCode == REQUEST_CODE_ORDER_NOTE){
-            if(resultCode == RESULT_CODE_SUCCESS){
+        if(requestCode == Constant.REQUEST_CODE_ORDER_NOTE){
+            if(resultCode == Constant.RESULT_CODE_SUCCESS){
                 String note = data.getStringExtra(OrderNoteFragment.RESULT_KEY_NOTE);
                 if(note != null){
                     mViewModel.orderNoteObservable.set(note);

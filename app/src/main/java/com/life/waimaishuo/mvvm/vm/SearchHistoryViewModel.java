@@ -10,7 +10,9 @@ public class SearchHistoryViewModel extends BaseViewModel {
 
     @Override
     public BaseModel getModel() {
-        searchFragmentModel = new SearchFragmentModel();
+        if(searchFragmentModel == null){
+            searchFragmentModel = new SearchFragmentModel();
+        }
         return searchFragmentModel;
     }
 

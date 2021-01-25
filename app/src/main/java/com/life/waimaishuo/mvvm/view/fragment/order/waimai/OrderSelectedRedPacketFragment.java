@@ -20,6 +20,7 @@ import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.RedPacket;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentChoseRedPacketBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -173,7 +174,7 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
     private void popToBackWithResult(){
         Intent intent = new Intent();
         intent.putExtra(RESULT_KEY_RED_PACKET_ID,getSelectedPacket());
-        setFragmentResult(RESULT_CODE_SUCCESS,intent);
+        setFragmentResult(Constant.RESULT_CODE_SUCCESS,intent);
         popToBack();
     }
 

@@ -19,7 +19,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 /**
  * 商品展示用，根据type 获取不同的数据
  */
-@Page(name = "商城-推荐商品列表")
+@Page(name = "商城-推荐商品列表")   // TODO: 2021/1/23 添加根据类型获取数据  或 和商城主页底部分开处理
 public class MallRecyclerRecommendFragment extends BaseFragment {
 
     private MallRecyclerRecommendViewModel mViewModel;

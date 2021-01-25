@@ -3,7 +3,9 @@
 
     <style name="BaseAppTheme" parent="XUITheme.Phone">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+
+        <!--修改该属性值 目前用于recyclerView OverScrollMode 的颜色-->
+        <item name="colorPrimary">@color/RecyclerOverScrollModel</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>

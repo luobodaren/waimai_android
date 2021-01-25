@@ -39,6 +39,7 @@ public class MallShopViewModel extends BaseViewModel {
     List<String> pageList = new ArrayList<>();
 
     public ObservableInt onShopInfoClick = new ObservableInt();
+    public ObservableInt onMenuClick = new ObservableInt();
 
     @Override
     public BaseModel getModel() {
@@ -69,7 +70,7 @@ public class MallShopViewModel extends BaseViewModel {
     }
 
     public void onMenuClick(View view){
-
+        onMenuClick.notifyChange();
     }
 
     public List<String> getTabDataList() {

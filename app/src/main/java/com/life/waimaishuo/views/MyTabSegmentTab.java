@@ -13,7 +13,7 @@ public class MyTabSegmentTab extends TabSegment.Tab {
     }
 
     public MyTabSegmentTab(Drawable normalIcon, Drawable selectedIcon, CharSequence text, boolean dynamicChangeIconColor) {
-        this(normalIcon, selectedIcon, text, dynamicChangeIconColor,true);
+        this(normalIcon, selectedIcon, text, dynamicChangeIconColor,false);
     }
 
     public MyTabSegmentTab(Drawable normalIcon, Drawable selectedIcon, CharSequence text, boolean dynamicChangeIconColor, boolean setIntrinsicSize) {

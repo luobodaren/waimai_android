@@ -25,10 +25,6 @@ import java.util.List;
 public class WaiMaiViewModel extends BaseViewModel {
 
     public BaseObservable goToSearch = new ObservableInt();
-    public BaseObservable goToMessage = new ObservableInt();
-    public BaseObservable goToLocat = new ObservableInt();
-
-    public ObservableField<String> mLocation = new ObservableField<>();
 
     private WaimaiRecommendedFragment recommendedFragment;
 
@@ -54,27 +50,11 @@ public class WaiMaiViewModel extends BaseViewModel {
     }
 
     /**
-     *  点击定位
-     * @param view
-     */
-    public void onLocatLayoutClick(View view){
-        goToLocat.notifyChange();
-    }
-
-    /**
      * 搜索栏点击
      * @param view
      */
     public void onSearchBtClick(View view) {
         goToSearch.notifyChange();
-    }
-
-    /**
-     * 消息点击
-     * @param view
-     */
-    public void onMessageIvClick(View view){
-        goToMessage.notifyChange();
     }
 
     public List<String> getBannerItemList() {

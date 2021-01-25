@@ -32,10 +32,10 @@ public class MineViewModel extends BaseViewModel {
     public void initData() {
         initTopRecyclerData();
         initGoodLogistics();
-        initMoreRecommene();
+        initMoreRecommend();
     }
 
-    public List<TypeCountData> getmTopDataList() {
+    public List<TypeCountData> getTopDataList() {
         return mTopDataList;
     }
 
@@ -43,7 +43,7 @@ public class MineViewModel extends BaseViewModel {
         return mGoodLogisticsData;
     }
 
-    public List<IconStrData> getMoreRecommenedData() {
+    public List<IconStrData> getMoreRecommendData() {
         return mMoreRecommendData;
     }
 
@@ -62,7 +62,7 @@ public class MineViewModel extends BaseViewModel {
         mGoodLogisticsData.add(new IconStrData(R.drawable.ic_after_sales,"售后/退款"));
     }
 
-    private void initMoreRecommene(){
+    private void initMoreRecommend(){   // FIXME: 2021/1/25 改为String array
         mMoreRecommendData.add(new IconStrData(R.drawable.ic_recomended_adress,"地址管理"));
         mMoreRecommendData.add(new IconStrData(R.drawable.ic_recomended_award,"推荐有奖"));
         mMoreRecommendData.add(new IconStrData(R.drawable.ic_recomended_collect,"我的收藏"));

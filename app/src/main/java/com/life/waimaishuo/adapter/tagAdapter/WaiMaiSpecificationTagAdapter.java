@@ -12,14 +12,14 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-public class SpecificationTagAdapter extends BaseTagAdapter<String, TextView> {
+public class WaiMaiSpecificationTagAdapter extends BaseTagAdapter<String, TextView> {
 
     Drawable selected;
     Drawable unSelected;
 
     public int selectedIndex = -1;
 
-    public SpecificationTagAdapter(Context context) {
+    public WaiMaiSpecificationTagAdapter(Context context) {
         super(context);
         initDrawable();
     }
@@ -33,7 +33,7 @@ public class SpecificationTagAdapter extends BaseTagAdapter<String, TextView> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.adapter_tag_item_specification;
+        return R.layout.adapter_tag_item_specification_waimai;
     }
 
     @Override
