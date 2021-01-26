@@ -38,7 +38,16 @@
 
     <attr name="xui_bottom_sheet_grid_item_icon_marginTop">100dp</attr>
 
-    <string-array name="mine_recommends_name">
+    <!-- 我的顶部4个功能 -->
+    <string-array name="mine_top_data_list_str">
+        <item>商品收藏</item>
+        <item>关注店铺</item>
+        <item>浏览记录</item>
+        <item>红包卡卷</item>
+    </string-array>
+
+    <!-- 我的推荐图标 -->
+    <string-array name="mine_recommends_str">
         <item>地址管理</item>
         <item>推荐有奖</item>
         <item>我的收藏</item>
@@ -48,15 +57,31 @@
         <item>骑手招募</item>
         <item>帮助中心</item>
     </string-array>
-    <string-array name="mine_recommends_value">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
+    <array name="mine_recommends_icon">
+        <item>@drawable/ic_recommend_address</item>
+        <item>@drawable/ic_recommend_award</item>
+        <item>@drawable/ic_recommend_collect</item>
+        <item>@drawable/ic_recommend_tenants</item>
+        <item>@drawable/ic_recommend_cooperation</item>
+        <item>@drawable/ic_recommend_service</item>
+        <item>@drawable/ic_recommend_rider</item>
+        <item>@drawable/ic_recommend_help</item>
+    </array>
+
+    <!-- 我的-订单状态 -->
+    <string-array name="mine_order_state_list_str">
+        <item>待付款</item>
+        <item>待配送</item>
+        <item>配送中</item>
+        <item>待评价</item>
+        <item>售后/退款</item>
     </string-array>
+    <array name="mine_order_state_list_icon">
+        <item>@drawable/ic_wait_payment</item>
+        <item>@drawable/ic_wait_delivery</item>
+        <item>@drawable/ic_in_deliver</item>
+        <item>@drawable/ic_wait_common</item>
+        <item>@drawable/ic_after_sales</item>
+    </array>
 
 </resources>

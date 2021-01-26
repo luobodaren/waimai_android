@@ -5,8 +5,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
@@ -18,9 +18,13 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.Utils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Page(name = "我的", anim = CoreAnim.fade)
 public class MineFragment extends BaseFragment {
@@ -28,7 +32,8 @@ public class MineFragment extends BaseFragment {
     private FragmentMineBinding mBinding;
     private MineViewModel mViewModel;
 
-    RecyclerView mGoodLogisticsRecycler;
+    private MyBaseRecyclerAdapter<TypeCountData> topRecyclerAdapter;
+    private MyBaseRecyclerAdapter<IconStrData> recommendRecyclerAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -63,38 +68,56 @@ public class MineFragment extends BaseFragment {
         mBinding.ivSetting.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
-                openPage(MinePersonalCenter.class);
+                openPage(MinePersonalCenterFragment.class);
+            }
+        });
+
+        topRecyclerAdapter.setOnItemClickListener((adapter, view, position) -> {
+            switch (position) { //注意与R.array.mine_top_data_list_str匹配
+                case 3:
+                    openPage(MineRedPackageFragment.class);
+                    break;
+            }
+        });
+        recommendRecyclerAdapter.setOnItemClickListener((adapter1, view, position) -> {
+            LogUtil.d("更多推荐点击 position=" + position);
+            switch (position) { //注意与R.array.mine_recommends_str匹配
+                case 0:
+                    openPage(MineAddressManagerFragment.class);
+                    break;
+                case 3:
+                    openPage(MineMerchantsTenantsFragment.class);
+                    break;
             }
         });
     }
 
     @Override
     protected BaseViewModel setViewModel() {
-        mViewModel =  new MineViewModel();
+        mViewModel = new MineViewModel();
         return mViewModel;
     }
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentMineBinding)mViewDataBinding;
+        mBinding = (FragmentMineBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 
-    private void initTopRecycler(){
-        MyBaseRecyclerAdapter<TypeCountData> myBaseRecyclerAdapter
-                = new MyBaseRecyclerAdapter<TypeCountData>(R.layout.item_vertical_data_show,mViewModel.getTopDataList()
-                , BR.item){};
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4, LinearLayoutManager.VERTICAL,false);
+    private void initTopRecycler() {
+       topRecyclerAdapter = new MyBaseRecyclerAdapter<TypeCountData>(
+               R.layout.item_vertical_data_show, getTopDataList(), BR.item) {};
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
 
-        mBinding.recyclerTopData.setAdapter(myBaseRecyclerAdapter);
+        mBinding.recyclerTopData.setAdapter(topRecyclerAdapter);
         mBinding.recyclerTopData.setLayoutManager(gridLayoutManager);
     }
 
-    private void initLogisticsRecycler(){
+    private void initLogisticsRecycler() {
         MyBaseRecyclerAdapter<IconStrData> myBaseRecyclerAdapter =
-                new MyBaseRecyclerAdapter<IconStrData>(R.layout.item_mine_recycler_good_logistics,mViewModel.getGoodLogisticsdata()
+                new MyBaseRecyclerAdapter<>(R.layout.item_mine_recycler_good_logistics, getGoodsLogisticsData()
                         , BR.item);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),5, LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 5, LinearLayoutManager.VERTICAL, false);
 
         mBinding.recyclerGoodsLogistics.setAdapter(myBaseRecyclerAdapter);
         mBinding.recyclerGoodsLogistics.setLayoutManager(gridLayoutManager);
@@ -111,14 +134,14 @@ public class MineFragment extends BaseFragment {
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if(position == 0)
+                if (position == 0)
                     return 4;
                 return 1;
             }
         });
 
-        View view = View.inflate(getContext(),R.layout.head_text_recycler,null);
-        ((TextView)view.findViewById(R.id.tv_head)).setText(getContext().getString(R.string.more_recommended));
+        View view = View.inflate(getContext(), R.layout.head_mine_recommend_recycler, null);
+        ((TextView) view.findViewById(R.id.tv_head)).setText(R.string.more_recommended);
         adapter.addHeaderView(view);
 
         mBinding.recyclerMoreRecommended.setAdapter(adapter);
@@ -126,15 +149,38 @@ public class MineFragment extends BaseFragment {
     }
 
     private MyBaseRecyclerAdapter<IconStrData> getFunctionRecyclerAdapter() {
-        MyBaseRecyclerAdapter<IconStrData> adapter =  new MyBaseRecyclerAdapter<IconStrData>
-                (R.layout.item_mine_recycler_more_recommended,mViewModel.getMoreRecommendData(),BR.item);
-        adapter.setOnItemClickListener((adapter1, view, position) -> {
-            switch (position){
-                case 1:
-                    openPage(MineAddressManagerFragment.class);
-                    break;
-            }
-        });
-        return  adapter;
+        recommendRecyclerAdapter = new MyBaseRecyclerAdapter<>
+                (R.layout.item_mine_recycler_more_recommended, getMoreRecommendData(), BR.item);
+        return recommendRecyclerAdapter;
     }
+
+    private List<TypeCountData> getTopDataList(){
+        List<TypeCountData> topDataList = new ArrayList<>();
+        String[] orderStateStr = getResources().getStringArray(R.array.mine_top_data_list_str);
+        for (int i = 0; i < orderStateStr.length; i++) {
+            topDataList.add(new TypeCountData(orderStateStr[i],mViewModel.getTopDataValue(i)));
+        }
+        return topDataList;
+    }
+
+    private List<IconStrData> getGoodsLogisticsData() {
+        List<IconStrData> goodsLogisticsData = new ArrayList<>();
+        String[] orderStateStr = getResources().getStringArray(R.array.mine_order_state_list_str);
+        int[] orderStateIcon = Utils.getDrawableResIdFormArray(requireContext(),R.array.mine_order_state_list_icon);
+        for (int i = 0; i < orderStateStr.length; i++) {
+            goodsLogisticsData.add(new IconStrData(orderStateIcon[i],orderStateStr[i]));
+        }
+        return goodsLogisticsData;
+    }
+
+    private List<IconStrData> getMoreRecommendData() {
+        List<IconStrData> mMoreRecommendData = new ArrayList<>();
+        String[] iconTypes = getResources().getStringArray(R.array.mine_recommends_str);
+        int[] resImgId = Utils.getDrawableResIdFormArray(requireContext(),R.array.mine_recommends_icon);
+        for (int i = 0; i < iconTypes.length; i++) {
+            mMoreRecommendData.add(new IconStrData(resImgId[i],iconTypes[i]));
+        }
+        return mMoreRecommendData;
+    }
+
 }

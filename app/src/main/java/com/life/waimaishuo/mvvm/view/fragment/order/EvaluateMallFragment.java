@@ -128,7 +128,7 @@ public class EvaluateMallFragment extends BaseFragment {
 
     private void initTitle(){
         mBinding.layoutTitle.tvTitle.setText(getPageName());
-        mBinding.layoutTitle.tvRight.setText(getResources().getString(R.string.release_comment));
+        mBinding.layoutTitle.tvRight.setText(R.string.release_comment);
         mBinding.layoutTitle.tvRight.setOnClickListener(v -> Toast.makeText(requireContext(), "发布！！", Toast.LENGTH_SHORT).show());
     }
 

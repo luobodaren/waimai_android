@@ -9,6 +9,6 @@
         android:layout_width="660px"
         android:layout_height="180px"
         android:scaleType="centerCrop"
-        app:riv_corner_radius="20px"/>
+        app:riv_corner_radius="12dp"/>
 
 </com.life.base.views.UiAdapterFrameLayout>

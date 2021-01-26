@@ -104,9 +104,9 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
             @Override
             public int getLayoutId(int viewType) {
                 if(viewType == viewType_usable){
-                    return R.layout.item_recycler_red_packet;
+                    return R.layout.item_recycler_order_red_packet;
                 }else{
-                    return R.layout.item_recycler_red_packet_disable;
+                    return R.layout.item_recycler_order_red_packet_disable;
                 }
             }
 

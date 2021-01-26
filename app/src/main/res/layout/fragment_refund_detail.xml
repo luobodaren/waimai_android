@@ -266,7 +266,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16px"
-                    android:background="@drawable/sr_stroke_1px_10radius_gray"
+                    android:background="@drawable/sr_stroke_1px_5dp_gray"
                     android:paddingStart="16px"
                     android:paddingTop="18px"
                     android:paddingEnd="16px"
@@ -283,7 +283,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40px"
-                    android:background="@drawable/sr_stroke_1px_10radius_red"
+                    android:background="@drawable/sr_stroke_1px_5dp_red"
                     android:paddingStart="16px"
                     android:paddingTop="18px"
                     android:paddingEnd="16px"
@@ -299,11 +299,9 @@
 
             <Button
                 android:id="@+id/bt_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-
-                android:background="@drawable/sr_bg_gradient_full_radius_theme"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                style="@style/bt_bottom_gradient"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/tv_bottom_button_text"

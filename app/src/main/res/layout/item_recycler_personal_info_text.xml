@@ -24,7 +24,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="20dp" />
+            app:riv_corner_radius="100dp" />
 
         <TextView
             android:id="@+id/tv_left_title"
@@ -69,7 +69,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tv_right"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="40dp" />
+            app:riv_corner_radius="100dp" />
 
         <TextView
             android:id="@+id/divider"

@@ -63,12 +63,8 @@
 
     <Button
         android:id="@+id/bt_finish"
-        android:layout_width="match_parent"
-        android:layout_height="88px"
+        style="@style/bt_bottom_gradient"
         android:text="@string/finish"
-        android:textColor="@color/white"
-        android:textSize="36px"
-        android:background="@drawable/sr_bg_gradient_full_radius_theme"
         app:layout_constraintTop_toBottomOf="@id/space"/>
 
 </com.life.base.views.UiAdapterConstrainLayout>

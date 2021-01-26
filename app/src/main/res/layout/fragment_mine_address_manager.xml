@@ -25,15 +25,9 @@
 
         <Button
             android:id="@+id/bt_add_to_shopping_cart"
-            android:layout_width="match_parent"
-            android:layout_height="88px"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            android:layout_marginEnd="@dimen/interval_size_xs"
+            style="@style/bt_bottom_gradient"
             android:layout_marginBottom="@dimen/interval_size_xs"
-            android:background="@drawable/sr_bg_gradient_full_radius_theme"
             android:text="@string/add_new_shipping_address"
-            android:textColor="@color/white"
-            android:textSize="36px"
             android:textStyle="bold" />
 
     </com.life.base.views.UiAdapterLinearLayout>

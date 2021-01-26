@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_simple" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                app:layout_constraintBottom_toTopOf="@id/bt_commit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/interval_size_xs"
+                    android:paddingEnd="@dimen/interval_size_xs">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sr_bg_8dp_white"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/text_info_clickable_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/shop_info_text_item_height">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                style="@style/text_create_shop_setting_info"
+                                android:text="@string/contact_name"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/et_name"
+                                style="@style/text_create_shop_et_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/divider_in_order_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/text_info_clickable_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/shop_info_text_item_height">
+
+                            <TextView
+                                android:id="@+id/tv_phone"
+                                style="@style/text_create_shop_setting_info"
+                                android:text="@string/harvest_address"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/et_phone"
+                                style="@style/text_create_shop_et_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/divider_in_order_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sr_bg_8dp_white"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_business_category"
+                            style="@style/text_info_clickable_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/shop_info_text_item_height">
+
+                            <TextView
+                                android:id="@+id/tv_business_category"
+                                style="@style/text_create_shop_setting_info"
+                                android:text="@string/business_category"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/et_business_category"
+                                style="@style/text_create_shop_et_info"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/iv_business_category_arrow_right"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_business_category_arrow_right"
+                                android:layout_width="24px"
+                                android:layout_height="24px"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
+                                android:src="@drawable/ic_arrow_right_gray"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/divider_in_order_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_shop_address"
+                            style="@style/text_info_clickable_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/shop_info_text_item_height">
+
+                            <TextView
+                                android:id="@+id/tv_shop_address"
+                                style="@style/text_create_shop_setting_info"
+                                android:text="@string/shop_address"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/et_shop_address"
+                                style="@style/text_create_shop_et_info"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/iv_shop_address_arrow_right"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_shop_address_arrow_right"
+                                android:layout_width="24px"
+                                android:layout_height="24px"
+                                android:layout_marginEnd="@dimen/interval_size_xs"
+                                android:src="@drawable/ic_arrow_right_gray"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                style="@style/divider_in_order_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            style="@style/text_info_clickable_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/shop_info_text_item_height">
+
+                            <TextView
+                                android:id="@+id/tv_house_number"
+                                style="@style/text_create_shop_setting_info"
+                                android:text="@string/house_number"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/et_house_number"
+                                style="@style/text_create_shop_et_info"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sl_8dp_white_to_gray"
+                        android:padding="@dimen/interval_size_xs">
+
+                        <TextView
+                            style="@style/text_my_simple_style"
+                            android:text="店内环境"
+                            android:textColor="@color/text_normal"
+                            android:textSize="34px"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sl_8dp_white_to_gray"
+                        android:paddingStart="@dimen/interval_size_xs"
+                        android:paddingTop="32px"
+                        android:paddingEnd="@dimen/interval_size_xs"
+                        android:paddingBottom="32px">
+
+                        <TextView
+                            android:id="@+id/tv_shop_environment"
+                            style="@style/text_my_simple_style"
+                            android:text="店内环境"
+                            android:textColor="@color/text_normal"
+                            android:textSize="34px"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.xuexiang.xui.widget.imageview.RadiusImageView
+                            android:id="@+id/iv_shop_environment"
+                            android:layout_width="0px"
+                            android:layout_height="260px"
+                            android:layout_marginStart="56px"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tv_shop_environment"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_corner_radius="8dp" />
+
+                        <ImageView
+                            android:id="@+id/iv_shop_environment_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            app:layout_constraintStart_toStartOf="@id/iv_shop_environment"
+                            app:layout_constraintTop_toTopOf="@id/iv_shop_environment" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sl_8dp_white_to_gray"
+                        android:paddingStart="@dimen/interval_size_xs"
+                        android:paddingTop="32px"
+                        android:paddingEnd="@dimen/interval_size_xs"
+                        android:paddingBottom="32px">
+
+                        <TextView
+                            android:id="@+id/tv_business_qualification"
+                            style="@style/text_my_simple_style"
+                            android:text="@string/business_qualification"
+                            android:textColor="@color/text_normal"
+                            android:textSize="34px"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.xuexiang.xui.widget.imageview.RadiusImageView
+                            android:id="@+id/iv_business_qualification"
+                            android:layout_width="0px"
+                            android:layout_height="260px"
+                            android:layout_marginStart="56px"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tv_business_qualification"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_corner_radius="8dp" />
+
+                        <ImageView
+                            android:id="@+id/iv_business_qualification_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            app:layout_constraintStart_toStartOf="@id/iv_business_qualification"
+                            app:layout_constraintTop_toTopOf="@id/iv_business_qualification" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/bt_commit"
+                style="@style/bt_bottom_gradient"
+                android:layout_marginBottom="40px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/scrollView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

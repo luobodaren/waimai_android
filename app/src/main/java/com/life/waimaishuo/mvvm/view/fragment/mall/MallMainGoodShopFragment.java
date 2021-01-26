@@ -99,10 +99,8 @@ public class MallMainGoodShopFragment extends BaseFragment {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = interval;
-                if(parent.getChildAdapterPosition(view) == state.getItemCount() - 1){
-                    outRect.bottom = interval;
-                }
+
+                outRect.bottom = interval;
             }
         });
     }

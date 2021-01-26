@@ -149,12 +149,9 @@
 
             <Button
                 android:id="@+id/bt_submit"
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-                android:background="@drawable/sr_bg_gradient_full_radius_theme"
+                style="@style/bt_bottom_gradient"
                 android:text="@string/submit"
-                android:textColor="@color/white"
-                android:textSize="36px"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@
 package com.life.waimaishuo.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,6 +33,8 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 
+import java.lang.ref.WeakReference;
+
 public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemGoodsType.ItemInfo> {
 
     private static final int SPAN_COUNT = 3;
@@ -39,6 +42,8 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
     private Context mContext;
 
     private OnSecondaryItemClickListener mItemClickListener;
+
+    private WeakReference<View> selectView;
 
     public CustomLinkageSecondaryGoodsTypeAdapterConfig(OnSecondaryItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
@@ -94,6 +99,13 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
         ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
         viewGroup.setOnClickListener(v -> {
+            if(selectView != null){
+                selectView.get().setSelected(false);
+                selectView.clear();
+            }
+            holder.itemView.setSelected(true);
+            selectView = new WeakReference<>(holder.itemView);
+
             if (mItemClickListener != null) {
                 mItemClickListener.onSecondaryItemClick(holder, viewGroup, item);
             }

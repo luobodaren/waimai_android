@@ -74,13 +74,7 @@
 
     <Button
         android:id="@+id/bt_add_new_address"
-        android:layout_width="match_parent"
-        android:layout_height="88px"
-        android:layout_marginStart="@dimen/interval_size_xs"
-        android:layout_marginEnd="@dimen/interval_size_xs"
-        android:background="@drawable/sr_bg_gradient_full_radius_theme"
-        android:textColor="@color/white"
-        android:textSize="36px"
+        style="@style/bt_bottom_gradient"
         android:text="@string/add_new_shipping_address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -81,7 +81,7 @@
                 android:paddingEnd="18px"
                 android:textColor="@color/text_normal"
                 android:includeFontPadding="false"
-                android:background="@drawable/sr_stroke_1px_10radius_gray"/>
+                android:background="@drawable/sr_stroke_1px_5dp_gray"/>
 
             <Button
                 android:id="@+id/bt_comment"
@@ -94,7 +94,7 @@
                 android:textSize="28px"
                 android:textColor="@color/text_normal"
                 android:includeFontPadding="false"
-                android:background="@drawable/sr_stroke_1px_10radius_gray"/>
+                android:background="@drawable/sr_stroke_1px_5dp_gray"/>
 
             <Button
                 android:id="@+id/bt_add_shopping_cart"
@@ -107,7 +107,7 @@
                 android:textSize="28px"
                 android:textColor="@color/colorTheme"
                 android:includeFontPadding="false"
-                android:background="@drawable/sr_stroke_1px_10radius_red"/>
+                android:background="@drawable/sr_stroke_1px_5dp_red"/>
 
         </LinearLayout>
 

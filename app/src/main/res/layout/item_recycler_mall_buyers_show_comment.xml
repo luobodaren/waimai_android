@@ -22,7 +22,7 @@
             imageUrl="@{item.userIcon}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="50dp" />
+            app:riv_corner_radius="100dp" />
 
         <TextView
             android:id="@+id/tv_user_name"

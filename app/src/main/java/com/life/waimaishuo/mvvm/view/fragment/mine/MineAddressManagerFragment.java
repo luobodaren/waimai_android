@@ -83,12 +83,15 @@ public class MineAddressManagerFragment extends BaseFragment {
 
     @Override
     protected BaseViewModel setViewModel() {
-        return null;
+        if(mViewModel == null){
+            mViewModel = new MineAddressManagerViewModel();
+        }
+        return mViewModel;
     }
 
     @Override
     protected void bindViewModel() {
-
+        mBinding = (FragmentMineAddressManagerBinding)mViewDataBinding;
     }
 
     @Override
@@ -120,6 +123,13 @@ public class MineAddressManagerFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        mBinding.btAddToShoppingCart.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                openPage(MineAddShippingAddressFragment.class);
+            }
+        });
     }
 
     private void initTitle(){

@@ -22,7 +22,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 import java.util.List;
 
 @Page(name = "个人中心", anim = CoreAnim.slide)
-public class MinePersonalCenter extends BaseFragment {
+public class MinePersonalCenterFragment extends BaseFragment {
 
     private FragmentMinePersonalCenterBinding mBinding;
     private MinePersonalCenterViewModel mViewModel;

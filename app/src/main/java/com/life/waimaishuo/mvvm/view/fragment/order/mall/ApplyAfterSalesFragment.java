@@ -104,7 +104,7 @@ public class ApplyAfterSalesFragment extends BaseFragment {
     }
 
     private void initTitle() {
-        mBinding.layoutTitle.tvTitle.setText(requireContext().getString(R.string.chose_service_type));
+        mBinding.layoutTitle.tvTitle.setText(R.string.chose_service_type);
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
     }
 

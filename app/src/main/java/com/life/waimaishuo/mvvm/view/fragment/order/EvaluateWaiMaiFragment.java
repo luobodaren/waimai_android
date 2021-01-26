@@ -130,7 +130,7 @@ public class EvaluateWaiMaiFragment extends BaseFragment {
 
     private void initTitle(){
         mBinding.layoutTitle.tvTitle.setText(getPageName());
-        mBinding.layoutTitle.tvRight.setText(getResources().getString(R.string.release));
+        mBinding.layoutTitle.tvRight.setText(R.string.release);
         mBinding.layoutTitle.tvRight.setOnClickListener(v -> Toast.makeText(requireContext(), "发布！！", Toast.LENGTH_SHORT).show());
         mBinding.layoutTitle.rlTitle.setBackgroundColor(getResources().getColor(R.color.transparent));
     }

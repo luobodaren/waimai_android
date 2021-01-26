@@ -15,6 +15,7 @@
         android:layout_marginStart="@dimen/interval_size_xs"
         android:layout_marginEnd="@dimen/interval_size_xs"
         android:orientation="vertical"
+        android:background="@drawable/sr_bg_8dp_white"
         android:padding="@dimen/interval_size_xs">
 
         <androidx.constraintlayout.widget.ConstraintLayout

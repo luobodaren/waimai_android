@@ -26,7 +26,7 @@ public class MallAllTypeViewModel extends BaseViewModel {
 
     }
 
-    public List<BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo>> getElemeGroupItems() {
+    public List<BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo>> getLinkageGroupItems() {
         List<LinkageGroupedItemGoodsType> waimaiTypeList;
         String dataJson = "[\n" +
                 "  {\n" +

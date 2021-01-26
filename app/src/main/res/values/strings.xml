@@ -191,6 +191,7 @@
     <string name="customer_service">客服</string>
     <string name="connect_customer_service">联系客服</string>
     <string name="merchants_address">商家收货地址</string>
+    <string name="contact_name">联系人</string>
     <string name="contact_number">联系号码</string>
     <string name="contact_phone">联系电话</string>
     <string name="logistics_number">物流单号</string>
@@ -264,4 +265,13 @@
     <string name="direct_function">功能直达</string>
     <string name="account_binding">账号绑定</string>
     <string name="base_info">基本信息</string>
+    <string name="record_of_use" type="id">使用记录</string>
+    <string name="immediately_open_a_shop">立即开店</string>
+    <string name="select_category">选择品类</string>
+    <string name="business_category">经营品类</string>
+    <string name="chosen">选好了</string>
+    <string name="shop_info">店铺信息</string>
+    <string name="shop_address">店铺地址</string>
+    <string name="house_number">门牌号</string>
+    <string name="business_qualification">营业资质</string>
 </resources>

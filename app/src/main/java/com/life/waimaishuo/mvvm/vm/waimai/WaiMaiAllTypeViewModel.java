@@ -27,7 +27,7 @@ public class WaiMaiAllTypeViewModel extends BaseViewModel {
 
     }
 
-    public List<BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo>> getElemeGroupItems() {
+    public List<BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo>> getLinkageGroupItems() {
         String dataJson = "[\n" +
                 "  {\n" +
                 "    \"header\": \"优惠\",\n" +

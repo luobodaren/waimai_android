@@ -76,7 +76,7 @@
                 android:textSize="28px"
                 android:textColor="@color/text_normal"
                 android:includeFontPadding="false"
-                android:background="@drawable/sr_stroke_1px_10radius_gray"/>
+                android:background="@drawable/sr_stroke_1px_5dp_gray"/>
 
         </LinearLayout>
 

@@ -95,7 +95,6 @@ public class MallShopAllPreciousGoodsFragment extends BaseFragment {
             }else{
                 tab.setTextSize(textSizeNormal);
             }
-            LogUtil.d(title + "的textSize:" + tab.getTextSize());
             adapter.addFragment(((MallShopViewModel)baseViewModel).getAllPreciousTabFragment(title), title);
             tabSegment.addTab(tab);
         }

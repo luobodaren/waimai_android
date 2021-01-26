@@ -37,7 +37,7 @@
             android:id="@+id/bt_add_shopping_cart"
             android:layout_width="wrap_content"
             android:layout_height="60px"
-            android:background="@drawable/sr_stroke_1px_10radius_red"
+            android:background="@drawable/sr_stroke_1px_5dp_red"
             android:layout_marginTop="24px"
             android:paddingStart="18px"
             android:paddingEnd="18px"
@@ -58,7 +58,7 @@
             android:layout_marginEnd="16px"
             android:textColor="@color/text_normal"
             android:includeFontPadding="false"
-            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            android:background="@drawable/sr_stroke_1px_5dp_gray"
             app:layout_constraintEnd_toStartOf="@id/bt_comment"
             app:layout_constraintTop_toTopOf="@id/bt_add_shopping_cart"/>
 
@@ -73,7 +73,7 @@
             android:textSize="28px"
             android:textColor="@color/text_normal"
             android:includeFontPadding="false"
-            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            android:background="@drawable/sr_stroke_1px_5dp_gray"
             app:layout_constraintEnd_toStartOf="@id/bt_add_shopping_cart"
             app:layout_constraintTop_toTopOf="@id/bt_add_shopping_cart"/>
 

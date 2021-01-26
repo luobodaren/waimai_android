@@ -15,7 +15,9 @@ public class RedPacket implements Parcelable {
     String userLimited;
     String useTimeLimited;
     String orderLimited;
+    Shop shop;
     boolean isGet;
+    boolean isEffective;
 
     public RedPacket(String name, String priceValue, String introduce, boolean isGet) {
         this.name = name;
@@ -24,7 +26,7 @@ public class RedPacket implements Parcelable {
         this.isGet = isGet;
     }
 
-    public RedPacket(int id, String name, String priceValue, String introduce, String userLimited, String useTimeLimited, boolean isGet, String orderLimited) {
+    public RedPacket(int id, String name, String priceValue, String introduce, String userLimited, String useTimeLimited, boolean isGet, String orderLimited, boolean isEffective) {
         this.id = id;
         this.name = name;
         this.priceValue = priceValue;
@@ -33,6 +35,7 @@ public class RedPacket implements Parcelable {
         this.useTimeLimited = useTimeLimited;
         this.isGet = isGet;
         this.orderLimited = orderLimited;
+        this.isEffective = isEffective;
     }
 
     protected RedPacket(Parcel in) {
@@ -43,7 +46,9 @@ public class RedPacket implements Parcelable {
         userLimited = in.readString();
         useTimeLimited = in.readString();
         orderLimited = in.readString();
+        shop = in.readParcelable(Shop.class.getClassLoader());
         isGet = in.readByte() != 0;
+        isEffective = in.readByte() != 0;
     }
 
     public static final Creator<RedPacket> CREATOR = new Creator<RedPacket>() {
@@ -122,6 +127,22 @@ public class RedPacket implements Parcelable {
         this.orderLimited = orderLimited;
     }
 
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public boolean isEffective() {
+        return isEffective;
+    }
+
+    public void setEffective(boolean effective) {
+        isEffective = effective;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -136,6 +157,8 @@ public class RedPacket implements Parcelable {
         dest.writeString(userLimited);
         dest.writeString(useTimeLimited);
         dest.writeString(orderLimited);
+        dest.writeParcelable(shop, flags);
         dest.writeByte((byte) (isGet ? 1 : 0));
+        dest.writeByte((byte) (isEffective ? 1 : 0));
     }
 }

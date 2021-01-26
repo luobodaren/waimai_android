@@ -63,11 +63,11 @@ public class OrderDeliverFinishFragment extends BaseFragment {
     }
 
     private void initData() {
-        mBinding.tvTitle.setText(requireContext().getString(R.string.order_delivered));
-        mBinding.tvTitleInfo.setText(requireContext().getString(R.string.thank_words_order_finish));
+        mBinding.tvTitle.setText(R.string.order_delivered);
+        mBinding.tvTitleInfo.setText(R.string.thank_words_order_finish);
         mBinding.tvInfo.setText("准时达：订单已准时送达，感谢您使用准时达服务");
-        mBinding.tvLeft.setText(requireContext().getString(R.string.one_mode_order));
-        mBinding.tvRight.setText(requireContext().getString(R.string.connect_merchants));
+        mBinding.tvLeft.setText(R.string.one_mode_order);
+        mBinding.tvRight.setText(R.string.connect_merchants);
     }
 
     @Override

@@ -175,7 +175,9 @@ public class MainFragment extends BaseFragment {
     private void cancelTabViewAnimation(){
         if(lavReference != null){
             LottieAnimationView lottieAnimationView = lavReference.get();
-            lottieAnimationView.cancelAnimation();
+            if(lottieAnimationView != null){
+                lottieAnimationView.cancelAnimation();
+            }
             lavReference.clear();
         }
     }

@@ -106,7 +106,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
         FrameLayout rightTopCustomView = linkage.findViewById(R.id.right_top_custom);
         rightTopCustomView.setVisibility(View.VISIBLE);
         initRightTopCustomView(rightTopCustomView);
-        linkage.init(mViewModel.getElemeGroupItems(),
+        linkage.init(mViewModel.getLinkageGroupItems(),
                 new CustomLinkagePrimaryGoodsTypeAdapterConfig<>(this,linkage),
                 new CustomLinkageSecondaryGoodsTypeAdapterConfig(this));
         linkage.setGridMode(true);

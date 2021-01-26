@@ -466,7 +466,7 @@ public class ShopDetailFragment extends BaseFragment {
             }
         });
         binding.redPacketRecyclerView.setAdapter(new MyBaseRecyclerAdapter<RedPacket>(
-                R.layout.item_recycler_dialog_red_packet, mViewModel.getPreferentialData().getRedPacketList(), BR.item) {
+                R.layout.item_recycler_waimai_dialog_red_packet, mViewModel.getPreferentialData().getRedPacketList(), BR.item) {
             String receiveStr = "";
             String receivedStr = "";
 

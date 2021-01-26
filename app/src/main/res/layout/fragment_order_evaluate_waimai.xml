@@ -269,15 +269,9 @@
 
                 <Button
                     android:id="@+id/bt_submit_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="88px"
+                    style="@style/bt_bottom_gradient"
                     android:layout_marginTop="40px"
-                    android:layout_marginStart="@dimen/interval_size_xs"
-                    android:layout_marginEnd="@dimen/interval_size_xs"
-                    android:textColor="@color/white"
-                    android:textSize="36px"
-                    android:text="@string/submit_comment"
-                    android:background="@drawable/sr_bg_gradient_full_radius_theme" />
+                    android:text="@string/submit_comment" />
             </LinearLayout>
 
         </ScrollView>

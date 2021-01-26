@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_head"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textSize="34px"
-        android:includeFontPadding="false"
+        style="@style/text_my_simple_style"
         android:layout_marginTop="4px"
-        android:layout_marginBottom="4px"/>
+        android:layout_marginBottom="4px"
+        android:background="@color/white"
+        android:includeFontPadding="false"
+        android:textSize="34px"
+        android:textStyle="bold" />
 
 </LinearLayout>

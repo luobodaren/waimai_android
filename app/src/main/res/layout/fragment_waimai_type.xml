@@ -59,7 +59,7 @@
                         android:scaleType="centerCrop"
                         android:layout_marginStart="@dimen/interval_size_xs"
                         android:layout_marginEnd="@dimen/interval_size_xs"
-                        app:riv_corner_radius="12px"
+                        app:riv_corner_radius="6dp"
                         app:riv_border_width="0dp"/>
 
                     <Space

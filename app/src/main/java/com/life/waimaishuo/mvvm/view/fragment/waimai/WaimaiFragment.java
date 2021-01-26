@@ -488,7 +488,6 @@ public class WaimaiFragment extends BaseFragment {
             }else{
                 tab.setTextSize(textSizeNormal);
             }
-            LogUtil.d(title + "的textSize:" + tab.getTextSize());
             adapter.addFragment(mViewModel.getRecommendedFragment(), title);
             tabSegment.addTab(tab);
         }

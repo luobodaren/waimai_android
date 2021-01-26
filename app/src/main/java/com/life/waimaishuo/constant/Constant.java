@@ -17,6 +17,7 @@ public class Constant {
     public static int REQUEST_CODE_ORDER_NOTE = 1001;
     public static int REQUEST_CODE_ADD_NEW_ADDRESS = 1002;
     public static int REQUEST_CODE_FILLING_LOGISTICS = 1003;
+    public static int REQUEST_CODE_SELECT_CATEGORY = 1004;
     /**
      * 返回的 结果码
      */

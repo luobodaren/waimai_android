@@ -67,11 +67,11 @@ public class OrderWaitPayFragment extends BaseFragment {
     }
 
     private void initData() {
-        mBinding.tvTitle.setText(requireContext().getString(R.string.wait_for_pay));
-        mBinding.tvTitleInfo.setText(requireContext().getString(R.string.pay_ASAP));
-        mBinding.tvInfo.setText(requireContext().getString(R.string.waimaishuo_deliver));
-        mBinding.tvLeft.setText(requireContext().getString(R.string.cancel_order));
-        mBinding.tvRight.setText(requireContext().getString(R.string.go_pay));
+        mBinding.tvTitle.setText(R.string.wait_for_pay);
+        mBinding.tvTitleInfo.setText(R.string.pay_ASAP);
+        mBinding.tvInfo.setText(R.string.waimaishuo_deliver);
+        mBinding.tvLeft.setText(R.string.cancel_order);
+        mBinding.tvRight.setText(R.string.go_pay);
     }
 
     @Override

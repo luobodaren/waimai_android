@@ -52,17 +52,11 @@
 
         <Button
             android:id="@+id/bt_report_the_merchants"
-            android:layout_width="match_parent"
-            android:layout_height="90px"
-            android:background="@drawable/sr_bg_gradient_full_radius_theme"
+            style="@style/bt_bottom_gradient"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            android:layout_marginEnd="@dimen/interval_size_xs"
             android:layout_marginBottom="@dimen/interval_size_xs"
             android:text="@string/report_merchants"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="36px"/>
+            android:gravity="center"/>
 
     </com.life.base.views.UiAdapterRelativeLayout>
 </layout>

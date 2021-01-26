@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.RedPacket" />
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:layout_width="match_parent"
+        android:layout_height="217px"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:layout_marginEnd="@dimen/interval_size_xs"
+        android:orientation="vertical">
+
+
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
+            android:id="@+id/iv_red_package_img"
+            imageUrl="@{item.shop.shop_image}"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_marginStart="32px"
+            android:layout_marginTop="32px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="100dp" />
+
+        <TextView
+            android:id="@+id/tv_red_package_name"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.name}"
+            android:textColor="@color/text_tip"
+            android:textSize="32px"
+            app:layout_constraintStart_toEndOf="@id/iv_red_package_img"
+            app:layout_constraintTop_toTopOf="@id/iv_red_package_img"
+            tools:text="充话费立减0.5元，充值中心专用…" />
+
+        <TextView
+            android:id="@+id/tv_red_package_use_time_limit"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:text="@{item.useTimeLimited}"
+            android:textColor="@color/text_tip"
+            android:textSize="20px"
+            app:layout_constraintBottom_toBottomOf="@id/iv_red_package_img"
+            app:layout_constraintStart_toStartOf="@id/tv_red_package_name"
+            tools:text="拼单价 ￥99" />
+
+        <TextView
+            android:id="@+id/tv_used_limited"
+            style="@style/text_my_simple_style"
+            android:layout_marginBottom="@dimen/interval_size_xs"
+            android:drawablePadding="16px"
+            android:text="@{item.orderLimited}"
+            android:textColor="@color/text_tip"
+            android:textSize="24px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/iv_red_package_img"
+            tools:text="限品质联盟专用" />
+
+        <TextView
+            android:id="@+id/tv_value_of_red_package"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="15px"
+            android:layout_marginEnd="32px"
+            android:text="@{item.priceValue}"
+            android:textColor="@color/text_tip"
+            android:textSize="60px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="24" />
+
+        <TextView
+            android:id="@+id/tv_red_package_introduce"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="7px"
+            android:layout_marginEnd="32px"
+            android:text="@{item.introduce}"
+            android:textColor="@color/text_tip"
+            android:textSize="20px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_value_of_red_package"
+            tools:text="充48可用" />
+
+        <Button
+            android:id="@+id/bt_get_coupon"
+            android:layout_width="120px"
+            android:layout_height="50px"
+            android:layout_marginEnd="32px"
+            android:layout_marginBottom="10px"
+            android:background="@drawable/sr_bg_full_corners_gray"
+            android:includeFontPadding="false"
+            android:text="@string/receive_now"
+            android:textColor="@color/white"
+            android:textSize="22px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>

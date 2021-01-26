@@ -42,7 +42,7 @@ public class MallRecyclerRecommendFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.layout_recycler;
+        return R.layout.layout_recycler_mall_recommend;
     }
 
     @Override

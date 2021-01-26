@@ -54,7 +54,7 @@
                 android:paddingEnd="18px"
                 android:textColor="@color/text_normal"
                 android:includeFontPadding="false"
-                android:background="@drawable/sr_stroke_1px_10radius_gray"/>
+                android:background="@drawable/sr_stroke_1px_5dp_gray"/>
 
             <Button
                 android:id="@+id/bt_connect_driver"
@@ -67,7 +67,7 @@
                 android:textSize="28px"
                 android:textColor="@color/text_normal"
                 android:includeFontPadding="false"
-                android:background="@drawable/sr_stroke_1px_10radius_gray"/>
+                android:background="@drawable/sr_stroke_1px_5dp_gray"/>
 
         </LinearLayout>
 

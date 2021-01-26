@@ -299,13 +299,13 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                 MyHorizontalProgressView horizontalProgressView = helper.getView(R.id.hpv_remaining_goods_count);
                 switch (item.getLimitedTimeStateEnum()){
                     case NO_START:
-                        horizontalProgressView.setStrBeforeProgress(getContext().getString(R.string.wait_to_snapped_up));
+                        horizontalProgressView.setStrBeforeProgress(requireContext().getString(R.string.wait_to_snapped_up));
                         horizontalProgressView.setEndProgress(0);
                         button.setText("提醒我");//fixme 根据情况切换 提醒我 与 取消提醒
                         break;
                     case STARTING:
                     case ROBBING:
-                        horizontalProgressView.setStrBeforeProgress(getContext().getString(R.string.has_snapped_up));
+                        horizontalProgressView.setStrBeforeProgress(requireContext().getString(R.string.has_snapped_up));
                         horizontalProgressView.setEndProgress(progress);
                         horizontalProgressView.startProgressAnimation();
                         if(progress == 100){

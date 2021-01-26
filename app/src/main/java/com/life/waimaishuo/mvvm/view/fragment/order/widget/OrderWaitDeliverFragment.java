@@ -63,11 +63,11 @@ public class OrderWaitDeliverFragment extends BaseFragment {
     }
 
     private void initData() {
-        mBinding.tvTitle.setText(requireContext().getString(R.string.merchants_are_stocking_up));
+        mBinding.tvTitle.setText(R.string.merchants_are_stocking_up);
         mBinding.tvTitleInfo.setText("预计12：35送达");
         mBinding.tvInfo.setText("准时达服务：12:45前未送达，可获得赔付");
-        mBinding.tvLeft.setText(requireContext().getString(R.string.reminder));
-        mBinding.tvRight.setText(requireContext().getString(R.string.connect_merchants));
+        mBinding.tvLeft.setText(R.string.reminder);
+        mBinding.tvRight.setText(R.string.connect_merchants);
     }
 
     @Override

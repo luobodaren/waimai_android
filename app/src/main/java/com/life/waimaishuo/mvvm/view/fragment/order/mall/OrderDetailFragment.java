@@ -223,7 +223,7 @@ public class OrderDetailFragment extends BaseFragment {
     private void resetBottomOrderInfo() {
         if (hasChangeButtonStyle) {   //恢复默认样式
             hasChangeButtonStyle = false;
-            mBinding.layoutBottomOrderInfo.btThree.setBackgroundResource(R.drawable.sr_stroke_1px_10radius_gray);
+            mBinding.layoutBottomOrderInfo.btThree.setBackgroundResource(R.drawable.sr_stroke_1px_5dp_gray);
             mBinding.layoutBottomOrderInfo.btThree.setTextColor(getResources().getColor(R.color.text_normal));
         }
 
@@ -260,7 +260,7 @@ public class OrderDetailFragment extends BaseFragment {
                 mBinding.layoutBottomOrderInfo.btThree.setOnClickListener(v -> pay());
 
                 hasChangeButtonStyle = true;//设置标志 修改了样式
-                mBinding.layoutBottomOrderInfo.btThree.setBackgroundResource(R.drawable.sr_stroke_1px_10radius_red);
+                mBinding.layoutBottomOrderInfo.btThree.setBackgroundResource(R.drawable.sr_stroke_1px_5dp_red);
                 mBinding.layoutBottomOrderInfo.btThree.setTextColor(getResources().getColor(R.color.colorTheme));
                 break;
             case ORDER_WAIT_FOR_DELIVER:

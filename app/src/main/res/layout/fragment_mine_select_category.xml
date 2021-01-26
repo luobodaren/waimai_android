@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_simple" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_shop_type"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="32px"
+                    android:text="门店类型"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_mall"
+                    android:layout_width="0px"
+                    android:layout_height="88px"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="32px"
+                    android:gravity="center"
+                    android:text="@string/mall"
+                    android:textSize="@dimen/font_size_36"
+                    app:layout_constraintEnd_toStartOf="@id/tv_waimai"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_shop_type" />
+
+                <TextView
+                    android:id="@+id/tv_waimai"
+                    android:layout_width="0px"
+                    android:layout_height="88px"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:gravity="center"
+                    android:text="@string/waimai"
+                    android:textSize="@dimen/font_size_36"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_mall"
+                    app:layout_constraintTop_toTopOf="@id/tv_mall" />
+
+                <TextView
+                    android:id="@+id/tv_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/interval_size_xs"
+                    android:layout_marginTop="32px"
+                    android:background="@color/background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_mall" />
+
+                <TextView
+                    android:id="@+id/tv_chose_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="94px"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/interval_size_xs"
+                    android:text="选择分类"
+                    android:textColor="@color/text_normal"
+                    android:textSize="30px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_divider" />
+
+                <com.kunminx.linkage.LinkageRecyclerView
+                    android:id="@+id/linkage_all_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="0px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_chose_type" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_chosen"
+            style="@style/bt_bottom_gradient"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="40px"
+            android:text="@string/chosen"
+            android:textStyle="bold" />
+
+    </com.life.base.views.UiAdapterFrameLayout>
+</layout>

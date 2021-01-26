@@ -44,7 +44,7 @@
             android:layout_marginEnd="16px"
             android:textColor="@color/text_normal"
             android:includeFontPadding="false"
-            android:background="@drawable/sr_stroke_1px_10radius_gray"
+            android:background="@drawable/sr_stroke_1px_5dp_gray"
             app:layout_constraintEnd_toStartOf="@id/tv_goods_price"
             app:layout_constraintTop_toTopOf="@id/tv_goods_price"/>
 

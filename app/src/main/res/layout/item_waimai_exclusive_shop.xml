@@ -25,7 +25,7 @@
                 android:scaleType="centerCrop"
                 android:layout_width="315px"
                 android:layout_height="150px"
-                app:riv_corner_radius="24px"
+                app:riv_corner_radius="12dp"
                 imageUrl="@{item.goodsIconStr}"/>
 
             <com.xuexiang.xui.widget.imageview.RadiusImageView
@@ -35,7 +35,7 @@
                 android:layout_marginEnd="10px"
                 android:layout_alignRight="@id/iv_goodsIcon"
                 android:layout_below="@id/iv_goodsIcon"
-                app:riv_corner_radius="5px"
+                app:riv_corner_radius="2dp"
                 android:layout_marginTop="-50px"
                 imageUrl="@{item.shopIconStr}"/>
         </RelativeLayout>

@@ -15,7 +15,7 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
-@Page(name = "新增收货地址", anim = CoreAnim.slide)
+@Page(name = "新增地址", anim = CoreAnim.slide)
 public class MineAddShippingAddressFragment extends BaseFragment {
 
     private FragmentMineAddNewShippingAddressBinding mBinding;
@@ -90,7 +90,7 @@ public class MineAddShippingAddressFragment extends BaseFragment {
     }
 
     private void initTitle(){
-        mBinding.layoutTitle.tvTitle.setText(getResources().getString(R.string.add_new_shipping_address));
+        mBinding.layoutTitle.tvTitle.setText(getPageName());
     }
 
 }

@@ -2,9 +2,11 @@ package com.life.waimaishuo.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,6 +24,17 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 
 public class Utils {
+
+    public static int[] getDrawableResIdFormArray(Context context, @ArrayRes int arrayId){
+        TypedArray ar = context.getResources().obtainTypedArray(arrayId);
+        int length = ar.length();
+        int[] drawableIds = new int[length];
+        for(int i = 0; i < length; i++){
+            drawableIds[i] = ar.getResourceId(i,0);
+        }
+        ar.recycle();
+        return drawableIds;
+    }
 
     public static FlexboxLayoutManager getFlexboxLayoutManager(Context context) {
         //设置布局管理器
