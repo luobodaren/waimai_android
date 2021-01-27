@@ -94,12 +94,6 @@ public class MallGoodsTypeFragment extends BaseFragment {
     }
 
     private void initTitle(){
-        mBinding.layoutTitle.ivBack.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                popToBack();
-            }
-        });
         mBinding.layoutTitle.tvTitle.setText(pageGoodsType);
     }
 

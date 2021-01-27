@@ -13,6 +13,7 @@ import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineMerchantsTenantsViewModel;
+import com.life.waimaishuo.util.MyTabSegmentBoldTypeFaceProvider;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
@@ -69,12 +70,6 @@ public class MineMerchantsTenantsFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
-        mBinding.layoutTitle.ivBack.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                popToBack();
-            }
-        });
         mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -98,23 +93,7 @@ public class MineMerchantsTenantsFragment extends BaseFragment {
         addTab(mBinding.tabSegment, adapter, tabTitleList);
         mBinding.tabSegment.setItemSpaceInScrollMode(space);
         mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.goods_comment_tabSegment_item_text_size));
-        mBinding.tabSegment.setTypefaceProvider(new TabSegment.TypefaceProvider() {
-            @Override
-            public boolean isNormalTabBold() {
-                return false;
-            }
-
-            @Override
-            public boolean isSelectedTabBold() {
-                return true;
-            }
-
-            @Nullable
-            @Override
-            public Typeface getTypeface() {
-                return null;
-            }
-        });
+        mBinding.tabSegment.setTypefaceProvider(new MyTabSegmentBoldTypeFaceProvider());
 
         mBinding.viewPager.setOffscreenPageLimit(tabTitleList.length - 1);
         mBinding.viewPager.setAdapter(adapter);

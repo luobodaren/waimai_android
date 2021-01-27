@@ -60,7 +60,6 @@ public class ShopBusinessQualificationFragment extends BaseFragment {
 
     private void initTitleBarView() {
         mBinding.layoutTitle.tvTitle.setText(getPageName());
-        mBinding.layoutTitle.ivBack.setOnClickListener((v) -> popToBack());
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
     }
 }

@@ -3,8 +3,6 @@ package com.life.waimaishuo.mvvm.view.fragment.mine;
 import android.content.Intent;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMineCreateShopBinding;
@@ -60,19 +58,11 @@ public class MineCreateShopFragment extends BaseFragment {
 
         initTitle();
 
-
     }
 
     @Override
     protected void initListeners() {
         super.initListeners();
-
-        mBinding.layoutTitle.ivBack.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                popToBack();
-            }
-        });
 
         mBinding.clBusinessCategory.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
@@ -88,7 +78,7 @@ public class MineCreateShopFragment extends BaseFragment {
         if(requestCode == Constant.REQUEST_CODE_SELECT_CATEGORY){
             if(resultCode == Constant.RESULT_CODE_SUCCESS){
                 String type = data.getStringExtra(MineSelectCategoryFragment.RESULT_KEY_CATEGORY_TYPE);
-                mBinding.tvBusinessCategory.setText(type);  // FIXME: 2021/1/26
+                mBinding.tvBusinessCategoryValue.setText(type);  // FIXME: 2021/1/26
             }
         }
     }

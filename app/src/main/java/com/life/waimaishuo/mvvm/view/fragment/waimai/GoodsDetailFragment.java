@@ -62,7 +62,6 @@ public class GoodsDetailFragment extends BaseFragment {
     protected TitleBar initTitleBar() {
 
         //初始化布局中的title
-        mBinding.layoutTitle.ivBack.setOnClickListener((v -> popToBack()));
         mBinding.layoutTitle.tvTitle.setText(getPageName());
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
 

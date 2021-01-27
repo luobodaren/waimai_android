@@ -383,6 +383,17 @@
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
     </style>
 
+    <style name="text_setting" parent="text_my_simple_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">98px</item>
+        <item name="android:textColor">@color/text_normal</item>
+        <item name="android:textSize">34px</item>
+        <item name="android:paddingStart">@dimen/interval_size_xs</item>
+        <item name="android:paddingEnd">@dimen/interval_size_xs</item>
+        <item name="android:drawableRight">@drawable/ic_arrow_right_gray</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
     <style name="text_create_shop_et_info">
         <item name="android:layout_width">0px</item>
         <item name="android:layout_height">wrap_content</item>
@@ -391,6 +402,7 @@
         <item name="android:textColorHint">@color/text_hint</item>
         <item name="android:textColor">@color/text_normal</item>
         <item name="android:textSize">34px</item>
+        <item name="android:gravity">end</item>
         <item name="android:layout_marginStart">216px</item>
         <item name="android:layout_marginEnd">@dimen/interval_size_xs</item>
         <item name="android:maxLines">1</item>
@@ -432,12 +444,23 @@
         <item name="android:layout_marginTop">-10px</item>
     </style>
 
-    <style name="divider_in_order_info">
+    <style name="divider">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/divider</item>
+    </style>
+
+    <style name="divider_default_interval" parent="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/divider</item>
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
         <item name="android:layout_marginEnd">@dimen/interval_size_xs</item>
-        <item name="android:background">@color/divider</item>
+    </style>
+
+    <style name="divider_in_order_info" parent="divider">
+        <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
+        <item name="android:layout_marginEnd">@dimen/interval_size_xs</item>
     </style>
 
     <style name="et_order_note">
@@ -529,6 +552,7 @@
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
         <item name="android:layout_marginEnd">@dimen/interval_size_xs</item>
     </style>
+
 
     <dimen name="xui_bottom_sheet_list_item_text_size">16sp</dimen>
     <string name="report_content_hint">请描述您的问题，以便我们尽快为您处理（必填）</string>

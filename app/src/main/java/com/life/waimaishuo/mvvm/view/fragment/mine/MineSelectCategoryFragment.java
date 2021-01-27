@@ -3,8 +3,10 @@ package com.life.waimaishuo.mvvm.view.fragment.mine;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
@@ -26,6 +28,8 @@ import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+
+import java.lang.ref.WeakReference;
 
 @Page(name = "选择品类", anim = CoreAnim.slide)
 public class MineSelectCategoryFragment extends BaseFragment implements
@@ -86,14 +90,6 @@ public class MineSelectCategoryFragment extends BaseFragment implements
     protected void initListeners() {
         super.initListeners();
 
-        mBinding.layoutTitle.ivBack.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                setFragmentResult(Constant.RESULT_CODE_FALSE,null);
-                popToBack();
-            }
-        });
-
         mBinding.tvMall.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
@@ -116,10 +112,10 @@ public class MineSelectCategoryFragment extends BaseFragment implements
         mBinding.btChosen.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
-
-                Intent intent = new Intent();
-                intent.putExtra(RESULT_KEY_CATEGORY_TYPE,);
-                setFragmentResult(Constant.RESULT_CODE_SUCCESS,intent);
+                resultIntent = new Intent();
+                resultIntent.putExtra(RESULT_KEY_CATEGORY_TYPE,selected_type);
+                resultCode = Constant.RESULT_CODE_SUCCESS;
+                popToBack();
             }
         });
 
@@ -153,6 +149,8 @@ public class MineSelectCategoryFragment extends BaseFragment implements
         linkage = mBinding.linkageAllType;
         primaryConfig = new CustomLinkagePrimaryGoodsTypeAdapterConfig<>(this, linkage);
         secondaryConfig = new CustomLinkageSecondaryGoodsTypeAdapterConfig(this) {
+            private WeakReference<View> selectView;
+
             @Override
             public int getGridLayoutId() {
                 return super.getGridLayoutId(); // FIXME: 2021/1/26 生成可选择的drawable layout
@@ -170,7 +168,38 @@ public class MineSelectCategoryFragment extends BaseFragment implements
 
             @Override
             public void onBindViewHolder(LinkageSecondaryViewHolder holder, BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
-                super.onBindViewHolder(holder, item);
+                ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
+                Glide.with(holder.itemView.getContext()).load(R.mipmap.ic_food_all_subtype).into((ImageView) holder.getView(R.id.iv_goods_img));
+//        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img)); // FIXME: 2020/12/15 暂时修改为读取本地图片
+
+                View imgView = holder.getView(R.id.iv_goods_img);
+                ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
+
+                if(imgView != null){
+                    imgView.setOnClickListener(v -> {
+                        if(selectView != null){
+                            selectView.get().setSelected(false);
+                            selectView.clear();
+                        }
+                        v.setSelected(true);
+                        selectView = new WeakReference<>(v);
+
+                        onSecondaryItemClick(holder, viewGroup, item);
+                    });
+                }
+                viewGroup.setOnClickListener(v -> {
+                    if(selectView != null){
+                        selectView.get().setSelected(false);
+                        selectView.clear();
+                    }
+                    if(imgView != null){
+                        imgView.setSelected(true);
+                        selectView = new WeakReference<>(imgView);
+                    }
+
+                    onSecondaryItemClick(holder, viewGroup, item);
+
+                });
 
             }
         };

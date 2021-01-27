@@ -274,4 +274,12 @@
     <string name="shop_address">店铺地址</string>
     <string name="house_number">门牌号</string>
     <string name="business_qualification">营业资质</string>
+    <string name="upload_img">+ 上传图片</string>
+    <string name="clean_the_cache">清除缓存</string>
+    <string name="about_us">关于我们</string>
+    <string name="privacy_agreement">隐私协议</string>
+    <string name="cancellation_of_account">注销账号</string>
+    <string name="opinion_feedback">意见反馈</string>
+    <string name="quick_login">退出账号</string>
+    <string name="cancel_collection">取消收藏</string>
 </resources>

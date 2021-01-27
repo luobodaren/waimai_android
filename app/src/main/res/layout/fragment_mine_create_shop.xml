@@ -7,7 +7,7 @@
 
     </data>
 
-    <LinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +20,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background">
 
             <ScrollView
                 android:id="@+id/scrollView"
@@ -125,7 +126,7 @@
 
 
                             <TextView
-                                android:id="@+id/et_business_category"
+                                android:id="@+id/tv_business_category_value"
                                 style="@style/text_create_shop_et_info"
                                 android:layout_marginEnd="@dimen/interval_size_xs"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -165,7 +166,7 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:id="@+id/et_shop_address"
+                                android:id="@+id/tv_shop_address_value"
                                 style="@style/text_create_shop_et_info"
                                 android:layout_marginEnd="@dimen/interval_size_xs"
                                 android:ellipsize="end"
@@ -225,12 +226,48 @@
                         android:padding="@dimen/interval_size_xs">
 
                         <TextView
+                            android:id="@+id/tv_shop_facade_figure"
                             style="@style/text_my_simple_style"
-                            android:text="店内环境"
+                            android:text="门脸图"
                             android:textColor="@color/text_normal"
                             android:textSize="34px"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.xuexiang.xui.widget.imageview.RadiusImageView
+                            android:id="@+id/iv_shop_facade_figure"
+                            android:layout_width="0px"
+                            android:layout_height="260px"
+                            android:layout_marginStart="216px"
+                            android:background="@drawable/sr_bg_8dp_gray2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:riv_corner_radius="8dp" />
+
+                        <TextView
+                            android:id="@+id/tv_upload_img_1"
+                            style="@style/text_my_simple_style"
+                            android:textSize="30px"
+                            android:textColor="@color/text_tip"
+                            android:text="@string/upload_img"
+                            app:layout_constraintStart_toStartOf="@id/iv_shop_facade_figure"
+                            app:layout_constraintEnd_toEndOf="@id/iv_shop_facade_figure"
+                            app:layout_constraintTop_toTopOf="@id/iv_shop_facade_figure"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_shop_facade_figure"/>
+
+                        <TextView
+                            android:id="@+id/tv_shop_facade_figure_sign"
+                            style="@style/text_my_simple_style"
+                            android:background="@drawable/sr_bg_tl_br_8dp"
+                            android:paddingStart="8px"
+                            android:paddingEnd="8px"
+                            android:text="需要包含完整牌匾"
+                            android:textColor="@color/white"
+                            android:textSize="24px"
+                            app:layout_constraintStart_toStartOf="@id/iv_shop_facade_figure"
+                            app:layout_constraintTop_toTopOf="@id/iv_shop_facade_figure" />
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -257,17 +294,33 @@
                             android:id="@+id/iv_shop_environment"
                             android:layout_width="0px"
                             android:layout_height="260px"
-                            android:layout_marginStart="56px"
+                            android:layout_marginStart="216px"
+                            android:background="@drawable/sr_bg_8dp_gray2"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/tv_shop_environment"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:riv_corner_radius="8dp" />
 
-                        <ImageView
-                            android:id="@+id/iv_shop_environment_sign"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
+                        <TextView
+                            android:id="@+id/tv_upload_img_2"
+                            style="@style/text_my_simple_style"
+                            android:textSize="30px"
+                            android:textColor="@color/text_tip"
+                            android:text="@string/upload_img"
+                            app:layout_constraintStart_toStartOf="@id/iv_shop_environment"
+                            app:layout_constraintEnd_toEndOf="@id/iv_shop_environment"
+                            app:layout_constraintTop_toTopOf="@id/iv_shop_environment"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_shop_environment"/>
+
+                        <TextView
+                            android:id="@+id/tv_shop_environment_sign"
+                            style="@style/text_my_simple_style"
+                            android:background="@drawable/sr_bg_tl_br_8dp"
+                            android:paddingStart="8px"
+                            android:paddingEnd="8px"
+                            android:text="拍摄店内真实环境"
+                            android:textColor="@color/white"
+                            android:textSize="24px"
                             app:layout_constraintStart_toStartOf="@id/iv_shop_environment"
                             app:layout_constraintTop_toTopOf="@id/iv_shop_environment" />
 
@@ -296,17 +349,34 @@
                             android:id="@+id/iv_business_qualification"
                             android:layout_width="0px"
                             android:layout_height="260px"
-                            android:layout_marginStart="56px"
+                            android:layout_marginStart="216px"
+                            android:background="@drawable/sr_bg_8dp_gray2"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/tv_business_qualification"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:riv_corner_radius="8dp" />
 
-                        <ImageView
-                            android:id="@+id/iv_business_qualification_sign"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
+                        <TextView
+                            android:id="@+id/tv_upload_img_3"
+                            style="@style/text_my_simple_style"
+                            android:textSize="30px"
+                            android:textColor="@color/text_tip"
+                            android:text="@string/upload_img"
+                            app:layout_constraintStart_toStartOf="@id/iv_business_qualification"
+                            app:layout_constraintEnd_toEndOf="@id/iv_business_qualification"
+                            app:layout_constraintTop_toTopOf="@id/iv_business_qualification"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_business_qualification"/>
+
+
+                        <TextView
+                            android:id="@+id/tv_business_qualification_sign"
+                            style="@style/text_my_simple_style"
+                            android:background="@drawable/sr_bg_tl_br_8dp"
+                            android:paddingStart="8px"
+                            android:paddingEnd="8px"
+                            android:text="上传店铺营业资质"
+                            android:textColor="@color/white"
+                            android:textSize="24px"
                             app:layout_constraintStart_toStartOf="@id/iv_business_qualification"
                             app:layout_constraintTop_toTopOf="@id/iv_business_qualification" />
 
@@ -320,11 +390,12 @@
                 android:id="@+id/bt_commit"
                 style="@style/bt_bottom_gradient"
                 android:layout_marginBottom="40px"
+                android:text="@string/submit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scrollView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 </layout>

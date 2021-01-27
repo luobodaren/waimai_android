@@ -60,12 +60,6 @@ public class MineAddShippingAddressFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-        mBinding.layoutTitle.ivBack.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                popToBackWithFailResult();
-            }
-        });
         mBinding.btCancel.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
@@ -78,14 +72,14 @@ public class MineAddShippingAddressFragment extends BaseFragment {
                 // TODO: 2021/1/25 上传新增地址信息
 
                 //成功
-                setFragmentResult(Constant.RESULT_CODE_SUCCESS,null);
+                resultCode = Constant.RESULT_CODE_SUCCESS;
                 popToBack();
             }
         });
     }
 
     private void popToBackWithFailResult(){
-        setFragmentResult(Constant.RESULT_CODE_FALSE,null);
+        resultCode = Constant.RESULT_CODE_FALSE;
         popToBack();
     }
 

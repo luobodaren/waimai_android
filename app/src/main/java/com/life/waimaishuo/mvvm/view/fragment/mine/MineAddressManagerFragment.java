@@ -134,12 +134,6 @@ public class MineAddressManagerFragment extends BaseFragment {
 
     private void initTitle(){
         mBinding.layoutTitle.tvTitle.setText(getPageName());
-        mBinding.layoutTitle.ivBack.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                popToBack();
-            }
-        });
     }
 
     private void initAddressRecycler(){

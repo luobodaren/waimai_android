@@ -62,12 +62,8 @@
 
             <TextView
                 android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
+                style="@style/divider_default_interval"
                 android:layout_marginTop="32px"
-                android:layout_marginStart="@dimen/interval_size_xs"
-                android:layout_marginEnd="@dimen/interval_size_xs"
-                android:background="@color/divider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 

@@ -29,6 +29,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallShoppingCartViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.Utils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -185,16 +186,7 @@ public class MallShoppingCartFragment extends BaseFragment {
         textView.setPadding(interval,0,0,0);
         adapter.addHeaderView(textView);
         mBinding.recyclerShop.setAdapter(adapter);
-        mBinding.recyclerShop.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = interval;
-                if(parent.getChildAdapterPosition(view) == state.getItemCount() - 1){
-                    outRect.bottom = interval;
-                }
-            }
-        });
+        mBinding.recyclerShop.addItemDecoration(Utils.getItemDecoration(requireContext()));
     }
 
     private MyBaseRecyclerAdapter getShopRecyclerAdapter() {
@@ -227,7 +219,7 @@ public class MallShoppingCartFragment extends BaseFragment {
                         ((ImageView)adapter.getHeaderLayout().findViewById(R.id.iv_select)).setImageResource(R.drawable.ic_round_gray);
                     }
                 }else{
-                    View view = View.inflate(helper.itemView.getContext(),R.layout.head_mall_shopping_cart_noneffective,null);
+                    View view = View.inflate(helper.itemView.getContext(),R.layout.head_noneffective_goods,null);
                     adapter.addHeaderView(view);
                 }
 
@@ -240,17 +232,7 @@ public class MallShoppingCartFragment extends BaseFragment {
                 recyclerView.setSwipeMenuCreator(swipeMenuCreator);
                 recyclerView.setOnItemMenuClickListener(mMenuItemClickListener);
                 recyclerView.setAdapter(adapter);
-                recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-                    int interval = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
-                    @Override
-                    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                        super.getItemOffsets(outRect, view, parent, state);
-                        outRect.top = interval;
-                        if(parent.getChildAdapterPosition(view) == state.getItemCount() - 1){
-                            outRect.bottom = interval;
-                        }
-                    }
-                });
+                recyclerView.addItemDecoration(Utils.getItemDecoration(requireContext()));
 
             }
         };

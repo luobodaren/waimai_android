@@ -25,9 +25,7 @@
                 layout="@layout/title_menu_share"/>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/divider"/>
+                style="@style/divider"/>
 
             <TextView
                 style="@style/text_my_simple_style"

@@ -308,7 +308,7 @@ public class SortTypeView extends FrameLayout {
                     holder.text(R.id.tv_title, item);
                 }
                 if (holder.getItemViewType() == flowTabViewType) {
-                    FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);  // FIXME: 2021/1/5 要解决换行布局位置错误的问题，需要重写onLayout方法
+                    FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);
                     if(flowTagLayout.getAdapter() == null){
                         ScreenTagAdapter tagAdapter = new ScreenTagAdapter(getContext());
                         tagAdapter.setSelectedPosition(0);

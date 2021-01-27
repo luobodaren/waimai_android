@@ -142,10 +142,9 @@
 
                             <TextView
                                 android:id="@+id/divider"
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
+                                style="@style/divider"
                                 android:layout_marginTop="@dimen/interval_size_xs"
-                                android:background="@color/divider"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/tv_shop_name2" />
 
                             <androidx.recyclerview.widget.RecyclerView
@@ -157,10 +156,8 @@
 
                             <TextView
                                 android:id="@+id/divider_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
+                                style="@style/divider"
                                 android:layout_marginTop="@dimen/interval_size_xs"
-                                android:background="@color/divider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/recycler_goods_list" />
 
@@ -210,9 +207,7 @@
 
                             <TextView
                                 android:id="@+id/divider_3"
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
-                                android:background="@color/divider"
+                                style="@style/divider"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/ll_red_packet" />
 
@@ -224,11 +219,9 @@
                                 app:layout_constraintTop_toBottomOf="@id/divider_3" />
                             <!--<TextView
                                 android:id="@+id/divider2"
-                                android:layout_width="match_parent"
-                                android:layout_height="1px"
+                                style="@style/divider"
                                 android:layout_marginTop="@dimen/interval_size_xs"
-                                app:layout_constraintTop_toBottomOf="@id/recycler_goods_list"
-                                android:background="@color/divider" />
+                                app:layout_constraintTop_toBottomOf="@id/recycler_goods_list"/>
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_goods_list"

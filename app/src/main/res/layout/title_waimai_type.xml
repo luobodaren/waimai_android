@@ -15,7 +15,7 @@
         android:paddingEnd="@dimen/interval_size_xs">
 
         <ImageView
-            android:id="@+id/iv_left_action"
+            android:id="@+id/iv_back"
             android:layout_width="44px"
             android:layout_height="44px"
             android:src="@drawable/ic_arrow_left_white"/>

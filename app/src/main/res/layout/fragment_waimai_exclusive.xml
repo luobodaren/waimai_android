@@ -25,6 +25,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_menu_share_transparent"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_exclusive"
                 android:layout_width="match_parent"

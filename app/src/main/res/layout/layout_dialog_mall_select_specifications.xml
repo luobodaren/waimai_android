@@ -37,10 +37,8 @@
 
         <TextView
             android:id="@+id/tv_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
+            style="@style/divider"
             android:layout_marginTop="35px"
-            android:background="@color/divider"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 

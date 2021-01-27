@@ -24,6 +24,7 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopEvaluationViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.PreViewUtil;
+import com.life.waimaishuo.util.Utils;
 import com.life.waimaishuo.views.widget.ScoreView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -151,17 +152,7 @@ public class ShopEvaluationFragment extends BaseFragment {
 
             }
         });
-        mBinding.recyclerComments.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int space = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = space;
-                if(parent.getChildAdapterPosition(view) == state.getItemCount()-1){   //最后一个
-                    outRect.bottom = space;
-                }
-            }
-        });
+        mBinding.recyclerComments.addItemDecoration(Utils.getItemDecoration(requireContext()));
 
     }
 

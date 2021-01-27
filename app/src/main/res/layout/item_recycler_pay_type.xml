@@ -43,21 +43,13 @@
 
         <TextView
             android:id="@+id/divider_top"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            android:layout_marginEnd="@dimen/interval_size_xs"
-            android:background="@color/divider"
+            style="@style/divider_default_interval"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/divider_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            android:layout_marginEnd="@dimen/interval_size_xs"
-            android:background="@color/divider"
+            style="@style/divider_default_interval"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 

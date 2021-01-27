@@ -1,12 +1,10 @@
 package com.life.waimaishuo.mvvm.view.fragment;
 
 import android.graphics.Color;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,9 +18,11 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.Message;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMessageBinding;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.MessageViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TextUtil;
 import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -38,8 +38,8 @@ import java.util.List;
 @Page(name = "消息中心",anim = CoreAnim.slide)
 public class MessageFragment extends BaseFragment {
 
-    MessageViewModel mViewModel;
-    FragmentMessageBinding binding;
+    private MessageViewModel mViewModel;
+    private FragmentMessageBinding mBinding;
 
     private MessageRecyclerAdapter mMessageRecyclerAdapter;
 
@@ -110,8 +110,8 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        binding = (FragmentMessageBinding)mViewDataBinding;
-        binding.setViewModel(mViewModel);
+        mBinding = (FragmentMessageBinding)mViewDataBinding;
+        mBinding.setViewModel(mViewModel);
     }
 
     @Override
@@ -129,28 +129,14 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected TitleBar initTitleBar() {
-        TitleBar titleBar = super.initTitleBar();
-
-        titleBar.setLeftImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_left_black));
-
-        titleBar.setBackgroundColor(getResources().getColor(R.color.white));
-        titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
-        titleBar.setCenterTextBold(true);
-        titleBar.setTitleColor(getResources().getColor(R.color.text_normal));
-        titleBar.setActionTextColor(getResources().getColor(R.color.text_normal));
-        TextView actionTextView = (TextView) titleBar.addAction(new TitleBar.TextAction(getString(R.string.read_all_message_bt)) {
-            @Override
-            public void performAction(View view) {
-                doReadAllMessage(getString(R.string.read_all_message_success_tip),true);
-            }
-        });
-        actionTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimension(R.dimen.font_size_30));
-        return titleBar;
+        return null;
     }
 
     @Override
     protected void initViews() {
         super.initViews();
+
+        initTitle();
         initMessageRecycler();
     }
 
@@ -159,7 +145,7 @@ public class MessageFragment extends BaseFragment {
         super.initListeners();
 
         //下拉刷新
-        binding.swipeRefreshLayout.setOnRefreshListener(this::loadData);
+        mBinding.swipeRefreshLayout.setOnRefreshListener(this::loadData);
 //        refresh();
     }
 
@@ -172,6 +158,19 @@ public class MessageFragment extends BaseFragment {
     @Override
     protected void onLifecycleDestroy() {
         super.onLifecycleDestroy();
+    }
+
+    private void initTitle(){
+        TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle,true);
+        TextUtil.setFakeBoldText(mBinding.layoutTitle.tvRight,true);
+
+        mBinding.layoutTitle.tvRight.setText(R.string.read_all_message_bt);
+        mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                doReadAllMessage(getString(R.string.read_all_message_success_tip),true);
+            }
+        });
     }
 
     private void doReadAllMessage(String info, boolean successful){
@@ -202,10 +201,10 @@ public class MessageFragment extends BaseFragment {
 
     private void initMessageRecycler(){
         FragmentMessageBinding binding = ((FragmentMessageBinding)mViewDataBinding);
-//        WidgetUtils.initRecyclerView(binding.swipeRecyclerView);
+//        WidgetUtils.initRecyclerView(mBinding.swipeRecyclerView);
         binding.swipeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-//        binding.swipeRecyclerView.addItemDecoration(new CityPickerDividerItemDecoration(binding.swipeRecyclerView.getContext(), VERTICAL));
-//        binding.swipeRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        mBinding.swipeRecyclerView.addItemDecoration(new CityPickerDividerItemDecoration(mBinding.swipeRecyclerView.getContext(), VERTICAL));
+//        mBinding.swipeRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         //必须在setAdapter之前调用
         binding.swipeRecyclerView.setSwipeMenuCreator(swipeMenuCreator);
@@ -241,8 +240,8 @@ public class MessageFragment extends BaseFragment {
             list.clear();
             list.addAll(list);
             mMessageRecyclerAdapter.notifyDataSetChanged();
-            if (binding.swipeRefreshLayout != null) {
-                binding.swipeRefreshLayout.setRefreshing(false);
+            if (mBinding.swipeRefreshLayout != null) {
+                mBinding.swipeRefreshLayout.setRefreshing(false);
             }
         },1000);
     }

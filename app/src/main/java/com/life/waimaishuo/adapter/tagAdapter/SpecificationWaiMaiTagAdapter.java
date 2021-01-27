@@ -12,14 +12,14 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-public class WaiMaiSpecificationTagAdapter extends BaseTagAdapter<String, TextView> {
+public class SpecificationWaiMaiTagAdapter extends BaseTagAdapter<String, TextView> {
 
     Drawable selected;
     Drawable unSelected;
 
     public int selectedIndex = -1;
 
-    public WaiMaiSpecificationTagAdapter(Context context) {
+    public SpecificationWaiMaiTagAdapter(Context context) {
         super(context);
         initDrawable();
     }

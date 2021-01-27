@@ -1,14 +1,9 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-import android.graphics.drawable.Drawable;
-import android.util.TypedValue;
-import android.view.Gravity;
+import android.graphics.Rect;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -22,7 +17,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiExclusiveViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
-import com.life.waimaishuo.adapter.decoration.StaggeredDividerItemDecoration;
+import com.life.waimaishuo.util.TextUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -30,17 +25,19 @@ import com.xuexiang.xpage.utils.TitleBar;
 @Page(name = "专属早餐",anim = CoreAnim.slide)
 public class ExclusiveBreakfastFragment extends BaseFragment {
 
-    WaimaiExclusiveViewModel viewModel;
+    private FragmentWaimaiExclusiveBinding mBinding;
+    private WaimaiExclusiveViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
-        viewModel = new WaimaiExclusiveViewModel();
-        return viewModel;
+        mViewModel = new WaimaiExclusiveViewModel();
+        return mViewModel;
     }
 
     @Override
     protected void bindViewModel() {
-        ((FragmentWaimaiExclusiveBinding)mViewDataBinding).setViewModel(viewModel);
+        mBinding = (FragmentWaimaiExclusiveBinding)mViewDataBinding;
+        mBinding.setViewModel(mViewModel);
     }
 
     @Override
@@ -57,36 +54,14 @@ public class ExclusiveBreakfastFragment extends BaseFragment {
 
     @Override
     protected TitleBar initTitleBar() {
-        TitleBar titleBar = super.initTitleBar();
-        titleBar.setHeight((int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
-        titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
-        titleBar.setCenterTextBold(true);
-        titleBar.setTitleColor(getResources().getColor(R.color.white));
-        titleBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-
-        int titleBarDrawableSizes = (int)UIUtils.getInstance().scalePx(R.dimen.titlebar_drawable_size);
-        Drawable leftDrawable = getResources().getDrawable(R.drawable.ic_arrow_left_white);
-        leftDrawable.setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
-        titleBar.setLeftImageDrawable(leftDrawable);
-        ImageView imageView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.drawable.ic_share) {
-            @Override
-            public void performAction(View view) {
-                Toast.makeText(getContext(),"分享···",Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-        layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        layoutParams.gravity = Gravity.CENTER_VERTICAL;
-        imageView.setLayoutParams(layoutParams);
-        imageView.getDrawable().setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
-        return titleBar;
+        return null;
     }
 
     @Override
     protected void initViews() {
         super.initViews();
+
+        initTitle();
         initExclusiveRecycler();
     }
 
@@ -96,16 +71,34 @@ public class ExclusiveBreakfastFragment extends BaseFragment {
         changeStatusBarMode();
     }
 
+    private void initTitle(){
+        TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle,true);
+        mBinding.layoutTitle.tvTitle.setText(getPageName());
+        setViewVisibility(mBinding.layoutTitle.ivMenu,false);
+    }
+
     private void initExclusiveRecycler() {
         int spanCount = 2;
-        RecyclerView recyclerView = ((FragmentWaimaiExclusiveBinding)mViewDataBinding).recyclerExclusive;
+        RecyclerView recyclerView = mBinding.recyclerExclusive;
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(
                 spanCount,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 //        recyclerView.addItemDecoration(
 //                new StaggeredDividerItemDecoration(requireContext(), R.dimen.interval_size_xs,
 //                        (int) UIUtils.getInstance().scalePx(16), spanCount));
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            int interval = (int) UIUtils.getInstance().scalePx(24);
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                outRect.top = interval;
+                int position = parent.getChildAdapterPosition(view);
+                if(position == state.getItemCount() - 1 || position == state.getItemCount() - 2){
+                    outRect.bottom = interval;
+                }
+            }
+        });
         recyclerView.setAdapter(new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_exclusive_goods_info,
-                viewModel.getmBreakFastList(), BR.goods));
+                mViewModel.getmBreakFastList(), BR.goods));
     }
 }

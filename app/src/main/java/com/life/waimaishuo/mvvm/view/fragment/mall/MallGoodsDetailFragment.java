@@ -27,7 +27,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
-import com.life.waimaishuo.adapter.tagAdapter.MallSpecificationTagAdapter;
+import com.life.waimaishuo.adapter.tagAdapter.SpecificationMallTagAdapter;
 import com.life.waimaishuo.bean.Address;
 import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.bean.Goods;
@@ -474,7 +474,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
                     FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);
 
                     if (flowTagLayout.getAdapter() == null) {
-                        MallSpecificationTagAdapter tagAdapter = new MallSpecificationTagAdapter(getContext());
+                        SpecificationMallTagAdapter tagAdapter = new SpecificationMallTagAdapter(getContext());
                         tagAdapter.setSelectedPosition(0);
                         tagAdapter.selectedIndex = 0;
                         String[] strings = new String[]{"玫瑰红色", "豆沙色", "白色", "玫瑰红色", "玫瑰红色", "豆沙色", "白色", "玫瑰红色"};
@@ -487,7 +487,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
                                 LogUtil.d("流标签选中index:" + tagPosition);
                                 tagAdapter.selectedIndex = tagPosition;
                                 tagAdapter.setSelectedPosition(tagPosition);
-                                tagAdapter.notifyDataSetChanged();
+                                tagAdapter.notifyDataSetChanged();  //字体颜色没有被修正 需要notifyChange
 
                                 //保存选中的数据
                                 if (!tagKeyList.contains(position)) {

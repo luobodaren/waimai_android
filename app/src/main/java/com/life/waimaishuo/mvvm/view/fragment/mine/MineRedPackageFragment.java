@@ -72,13 +72,6 @@ public class MineRedPackageFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-
-        mBinding.layoutTitle.ivBack.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                popToBack();
-            }
-        });
     }
 
     private void initTitle() {

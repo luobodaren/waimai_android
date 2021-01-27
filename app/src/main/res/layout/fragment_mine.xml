@@ -19,42 +19,51 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.xuexiang.xui.widget.imageview.RadiusImageView
-                android:id="@+id/iv_head_portrait"
-                style="@style/mine_head_portrait"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_personal_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="24px"
                 android:layout_marginTop="@dimen/mine_marginTop"
                 android:layout_marginEnd="24px"
-                android:background="@drawable/sr_bg_8dp_white"
-                android:src="@drawable/ic_waimai_brand"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="16px" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24px"
-                android:maxWidth="360px"
-                android:maxLines="1"
-                android:text="@string/login_please"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/mine_tv_name_font_size"
-                app:layout_constraintStart_toEndOf="@id/iv_head_portrait"
-                app:layout_constraintTop_toTopOf="@id/iv_head_portrait" />
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/iv_head_portrait"
+                    style="@style/mine_head_portrait"
+                    android:background="@drawable/sr_bg_8dp_white"
+                    android:src="@drawable/ic_waimai_brand"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="16px" />
 
-            <TextView
-                android:id="@+id/tv_signature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24px"
-                android:includeFontPadding="false"
-                android:maxWidth="380px"
-                android:maxLines="1"
-                android:textSize="@dimen/mine_tv_signature_font_size"
-                app:layout_constraintStart_toStartOf="@id/tv_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_name" />
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24px"
+                    android:maxWidth="360px"
+                    android:maxLines="1"
+                    android:text="@string/login_please"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/mine_tv_name_font_size"
+                    app:layout_constraintStart_toEndOf="@id/iv_head_portrait"
+                    app:layout_constraintTop_toTopOf="@id/iv_head_portrait" />
+
+                <TextView
+                    android:id="@+id/tv_signature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
+                    android:includeFontPadding="false"
+                    android:maxWidth="380px"
+                    android:maxLines="1"
+                    android:textSize="@dimen/mine_tv_signature_font_size"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/iv_message"
@@ -62,7 +71,7 @@
                 android:layout_marginEnd="24px"
                 android:src="@drawable/ic_message_black"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_name" />
+                app:layout_constraintTop_toTopOf="@id/cl_personal_info" />
 
             <ImageView
                 android:id="@+id/iv_setting"
@@ -89,7 +98,7 @@
                 android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_head_portrait" />
+                app:layout_constraintTop_toBottomOf="@id/cl_personal_info" />
 
 
             <ScrollView

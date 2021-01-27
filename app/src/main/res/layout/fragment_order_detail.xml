@@ -107,10 +107,9 @@
 
                         <TextView
                             android:id="@+id/divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="1px"
+                            style="@style/divider"
                             android:layout_marginTop="34px"
-                            android:background="@color/divider"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_deliver_time" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

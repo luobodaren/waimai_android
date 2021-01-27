@@ -3,6 +3,7 @@ package com.life.waimaishuo.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +18,7 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
@@ -116,6 +118,24 @@ public class Utils {
             }
         });
         return gridLayoutManager;
+    }
+
+    public static RecyclerView.ItemDecoration getItemDecoration(Context context){
+        return new RecyclerView.ItemDecoration() {
+            int interval = (int) UIUtils.getInstance().scalePx(context.getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int position = parent.getChildAdapterPosition(view);
+                if(position != RecyclerView.NO_POSITION){
+                    outRect.top = interval;
+                    if(position == state.getItemCount()-1){
+                        outRect.bottom = interval;
+                    }
+                }
+            }
+        };
     }
 
     //==========图片选择===========//

@@ -65,10 +65,17 @@ public class MineFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
-        mBinding.ivSetting.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+        mBinding.clPersonalInfo.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
                 openPage(MinePersonalCenterFragment.class);
+            }
+        });
+
+        mBinding.ivSetting.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                openPage(MineSettingFragment.class);
             }
         });
 
@@ -84,6 +91,9 @@ public class MineFragment extends BaseFragment {
             switch (position) { //注意与R.array.mine_recommends_str匹配
                 case 0:
                     openPage(MineAddressManagerFragment.class);
+                    break;
+                case 2:
+                    openPage(MineCollectionFragment.class);
                     break;
                 case 3:
                     openPage(MineMerchantsTenantsFragment.class);

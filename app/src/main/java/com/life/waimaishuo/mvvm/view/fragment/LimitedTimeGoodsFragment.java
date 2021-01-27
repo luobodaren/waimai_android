@@ -32,6 +32,7 @@ import com.life.waimaishuo.databinding.FragmentWaimaiLimitedTimeGoodsBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
 import com.life.waimaishuo.util.TextUtil;
+import com.life.waimaishuo.util.Utils;
 import com.life.waimaishuo.views.MyHorizontalProgressView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -82,31 +83,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
     @Override
     protected TitleBar initTitleBar() {
-        TitleBar titleBar = super.initTitleBar();
-        titleBar.setHeight((int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
-        titleBar.getCenterText().setTextSize(TypedValue.COMPLEX_UNIT_PX,36);
-        titleBar.setCenterTextBold(true);
-        titleBar.setTitleColor(getResources().getColor(R.color.white));
-        titleBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-
-        int titleBarDrawableSizes = (int) UIUtils.getInstance().scalePx(R.dimen.titlebar_drawable_size);
-        Drawable leftDrawable = getResources().getDrawable(R.drawable.ic_arrow_left_white);
-        leftDrawable.setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
-        titleBar.setLeftImageDrawable(leftDrawable);
-        ImageView imageView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.drawable.ic_share) {
-            @Override
-            public void performAction(View view) {
-                Toast.makeText(getContext(),"分享···",Toast.LENGTH_SHORT).show();
-            }
-        });
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
-        layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        layoutParams.gravity = Gravity.CENTER_VERTICAL;
-        imageView.setLayoutParams(layoutParams);
-        imageView.getDrawable().setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
-        return titleBar;
+        return null;
     }
 
     @Override
@@ -118,6 +95,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
+        initTitle();
         initBackground();
         initIntroduce();
 
@@ -128,6 +106,12 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
         }else if(mPageType == Constant.PAGE_TYPE_MALL){
             initMallLimitedGoodsRecycler();
         }
+    }
+
+    private void initTitle(){
+        mBinding.layoutTitle.tvTitle.setText(getPageName());
+        setViewVisibility(mBinding.layoutTitle.ivMenu,false);
+        TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle,true);
     }
 
     private void initBackground(){
@@ -252,21 +236,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                 }
             }
         });
-        mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int)UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
-
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int position = parent.getChildAdapterPosition(view);
-                if(position != RecyclerView.NO_POSITION){
-                    outRect.top = interval;
-                    if(position == state.getItemCount()-1){
-                        outRect.bottom = interval;
-                    }
-                }
-            }
-        });
+        mBinding.recyclerGoodsList.addItemDecoration(Utils.getItemDecoration(requireContext()));
     }
 
     // FIXME: 2021/1/19  add headView

@@ -60,7 +60,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
 
     @Override
     protected int getVariableId() {
-        return -1;  // FIXME: 2020/12/28 后续修改成正确的值
+        return 0;  // FIXME: 2020/12/28 后续修改成正确的值
     }
 
     @Override

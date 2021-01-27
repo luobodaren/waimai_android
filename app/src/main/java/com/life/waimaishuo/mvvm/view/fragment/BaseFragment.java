@@ -1,7 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -18,11 +18,10 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.databinding.LayoutDialogDirectFunctionBinding;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
-import com.life.waimaishuo.views.widget.dialog.TopLightBackgroundDialog;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageFragment;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -43,6 +42,10 @@ public abstract class BaseFragment extends XPageFragment {
     public ViewDataBinding mViewDataBinding;
     public BaseViewModel baseViewModel;
 
+    //openPageForResult返回的内容
+    protected int resultCode = Constant.RESULT_CODE_FALSE;
+    protected Intent resultIntent;
+
     //用于UI更新
     protected Handler mHandler;
 
@@ -58,6 +61,12 @@ public abstract class BaseFragment extends XPageFragment {
         bindViewModel();
         View view = mViewDataBinding.getRoot();
         return view;
+    }
+
+    @Override
+    public void popToBack() {
+        beforePopToBack();
+        super.popToBack();
     }
 
     @Override
@@ -125,6 +134,16 @@ public abstract class BaseFragment extends XPageFragment {
             }
         });
 
+        View back = mRootView.findViewById(R.id.iv_back);
+        if(back != null){
+            back.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View view) {
+                    popToBack();
+                }
+            });
+        }
+
     }
 
     @Override
@@ -147,6 +166,15 @@ public abstract class BaseFragment extends XPageFragment {
 
     private void initMyHandle() {
         mHandler = new Handler(Looper.getMainLooper());
+    }
+
+    /**
+     * popToBack之前被调用
+     */
+    private void beforePopToBack(){
+        //方法内会判断是否存在openPageForResultListener 不存在不会进行结果回调
+        //listener会在调用openPageForResult或openPageForResult(带new Activity字段)时被创建
+        setFragmentResult(resultCode,resultIntent);
     }
 
     protected void fitStatusBarHeight(){

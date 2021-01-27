@@ -20,7 +20,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
-import com.life.waimaishuo.adapter.tagAdapter.WaiMaiSpecificationTagAdapter;
+import com.life.waimaishuo.adapter.tagAdapter.SpecificationWaiMaiTagAdapter;
 import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
 import com.life.waimaishuo.databinding.LayoutDialogChoseSpecificationBinding;
@@ -209,9 +209,9 @@ public class ShopOrderDishesFragment extends BaseFragment
                     holder.text(R.id.tv_title, item);
                 }
                 if (holder.getItemViewType() == flowTabViewType) {
-                    FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);  // FIXME: 2021/1/5 要解决换行布局位置错误的问题，需要重写onLayout方法
+                    FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);
                     if(flowTagLayout.getAdapter() == null){
-                        WaiMaiSpecificationTagAdapter tagAdapter = new WaiMaiSpecificationTagAdapter(getContext());
+                        SpecificationWaiMaiTagAdapter tagAdapter = new SpecificationWaiMaiTagAdapter(getContext());
                         tagAdapter.setSelectedPosition(0);
                         tagAdapter.selectedIndex = 0;
                         String[] strings = new String[]{"微微辣", "特辣", "中辣", "不要香菜"};

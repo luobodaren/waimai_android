@@ -43,8 +43,6 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     private OnSecondaryItemClickListener mItemClickListener;
 
-    private WeakReference<View> selectView;
-
     public CustomLinkageSecondaryGoodsTypeAdapterConfig(OnSecondaryItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
     }
@@ -98,18 +96,13 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 //        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img)); // FIXME: 2020/12/15 暂时修改为读取本地图片
 
         ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
-        viewGroup.setOnClickListener(v -> {
-            if(selectView != null){
-                selectView.get().setSelected(false);
-                selectView.clear();
-            }
-            holder.itemView.setSelected(true);
-            selectView = new WeakReference<>(holder.itemView);
 
+        viewGroup.setOnClickListener(v -> {
             if (mItemClickListener != null) {
                 mItemClickListener.onSecondaryItemClick(holder, viewGroup, item);
             }
         });
+
     }
 
     @Override

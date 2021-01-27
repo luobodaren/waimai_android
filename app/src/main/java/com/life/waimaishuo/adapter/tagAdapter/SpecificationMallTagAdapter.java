@@ -12,11 +12,11 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-public class MallSpecificationTagAdapter extends BaseTagAdapter<String, TextView> {
+public class SpecificationMallTagAdapter extends BaseTagAdapter<String, TextView> {
 
-    public int selectedIndex = -1;
+    public int selectedIndex = -1; //本地保持选中的index备份 避免当notifyDataSetChange时丢失了选中下标
 
-    public MallSpecificationTagAdapter(Context context) {
+    public SpecificationMallTagAdapter(Context context) {
         super(context);
     }
 

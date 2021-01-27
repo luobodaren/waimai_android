@@ -116,7 +116,6 @@ public class ShopReportMerchantsFragment extends BaseFragment {
 
     private void initTitle() {
         mBinding.layoutTitle.tvTitle.setText(getPageName());
-        mBinding.layoutTitle.ivBack.setOnClickListener(v -> popToBack());
         mBinding.layoutTitle.ivShare.setVisibility(View.GONE);
     }
 

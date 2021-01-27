@@ -26,6 +26,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.OrderSelectedRedPacketViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TextUtil;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -58,27 +59,7 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
 
     @Override
     protected TitleBar initTitleBar() {
-        TitleBar titleBar = super.initTitleBar();
-        titleBar.setHeight((int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.titlebar_height)));
-
-        int titleBarDrawableSizes = (int) UIUtils.getInstance().scalePx(R.dimen.titlebar_drawable_size);
-        Drawable leftDrawable = getResources().getDrawable(R.drawable.ic_arrow_left_black);
-        leftDrawable.setBounds(0,0,titleBarDrawableSizes,titleBarDrawableSizes);
-        titleBar.setLeftImageDrawable(leftDrawable);
-        titleBar.setLeftClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popToBackWithResult();
-            }
-        });
-        titleBar.setCenterTextBold(true);
-        ImageView imageView = (ImageView) titleBar.addAction(new TitleBar.ImageAction(R.drawable.ic_menu) {
-            @Override
-            public void performAction(View view) {
-                Toast.makeText(requireContext(), "点击了菜单", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return titleBar;
+        return null;
     }
 
     @Override
@@ -92,7 +73,14 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
+        initTitle();
         initRecyclerView();
+    }
+
+    private void initTitle(){
+        mBinding.layoutTitle.tvTitle.setText(getPageName());
+        setViewVisibility(mBinding.layoutTitle.ivMenu,false);
+        TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle,true);
     }
 
     SelectedPositionRecyclerViewAdapter<RedPacket> adapter;
@@ -144,14 +132,13 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
                 }
             }
         };
-        adapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<RedPacket>() {
-            @Override
-            public void onSelectedClick(BaseViewHolder holder, RedPacket item) {
-                if(item.isGet()){
-                    popToBackWithResult();
-                }else{
-                    LogUtil.d("点击了没有获得的会员卡");
-                }
+        adapter.setSelectedListener((holder, item) -> {
+            if(item.isGet()){
+                resultIntent = new Intent();
+                resultIntent.putExtra(RESULT_KEY_RED_PACKET_ID,getSelectedPacket());
+                resultCode = Constant.RESULT_CODE_SUCCESS;
+            }else{
+                LogUtil.d("点击了没有获得的会员卡");
             }
         });
         mBinding.recyclerRedPacket.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
@@ -169,13 +156,6 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
 
     private RedPacket getSelectedPacket() {
         return adapter.getData().get(adapter.getSelectedPosition());
-    }
-
-    private void popToBackWithResult(){
-        Intent intent = new Intent();
-        intent.putExtra(RESULT_KEY_RED_PACKET_ID,getSelectedPacket());
-        setFragmentResult(Constant.RESULT_CODE_SUCCESS,intent);
-        popToBack();
     }
 
 }

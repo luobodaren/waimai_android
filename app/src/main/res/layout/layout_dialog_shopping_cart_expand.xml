@@ -37,9 +37,7 @@
 
         <TextView
             android:id="@+id/tv_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider"
+            style="@style/divider"
             android:layout_marginTop="32px"
             app:layout_constraintTop_toBottomOf="@id/tv_shop_name"
             app:layout_constraintStart_toStartOf="parent" />

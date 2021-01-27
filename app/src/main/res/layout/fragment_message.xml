@@ -14,10 +14,12 @@
         android:orientation="vertical"
         android:background="@color/white">
 
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_simple"/>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider"/>
+            style="@style/divider"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"

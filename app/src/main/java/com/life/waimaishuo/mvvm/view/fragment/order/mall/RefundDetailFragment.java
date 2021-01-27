@@ -99,8 +99,6 @@ public class RefundDetailFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
-        mBinding.layoutTitle.ivBack.setOnClickListener(v -> popToBack());
-
         mBinding.tvOptionRight.setText(R.string.modify_application); //任何状态其点击时间均是一样的，可在这里初始化
         mBinding.tvOptionRight.setOnClickListener(v -> modifyApplication());
 
@@ -118,7 +116,7 @@ public class RefundDetailFragment extends BaseFragment {
     @Override
     public void onFragmentResult(int requestCode, int resultCode, Intent data) {
         super.onFragmentResult(requestCode, resultCode, data);
-        if(resultCode == Activity.RESULT_OK){
+        if(resultCode == Constant.RESULT_CODE_SUCCESS){
             if(requestCode == Constant.REQUEST_CODE_FILLING_LOGISTICS){
                 if(myPageState == STATE_WAIT_FOR_FILLING_RETURN_LOGISTICS){
                     myPageState++;
