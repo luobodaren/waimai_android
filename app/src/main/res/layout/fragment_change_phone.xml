@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_ll_content_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_phone_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:text="+86"
+            android:textColor="@color/text_tip"
+            android:textSize="34px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.xuexiang.xui.widget.edittext.ClearEditText
+            android:id="@+id/clearEditText1"
+            android:layout_width="0px"
+            android:layout_height="98px"
+            android:background="@null"
+            android:hint="@string/input_phoneNumber"
+            android:textColor="@color/text_normal"
+            android:textSize="34px"
+            app:cet_clearIcon="@drawable/xui_ic_default_clear_btn"
+            app:cet_clearIconSize="32px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_phone_prefix"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/bt_get_verification"
+        style="@style/bt_bottom_gradient"
+        android:layout_marginTop="40px"
+        android:text="@string/get_verification" />
+
+
+</LinearLayout>

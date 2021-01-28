@@ -5,9 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.util.Util;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
@@ -132,10 +135,9 @@ public class MineCollectionGoodsFragment extends BaseFragment {
         mBinding.recyclerGoodsEffective.setSwipeMenuCreator(swipeMenuCreator);
         mBinding.recyclerGoodsEffective.setOnItemMenuClickListener(mMenuItemClickListener);
         mBinding.recyclerGoodsEffective.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
-        mBinding.recyclerGoodsEffective.setAdapter(new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_collection_goods, mViewModel.getCollectionGoodsData(), com.life.waimaishuo.BR.item) {
+        mBinding.recyclerGoodsEffective.setAdapter(new BaseQuickAdapter<Goods,BaseViewHolder>(R.layout.item_recycler_collection_goods, mViewModel.getCollectionGoodsData()) {
             @Override
-            protected void initView(BaseViewHolder helper, Goods item) {
-                super.initView(helper, item);
+            protected void convert(@NonNull BaseViewHolder helper, Goods item) {
 
             }
         });
@@ -146,16 +148,16 @@ public class MineCollectionGoodsFragment extends BaseFragment {
         mBinding.recyclerGoodsNoneffective.setSwipeMenuCreator(swipeMenuCreator2);
         mBinding.recyclerGoodsNoneffective.setOnItemMenuClickListener(mMenuItemClickListener);
         mBinding.recyclerGoodsNoneffective.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
-        MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_collection_goods_noneffective, mViewModel.getCollectionNoneffectiveGoodsData(), com.life.waimaishuo.BR.item) {
+        BaseQuickAdapter adapter = new BaseQuickAdapter<Goods,BaseViewHolder>(R.layout.item_recycler_collection_goods_noneffective, mViewModel.getCollectionNoneffectiveGoodsData()) {
             @Override
-            protected void initView(BaseViewHolder helper, Goods item) {
-                super.initView(helper, item);
+            protected void convert(@NonNull BaseViewHolder helper, Goods item) {
 
             }
         };
         View view = View.inflate(requireContext(), R.layout.head_noneffective_goods, null);
         adapter.addHeaderView(view);
         mBinding.recyclerGoodsNoneffective.setAdapter(adapter);
+        mBinding.recyclerGoodsNoneffective.addItemDecoration(Utils.getItemDecoration(requireContext()));
     }
 
 }

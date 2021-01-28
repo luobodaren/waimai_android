@@ -20,6 +20,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -138,8 +139,13 @@ public class Utils {
         };
     }
 
-    //==========图片选择===========//
+    /**
+     * 清除图片选择后的缓存
+     * //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
+     *  PictureFileUtils.deleteCacheDirFile(MainActivity.this);
+     */
 
+    //==========图片选择===========//
     /**
      * 获取图片选择的配置
      *
@@ -183,6 +189,26 @@ public class Utils {
                 .enableCrop(false)
                 .compress(true)
                 .previewEggs(true);
+    }
+
+    /**
+     * 单独启动拍照 根据PictureMimeType自动识别
+     * @param baseFragment
+     */
+    public static void openCameraTakePhoto(BaseFragment baseFragment, int requestCode){
+        PictureSelector.create(baseFragment)
+                .openCamera(PictureMimeType.ofImage())
+                .forResult(requestCode);
+    }
+
+    /**
+     * 视频
+     * @param baseFragment
+     */
+    public static void openCameraTakeVideo(BaseFragment baseFragment, int requestCode){
+        PictureSelector.create(baseFragment)
+                .openCamera(PictureMimeType.ofVideo())
+                .forResult(requestCode);
     }
 
 }

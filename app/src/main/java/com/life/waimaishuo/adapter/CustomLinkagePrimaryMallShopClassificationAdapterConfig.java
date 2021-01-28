@@ -80,7 +80,7 @@ public class CustomLinkagePrimaryMallShopClassificationAdapterConfig<T extends B
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
         if(drawable == null){
-            drawable = mContext.getResources().getDrawable(R.drawable.sr_widght_vertical_bar_black);
+            drawable = mContext.getResources().getDrawable(R.drawable.sr_widget_vertical_bar_black);
         }
 
         TextView tvTitle = ((TextView) holder.mGroupTitle);

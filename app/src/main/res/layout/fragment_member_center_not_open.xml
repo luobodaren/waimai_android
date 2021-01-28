@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="456px"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_menu_share_transparent_black" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="469px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:layout_marginEnd="@dimen/interval_size_xs" >
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</com.life.base.views.UiAdapterFrameLayout>

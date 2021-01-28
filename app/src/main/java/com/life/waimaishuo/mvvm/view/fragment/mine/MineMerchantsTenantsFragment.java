@@ -85,14 +85,14 @@ public class MineMerchantsTenantsFragment extends BaseFragment {
     }
 
     private void initTabSegment() {
-        int space = getResources().getDimensionPixelOffset(R.dimen.goods_comment_tabSegment_item_space);
         String[] tabTitleList = mViewModel.getTabTitleStrings();
 
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
         addTab(mBinding.tabSegment, adapter, tabTitleList);
-        mBinding.tabSegment.setItemSpaceInScrollMode(space);
+        mBinding.tabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widget_horizontal_bar));
         mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.goods_comment_tabSegment_item_text_size));
+        mBinding.tabSegment.setupWithViewPager(mBinding.viewPager,false);
         mBinding.tabSegment.setTypefaceProvider(new MyTabSegmentBoldTypeFaceProvider());
 
         mBinding.viewPager.setOffscreenPageLimit(tabTitleList.length - 1);

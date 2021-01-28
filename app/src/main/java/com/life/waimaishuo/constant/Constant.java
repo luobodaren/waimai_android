@@ -24,6 +24,11 @@ public class Constant {
     public static int RESULT_CODE_SUCCESS = 0;
     public static int RESULT_CODE_FALSE = -1;
 
+    /**
+     * 个人头像拍照
+     */
+    public static int REQUEST_CODE_HEAD_PORTRAIT_TAKE_PICTURE = 1000;
+
     //PopWindow 显示时常
     public static final int POP_WINDOW_SHOW_TIME = 1000;
 

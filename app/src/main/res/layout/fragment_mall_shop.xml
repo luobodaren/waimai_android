@@ -156,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0px"
                     android:layout_weight="1"
-                    android:background="@drawable/sr_bg_gradient_transparent_to_white" />
+                    android:background="@drawable/sr_bg_gradient_transparent_to_background2" />
 
                 <Space
                     android:layout_width="match_parent"

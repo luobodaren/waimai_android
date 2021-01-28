@@ -55,11 +55,13 @@ public class ShopOrderDishesFragment extends BaseFragment
         OnSecondaryShopGoodsItemClickListener {
 
     private FragmentWaimaiShopOrderDishesBinding mBinding;
-    ShopOrderDishesViewModel mViewModel;
+    private ShopOrderDishesViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
-        mViewModel = new ShopOrderDishesViewModel();
+        if(mViewModel == null){
+            mViewModel = new ShopOrderDishesViewModel();
+        }
         return mViewModel;
     }
 

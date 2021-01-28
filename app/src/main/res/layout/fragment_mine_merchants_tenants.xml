@@ -23,8 +23,8 @@
             android:layout_height="84px"
             app:ts_has_indicator="true"
             app:ts_indicator_height="3dp"
-            app:ts_mode="scrollable"
-            app:ts_normal_color="@color/text_normal"
+            app:ts_mode="fixed"
+            app:ts_normal_color="@color/text_uncheck"
             app:ts_selected_color="@color/text_normal" />
 
         <androidx.viewpager.widget.ViewPager

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.BuyersShow;
@@ -17,7 +16,7 @@ import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.databinding.FragmentBuyersShowDetailsBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
-import com.life.waimaishuo.mvvm.vm.mall.MallBuyersShopDetailViewModel;
+import com.life.waimaishuo.mvvm.vm.mall.MallBuyersShowDetailViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -29,12 +28,12 @@ public class MallBuyersShowDetailFragment extends BaseFragment {
     private final static String KEY_BUYER_DATA = "key_buyer_data";
 
     private FragmentBuyersShowDetailsBinding mBinding;
-    private MallBuyersShopDetailViewModel mViewModel;
+    private MallBuyersShowDetailViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
         if(mViewModel == null){
-            mViewModel = new MallBuyersShopDetailViewModel();
+            mViewModel = new MallBuyersShowDetailViewModel();
         }
         return mViewModel;
     }

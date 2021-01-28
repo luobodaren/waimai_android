@@ -84,4 +84,8 @@
     <color name="xrs_outsideRangeLineColor">#1AFB5900</color>
     <color name="logistics_process_color">#FFCCCCCC</color>
     <color name="text_logistics_process">#FF888888</color>
+    <color name="super_member_bg_color">#FF282C3C</color>
+    <color name="super_member_color">#FFD7BC91</color>
+    <color name="gold_gradient_start">#FFEDDFC4</color>
+    <color name="gold_gradient_end">#FFF4C7A4</color>
 </resources>

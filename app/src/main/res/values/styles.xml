@@ -49,7 +49,6 @@
 
     <!-- 顶部折叠AppBarLayout -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="xui_bottom_sheet_grid_item_text">

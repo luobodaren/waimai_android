@@ -340,7 +340,7 @@ public class ShopDetailFragment extends BaseFragment {
         int space = getResources().getDimensionPixelOffset(R.dimen.shop_detail_tabbar_item_space);
         List<ShopTabTypeEnum> shopTabTypes = mViewModel.getRecommendedTitle();
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
-        Drawable indicatorDrawable = getResources().getDrawable(R.drawable.sr_widght_horizontal_bar);
+        Drawable indicatorDrawable = getResources().getDrawable(R.drawable.sr_widget_horizontal_bar);
 
         mBinding.tabSegment.setItemSpaceInScrollMode(space);
         mBinding.tabSegment.setIndicatorDrawable(indicatorDrawable);

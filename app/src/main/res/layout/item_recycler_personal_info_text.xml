@@ -13,7 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="114px"
-        android:background="@drawable/sl_white_to_gray">
+        android:background="@drawable/sl_white_to_gray"
+        android:clickable="true"
+        android:focusable="true">
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_left"

@@ -26,7 +26,7 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
     private int variableId;
 
     public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data) {
-        this(layoutResId, data, 0);
+        this(layoutResId, data, -1);
     }
 
     public MyBaseRecyclerAdapter(int layoutResId, @Nullable List data, int variableId) {
@@ -43,7 +43,7 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
     @Override
     protected void convert(@NonNull BaseViewHolder holder, T item) {
         //dataBinding
-        if(variableId != 0)
+        if(variableId != -1)
             DataBindingUtil.bind(holder.itemView).setVariable(variableId,item);
         //特殊需求通过此方法实现
         initView(holder,item);

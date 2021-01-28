@@ -2,21 +2,21 @@ package com.life.waimaishuo.mvvm.vm.mall;
 
 import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.mvvm.model.BaseModel;
-import com.life.waimaishuo.mvvm.model.mall.MallBuyerShopDetailModel;
+import com.life.waimaishuo.mvvm.model.mall.MallBuyerShowDetailModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.xuexiang.xui.widget.banner.widget.banner.BannerItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MallBuyersShopDetailViewModel extends BaseViewModel {
+public class MallBuyersShowDetailViewModel extends BaseViewModel {
 
-    private MallBuyerShopDetailModel mModel;
+    private MallBuyerShowDetailModel mModel;
 
     @Override
     public BaseModel getModel() {
         if(mModel == null){
-            mModel = new MallBuyerShopDetailModel();
+            mModel = new MallBuyerShowDetailModel();
         }
         return mModel;
     }

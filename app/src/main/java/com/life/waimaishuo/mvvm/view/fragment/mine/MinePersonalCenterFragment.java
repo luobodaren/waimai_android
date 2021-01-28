@@ -1,16 +1,14 @@
 package com.life.waimaishuo.mvvm.view.fragment.mine;
 
-import android.view.View;
+import android.os.Bundle;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ui.PersonalInfo;
 import com.life.waimaishuo.databinding.FragmentMinePersonalCenterBinding;
-import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MinePersonalCenterViewModel;
@@ -69,6 +67,26 @@ public class MinePersonalCenterFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        ((MyBaseRecyclerAdapter)mBinding.recyclerPersonalInfo.getAdapter()).setOnItemClickListener((adapter, view, position) -> {
+            if(position == 0){  //头像
+                openPage(MineChangeHeadPortraitFragment.class);
+            }else if(position == 1){    //用户昵称
+                Bundle bundle = new Bundle();
+                bundle.putInt(MineChangePersonInfoFragment.PAGE_TYPE_KEY,MineChangePersonInfoFragment.PAGE_TYPE_CHANGE_NAME);
+                openPage(MineChangePersonInfoFragment.class,bundle);
+            }else if(position == 2){    //手机号
+                Bundle bundle = new Bundle();
+                bundle.putInt(MineChangePersonInfoFragment.PAGE_TYPE_KEY,MineChangePersonInfoFragment.PAGE_TYPE_CHANGE_PHONE);
+                openPage(MineChangePersonInfoFragment.class,bundle);
+            }else if(position == 3){    //个性签名
+                Bundle bundle = new Bundle();
+                bundle.putInt(MineChangePersonInfoFragment.PAGE_TYPE_KEY,MineChangePersonInfoFragment.PAGE_TYPE_CHANGE_SIGNATURE);
+                openPage(MineChangePersonInfoFragment.class,bundle);
+            }else if(position == 4){    //超级会员
+
+            }
+        });
     }
 
     private void initTitle(){

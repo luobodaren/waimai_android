@@ -6,7 +6,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.life.base.utils.LogUtil;
+import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
@@ -54,6 +56,14 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
+
+        initSuperMember();
+
+        Glide.with(requireContext())
+                .load("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1004682078,2886860504&fm=26&gp=0.jpg")
+                .centerCrop()
+                .placeholder(R.drawable.ic_waimai_brand)
+                .into(mBinding.ivRecommendedImg);
 
         // TODO: 2020/11/26 改为使用流布局实现
         initTopRecycler();
@@ -112,6 +122,13 @@ public class MineFragment extends BaseFragment {
     protected void bindViewModel() {
         mBinding = (FragmentMineBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
+    }
+
+    private float mShadowAlpha = 0.25f;
+    private int mShadowElevationDp = 14;
+    private void initSuperMember(){
+        mBinding.xuiLayout.setRadiusAndShadow(UIUtils.getInstance().dpToPx(12),
+                UIUtils.getInstance().dpToPx(mShadowElevationDp),mShadowAlpha);
     }
 
     private void initTopRecycler() {

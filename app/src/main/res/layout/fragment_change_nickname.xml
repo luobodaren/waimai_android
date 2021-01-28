@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_ll_content_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <com.xuexiang.xui.widget.edittext.ClearEditText
+        android:id="@+id/clearEditText1"
+        android:layout_width="match_parent"
+        android:layout_height="98px"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:background="@color/white"
+        android:hint="@string/please_input_nickname"
+        android:textColor="@color/text_normal"
+        android:textSize="34px"
+        app:cet_clearIcon="@drawable/xui_ic_default_clear_btn"
+        app:cet_clearIconSize="32px" />
+
+    <TextView
+        android:id="@+id/tv_describe"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:layout_marginTop="24px"
+        android:text="限2～12个中文、英文或数字"
+        android:textColor="@color/text_tip"
+        android:textSize="22px" />
+
+
+</LinearLayout>

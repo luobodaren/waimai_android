@@ -102,7 +102,7 @@ public class GoodsDetailFragment extends BaseFragment {
         int space = getResources().getDimensionPixelOffset(R.dimen.goods_detail_tabbar_item_space);
         List<String> tabTitle = mViewModel.getTabTitle();
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
-        Drawable indicatorDrawable = getResources().getDrawable(R.drawable.sr_widght_horizontal_bar);
+        Drawable indicatorDrawable = getResources().getDrawable(R.drawable.sr_widget_horizontal_bar);
         indicatorDrawable.setBounds(0,0,
                 (int) UIUtils.getInstance().scalePx(44), (int) UIUtils.getInstance().scalePx(6));
 

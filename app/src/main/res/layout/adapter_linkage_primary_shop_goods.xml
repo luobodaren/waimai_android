@@ -14,7 +14,7 @@
             android:id="@+id/iv_selected"
             android:layout_width="6px"
             android:layout_height="0px"
-            android:background="@drawable/sr_widght_vertical_bar_theme"
+            android:background="@drawable/sr_widget_vertical_bar_theme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

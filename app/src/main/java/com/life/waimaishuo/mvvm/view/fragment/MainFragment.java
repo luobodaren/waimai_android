@@ -40,7 +40,9 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected BaseViewModel setViewModel() {
-        mViewModel = new MainViewModel();
+        if(mViewModel == null){
+            mViewModel = new MainViewModel();
+        }
         return mViewModel;
     }
 

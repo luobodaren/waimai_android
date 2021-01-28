@@ -3,10 +3,8 @@
 
     <item>
         <shape>
-            <gradient
-                android:startColor="@color/transparent"
-                android:endColor="@color/white"
-                android:angle="-90"/>
+            <solid android:color="@color/super_member_bg_color"/>
+            <corners android:radius="12dp"/>
         </shape>
     </item>
 

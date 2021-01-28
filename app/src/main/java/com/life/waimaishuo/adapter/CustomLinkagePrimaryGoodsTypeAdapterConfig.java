@@ -20,7 +20,6 @@ package com.life.waimaishuo.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -79,7 +78,7 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
         if(drawable == null){
-            drawable = mContext.getResources().getDrawable(R.drawable.sr_widght_vertical_bar_theme);
+            drawable = mContext.getResources().getDrawable(R.drawable.sr_widget_vertical_bar_theme);
             drawable.setBounds(0,0,
                     (int) UIUtils.getInstance().scalePx(
                             mContext.getResources().getDimensionPixelSize(R.dimen.linkagePrimary_left_icon_width)),
