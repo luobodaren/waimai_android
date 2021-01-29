@@ -138,18 +138,20 @@ public class OrderConfirmFragment extends BaseFragment {
     }
 
     private void initOrderInfoRecycler(RecyclerView recyclerView, List<TypeDescribeValue> typeDescribeValueList){
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(
-                new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_confirm_order_info,typeDescribeValueList, com.life.waimaishuo.BR.item));
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int) UIUtils.getInstance().scalePx(40);
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.top = interval;
-            }
-        });
+        if(recyclerView.getAdapter() == null){
+            recyclerView.setLayoutManager(
+                    new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+            recyclerView.setAdapter(
+                    new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_confirm_order_info,typeDescribeValueList, com.life.waimaishuo.BR.item));
+            recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+                int interval = (int) UIUtils.getInstance().scalePx(40);
+                @Override
+                public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                    super.getItemOffsets(outRect, view, parent, state);
+                    outRect.top = interval;
+                }
+            });
+        }
     }
 
     private boolean isShowAllPayType = false;

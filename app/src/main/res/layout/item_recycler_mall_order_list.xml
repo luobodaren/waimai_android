@@ -14,10 +14,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_goods_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/recycler_default"
             android:background="@drawable/sr_bg_8dp_white"
-            android:overScrollMode="never"
             android:padding="24px"
             app:layout_constraintTop_toTopOf="parent" />
 

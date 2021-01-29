@@ -33,6 +33,14 @@
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:statusBarScrim="@color/transparent">
 
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/appbar_layout_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/titlebar_height"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    <!--                        app:layout_collapseMode="parallax"-->
+
                     <FrameLayout
                         android:id="@+id/fl_folding"
                         android:layout_width="match_parent"
@@ -79,13 +87,6 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </FrameLayout>
 
-                    <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/appbar_layout_toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/titlebar_height"
-                        app:layout_collapseMode="pin"
-                        app:popupTheme="@style/AppTheme.PopupOverlay" />
-                    <!--                        app:layout_collapseMode="parallax"-->
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
             </com.google.android.material.appbar.AppBarLayout>
@@ -206,8 +207,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_evaluation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/recycler_default"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_evaluation_sign" />
 
@@ -296,8 +296,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_shop_recommend_goods"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/recycler_default"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_shop_recommend" />
 
@@ -354,8 +353,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_goods_picture"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/recycler_default"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_product_info" />
 

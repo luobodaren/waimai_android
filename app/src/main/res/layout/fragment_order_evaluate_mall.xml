@@ -166,9 +166,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_selected_picture"
                             android:layout_marginTop="32px"
-                            android:overScrollMode="never"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/recycler_default"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/et_goods_comment" />
 

@@ -6,6 +6,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.util.MyTabSegmentBoldTypeFaceProvider;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TextUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -49,12 +50,18 @@ public class MineCollectionFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
+        initTitle();
         initTabSegment();
     }
 
     @Override
     protected void initListeners() {
         super.initListeners();
+    }
+
+    private void initTitle(){
+        mBinding.layoutTitle.tvTitle.setText(getPageName());
+        TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle,true);
     }
 
     private int textSizeNormal = 34;
@@ -64,7 +71,8 @@ public class MineCollectionFragment extends BaseFragment {
         FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
         addTab(mBinding.tabSegment,adapter,titles);
-        mBinding.tabSegment.setHasIndicator(false);
+        mBinding.tabSegment.setHasIndicator(true);
+        mBinding.tabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widget_horizontal_bar));
         mBinding.tabSegment.setMode(TabSegment.MODE_FIXED);
 //        mBinding.tabSegment.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
 //        mBinding.tabSegment.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));

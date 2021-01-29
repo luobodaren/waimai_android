@@ -1,7 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.mall;
 
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -186,7 +184,7 @@ public class MallShoppingCartFragment extends BaseFragment {
         textView.setPadding(interval,0,0,0);
         adapter.addHeaderView(textView);
         mBinding.recyclerShop.setAdapter(adapter);
-        mBinding.recyclerShop.addItemDecoration(Utils.getItemDecoration(requireContext()));
+        mBinding.recyclerShop.addItemDecoration(Utils.getDefaultItemDecoration(requireContext()));
     }
 
     private MyBaseRecyclerAdapter getShopRecyclerAdapter() {
@@ -195,7 +193,6 @@ public class MallShoppingCartFragment extends BaseFragment {
             protected void initView(BaseViewHolder helper, MallShoppingCartItemData item) {
                 super.initView(helper, item);
 
-                SwipeRecyclerView recyclerView = helper.getView(R.id.recycler);
 
                 // TODO: 2021/1/21 注意一下这里 判断全选状态 后续对接接口时
                 if(item.isSelectedAll()){
@@ -206,44 +203,47 @@ public class MallShoppingCartFragment extends BaseFragment {
 
                 }
 
-                //获得子recyclerView的适配器
-                BaseQuickAdapter adapter = getShopGoodsAdapter(item.getGoodsList(),item.isEffective());
-                //设置头布局 headView
-                if(item.isEffective()){
-                    View view = View.inflate(helper.itemView.getContext(),R.layout.head_mall_shopping_cart_shop_info,null);
-                    adapter.addHeaderView(view);
-                    ((TextView)adapter.getHeaderLayout().findViewById(R.id.tv_shop_name)).setText(item.getShop().getShop_name());
-                    if(item.isSelectedAll()){
-                        ((ImageView)adapter.getHeaderLayout().findViewById(R.id.iv_select)).setImageResource(R.drawable.ic_check_round_fill_red);
+                SwipeRecyclerView recyclerView = helper.getView(R.id.recycler);
+                if(recyclerView.getAdapter() == null){
+                    //获得子recyclerView的适配器
+                    BaseQuickAdapter adapter = getShopGoodsAdapter(item.getGoodsList(),item.isEffective());
+                    //设置头布局 headView
+                    if(item.isEffective()){
+                        View view = View.inflate(helper.itemView.getContext(),R.layout.head_mall_shopping_cart_shop_info,null);
+                        adapter.addHeaderView(view);
+                        ((TextView)adapter.getHeaderLayout().findViewById(R.id.tv_shop_name)).setText(item.getShop().getShop_name());
+                        if(item.isSelectedAll()){
+                            ((ImageView)adapter.getHeaderLayout().findViewById(R.id.iv_select)).setImageResource(R.drawable.ic_check_round_fill_red);
+                        }else{
+                            ((ImageView)adapter.getHeaderLayout().findViewById(R.id.iv_select)).setImageResource(R.drawable.ic_round_gray);
+                        }
                     }else{
-                        ((ImageView)adapter.getHeaderLayout().findViewById(R.id.iv_select)).setImageResource(R.drawable.ic_round_gray);
+                        View view = View.inflate(helper.itemView.getContext(),R.layout.head_noneffective_goods,null);
+                        adapter.addHeaderView(view);
                     }
-                }else{
-                    View view = View.inflate(helper.itemView.getContext(),R.layout.head_noneffective_goods,null);
-                    adapter.addHeaderView(view);
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                            LinearLayoutManager.VERTICAL, false));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                    //设置侧滑按键 必须在setAdapter之前调用
+                    //会导致DataBind 报错
+                    recyclerView.setSwipeMenuCreator(swipeMenuCreator);
+                    recyclerView.setOnItemMenuClickListener(mMenuItemClickListener);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.addItemDecoration(Utils.getDefaultItemDecoration(requireContext()));
                 }
-
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                        LinearLayoutManager.VERTICAL, false));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                //设置侧滑按键 必须在setAdapter之前调用
-                //会导致DataBind 报错
-                recyclerView.setSwipeMenuCreator(swipeMenuCreator);
-                recyclerView.setOnItemMenuClickListener(mMenuItemClickListener);
-                recyclerView.setAdapter(adapter);
-                recyclerView.addItemDecoration(Utils.getItemDecoration(requireContext()));
 
             }
         };
     }
 
     private BaseQuickAdapter getShopGoodsAdapter(List<MallShoppingCartShopGoods> list, boolean isEffective){
-        int[] mViewTypes = {1, 2};//1：正常店铺商品 2：失效的素有商品
+        int[] viewTypes = {1, 2};//1：正常店铺商品 2：失效的素有商品
         BaseQuickAdapter<MallShoppingCartShopGoods, BaseViewHolder> adapter =  new BaseQuickAdapter<MallShoppingCartShopGoods,BaseViewHolder>(list) {
             @Override
             protected void convert(@NonNull BaseViewHolder helper, MallShoppingCartShopGoods item) {
-                if (helper.getItemViewType() == mViewTypes[0]) {    //有效的商品
+                if (helper.getItemViewType() == viewTypes[0]) {    //有效的商品
                     if(item.isSelected()){
 //                                holder.getView(R.id.iv_select).setBackground();
                     }else{
@@ -301,15 +301,15 @@ public class MallShoppingCartFragment extends BaseFragment {
         };
 
         SparseIntArray layouts = new SparseIntArray();
-        layouts.put(mViewTypes[0],R.layout.item_recycler_mall_shopping_cart_effective_goods);
-        layouts.put(mViewTypes[1],R.layout.item_recycler_mall_shopping_cart_noneffective_goods);
+        layouts.put(viewTypes[0],R.layout.item_recycler_mall_shopping_cart_effective_goods);
+        layouts.put(viewTypes[1],R.layout.item_recycler_mall_shopping_cart_noneffective_goods);
         adapter.setMultiTypeDelegate(new MultiTypeDelegate<MallShoppingCartShopGoods>(layouts) {
             @Override
             protected int getItemType(MallShoppingCartShopGoods o) {
                 if(isEffective){
-                    return mViewTypes[0];
+                    return viewTypes[0];
                 }else{
-                    return mViewTypes[1];
+                    return viewTypes[1];
                 }
             }
         });

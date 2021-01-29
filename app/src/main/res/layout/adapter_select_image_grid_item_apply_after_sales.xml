@@ -26,7 +26,6 @@
         android:layout_height="188px"
         android:layout_marginStart="@dimen/interval_size_xs"
         android:layout_marginBottom="@dimen/interval_size_xs"
-        android:background="@color/background2"
         android:scaleType="centerCrop"
         app:srcCompat="@mipmap/ic_add_picture_2"
         app:riv_corner_radius="4dp"

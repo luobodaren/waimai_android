@@ -14,9 +14,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_pay_type_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"/>
+            style="@style/recycler_default"/>
 
         <TextView
             android:id="@+id/tv_show_more"

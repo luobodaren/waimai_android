@@ -159,7 +159,7 @@ public class RefundFragment extends BaseFragment {
         });
         imageSelectGridAdapter.setSelectList(mSelectList);
         imageSelectGridAdapter.setSelectMax(maxSelectNum);
-        imageSelectGridAdapter.setOnItemClickListener((position, v) -> PictureSelector.create(RefundFragment.this).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList));
+        imageSelectGridAdapter.setOnItemClickListener((position, v) -> Utils.previewSelectedPicture(this,position,mSelectList));
     }
     private BottomSheet goodsStateDialog;
     private void showGoodsStateBottomDialog() {

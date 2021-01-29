@@ -31,11 +31,9 @@
             <!--TabLayout-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_food_subtype"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/recycler_default"
                 android:background="@color/transparent"
-                android:layout_marginTop="@dimen/interval_size_xs"
-                android:overScrollMode="never"/>
+                android:layout_marginTop="@dimen/interval_size_xs"/>
 
             <com.life.waimaishuo.views.StickyNavigationLayout
                 android:id="@+id/sticky_navigation_layout"

@@ -33,5 +33,6 @@ public class Constant {
     public static final int POP_WINDOW_SHOW_TIME = 1000;
 
     public static final String ERROR_MSG_NO_BUNDLE = "没有传入bundle 无法确定页面类型";
+    public static final String ERROR_MSG_BUNDLE_DATA_ERROR = "bundle 数据错误";
 
 }

@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16px"
-                android:background="@drawable/sr_bg_8radius_translucent_gray"
+                android:background="@drawable/sr_bg_4dp_translucent_gray"
                 android:includeFontPadding="false"
                 android:paddingStart="12px"
                 android:paddingTop="7px"

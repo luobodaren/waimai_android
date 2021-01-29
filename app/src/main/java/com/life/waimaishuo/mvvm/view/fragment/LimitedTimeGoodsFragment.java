@@ -4,14 +4,10 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -236,7 +232,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                 }
             }
         });
-        mBinding.recyclerGoodsList.addItemDecoration(Utils.getItemDecoration(requireContext()));
+        mBinding.recyclerGoodsList.addItemDecoration(Utils.getDefaultItemDecoration(requireContext()));
     }
 
     // FIXME: 2021/1/19  add headView
@@ -301,26 +297,28 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
             }
         };
         adapter.addHeaderView(getMallLimitedRecyclerHeadView());
-        mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        mBinding.recyclerGoodsList.setAdapter(adapter);
-        mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
-            int interval = (int)UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+        if(mBinding.recyclerGoodsList.getAdapter() == null){
+            mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+            mBinding.recyclerGoodsList.setAdapter(adapter);
+            mBinding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
+                int interval = (int)UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
 
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                int position = parent.getChildAdapterPosition(view);
+                @Override
+                public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                    super.getItemOffsets(outRect, view, parent, state);
+                    int position = parent.getChildAdapterPosition(view);
 
-                if(position != RecyclerView.NO_POSITION){
-                    if(position != adapter.getHeaderLayoutCount()){ //位于头布局下面的一个不设置顶部距离 使其连接
-                        outRect.top = interval;
-                    }
-                    if(position == state.getItemCount()-1){
-                        outRect.bottom = interval;
+                    if(position != RecyclerView.NO_POSITION){
+                        if(position != adapter.getHeaderLayoutCount()){ //位于头布局下面的一个不设置顶部距离 使其连接
+                            outRect.top = interval;
+                        }
+                        if(position == state.getItemCount()-1){
+                            outRect.bottom = interval;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     private View getMallLimitedRecyclerHeadView(){

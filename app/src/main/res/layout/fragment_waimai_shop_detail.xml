@@ -31,6 +31,13 @@
                     app:statusBarScrim="@color/transparent"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/appbar_layout_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/titlebar_height"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
                     <FrameLayout
                         android:id="@+id/fl_folding"
                         android:layout_width="match_parent"
@@ -70,13 +77,6 @@
                                 android:layout_marginEnd="@dimen/interval_size_xs" />
                         </LinearLayout>
                     </FrameLayout>
-
-                    <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/appbar_layout_toolbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/titlebar_height"
-                        app:layout_collapseMode="pin"
-                        app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 

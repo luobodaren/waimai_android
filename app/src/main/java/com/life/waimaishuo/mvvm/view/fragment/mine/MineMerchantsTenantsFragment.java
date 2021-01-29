@@ -15,6 +15,7 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineMerchantsTenantsViewModel;
 import com.life.waimaishuo.util.MyTabSegmentBoldTypeFaceProvider;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TextUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
@@ -70,11 +71,16 @@ public class MineMerchantsTenantsFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
+        mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                MineApplyRecordFragment.openPageWithPageType(MineMerchantsTenantsFragment.this,MineApplyRecordFragment.PAGE_TYPE_OPEN_SHOP);
+            }
+        });
+
         mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                refreshTabViewStyle(mBinding.tabSegment, mViewModel.getTabTitleStrings(), position);
-                // TODO: 2020/12/3 刷新内容
 
             }
         });
@@ -82,6 +88,8 @@ public class MineMerchantsTenantsFragment extends BaseFragment {
 
     private void initTitle() {
         mBinding.layoutTitle.tvTitle.setText(getPageName());
+        TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle,true);
+        mBinding.layoutTitle.tvRight.setText(R.string.record_of_apply);
     }
 
     private void initTabSegment() {
@@ -91,7 +99,7 @@ public class MineMerchantsTenantsFragment extends BaseFragment {
 
         addTab(mBinding.tabSegment, adapter, tabTitleList);
         mBinding.tabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widget_horizontal_bar));
-        mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.goods_comment_tabSegment_item_text_size));
+        mBinding.tabSegment.setTabTextSize(34);
         mBinding.tabSegment.setupWithViewPager(mBinding.viewPager,false);
         mBinding.tabSegment.setTypefaceProvider(new MyTabSegmentBoldTypeFaceProvider());
 
@@ -99,58 +107,13 @@ public class MineMerchantsTenantsFragment extends BaseFragment {
         mBinding.viewPager.setAdapter(adapter);
     }
 
-    private int textSizeSelected;
-    private int textSizeNormal;
-
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
                         String[] titles) {
-        boolean isFirst = true;
-        textSizeSelected = getResources().getDimensionPixelSize(R.dimen.mall_tabbar_item_text_size_selected);
-        textSizeNormal = getResources().getDimensionPixelSize(R.dimen.mall_tabbar_item_text_size);
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            if (isFirst) {
-                isFirst = false;
-                tab.setTextSize(textSizeSelected);
-            } else {
-                tab.setTextSize(textSizeNormal);
-            }
             adapter.addFragment(mViewModel.getViewPagerFragment(title), title);
             tabSegment.addTab(tab);
         }
     }
 
-    /**
-     * 更新TabBar样式
-     */
-    private void refreshTabViewStyle(TabSegment tabSegment, String[] titles, int position) {
-        tabSegment.reset();
-        resetTab(tabSegment, titles, position);
-        tabSegment.notifyDataChanged();
-    }
-
-    int textSizeSelectedScale = 0;
-    int textSizeNormalScale = 0;
-
-    /**
-     * 仅更新 title 若需要改变个数 需要修改方法内逻辑
-     *
-     * @param tabSegment
-     * @param titles
-     * @param selectedPosition
-     */
-    private void resetTab(TabSegment tabSegment, String[] titles,
-                          int selectedPosition) {
-        if (textSizeSelectedScale == 0 || textSizeNormalScale == 0) {
-            textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
-            textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
-        }
-        int position = 0;
-        for (String title : titles) {
-            MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            tab.setTextSize(position == selectedPosition ? textSizeSelectedScale : textSizeNormalScale);
-            tabSegment.addTab(tab);
-            position++;
-        }
-    }
 }

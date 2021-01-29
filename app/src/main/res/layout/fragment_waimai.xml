@@ -87,10 +87,8 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/search_record"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16px"
-                            android:overScrollMode="never" />
+                            style="@style/recycler_default"
+                            android:layout_marginTop="16px" />
 
                         <com.xuexiang.xui.widget.banner.recycler.BannerLayout
                             android:id="@+id/banner_layout"
@@ -126,13 +124,11 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_food_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/recycler_default"
                         android:layout_marginStart="@dimen/interval_size_xs"
                         android:layout_marginTop="@dimen/interval_size_xs"
                         android:layout_marginEnd="@dimen/interval_size_xs"
                         android:background="@drawable/sr_bg_12dp_white"
-                        android:overScrollMode="never"
                         android:paddingTop="@dimen/interval_size_xs"
                         android:paddingBottom="@dimen/interval_size_xs" />
 
@@ -142,13 +138,11 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_my_exclusive"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/recycler_default"
                             android:layout_marginStart="@dimen/interval_size_xs"
                             android:layout_marginTop="@dimen/interval_size_xs"
                             android:layout_marginEnd="@dimen/interval_size_xs"
                             android:background="@drawable/sr_bg_12dp_white"
-                            android:overScrollMode="never"
                             android:paddingStart="@dimen/interval_size_xs"
                             android:paddingTop="@dimen/interval_size_xs"
                             android:paddingBottom="@dimen/interval_size_xs" />
@@ -227,9 +221,7 @@
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_seconds_kill"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:overScrollMode="never"
+                                style="@style/recycler_default"
                                 android:paddingStart="@dimen/interval_size_xs"
                                 android:paddingTop="@dimen/interval_size_xs"
                                 android:paddingBottom="@dimen/interval_size_xs" />

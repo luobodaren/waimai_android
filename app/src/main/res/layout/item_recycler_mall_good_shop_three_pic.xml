@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/interval_size_xs"
         android:layout_marginEnd="@dimen/interval_size_xs"
-        android:orientation="vertical"
         android:background="@drawable/sr_bg_8dp_white"
         android:padding="@dimen/interval_size_xs">
 
@@ -88,7 +87,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_cardView"
-            app:riv_corner_radius="4dp" />
+            app:riv_corner_radius="8dp" />
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_two"
@@ -100,7 +99,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_one"
             app:layout_constraintTop_toTopOf="@id/iv_one"
-            app:riv_corner_radius="4dp" />
+            app:riv_corner_radius="8dp" />
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_three"
@@ -110,7 +109,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="@id/iv_one"
             app:layout_constraintStart_toStartOf="@id/iv_two"
-            app:riv_corner_radius="4dp" />
+            app:riv_corner_radius="8dp" />
 
         <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
             android:id="@+id/flowTagLayout"

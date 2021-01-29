@@ -76,7 +76,7 @@
             android:layout_height="32px"
             android:scaleType="center"
             android:src="@drawable/ic_close_gray"
-            android:background="@drawable/sr_stroke_1px_1radius"
+            android:background="@drawable/sr_stroke_1px_1dp"
             app:layout_constraintEnd_toEndOf="@id/rl_img_layout"
             app:layout_constraintBottom_toBottomOf="parent" />
 

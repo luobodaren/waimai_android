@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2019 xuexiangjys(xuexiangjys@163.com)
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,13 +21,13 @@
     android:layout_width="174px"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.xuexiang.xui.widget.imageview.RadiusImageView
         android:id="@+id/iv_select_pic"
         android:layout_width="150px"
         android:layout_height="150px"
         android:layout_marginStart="@dimen/interval_size_xs"
         android:layout_marginBottom="@dimen/interval_size_xs"
-        android:background="@color/background2"
+        app:riv_corner_radius="8dp"
         app:srcCompat="@drawable/ic_add_picture"
         tools:ignore="VectorDrawableCompat" />
 

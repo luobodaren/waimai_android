@@ -150,7 +150,7 @@ public class EvaluateMallFragment extends BaseFragment {
         });
         imageSelectGridAdapter.setSelectList(mSelectList);
         imageSelectGridAdapter.setSelectMax(maxSelectNum);
-        imageSelectGridAdapter.setOnItemClickListener((position, v) -> PictureSelector.create(EvaluateMallFragment.this).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList));
+        imageSelectGridAdapter.setOnItemClickListener((position, v) -> Utils.previewSelectedPicture(this,position,mSelectList));
     }
 
 

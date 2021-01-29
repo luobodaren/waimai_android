@@ -118,9 +118,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_shops_goods"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never" />
+                        style="@style/recycler_default" />
 
                     <include
                         android:id="@+id/layout_pay_type"

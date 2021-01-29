@@ -74,8 +74,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_brand_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/recycler_default"
                     android:layout_marginTop="40px" />
 
                 <TextView

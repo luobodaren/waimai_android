@@ -51,6 +51,7 @@
         android:id="@+id/recycler_goods_img"
         android:layout_width="0px"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="@id/iv_goods_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tv_goods_name" />

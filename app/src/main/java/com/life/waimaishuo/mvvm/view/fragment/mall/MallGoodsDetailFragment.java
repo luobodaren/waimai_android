@@ -257,14 +257,16 @@ public class MallGoodsDetailFragment extends BaseFragment {
             protected void initView(BaseViewHolder helper, Object item) {
                 super.initView(helper, item);
                 RecyclerView recyclerView = helper.getView(R.id.recycler_comment_picture);
-                MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture, ((Comment) item).getCommentPictureList(), com.life.waimaishuo.BR.item);
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL, false);
-                recyclerView.setLayoutManager(gridLayoutManager);
-                recyclerView.setAdapter(adapter);
-                recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
-                        (int) UIUtils.getInstance().scalePx(
-                                getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
-                PreViewUtil.initRecyclerPictureClickListener(MallGoodsDetailFragment.this, adapter, gridLayoutManager);
+                if(recyclerView.getAdapter() == null){
+                    MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture, ((Comment) item).getCommentPictureList(), com.life.waimaishuo.BR.item);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL, false);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
+                            (int) UIUtils.getInstance().scalePx(
+                                    getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
+                    PreViewUtil.initRecyclerPictureClickListener(MallGoodsDetailFragment.this, adapter, gridLayoutManager);
+                }
 
                 helper.setText(R.id.tv_goods_style_and_count, "普通款，1件");
             }

@@ -21,7 +21,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
+            style="@style/recycler_default"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/interval_size_xs"
             android:paddingEnd="@dimen/interval_size_xs"/>

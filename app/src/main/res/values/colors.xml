@@ -21,6 +21,7 @@
     <color name="background3">#EDEDED</color>
     <color name="divider">#E6E6E6</color>
     <color name="divider_2">#DDDDDD</color>
+    <color name="divider_3">#CCCCCC</color>
     <color name="stroke">#E5E5E5</color>
 
     <color name="bg_20_black">#33000000</color>
@@ -38,6 +39,7 @@
     <color name="text_tip">#999999</color>
     <color name="text_tip2">#FFC7C7C7</color>
     <color name="text_tip3">#B9B9B9</color>
+    <color name="text_tip4">#DDDDDD</color>
     <color name="text_assist">#bbbbbb</color>
     <color name="text_hint">#CCCCCC</color>
 

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_simple" />
+
+        <TextView style="@style/divider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_intent_work_city"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="50px"
+                android:text="@string/intended_city_for_work"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_work_city"
+                android:layout_width="0px"
+                android:layout_height="86px"
+                android:background="@drawable/sl_white_to_gray"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"
+                android:textColor="@color/text_uncheck"
+                android:textSize="30px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_intent_work_city" />
+
+            <TextView
+                style="@style/divider"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_intent_work_place"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="50px"
+                android:text="@string/intended_place_for_work"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_work_place"
+                android:layout_width="0px"
+                android:layout_height="86px"
+                android:background="@drawable/sl_white_to_gray"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"
+                android:textColor="@color/text_uncheck"
+                android:textSize="30px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_intent_work_place" />
+
+            <TextView
+                style="@style/divider"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_intent_work_type"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="50px"
+                android:text="@string/intended_type_for_work"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/cl_work_type_one"
+                android:layout_width="310px"
+                android:layout_height="156px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="32px"
+                android:background="@drawable/sr_stroke_2px_12dp_gray"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_intent_work_type">
+
+                <TextView
+                    style="@style/text_my_simple_style"
+                    android:text="@string/rider_type_one"
+                    android:textColor="@color/text_normal"
+                    android:textSize="32px"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    style="@style/text_my_simple_style"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:text="@string/rider_type_one_introduce"
+                    android:textColor="@color/text_tip"
+                    android:textSize="24px" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/cl_work_type_two"
+                android:layout_width="310px"
+                android:layout_height="156px"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@drawable/sr_stroke_2px_12dp_gray"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cl_work_type_one">
+
+                <TextView
+                    style="@style/text_my_simple_style"
+                    android:text="@string/rider_type_two"
+                    android:textColor="@color/text_normal"
+                    android:textSize="32px"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    style="@style/text_my_simple_style"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:text="@string/rider_type_two_introduce"
+                    android:textColor="@color/text_tip"
+                    android:textSize="24px" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_rider_name"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="50px"
+                android:text="@string/rider_name"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="0px"
+                android:layout_height="86px"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:inputType="textMultiLine"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"
+                android:textColor="@color/text_uncheck"
+                android:textSize="30px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_rider_name" />
+
+            <TextView
+                style="@style/divider"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="50px"
+                android:text="@string/phoneNumber"
+                android:textColor="@color/text_normal"
+                android:textSize="34px"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="0px"
+                android:layout_height="86px"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:inputType="phone"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"
+                android:textColor="@color/text_uncheck"
+                android:textSize="30px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_phone" />
+
+            <TextView
+                style="@style/divider"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:layout_marginBottom="32px"
+            android:text="@string/tip_wait_for_feedback"
+            android:textColor="@color/text_tip3"
+            android:textSize="22px" />
+
+        <Button
+            android:id="@+id/bt_apply"
+            style="@style/bt_bottom_gradient"
+            android:layout_marginBottom="@dimen/interval_size_xs"
+            android:text="@string/sign_up_to_become_rider" />
+
+
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

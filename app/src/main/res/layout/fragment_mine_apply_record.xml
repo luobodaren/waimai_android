@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterLinearLayout
+        android:id="@+id/my_ll_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout_title"
+            layout="@layout/title_simple" />
+
+        <com.xuexiang.xui.widget.tabbar.TabSegment
+            android:id="@+id/tabSegment"
+            android:layout_width="match_parent"
+            android:layout_height="84px"
+            android:textSize="34px"
+            app:ts_has_indicator="true"
+            app:ts_indicator_height="3dp"
+            app:ts_mode="scrollable"
+            app:ts_normal_color="@color/text_uncheck"
+            app:ts_selected_color="@color/text_normal" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@color/background" />
+    </com.life.base.views.UiAdapterLinearLayout>
+</layout>

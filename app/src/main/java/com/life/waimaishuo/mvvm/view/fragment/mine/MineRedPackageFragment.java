@@ -80,7 +80,7 @@ public class MineRedPackageFragment extends BaseFragment {
     }
 
     private void initRedPackageRecycler(){
-        int[] mViewTypes = {1, 2};//1：正常店铺商品 2：失效的素有商品
+        int[] viewTypes = {1, 2};//1：正常店铺商品 2：失效的素有商品
         mBinding.recyclerRedPacket.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         MyBaseRecyclerAdapter<RedPacket> adapter = new MyBaseRecyclerAdapter<RedPacket>(R.layout.item_recycler_mine_red_packet,mViewModel.getRedPacketData(), com.life.waimaishuo.BR.item){
             ColorMatrix matrix = new ColorMatrix();
@@ -94,7 +94,7 @@ public class MineRedPackageFragment extends BaseFragment {
                     filter = new ColorMatrixColorFilter(matrix);
                 }
 
-                if(helper.getItemViewType() == mViewTypes[0]){
+                if(helper.getItemViewType() == viewTypes[0]){
                     ((ImageView)helper.getView(R.id.iv_red_package_img)).clearColorFilter();
                 }else{
                     ((ImageView)helper.getView(R.id.iv_red_package_img)).setColorFilter(filter);
@@ -103,15 +103,15 @@ public class MineRedPackageFragment extends BaseFragment {
 
         };
         SparseIntArray layouts = new SparseIntArray();
-        layouts.put(mViewTypes[0],R.layout.item_recycler_mine_red_packet);
-        layouts.put(mViewTypes[1],R.layout.item_recycler_mine_red_packet_noneffective);
+        layouts.put(viewTypes[0],R.layout.item_recycler_mine_red_packet);
+        layouts.put(viewTypes[1],R.layout.item_recycler_mine_red_packet_noneffective);
         adapter.setMultiTypeDelegate(new MultiTypeDelegate<RedPacket>(layouts) {
             @Override
             protected int getItemType(RedPacket item) {
                 if(item.isEffective()){
-                    return mViewTypes[0];
+                    return viewTypes[0];
                 }else{
-                    return mViewTypes[1];
+                    return viewTypes[1];
                 }
             }
         });

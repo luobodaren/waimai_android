@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.ApplyRecord" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="124px"
+        android:background="@drawable/sr_bg_8dp_white"
+        android:orientation="vertical"
+        android:paddingTop="21px"
+        android:paddingEnd="@dimen/interval_size_xs"
+        android:paddingBottom="21px">
+
+        <ImageView
+            android:id="@+id/iv_img"
+            imageUrl="@{item.imgUrl}"
+            android:layout_width="82px"
+            android:layout_height="82px"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            app:layout_constraintEnd_toStartOf="@id/tv_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="@dimen/interval_size_xs"
+            android:text="@{item.name}"
+            android:textColor="@color/text_uncheck"
+            android:textSize="30px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_apply_state"
+            style="@style/text_my_simple_style"
+            android:text="@{item.state}"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/font_size_30"
+            app:layout_constraintBottom_toTopOf="@id/tv_apply_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_apply_time"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="8px"
+            android:text="@{item.applyTime}"
+            android:textColor="@color/text_tip"
+            android:textSize="@dimen/font_size_22"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_apply_state" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

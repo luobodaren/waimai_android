@@ -1,7 +1,10 @@
 package com.life.waimaishuo.mvvm.view.fragment.mine;
 
+import android.view.View;
+
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.databinding.FragmentSettingBinding;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineSettingViewModel;
@@ -54,6 +57,20 @@ public class MineSettingFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        mBinding.tvFeedback.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                openPage(MineFeedbackFragment.class);
+            }
+        });
+
+        mBinding.tvAboutUs.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                openPage(MineAboutUsFragment.class);
+            }
+        });
     }
 
     private void initTitle() {

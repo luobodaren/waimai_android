@@ -1,12 +1,14 @@
 package com.life.waimaishuo.mvvm.view.fragment.mine;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
@@ -15,6 +17,7 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.TypeCountData;
 import com.life.waimaishuo.databinding.FragmentMineBinding;
+import com.life.waimaishuo.listener.AppBarStateChangeListener;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -37,6 +40,8 @@ public class MineFragment extends BaseFragment {
     private MyBaseRecyclerAdapter<TypeCountData> topRecyclerAdapter;
     private MyBaseRecyclerAdapter<IconStrData> recommendRecyclerAdapter;
 
+    private AppBarStateChangeListener appBarStateChangeListener;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_mine;
@@ -57,6 +62,7 @@ public class MineFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
+        initAppBarLayout();
         initSuperMember();
 
         Glide.with(requireContext())
@@ -74,6 +80,19 @@ public class MineFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        mBinding.xuiLayout.setOnClickListener(new BaseActivity.OnSingleClickListener(500) {
+            @Override
+            public void onSingleClick(View view) {
+                if(appBarStateChangeListener.getmCurrentState() == AppBarStateChangeListener.State.EXPANDED){
+                    mBinding.appbarLayout.setExpanded(false,true);
+                }else if(appBarStateChangeListener.getmCurrentState() == AppBarStateChangeListener.State.COLLAPSED){
+                    mBinding.appbarLayout.setExpanded(true,true);
+                }
+            }
+        });
+
+        mBinding.appbarLayout.addOnOffsetChangedListener(appBarStateChangeListener);
 
         mBinding.clPersonalInfo.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
@@ -108,6 +127,12 @@ public class MineFragment extends BaseFragment {
                 case 3:
                     openPage(MineMerchantsTenantsFragment.class);
                     break;
+                case 4:
+                    MineApplyRecordFragment.openPageWithPageType(MineFragment.this,MineApplyRecordFragment.PAGE_TYPE_BUSINESS_COOPERATION);
+                    break;
+                case 6:
+                    openPage(MineRiderRecruitFragment.class);
+                    break;
             }
         });
     }
@@ -122,6 +147,15 @@ public class MineFragment extends BaseFragment {
     protected void bindViewModel() {
         mBinding = (FragmentMineBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
+    }
+
+    private void initAppBarLayout() {
+        appBarStateChangeListener = new AppBarStateChangeListener() {
+            @Override
+            public void onStateChanged(AppBarLayout appBarLayout, State state) { }
+        };
+        mBinding.appbarLayout.setExpanded(false, false);
+
     }
 
     private float mShadowAlpha = 0.25f;

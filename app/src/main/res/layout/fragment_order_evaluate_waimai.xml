@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.order.EvaluateViewModel" />
@@ -36,17 +37,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/interval_size_xs"
                     android:layout_marginEnd="@dimen/interval_size_xs"
-                    android:padding="@dimen/interval_size_xs"
-                    android:background="@drawable/sr_bg_8dp_white">
+                    android:background="@drawable/sr_bg_8dp_white"
+                    android:padding="@dimen/interval_size_xs">
 
                     <com.xuexiang.xui.widget.imageview.RadiusImageView
                         android:id="@+id/iv_shopIcon"
                         android:layout_width="100px"
                         android:layout_height="100px"
                         android:src="@drawable/ic_waimai_brand"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:riv_corner_radius="4dp"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="4dp" />
 
                     <TextView
                         android:id="@+id/tv_shopName"
@@ -54,9 +55,9 @@
                         android:layout_marginStart="@dimen/interval_size_xs"
                         android:textColor="@color/text_normal"
                         android:textSize="30px"
-                        app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
                         app:layout_constraintBottom_toBottomOf="@id/iv_shopIcon"
                         app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+                        app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
                         tools:text="德克士炸鸡店" />
 
                     <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
@@ -64,46 +65,46 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/interval_size_xs"
-                        app:srb_rating="4"
-                        app:srb_starPadding="36px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_shopIcon"
                         app:srb_drawableEmpty="@drawable/ic_star_gray"
                         app:srb_drawableFilled="@drawable/ic_star_red"
-                        app:srb_stepSize="1"
-                        app:srb_starWidth="60px"
+                        app:srb_rating="4"
                         app:srb_starHeight="60px"
-                        app:layout_constraintTop_toBottomOf="@id/iv_shopIcon"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:srb_starPadding="36px"
+                        app:srb_starWidth="60px"
+                        app:srb_stepSize="1" />
 
                     <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
                         android:id="@+id/scale_rating_bar_packaging"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srb_rating="4"
-                        app:srb_starPadding="28px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_main"
                         app:srb_drawableEmpty="@drawable/ic_star_gray"
                         app:srb_drawableFilled="@drawable/ic_star_red"
-                        app:srb_stepSize="1"
-                        app:srb_starWidth="36px"
+                        app:srb_rating="4"
                         app:srb_starHeight="36px"
-                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_main"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:srb_starPadding="28px"
+                        app:srb_starWidth="36px"
+                        app:srb_stepSize="1" />
 
                     <com.xuexiang.xui.widget.progress.ratingbar.ScaleRatingBar
                         android:id="@+id/scale_rating_bar_quality"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srb_rating="4"
-                        app:srb_starPadding="28px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_packaging"
                         app:srb_drawableEmpty="@drawable/ic_star_gray"
                         app:srb_drawableFilled="@drawable/ic_star_red"
-                        app:srb_stepSize="1"
-                        app:srb_starWidth="36px"
+                        app:srb_rating="4"
                         app:srb_starHeight="36px"
-                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_packaging"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:srb_starPadding="28px"
+                        app:srb_starWidth="36px"
+                        app:srb_stepSize="1" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -111,18 +112,18 @@
                         android:text="@string/packaging"
                         android:textColor="@color/text_normal"
                         android:textSize="28px"
-                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_packaging"
                         app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_packaging"
-                        app:layout_constraintEnd_toStartOf="@id/scale_rating_bar_packaging" />
+                        app:layout_constraintEnd_toStartOf="@id/scale_rating_bar_packaging"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_packaging" />
 
                     <TextView
                         android:id="@+id/tv_packaging_score_info"
                         style="@style/text_my_simple_style"
-                        android:textSize="@dimen/font_size_24"
                         android:textColor="@color/colorTheme"
-                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_packaging"
+                        android:textSize="@dimen/font_size_24"
                         app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_packaging"
                         app:layout_constraintStart_toEndOf="@id/scale_rating_bar_packaging"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_packaging"
                         tools:text="超赞" />
 
                     <TextView
@@ -131,20 +132,20 @@
                         android:text="@string/quality"
                         android:textColor="@color/text_normal"
                         android:textSize="28px"
-                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_quality"
                         app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_quality"
-                        app:layout_constraintEnd_toStartOf="@id/scale_rating_bar_quality" />
+                        app:layout_constraintEnd_toStartOf="@id/scale_rating_bar_quality"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_quality" />
 
 
                     <TextView
                         android:id="@+id/tv_quality_score_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/font_size_24"
                         android:textColor="@color/colorTheme"
-                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_quality"
+                        android:textSize="@dimen/font_size_24"
                         app:layout_constraintBottom_toBottomOf="@id/scale_rating_bar_quality"
                         app:layout_constraintStart_toEndOf="@id/scale_rating_bar_quality"
+                        app:layout_constraintTop_toTopOf="@id/scale_rating_bar_quality"
                         tools:text="超赞" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -161,17 +162,15 @@
                             android:layout_height="200px"
                             android:layout_margin="@dimen/interval_size_xs"
                             android:background="@null"
-                            android:text="@={viewModel.waimaiCommentContentObservable}"
                             android:hint="@string/hint_text_shop_comment"
+                            android:text="@={viewModel.waimaiCommentContentObservable}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_selected_picture"
+                            style="@style/recycler_default"
                             android:layout_marginTop="32px"
-                            android:overScrollMode="never"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/et_goods_comment" />
 
@@ -182,11 +181,11 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/interval_size_xs"
                     android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="@dimen/interval_size_xs"
                     android:layout_marginEnd="@dimen/interval_size_xs"
-                    android:padding="@dimen/interval_size_xs"
-                    android:background="@drawable/sr_bg_8dp_white">
+                    android:background="@drawable/sr_bg_8dp_white"
+                    android:padding="@dimen/interval_size_xs">
 
 
                     <com.xuexiang.xui.widget.imageview.RadiusImageView
@@ -194,19 +193,19 @@
                         android:layout_width="100px"
                         android:layout_height="100px"
                         android:src="@drawable/ic_waimai_brand"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:riv_corner_radius="4dp" />
 
                     <TextView
                         android:id="@+id/tv_driver_name"
                         style="@style/text_my_simple_style"
-                        android:layout_marginTop="10px"
                         android:layout_marginStart="@dimen/interval_size_xs"
+                        android:layout_marginTop="10px"
                         android:textColor="@color/text_normal"
                         android:textSize="30px"
-                        app:layout_constraintTop_toTopOf="@id/iv_driver_icon"
                         app:layout_constraintStart_toEndOf="@id/iv_driver_icon"
+                        app:layout_constraintTop_toTopOf="@id/iv_driver_icon"
                         tools:text="德克士炸鸡店" />
 
                     <TextView
@@ -222,8 +221,8 @@
                     <TextView
                         style="@style/text_my_simple_style"
                         android:text="@string/anonymous_to_driver"
-                        android:textSize="26px"
                         android:textColor="@color/text_tip"
+                        android:textSize="26px"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -232,36 +231,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="60px"
-                        app:srb_rating="4"
-                        app:srb_starPadding="36px"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_driver_icon"
                         app:srb_drawableEmpty="@drawable/ic_star_gray"
                         app:srb_drawableFilled="@drawable/ic_star_red"
-                        app:srb_stepSize="1"
-                        app:srb_starWidth="60px"
+                        app:srb_rating="4"
                         app:srb_starHeight="60px"
-                        app:layout_constraintTop_toBottomOf="@id/iv_driver_icon"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                        app:srb_starPadding="36px"
+                        app:srb_starWidth="60px"
+                        app:srb_stepSize="1" />
 
                     <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
                         android:id="@+id/flowTagLayout_driver_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="60px"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_driver"
-                        android:layout_marginTop="60px" />
+                        app:layout_constraintTop_toBottomOf="@id/scale_rating_bar_driver" />
 
                     <EditText
                         android:id="@+id/et_driver_comment"
                         style="@style/et_input_comment"
                         android:layout_width="match_parent"
                         android:layout_height="180px"
-                        android:text="@={viewModel.driveCommentContentObservable}"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:background="@drawable/sr_bg_8dp_gray"
                         android:hint="@string/hint_text_driver_comment"
                         android:padding="@dimen/interval_size_xs"
                         android:paddingStart="@dimen/interval_size_xs"
-                        android:layout_marginTop="@dimen/interval_size_xs"
-                        android:background="@drawable/sr_bg_8dp_gray"
+                        android:text="@={viewModel.driveCommentContentObservable}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/flowTagLayout_driver_comment" />
 

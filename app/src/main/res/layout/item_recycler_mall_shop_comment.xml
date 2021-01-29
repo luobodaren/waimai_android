@@ -90,8 +90,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_comment_picture"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/recycler_default"
                 android:layout_marginTop="@dimen/interval_size_xs"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_comment_content" />

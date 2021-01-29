@@ -122,6 +122,20 @@ public class MallMainTypeViewModel extends BaseViewModel {
         imgList.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
         imgList.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
 
+        List<String> imgList2 = new ArrayList<>();
+        imgList2.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList2.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList2.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList2.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList2.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList2.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+
+        List<String> imgList3 = new ArrayList<>();
+        imgList3.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList3.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList3.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+        imgList3.add("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
+
         Shop shop = new Shop();
         shop.setShop_name("嘉禾服装店 (国展店）");
         shop.setShop_head_portrait("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
@@ -133,14 +147,14 @@ public class MallMainTypeViewModel extends BaseViewModel {
         shop.setShop_name("嘉禾服装店 (国展店）");
         shop.setShop_head_portrait("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
         shop.setTag_value("品牌");
-        shop.setSynopsis_img(imgList);
+        shop.setSynopsis_img(imgList2);
         list.add(shop);
 
         shop = new Shop();
         shop.setShop_name("嘉禾服装店 (国展店）");
         shop.setShop_head_portrait("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg");
         shop.setTag_value("品牌");
-        shop.setSynopsis_img(imgList);
+        shop.setSynopsis_img(imgList3);
         list.add(shop);
         return list;
     }

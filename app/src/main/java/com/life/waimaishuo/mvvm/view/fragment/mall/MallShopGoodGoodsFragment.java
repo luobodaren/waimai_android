@@ -100,21 +100,23 @@ public class MallShopGoodGoodsFragment extends BaseFragment {
                         initGoodsSign(helper.getView(R.id.tv_interested_count), item.getInterestedCount());
 
                         RecyclerView recyclerView = helper.getView(R.id.recycler_goods_img);
-                        recyclerView.setLayoutManager(
-                                new GridLayoutManager(requireContext(),3,
-                                        LinearLayoutManager.VERTICAL,false));
-                        recyclerView.setAdapter(
-                                new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_mall_shop_good_goods_chiren,
-                                        item.getGoodsImglist()){
-                                    @Override
-                                    protected void initView(BaseViewHolder helper, String item) {
-                                        super.initView(helper, item);
-                                        Glide.with(requireContext())
-                                                .load(item)
-                                                .placeholder(R.drawable.ic_waimai_brand)
-                                                .into((ImageView)helper.getView(R.id.iv));
-                                    }
-                                });
+                        if(recyclerView.getAdapter() == null){
+                            recyclerView.setLayoutManager(
+                                    new GridLayoutManager(requireContext(),3,
+                                            LinearLayoutManager.VERTICAL,false));
+                            recyclerView.setAdapter(
+                                    new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_mall_shop_good_goods_chiren,
+                                            item.getGoodsImglist()){
+                                        @Override
+                                        protected void initView(BaseViewHolder helper, String item) {
+                                            super.initView(helper, item);
+                                            Glide.with(requireContext())
+                                                    .load(item)
+                                                    .placeholder(R.drawable.ic_waimai_brand)
+                                                    .into((ImageView)helper.getView(R.id.iv));
+                                        }
+                                    });
+                        }
                     }
 
                     Drawable likeDrawable;

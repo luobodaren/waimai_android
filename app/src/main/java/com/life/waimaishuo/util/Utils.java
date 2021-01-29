@@ -25,6 +25,9 @@ import com.luck.picture.lib.PictureSelectionModel;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
+
+import java.util.List;
 
 public class Utils {
 
@@ -121,7 +124,13 @@ public class Utils {
         return gridLayoutManager;
     }
 
-    public static RecyclerView.ItemDecoration getItemDecoration(Context context){
+    /**
+     * 获得默认的Recycler装饰器
+     * 顶部与底部增加间距 24px(相对于一倍图750*1624)
+     * @param context
+     * @return
+     */
+    public static RecyclerView.ItemDecoration getDefaultItemDecoration(Context context){
         return new RecyclerView.ItemDecoration() {
             int interval = (int) UIUtils.getInstance().scalePx(context.getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
 
@@ -209,6 +218,16 @@ public class Utils {
         PictureSelector.create(baseFragment)
                 .openCamera(PictureMimeType.ofVideo())
                 .forResult(requestCode);
+    }
+
+    /**
+     * 提供外部预览图片方法
+     * @param baseFragment 调用该方法的碎片
+     * @param position 默认显示图片列表中图片的位置
+     * @param mSelectList 图片列表
+     */
+    public static void previewSelectedPicture(BaseFragment baseFragment, int position, List<LocalMedia> mSelectList){
+        PictureSelector.create(baseFragment).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList);
     }
 
 }

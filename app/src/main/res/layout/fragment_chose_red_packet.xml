@@ -18,9 +18,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_red_packet"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
+            style="@style/recycler_default"
             android:paddingStart="@dimen/interval_size_xs"
             android:paddingEnd="@dimen/interval_size_xs"
             android:background="@color/background"/>

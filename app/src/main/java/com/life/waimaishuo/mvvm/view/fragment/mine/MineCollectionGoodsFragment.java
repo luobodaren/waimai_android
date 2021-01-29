@@ -7,14 +7,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.util.Util;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.databinding.FragmentMineCollectionGoodsBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -141,7 +137,7 @@ public class MineCollectionGoodsFragment extends BaseFragment {
 
             }
         });
-        mBinding.recyclerGoodsEffective.addItemDecoration(Utils.getItemDecoration(requireContext()));
+        mBinding.recyclerGoodsEffective.addItemDecoration(Utils.getDefaultItemDecoration(requireContext()));
     }
 
     private void initNoneffectiveRecycler() {
@@ -157,7 +153,7 @@ public class MineCollectionGoodsFragment extends BaseFragment {
         View view = View.inflate(requireContext(), R.layout.head_noneffective_goods, null);
         adapter.addHeaderView(view);
         mBinding.recyclerGoodsNoneffective.setAdapter(adapter);
-        mBinding.recyclerGoodsNoneffective.addItemDecoration(Utils.getItemDecoration(requireContext()));
+        mBinding.recyclerGoodsNoneffective.addItemDecoration(Utils.getDefaultItemDecoration(requireContext()));
     }
 
 }

@@ -1,10 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-import android.graphics.Rect;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,7 +22,6 @@ import com.life.waimaishuo.mvvm.vm.waimai.ShopEvaluationViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.PreViewUtil;
 import com.life.waimaishuo.util.Utils;
-import com.life.waimaishuo.views.widget.ScoreView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -125,15 +121,16 @@ public class ShopEvaluationFragment extends BaseFragment {
 //                scoreView.setScore(Integer.parseInt(item.getScore()));
 
                 RecyclerView recyclerView = helper.getView(R.id.recycler_comment_picture);
-                MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture,item.getCommentPictureList(), com.life.waimaishuo.BR.item);
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(),3,LinearLayoutManager.VERTICAL,false);
-                recyclerView.setLayoutManager(gridLayoutManager);
-                recyclerView.setAdapter(adapter);
-                recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
-                        (int)UIUtils.getInstance().scalePx(
-                                getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
-                PreViewUtil.initRecyclerPictureClickListener(ShopEvaluationFragment.this,adapter,gridLayoutManager);    //添加图片点击监听 看大图
-
+                if(recyclerView.getAdapter() == null){
+                    MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture,item.getCommentPictureList(), com.life.waimaishuo.BR.item);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(),3,LinearLayoutManager.VERTICAL,false);
+                    recyclerView.setLayoutManager(gridLayoutManager);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.addItemDecoration(new GridDividerItemDecoration(requireContext(), 3,
+                            (int)UIUtils.getInstance().scalePx(
+                                    getResources().getDimensionPixelSize(R.dimen.shop_grid_recycler_item_padding))));
+                    PreViewUtil.initRecyclerPictureClickListener(ShopEvaluationFragment.this,adapter,gridLayoutManager);    //添加图片点击监听 看大图
+                }
 
                 FlowTagLayout flowTagLayout = helper.getView(R.id.flow_layout_goods_list);
                 if(flowTagLayout.getAdapter() == null){
@@ -152,7 +149,7 @@ public class ShopEvaluationFragment extends BaseFragment {
 
             }
         });
-        mBinding.recyclerComments.addItemDecoration(Utils.getItemDecoration(requireContext()));
+        mBinding.recyclerComments.addItemDecoration(Utils.getDefaultItemDecoration(requireContext()));
 
     }
 

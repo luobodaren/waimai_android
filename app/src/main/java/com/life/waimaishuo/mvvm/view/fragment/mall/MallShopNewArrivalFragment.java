@@ -92,12 +92,14 @@ public class MallShopNewArrivalFragment extends BaseFragment {
                         super.initView(helper, item);
 
                         RecyclerView recyclerView = helper.getView(R.id.recycler_new_arrival_goods);
-                        recyclerView.setLayoutManager(
-                                new GridLayoutManager(requireContext(),3,
-                                        LinearLayoutManager.VERTICAL,false));
-                        recyclerView.setAdapter(
-                                new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_shop_new_arrival_chiren,
-                                        item.getGoodsList(),BR.item));
+                        if(recyclerView.getAdapter() == null){
+                            recyclerView.setLayoutManager(
+                                    new GridLayoutManager(requireContext(),3,
+                                            LinearLayoutManager.VERTICAL,false));
+                            recyclerView.setAdapter(
+                                    new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_shop_new_arrival_chiren,
+                                            item.getGoodsList(),BR.item));
+                        }
                     }
                 });
     }

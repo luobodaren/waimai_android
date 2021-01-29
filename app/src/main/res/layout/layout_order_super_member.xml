@@ -17,7 +17,7 @@
             android:id="@+id/tv_super_member_sign"
             android:layout_width="160px"
             android:layout_height="48px"
-            android:background="@drawable/ic_super_member"
+            android:background="@drawable/ic_super_member_bg"
             android:text="@string/super_member"
             android:textSize="22px"
             android:gravity="right|center_vertical"

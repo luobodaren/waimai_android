@@ -22,6 +22,7 @@
     <string name="login_tip">未注册手机号登陆后将自动生成账号，且代表您已阅读并同意</string>
     <string name="login_tip_bottom">登录即同意</string>
     <string name="input_phoneNumber">请输入手机号</string>
+    <string name="input_phoneNumber_or_QQ">请输入手机号/QQ</string>
     <string name="login">登录</string>
     <string name="get_verification">获取验证码</string>
     <string name="login_please">请登录</string>
@@ -255,6 +256,7 @@
     <string name="count">数量</string>
     <string name="name">姓名</string>
     <string name="phone">电话</string>
+    <string name="phoneNumber">手机号</string>
     <string name="consignee_name">收货人姓名</string>
     <string name="consignee_phone">收货人手机号</string>
     <string name="select_region">选择省/市/区</string>
@@ -265,7 +267,8 @@
     <string name="direct_function">功能直达</string>
     <string name="account_binding">账号绑定</string>
     <string name="base_info">基本信息</string>
-    <string name="record_of_use" type="id">使用记录</string>
+    <string name="record_of_use">使用记录</string>
+    <string name="record_of_apply">申请记录</string>
     <string name="immediately_open_a_shop">立即开店</string>
     <string name="select_category">选择品类</string>
     <string name="business_category">经营品类</string>
@@ -280,6 +283,7 @@
     <string name="privacy_agreement">隐私协议</string>
     <string name="cancellation_of_account">注销账号</string>
     <string name="opinion_feedback">意见反馈</string>
+    <string name="commit_feedback">提交反馈</string>
     <string name="quick_login">退出账号</string>
     <string name="cancel_collection">取消收藏</string>
     <string name="become_super_member">成为超级会员</string>
@@ -289,4 +293,19 @@
     <string name="take_picture">拍照</string>
     <string name="please_input_nickname">请输入昵称...</string>
     <string name="please_input_signature">请输入个性签名...</string>
+    <string name="please_chose">请选择</string>
+    <string name="feedback_type">反馈类型</string>
+    <string name="feedback_content">反馈内容</string>
+    <string name="report_content_hint">请描述您的问题，以便我们尽快为您处理（必填）</string>
+    <string name="please_input_your_connect">请留下您的联系方式</string>
+    <string name="intended_city_for_work">意向工作城市</string>
+    <string name="intended_place_for_work">意向工作地点</string>
+    <string name="intended_type_for_work">意向工作类型</string>
+    <string name="rider_name">骑手姓名</string>
+    <string name="rider_type_one">众包骑手</string>
+    <string name="rider_type_two">专业骑手</string>
+    <string name="rider_type_one_introduce">自由接单 灵活结算</string>
+    <string name="rider_type_two_introduce">全职工作 收入稳定</string>
+    <string name="sign_up_to_become_rider">报名成为骑手</string>
+    <string name="tip_wait_for_feedback">*请填写以上信息，三个工作日内得到反馈</string>
 </resources>

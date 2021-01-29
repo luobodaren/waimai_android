@@ -211,16 +211,14 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_goods_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never"
+                        style="@style/recycler_default"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/iv_shop_icon" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_order_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never"
+                        style="@style/recycler_default"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recycler_goods_info" />
 
                     <TextView

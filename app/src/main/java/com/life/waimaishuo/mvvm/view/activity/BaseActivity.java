@@ -81,10 +81,10 @@ public abstract class BaseActivity extends XPageActivity {
         if (!isShowStatusBar) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
                     , WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }else{
-            if(isTranslucent){
+        } else {
+            if (isTranslucent) {
                 StatusBarUtils.translucent(this, Color.TRANSPARENT);
-                if(isFitStatusBarHeight){
+                if (isFitStatusBarHeight) {
                     StatusBarUtils.fitStatusBarHeight(this);
                 }
             }
@@ -105,8 +105,9 @@ public abstract class BaseActivity extends XPageActivity {
 
     TopLightBackgroundDialog directFunctionDialog;
     int dialogClickId = 0;
-    private void initDirectFunctionDialog(){
-        if(directFunctionDialog == null){
+
+    private void initDirectFunctionDialog() {
+        if (directFunctionDialog == null) {
             directFunctionDialog = new TopLightBackgroundDialog(this);
             View view = LayoutInflater.from(this).inflate(R.layout.layout_dialog_direct_function
                     , null);
@@ -115,19 +116,19 @@ public abstract class BaseActivity extends XPageActivity {
             directFunctionDialog.setContentView(view);
             directFunctionDialog.setOnDismissListener(dialog -> {
                 Bundle bundle = new Bundle();
-                switch (dialogClickId){
+                switch (dialogClickId) {
                     case R.id.iv_close:
                         break;
                     case R.id.ll_waimai:
-                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING,0);
+                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING, 0);
                         gotoPage(new CoreSwitchBean("主页", bundle));
                         break;
                     case R.id.ll_mall:
-                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING,1);
+                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING, 1);
                         gotoPage(new CoreSwitchBean("主页", bundle));
                         break;
                     case R.id.ll_mine:
-                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING,3);
+                        bundle.putInt(MainFragment.KEY_PAGE_POSITION_STRING, 3);
                         gotoPage(new CoreSwitchBean("主页", bundle));
                         break;
                     case R.id.ll_shopping_cart:
@@ -140,7 +141,7 @@ public abstract class BaseActivity extends XPageActivity {
 //                            gotoPage(new CoreSwitchBean("", null));
                         break;
                     case R.id.ll_feedback:
-//                            gotoPage(new CoreSwitchBean("", null));
+                        gotoPage(new CoreSwitchBean("意见反馈", null));
                         break;
                 }
 
@@ -148,9 +149,9 @@ public abstract class BaseActivity extends XPageActivity {
         }
     }
 
-    private void initDirectView(View view){
+    private void initDirectView(View view) {
         LayoutDialogDirectFunctionBinding binding = DataBindingUtil.bind(view);
-        if(binding != null) {
+        if (binding != null) {
             BaseActivity.OnSingleClickListener singleClickListener = new BaseActivity.OnSingleClickListener() {
                 @Override
                 public void onSingleClick(View view) {
@@ -170,10 +171,10 @@ public abstract class BaseActivity extends XPageActivity {
         }
     }
 
-    public void showFunctionOfDirectDialog(){
+    public void showFunctionOfDirectDialog() {
         LogUtil.d("asdadsfasdfasfasfasdfasd");
         initDirectFunctionDialog();
-        if(!directFunctionDialog.isShowing()){
+        if (!directFunctionDialog.isShowing()) {
             directFunctionDialog.show();
         }
     }
@@ -208,6 +209,7 @@ public abstract class BaseActivity extends XPageActivity {
 
     /**
      * 设置沉浸式状态栏
+     *
      * @param transluecnt
      */
     public void setTransluecnt(boolean transluecnt) {
@@ -216,6 +218,7 @@ public abstract class BaseActivity extends XPageActivity {
 
     /**
      * 是否为状态栏留出空间
+     *
      * @param fitStatusBarHeight
      */
     public void setFitStatusBarHeight(boolean fitStatusBarHeight) {
@@ -274,21 +277,36 @@ public abstract class BaseActivity extends XPageActivity {
     public abstract static class OnSingleClickListener implements View.OnClickListener {
         //两次点击按钮之间的间隔，目前为1000ms
         private static final int MIN_CLICK_DELAY_TIME = 1000;
+        private int customClickDelayTime = -1;
         private long lastClickTime;
 
         public abstract void onSingleClick(View view);
 
+        public OnSingleClickListener() {
+        }
+
+        public OnSingleClickListener(int customClickDelayTime) {
+            this.customClickDelayTime = customClickDelayTime;
+        }
+
         @Override
         public void onClick(View view) {
             long curClickTime = System.currentTimeMillis();
-            if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
-                lastClickTime = curClickTime;
-                onSingleClick(view);
+            if (customClickDelayTime != -1) {
+                if((curClickTime - lastClickTime) >= customClickDelayTime){
+                    lastClickTime = curClickTime;
+                    onSingleClick(view);
+                }
+            } else {
+                if ((curClickTime - lastClickTime) >= MIN_CLICK_DELAY_TIME) {
+                    lastClickTime = curClickTime;
+                    onSingleClick(view);
+                }
             }
         }
     }
 
-    public View getContentView(){
+    public View getContentView() {
         return this.getWindow().getDecorView().findViewById(android.R.id.content);
     }
 

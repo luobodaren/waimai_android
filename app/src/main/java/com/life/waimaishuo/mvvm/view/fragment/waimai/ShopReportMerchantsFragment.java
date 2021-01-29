@@ -131,12 +131,12 @@ public class ShopReportMerchantsFragment extends BaseFragment {
                 .forResult(PictureConfig.CHOOSE_REQUEST)) {
             @Override
             public int getItemLayoutId() {
-                return R.layout.adapter_select_image_grid_item_report_merchants;
+                return R.layout.adapter_select_image_grid_item_default;
             }
         });
         imageSelectGridAdapter.setSelectList(mSelectList);
         imageSelectGridAdapter.setSelectMax(maxSelectNum);
-        imageSelectGridAdapter.setOnItemClickListener((position, v) -> PictureSelector.create(ShopReportMerchantsFragment.this).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList));
+        imageSelectGridAdapter.setOnItemClickListener((position, v) -> Utils.previewSelectedPicture(this,position,mSelectList));
     }
 
 
