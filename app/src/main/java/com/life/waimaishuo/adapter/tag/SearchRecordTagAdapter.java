@@ -1,4 +1,4 @@
-package com.life.waimaishuo.adapter.tagAdapter;
+package com.life.waimaishuo.adapter.tag;
 
 import androidx.annotation.NonNull;
 
@@ -7,10 +7,10 @@ import com.life.waimaishuo.bean.SearchRecord;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 
-public class SearchRecordTagWaimaiAdapter extends BaseRecyclerAdapter<SearchRecord> {
+public class SearchRecordTagAdapter extends BaseRecyclerAdapter<SearchRecord> {
     @Override
     protected int getItemLayoutId(int viewType) {
-        return R.layout.adapter_tag_item_waimai_search_record;
+        return R.layout.adapter_tag_item_search_record;
     }
 
     @Override

@@ -113,7 +113,7 @@
 
         <Button
             android:id="@+id/bt_add_shopping_cart"
-            style="@style/bt_bottom_gradient"
+            style="@style/bt_bottom_gradient_theme_with_margin"
             android:layout_marginTop="60px"
             android:text="@string/add_to_shopping_cart"
             app:layout_constraintEnd_toEndOf="parent"

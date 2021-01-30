@@ -27,7 +27,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
-import com.life.waimaishuo.adapter.tagAdapter.SpecificationMallTagAdapter;
+import com.life.waimaishuo.adapter.tag.SpecificationMallTagAdapter;
 import com.life.waimaishuo.bean.Address;
 import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.bean.Goods;

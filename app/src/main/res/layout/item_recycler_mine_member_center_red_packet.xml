@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/interval_size_xs"
+    android:paddingEnd="@dimen/interval_size_xs">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="128px"
+        android:layout_height="148px"
+        android:src="@mipmap/png_bg_super_member_red_packet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_value_of_red_packet"
+        style="@style/text_my_simple_style"
+        android:layout_marginTop="20px"
+        android:textColor="@color/dark_gold"
+        android:textSize="56px"
+        app:layout_constraintEnd_toEndOf="@id/iv_bg"
+        app:layout_constraintStart_toStartOf="@id/iv_bg"
+        app:layout_constraintTop_toTopOf="@id/iv_bg"
+        tools:text="5" />
+
+    <TextView
+        android:id="@+id/tv_limited"
+        style="@style/text_my_simple_style"
+        android:layout_marginBottom="8px"
+        android:text="无门槛"
+        android:textColor="@color/dark_gold"
+        android:textSize="22px"
+        app:layout_constraintBottom_toBottomOf="@id/iv_bg"
+        app:layout_constraintEnd_toEndOf="@id/iv_bg"
+        app:layout_constraintStart_toStartOf="@id/iv_bg" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/text_my_simple_style"
+        android:layout_marginStart="@dimen/interval_size_xs"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:textColor="@color/text_normal"
+        android:textSize="36px"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_bg"
+        app:layout_constraintTop_toTopOf="@id/iv_bg"
+        tools:text="会员专属红包" />
+
+    <TextView
+        android:id="@+id/tv_exchange_cost"
+        style="@style/text_my_simple_style"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:gravity="center_vertical"
+        android:text="6金币兑换"
+        android:textColor="@color/dark_gold"
+        android:textSize="28px"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+    <Button
+        android:id="@+id/bt_check_integral_detail"
+        android:layout_width="128px"
+        android:layout_height="50px"
+        android:background="@drawable/sr_stroke_1px_full_radius_dark_gold"
+        android:text="@string/check_detail"
+        android:textColor="@color/dark_gold"
+        android:textSize="@dimen/font_size_22"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

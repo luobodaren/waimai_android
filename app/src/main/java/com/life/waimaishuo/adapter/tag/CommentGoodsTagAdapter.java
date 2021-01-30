@@ -1,15 +1,15 @@
-package com.life.waimaishuo.adapter.tagAdapter;
+package com.life.waimaishuo.adapter.tag;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-public class PreferentialFlowTagAdapter extends BaseTagAdapter<String, TextView> {
-
-    public PreferentialFlowTagAdapter(Context context) {
+public class CommentGoodsTagAdapter extends BaseTagAdapter<String, TextView> {
+    public CommentGoodsTagAdapter(Context context) {
         super(context);
     }
 
@@ -20,11 +20,16 @@ public class PreferentialFlowTagAdapter extends BaseTagAdapter<String, TextView>
 
     @Override
     protected int getLayoutId() {
-        return R.layout.adapter_tag_item_preferential;
+        return R.layout.adapter_tag_item_comment_goods;
     }
 
     @Override
     protected void convert(TextView textView, String item, int position) {
         textView.setText(item);
+        if(position == 0){
+            ((ViewGroup.MarginLayoutParams)textView.getLayoutParams()).setMarginStart(0);
+        }
     }
+
+
 }

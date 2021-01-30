@@ -388,7 +388,7 @@
 
             <Button
                 android:id="@+id/bt_commit"
-                style="@style/bt_bottom_gradient"
+                style="@style/bt_bottom_gradient_theme_with_margin"
                 android:layout_marginBottom="40px"
                 android:text="@string/submit"
                 app:layout_constraintBottom_toBottomOf="parent"

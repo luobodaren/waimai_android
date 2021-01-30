@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +26,8 @@ import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.adapter.tagAdapter.SearchRecordTagWaimaiAdapter;
+import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
+import com.life.waimaishuo.adapter.tag.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchRecord;
 import com.life.waimaishuo.bean.ui.IconStrData;
@@ -39,6 +39,7 @@ import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeSmallBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.activity.SearchActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.BaseStatusLoaderFragment;
 import com.life.waimaishuo.mvvm.view.fragment.LimitedTimeGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.MessageFragment;
 import com.life.waimaishuo.mvvm.view.fragment.city.CityPickerDialogFragment;
@@ -61,6 +62,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
+import com.xuexiang.xui.widget.statelayout.StatusLoader;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.lang.ref.WeakReference;
@@ -68,7 +70,7 @@ import java.lang.ref.WeakReference;
 import static android.Manifest.permission_group.LOCATION;
 
 @Page(name = "外卖", anim = CoreAnim.fade)
-public class WaimaiFragment extends BaseFragment {
+public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     private FragmentWaimaiBinding binding;
     private WaiMaiViewModel mViewModel;
@@ -152,6 +154,23 @@ public class WaimaiFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         return null;
+    }
+
+
+    @Override
+    protected View getWrapView() {
+        return null;
+    }
+
+    @Override
+    protected StatusLoader.Adapter getStatusLoaderAdapter() {
+        return new CustomSingleViewAdapter();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        MyDataBindingUtil.removeFragmentCallBack(this);
     }
 
     private void initMyLocation() {
@@ -546,10 +565,4 @@ public class WaimaiFragment extends BaseFragment {
 //        }
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        MyDataBindingUtil.removeFragmentCallBack(this);
-    }
 }

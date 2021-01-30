@@ -96,7 +96,7 @@
                             android:layout_height="24px"
                             android:tint="@color/xui_config_color_gray_5"
                             android:layout_gravity="end|center_vertical"
-                            android:src="@drawable/ic_delete" />
+                            android:src="@drawable/ic_trash" />
                     </FrameLayout>
 
                     <androidx.recyclerview.widget.RecyclerView

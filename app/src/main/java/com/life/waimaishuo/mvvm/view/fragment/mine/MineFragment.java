@@ -1,7 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.mine;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -92,6 +91,23 @@ public class MineFragment extends BaseFragment {
             }
         });
 
+        mBinding.layoutSuperMember.btGoToMemberCenter.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+
+            boolean i = true;
+
+            @Override
+            public void onSingleClick(View view) {
+                // TODO: 2021/1/30 判断是否成为会员 进入不同的会员界面（会员中心 会员续费）
+                if(i){
+                    i = false;
+                    openPage(MineSuperMemberCenterFragment.class);
+                }else{
+                    i = true;
+                    openPage(MineSuperMemberRenewFragment.class);
+                }
+            }
+        });
+
         mBinding.appbarLayout.addOnOffsetChangedListener(appBarStateChangeListener);
 
         mBinding.clPersonalInfo.setOnClickListener(new BaseActivity.OnSingleClickListener() {
@@ -111,7 +127,7 @@ public class MineFragment extends BaseFragment {
         topRecyclerAdapter.setOnItemClickListener((adapter, view, position) -> {
             switch (position) { //注意与R.array.mine_top_data_list_str匹配
                 case 3:
-                    openPage(MineRedPackageFragment.class);
+                    openPage(MineRedPacketFragment.class);
                     break;
             }
         });
@@ -131,7 +147,7 @@ public class MineFragment extends BaseFragment {
                     MineApplyRecordFragment.openPageWithPageType(MineFragment.this,MineApplyRecordFragment.PAGE_TYPE_BUSINESS_COOPERATION);
                     break;
                 case 6:
-                    openPage(MineRiderRecruitFragment.class);
+                    MineApplyRecordFragment.openPageWithPageType(MineFragment.this,MineApplyRecordFragment.PAGE_TYPE_RIDER_TO_RECRUIT);
                     break;
             }
         });
@@ -161,6 +177,7 @@ public class MineFragment extends BaseFragment {
     private float mShadowAlpha = 0.25f;
     private int mShadowElevationDp = 14;
     private void initSuperMember(){
+        // TODO: 2021/1/30 根据会员身份调整界面
         mBinding.xuiLayout.setRadiusAndShadow(UIUtils.getInstance().dpToPx(12),
                 UIUtils.getInstance().dpToPx(mShadowElevationDp),mShadowAlpha);
     }

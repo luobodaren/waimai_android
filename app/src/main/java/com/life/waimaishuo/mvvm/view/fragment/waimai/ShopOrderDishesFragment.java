@@ -20,7 +20,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
-import com.life.waimaishuo.adapter.tagAdapter.SpecificationWaiMaiTagAdapter;
+import com.life.waimaishuo.adapter.tag.SpecificationWaiMaiTagAdapter;
 import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
 import com.life.waimaishuo.databinding.LayoutDialogChoseSpecificationBinding;

@@ -61,19 +61,19 @@ public class MineRiderRecruitFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
-        mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+        /*mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
                 MineApplyRecordFragment.openPageWithPageType(MineRiderRecruitFragment.this,MineApplyRecordFragment.PAGE_TYPE_RIDER_TO_RECRUIT);
             }
-        });
+        });*/
     }
 
     private void initTitle(){
         mBinding.layoutTitle.tvTitle.setText(getPageName());
         TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle,true);
 
-        mBinding.layoutTitle.tvRight.setText(R.string.record_of_apply);
+        //mBinding.layoutTitle.tvRight.setText(R.string.record_of_apply);
     }
 
 }

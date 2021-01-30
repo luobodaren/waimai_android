@@ -18,12 +18,13 @@
         android:paddingEnd="@dimen/interval_size_xs"
         android:paddingBottom="21px">
 
-        <ImageView
+        <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_img"
             imageUrl="@{item.imgUrl}"
             android:layout_width="82px"
             android:layout_height="82px"
             android:layout_marginStart="@dimen/interval_size_xs"
+            app:riv_corner_radius="4dp"
             app:layout_constraintEnd_toStartOf="@id/tv_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

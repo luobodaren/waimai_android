@@ -2,7 +2,6 @@ package com.life.waimaishuo.mvvm.view.fragment.order;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.ImageSelectGridAdapter;
-import com.life.waimaishuo.adapter.tagAdapter.DriverCommentTagAdapter;
 import com.life.waimaishuo.databinding.FragmentOrderEvaluateMallBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -24,7 +22,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 import com.xuexiang.xui.widget.progress.ratingbar.RatingBar;
 
 import java.util.ArrayList;

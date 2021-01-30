@@ -63,7 +63,7 @@
 
     <Button
         android:id="@+id/bt_finish"
-        style="@style/bt_bottom_gradient"
+        style="@style/bt_bottom_gradient_theme"
         android:text="@string/finish"
         app:layout_constraintTop_toBottomOf="@id/space"/>
 

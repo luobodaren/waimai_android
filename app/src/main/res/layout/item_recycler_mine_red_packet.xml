@@ -19,7 +19,7 @@
 
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
-            android:id="@+id/iv_red_package_img"
+            android:id="@+id/iv_red_packet_img"
             imageUrl="@{item.shop.shop_image}"
             android:layout_width="80px"
             android:layout_height="80px"
@@ -31,7 +31,7 @@
             app:riv_corner_radius="100dp" />
 
         <TextView
-            android:id="@+id/tv_red_package_name"
+            android:id="@+id/tv_red_packet_name"
             style="@style/text_my_simple_style"
             android:layout_marginStart="@dimen/interval_size_xs"
             android:ellipsize="end"
@@ -39,19 +39,19 @@
             android:text="@{item.name}"
             android:textColor="@color/text_normal"
             android:textSize="32px"
-            app:layout_constraintStart_toEndOf="@id/iv_red_package_img"
-            app:layout_constraintTop_toTopOf="@id/iv_red_package_img"
+            app:layout_constraintStart_toEndOf="@id/iv_red_packet_img"
+            app:layout_constraintTop_toTopOf="@id/iv_red_packet_img"
             tools:text="充话费立减0.5元，充值中心专用…" />
 
         <TextView
-            android:id="@+id/tv_red_package_use_time_limit"
+            android:id="@+id/tv_red_packet_use_time_limit"
             style="@style/text_my_simple_style"
             android:layout_marginTop="@dimen/interval_size_xs"
             android:text="@{item.useTimeLimited}"
             android:textColor="@color/text_tip"
             android:textSize="20px"
-            app:layout_constraintBottom_toBottomOf="@id/iv_red_package_img"
-            app:layout_constraintStart_toStartOf="@id/tv_red_package_name"
+            app:layout_constraintBottom_toBottomOf="@id/iv_red_packet_img"
+            app:layout_constraintStart_toStartOf="@id/tv_red_packet_name"
             tools:text="拼单价 ￥99" />
 
         <TextView
@@ -63,11 +63,11 @@
             android:textColor="@color/text_tip"
             android:textSize="24px"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/iv_red_package_img"
+            app:layout_constraintStart_toStartOf="@id/iv_red_packet_img"
             tools:text="限品质联盟专用" />
 
         <TextView
-            android:id="@+id/tv_value_of_red_package"
+            android:id="@+id/tv_value_of_red_packet"
             style="@style/text_my_simple_style"
             android:layout_marginTop="15px"
             android:layout_marginEnd="32px"
@@ -79,7 +79,7 @@
             tools:text="24" />
 
         <TextView
-            android:id="@+id/tv_red_package_introduce"
+            android:id="@+id/tv_red_packet_introduce"
             style="@style/text_my_simple_style"
             android:layout_marginTop="7px"
             android:layout_marginEnd="32px"
@@ -87,7 +87,7 @@
             android:textColor="@color/text_uncheck"
             android:textSize="20px"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_value_of_red_package"
+            app:layout_constraintTop_toBottomOf="@id/tv_value_of_red_packet"
             tools:text="充48可用" />
 
         <Button

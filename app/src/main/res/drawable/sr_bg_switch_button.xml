@@ -3,8 +3,8 @@
 
     <item android:state_checked="true" android:color="@color/colorTheme"/>
 
-    <item android:state_enabled="true" android:color="@color/bg_switch_button"/>
+    <item android:state_enabled="true" android:color="@color/bt_bg_switch"/>
 
-    <item android:state_pressed="true" android:color="@color/bg_switch_button"/>
+    <item android:state_pressed="true" android:color="@color/bt_bg_switch"/>
 
 </selector>

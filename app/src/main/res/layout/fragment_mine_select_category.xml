@@ -97,7 +97,7 @@
 
         <Button
             android:id="@+id/bt_chosen"
-            style="@style/bt_bottom_gradient"
+            style="@style/bt_bottom_gradient_theme_with_margin"
             android:layout_gravity="bottom"
             android:layout_marginBottom="40px"
             android:text="@string/chosen"

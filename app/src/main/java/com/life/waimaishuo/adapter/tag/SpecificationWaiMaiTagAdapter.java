@@ -1,4 +1,4 @@
-package com.life.waimaishuo.adapter.tagAdapter;
+package com.life.waimaishuo.adapter.tag;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

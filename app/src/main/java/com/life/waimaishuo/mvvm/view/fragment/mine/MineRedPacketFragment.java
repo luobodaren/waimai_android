@@ -3,37 +3,34 @@ package com.life.waimaishuo.mvvm.view.fragment.mine;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.util.SparseIntArray;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.databinding.FragmentMineRedPacketBinding;
-import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
-import com.life.waimaishuo.mvvm.vm.mine.MineRedPackageViewModel;
+import com.life.waimaishuo.mvvm.vm.mine.MineRedPacketViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
 @Page(name = "红包", anim = CoreAnim.slide)
-public class MineRedPackageFragment extends BaseFragment {
+public class MineRedPacketFragment extends BaseFragment {
 
     private FragmentMineRedPacketBinding mBinding;
-    private MineRedPackageViewModel mViewModel;
+    private MineRedPacketViewModel mViewModel;
 
     @Override
     protected BaseViewModel setViewModel() {
         if(mViewModel == null){
-            mViewModel = new MineRedPackageViewModel();
+            mViewModel = new MineRedPacketViewModel();
         }
         return mViewModel;
     }
@@ -95,9 +92,9 @@ public class MineRedPackageFragment extends BaseFragment {
                 }
 
                 if(helper.getItemViewType() == viewTypes[0]){
-                    ((ImageView)helper.getView(R.id.iv_red_package_img)).clearColorFilter();
+                    ((ImageView)helper.getView(R.id.iv_red_packet_img)).clearColorFilter();
                 }else{
-                    ((ImageView)helper.getView(R.id.iv_red_package_img)).setColorFilter(filter);
+                    ((ImageView)helper.getView(R.id.iv_red_packet_img)).setColorFilter(filter);
                 }
             }
 

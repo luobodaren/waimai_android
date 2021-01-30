@@ -64,7 +64,7 @@
 
         <Button
             android:id="@+id/bt_submit"
-            style="@style/bt_bottom_gradient"
+            style="@style/bt_bottom_gradient_theme_with_margin"
             android:text="@string/submit" />
 
     </com.life.base.views.UiAdapterLinearLayout>

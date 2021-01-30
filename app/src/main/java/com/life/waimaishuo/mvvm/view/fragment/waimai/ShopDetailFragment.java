@@ -25,7 +25,7 @@ import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.tagAdapter.CashBackTagAdapter;
+import com.life.waimaishuo.adapter.tag.CashBackTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.MerchantsService;
 import com.life.waimaishuo.bean.PreferentialActivity;

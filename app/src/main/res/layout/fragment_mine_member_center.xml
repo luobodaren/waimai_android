@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="456px"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:id="@+id/my_ll_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/layout_title"
+                layout="@layout/title_menu_share_transparent_black" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs">
+
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0px"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/png_bg_super_member"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="12dp" />
+
+                <com.xuexiang.xui.widget.imageview.RadiusImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:layout_marginTop="32px"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_corner_radius="100dp" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:textColor="@color/white"
+                    android:textSize="32px"
+                    app:layout_constraintStart_toEndOf="@id/iv_img"
+                    app:layout_constraintTop_toTopOf="@id/iv_img"
+                    tools:text="啊啊啊啊啊" />
+
+                <TextView
+                    android:id="@+id/tv_expiration_time"
+                    style="@style/text_my_simple_style"
+                    android:layout_marginTop="@dimen/interval_size_xs"
+                    android:textSize="24px"
+                    app:layout_constraintStart_toStartOf="@id/tv_name"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+                <Button
+                    android:id="@+id/bt_immediately_renewal"
+                    android:layout_width="128px"
+                    android:layout_height="50px"
+                    android:layout_marginTop="48px"
+                    android:layout_marginEnd="@dimen/interval_size_xs"
+                    android:background="@drawable/sr_bg_gradient_full_radius_gold"
+                    android:text="@string/immediately_renewal"
+                    android:textColor="@color/text_normal"
+                    android:textSize="@dimen/font_size_22"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32px"
+                    android:layout_marginBottom="40px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_img">
+
+                    <LinearLayout
+                        android:id="@+id/ll_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@id/ll_right"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_count_red_package"
+                            style="@style/text_my_simple_style"
+                            android:textColor="@color/white"
+                            android:textSize="60px" />
+
+                        <TextView
+                            style="@style/text_my_simple_style"
+                            android:layout_marginTop="32px"
+                            android:text="@string/available_red_package"
+                            android:textColor="@color/white"
+                            android:textSize="32px" />
+
+                        <Button
+                            android:id="@+id/bt_check_red_package_detail"
+                            android:layout_width="128px"
+                            android:layout_height="50px"
+                            android:layout_marginTop="@dimen/interval_size_xs"
+                            android:background="@drawable/sr_stroke_1px_full_radius_gold"
+                            android:text="@string/check_detail"
+                            android:textColor="@color/gold_gradient_end"
+                            android:textSize="@dimen/font_size_22" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ll_left"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_count_integral"
+                            style="@style/text_my_simple_style"
+                            android:textColor="@color/white"
+                            android:textSize="60px" />
+
+                        <TextView
+                            style="@style/text_my_simple_style"
+                            android:layout_marginTop="32px"
+                            android:text="@string/available_integral"
+                            android:textColor="@color/white"
+                            android:textSize="32px" />
+
+                        <Button
+                            android:id="@+id/bt_check_integral_detail"
+                            android:layout_width="128px"
+                            android:layout_height="50px"
+                            android:layout_marginTop="@dimen/interval_size_xs"
+                            android:background="@drawable/sr_stroke_1px_full_radius_gold"
+                            android:text="@string/check_detail"
+                            android:textColor="@color/gold_gradient_end"
+                            android:textSize="@dimen/font_size_22" />
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_red_packet"
+                style="@style/recycler_default"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:layout_marginEnd="@dimen/interval_size_xs"
+                android:background="@drawable/sr_bg_8dp_white" />
+
+        </LinearLayout>
+
+
+    </com.life.base.views.UiAdapterFrameLayout>
+</layout>

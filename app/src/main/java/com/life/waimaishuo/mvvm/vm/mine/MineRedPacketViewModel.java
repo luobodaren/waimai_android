@@ -2,20 +2,20 @@ package com.life.waimaishuo.mvvm.vm.mine;
 
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.mvvm.model.BaseModel;
-import com.life.waimaishuo.mvvm.model.mine.MineRedPackageModel;
+import com.life.waimaishuo.mvvm.model.mine.MineRedPacketModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MineRedPackageViewModel extends BaseViewModel {
+public class MineRedPacketViewModel extends BaseViewModel {
 
-    private MineRedPackageModel mModel;
+    private MineRedPacketModel mModel;
 
     @Override
     public BaseModel getModel() {
         if(mModel == null){
-            mModel = new MineRedPackageModel();
+            mModel = new MineRedPacketModel();
         }
         return mModel;
     }

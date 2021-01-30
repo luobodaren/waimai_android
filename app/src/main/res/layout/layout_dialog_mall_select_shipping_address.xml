@@ -70,7 +70,7 @@
 
     <Button
         android:id="@+id/bt_add_new_address"
-        style="@style/bt_bottom_gradient"
+        style="@style/bt_bottom_gradient_theme_with_margin"
         android:text="@string/add_new_shipping_address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

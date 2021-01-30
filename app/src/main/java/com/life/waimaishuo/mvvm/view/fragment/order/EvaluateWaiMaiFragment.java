@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.ImageSelectGridAdapter;
-import com.life.waimaishuo.adapter.tagAdapter.DriverCommentTagAdapter;
+import com.life.waimaishuo.adapter.tag.DriverCommentTagAdapter;
 import com.life.waimaishuo.databinding.FragmentOrderEvaluateWaimaiBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;

@@ -3,7 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment;
 import android.content.Context;
 
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.tagAdapter.SearchRecordTagAdapter;
+import com.life.waimaishuo.adapter.tag.SearchRecordTagAdapter;
 import com.life.waimaishuo.bean.SearchRecord;
 import com.life.waimaishuo.databinding.FragmentSearchHistoryBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -12,7 +12,6 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;

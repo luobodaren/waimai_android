@@ -1,185 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/iv_super_member"
-        android:layout_width="44px"
-        android:layout_height="44px"
-        android:layout_marginTop="@dimen/interval_size_xs"
-        android:src="@drawable/ic_super_member"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/tv_title"
-        style="@style/text_my_simple_style"
-        android:layout_marginStart="8px"
-        android:text="@string/super_member"
-        android:textColor="@color/super_member_color"
-        android:textSize="28px"
-        app:layout_constraintBottom_toBottomOf="@id/iv_super_member"
-        app:layout_constraintStart_toEndOf="@id/iv_super_member"
-        app:layout_constraintTop_toTopOf="@id/iv_super_member" />
+    </data>
 
-    <TextView
-        android:id="@+id/divider"
-        android:layout_width="3px"
-        android:layout_height="16px"
-        android:layout_marginStart="8px"
-        android:background="@color/text_tip"
-        app:layout_constraintBottom_toBottomOf="@id/iv_super_member"
-        app:layout_constraintStart_toEndOf="@id/tv_title"
-        app:layout_constraintTop_toTopOf="@id/iv_super_member" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_tip"
-        style="@style/text_my_simple_style"
-        android:layout_marginStart="5px"
-        android:text="@string/become_super_member"
-        android:textColor="@color/text_tip"
-        android:textSize="24px"
-        app:layout_constraintBottom_toBottomOf="@id/iv_super_member"
-        app:layout_constraintStart_toEndOf="@id/divider"
-        app:layout_constraintTop_toTopOf="@id/iv_super_member" />
+        <ImageView
+            android:id="@+id/iv_super_member"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginTop="@dimen/interval_size_xs"
+            android:src="@drawable/ic_super_member"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/bt_open_membership_account"
-        android:layout_width="110px"
-        android:layout_height="50px"
-        android:layout_marginTop="16px"
-        android:background="@drawable/sr_bg_gradient_full_radius_gold"
-        android:includeFontPadding="false"
-        android:text="@string/open"
-        android:textColor="@color/text_normal"
-        android:textSize="22px"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="8px"
+            android:text="@string/super_member"
+            android:textColor="@color/super_member_color"
+            android:textSize="28px"
+            app:layout_constraintBottom_toBottomOf="@id/iv_super_member"
+            app:layout_constraintStart_toEndOf="@id/iv_super_member"
+            app:layout_constraintTop_toTopOf="@id/iv_super_member" />
 
-    <ImageView
-        android:id="@+id/iv_red_package"
-        android:layout_width="90px"
-        android:layout_height="90px"
-        android:layout_marginTop="43px"
-        android:src="@mipmap/ic_super_member_red_package"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toStartOf="@id/iv_integral"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_super_member" />
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="3px"
+            android:layout_height="16px"
+            android:layout_marginStart="8px"
+            android:background="@color/text_tip"
+            app:layout_constraintBottom_toBottomOf="@id/iv_super_member"
+            app:layout_constraintStart_toEndOf="@id/tv_title"
+            app:layout_constraintTop_toTopOf="@id/iv_super_member" />
 
-    <TextView
-        android:id="@+id/tv_red_package_1"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="16px"
-        android:textColor="@color/super_member_color"
-        android:textSize="28px"
-        app:layout_constraintEnd_toEndOf="@id/iv_red_package"
-        app:layout_constraintStart_toStartOf="@id/iv_red_package"
-        app:layout_constraintTop_toBottomOf="@id/iv_red_package" />
+        <TextView
+            android:id="@+id/tv_tip"
+            style="@style/text_my_simple_style"
+            android:layout_marginStart="5px"
+            android:text="@string/become_super_member"
+            android:textColor="@color/text_tip"
+            android:textSize="24px"
+            app:layout_constraintBottom_toBottomOf="@id/iv_super_member"
+            app:layout_constraintStart_toEndOf="@id/divider"
+            app:layout_constraintTop_toTopOf="@id/iv_super_member" />
 
+        <Button
+            android:id="@+id/bt_go_to_member_center"
+            android:layout_width="110px"
+            android:layout_height="50px"
+            android:layout_marginTop="16px"
+            android:background="@drawable/sr_bg_gradient_full_radius_gold"
+            android:includeFontPadding="false"
+            android:text="@string/open"
+            android:textColor="@color/text_normal"
+            android:textSize="22px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_red_package_2"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="24px"
-        android:textColor="#FFB9B9B9"
-        android:textSize="22px"
-        app:layout_constraintEnd_toEndOf="@id/iv_red_package"
-        app:layout_constraintStart_toStartOf="@id/iv_red_package"
-        app:layout_constraintTop_toBottomOf="@id/tv_red_package_1" />
+        <ImageView
+            android:id="@+id/iv_red_package"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_marginTop="43px"
+            android:src="@mipmap/ic_super_member_red_packet"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toStartOf="@id/iv_integral"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_super_member" />
 
-    <ImageView
-        android:id="@+id/iv_integral"
-        android:layout_width="90px"
-        android:layout_height="90px"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_super_member_bargain"
-        app:layout_constraintEnd_toStartOf="@id/iv_bargain_goods"
-        app:layout_constraintStart_toEndOf="@id/iv_red_package"
-        app:layout_constraintTop_toTopOf="@id/iv_red_package" />
-
-    <TextView
-        android:id="@+id/tv_integral_1"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="16px"
-        android:textColor="@color/super_member_color"
-        android:textSize="28px"
-        app:layout_constraintEnd_toEndOf="@id/iv_integral"
-        app:layout_constraintStart_toStartOf="@id/iv_integral"
-        app:layout_constraintTop_toBottomOf="@id/iv_integral" />
+        <TextView
+            android:id="@+id/tv_red_package_1"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="16px"
+            android:textColor="@color/super_member_color"
+            android:textSize="28px"
+            app:layout_constraintEnd_toEndOf="@id/iv_red_package"
+            app:layout_constraintStart_toStartOf="@id/iv_red_package"
+            app:layout_constraintTop_toBottomOf="@id/iv_red_package" />
 
 
-    <TextView
-        android:id="@+id/tv_integral_2"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="24px"
-        android:textColor="#FFB9B9B9"
-        android:textSize="22px"
-        app:layout_constraintEnd_toEndOf="@id/iv_integral"
-        app:layout_constraintStart_toStartOf="@id/iv_integral"
-        app:layout_constraintTop_toBottomOf="@id/tv_integral_1" />
+        <TextView
+            android:id="@+id/tv_red_package_2"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="24px"
+            android:textColor="#FFB9B9B9"
+            android:textSize="22px"
+            app:layout_constraintEnd_toEndOf="@id/iv_red_package"
+            app:layout_constraintStart_toStartOf="@id/iv_red_package"
+            app:layout_constraintTop_toBottomOf="@id/tv_red_package_1" />
 
-    <ImageView
-        android:id="@+id/iv_bargain_goods"
-        android:layout_width="90px"
-        android:layout_height="90px"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_super_member_bargain_food"
-        app:layout_constraintEnd_toStartOf="@id/iv_bargain_foods"
-        app:layout_constraintStart_toEndOf="@id/iv_integral"
-        app:layout_constraintTop_toTopOf="@id/iv_red_package" />
+        <ImageView
+            android:id="@+id/iv_integral"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_super_member_bargain"
+            app:layout_constraintEnd_toStartOf="@id/iv_bargain_goods"
+            app:layout_constraintStart_toEndOf="@id/iv_red_package"
+            app:layout_constraintTop_toTopOf="@id/iv_red_package" />
 
-    <TextView
-        android:id="@+id/tv_goods_1"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="16px"
-        android:textColor="@color/super_member_color"
-        android:textSize="28px"
-        app:layout_constraintEnd_toEndOf="@id/iv_bargain_goods"
-        app:layout_constraintStart_toStartOf="@id/iv_bargain_goods"
-        app:layout_constraintTop_toBottomOf="@id/iv_bargain_goods" />
-
-
-    <TextView
-        android:id="@+id/tv_goods_2"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="24px"
-        android:textColor="#FFB9B9B9"
-        android:textSize="22px"
-        app:layout_constraintEnd_toEndOf="@id/iv_bargain_goods"
-        app:layout_constraintStart_toStartOf="@id/iv_bargain_goods"
-        app:layout_constraintTop_toBottomOf="@id/tv_goods_1" />
-
-    <ImageView
-        android:id="@+id/iv_bargain_foods"
-        android:layout_width="90px"
-        android:layout_height="90px"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_super_member_bargain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/iv_bargain_goods"
-        app:layout_constraintTop_toTopOf="@id/iv_red_package" />
-
-    <TextView
-        android:id="@+id/tv_foods_1"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="16px"
-        android:textColor="@color/super_member_color"
-        android:textSize="28px"
-        app:layout_constraintEnd_toEndOf="@id/iv_bargain_foods"
-        app:layout_constraintStart_toStartOf="@id/iv_bargain_foods"
-        app:layout_constraintTop_toBottomOf="@id/iv_bargain_foods" />
+        <TextView
+            android:id="@+id/tv_integral_1"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="16px"
+            android:textColor="@color/super_member_color"
+            android:textSize="28px"
+            app:layout_constraintEnd_toEndOf="@id/iv_integral"
+            app:layout_constraintStart_toStartOf="@id/iv_integral"
+            app:layout_constraintTop_toBottomOf="@id/iv_integral" />
 
 
-    <TextView
-        android:id="@+id/tv_foods_2"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="24px"
-        android:textColor="#FFB9B9B9"
-        android:textSize="22px"
-        app:layout_constraintEnd_toEndOf="@id/iv_bargain_foods"
-        app:layout_constraintStart_toStartOf="@id/iv_bargain_foods"
-        app:layout_constraintTop_toBottomOf="@id/tv_foods_1" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_integral_2"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="24px"
+            android:textColor="#FFB9B9B9"
+            android:textSize="22px"
+            app:layout_constraintEnd_toEndOf="@id/iv_integral"
+            app:layout_constraintStart_toStartOf="@id/iv_integral"
+            app:layout_constraintTop_toBottomOf="@id/tv_integral_1" />
+
+        <ImageView
+            android:id="@+id/iv_bargain_goods"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_super_member_bargain_food"
+            app:layout_constraintEnd_toStartOf="@id/iv_bargain_foods"
+            app:layout_constraintStart_toEndOf="@id/iv_integral"
+            app:layout_constraintTop_toTopOf="@id/iv_red_package" />
+
+        <TextView
+            android:id="@+id/tv_goods_1"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="16px"
+            android:textColor="@color/super_member_color"
+            android:textSize="28px"
+            app:layout_constraintEnd_toEndOf="@id/iv_bargain_goods"
+            app:layout_constraintStart_toStartOf="@id/iv_bargain_goods"
+            app:layout_constraintTop_toBottomOf="@id/iv_bargain_goods" />
+
+
+        <TextView
+            android:id="@+id/tv_goods_2"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="24px"
+            android:textColor="#FFB9B9B9"
+            android:textSize="22px"
+            app:layout_constraintEnd_toEndOf="@id/iv_bargain_goods"
+            app:layout_constraintStart_toStartOf="@id/iv_bargain_goods"
+            app:layout_constraintTop_toBottomOf="@id/tv_goods_1" />
+
+        <ImageView
+            android:id="@+id/iv_bargain_foods"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_super_member_bargain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_bargain_goods"
+            app:layout_constraintTop_toTopOf="@id/iv_red_package" />
+
+        <TextView
+            android:id="@+id/tv_foods_1"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="16px"
+            android:textColor="@color/super_member_color"
+            android:textSize="28px"
+            app:layout_constraintEnd_toEndOf="@id/iv_bargain_foods"
+            app:layout_constraintStart_toStartOf="@id/iv_bargain_foods"
+            app:layout_constraintTop_toBottomOf="@id/iv_bargain_foods" />
+
+
+        <TextView
+            android:id="@+id/tv_foods_2"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="24px"
+            android:textColor="#FFB9B9B9"
+            android:textSize="22px"
+            app:layout_constraintEnd_toEndOf="@id/iv_bargain_foods"
+            app:layout_constraintStart_toStartOf="@id/iv_bargain_foods"
+            app:layout_constraintTop_toBottomOf="@id/tv_foods_1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

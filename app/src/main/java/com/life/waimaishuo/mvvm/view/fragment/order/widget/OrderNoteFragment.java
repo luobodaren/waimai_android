@@ -7,7 +7,7 @@ import android.text.TextWatcher;
 import android.widget.Toast;
 
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.tagAdapter.OrderNoteTagAdapter;
+import com.life.waimaishuo.adapter.tag.OrderNoteTagAdapter;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentOrderNoteBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;

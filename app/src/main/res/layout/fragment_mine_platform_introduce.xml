@@ -32,7 +32,7 @@
 
             <Button
                 android:id="@+id/bt_immediately_open_shop"
-                style="@style/bt_bottom_gradient"
+                style="@style/bt_bottom_gradient_theme_with_margin"
                 android:text="@string/immediately_open_a_shop"
                 android:textStyle="bold" />
 

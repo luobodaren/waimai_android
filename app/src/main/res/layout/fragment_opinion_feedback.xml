@@ -153,7 +153,7 @@
 
                 <Button
                     android:id="@+id/bt_submit"
-                    style="@style/bt_bottom_gradient"
+                    style="@style/bt_bottom_gradient_theme_with_margin"
                     android:layout_marginTop="40px"
                     android:text="@string/commit_feedback"
                     app:layout_constraintStart_toStartOf="parent"

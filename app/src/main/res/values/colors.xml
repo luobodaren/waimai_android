@@ -13,6 +13,10 @@
 
     <color name="colorTheme_gradient_start">#FF9468</color>
     <color name="colorTheme_gradient_end">#FE4036</color>
+    <color name="gold_gradient_start">#FFEDDFC4</color>
+    <color name="gold_gradient_end">#FFF4C7A4</color>
+    <color name="login_bt_machine_start">@color/colorTheme_gradient_start</color>
+    <color name="login_bt_machine_end">@color/colorTheme_gradient_end</color>
 
     <color name="color_translucent_red_gradient_start">#1AF24343</color>
 
@@ -43,14 +47,15 @@
     <color name="text_assist">#bbbbbb</color>
     <color name="text_hint">#CCCCCC</color>
 
-    <color name="bg_switch_button">#BBBBBB</color>
+    <color name="light_gold">#FFFFF7EE</color>
+    <color name="dark_gold">#FF8B521E</color>
 
     <color name="view_uncheck">#666666</color>
     <color name="view_check">@color/colorTheme</color>
     <color name="view_press">@color/background</color>
 
-    <color name="login_bt_machine_start">@color/colorTheme_gradient_start</color>
-    <color name="login_bt_machine_end">@color/colorTheme_gradient_end</color>
+    <color name="bt_bg_switch">#BBBBBB</color>
+    <color name="bt_unable">#8097979F</color>
     <color name="login_bt_unable">#80ffffff</color>
     <color name="login_bt_able">@color/colorAssist_3</color>
 
@@ -88,6 +93,4 @@
     <color name="text_logistics_process">#FF888888</color>
     <color name="super_member_bg_color">#FF282C3C</color>
     <color name="super_member_color">#FFD7BC91</color>
-    <color name="gold_gradient_start">#FFEDDFC4</color>
-    <color name="gold_gradient_end">#FFF4C7A4</color>
 </resources>

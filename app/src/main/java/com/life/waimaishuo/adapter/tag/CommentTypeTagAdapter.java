@@ -1,15 +1,14 @@
-package com.life.waimaishuo.adapter.tagAdapter;
+package com.life.waimaishuo.adapter.tag;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
-public class OrderNoteTagAdapter extends BaseTagAdapter<String, TextView> {
-    public OrderNoteTagAdapter(Context context) {
+public class CommentTypeTagAdapter extends BaseTagAdapter<String, TextView> {
+    public CommentTypeTagAdapter(Context context) {
         super(context);
     }
 
@@ -20,7 +19,7 @@ public class OrderNoteTagAdapter extends BaseTagAdapter<String, TextView> {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.adapter_tag_item_order_note;
+        return R.layout.adapter_tag_item_comment_type;
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.life.waimaishuo.mvvm.view.fragment.mine;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMineApplyRecordBinding;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineApplyRecordRecyclerFragment;
@@ -22,7 +24,7 @@ import com.xuexiang.xui.widget.tabbar.TabSegment;
 public class MineApplyRecordFragment extends BaseFragment {
 
     private final static String PAGE_TYPE_KEY = "page_type_key";
-    public final static int PAGE_TYPE_BUSINESS_COOPERATION = 1;
+    public final static int PAGE_TYPE_BUSINESS_COOPERATION = 1; //商务合作
     public final static int PAGE_TYPE_OPEN_SHOP = 2;    //店铺开店
     public final static int PAGE_TYPE_RIDER_TO_RECRUIT = 3; //骑手招募
 
@@ -83,10 +85,34 @@ public class MineApplyRecordFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
+        if(mPageType == PAGE_TYPE_BUSINESS_COOPERATION){
+            mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View view) {
+                    openPage(MineBusinessCooperationFragment.class);
+                }
+            });
+        }else if(mPageType == PAGE_TYPE_RIDER_TO_RECRUIT){
+            mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                @Override
+                public void onSingleClick(View view) {
+                    openPage(MineRiderRecruitFragment.class);
+                }
+            });
+        }
+
     }
 
     private void initTitle() {
-        mBinding.layoutTitle.tvTitle.setText(getPageName());
+        if(mPageType == PAGE_TYPE_BUSINESS_COOPERATION){
+            mBinding.layoutTitle.tvTitle.setText(R.string.business_cooperation);
+            mBinding.layoutTitle.tvRight.setText(R.string.apply);
+        }else if(mPageType == PAGE_TYPE_RIDER_TO_RECRUIT){
+            mBinding.layoutTitle.tvTitle.setText(R.string.recruit_rider);
+            mBinding.layoutTitle.tvRight.setText(R.string.apply);
+        }else{
+            mBinding.layoutTitle.tvTitle.setText(getPageName());
+        }
         TextUtil.setFakeBoldText(mBinding.layoutTitle.tvTitle, true);
     }
 

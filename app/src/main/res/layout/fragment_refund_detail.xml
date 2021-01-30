@@ -299,7 +299,7 @@
 
             <Button
                 android:id="@+id/bt_bottom"
-                style="@style/bt_bottom_gradient"
+                style="@style/bt_bottom_gradient_theme"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 

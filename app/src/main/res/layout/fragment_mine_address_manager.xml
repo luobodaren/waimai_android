@@ -25,7 +25,7 @@
 
         <Button
             android:id="@+id/bt_add_to_shopping_cart"
-            style="@style/bt_bottom_gradient"
+            style="@style/bt_bottom_gradient_theme_with_margin"
             android:layout_marginBottom="@dimen/interval_size_xs"
             android:text="@string/add_new_shipping_address"
             android:textStyle="bold" />

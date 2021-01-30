@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
+
+    <item android:state_enabled="false">
+        <shape>
+            <corners android:radius="50dp"/>
+            <solid android:color="@color/bt_unable"/>
+        </shape>
+    </item>
+
+    <item android:state_enabled="true">
         <shape>
             <corners android:radius="50dp"/>
             <gradient
@@ -10,4 +18,5 @@
                 />
         </shape>
     </item>
+
 </selector>

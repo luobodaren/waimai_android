@@ -84,7 +84,8 @@ public class MinePersonalCenterFragment extends BaseFragment {
                 bundle.putInt(MineChangePersonInfoFragment.PAGE_TYPE_KEY,MineChangePersonInfoFragment.PAGE_TYPE_CHANGE_SIGNATURE);
                 openPage(MineChangePersonInfoFragment.class,bundle);
             }else if(position == 4){    //超级会员
-
+                // TODO: 2021/1/30 判断会员状态
+                openPage(MineSuperMemberRenewFragment.class,null);
             }
         });
     }
