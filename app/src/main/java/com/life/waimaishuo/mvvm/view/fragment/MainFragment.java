@@ -11,6 +11,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
+import com.life.waimaishuo.bean.event.MessageEvent;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentMainBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.MainViewModel;
@@ -60,6 +62,12 @@ public class MainFragment extends BaseFragment {
     @Override
     protected TitleBar initTitleBar() {
         return null;
+    }
+
+    @Override
+    protected void initArgs() {
+        super.initArgs();
+        setRegisterEventBus(true);
     }
 
     @Override
@@ -120,6 +128,26 @@ public class MainFragment extends BaseFragment {
     protected void onLifecycleStop() {
         super.onLifecycleStop();
         cancelTabViewAnimation();
+    }
+
+    @Override
+    public void MessageEvent(MessageEvent messageEvent) {
+        LogUtil.d(messageEvent.toString());
+        super.MessageEvent(messageEvent);
+        switch (messageEvent.getCode()){
+            case MessageCodeConstant.MAIN_TAB_BAR_PAGE_CHANGE_WAIMAI:
+                mBinding.viewPager.setCurrentItem(0);
+                break;
+            case MessageCodeConstant.MAIN_TAB_BAR_PAGE_CHANGE_MALL:
+                mBinding.viewPager.setCurrentItem(1);
+                break;
+            case MessageCodeConstant.MAIN_TAB_BAR_PAGE_CHANGE_ORDER:
+                mBinding.viewPager.setCurrentItem(2);
+                break;
+            case MessageCodeConstant.MAIN_TAB_BAR_PAGE_CHANGE_MINE:
+                mBinding.viewPager.setCurrentItem(3);
+                break;
+        }
     }
 
     private void initTabRecycler(){

@@ -55,12 +55,12 @@ public abstract class BaseStatusLoaderFragment extends BaseFragment {
      * 模拟加载使用
      * 去掉模拟功能时，建议连同下面两次代码一并注释掉
      */
-    private Handler mLoadingHandler = new Handler(Looper.getMainLooper());
+    /*private Handler mLoadingHandler = new Handler(Looper.getMainLooper());
     @Override
     public void onDestroyView() {
         mLoadingHandler.removeCallbacksAndMessages(null);
         super.onDestroyView();
-    }
+    }*/
 
     /**
      * 显示加载页面
@@ -68,13 +68,13 @@ public abstract class BaseStatusLoaderFragment extends BaseFragment {
     protected void showLoading() {
         initLoadingStatusViewIfNeed();
         // 模拟加载
-        if (mHolder.getCurState() != STATUS_LOADING) {
+        /*if (mHolder.getCurState() != STATUS_LOADING) {
             mLoadingHandler.postDelayed(() -> {
                 if (mHolder.getCurState() == STATUS_LOADING) {
                     showContent();
                 }
             }, 3000);
-        }
+        }*/
         mHolder.showLoading();
     }
 

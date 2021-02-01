@@ -47,6 +47,9 @@ dependencies {
     implementation project(':base')
     implementation project(':thirdlib')
 
+    //EventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
     //下拉刷新、CityPicker、XUI框架需要
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.2.1'

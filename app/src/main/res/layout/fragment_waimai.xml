@@ -9,9 +9,9 @@
             type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel" />
     </data>
 
-
     <!--嵌套滑动父控件-->
     <com.life.waimaishuo.views.StickyNavigationLayout
+        android:id="@+id/sticky_navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/sr_bg_gradient_theme_color"
@@ -32,7 +32,7 @@
 
                 <include
                     android:id="@+id/layout_title"
-                    layout="@layout/title_location_with_function"/>
+                    layout="@layout/title_location_with_function" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -132,21 +132,17 @@
                         android:paddingTop="@dimen/interval_size_xs"
                         android:paddingBottom="@dimen/interval_size_xs" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_my_exclusive"
-                            style="@style/recycler_default"
-                            android:layout_marginStart="@dimen/interval_size_xs"
-                            android:layout_marginTop="@dimen/interval_size_xs"
-                            android:layout_marginEnd="@dimen/interval_size_xs"
-                            android:background="@drawable/sr_bg_12dp_white"
-                            android:paddingStart="@dimen/interval_size_xs"
-                            android:paddingTop="@dimen/interval_size_xs"
-                            android:paddingBottom="@dimen/interval_size_xs" />
-                    </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_my_exclusive"
+                        style="@style/recycler_default"
+                        android:layout_marginStart="@dimen/interval_size_xs"
+                        android:layout_marginTop="@dimen/interval_size_xs"
+                        android:layout_marginEnd="@dimen/interval_size_xs"
+                        android:background="@drawable/sr_bg_12dp_white"
+                        android:paddingStart="@dimen/interval_size_xs"
+                        android:paddingTop="@dimen/interval_size_xs"
+                        android:paddingBottom="@dimen/interval_size_xs"
+                        android:visibility="gone" />
 
                     <!--<com.meetsl.scardview.SCardView
                         android:layout_width="match_parent"
@@ -157,12 +153,14 @@
                     </com.meetsl.scardview.SCardView>-->
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_activity_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24px"
                         android:layout_marginTop="24px"
                         android:layout_marginEnd="24px"
-                        android:background="@drawable/sr_bg_12dp_white">
+                        android:background="@drawable/sr_bg_12dp_white"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/text2"
@@ -213,21 +211,16 @@
                             app:layout_constraintStart_toEndOf="@id/text3"
                             app:layout_constraintTop_toTopOf="@id/text3" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_seconds_kill"
+                            style="@style/recycler_default"
+                            android:paddingStart="@dimen/interval_size_xs"
+                            android:paddingTop="@dimen/interval_size_xs"
+                            android:paddingBottom="@dimen/interval_size_xs"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/text2">
+                            app:layout_constraintTop_toBottomOf="@id/text2" />
+                        <!--     fixme 需要居中调整     -->
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recycler_seconds_kill"
-                                style="@style/recycler_default"
-                                android:paddingStart="@dimen/interval_size_xs"
-                                android:paddingTop="@dimen/interval_size_xs"
-                                android:paddingBottom="@dimen/interval_size_xs" />
-                            <!--     fixme 需要居中调整     -->
-
-                        </RelativeLayout>
 
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline_50percent"
@@ -252,7 +245,8 @@
             android:layout_height="80px"
             android:paddingStart="@dimen/interval_size_xs"
             android:paddingTop="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs" />
+            android:paddingEnd="@dimen/interval_size_xs"
+            android:visibility="gone" />
 
         <com.life.waimaishuo.views.SortTypeView
             android:id="@+id/content_layout"
@@ -260,14 +254,29 @@
             android:layout_height="wrap_content"
             android:background="@color/background"
             android:paddingTop="30px"
+            android:visibility="gone"
             app:showTabSegment="true" />
 
         <!--ViewPager-->
-        <androidx.viewpager.widget.ViewPager
+        <FrameLayout
             android:id="@+id/adaptive_size_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background" />
+            android:background="@color/background">
+
+            <FrameLayout
+                android:id="@+id/fl_state"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </FrameLayout>
+
+        </FrameLayout>
 
     </com.life.waimaishuo.views.StickyNavigationLayout>
 

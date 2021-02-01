@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +31,11 @@ import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.adapter.tag.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchRecord;
+import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
 import com.life.waimaishuo.constant.Constant;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentWaimaiBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeSmallBinding;
@@ -50,6 +53,7 @@ import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.Utils;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.SortTypeView;
+import com.life.waimaishuo.views.StickyNavigationLayout;
 import com.xuexiang.citypicker.adapter.OnLocationListener;
 import com.xuexiang.citypicker.adapter.OnPickListener;
 import com.xuexiang.citypicker.model.City;
@@ -96,28 +100,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     @Override
-    protected void initViews() {
-        super.initViews();
-
-        initMyLocation();
-
-        initBanner();
-        initSearchView();
-        initFoodTypeRecycler();
-
-        initMyExclusiveRecycler();
-        initLimitedTimeRecycler();
-
-        initNavigationTab();
-    }
-
-    @Override
     protected void initListeners() {
         super.initListeners();
         addCallBack();
 
         addSortViewClickListener();
-        binding.adaptiveSizeView.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        binding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
                 refreshTabViewStyle(binding.stickyView,mViewModel.getRecommendedTitle(),position);
@@ -147,6 +135,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     @Override
     protected void initArgs() {
+        super.initArgs();
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
@@ -156,10 +145,45 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         return null;
     }
 
+    @Override
+    protected void initViews() {
+        super.initViews();
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //int scrollY = binding.stickyNavigationLayout.getScrollY();
+                binding.stickyView.setVisibility(View.VISIBLE);
+                binding.contentLayout.setVisibility(View.VISIBLE);
+                binding.recyclerMyExclusive.setVisibility(View.VISIBLE);
+                binding.clActivityLayout.setVisibility(View.VISIBLE);
+                binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
+                binding.stickyNavigationLayout.setCustomCanScrollDistance(StickyNavigationLayout.CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW);
+                binding.stickyNavigationLayout.scrollTo(0, 0);  // FIXME: 2021/2/1 优化显示动画 滚动过快 高度出错
+
+                showContent();
+            }
+        },8000);
+
+
+        initMyLocation();
+
+        initBanner();
+        initSearchView();
+        initFoodTypeRecycler();
+
+        binding.stickyNavigationLayout.setCustomCanScrollDistance(UIUtils.getInstance().scalePx(700));
+        initMyExclusiveRecycler();
+        initLimitedTimeRecycler();
+        initNavigationTab();
+
+        showLoading();
+    }
+
 
     @Override
     protected View getWrapView() {
-        return null;
+        return binding.flState;
     }
 
     @Override
@@ -338,10 +362,10 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         binding.stickyView.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
         binding.stickyView.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
 //        binding.stickyView.setTabTextSize(textSizeNormal);
-        binding.stickyView.setupWithViewPager(binding.adaptiveSizeView,false);
+        binding.stickyView.setupWithViewPager(binding.viewPager,false);
 
-        binding.adaptiveSizeView.setOffscreenPageLimit(titles.length - 1);
-        binding.adaptiveSizeView.setAdapter(adapter);
+        binding.viewPager.setOffscreenPageLimit(titles.length - 1);
+        binding.viewPager.setAdapter(adapter);
     }
 
     private void addSortViewClickListener() {

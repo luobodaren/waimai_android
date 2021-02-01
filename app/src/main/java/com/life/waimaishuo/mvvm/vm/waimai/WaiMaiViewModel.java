@@ -3,7 +3,6 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 import android.view.View;
 
 import androidx.databinding.BaseObservable;
-import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.R;
@@ -27,6 +26,7 @@ public class WaiMaiViewModel extends BaseViewModel {
     public BaseObservable goToSearch = new ObservableInt();
 
     private WaimaiRecommendedFragment recommendedFragment;
+    private WaimaiModel mModel;
 
     private List<Shop> mShopList = new ArrayList<>();
     private List<IconStrData> mFoodTypeList = new ArrayList<>();
@@ -37,15 +37,14 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     @Override
     public BaseModel getModel() {
-        if(mMode == null){
-            mMode = new WaimaiModel();
+        if(mModel == null){
+            mModel = new WaimaiModel();
         }
-        return mMode;
+        return mModel;
     }
 
     @Override
     public void initData() {
-        initBannerList();
         initFoodRecyclerData();
     }
 
@@ -58,6 +57,17 @@ public class WaiMaiViewModel extends BaseViewModel {
     }
 
     public List<String> getBannerItemList() {
+        mModel.getBannerItemList(new BaseModel.RequestCallBack<String>() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onFail(String error) {
+
+            }
+        });
         return mBannerItemList;
     }
 
@@ -109,12 +119,6 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     public String[] getRecommendedTitle() {
         return new String[]{"推荐商家", "发现好物", "饮品","美妆","超市","测试1","测试2","测试3"};
-    }
-
-    private void initBannerList(){
-        mBannerItemList.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg");
-        mBannerItemList.add("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2755313968,2418553549&fm=26&gp=0.jpg");
-        mBannerItemList.add("https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=172347525,3232800407&fm=26&gp=0.jpg");
     }
 
     private void initFoodRecyclerData(){

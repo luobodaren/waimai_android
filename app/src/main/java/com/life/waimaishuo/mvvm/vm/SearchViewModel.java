@@ -16,10 +16,10 @@ public class SearchViewModel extends BaseViewModel {
 
     @Override
     public BaseModel getModel() {
-        if(mMode == null){
-            mMode = new SearchActivityModel();
+        if(baseMode == null){
+            baseMode = new SearchActivityModel();
         }
-        return mMode;
+        return baseMode;
     }
 
     @Override

@@ -98,7 +98,7 @@ public class HttpUtils {
      * @param isWithToken 带token
      * @param httpCallback
      */
-    public void doPost(String url, Map<String,String> params, boolean isWithToken,final HttpCallback httpCallback){
+    public void doPostForm(String url, Map<String,String> params, boolean isWithToken,final HttpCallback httpCallback){
         // 1.拿到okhttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -277,6 +277,19 @@ public class HttpUtils {
     }
 
     /**
+     * 获得Request的Builder对象
+     * @param isWithToken 带token
+     * @return
+     */
+    private Request.Builder getRequestBuild(boolean isWithToken){
+        Request.Builder builder = new Request.Builder();
+        if(isWithToken){
+            builder.header(TOKEN_KEY,TOKEN_VALUE);
+        }
+        return builder;
+    }
+
+    /**
      * 拼接参数
      * @param url
      * @param params
@@ -312,19 +325,6 @@ public class HttpUtils {
                         httpCallback.onSuccess(json);
                     }
                 });
-    }
-
-    /**
-     * 获得Request的Builder对象
-     * @param isWithToken 带token
-     * @return
-     */
-    private Request.Builder getRequestBuild(boolean isWithToken){
-        Request.Builder builder = new Request.Builder();
-        if(isWithToken){
-            builder.header(TOKEN_KEY,TOKEN_VALUE);
-        }
-        return builder;
     }
 
     /**

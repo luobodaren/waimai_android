@@ -18,6 +18,7 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -26,6 +27,10 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageFragment;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xpage.utils.TitleUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 @Page
 public abstract class BaseFragment extends XPageFragment {
@@ -37,6 +42,7 @@ public abstract class BaseFragment extends XPageFragment {
 
     private int mStatusBarLightMode = StatusBarUtils.STATUS_BAR_MODE_NO_HANDLE;
 
+    private boolean isRegisterEventBus = false;
     private boolean isFitStatusBarHeight = false;
 
     public ViewDataBinding mViewDataBinding;
@@ -48,7 +54,6 @@ public abstract class BaseFragment extends XPageFragment {
 
     //用于UI更新
     protected Handler mHandler;
-
 
     protected abstract BaseViewModel setViewModel();
 
@@ -93,6 +98,10 @@ public abstract class BaseFragment extends XPageFragment {
     protected void initViews() {
         if(baseViewModel != null){
             baseViewModel.init();
+        }
+
+        if(isRegisterEventBus){
+            EventBus.getDefault().register(this);
         }
     }
 
@@ -146,11 +155,23 @@ public abstract class BaseFragment extends XPageFragment {
 
     }
 
+    /**
+     * EventBus在主线程中接收信息
+     * @param messageEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void MessageEvent(MessageEvent messageEvent){
+
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         if(mHandler != null){
             mHandler.removeCallbacksAndMessages(null);
+        }
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
         }
     }
 
@@ -282,5 +303,9 @@ public abstract class BaseFragment extends XPageFragment {
 
     public void setFitStatusBarHeight(boolean fitStatusBarHeight) {
         isFitStatusBarHeight = fitStatusBarHeight;
+    }
+
+    public void setRegisterEventBus(boolean isRegisterEventBus){
+        this.isRegisterEventBus = isRegisterEventBus;
     }
 }
