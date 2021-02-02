@@ -3,13 +3,11 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 import android.view.View;
 
 import androidx.databinding.BaseObservable;
-import androidx.databinding.ObservableInt;
 
-import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.ExclusiveShopData;
-import com.life.waimaishuo.bean.SearchRecord;
+import com.life.waimaishuo.bean.SearchTag;
 import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.bean.ui.IconStrData;
+import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
@@ -23,21 +21,20 @@ import java.util.List;
 
 public class WaiMaiViewModel extends BaseViewModel {
 
-    public BaseObservable goToSearch = new ObservableInt();
+    public BaseObservable goToSearchObservable = new BaseObservable();
+
+    public BaseObservable bannerUpdateObservable = new BaseObservable();
+    public BaseObservable searchTagObservable = new BaseObservable();
+    public BaseObservable kingKongAreaObservable = new BaseObservable();
+    public BaseObservable exclusiveBreakfastObservable = new BaseObservable();
 
     private WaimaiRecommendedFragment recommendedFragment;
     private WaimaiModel mModel;
 
-    private List<Shop> mShopList = new ArrayList<>();
-    private List<IconStrData> mFoodTypeList = new ArrayList<>();
-    private List<String> mBannerItemList = new ArrayList<>();
-    private List<ExclusiveShopData> mExclusiveShopDataList = new ArrayList<>();
-    private List<LimitedTimeGoodsData> mLimitedTimeGoodsDataList = new ArrayList<>();
-
 
     @Override
     public BaseModel getModel() {
-        if(mModel == null){
+        if (mModel == null) {
             mModel = new WaimaiModel();
         }
         return mModel;
@@ -45,34 +42,107 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     @Override
     public void initData() {
-        initFoodRecyclerData();
+//        initFoodRecyclerData();
     }
 
     /**
-     * 搜索栏点击
-     * @param view
+     * 刷新搜索标签
      */
-    public void onSearchBtClick(View view) {
-        goToSearch.notifyChange();
-    }
-
-    public List<String> getBannerItemList() {
-        mModel.getBannerItemList(new BaseModel.RequestCallBack<String>() {
+    public void refreshSearchTag() {
+        mModel.requestSearchTag(new BaseModel.RequestCallBack<SearchTag[]>() {
             @Override
-            public void onSuccess(String result) {
-
+            public void onSuccess(SearchTag[] result) {
+                searchTagObservable.notifyChange();
             }
 
             @Override
             public void onFail(String error) {
-
+                searchTagObservable.notifyChange();
             }
-        });
-        return mBannerItemList;
+        }, 3);
     }
 
-    public List<IconStrData> getMyFoodDataList() {
-        return mFoodTypeList;
+    /**
+     * 刷新轮播图
+     */
+    public void refreshBannerItemList() {
+        mModel.requestBannerItemList(new BaseModel.RequestCallBack<List<ImageUrlNameData>>() {
+            @Override
+            public void onSuccess(List<ImageUrlNameData> result) {
+                bannerUpdateObservable.notifyChange();
+            }
+
+            @Override
+            public void onFail(String error) {
+                bannerUpdateObservable.notifyChange();
+            }
+        }, 3);
+    }
+
+    public void refreshKingKongArea() {
+        mModel.requestKingKongArea(new BaseModel.RequestCallBack<List<ImageUrlNameData>>() {
+            @Override
+            public void onSuccess(List<ImageUrlNameData> result) {
+                kingKongAreaObservable.notifyChange();
+            }
+
+            @Override
+            public void onFail(String error) {
+                kingKongAreaObservable.notifyChange();
+            }
+        }, 3);
+    }
+
+    public void refreshExclusiveBreakfast(){
+        mModel.getExclusiveBreakfast(new BaseModel.RequestCallBack<List<ExclusiveShopData>>() {
+            @Override
+            public void onSuccess(List<ExclusiveShopData> result) {
+                exclusiveBreakfastObservable.notifyChange();
+            }
+
+            @Override
+            public void onFail(String error) {
+                exclusiveBreakfastObservable.notifyChange();
+            }
+        },3);
+    }
+
+    private void initFoodRecyclerData() {
+        /*mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_health, "健康美食"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_drink, "甜品饮品"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_mark, "超时便利"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_fruit, "蔬菜水果"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_medicine, "送药上门"));
+
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_hamburg, "汉堡蔬菜"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_japanese, "日韩料理"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_my_city, "同城零售"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_self_help, "快速自取"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_sala, "沙拉轻食"));
+
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_tea, "下午茶"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_tea_shop, "小吃馆"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_local, "地方菜"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_cosmetics, "化妆品"));
+        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_all, "全部分类"));*/
+    }
+
+
+    /**
+     * 搜索栏点击
+     *
+     * @param view
+     */
+    public void onSearchBtClick(View view) {
+        goToSearchObservable.notifyChange();
+    }
+
+    public List<String> getBannerItemList() {
+        return mModel.mBannerItemList;
+    }
+
+    public List<ImageUrlNameData> getMyFoodDataList() {
+        return mModel.mFoodTypeList;
     }
 
     public BaseFragment getRecommendedFragment() {
@@ -103,72 +173,22 @@ public class WaiMaiViewModel extends BaseViewModel {
         return fragment;
     }
 
-    public SearchRecord[] getSearchRecord() {
-        return new SearchRecord[]{
-                new SearchRecord(1L,"外卖", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(1L,"外卖", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(1L,"外卖", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(4L,"免费配送", System.currentTimeMillis())};
+    public SearchTag[] getSearchTag() {
+        return mModel.searchTags;
     }
 
     public String[] getRecommendedTitle() {
-        return new String[]{"推荐商家", "发现好物", "饮品","美妆","超市","测试1","测试2","测试3"};
+        return new String[]{"推荐商家", "发现好物", "饮品", "美妆", "超市", "测试1", "测试2", "测试3"};
     }
 
-    private void initFoodRecyclerData(){
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_health,"健康美食"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_drink,"甜品饮品"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_mark,"超时便利"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_fruit,"蔬菜水果"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_medicine,"送药上门"));
-
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_hamburg,"汉堡蔬菜"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_japanese,"日韩料理"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_my_city,"同城零售"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_self_help,"快速自取"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_sala,"沙拉轻食"));
-
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_tea,"下午茶"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_tea_shop,"小吃馆"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_local,"地方菜"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_cosmetics,"化妆品"));
-        mFoodTypeList.add(new IconStrData(R.mipmap.ic_food_type_all,"全部分类"));
-    }
-
-    public List getExclusiveShopData() {
-        mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "星巴克代购",
-                "最近有一万人下单了呢"));
-        mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "星巴克代购",
-                "最近有一万人下单了呢"));
-        mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "星巴克代购",
-                "最近有一万人下单了呢"));
-        mExclusiveShopDataList.add(new ExclusiveShopData(
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "星巴克代购",
-                "最近有一万人下单了呢"));
-        return mExclusiveShopDataList;
+    public List<ExclusiveShopData> getExclusiveShopData() {
+        return mModel.mExclusiveShopDataList;
     }
 
     public List<LimitedTimeGoodsData> getLimitedTimeGoodsData() {
-        mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","网红人气美谢限时抢购"));
-        mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","网红人气美谢限时抢购"));
-        return mLimitedTimeGoodsDataList;
+//        mModel.mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640", "网红人气美谢限时抢购"));
+//        mModel.mLimitedTimeGoodsDataList.add(new LimitedTimeGoodsData("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640", "网红人气美谢限时抢购"));
+        return mModel.mLimitedTimeGoodsDataList;
     }
 
     public List<String> getPreferential() {

@@ -241,9 +241,9 @@ public class LocationService {
             sb.append("time : ");
             *
              * 时间也可以使用systemClock.elapsedRealtime()方法 获取的是自从开机以来，每次回调的时间；
-             * location.getTime() 是指服务端出本次结果的时间，如果位置不发生变化，则时间不变
+             * location.getCreateTime() 是指服务端出本次结果的时间，如果位置不发生变化，则时间不变
 
-            sb.append(location.getTime());
+            sb.append(location.getCreateTime());
             sb.append("\nlocType : ");// 定位类型
             sb.append(location.getLocType());
             sb.append("\nlocType description : ");// *****对应的定位类型说明*****

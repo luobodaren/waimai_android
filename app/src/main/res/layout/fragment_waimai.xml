@@ -14,7 +14,7 @@
         android:id="@+id/sticky_navigation_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/sr_bg_gradient_theme_color"
+        android:background="@color/background"
         android:orientation="vertical"
         app:fitStatusBar="false">
 
@@ -22,6 +22,7 @@
             android:id="@+id/top_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/sr_bg_gradient_theme_color"
             android:overScrollMode="never">
 
             <LinearLayout
@@ -93,7 +94,7 @@
                         <com.xuexiang.xui.widget.banner.recycler.BannerLayout
                             android:id="@+id/banner_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="172px"
+                            android:layout_height="281px"
                             android:layout_marginTop="@dimen/interval_size_xs"
                             app:bl_autoPlaying="true"
                             app:bl_centerScale="1"
@@ -130,7 +131,8 @@
                         android:layout_marginEnd="@dimen/interval_size_xs"
                         android:background="@drawable/sr_bg_12dp_white"
                         android:paddingTop="@dimen/interval_size_xs"
-                        android:paddingBottom="@dimen/interval_size_xs" />
+                        android:paddingBottom="@dimen/interval_size_xs"
+                        android:visibility="gone" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_my_exclusive"
@@ -153,6 +155,22 @@
                     </com.meetsl.scardview.SCardView>-->
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/sr_bg_12dp_white">
+
+                        <TextView
+                            android:id="@+id/tv_brand_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_activity_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -160,6 +178,7 @@
                         android:layout_marginTop="24px"
                         android:layout_marginEnd="24px"
                         android:background="@drawable/sr_bg_12dp_white"
+                        android:paddingBottom="@dimen/interval_size_xs"
                         android:visibility="gone">
 
                         <TextView
@@ -211,23 +230,60 @@
                             app:layout_constraintStart_toEndOf="@id/text3"
                             app:layout_constraintTop_toTopOf="@id/text3" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_seconds_kill"
-                            style="@style/recycler_default"
-                            android:paddingStart="@dimen/interval_size_xs"
-                            android:paddingTop="@dimen/interval_size_xs"
-                            android:paddingBottom="@dimen/interval_size_xs"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/text2" />
-                        <!--     fixme 需要居中调整     -->
-
-
                         <androidx.constraintlayout.widget.Guideline
                             android:id="@+id/guideline_50percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             app:layout_constraintGuide_percent="0.5" />
+
+                        <com.xuexiang.xui.widget.imageview.RadiusImageView
+                            android:id="@+id/iv_limit_kill"
+                            android:layout_width="315px"
+                            android:layout_height="193px"
+                            android:layout_marginTop="@dimen/interval_size_xs"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="@id/guideline_50percent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text2"
+                            app:riv_corner_radius="12dp" />
+
+                        <TextView
+                            android:id="@+id/tv_limited_kill"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16px"
+                            android:ellipsize="end"
+                            android:includeFontPadding="false"
+                            android:maxWidth="315px"
+                            android:maxLines="1"
+                            android:textSize="24px"
+                            app:layout_constraintStart_toStartOf="@id/iv_limit_kill"
+                            app:layout_constraintTop_toBottomOf="@id/iv_limit_kill" />
+
+                        <com.xuexiang.xui.widget.imageview.RadiusImageView
+                            android:id="@+id/iv_zero_deliver"
+                            android:layout_width="315px"
+                            android:layout_height="193px"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/guideline_50percent"
+                            app:layout_constraintTop_toTopOf="@id/iv_limit_kill"
+                            app:riv_corner_radius="12dp" />
+
+                        <TextView
+                            android:id="@+id/tv_zero_deliver"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16px"
+                            android:ellipsize="end"
+                            android:includeFontPadding="false"
+                            android:maxWidth="315px"
+                            android:maxLines="1"
+                            android:textSize="24px"
+                            app:layout_constraintStart_toStartOf="@id/iv_zero_deliver"
+                            app:layout_constraintTop_toBottomOf="@id/iv_zero_deliver" />
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

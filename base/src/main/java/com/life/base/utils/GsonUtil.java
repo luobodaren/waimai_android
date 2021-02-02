@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
@@ -78,9 +79,9 @@ public class GsonUtil {
      * @return
      */
     public static  <T> List<T> jsonToList(String json, Class<T> cls) {
-        Gson gson = new Gson();
+        /*Gson gson = new Gson();*/
         List<T> list = new ArrayList<T>();
-        JsonArray array = new JsonParser().parse(json).getAsJsonArray();
+        JsonArray array = JsonParser.parseString(json).getAsJsonArray();
         for(final JsonElement elem : array){
             list.add(gson.fromJson(elem, cls));
         }
@@ -121,6 +122,7 @@ public class GsonUtil {
 
     // -------
 
+
     /**
      * 按章节点得到相应的内容
      * @param jsonString json字符串
@@ -134,11 +136,30 @@ public class GsonUtil {
         if(TextUtils.isEmpty(note)){
             throw new RuntimeException("note标签不能为空");
         }
-        JsonElement element = new JsonParser().parse(jsonString);
+        JsonElement element = JsonParser.parseString(jsonString);
         if(element.isJsonNull()){
             throw new RuntimeException("得到的jsonElement对象为空");
         }
         return element.getAsJsonObject().get(note).toString();
+    }
+
+    /**
+     * 按照json字符串获取JsonObject
+     * @param jsonString
+     * @return
+     */
+    public static JsonObject parserJsonToJsonObject(String jsonString){
+        if(TextUtils.isEmpty(jsonString)){
+            throw new RuntimeException("json字符串为空");
+        }
+        JsonElement jsonElement = JsonParser.parseString(jsonString);
+        if(jsonElement.isJsonNull()){
+            throw new RuntimeException("得到的jsonElement对象为空");
+        }
+        if(!jsonElement.isJsonObject()){
+            throw new RuntimeException("json字符不是一个json对象");
+        }
+        return jsonElement.getAsJsonObject();
     }
 
     /**
@@ -172,10 +193,22 @@ public class GsonUtil {
         JsonArray jsonArray = jsonElement.getAsJsonArray();
         List<T> beans = new ArrayList<T>();
         for (JsonElement jsonElement2: jsonArray) {
-            T bean = new Gson().fromJson(jsonElement2, beanClazz);
+            T bean = gson.fromJson(jsonElement2, beanClazz);
             beans.add(bean);
         }
         return beans;
+    }
+
+    /**
+     * 按照节点得到节点内容，转化为一个数组
+     * @param jsonString json字符串
+     * @param note json标签
+     * @param clazzBean 集合里存入的数据对象
+     * @return 含有目标对象的集合
+     */
+    public static <T> T parserJsonToArrayBean(String jsonString,String note,Class<T> clazzBean){
+        String noteJsonString = getNoteJsonString(jsonString, note);
+        return parserJsonToArrayBean(noteJsonString, clazzBean);
     }
 
     /**
@@ -195,18 +228,7 @@ public class GsonUtil {
         if(!jsonElement.isJsonObject()){
             throw new RuntimeException("json不是一个对象");
         }
-        return new Gson().fromJson(jsonElement, clazzBean);
-    }
-    /**
-     * 按照节点得到节点内容，转化为一个数组
-     * @param jsonString json字符串
-     * @param note json标签
-     * @param clazzBean 集合里存入的数据对象
-     * @return 含有目标对象的集合
-     */
-    public static <T> T parserJsonToArrayBean(String jsonString,String note,Class<T> clazzBean){
-        String noteJsonString = getNoteJsonString(jsonString, note);
-        return parserJsonToArrayBean(noteJsonString, clazzBean);
+        return gson.fromJson(jsonElement, clazzBean);
     }
 
     /**
@@ -216,7 +238,7 @@ public class GsonUtil {
      */
     public static String toJsonString(Object obj){
         if(obj!=null){
-            return new Gson().toJson(obj);
+            return gson.toJson(obj);
         }else{
             throw new RuntimeException("对象不能为空");
         }

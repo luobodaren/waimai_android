@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tag.SearchRecordTagAdapter;
-import com.life.waimaishuo.bean.SearchRecord;
+import com.life.waimaishuo.bean.SearchTag;
 import com.life.waimaishuo.databinding.FragmentSearchHistoryBinding;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.SearchHistoryViewModel;
@@ -57,21 +57,21 @@ public class SearchHistoryFragment extends BaseFragment {
     }
 
     private void initSearchFound(){
-        SearchRecord[] searchRecord = mViewModel.getSearchRecord();
+        SearchTag[] searchTag = mViewModel.getSearchRecord();
         SearchRecordTagAdapter mAdapter;
         FragmentSearchHistoryBinding fragmentSearchBinding = ((FragmentSearchHistoryBinding)mViewDataBinding);
         fragmentSearchBinding.recyclerViewFound.setLayoutManager(getFlexboxLayoutManager(getContext()));
         fragmentSearchBinding.recyclerViewFound.setAdapter(mAdapter = new SearchRecordTagAdapter());
-        mAdapter.refresh(searchRecord);
+        mAdapter.refresh(searchTag);
     }
 
     private void initSearchHistory(){
-        SearchRecord[] searchRecord = mViewModel.getSearchRecord();
+        SearchTag[] searchTag = mViewModel.getSearchRecord();
         SearchRecordTagAdapter mAdapter;
         FragmentSearchHistoryBinding fragmentSearchBinding = ((FragmentSearchHistoryBinding)mViewDataBinding);
         fragmentSearchBinding.recyclerViewHistory.setLayoutManager(getFlexboxLayoutManager(getContext()));
         fragmentSearchBinding.recyclerViewHistory.setAdapter(mAdapter = new SearchRecordTagAdapter());
-        mAdapter.refresh(searchRecord);
+        mAdapter.refresh(searchTag);
     }
 
     private FlexboxLayoutManager getFlexboxLayoutManager(Context context){

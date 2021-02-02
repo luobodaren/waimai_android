@@ -12,6 +12,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="com.life.waimaishuo.MyApplication"
@@ -21,6 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:exported="false"
+        android:grantUriPermissions="true"
         android:requestLegacyExternalStorage="true">
         <activity
             android:name="com.life.waimaishuo.mvvm.view.activity.MainActivity"

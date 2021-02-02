@@ -1,15 +1,23 @@
 package com.life.waimaishuo.bean;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class ExclusiveShopData {
 
-    String shopIconStr;
-    String goodsIconStr;
-    String shopName;
-    String recent;
+    @SerializedName(value = "shopImage")
+    private String shopIconStr;
+    @SerializedName(value = "shopName")
+    private String shopName;
+    @SerializedName(value = "monSalesVolume")
+    int recent;
 
-    public ExclusiveShopData(String shopIconStr, String goodsIconStr, String shopName, String recent) {
+    @SerializedName(value = "goodsInfo")
+    List<Goods> goodsList;
+
+    public ExclusiveShopData(String shopIconStr, String shopName, int recent) {
         this.shopIconStr = shopIconStr;
-        this.goodsIconStr = goodsIconStr;
         this.shopName = shopName;
         this.recent = recent;
     }
@@ -18,15 +26,16 @@ public class ExclusiveShopData {
         return shopIconStr;
     }
 
-    public String getGoodsIconStr() {
-        return goodsIconStr;
-    }
 
     public String getShopName() {
         return shopName;
     }
 
-    public String getRecent() {
+    public int getRecent() {
         return recent;
+    }
+
+    public List<Goods> getGoodsList() {
+        return goodsList;
     }
 }

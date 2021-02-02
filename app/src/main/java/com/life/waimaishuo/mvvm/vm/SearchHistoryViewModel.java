@@ -1,6 +1,6 @@
 package com.life.waimaishuo.mvvm.vm;
 
-import com.life.waimaishuo.bean.SearchRecord;
+import com.life.waimaishuo.bean.SearchTag;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.SearchFragmentModel;
 
@@ -21,22 +21,19 @@ public class SearchHistoryViewModel extends BaseViewModel {
 
     }
 
-    public SearchRecord[] getSearchRecord() {
-        return new SearchRecord[]{
-                new SearchRecord(1L,"外卖", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(1L,"外卖", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(1L,"外卖", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(1L,"外卖", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(2L,"秒杀吧", System.currentTimeMillis())
-                ,new SearchRecord(3L,"饮料", System.currentTimeMillis())
-                ,new SearchRecord(4L,"免费配送", System.currentTimeMillis())};
+    public SearchTag[] getSearchRecord() {
+        return new SearchTag[]{
+                new SearchTag(1L,"外卖", "")
+                ,new SearchTag(2L,"秒杀吧", "")
+                ,new SearchTag(3L,"饮料", "")
+                ,new SearchTag(1L,"外卖", "")
+                ,new SearchTag(2L,"秒杀吧", "")
+                ,new SearchTag(3L,"饮料", "")
+                ,new SearchTag(1L,"外卖", "")
+                ,new SearchTag(2L,"秒杀吧","")
+                ,new SearchTag(3L,"饮料", "")
+                ,new SearchTag(1L,"外卖", "")
+                ,new SearchTag(2L,"秒杀吧","")
+                ,new SearchTag(3L,"饮料","")};
     }
 }

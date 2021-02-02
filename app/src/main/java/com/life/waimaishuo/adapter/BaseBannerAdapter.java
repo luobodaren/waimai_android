@@ -2,17 +2,20 @@ package com.life.waimaishuo.adapter;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.banner.recycler.BannerLayout;
-import com.xuexiang.xui.widget.imageview.ImageLoader;
-import com.xuexiang.xui.widget.imageview.strategy.DiskCacheStrategyEnum;
 
 import java.util.Arrays;
 import java.util.List;
@@ -75,8 +78,17 @@ public class BaseBannerAdapter extends BaseRecyclerAdapter<String> {
         ImageView imageView = holder.findViewById(R.id.iv_item);
 
         if (!TextUtils.isEmpty(imgUrl)) {
-            ImageLoader.get().loadImage(imageView, imgUrl, mColorDrawable,
-                    mEnableCache ? DiskCacheStrategyEnum.RESOURCE : DiskCacheStrategyEnum.NONE);
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_waimai_brand)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+            Glide.with(imageView)
+                    .load(imgUrl)
+                    .apply(options)
+                    .into(imageView);
+
+            /*ImageLoader.get().loadImage(imageView, imgUrl, mColorDrawable,
+                    mEnableCache ? DiskCacheStrategyEnum.RESOURCE : DiskCacheStrategyEnum.NONE);*/
         } else {
             imageView.setImageDrawable(mColorDrawable);
         }

@@ -1,10 +1,15 @@
 package com.life.base.utils.net;
 
+import com.google.gson.JsonObject;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -316,13 +321,18 @@ public class HttpUtils {
                 .enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
-                        httpCallback.onError(e.getMessage());
+                        httpCallback.onError(e);
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String json = response.body().string();
-                        httpCallback.onSuccess(json);
+                        String data = isRequestSuccess(json);
+                        if(data != null){
+                            httpCallback.onSuccess(data);
+                        }else{
+                            httpCallback.onError(new Error("返回 code != 0"));
+                        }
                     }
                 });
     }
@@ -344,13 +354,41 @@ public class HttpUtils {
         return build.build();
     }
 
+    /**
+     * 判断请求是否成功（code是否为0）
+     * @param json 请求返回的json字符串
+     * @return 若成功则返回data字段 失败返回null(成功状态下 data不会返回null)
+     */
+    private String isRequestSuccess(String json){
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            int code = jsonObject.getInt("code");
+            if(code == 0){
+                return jsonObject.getString("data");
+            }
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            LogUtil.e("json解析出错 error:" + e.getMessage() + " json:" + json);
+        }
+        return null;
+    }
+
     //创建接口
     public interface HttpCallback{
         //请求成功时的监听方法
-        void onSuccess(String json);
+        void onSuccess(String data);
 
         //请求失败时的监听方法
-        void onError(String error);
+        void onError(Throwable error);
+    }
+
+    public static String changeToHttps(String url){
+        if(url.startsWith("http:")){
+            String[] strings = url.split(":",2);
+            return "https:" + strings[1];
+        }
+        return url;
     }
 
 

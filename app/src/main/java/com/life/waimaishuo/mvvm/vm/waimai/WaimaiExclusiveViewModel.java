@@ -42,7 +42,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -51,7 +51,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -60,7 +60,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -69,7 +69,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -78,7 +78,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -87,7 +87,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -96,7 +96,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -105,7 +105,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -114,7 +114,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
 
@@ -123,7 +123,7 @@ public class WaimaiExclusiveViewModel extends BaseViewModel {
         goods.setScore("4.8");
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
-        goods.setCount_per_month(1998);
+        goods.setMonSalesVolume(1998);
         goods.setGoodsImgUrl("https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640");
         mBreakFastList.add(goods);
     }

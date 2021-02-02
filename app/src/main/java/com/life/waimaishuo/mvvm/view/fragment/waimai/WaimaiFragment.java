@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
@@ -30,15 +32,12 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.adapter.tag.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
-import com.life.waimaishuo.bean.SearchRecord;
-import com.life.waimaishuo.bean.event.MessageEvent;
-import com.life.waimaishuo.bean.ui.IconStrData;
+import com.life.waimaishuo.bean.SearchTag;
+import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
 import com.life.waimaishuo.constant.Constant;
-import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentWaimaiBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeBinding;
-import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeSmallBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.activity.SearchActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -81,6 +80,20 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     private WeakReference<FragmentManager> mFragmentManager;
     private LocatedCity mLocatedCity = null;
+
+    //适配器-轮播图
+    private BaseBannerAdapter baseBannerAdapter;
+    //适配器-搜索标签
+    private SearchRecordTagWaimaiAdapter searchTagAdapter;
+    //适配器-金刚区
+    private BaseRecyclerAdapter<ImageUrlNameData> kingKongAreaAdapter;
+    //适配器-专属早餐
+    private MyBaseRecyclerAdapter<ExclusiveShopData> exclusiveShopAdapter;
+
+    /**
+     * 第一次加载数据
+     */
+    private boolean firstRefreshData = true;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -149,20 +162,16 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     protected void initViews() {
         super.initViews();
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //int scrollY = binding.stickyNavigationLayout.getScrollY();
-                binding.stickyView.setVisibility(View.VISIBLE);
-                binding.contentLayout.setVisibility(View.VISIBLE);
-                binding.recyclerMyExclusive.setVisibility(View.VISIBLE);
-                binding.clActivityLayout.setVisibility(View.VISIBLE);
-                binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
-                binding.stickyNavigationLayout.setCustomCanScrollDistance(StickyNavigationLayout.CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW);
-                binding.stickyNavigationLayout.scrollTo(0, 0);  // FIXME: 2021/2/1 优化显示动画 滚动过快 高度出错
+        mHandler.postDelayed(() -> {
+            //int scrollY = binding.stickyNavigationLayout.getScrollY();
+            binding.stickyView.setVisibility(View.VISIBLE);
+            binding.contentLayout.setVisibility(View.VISIBLE);
+            binding.clActivityLayout.setVisibility(View.VISIBLE);
+            binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
+            binding.stickyNavigationLayout.setCustomCanScrollDistance(StickyNavigationLayout.CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW);
+            binding.stickyNavigationLayout.scrollTo(0, 0);  // FIXME: 2021/2/1 优化显示动画 滚动过快 高度出错
 
-                showContent();
-            }
+            showContent();
         },8000);
 
 
@@ -174,7 +183,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
         binding.stickyNavigationLayout.setCustomCanScrollDistance(UIUtils.getInstance().scalePx(700));
         initMyExclusiveRecycler();
-        initLimitedTimeRecycler();
         initNavigationTab();
 
         showLoading();
@@ -192,6 +200,20 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     @Override
+    protected void onLifecycleResume() {
+        super.onLifecycleResume();
+
+        if(firstRefreshData){
+            firstRefreshData = false;
+            //请求数据
+            mViewModel.refreshSearchTag();
+            mViewModel.refreshBannerItemList();
+            mViewModel.refreshKingKongArea();
+            mViewModel.refreshExclusiveBreakfast();
+        }
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         MyDataBindingUtil.removeFragmentCallBack(this);
@@ -202,7 +224,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     private void addCallBack() {
-        MyDataBindingUtil.addCallBack(this, mViewModel.goToSearch, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.goToSearchObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable observable, int i) {
                 LogUtil.d("跳转搜索页");
@@ -211,28 +233,78 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 //                startActivity();
             }
         });
+
+        //-----------------  以下为网络请求回调 ----------------//
+        MyDataBindingUtil.addCallBack(this, mViewModel.bannerUpdateObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    baseBannerAdapter
+                            = new BaseBannerAdapter(mViewModel.getBannerItemList(),R.layout.adapter_banner_image_item_waimai);
+                    binding.bannerLayout.setAdapter(baseBannerAdapter);
+                    binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
+                });
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.searchTagObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    searchTagAdapter.refresh(mViewModel.getSearchTag());
+                    binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
+                });
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.kingKongAreaObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    kingKongAreaAdapter.getData().clear();
+                    if(mViewModel.getMyFoodDataList().size() > 0){
+                        setViewVisibility(binding.recyclerFoodType,true);
+                        kingKongAreaAdapter.getData().addAll(mViewModel.getMyFoodDataList());
+                        kingKongAreaAdapter.notifyDataSetChanged();
+                    }else{
+                        setViewVisibility(binding.recyclerFoodType,false);
+                    }
+                    binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
+                });
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.exclusiveBreakfastObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    if(mViewModel.getExclusiveShopData().size() <= 0){
+                        setViewVisibility(binding.recyclerMyExclusive,false);
+                    }else{
+                        setViewVisibility(binding.recyclerMyExclusive,true);
+                    }
+                });
+            }
+        });
     }
 
     /**
      * 初始化历史搜索View
      */
     private void initSearchView(){
-        SearchRecord[] searchRecord = mViewModel.getSearchRecord();
-        SearchRecordTagWaimaiAdapter mAdapter;
+        SearchTag[] searchTag = mViewModel.getSearchTag();
         binding.searchRecord.setLayoutManager(Utils.getFlexboxLayoutManager(getContext()));
-        binding.searchRecord.setAdapter(mAdapter = new SearchRecordTagWaimaiAdapter());
-        mAdapter.refresh(searchRecord);
+        binding.searchRecord.setAdapter(searchTagAdapter = new SearchRecordTagWaimaiAdapter());
+        searchTagAdapter.refresh(searchTag);
     }
 
     /**
      * 初始化轮播图
      */
     private void initBanner(){
-        BaseBannerAdapter mAdapterHorizontal
+        //String[] url = {"https://cjwm-pic.oss-cn-beijing.aliyuncs.com/wms2fa52615-d6e9-d5ff-88e4-f7281e29af31.jpg"};
+        baseBannerAdapter
                 = new BaseBannerAdapter(mViewModel.getBannerItemList(),R.layout.adapter_banner_image_item_waimai);
-        mAdapterHorizontal.setOnBannerItemClickListener(position ->
+        baseBannerAdapter.setOnBannerItemClickListener(position ->
                 Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
-        binding.bannerLayout.setAdapter(mAdapterHorizontal);
+        binding.bannerLayout.setAdapter(baseBannerAdapter);
         binding.bannerLayout.setItemSpace((int) UIUtils.getInstance().scalePx(
                 getResources().getDimensionPixelSize(R.dimen.interval_size_xs)));
     }
@@ -245,17 +317,17 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),spanCount
                 , LinearLayoutManager.VERTICAL,false);
-        BaseRecyclerAdapter<IconStrData> adapter = getFoodRecyclerAdapter();
-        adapter.setOnItemClickListener((itemView, item, position) -> {
-            if(position == adapter.getItemCount()-1){
+        kingKongAreaAdapter = getFoodRecyclerAdapter();
+        kingKongAreaAdapter.setOnItemClickListener((itemView, item, position) -> {
+            if(position == kingKongAreaAdapter.getItemCount()-1){
                 openPage(WaimaiAllTypeFragment.class);  //最后一个为全部类型
             }else{  //打开子类型
                 Bundle bundle = new Bundle();
-                bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY,item.getIconType());
+                bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY,item.getName());
                 openPage(WaimaiTypeFragment.class,bundle);
             }
         });
-        binding.recyclerFoodType.setAdapter(adapter);
+        binding.recyclerFoodType.setAdapter(kingKongAreaAdapter);
         binding.recyclerFoodType.setLayoutManager(gridLayoutManager);
         binding.recyclerFoodType.addItemDecoration(new RecyclerView.ItemDecoration() {
             int top_interval_40 = -1;
@@ -278,8 +350,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
      * 初始化专属recycler
      */
     private void initMyExclusiveRecycler() {
-        MyBaseRecyclerAdapter<ExclusiveShopData> adapter = getExclusiveRecyclerAdapter();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        exclusiveShopAdapter = getExclusiveRecyclerAdapter();
+        exclusiveShopAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 openPage(ExclusiveBreakfastFragment.class);
@@ -287,13 +359,13 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         });
 
         View view = View.inflate(getContext(),R.layout.head_exclusive_recycler,null);
-        ((TextView)view.findViewById(R.id.text_left)).setText("专属早餐");
-        ((TextView)view.findViewById(R.id.tv_right)).setText("更多好店");
+        ((TextView)view.findViewById(R.id.text_left)).setText(R.string.exclusive_breakfast);
+        ((TextView)view.findViewById(R.id.tv_right)).setText(R.string.more_shop);
         ((ImageView)view.findViewById(R.id.iv_right)).setImageResource(R.drawable.ic_arrow_right_gray);
-        adapter.addHeaderView(view);
+        exclusiveShopAdapter.addHeaderView(view);
 
         int spanCount = 2;
-        binding.recyclerMyExclusive.setAdapter(adapter);
+        binding.recyclerMyExclusive.setAdapter(exclusiveShopAdapter);
         binding.recyclerMyExclusive.setLayoutManager(
                 Utils.getGridLayoutManagerWithHead(getContext(),spanCount));
         binding.recyclerMyExclusive.addItemDecoration(new RecyclerView.ItemDecoration(){
@@ -307,37 +379,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                     top_interval = (int)UIUtils.getInstance().scalePx(40);
                 if(position > 0){
                     outRect.top = top_interval;
-//                    if((position - adapter.getHeaderLayoutCount()) % 2 == 1){
+//                    if((position - kingKongAreaAdapter.getHeaderLayoutCount()) % 2 == 1){
 //                        outRect.left
 //                    }
                 }
             }
         });
-    }
-
-    /**
-     * 初始化显示秒杀界面
-     */
-    private void initLimitedTimeRecycler() {
-        MyBaseRecyclerAdapter<LimitedTimeGoodsData> adapter =
-                new MyBaseRecyclerAdapter<>(R.layout.item_simple_goods
-                        ,mViewModel.getLimitedTimeGoodsData(), com.life.waimaishuo.BR.item);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(position % 2 == 0){
-                    LimitedTimeGoodsFragment.openPageWithTitle(
-                            WaimaiFragment.this, Constant.PAGE_TYPE_WAIMAI,R.mipmap.png_bg_waimai_limite_exclusive);
-                }else{
-                    openPage(ZeroDividerFragment.class);
-                }
-            }
-        });
-        binding.recyclerSecondsKill.setAdapter(adapter);
-        binding.recyclerSecondsKill.setLayoutManager(new GridLayoutManager(getContext(),2));
-
-//        binding.recyclerSecondsKill.setLayoutManager(
-//                Utils.getGridLayoutManagerAdapterHeight(getContext(),2,binding.recyclerSecondsKill));
     }
 
     private int space;
@@ -465,14 +512,16 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         };
     }
 
-    private BaseRecyclerAdapter<IconStrData> getFoodRecyclerAdapter() {
-        return new BaseRecyclerAdapter<IconStrData>(mViewModel.getMyFoodDataList()){
-
+    private BaseRecyclerAdapter<ImageUrlNameData> getFoodRecyclerAdapter() {
+        return new BaseRecyclerAdapter<ImageUrlNameData>(mViewModel.getMyFoodDataList()){
             private int mViewType[] = {1,2};    //1 大图  2 小图
 
             @Override
-            protected void bindData(@NonNull RecyclerViewHolder holder, int position, IconStrData item) {
-                if(holder.getItemViewType() == mViewType[0]){
+            protected void bindData(@NonNull RecyclerViewHolder holder, int position, ImageUrlNameData item) {
+                ItemRecyclerWaimaiFoodTypeBinding binding
+                        = ItemRecyclerWaimaiFoodTypeBinding.bind(holder.itemView);
+                binding.setItem(item);
+                /*if(holder.getItemViewType() == mViewType[0]){
                     ItemRecyclerWaimaiFoodTypeBinding binding
                             = ItemRecyclerWaimaiFoodTypeBinding.bind(holder.itemView);
                     binding.setItem(item);
@@ -480,16 +529,17 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                     ItemRecyclerWaimaiFoodTypeSmallBinding binding
                             = ItemRecyclerWaimaiFoodTypeSmallBinding.bind(holder.itemView);
                     binding.setItem(item);
-                }
+                }*/
             }
 
             @Override
             protected int getItemLayoutId(int viewType) {
-                if(viewType == mViewType[0]){
+                return R.layout.item_recycler_waimai_food_type;
+                /*if(viewType == mViewType[0]){
                     return R.layout.item_recycler_waimai_food_type;
                 }else{
                     return R.layout.item_recycler_waimai_food_type_small;
-                }
+                }*/
             }
 
             @Override
@@ -504,8 +554,20 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     private MyBaseRecyclerAdapter<ExclusiveShopData> getExclusiveRecyclerAdapter() {
-        return new MyBaseRecyclerAdapter<>(R.layout.item_waimai_exclusive_shop
-                ,mViewModel.getExclusiveShopData(), BR.item);
+        return new MyBaseRecyclerAdapter<ExclusiveShopData>(R.layout.item_waimai_exclusive_shop
+                ,mViewModel.getExclusiveShopData(), BR.item){
+            @Override
+            protected void initView(BaseViewHolder helper, ExclusiveShopData item) {
+                super.initView(helper, item);
+                helper.setText(R.id.tv_recent,getString(R.string.recent_place_order_count,String.valueOf(item.getRecent())));
+                if(item.getGoodsList().size() > 0){
+                    Glide.with(helper.itemView.getContext())
+                            .load(item.getGoodsList().get(0).getGoodsImgUrl())
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .into((ImageView) helper.getView(R.id.iv_goodsIcon));
+                }
+            }
+        };
     }
 
     /**
@@ -575,12 +637,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         //直接跳转到指定页面
 //        openPage(query);
 //        try {
-//            SearchRecord record = mDBService.queryForColumnFirst("content", query);
+//            SearchTag record = mDBService.queryForColumnFirst("content", query);
 //            if (record == null) {
-//                record = new SearchRecord().setContent(query).setTime(DateUtils.getNowMills());
+//                record = new SearchTag().setName(query).setCreateTime(DateUtils.getNowMills());
 //                mDBService.insert(record);
 //            } else {
-//                record.setTime(DateUtils.getNowMills());
+//                record.setCreateTime(DateUtils.getNowMills());
 //                mDBService.updateData(record);
 //            }
 //            refreshRecord();

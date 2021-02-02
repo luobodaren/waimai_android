@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:paddingStart="16px"
-                android:text='@{@string/sale_count_a_month + goods.count_per_month}'
+                android:text="@{@string/sale_count_a_month + goods.monSalesVolume}"
                 android:textColor="@color/text_tip"
                 android:textSize="24px"
                 app:layout_constraintStart_toEndOf="@id/tv_deliver_price"

@@ -5,11 +5,19 @@ import android.os.Parcelable;
 
 import androidx.databinding.BaseObservable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Goods extends BaseObservable implements Parcelable {
 
+    @SerializedName(value = "id")
+    private int id;
+    @SerializedName(value = "shopId")
+    private int shopId;
+    @SerializedName(value = "goodsName")
     private String name;
     private String shopName;
     private String details;
+    @SerializedName(value = "goodsPrimaryImg")
     private String goodsImgUrl;
     private String buyNum;
 
@@ -19,19 +27,23 @@ public class Goods extends BaseObservable implements Parcelable {
 
     private String price_deliver;
     private String price_avg_per_man;
-    private int count_per_month;
+    @SerializedName(value = "monSalesVolume")
+    private int monSalesVolume;
     private String score;
-    String lowestPriceOf15Days;
+    private String lowestPriceOf15Days;
+
+    @SerializedName(value = "goodsTag")
+    private int goodsTag;
 
     public Goods() {
     }
 
-    public Goods(String name, int time_send, String goodsImgUrl, String price_deliver, int count_per_month, String score) {
+    public Goods(String name, int time_send, String goodsImgUrl, String price_deliver, int monSalesVolume, String score) {
         this.name = name;
         this.goodsImgUrl = goodsImgUrl;
         this.time_send = time_send;
         this.price_deliver = price_deliver;
-        this.count_per_month = count_per_month;
+        this.monSalesVolume = monSalesVolume;
         this.score = score;
     }
 
@@ -54,7 +66,7 @@ public class Goods extends BaseObservable implements Parcelable {
         time_send = in.readInt();
         price_deliver = in.readString();
         price_avg_per_man = in.readString();
-        count_per_month = in.readInt();
+        monSalesVolume = in.readInt();
         score = in.readString();
         lowestPriceOf15Days = in.readString();
     }
@@ -139,12 +151,12 @@ public class Goods extends BaseObservable implements Parcelable {
         this.price_avg_per_man = price_avg_per_man;
     }
 
-    public int getCount_per_month() {
-        return count_per_month;
+    public int getMonSalesVolume() {
+        return monSalesVolume;
     }
 
-    public void setCount_per_month(int count_per_month) {
-        this.count_per_month = count_per_month;
+    public void setMonSalesVolume(int monSalesVolume) {
+        this.monSalesVolume = monSalesVolume;
     }
 
     public String getScore() {
@@ -179,7 +191,7 @@ public class Goods extends BaseObservable implements Parcelable {
         dest.writeInt(time_send);
         dest.writeString(price_deliver);
         dest.writeString(price_avg_per_man);
-        dest.writeInt(count_per_month);
+        dest.writeInt(monSalesVolume);
         dest.writeString(score);
         dest.writeString(lowestPriceOf15Days);
     }
