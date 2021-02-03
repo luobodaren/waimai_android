@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="default_waimai_recommend_titles">
+        <item>推荐列表</item>
+        <item>发现好物</item>
+    </string-array>
+
+    <!-- 我的顶部4个功能 -->
+    <string-array name="mine_top_data_list_str">
+        <item>商品收藏</item>
+        <item>关注店铺</item>
+        <item>浏览记录</item>
+        <item>红包卡卷</item>
+    </string-array>
+
+    <!-- 我的推荐图标 -->
+    <string-array name="mine_recommends_str">
+        <item>地址管理</item>
+        <item>推荐有奖</item>
+        <item>我的收藏</item>
+        <item>商家入驻</item>
+        <item>商务合作</item>
+        <item>我的客服</item>
+        <item>骑手招募</item>
+        <item>帮助中心</item>
+    </string-array>
+
+    <array name="mine_recommends_icon">
+        <item>@drawable/ic_recommend_address</item>
+        <item>@drawable/ic_recommend_award</item>
+        <item>@drawable/ic_recommend_collect</item>
+        <item>@drawable/ic_recommend_tenants</item>
+        <item>@drawable/ic_recommend_cooperation</item>
+        <item>@drawable/ic_recommend_service</item>
+        <item>@drawable/ic_recommend_rider</item>
+        <item>@drawable/ic_recommend_help</item>
+    </array>
+
+    <!-- 我的-订单状态 -->
+    <string-array name="mine_order_state_list_str">
+        <item>待付款</item>
+        <item>待配送</item>
+        <item>配送中</item>
+        <item>待评价</item>
+        <item>售后/退款</item>
+    </string-array>
+
+    <array name="mine_order_state_list_icon">
+        <item>@drawable/ic_wait_payment</item>
+        <item>@drawable/ic_wait_delivery</item>
+        <item>@drawable/ic_in_deliver</item>
+        <item>@drawable/ic_wait_common</item>
+        <item>@drawable/ic_after_sales</item>
+    </array>
+
+</resources>

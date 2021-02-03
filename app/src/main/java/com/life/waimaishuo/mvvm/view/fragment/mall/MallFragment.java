@@ -1,8 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.mall;
 
-import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,7 +13,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
@@ -26,12 +23,10 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
-import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.adapter.FragmentAdapter;
-import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 @Page(name = "商城", anim = CoreAnim.slide)
 public class MallFragment extends BaseFragment {
@@ -127,7 +122,7 @@ public class MallFragment extends BaseFragment {
                         super.initView(helper, item);
 
                         Glide.with(helper.itemView.getContext())
-                                .load(item.getUrl())
+                                .load(item.getImgUrl())
                                 .centerCrop()
                                 .placeholder(R.drawable.ic_waimai_brand)
                                 .into((ImageView)helper.getView(R.id.iv));

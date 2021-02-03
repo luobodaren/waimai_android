@@ -6,15 +6,19 @@ public class ImageUrlNameData {
 
     @SerializedName(value = "sort", alternate = {"Sort"})
     int sort;
-    @SerializedName(value = "imgUrl",alternate = {"ImgUrl","url"})
+    @SerializedName(value = "imgUrl",alternate = {"ImgUrl","img"})
+    String imgUrl;
+    @SerializedName(value = "url")  //一般为跳转链接
     String url;
     @SerializedName(value = "decorationName")
     String name;
+    @SerializedName(value = "desc")
+    String describe;
     @SerializedName(value = "decorationContentMap") //配合金刚区接口数据获取
     ImageUrlNameData imageUrlNameData;
 
-    public ImageUrlNameData(String url, String name) {
-        this.url = url;
+    public ImageUrlNameData(String imgUrl, String name) {
+        this.imgUrl = imgUrl;
         this.name = name;
     }
 
@@ -28,12 +32,12 @@ public class ImageUrlNameData {
         this.sort = sort;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getName() {
@@ -42,6 +46,22 @@ public class ImageUrlNameData {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
     public ImageUrlNameData getImageUrlNameData() {

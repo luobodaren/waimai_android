@@ -61,24 +61,7 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
         }
         return recommendedFragment;*/
 
-        List<Shop> list = new ArrayList<>();
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-
         WaimaiRecommendedFragment fragment = new WaimaiRecommendedFragment();
-        fragment.setData(list);
         return fragment;
     }
 

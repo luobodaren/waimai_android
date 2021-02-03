@@ -6,7 +6,6 @@ import androidx.databinding.BaseObservable;
 
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchTag;
-import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
@@ -27,6 +26,8 @@ public class WaiMaiViewModel extends BaseViewModel {
     public BaseObservable searchTagObservable = new BaseObservable();
     public BaseObservable kingKongAreaObservable = new BaseObservable();
     public BaseObservable exclusiveBreakfastObservable = new BaseObservable();
+    public BaseObservable activityRegionObservable = new BaseObservable();
+    public BaseObservable recommendTitleObservable = new BaseObservable();
 
     private WaimaiRecommendedFragment recommendedFragment;
     private WaimaiModel mModel;
@@ -49,62 +50,42 @@ public class WaiMaiViewModel extends BaseViewModel {
      * 刷新搜索标签
      */
     public void refreshSearchTag() {
-        mModel.requestSearchTag(new BaseModel.RequestCallBack<SearchTag[]>() {
-            @Override
-            public void onSuccess(SearchTag[] result) {
-                searchTagObservable.notifyChange();
-            }
-
-            @Override
-            public void onFail(String error) {
-                searchTagObservable.notifyChange();
-            }
-        }, 3);
+        mModel.requestSearchTag(new BaseModel.NotifyChangeRequestCallBack(searchTagObservable), 3);
     }
 
     /**
      * 刷新轮播图
      */
     public void refreshBannerItemList() {
-        mModel.requestBannerItemList(new BaseModel.RequestCallBack<List<ImageUrlNameData>>() {
-            @Override
-            public void onSuccess(List<ImageUrlNameData> result) {
-                bannerUpdateObservable.notifyChange();
-            }
-
-            @Override
-            public void onFail(String error) {
-                bannerUpdateObservable.notifyChange();
-            }
-        }, 3);
+        mModel.requestBannerItemList(new BaseModel.NotifyChangeRequestCallBack(bannerUpdateObservable), 3);
     }
 
+    /**
+     * 刷新金刚区
+     */
     public void refreshKingKongArea() {
-        mModel.requestKingKongArea(new BaseModel.RequestCallBack<List<ImageUrlNameData>>() {
-            @Override
-            public void onSuccess(List<ImageUrlNameData> result) {
-                kingKongAreaObservable.notifyChange();
-            }
-
-            @Override
-            public void onFail(String error) {
-                kingKongAreaObservable.notifyChange();
-            }
-        }, 3);
+        mModel.requestKingKongArea(new BaseModel.NotifyChangeRequestCallBack(kingKongAreaObservable), 3);
     }
 
+    /**
+     * 刷新专属早餐
+     */
     public void refreshExclusiveBreakfast(){
-        mModel.getExclusiveBreakfast(new BaseModel.RequestCallBack<List<ExclusiveShopData>>() {
-            @Override
-            public void onSuccess(List<ExclusiveShopData> result) {
-                exclusiveBreakfastObservable.notifyChange();
-            }
+        mModel.getExclusiveBreakfast(new BaseModel.NotifyChangeRequestCallBack(exclusiveBreakfastObservable),3);
+    }
 
-            @Override
-            public void onFail(String error) {
-                exclusiveBreakfastObservable.notifyChange();
-            }
-        },3);
+    /**
+     * 刷新活动区
+     */
+    public void refreshActivityRegion(){
+        mModel.requestActivityRegion(new BaseModel.NotifyChangeRequestCallBack(activityRegionObservable), 3);
+    }
+
+    /**
+     * 刷新推荐tab
+     */
+    public void refreshRecommendedTitle(){
+        mModel.requestRecommendTitle(new BaseModel.NotifyChangeRequestCallBack(recommendTitleObservable),3);
     }
 
     private void initFoodRecyclerData() {
@@ -137,6 +118,10 @@ public class WaiMaiViewModel extends BaseViewModel {
         goToSearchObservable.notifyChange();
     }
 
+    public SearchTag[] getSearchTag() {
+        return mModel.searchTags;
+    }
+
     public List<String> getBannerItemList() {
         return mModel.mBannerItemList;
     }
@@ -145,40 +130,24 @@ public class WaiMaiViewModel extends BaseViewModel {
         return mModel.mFoodTypeList;
     }
 
-    public BaseFragment getRecommendedFragment() {
+    public List<ImageUrlNameData> getActivityRegion(){
+        return mModel.mActivityRegion;
+    }
+
+    public BaseFragment getRecommendedFragment(String title) {
         /*if(recommendedFragment == null){
             recommendedFragment = new WaimaiRecommendedFragment();
             recommendedFragment.setData(mShopList);
         }
         return recommendedFragment;*/
 
-        List<Shop> list = new ArrayList<>();
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-        list.add(new Shop("嘉禾一品粥(国展店)"));
-
         WaimaiRecommendedFragment fragment = new WaimaiRecommendedFragment();
-        fragment.setData(list);
+        fragment.setTitle(title);
         return fragment;
     }
 
-    public SearchTag[] getSearchTag() {
-        return mModel.searchTags;
-    }
-
     public String[] getRecommendedTitle() {
-        return new String[]{"推荐商家", "发现好物", "饮品", "美妆", "超市", "测试1", "测试2", "测试3"};
+        return mModel.recommendTitle;
     }
 
     public List<ExclusiveShopData> getExclusiveShopData() {

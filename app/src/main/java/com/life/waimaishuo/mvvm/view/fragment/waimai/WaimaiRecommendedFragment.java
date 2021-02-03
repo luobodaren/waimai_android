@@ -16,6 +16,7 @@ import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.mvvm.view.fragment.BaseChildFragment;
 import com.life.waimaishuo.mvvm.view.fragment.BaseRecyclerFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
+import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiReccommendedViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -25,16 +26,32 @@ import java.util.List;
 @Page(name = "推荐列表")
 public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
 
-    private List<Shop> mShopList;
+    private WaiMaiReccommendedViewModel mViewModel;
+
+    private String title;
+
+    /**
+     * 第一次加载数据
+     */
+    private boolean firstRefreshData = true;
 
     @Override
     protected BaseViewModel setViewModel() {
-        return null;
+        if(mViewModel == null){
+            mViewModel = new WaiMaiReccommendedViewModel();
+        }
+        return mViewModel;
     }
 
     @Override
     protected TitleBar initTitleBar() {
         return null;
+    }
+
+    @Override
+    protected void initViews() {
+        super.initViews();
+        showLoading();
     }
 
     @Override
@@ -55,7 +72,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
 
     @Override
     protected List getListData() {
-        return mShopList;
+        return mViewModel.getListData();
     }
 
     @Override
@@ -96,9 +113,16 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
                 });
     }
 
-    public void setData(List<Shop> shopList) {
-        mShopList = shopList;
-        // TODO: 2020/12/2 刷新列表
+    @Override
+    protected void onLifecycleResume() {
+        super.onLifecycleResume();
+        if(firstRefreshData){
+            mViewModel.refreshListData(title);
+        }
+    }
+
+    public void setTitle(String title){
+        this.title = title;
     }
 
 }

@@ -108,7 +108,7 @@ public class MallGoodsTypeFragment extends BaseFragment {
                         super.initView(helper, item);
 
                         Glide.with(helper.itemView.getContext())
-                                .load(item.getUrl())
+                                .load(item.getImgUrl())
                                 .centerCrop()
                                 .placeholder(R.drawable.ic_waimai_brand)
                                 .into((ImageView)helper.getView(R.id.iv));

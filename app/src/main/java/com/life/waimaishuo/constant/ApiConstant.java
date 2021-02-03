@@ -14,4 +14,9 @@ public class ApiConstant {
     public final static String API_WAIMAI_MAIN_KING_KONG_AREGION = "/deliveryhomepage/getkingkongarearegion";
     public final static String API_WAIMAI_MAIN_EXCLUSIVE_BREAKFAST = "/activitymarketing/exclusivebreakfast";
     public final static String API_WAIMAI_MAIN_ACTIVITY_REGION = "/deliveryhomepage/getactiveregion";
+    public final static String API_WAIMAI_MAIN_RECOMMEND_TITLE = "/common/getFirstPageType";
+
+    public final static String API_WAIMAI_MAIN_GOODS_LIST = "/searchDeliveryGoods/selectDeliveryGoodsApp"; //外卖 商品列表
+
+
 }

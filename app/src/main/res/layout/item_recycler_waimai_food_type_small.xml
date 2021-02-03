@@ -17,7 +17,7 @@
             android:id="@+id/ic_food_type"
             android:layout_width="46px"
             android:layout_height="46px"
-            imageUrl="@{item.imageUrlNameData.url}"/>
+            imageUrl="@{item.imageUrlNameData.imgUrl}"/>
 
         <TextView
             android:id="@+id/tv_food_type"

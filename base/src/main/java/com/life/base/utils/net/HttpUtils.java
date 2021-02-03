@@ -321,6 +321,7 @@ public class HttpUtils {
                 .enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        LogUtil.e("error:" + e.getMessage() + " url:" + request.url().toString());
                         httpCallback.onError(e);
                     }
 
@@ -331,6 +332,7 @@ public class HttpUtils {
                         if(data != null){
                             httpCallback.onSuccess(data);
                         }else{
+                            LogUtil.e("error:返回 code != 0" + " url:" + request.url().toString());
                             httpCallback.onError(new Error("返回 code != 0"));
                         }
                     }
@@ -384,6 +386,9 @@ public class HttpUtils {
     }
 
     public static String changeToHttps(String url){
+        if(url == null){
+            return "";
+        }
         if(url.startsWith("http:")){
             String[] strings = url.split(":",2);
             return "https:" + strings[1];
