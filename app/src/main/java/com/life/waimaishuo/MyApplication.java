@@ -30,6 +30,9 @@ public class MyApplication extends Application {
 
         //Module类的APP初始化
         modulesApplicationInit();
+        // TODO: 2021/2/3  mmkv获取本地备份数据进行初始化
+        //mmkv获取本地备份数据进行初始化
+        //Global UIUtil
     }
 
     public static MyApplication getMyApplication(){

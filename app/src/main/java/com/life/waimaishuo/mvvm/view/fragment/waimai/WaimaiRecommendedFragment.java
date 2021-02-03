@@ -72,7 +72,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
 
     @Override
     protected List getListData() {
-        return mViewModel.getListData();
+        return mViewModel.getListData(title);
     }
 
     @Override

@@ -37,11 +37,11 @@ public class WaiMaiReccommendedViewModel extends BaseViewModel {
     public void refreshListData(String title) {
         if(title.equals(
                 MyApplication.getMyApplication().getResources().getStringArray(
-                        R.array.default_waimai_recommend_titles)[1])){
+                        R.array.default_waimai_recommend_titles)[0])){
 //            mModel.requestRecommendShopListData(title, new BaseModel.NotifyChangeRequestCallBack(onRequestShopListObservable),3);
         }else if(title.equals(
                 MyApplication.getMyApplication().getResources().getStringArray(
-                        R.array.default_waimai_recommend_titles)[2])){
+                        R.array.default_waimai_recommend_titles)[1])){
 //            mModel.requestFoundGoodsShopListData(new BaseModel.NotifyChangeRequestCallBack(onRequestShopListObservable),3);
         }else{
 //            mModel.requestShopListData(title, new BaseModel.NotifyChangeRequestCallBack(onRequestShopListObservable),3);

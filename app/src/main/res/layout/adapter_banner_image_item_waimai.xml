@@ -7,8 +7,8 @@
 
     <com.xuexiang.xui.widget.imageview.RadiusImageView
         android:id="@+id/iv_item"
-        android:layout_width="705px"
-        android:layout_height="281px"
+        android:layout_width="702px"
+        android:layout_height="230px"
         app:riv_corner_radius="12dp"/>
 
 </com.life.base.views.UiAdapterLinearLayout>

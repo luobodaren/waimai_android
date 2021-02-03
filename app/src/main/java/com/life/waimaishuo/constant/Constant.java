@@ -13,26 +13,27 @@ public class Constant {
     /**
      * openPageForResult的请求码
      */
-    public static int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
-    public static int REQUEST_CODE_ORDER_NOTE = 1001;
-    public static int REQUEST_CODE_ADD_NEW_ADDRESS = 1002;
-    public static int REQUEST_CODE_FILLING_LOGISTICS = 1003;
-    public static int REQUEST_CODE_SELECT_CATEGORY = 1004;
+    public static final int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
+    public static final int REQUEST_CODE_ORDER_NOTE = 1001;
+    public static final int REQUEST_CODE_ADD_NEW_ADDRESS = 1002;
+    public static final int REQUEST_CODE_FILLING_LOGISTICS = 1003;
+    public static final int REQUEST_CODE_SELECT_CATEGORY = 1004;
     /**
      * page 返回的 结果码
      */
-    public static int RESULT_CODE_SUCCESS = 0;
-    public static int RESULT_CODE_FALSE = -1;
+    public static final int RESULT_CODE_SUCCESS = 0;
+    public static final int RESULT_CODE_FALSE = -1;
 
     /**
      * 个人头像拍照
      */
-    public static int REQUEST_CODE_HEAD_PORTRAIT_TAKE_PICTURE = 1000;
+    public static final int REQUEST_CODE_HEAD_PORTRAIT_TAKE_PICTURE = 1000;
 
     //PopWindow 显示时常
     public static final int POP_WINDOW_SHOW_TIME = 1000;
 
     public static final String ERROR_MSG_NO_BUNDLE = "没有传入bundle 无法确定页面类型";
     public static final String ERROR_MSG_BUNDLE_DATA_ERROR = "bundle 数据错误";
+
 
 }

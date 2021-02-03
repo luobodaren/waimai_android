@@ -239,7 +239,7 @@ public class WaimaiModel extends BaseModel {
                     for (SimpleString simpleString:simpleStrings) {
                         stringList.add(simpleString.getName());
                     }
-                    recommendTitle = stringList.toArray(recommendTitle);
+                    recommendTitle = stringList.toArray(new String[]{});
                     requestCallBack.onSuccess(simpleStrings);
                 } else {
                     requestCallBack.onSuccess(null);

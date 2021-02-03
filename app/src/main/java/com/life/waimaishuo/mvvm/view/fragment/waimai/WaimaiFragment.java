@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,6 +28,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
+import com.life.waimaishuo.Global;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
@@ -47,6 +50,7 @@ import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.Utils;
+import com.life.waimaishuo.util.amap.LocationUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.SortTypeView;
 import com.life.waimaishuo.views.StickyNavigationLayout;
@@ -191,6 +195,11 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     protected void onLifecycleResume() {
         super.onLifecycleResume();
 
+        /**
+         * 开始定位
+         */
+        startLocation();
+
         if(firstRefreshData){
             firstRefreshData = false;
             //请求数据
@@ -204,13 +213,50 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     @Override
+    protected void onLifecycleStop() {
+        super.onLifecycleStop();
+        LocationUtil.stopLocation(false);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         MyDataBindingUtil.removeFragmentCallBack(this);
+        LocationUtil.stopLocation(true);
     }
 
     private void initMyLocation() {
-        binding.layoutTitle.tvLocation.setText(R.string.location_unknow);
+        setMyLocationData();
+    }
+
+    private void startLocation(){
+        LocationUtil.intervalLocation(aMapLocation -> {
+            LogUtil.d(aMapLocation.toStr());
+            if(aMapLocation.getErrorCode() == 0){
+                Global.LocationCity = aMapLocation.getCity();
+                Global.LocationDistrict = aMapLocation.getDistrict();
+                Global.latitude = aMapLocation.getLatitude();
+                Global.longitude = aMapLocation.getLongitude();
+            }else{
+                LogUtil.e("定位失败");
+            }
+
+            mHandler.post(this::setMyLocationData);
+
+        }, 5000,null);
+    }
+
+    /**
+     * 设置我的位置信息
+     */
+    private void setMyLocationData(){
+        if(Global.LocationDistrict != null && !"".equals(Global.LocationDistrict)){
+            binding.layoutTitle.tvLocation.setText(Global.LocationDistrict);
+        }else if(Global.LocationCity != null && !"".equals(Global.LocationCity)){
+            binding.layoutTitle.tvLocation.setText(Global.LocationCity);
+        }else{
+            binding.layoutTitle.tvLocation.setText(R.string.location_unknow);
+        }
     }
 
     private void addCallBack() {
@@ -701,6 +747,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
      */
     private void resetTab(TabSegment tabSegment,String[] titles,
                           int selectedPosition){
+        tabSegment.reset();
         int position = 0;
         if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
             textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
@@ -729,9 +776,14 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
         }
         viewPagerAdapter.getTitleList().clear();
-        viewPagerAdapter.getFragmentList().clear();
+        Fragment parentFragment;
+        for(BaseFragment baseFragment : viewPagerAdapter.getFragmentList()){
+            parentFragment = baseFragment.getParentFragment();
+            if(parentFragment != null){
+                getChildFragmentManager()
+            }
+        }
         addTab(tabSegment,viewPagerAdapter,titles,textSizeSelectedScale,textSizeNormalScale,selectedPosition);
-
         viewPagerAdapter.notifyDataSetChanged();
         tabSegment.notifyDataChanged();
     }

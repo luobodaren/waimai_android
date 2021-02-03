@@ -94,7 +94,7 @@
                         <com.xuexiang.xui.widget.banner.recycler.BannerLayout
                             android:id="@+id/banner_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="281px"
+                            android:layout_height="230px"
                             android:layout_marginTop="@dimen/interval_size_xs"
                             app:bl_autoPlaying="true"
                             app:bl_centerScale="1"
