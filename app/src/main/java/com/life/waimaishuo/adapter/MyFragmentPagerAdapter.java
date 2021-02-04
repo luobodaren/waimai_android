@@ -12,6 +12,10 @@ import com.xuexiang.xui.adapter.FragmentAdapter;
 
 import java.util.List;
 
+/**
+ * 配合动态更新fragmentList使用
+ * @param <T>
+ */
 public class MyFragmentPagerAdapter<T extends Fragment> extends FragmentAdapter<T> {
 
     public MyFragmentPagerAdapter(@NonNull FragmentManager fm) {

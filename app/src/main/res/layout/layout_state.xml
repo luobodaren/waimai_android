@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/background"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center">
+    android:overScrollMode="never">
 
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="400px"
-        android:layout_height="400px"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="400px"
+            android:layout_height="400px"/>
 
-    <TextView
-        android:id="@+id/tv"
-        style="@style/text_my_simple_style"
-        android:layout_marginTop="40px"
-        android:textStyle="bold"
-        android:textColor="@color/text_normal"
-        android:textSize="30px"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tv"
+            style="@style/text_my_simple_style"
+            android:layout_marginTop="40px"
+            android:textStyle="bold"
+            android:textColor="@color/text_normal"
+            android:textSize="30px"
+            android:visibility="gone"/>
 
-    <Button
-        android:id="@+id/bt"
-        android:layout_width="282px"
-        android:layout_height="88px"
-        android:layout_marginTop="40px"
-        android:textColor="@color/white"
-        android:textSize="30px"
-        android:text="@string/go_shopping_at_the_mall"
-        android:background="@drawable/sr_bg_gradient_full_radius_theme"
-        android:visibility="gone"/>
-</LinearLayout>
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="282px"
+            android:layout_height="88px"
+            android:layout_marginTop="40px"
+            android:textColor="@color/white"
+            android:textSize="30px"
+            android:text="@string/go_shopping_at_the_mall"
+            android:background="@drawable/sr_bg_gradient_full_radius_theme"
+            android:visibility="gone"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

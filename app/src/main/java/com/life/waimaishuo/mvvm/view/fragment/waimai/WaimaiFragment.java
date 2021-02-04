@@ -19,8 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.AMapLocationClientOption;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -33,6 +32,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.MyFragmentPagerAdapter;
+import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.adapter.tag.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
@@ -69,11 +69,13 @@ import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.statelayout.StatusLoader;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
+import com.yanzhenjie.recyclerview.widget.DefaultItemDecoration;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static android.Manifest.permission_group.LOCATION;
+import static com.xuexiang.xui.widget.statelayout.StatusLoader.STATUS_LOAD_SUCCESS;
 
 @Page(name = "外卖", anim = CoreAnim.fade)
 public class WaimaiFragment extends BaseStatusLoaderFragment {
@@ -92,10 +94,15 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     private BaseRecyclerAdapter<ImageUrlNameData> kingKongAreaAdapter;
     //适配器-专属早餐
     private MyBaseRecyclerAdapter<ExclusiveShopData> exclusiveShopAdapter;
+    //适配器-子标签
+    private SelectedPositionRecyclerViewAdapter<String> childSignRecyclerAdapter;
 
     //适配器-ViewPager
     private MyFragmentPagerAdapter<BaseFragment> viewPagerAdapter;
     private FragmentManager fm;//viewpager的fragmentManager
+
+    private String child_sign = "";
+
     /**
      * 第一次加载数据
      */
@@ -128,7 +135,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             @Override
             public void onPageSelected(int position) {
                 LogUtil.d("OnPageChangeListener position:" + position);
-                refreshTabAndViewPager(mViewModel.getRecommendedTitle(),position,false);
+                refreshTabAndViewPager(mViewModel.getDefaultTitle(),position,false);
                 refreshSortType(SortTypeEnum.SCORE);
                 // TODO: 2020/12/3 刷新内容
 
@@ -138,6 +145,15 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         binding.layoutTitle.llLocal.setOnClickListener(v -> pickCity());
 
         binding.layoutTitle.ivMessage.setOnClickListener(v -> openPage(MessageFragment.class));
+
+        childSignRecyclerAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<String>() {
+            @Override
+            public void onSelectedClick(BaseViewHolder holder, String item) {
+                child_sign = item;
+                binding.childSignRecycler.scrollToPosition(childSignRecyclerAdapter.getData().indexOf(item));
+                notifyRecommendFragmentRefresh(false);
+            }
+        });
 
 //        binding.myLlContentView.setOnScrollChangeListener(moveRatio -> {
 //            if(moveRatio == 1){
@@ -179,6 +195,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         initMyExclusiveRecycler();
         initActivityRegion();
         initNavigationTab();
+        initChildSignRecycler();
 
         showLoading();
     }
@@ -198,9 +215,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     protected void onLifecycleResume() {
         super.onLifecycleResume();
 
-        /**
-         * 开始定位
-         */
+        //开始定位
         startLocation();
 
         if(firstRefreshData){
@@ -211,7 +226,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             mViewModel.refreshKingKongArea();
             mViewModel.refreshExclusiveBreakfast();
             mViewModel.refreshActivityRegion();
-            mViewModel.refreshRecommendedTitle();
         }
     }
 
@@ -246,7 +260,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
             mHandler.post(this::setMyLocationData);
 
-        }, 5000,null);
+        }, 30000, null);
     }
 
     /**
@@ -318,6 +332,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                         setViewVisibility(binding.recyclerMyExclusive,false);
                     }else{
                         setViewVisibility(binding.recyclerMyExclusive,true);
+                        showBottomContent();
                     }
                 });
             }
@@ -325,28 +340,31 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.activityRegionObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                mHandler.post(()-> setActivityRegionData(mViewModel.getActivityRegion()));
+                mHandler.post(()-> {
+                    if(mViewModel.getActivityRegion().size() > 0){
+                        showBottomContent();
+                    }
+                    setActivityRegionData(mViewModel.getActivityRegion());
+                });
             }
         });
         MyDataBindingUtil.addCallBack(this, mViewModel.recommendTitleObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(()->{
-                    //int scrollY = binding.stickyNavigationLayout.getScrollY();
-                    setViewVisibility(binding.stickyView,true);
-                    setViewVisibility(binding.contentLayout,true);
-                    binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
-                    binding.stickyNavigationLayout.setCustomCanScrollDistance(StickyNavigationLayout.CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW);
-                    binding.stickyNavigationLayout.scrollTo(0, 0);  // FIXME: 2021/2/1 优化显示动画 滚动过快 高度出错
-                    showContent();
-                    refreshTabAndViewPager(mViewModel.getRecommendedTitle(),0,true);
+                    if(mViewModel.getChildSignData().size() > 0){
+                        setViewVisibility(binding.childSignRecycler,true);
+                        child_sign = mViewModel.getChildSignData().get(0);
+                    }else{
+                        setViewVisibility(binding.childSignRecycler,false);
+                        child_sign = "";
+                    }
+                    childSignRecyclerAdapter.notifyDataSetChanged();
 
-                   /* mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshTabAndViewPager(mViewModel.getRecommendedTitle(),0,true);
-                        }
-                    },5000);*/
+                    //刷新fragment
+                    notifyRecommendFragmentRefresh(true);
+
+                    //refreshTabAndViewPager(mViewModel.getRecommendedTitle(),0,true);
                 });
             }
         });
@@ -461,6 +479,44 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         setActivityRegionData(mViewModel.getActivityRegion());
     }
 
+    /**
+     * 初始化子标签
+     */
+    private void initChildSignRecycler(){
+        childSignRecyclerAdapter = new SelectedPositionRecyclerViewAdapter<String>(mViewModel.getChildSignData()) {
+            @Override
+            public int getLayoutId(int viewType) {
+                return R.layout.item_recycler_waimai_child_sign;
+            }
+
+            @Override
+            public void onBindViewHolder(BaseViewHolder holder, boolean selected, String item) {
+                holder.setText(R.id.tv_sign,item);
+                if(selected){
+                    holder.setTextColor(R.id.tv_sign,holder.itemView.getContext().getResources().getColor(R.color.text_normal));
+                }else{
+                    holder.setTextColor(R.id.tv_sign,holder.itemView.getContext().getResources().getColor(R.color.text_tip));
+                }
+            }
+        };
+
+        binding.childSignRecycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
+        binding.childSignRecycler.setAdapter(childSignRecyclerAdapter);
+        binding.childSignRecycler.addItemDecoration(new RecyclerView.ItemDecoration() {
+            int interval_24 = (int) UIUtils.getInstance().scalePx(24);
+            int interval_40 = (int) UIUtils.getInstance().scalePx(40);
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                if(parent.getChildAdapterPosition(view) == 0){
+                    outRect.left = interval_24;
+                }else{
+                    outRect.left = interval_40;
+                }
+            }
+        });
+    }
+
     private int space;
     private int textSizeSelected;
     private int textSizeNormal;
@@ -472,7 +528,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         space = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_space);
         textSizeSelected = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size_selected);
         textSizeNormal = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size);
-        String[] titles = mViewModel.getRecommendedTitle();
+        String[] titles = mViewModel.getDefaultTitle();
         fm = getChildFragmentManager();
         viewPagerAdapter = new MyFragmentPagerAdapter<>(fm);
 
@@ -528,9 +584,9 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     private void addSortViewClickListener() {
-        binding.contentLayout.setPreferentialTab(mViewModel.getPreferential());
-        binding.contentLayout.setScreenData(mViewModel.getScreenData());
-        binding.contentLayout.setOnSortTypeChangeListener(new SortTypeView.onSortTypeChangeListener() {
+        binding.sortTypeView.setPreferentialTab(mViewModel.getPreferential());
+        binding.sortTypeView.setScreenData(mViewModel.getScreenData());
+        binding.sortTypeView.setOnSortTypeChangeListener(new SortTypeView.onSortTypeChangeListener() {
             @Override
             public void onSortPopShow() {
 
@@ -551,7 +607,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     private void refreshSortType(SortTypeEnum sortType){
-        binding.contentLayout.setSortType(sortType);
+        binding.sortTypeView.setSortType(sortType);
     }
     @Permission(LOCATION)
     private void pickCity() {
@@ -759,8 +815,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
         viewPagerAdapter.notifyDataSetChanged();
 
-//        binding.stickyView.notifyDataChanged();
-
     }
 
     /**
@@ -768,6 +822,45 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
      */
     private void refreshSortType(int position) {
 
+    }
+
+    /**
+     * 当专属早餐与活动区域获取到数据后，展示底部内容
+     */
+    private void showBottomContent(){
+        if(mHolder.getCurState() != STATUS_LOAD_SUCCESS){
+            setViewVisibility(binding.stickyView,true);
+            setViewVisibility(binding.contentLayout,true);
+            showContent();
+            binding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
+            binding.stickyNavigationLayout.setCustomCanScrollDistance(StickyNavigationLayout.CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW);
+            binding.stickyNavigationLayout.scrollTo(0, 0);  // FIXME: 2021/2/1 优化显示动画 滚动过快 高度出错
+
+            //请求子标签
+            mViewModel.refreshRecommendedTitle();
+        }
+    }
+
+    /**
+     * 通知碎片刷新数据
+     */
+    private void notifyRecommendFragmentRefresh(boolean both){
+        WaimaiRecommendedFragment fragment;
+        if(both){
+            for (BaseFragment baseFragment:viewPagerAdapter.getFragmentList()) {
+                fragment = (WaimaiRecommendedFragment)baseFragment;
+                fragment.setChild_sign(child_sign);
+                // TODO: 2021/2/4 获取标签值
+                fragment.setTag("");//设置标签
+                fragment.refreshListDate();
+            }
+        }else{
+            fragment =
+                    (WaimaiRecommendedFragment)viewPagerAdapter.getFragmentList().get(binding.stickyView.getSelectedIndex());
+            fragment.setChild_sign(child_sign);
+            fragment.setTag("");//设置标签
+            fragment.refreshListDate();
+        }
     }
 
     /**

@@ -25,7 +25,7 @@ public class WaimaiModel extends BaseModel {
     public List<ImageUrlNameData> mFoodTypeList = new ArrayList<>();//食物类型（金刚区）
     public List<ImageUrlNameData> mActivityRegion = new ArrayList<>();
     public final String[] defaultRecommendTitle = MyApplication.getMyApplication().getResources().getStringArray(R.array.default_waimai_recommend_titles);    //默认推荐列表
-    public String[] recommendTitle = defaultRecommendTitle;
+    public List<String> recommendTitle = new ArrayList<>();
 
     public List<Shop> mShopList = new ArrayList<>();
     public List<ExclusiveShopData> mExclusiveShopDataList = new ArrayList<>();
@@ -234,12 +234,10 @@ public class WaimaiModel extends BaseModel {
                 if (!"".equals(data)) {
                     List<SimpleString> simpleStrings = GsonUtil.parserJsonToArrayBeans(data,SimpleString.class);
                     List<String> stringList = new ArrayList<>();
-                    stringList.add(defaultRecommendTitle[0]);
-                    stringList.add(defaultRecommendTitle[1]);
                     for (SimpleString simpleString:simpleStrings) {
                         stringList.add(simpleString.getName());
                     }
-                    recommendTitle = stringList.toArray(new String[]{});
+                    recommendTitle.addAll(stringList);
                     requestCallBack.onSuccess(simpleStrings);
                 } else {
                     requestCallBack.onSuccess(null);
@@ -249,7 +247,7 @@ public class WaimaiModel extends BaseModel {
             @Override
             public void onError(Throwable error) {
                 LogUtil.e("requestRecommendTitle error:" + error.getMessage() + count);
-                recommendTitle = defaultRecommendTitle;
+                recommendTitle.clear();
                 if (error instanceof TimeoutException) {
                     if (count >= 0) {
                         requestRecommendTitle(requestCallBack, count);

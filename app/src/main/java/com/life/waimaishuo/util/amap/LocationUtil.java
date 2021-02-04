@@ -12,6 +12,9 @@ public class LocationUtil {
 
     private static AMapLocationClient mLocationClient;
 
+    private static AMapLocationClientOption.AMapLocationMode defaultLocationMode
+            = AMapLocationClientOption.AMapLocationMode.Hight_Accuracy;
+
     //设置是否允许模拟位置,默认为true，允许模拟位置
     //mLocationOption.setMockEnable(true);
 
@@ -63,7 +66,7 @@ public class LocationUtil {
      * @param aMapLocationListener
      * @param scene
      */
-    private static void location(AMapLocationListener aMapLocationListener, @Nullable AMapLocationClientOption.AMapLocationPurpose scene, AMapLocationClientOption.AMapLocationMode aMapLocationMode) {
+    private static void location(AMapLocationListener aMapLocationListener, @Nullable AMapLocationClientOption.AMapLocationPurpose scene, @Nullable AMapLocationClientOption.AMapLocationMode aMapLocationMode) {
         initLocationClientState();
         //设置定位回调监听
         mLocationClient.setLocationListener(aMapLocationListener);
@@ -74,7 +77,7 @@ public class LocationUtil {
             mLocationOption.setLocationPurpose(scene);
         }
         //定位模式（高精度、低功耗、仅设备）
-        mLocationOption.setLocationMode(aMapLocationMode);
+        mLocationOption.setLocationMode(aMapLocationMode == null ? defaultLocationMode : aMapLocationMode);
 
         startLocation(mLocationOption);
     }
@@ -91,7 +94,7 @@ public class LocationUtil {
 
         AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
         mLocationOption.setOnceLocation(true);
-        mLocationOption.setLocationMode(aMapLocationMode);
+        mLocationOption.setLocationMode(aMapLocationMode == null ? defaultLocationMode : aMapLocationMode);
 
         startLocation(mLocationOption);
     }
@@ -102,14 +105,13 @@ public class LocationUtil {
      * @param aMapLocationListener
      * @param interval             定位间隔，单位毫秒
      */
-    public static void intervalLocation(AMapLocationListener aMapLocationListener, long interval, AMapLocationClientOption.AMapLocationMode aMapLocationMode) {
+    public static void intervalLocation(AMapLocationListener aMapLocationListener, long interval, @Nullable AMapLocationClientOption.AMapLocationMode aMapLocationMode) {
         initLocationClientState();
 
         mLocationClient.setLocationListener(aMapLocationListener);
-
         AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
         mLocationOption.setInterval(interval);
-        mLocationOption.setLocationMode(aMapLocationMode);
+        mLocationOption.setLocationMode(aMapLocationMode == null ? defaultLocationMode : aMapLocationMode);
 
         startLocation(mLocationOption);
     }
@@ -119,14 +121,14 @@ public class LocationUtil {
      *
      * @param aMapLocationListener
      */
-    public static void onceLatestLocation(AMapLocationListener aMapLocationListener, AMapLocationClientOption.AMapLocationMode aMapLocationMode) {
+    public static void onceLatestLocation(AMapLocationListener aMapLocationListener, @Nullable AMapLocationClientOption.AMapLocationMode aMapLocationMode) {
         initLocationClientState();
 
         mLocationClient.setLocationListener(aMapLocationListener);
 
         AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
         mLocationOption.setOnceLocationLatest(true);
-        mLocationOption.setLocationMode(aMapLocationMode);
+        mLocationOption.setLocationMode(aMapLocationMode == null ? defaultLocationMode : aMapLocationMode);
 
         startLocation(mLocationOption);
     }

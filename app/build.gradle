@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    signingConfigs{
+        config {
+            keyAlias "demo.keystore"
+            keyPassword "168178"
+            storeFile file("C:/Users/wrj05/.android/demo.keystore")
+            storePassword "168178"
+        }
+    }
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
     defaultConfig {

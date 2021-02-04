@@ -134,6 +134,10 @@ public class WaiMaiViewModel extends BaseViewModel {
         return mModel.mActivityRegion;
     }
 
+    public String[] getDefaultTitle() {
+        return mModel.defaultRecommendTitle;
+    }
+
     public BaseFragment getRecommendedFragment(String title) {
         /*if(recommendedFragment == null){
             recommendedFragment = new WaimaiRecommendedFragment();
@@ -146,12 +150,12 @@ public class WaiMaiViewModel extends BaseViewModel {
         return fragment;
     }
 
-    public String[] getRecommendedTitle() {
-        return mModel.recommendTitle;
-    }
-
     public List<ExclusiveShopData> getExclusiveShopData() {
         return mModel.mExclusiveShopDataList;
+    }
+
+    public List<String> getChildSignData() {
+        return mModel.recommendTitle;
     }
 
     public List<LimitedTimeGoodsData> getLimitedTimeGoodsData() {
@@ -195,4 +199,5 @@ public class WaiMaiViewModel extends BaseViewModel {
         screenData.add("人均价格带");
         return screenData;
     }
+
 }

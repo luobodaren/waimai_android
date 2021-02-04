@@ -35,7 +35,9 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
 
     private WaiMaiReccommendedViewModel mViewModel;
 
-    private String title;
+    private String title = "";
+    private String child_sign = "";
+    private String tag = "";
 
     /**
      * 第一次加载数据
@@ -74,7 +76,6 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
     protected void initViews() {
         super.initViews();
         showLoading();
-        ((TextView)findViewById(R.id.asdfqwer)).setText(title);
     }
 
     @Override
@@ -149,8 +150,19 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
         }
     }
 
+    public void refreshListDate(){
+
+    }
+
     public void setTitle(String title){
         this.title = title;
     }
 
+    public void setChild_sign(String child_sign) {
+        this.child_sign = child_sign;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 }

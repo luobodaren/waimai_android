@@ -179,14 +179,30 @@
             android:paddingEnd="@dimen/interval_size_xs"
             android:visibility="gone" />
 
-        <com.life.waimaishuo.views.SortTypeView
+        <LinearLayout
             android:id="@+id/content_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background"
-            android:paddingTop="30px"
-            android:visibility="gone"
-            app:showTabSegment="true" />
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/child_sign_recycler"
+                style="@style/waimaiRecommendedTabSegment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/interval_size_xs"
+                android:visibility="gone"/>
+
+            <com.life.waimaishuo.views.SortTypeView
+                android:id="@+id/sortTypeView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background"
+                android:paddingTop="30px"
+                app:showTabSegment="true" />
+        </LinearLayout>
+
 
         <!--ViewPager-->
         <FrameLayout
