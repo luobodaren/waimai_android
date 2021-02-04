@@ -70,7 +70,7 @@ public abstract class BaseRecyclerFragment extends BaseStatusLoaderFragment {
 
     @Override
     protected View getWrapView() {
-        return mViewDataBinding.getRoot().findViewById(R.id.my_ll_content_view);
+        return mViewDataBinding.getRoot().findViewById(R.id.fl_state);
     }
 
     @Override

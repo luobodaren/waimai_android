@@ -1,9 +1,13 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Rect;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +16,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
+import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.mvvm.view.fragment.BaseChildFragment;
 import com.life.waimaishuo.mvvm.view.fragment.BaseRecyclerFragment;
@@ -20,8 +25,10 @@ import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiReccommendedViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xui.widget.statelayout.StatusLoader;
 
 import java.util.List;
+import java.util.zip.Inflater;
 
 @Page(name = "推荐列表")
 public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
@@ -43,6 +50,21 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
         return mViewModel;
     }
 
+    /**
+     * 由于该fragment是用在
+     * @param inflater
+     * @param container
+     * @return
+     */
+    @Override
+    protected View inflateView(LayoutInflater inflater, ViewGroup container) {
+        View view = inflater.inflate(getLayoutId(),null);
+        mViewDataBinding = DataBindingUtil.bind(view);
+        baseViewModel = setViewModel();
+        bindViewModel();
+        return view;
+    }
+
     @Override
     protected TitleBar initTitleBar() {
         return null;
@@ -52,6 +74,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
     protected void initViews() {
         super.initViews();
         showLoading();
+        ((TextView)findViewById(R.id.asdfqwer)).setText(title);
     }
 
     @Override
@@ -102,6 +125,11 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment {
     @Override
     protected void onRecyclerBindViewHolder(BaseViewHolder helper, Object item) {
 
+    }
+
+    @Override
+    protected StatusLoader.Adapter getStatusLoaderAdapter() {
+        return new CustomSingleViewAdapter();
     }
 
     @Override

@@ -32,6 +32,7 @@ import com.life.waimaishuo.Global;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
+import com.life.waimaishuo.adapter.MyFragmentPagerAdapter;
 import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.adapter.tag.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
@@ -93,7 +94,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     private MyBaseRecyclerAdapter<ExclusiveShopData> exclusiveShopAdapter;
 
     //适配器-ViewPager
-    private FragmentAdapter<BaseFragment> viewPagerAdapter;
+    private MyFragmentPagerAdapter<BaseFragment> viewPagerAdapter;
+    private FragmentManager fm;//viewpager的fragmentManager
     /**
      * 第一次加载数据
      */
@@ -125,7 +127,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         binding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
             @Override
             public void onPageSelected(int position) {
-                refreshTabAndViewPager(binding.stickyView,mViewModel.getRecommendedTitle(),position,false);
+                LogUtil.d("OnPageChangeListener position:" + position);
+                refreshTabAndViewPager(mViewModel.getRecommendedTitle(),position,false);
                 refreshSortType(SortTypeEnum.SCORE);
                 // TODO: 2020/12/3 刷新内容
 
@@ -336,8 +339,14 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                     binding.stickyNavigationLayout.setCustomCanScrollDistance(StickyNavigationLayout.CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW);
                     binding.stickyNavigationLayout.scrollTo(0, 0);  // FIXME: 2021/2/1 优化显示动画 滚动过快 高度出错
                     showContent();
+                    refreshTabAndViewPager(mViewModel.getRecommendedTitle(),0,true);
 
-                    refreshTabAndViewPager(binding.stickyView,mViewModel.getRecommendedTitle(),0,true);
+                   /* mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshTabAndViewPager(mViewModel.getRecommendedTitle(),0,true);
+                        }
+                    },5000);*/
                 });
             }
         });
@@ -464,8 +473,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         textSizeSelected = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size_selected);
         textSizeNormal = getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size);
         String[] titles = mViewModel.getRecommendedTitle();
-
-        viewPagerAdapter = new FragmentAdapter<>(getChildFragmentManager());
+        fm = getChildFragmentManager();
+        viewPagerAdapter = new MyFragmentPagerAdapter<>(fm);
 
         addTab(binding.stickyView,viewPagerAdapter,titles,textSizeSelected,textSizeNormal,0);
         binding.stickyView.setHasIndicator(false);
@@ -473,7 +482,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         binding.stickyView.setItemSpaceInScrollMode(space);
         binding.stickyView.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
         binding.stickyView.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
-//        binding.stickyView.setTabTextSize(textSizeNormal);
+        binding.stickyView.setTabTextSize(textSizeNormal);
         binding.stickyView.setupWithViewPager(binding.viewPager,false);
 
         binding.viewPager.setOffscreenPageLimit(titles.length - 1);
@@ -675,16 +684,15 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     /**
      * 更新TabBar样式
-     * @param tabSegment
      * @param titles
      * @param position
      * @param refreshContent 若更新内容，则会重新创建tab、fragment等，否则仅更新tab样式
      */
-    private void refreshTabAndViewPager(TabSegment tabSegment,String[] titles,int position, boolean refreshContent) {
+    private void refreshTabAndViewPager(String[] titles,int position, boolean refreshContent) {
         if(refreshContent){
-            resetTabAndViewPager(tabSegment,titles,position);
+            resetTabAndViewPager(titles,position);
         }else {
-            resetTab(tabSegment,titles,position);
+            resetTab(titles,position);
         }
         refreshSortType(position);
     }
@@ -692,45 +700,10 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
                         String[] titles, int textSizeSelected, int textSizeNormal, int selectedPosition){
-        //注释代码 保存已有的fragment 添加新fragment(未完成)
-       /* List<String> saveTitle = new ArrayList<>();
-        List<String> currentTitleList = adapter.getTitleList();
-        if(currentTitleList != null && currentTitleList.size() > 0){
-            for(String title:currentTitleList){
-                boolean hasThisTitle = false;
-                for(String newTitle:titles){
-                    if(newTitle.equals(title)){
-                        hasThisTitle = true;
-                        break;
-                    }
-                }
-                if(hasThisTitle){
-                    saveTitle.add(title);
-                }
-            }
-        }
-
-        //保存有用的Fragment
-        List<BaseFragment> baseFragmentList = new ArrayList<>();
-        if(saveTitle.size() > 0){
-            for (String string:saveTitle) {
-                baseFragmentList.add(adapter.getFragmentList().get(currentTitleList.indexOf(string)));
-            }
-        }
-        adapter.getFragmentList().clear();
-        adapter.setFragments(baseFragmentList);
-
-        //添加新的Tab
-        tabSegment.*/
-
        int position = 0;
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            if(position == selectedPosition){
-                tab.setTextSize(textSizeSelected);
-            }else{
-                tab.setTextSize(textSizeNormal);
-            }
+            tab.setTextSize(position == selectedPosition ? textSizeSelected :textSizeNormal);
             adapter.addFragment(mViewModel.getRecommendedFragment(title), title);
             tabSegment.addTab(tab);
             position++;
@@ -741,13 +714,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     int textSizeNormalScale = 0;
     /**
      * 仅更新 title 样式（切换选中时调用，内容不变）
-     * @param tabSegment
      * @param titles
      * @param selectedPosition
      */
-    private void resetTab(TabSegment tabSegment,String[] titles,
+    private void resetTab(String[] titles,
                           int selectedPosition){
-        tabSegment.reset();
+        binding.stickyView.reset();
         int position = 0;
         if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
             textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
@@ -756,36 +728,39 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
             tab.setTextSize(position == selectedPosition ? textSizeSelectedScale :textSizeNormalScale);
-            tabSegment.addTab(tab);
+            binding.stickyView.addTab(tab);
             position++;
         }
-        tabSegment.notifyDataChanged();
+        binding.stickyView.notifyDataChanged();
     }
 
     /**
      * 更新title viewPager内容(重新创建)
-     * @param tabSegment
      * @param titles
      * @param selectedPosition
      */
-    private void resetTabAndViewPager(TabSegment tabSegment,String[] titles,
-                          int selectedPosition){
-        tabSegment.reset();
+    private void resetTabAndViewPager(String[] titles, int selectedPosition){
         if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
             textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
             textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
         }
-        viewPagerAdapter.getTitleList().clear();
-        Fragment parentFragment;
-        for(BaseFragment baseFragment : viewPagerAdapter.getFragmentList()){
-            parentFragment = baseFragment.getParentFragment();
-            if(parentFragment != null){
-                getChildFragmentManager()
-            }
+
+        binding.stickyView.reset();
+
+        FragmentTransaction ft = fm.beginTransaction();
+        for (Fragment baseFragment:fm.getFragments()) {
+            ft.detach(baseFragment);
+            ft.remove(baseFragment);
         }
-        addTab(tabSegment,viewPagerAdapter,titles,textSizeSelectedScale,textSizeNormalScale,selectedPosition);
+        ft.commitNow();
+        viewPagerAdapter.getTitleList().clear();
+        viewPagerAdapter.getFragmentList().clear();
+        addTab(binding.stickyView,viewPagerAdapter,titles,textSizeSelectedScale,textSizeNormalScale,selectedPosition);
+
         viewPagerAdapter.notifyDataSetChanged();
-        tabSegment.notifyDataChanged();
+
+//        binding.stickyView.notifyDataChanged();
+
     }
 
     /**

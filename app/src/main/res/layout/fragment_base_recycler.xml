@@ -11,12 +11,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <FrameLayout
+            android:id="@+id/fl_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/interval_size_xs"
+                android:paddingEnd="@dimen/interval_size_xs"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/asdfqwer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs"/>
+            android:textSize="100dp"
+            android:text="撒旦发"/>
 
     </FrameLayout>
 </layout>
