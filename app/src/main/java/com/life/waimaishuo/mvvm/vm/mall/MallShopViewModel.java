@@ -150,21 +150,21 @@ public class MallShopViewModel extends BaseViewModel {
 
     public List<Goods> getGoodsData() {
         List<Goods> list = new ArrayList<>();
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
-        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg","","$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
+        list.add(new Goods("欧舒丹甜蜜樱桃服装","好商品","https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=798311711,2439352606&fm=26&gp=0.jpg",1,"$378.88"));
         return list;
     }
 

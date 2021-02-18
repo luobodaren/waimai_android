@@ -1,12 +1,11 @@
 package com.life.waimaishuo.mvvm.model;
 
-import androidx.databinding.BaseObservable;
-
-import java.util.Observable;
+import androidx.databinding.ObservableInt;
 
 public class BaseModel {
 
     public interface RequestCallBack<T>{
+
         void onSuccess(T result);
 
         void onFail(String error);
@@ -17,20 +16,25 @@ public class BaseModel {
      */
     public static class NotifyChangeRequestCallBack implements RequestCallBack<Object> {
 
-        private BaseObservable baseObservable;
+        private ObservableInt baseObservableInt;
 
-        public NotifyChangeRequestCallBack(BaseObservable baseObservable) {
-            this.baseObservable = baseObservable;
+        public static final int REQUEST_SUCCESS = 0;
+        public static final int REQUEST_FALSE = -1;
+
+        public NotifyChangeRequestCallBack(ObservableInt baseObservableInt) {
+            this.baseObservableInt = baseObservableInt;
         }
 
         @Override
         public void onSuccess(Object result) {
-            baseObservable.notifyChange();
+            baseObservableInt.set(REQUEST_SUCCESS);
+            baseObservableInt.notifyChange();
         }
 
         @Override
         public void onFail(String error) {
-            baseObservable.notifyChange();
+            baseObservableInt.set(REQUEST_FALSE);
+            baseObservableInt.notifyChange();
         }
     }
 

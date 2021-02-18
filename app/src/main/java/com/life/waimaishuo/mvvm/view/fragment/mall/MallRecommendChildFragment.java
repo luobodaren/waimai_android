@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,7 +60,7 @@ public class MallRecommendChildFragment extends BaseRecyclerFragment {
     }
 
     @Override
-    protected void onRecyclerBindViewHolder(BaseViewHolder helper, Object item) {
+    protected void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
         TextView prePriceTV = helper.getView(R.id.tv_pre_price);
         prePriceTV.setText(TextUtil.getStrikeThroughSpanSpannable(((Goods)item).getPrice()));
     }

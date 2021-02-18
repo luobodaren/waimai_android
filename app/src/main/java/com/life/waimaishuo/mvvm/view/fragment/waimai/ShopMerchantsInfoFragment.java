@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -117,8 +118,7 @@ public class ShopMerchantsInfoFragment extends BaseFragment {
         mBinding.recyclerInfoDetail.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.recyclerInfoDetail.setAdapter(new MyBaseRecyclerAdapter<ShopInfoItem>(R.layout.item_recycler_shop_info_text,mViewModel.getShopInfoList(), com.life.waimaishuo.BR.item){
             @Override
-            protected void initView(BaseViewHolder helper, ShopInfoItem item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, ShopInfoItem item) {
                 if(item.getValue() != null && !"".equals(item.getValue())){
                     helper.getView(R.id.iv_right).setVisibility(View.GONE);
                 }else{  //可点击进入子页面的项目

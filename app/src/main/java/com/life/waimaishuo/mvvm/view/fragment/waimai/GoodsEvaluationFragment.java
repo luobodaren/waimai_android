@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -82,7 +83,7 @@ public class GoodsEvaluationFragment extends BaseTabSegmentRecyclerFragment {
     }
 
     @Override
-    protected void onRecyclerBindViewHolder(BaseViewHolder helper, Object item) {
+    protected void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
         RecyclerView recyclerView = helper.getView(R.id.recycler_comment_picture);
         MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture,((Comment)item).getCommentPictureList(), com.life.waimaishuo.BR.item);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(),3,LinearLayoutManager.VERTICAL,false);

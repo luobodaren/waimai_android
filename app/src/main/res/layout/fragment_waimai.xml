@@ -9,222 +9,106 @@
             type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel" />
     </data>
 
-    <!--嵌套滑动父控件-->
-    <com.life.waimaishuo.views.StickyNavigationLayout
-        android:id="@+id/sticky_navigation_layout"
+    <LinearLayout
+        android:id="@+id/my_ll_content_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
-        android:orientation="vertical"
-        app:fitStatusBar="false">
+        android:background="@drawable/sr_bg_gradient_theme_color"
+        android:orientation="vertical">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/top_view"
+        <!--嵌套滑动父控件-->
+        <com.life.waimaishuo.views.StickyNavigationLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/sr_bg_gradient_theme_color"
-            android:overScrollMode="never">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:nestedScrollingEnabled="true"
+            app:fitStatusBar="false"
+            android:tag="aaa">
 
             <LinearLayout
-                android:id="@+id/my_ll_content_view"
+                android:id="@+id/top_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
                 <include
                     android:id="@+id/layout_title"
                     layout="@layout/title_location_with_function" />
 
-                <LinearLayout
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sticky_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/sr_bg_waimai"
+                android:paddingTop="@dimen/interval_size_xs">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/search_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/sr_bg_waimai"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/et_search"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingTop="@dimen/interval_size_xs">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/search_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{(v)->viewModel.onSearchBtClick(v)}">
-
-                            <TextView
-                                android:id="@+id/et_search"
-                                android:layout_width="match_parent"
-                                android:layout_height="68px"
-                                android:layout_marginStart="@dimen/interval_size_xs"
-                                android:layout_marginEnd="@dimen/interval_size_xs"
-                                android:background="@drawable/sr_bg_search"
-                                android:drawableStart="@drawable/ic_search_gray"
-                                android:drawablePadding="8px"
-                                android:gravity="center_vertical"
-                                android:hint="搜索词"
-                                android:paddingStart="24px"
-                                android:textSize="26px"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <Button
-                                android:id="@+id/bt_search"
-                                android:layout_width="108px"
-                                android:layout_height="52px"
-                                android:layout_marginEnd="8px"
-                                android:background="@drawable/sr_bt_search"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:text="@string/search"
-                                android:textColor="@color/white"
-                                android:textSize="26px"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/search_record"
-                            style="@style/recycler_default"
-                            android:layout_marginTop="16px" />
-
-                        <com.xuexiang.xui.widget.banner.recycler.BannerLayout
-                            android:id="@+id/banner_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="230px"
-                            android:layout_marginTop="@dimen/interval_size_xs"
-                            app:bl_autoPlaying="true"
-                            app:bl_centerScale="1"
-                            app:bl_itemSpace="0px"
-                            app:bl_moveSpeed="1.8"
-                            app:bl_showIndicator="false" />
-
-                    </LinearLayout>
-
-                    <!--                    <com.meetsl.scardview.SCardView-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="24px"-->
-                    <!--                        android:layout_marginStart="24px"-->
-                    <!--                        android:layout_marginEnd="24px"-->
-                    <!--                        app:cardCornerRadius="8dp"-->
-                    <!--                        app:cardElevation="6px"-->
-                    <!--                        app:cardLightDirection="LT">-->
-                    <!--                    </com.meetsl.scardview.SCardView>-->
-
-                    <!--<com.meetsl.scardview.SCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24px"
-                        android:layout_marginStart="24px"
-                        android:layout_marginEnd="24px">
-                    </com.meetsl.scardview.SCardView>-->
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_food_type"
-                        style="@style/recycler_default"
+                        android:layout_height="68px"
                         android:layout_marginStart="@dimen/interval_size_xs"
-                        android:layout_marginTop="@dimen/interval_size_xs"
                         android:layout_marginEnd="@dimen/interval_size_xs"
-                        android:background="@drawable/sr_bg_12dp_white"
-                        android:paddingTop="@dimen/interval_size_xs"
-                        android:paddingBottom="@dimen/interval_size_xs"
-                        android:visibility="gone" />
+                        android:background="@drawable/sr_bg_search"
+                        android:drawableStart="@drawable/ic_search_gray"
+                        android:drawablePadding="8px"
+                        android:gravity="center_vertical"
+                        android:hint="搜索词"
+                        android:paddingStart="24px"
+                        android:textSize="26px"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_my_exclusive"
-                        style="@style/recycler_default"
-                        android:layout_marginStart="@dimen/interval_size_xs"
-                        android:layout_marginTop="@dimen/interval_size_xs"
-                        android:layout_marginEnd="@dimen/interval_size_xs"
-                        android:background="@drawable/sr_bg_12dp_white"
-                        android:paddingStart="@dimen/interval_size_xs"
-                        android:paddingTop="@dimen/interval_size_xs"
-                        android:paddingBottom="@dimen/interval_size_xs"
-                        android:visibility="gone" />
+                    <Button
+                        android:id="@+id/bt_search"
+                        android:layout_width="108px"
+                        android:layout_height="52px"
+                        android:layout_marginEnd="8px"
+                        android:background="@drawable/sr_bt_search"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:text="@string/search"
+                        android:textColor="@color/white"
+                        android:textSize="26px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/et_search"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <!--<com.meetsl.scardview.SCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24px"
-                        android:layout_marginStart="24px"
-                        android:layout_marginEnd="24px">
-                    </com.meetsl.scardview.SCardView>-->
-
-                    <include
-                        android:id="@+id/layout_activity_region"
-                        layout="@layout/layout_waimai_activity_region"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/interval_size_xs"
-                        android:visibility="gone" />
-
-
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
 
-        <!--TabLayout-->
-        <com.xuexiang.xui.widget.tabbar.TabSegment
-            android:id="@+id/sticky_view"
-            style="@style/waimaiRecommendedTabSegment"
-            android:layout_width="match_parent"
-            android:layout_height="80px"
-            android:paddingStart="@dimen/interval_size_xs"
-            android:paddingTop="@dimen/interval_size_xs"
-            android:paddingEnd="@dimen/interval_size_xs"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:id="@+id/content_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/child_sign_recycler"
-                style="@style/waimaiRecommendedTabSegment"
+            <TextView
+                android:id="@+id/content_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/interval_size_xs"
-                android:visibility="gone"/>
-
-            <com.life.waimaishuo.views.SortTypeView
-                android:id="@+id/sortTypeView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background"
-                android:paddingTop="30px"
-                app:showTabSegment="true" />
-        </LinearLayout>
-
-
-        <!--ViewPager-->
-        <FrameLayout
-            android:id="@+id/adaptive_size_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background">
+                android:layout_height="1px"
+                android:background="@color/background"/>
 
             <FrameLayout
-                android:id="@+id/fl_state"
+                android:id="@+id/adaptive_size_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/background">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPager"
+                <!-- 修改为动态引入，以配合StickyNavigationLayout使用嵌套滑动获取父布局 -->
+                <!--<include
+                    android:id="@+id/adaptive_view"
+                    layout="@layout/fragment_waimai_adaptive_size_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"/>-->
 
             </FrameLayout>
 
-        </FrameLayout>
 
-    </com.life.waimaishuo.views.StickyNavigationLayout>
+        </com.life.waimaishuo.views.StickyNavigationLayout>
+
+    </LinearLayout>
 
 </layout>

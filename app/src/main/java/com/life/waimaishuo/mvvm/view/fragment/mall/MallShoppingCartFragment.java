@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -190,9 +191,7 @@ public class MallShoppingCartFragment extends BaseFragment {
     private MyBaseRecyclerAdapter getShopRecyclerAdapter() {
         return new MyBaseRecyclerAdapter<MallShoppingCartItemData>(R.layout.layout_recycler_swipe, mViewModel.getShoppingCartData()) {
             @Override
-            protected void initView(BaseViewHolder helper, MallShoppingCartItemData item) {
-                super.initView(helper, item);
-
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MallShoppingCartItemData item) {
 
                 // TODO: 2021/1/21 注意一下这里 判断全选状态 后续对接接口时
                 if(item.isSelectedAll()){

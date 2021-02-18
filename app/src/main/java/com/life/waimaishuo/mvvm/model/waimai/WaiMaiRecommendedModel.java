@@ -1,47 +1,64 @@
 package com.life.waimaishuo.mvvm.model.waimai;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.net.HttpUtils;
+import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.bean.ui.ImageUrlNameData;
+import com.life.waimaishuo.bean.api.request.WaiMaiRecommendReqData;
 import com.life.waimaishuo.constant.ApiConstant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 public class WaiMaiRecommendedModel extends BaseModel {
 
-    public Map<String ,List<Shop>> shopListMap = new HashMap<>();
     public List<Shop> shopList  = new ArrayList<>();
+    public List<Shop> shopGoodsList = new ArrayList<>();//发现好物
 
     /**
      * 获取推荐列表
-     * @param title
      * @return
      */
-    public List<Shop> getListData(String title){
-        List<Shop> shopList = shopListMap.get(title);
-        if(shopList == null){
-            shopList =  new ArrayList<>();
-        }
+    public List<Shop> getShopList(){
         return shopList;
     }
 
-    public void requestRecommendShopListData(String title, RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
+    /**
+     * 获取商品列表
+     * @return
+     */
+    public List<Shop> getShopGoodsList() {
+        return shopGoodsList;
+    }
+
+    // TODO: 2021/2/5 增加对应分页的接口、逻辑
+    /**
+     * 获取发现好物列表
+     * @param requestCallBack
+     * @param reqData
+     * @param timeOutRequestTime
+     */
+    public void requestGoodsListData(RequestCallBack<Object> requestCallBack, WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
         timeOutRequestTime--;
         int count = timeOutRequestTime;
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_GOODS_LIST, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_GOODS_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
-                    shopList = GsonUtil.parserJsonToArrayBeans(data,"sysDecorations", Shop.class);
-                    shopListMap.put(title,shopList);
-                    requestCallBack.onSuccess(shopList);
+                    String total = GsonUtil.getNoteJsonString(data,"total");
+                    shopGoodsList = GsonUtil.parserJsonToArrayBeans(data,"list", Shop.class);
+                    for (Shop shop:shopGoodsList) {
+                        shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
+                        for (Goods goods:shop.getGoodsInfoList()) {
+                            goods.setGoodsImgUrl(HttpUtils.changeToHttps(goods.getGoodsImgUrl()));
+                        }
+                    }
+                    requestCallBack.onSuccess(total);
                 } else {
                     requestCallBack.onSuccess(null);
                 }
@@ -49,13 +66,12 @@ public class WaiMaiRecommendedModel extends BaseModel {
 
             @Override
             public void onError(Throwable error) {
-                shopList = shopListMap.get(title);
-                if(shopList != null){
-                    shopList.clear();
+                if(shopGoodsList != null){
+                    shopGoodsList.clear();
                 }
                 if (error instanceof TimeoutException) {
                     if (count >= 0) {
-                        requestRecommendShopListData(title, requestCallBack, count);
+                        requestGoodsListData(requestCallBack, reqData, count);
                     } else {
                         requestCallBack.onFail(error.getMessage());
                     }
@@ -66,16 +82,26 @@ public class WaiMaiRecommendedModel extends BaseModel {
         });
     }
 
-    public void requestShopListData(String title, RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
+    /**
+     * 推荐店铺
+     * @param requestCallBack
+     * @param reqData
+     * @param timeOutRequestTime
+     */
+    public void requestShopListData(RequestCallBack<Object> requestCallBack, WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
+        LogUtil.d("requestShopListData" + GsonUtil.toJsonString(reqData));
         timeOutRequestTime--;
         int count = timeOutRequestTime;
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_GOODS_LIST, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SHIOP_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
-                    shopList = GsonUtil.parserJsonToArrayBeans(data,"sysDecorations", Shop.class);
-                    shopListMap.put(title, shopList);
-                    requestCallBack.onSuccess(shopList);
+                    String total = GsonUtil.getNoteJsonString(data,"total");
+                    shopList = GsonUtil.parserJsonToArrayBeans(data,"list", Shop.class);
+                    for (Shop shop:shopList) {
+                        shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
+                    }
+                    requestCallBack.onSuccess(total);
                 } else {
                     requestCallBack.onSuccess(null);
                 }
@@ -83,13 +109,12 @@ public class WaiMaiRecommendedModel extends BaseModel {
 
             @Override
             public void onError(Throwable error) {
-                shopList = shopListMap.get(title);
                 if(shopList != null){
                     shopList.clear();
                 }
                 if (error instanceof TimeoutException) {
                     if (count >= 0) {
-                        requestShopListData(title, requestCallBack, count);
+                        requestShopListData(requestCallBack, reqData, count);
                     } else {
                         requestCallBack.onFail(error.getMessage());
                     }

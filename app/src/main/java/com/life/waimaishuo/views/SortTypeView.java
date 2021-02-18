@@ -49,6 +49,7 @@ public class SortTypeView extends FrameLayout {
 
     private List<String> tabTypes = new ArrayList<>();//tab title
     private SortPopup mSortPopup;    //综合排序点击弹出pop
+    private SortTypeEnum popSelectedTypeEnum = SortTypeEnum.SCORE;  //pop选中的排序
     private SortTypeEnum currentSortTypeEnum = SortTypeEnum.SCORE; //当前选择的排序Enum
     private onSortTypeChangeListener mOnSortTypeChangeListener;
     int currentSelectedSort = 1;    //当前选中的排序类型
@@ -122,6 +123,18 @@ public class SortTypeView extends FrameLayout {
         if (screenRecyclerAdapter != null) {
             screenRecyclerAdapter.notifyDataSetChanged();
         }
+    }
+
+    public SortTypeEnum getCurrentSortTypeEnum() {
+        return currentSortTypeEnum;
+    }
+
+    public String[] getSelectedPreferential(){
+        TabSegment.Tab tab = mBinding.tabSegment.getTab(mBinding.tabSegment.getSelectedIndex());
+        if(tab == null){
+            return new String[]{};
+        }
+        return new String[]{tab.getText().toString()};
     }
 
     private void addSortTypeView() {
@@ -217,10 +230,12 @@ public class SortTypeView extends FrameLayout {
     private void onTypeClick(View view) {
         if (currentSelectedSort == 1) {   //当前为已选中状态
             showSortPop();//显示popWindow 选择排序方法
-        }
-        setSelectedSort(1);
-        if (mOnSortTypeChangeListener != null) {
-            mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
+        }else{
+            setSelectedSort(1);
+            currentSortTypeEnum = popSelectedTypeEnum;
+            if (mOnSortTypeChangeListener != null) {
+                mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
+            }
         }
     }
 
@@ -390,7 +405,8 @@ public class SortTypeView extends FrameLayout {
             mSortPopup = new SortPopup(getContext(), XUIListPopup.DIRECTION_NONE, adapter);
             mSortPopup.create((int) UIUtils.getInstance().getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
                 mSortPopup.dismiss();
-                currentSortTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
+                popSelectedTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
+                currentSortTypeEnum = popSelectedTypeEnum;
                 mBinding.tvSortType.setText(currentSortTypeEnum.getType());
                 mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
             });

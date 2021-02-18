@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -541,8 +542,7 @@ public class OrderConfirmFragment extends BaseFragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
                     recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_waimai_order_preferential,mViewModel.getPreferentialList(), com.life.waimaishuo.BR.item){
                         @Override
-                        protected void initView(BaseViewHolder helper, Object item) {
-                            super.initView(helper, item);
+                        protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
                             helper.setText(R.id.tv_tag,"配送费");
                         }
                     });

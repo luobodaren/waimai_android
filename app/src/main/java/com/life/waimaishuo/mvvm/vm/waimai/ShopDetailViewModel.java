@@ -117,7 +117,7 @@ public class ShopDetailViewModel extends BaseViewModel {
             shop = new Shop();
             shop.setNotice("感受一碗粥的小幸福的小幸福。");
             shop.setNumber_of_fans("21");
-            shop.setSale_count_per_month("2000");
+            shop.setMonSalesVolume("2000");
             shop.setFavorable_rate("4.5");
             shop.setShop_name("1点点奶茶店");
             shop.setShop_head_portrait("https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1907944722,1971859883&fm=26&gp=0.jpg");

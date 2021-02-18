@@ -39,7 +39,7 @@ public class OrderListItemViewModel extends BaseViewModel {
         List<Goods> goodsList = new ArrayList<>();
         Goods goods = new Goods("来吃烧烤！！！来吃烧烤！！！","这是一堆烧烤",
                 "https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",
-                "2","550.00");
+                2,"550.00");
         goodsList.add(goods);
         goodsList.add(goods);
         goodsList.add(goods);

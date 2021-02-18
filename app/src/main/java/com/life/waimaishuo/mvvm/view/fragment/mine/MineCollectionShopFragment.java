@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,7 +72,7 @@ public class MineCollectionShopFragment extends BaseRecyclerFragment {
     String[] tags = {"“味道不错，挺好吃的”","大写的好吃"};
     String[] tags2 = {"40减20","60减25","4元会员红包","40减20","40减20","40减20","40减20","40减20","40减20"};
     @Override
-    protected void onRecyclerBindViewHolder(BaseViewHolder helper, Object item) {
+    protected void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
         FlowTagLayout flowTagLayout = helper.getView(R.id.flowTagLayout_comment);
         FlowTagLayout flowTagLayout1 = helper.getView(R.id.flowTagLayout_preferential);
 

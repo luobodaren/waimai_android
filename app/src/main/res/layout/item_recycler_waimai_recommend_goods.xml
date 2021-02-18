@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.life.waimaishuo.bean.Shop" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/interval_size_xs"
+            android:background="@drawable/sr_bg_8dp_white"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/interval_size_xs">
+
+            <com.life.waimaishuo.views.FilletImageView
+                android:id="@+id/iv_goods_img"
+                android:layout_width="342px"
+                android:layout_height="342px"
+                android:scaleType="centerCrop"
+                app:filletImageRadius="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:topLeftCorner="true"
+                app:topRightCorner="true"/>
+
+
+            <TextView
+                android:id="@+id/tv_goods_name"
+                style="@style/text_my_simple_style"
+                android:layout_width="0px"
+                android:layout_marginStart="16px"
+                android:layout_marginTop="16px"
+                android:layout_marginEnd="16px"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/text_normal"
+                android:textSize="28px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_goods_img" />
+
+            <TextView
+                android:id="@+id/tv_goods_price"
+                style="@style/text_my_simple_style"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:textColor="@color/colorTheme"
+                android:textSize="28px"
+                app:layout_constraintStart_toStartOf="@id/tv_goods_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_goods_name"
+                tools:text="￥899.00" />
+
+            <TextView
+                android:id="@+id/tv_count_of_pay"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="8px"
+                android:textColor="@color/text_tip"
+                android:textSize="20px"
+                android:layout_marginBottom="2px"
+                app:layout_constraintBottom_toBottomOf="@id/tv_goods_price"
+                app:layout_constraintStart_toEndOf="@id/tv_goods_price"
+                tools:text="320人付款" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

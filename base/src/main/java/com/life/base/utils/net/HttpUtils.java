@@ -332,7 +332,7 @@ public class HttpUtils {
                         if(data != null){
                             httpCallback.onSuccess(data);
                         }else{
-                            LogUtil.e("error:返回 code != 0" + " url:" + request.url().toString());
+                            LogUtil.e("error:返回 code != 0" + " url:" + request.url().toString() + " resultJson:" + json);
                             httpCallback.onError(new Error("返回 code != 0"));
                         }
                     }

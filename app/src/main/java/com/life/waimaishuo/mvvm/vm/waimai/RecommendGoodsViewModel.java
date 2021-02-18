@@ -25,14 +25,14 @@ public class RecommendGoodsViewModel extends BaseViewModel {
 
     public List<Goods> getGoodsList() {
         List<Goods> foods = new ArrayList<>();
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
+        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
         return foods;
     }
 }

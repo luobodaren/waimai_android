@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -79,8 +80,8 @@ public class MallMainGetCouponCenterFragment extends BaseFragment {
         adapter = new MyBaseRecyclerAdapter<Coupon>(R.layout.item_recycler_mall_get_coupon,
                 ((MallMainTypeViewModel) baseViewModel).getCouponDataList(), com.life.waimaishuo.BR.item) {
             @Override
-            protected void initView(BaseViewHolder helper, Coupon item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Coupon item) {
+                super.initView(viewDataBinding, helper, item);
                 HorizontalProgressView hpv = helper.getView(R.id.hpv_remaining_coupon_count);
                 float progress = Float.valueOf(item.getRemainingCount()) / Float.valueOf(item.getAllCount());
                 if (progress < 0) {

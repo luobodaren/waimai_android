@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,10 +86,7 @@ public class MallShopGoodGoodsFragment extends BaseFragment {
                 new MyBaseRecyclerAdapter<MallShopGoodGoods>(R.layout.item_recycler_mall_shop_good_goods,
                         ((MallShopViewModel)baseViewModel).getGoodGoodsData()){
                     @Override
-                    protected void initView(BaseViewHolder helper, MallShopGoodGoods item) {
-
-                        super.initView(helper, item);
-
+                    protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MallShopGoodGoods item) {
                         Glide.with(requireContext())
                                 .load(item.getGoodsImglist().get(0))    //取第一张图片
                                 .centerCrop()
@@ -108,8 +106,7 @@ public class MallShopGoodGoodsFragment extends BaseFragment {
                                     new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_mall_shop_good_goods_chiren,
                                             item.getGoodsImglist()){
                                         @Override
-                                        protected void initView(BaseViewHolder helper, String item) {
-                                            super.initView(helper, item);
+                                        protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, String item) {
                                             Glide.with(requireContext())
                                                     .load(item)
                                                     .placeholder(R.drawable.ic_waimai_brand)

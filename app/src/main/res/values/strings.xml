@@ -102,6 +102,8 @@
     <string name="super_member">超级会员</string>
     <string name="pay_type">支付方式</string>
     <string name="distribution_time">配送时间</string>
+    <string name="dist_time_and_distance">%1$s分钟&#160;&#160;%2$skm</string>
+    <string name="price_start_deliver_delivering_avg">起送%1$s元&#160;&#160;配送%2$s元&#160;&#160;人均%3$s元</string>
     <string name="reserved_phone">预留电话</string>
     <string name="time_of_take_the_meal">取餐时间</string>
     <string name="type_of_take_the_meal">取餐方式</string>

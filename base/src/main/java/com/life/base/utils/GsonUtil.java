@@ -183,7 +183,7 @@ public class GsonUtil {
         if(TextUtils.isEmpty(jsonString)){
             throw new RuntimeException("json字符串为空");
         }
-        JsonElement jsonElement = new JsonParser().parse(jsonString);
+        JsonElement jsonElement = JsonParser.parseString(jsonString);
         if(jsonElement.isJsonNull()){
             throw new RuntimeException("得到的jsonElement对象为空");
         }
@@ -221,7 +221,7 @@ public class GsonUtil {
         if(TextUtils.isEmpty(jsonString)){
             throw new RuntimeException("json字符串为空");
         }
-        JsonElement jsonElement = new JsonParser().parse(jsonString);
+        JsonElement jsonElement = JsonParser.parseString(jsonString);
         if(jsonElement.isJsonNull()){
             throw new RuntimeException("json字符串为空");
         }

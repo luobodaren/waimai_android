@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -142,8 +143,7 @@ public class MallMainTypeFragment extends BaseFragment {
                 ,mViewModel.getMallQuickWindowDataList()){
             int textSize = (int) UIUtils.getInstance().scalePx(22);
             @Override
-            protected void initView(BaseViewHolder helper, MallQuickWindowData item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MallQuickWindowData item) {
                 View head;
                 if(helper.getAdapterPosition() == 0){   //秒杀抢购
                     head = View.inflate(requireContext(),R.layout.head_mall_quick_window_second_kill,null);

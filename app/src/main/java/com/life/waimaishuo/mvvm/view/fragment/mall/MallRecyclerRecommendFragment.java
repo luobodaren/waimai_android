@@ -1,5 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.mall;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -89,9 +90,7 @@ public class MallRecyclerRecommendFragment extends BaseFragment {
                 mViewModel.getRecommendGoodsList(), com.life.waimaishuo.BR.goods){
             int textSize = (int) UIUtils.getInstance().scalePx(20);
             @Override
-            protected void initView(BaseViewHolder helper, Goods item) {
-                super.initView(helper, item);
-
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Goods item) {
                 helper.setText(R.id.tv_goods_price,
                         TextUtil.getAbsoluteSpannable("￥" + item.getPrice(),
                                 textSize,0,1));

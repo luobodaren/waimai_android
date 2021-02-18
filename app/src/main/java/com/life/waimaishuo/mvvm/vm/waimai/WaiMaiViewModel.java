@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 import android.view.View;
 
 import androidx.databinding.BaseObservable;
+import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchTag;
@@ -22,12 +23,12 @@ public class WaiMaiViewModel extends BaseViewModel {
 
     public BaseObservable goToSearchObservable = new BaseObservable();
 
-    public BaseObservable bannerUpdateObservable = new BaseObservable();
-    public BaseObservable searchTagObservable = new BaseObservable();
-    public BaseObservable kingKongAreaObservable = new BaseObservable();
-    public BaseObservable exclusiveBreakfastObservable = new BaseObservable();
-    public BaseObservable activityRegionObservable = new BaseObservable();
-    public BaseObservable recommendTitleObservable = new BaseObservable();
+    public ObservableInt bannerUpdateObservable = new ObservableInt();
+    public ObservableInt searchTagObservable = new ObservableInt();
+    public ObservableInt kingKongAreaObservable = new ObservableInt();
+    public ObservableInt exclusiveBreakfastObservable = new ObservableInt();
+    public ObservableInt activityRegionObservable = new ObservableInt();
+    public ObservableInt recommendTitleObservable = new ObservableInt();
 
     private WaimaiRecommendedFragment recommendedFragment;
     private WaimaiModel mModel;
@@ -164,7 +165,7 @@ public class WaiMaiViewModel extends BaseViewModel {
         return mModel.mLimitedTimeGoodsDataList;
     }
 
-    public List<String> getPreferential() {
+    public List<String> getPreferential() { // FIXME: 2021/2/5 对接接口
         List<String> cashBackList = new ArrayList<>();
         cashBackList.add("津贴优惠");
         cashBackList.add("会员领红包");

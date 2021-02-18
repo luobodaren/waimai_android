@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 import android.widget.Toast;
 
 import androidx.databinding.Observable;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -113,8 +114,7 @@ public class ShopEvaluationFragment extends BaseFragment {
         mBinding.recyclerComments.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.recyclerComments.setAdapter(new MyBaseRecyclerAdapter<Comment>(R.layout.item_recycler_waimai_shop_comment,mViewModel.getCommentsData(), com.life.waimaishuo.BR.item){
             @Override
-            protected void initView(BaseViewHolder helper, Comment item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Comment item) {
 //                ScoreView scoreView = helper.getView(R.id.score_view);
 //                scoreView.hideTitle();
 //                scoreView.hideFans();

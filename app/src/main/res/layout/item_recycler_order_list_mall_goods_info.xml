@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="17px"
             android:includeFontPadding="false"
-            android:text="@{goods.buyNum}"
+            android:text="@{String.valueOf(goods.monSalesVolume)}"
             android:textColor="@color/text_tip"
             android:textSize="26px"
             app:layout_constraintEnd_toEndOf="@id/tv_goods_price"

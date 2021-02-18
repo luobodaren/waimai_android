@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -118,9 +119,7 @@ public class MallFragment extends BaseFragment {
                 new MyBaseRecyclerAdapter<ImageUrlNameData>(R.layout.item_recycler_mall_tab_goods_type,
                         mViewModel.getTypeTabData(), com.life.waimaishuo.BR.item){
                     @Override
-                    protected void initView(BaseViewHolder helper, ImageUrlNameData item) {
-                        super.initView(helper, item);
-
+                    protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, ImageUrlNameData item) {
                         Glide.with(helper.itemView.getContext())
                                 .load(item.getImgUrl())
                                 .centerCrop()

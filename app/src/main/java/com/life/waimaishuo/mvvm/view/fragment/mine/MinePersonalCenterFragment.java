@@ -2,6 +2,7 @@ package com.life.waimaishuo.mvvm.view.fragment.mine;
 
 import android.os.Bundle;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -107,8 +108,7 @@ public class MinePersonalCenterFragment extends BaseFragment {
     private MyBaseRecyclerAdapter<PersonalInfo> getRecyclerAdapter(List<PersonalInfo> list){
         return new MyBaseRecyclerAdapter<PersonalInfo>(R.layout.item_recycler_personal_info_text,list, com.life.waimaishuo.BR.item){
             @Override
-            protected void initView(BaseViewHolder helper, PersonalInfo item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, PersonalInfo item) {
                 if(item.getLeftIvUrl() == null || "".equals(item.getLeftIvUrl())){
                     setViewVisibility(helper.getView(R.id.iv_left),false);
                 }else{

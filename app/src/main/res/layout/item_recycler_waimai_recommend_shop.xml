@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="goods"
-            type="com.life.waimaishuo.bean.Goods" />
+            name="item"
+            type="com.life.waimaishuo.bean.Shop" />
     </data>
 
     <com.life.base.views.UiAdapterLinearLayout
@@ -22,10 +23,10 @@
 
             <com.xuexiang.xui.widget.imageview.RadiusImageView
                 android:id="@+id/iv_goods_img"
+                imageUrl="@{item.shop_head_portrait}"
                 android:layout_width="160px"
                 android:layout_height="160px"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_waimai_brand"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:riv_corner_radius="8dp" />
@@ -38,7 +39,7 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text="@{goods.name}"
+                android:text="@{item.shop_name}"
                 android:textColor="@color/text_normal"
                 android:textSize="30px"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,17 +61,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20px"
                 android:includeFontPadding="false"
-                android:text="月售3035"
                 android:textColor="@color/text_tip"
                 android:textSize="26px"
                 app:layout_constraintBottom_toBottomOf="@id/score_layout"
                 app:layout_constraintStart_toEndOf="@id/score_layout"
-                app:layout_constraintTop_toTopOf="@id/score_layout" />
+                app:layout_constraintTop_toTopOf="@id/score_layout"
+                tools:text="月售3035" />
 
             <TextView
+                android:id="@+id/tv_distance_and_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30分钟   2.6km"
+                tools:text="30分钟   2.6km"
                 android:textSize="26px"
                 app:layout_constraintBottom_toBottomOf="@id/score_layout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24px"
-                android:text="起送20元 配送5元 人均10元"
+                tools:text="起送20元 配送5元 人均10元"
                 android:textSize="26px"
                 app:layout_constraintStart_toStartOf="@id/score_layout"
                 app:layout_constraintTop_toBottomOf="@id/score_layout" />

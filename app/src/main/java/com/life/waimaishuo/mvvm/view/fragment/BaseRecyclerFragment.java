@@ -2,6 +2,7 @@ package com.life.waimaishuo.mvvm.view.fragment;
 
 import android.view.View;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -16,9 +17,11 @@ import java.util.List;
  * 带RecyclerView的布局
  * 实现了状态切换
  */
-public abstract class BaseRecyclerFragment extends BaseStatusLoaderFragment {
+public abstract class BaseRecyclerFragment<T> extends BaseStatusLoaderFragment {
 
     protected RecyclerView mRecyclerView;
+
+    protected MyBaseRecyclerAdapter<T> recyclerAdapter;
 
     @Override
     protected void bindViewModel() {
@@ -27,7 +30,7 @@ public abstract class BaseRecyclerFragment extends BaseStatusLoaderFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_base_recycler;
+        return R.layout.fragment_base_recycler_padding_start_end;
     }
 
     @Override
@@ -41,15 +44,17 @@ public abstract class BaseRecyclerFragment extends BaseStatusLoaderFragment {
 
 //        showLoading();  //默认显示loading布局   //需要调用
 
+        recyclerAdapter = new MyBaseRecyclerAdapter<T>(getItemLayoutId(),getListData(),getVariableId()) {
+            @Override
+            protected void initView(ViewDataBinding binding, BaseViewHolder helper, T item) {
+                super.initView(binding, helper, item);
+                onRecyclerBindViewHolder(binding,helper,item);
+            }
+        };
+
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(getRecyclerLayoutManager());
-        mRecyclerView.setAdapter(new MyBaseRecyclerAdapter(getItemLayoutId(),getListData(),getVariableId()) {
-            @Override
-            protected void initView(BaseViewHolder helper, Object item) {
-                super.initView(helper, item);
-                onRecyclerBindViewHolder(helper,item);
-            }
-        });
+        mRecyclerView.setAdapter(recyclerAdapter);
         RecyclerView.ItemDecoration itemDecoration = getItemDecoration();
         if(itemDecoration != null){
             mRecyclerView.addItemDecoration(itemDecoration);
@@ -60,13 +65,13 @@ public abstract class BaseRecyclerFragment extends BaseStatusLoaderFragment {
 
     protected abstract RecyclerView.LayoutManager getRecyclerLayoutManager();
 
-    protected abstract List getListData();
+    protected abstract List<T> getListData();
 
     protected abstract int getVariableId();
 
     protected abstract RecyclerView.ItemDecoration getItemDecoration();
 
-    protected abstract void onRecyclerBindViewHolder(BaseViewHolder helper, Object item);
+    protected abstract void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding,BaseViewHolder helper, T item);
 
     @Override
     protected View getWrapView() {

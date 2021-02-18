@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -99,8 +100,7 @@ public class OrderConfirmFragment extends BaseFragment {
         mBinding.recyclerShopsGoods.setAdapter(
                 new MyBaseRecyclerAdapter<MallOrder>(R.layout.item_recycler_mall_comfirm_order_shops_goods,mViewModel.getMallOrder()){
                     @Override
-                    protected void initView(BaseViewHolder helper, MallOrder item) {
-                        super.initView(helper, item);
+                    protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MallOrder item) {
                         ImageView shopIcon = helper.getView(R.id.iv_shop_icon);
                         Glide.with(requireContext())
                                 .load(item.getShop().getShop_head_portrait())

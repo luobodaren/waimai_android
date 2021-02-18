@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -167,8 +168,7 @@ public class OrderDetailFragment extends BaseFragment {
         recyclerView.setAdapter(
                 new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_confirm_order_info, typeDescribeValueList, com.life.waimaishuo.BR.item) {
                     @Override
-                    protected void initView(BaseViewHolder helper, Object item) {
-                        super.initView(helper, item);
+                    protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
                         if (helper.getAdapterPosition() == 1) {
                             helper.setTextColor(R.id.tv_type_value, getResources().getColor(R.color.text_normal));
                         }

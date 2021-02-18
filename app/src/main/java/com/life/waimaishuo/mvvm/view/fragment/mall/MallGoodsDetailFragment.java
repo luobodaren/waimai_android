@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -254,8 +255,8 @@ public class MallGoodsDetailFragment extends BaseFragment {
     private void initEvaluationRecycler() {
         MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_goods_detail_comment, mViewModel.getTopTwoComment(), com.life.waimaishuo.BR.item) {
             @Override
-            protected void initView(BaseViewHolder helper, Object item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
+                super.initView(viewDataBinding, helper, item);
                 RecyclerView recyclerView = helper.getView(R.id.recycler_comment_picture);
                 if(recyclerView.getAdapter() == null){
                     MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_shop_picture, ((Comment) item).getCommentPictureList(), com.life.waimaishuo.BR.item);
@@ -390,8 +391,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
             noneffectiveAddressRecycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
             noneffectiveAddressRecycler.setAdapter(new MyBaseRecyclerAdapter<Address>(R.layout.item_recycler_address_info_selectable, noneffectiveAddressList) {
                 @Override
-                protected void initView(BaseViewHolder helper, Address item) {
-                    super.initView(helper, item);
+                protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Address item) {
                     helper.setText(R.id.tv_recipients_info, item.getUser_name() + "  " + TextUtil.phoneHide(item.getPhone()));
                     helper.setText(R.id.tv_address, item.getAddress());
                     helper.setTextColor(R.id.tv_address, getResources().getColor(R.color.text_tip));

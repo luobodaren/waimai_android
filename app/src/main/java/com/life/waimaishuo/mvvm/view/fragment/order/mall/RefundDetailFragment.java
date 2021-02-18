@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -141,7 +142,7 @@ public class RefundDetailFragment extends BaseFragment {
                 new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         mBinding.recyclerOrderInfo.setAdapter(new MyBaseRecyclerAdapter<String>(R.layout.item_recycler_refund_info_text, mViewModel.getRefundOrderInfo()) {
             @Override
-            protected void initView(BaseViewHolder helper, String item) {
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, String item) {
                 int splitCharPosition = item.indexOf('：'); //中文字符'：'
                 if (splitCharPosition != -1) {
                     helper.setText(R.id.tv_left_type, item.substring(0, splitCharPosition) + "：");

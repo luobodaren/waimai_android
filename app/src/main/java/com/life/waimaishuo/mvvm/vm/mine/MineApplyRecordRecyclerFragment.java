@@ -1,5 +1,6 @@
 package com.life.waimaishuo.mvvm.vm.mine;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +47,7 @@ public class MineApplyRecordRecyclerFragment extends BaseRecyclerFragment {
     }
 
     @Override
-    protected void onRecyclerBindViewHolder(BaseViewHolder helper, Object item) {
+    protected void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
 
     }
 

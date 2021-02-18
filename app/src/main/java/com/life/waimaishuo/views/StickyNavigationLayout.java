@@ -17,6 +17,7 @@
 
 package com.life.waimaishuo.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -25,6 +26,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.NestedScrollingChild2;
+import androidx.core.view.NestedScrollingChildHelper;
 import androidx.core.view.NestedScrollingParent2;
 import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
@@ -39,13 +43,17 @@ import com.xuexiang.xui.utils.StatusBarUtils;
 /**
  * 支持导航栏与viewpager 导航栏吸附
  * <p>
- * 顶部支持滚动布局
+ * 支持顶部（TopView）滚动布局
+ * 支持多个StickyNavigationLayout嵌套使用（即adapterSizeView为另一个StickyNavigationLayout），需要代码中动态addView（使得StickyNavigationLayout可以拿到parent,进行嵌套滚动判断）
  */
-public class StickyNavigationLayout extends UiAdapterLinearLayout implements NestedScrollingParent2 {
+public class StickyNavigationLayout extends UiAdapterLinearLayout implements NestedScrollingParent2, NestedScrollingChild2 {
 
     public final static float CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW = -1; //可滚动距离根据TOP_VIEW而定
 
     private NestedScrollingParentHelper mNestedScrollingParentHelper;
+    private NestedScrollingChildHelper mNestedScrollingChildHelper;
+    private final int[] mScrollOffset = new int[2];
+    private final int[] mNestedOffsets = new int[2];
 
     private View mTopView;
     private View mNavigationView;
@@ -79,51 +87,117 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StickyNavigationLayout);
         mIsFitStatusBar = typedArray.getBoolean(R.styleable.StickyNavigationLayout_fitStatusBar, false);
         setOrientation(LinearLayout.VERTICAL);
-        mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
+        setNestedScrollingEnabled(true);
+    }
+
+    /* NestedScrollingChild2 接口实现 */
+    @Override
+    public boolean startNestedScroll(int axes, int type) {
+        boolean result = getScrollingChildHelper().startNestedScroll(axes,type);
+        LogUtil.d("startNestedScroll result:" + result + " ViewId:" + getTag());
+        return result;
     }
 
     @Override
+    public void stopNestedScroll(int type) {
+        getScrollingChildHelper().stopNestedScroll(type);
+    }
+
+    @Override
+    public boolean hasNestedScrollingParent(int type) {
+        return getScrollingChildHelper().hasNestedScrollingParent(type);
+    }
+
+    @Override
+    public boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, @Nullable int[] offsetInWindow, int type) {
+        return getScrollingChildHelper().dispatchNestedScroll(dxConsumed, dyConsumed,
+                dxUnconsumed, dyUnconsumed, offsetInWindow,type);
+    }
+
+    @Override
+    public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow, int type) {
+        boolean result = getScrollingChildHelper().dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow,
+                type);
+        LogUtil.d("dispatchNestedPreScroll result:" + result + " ViewId:" + getTag());
+        return result;
+    }
+
+    /* NestedScrollingParent2 接口实现 */
+    @SuppressLint("WrongConstant")
+    @Override
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         // consumed[0] 水平消耗的距离，consumed[1] 垂直消耗的距离
+
+        LogUtil.d("onNestedPreScroll ViewId:" + getTag());
 
         if (mIsNeedResetCanScrollDistance) {
             calculateCanScrollDistance();
             mIsNeedResetCanScrollDistance = false;
         }
 
-        if (mTopView instanceof NestedScrollView) { //若topView也为scrollView 则交由顶部处理
-            if (target.getId() == mTopView.getId()) {
-                if (dy > 0) { //若向上滚动
+        if(dy > 0){ //若向上滚动
+            LogUtil.d("向上滚动");
+
+            startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
+            if(dispatchNestedPreScroll(dx,dy,consumed,mScrollOffset,type)){
+                //如果父控件需要消耗，则处理父控件消耗的部分数据
+                dy -= consumed[1];
+                dx -= consumed[0];
+            }
+
+            if (mTopView instanceof NestedScrollView) { //若topView也为scrollView 则交由顶部处理
+                if (target.getId() == mTopView.getId()) {
                     if (mTopView.canScrollVertically(1)) {
                         mTopView.scrollBy(0, dy);
                         consumed[1] = dy;
                         return;
                     }
-                } else {  //向下 交由父布局处理后，再又topView处理
-                    if (getScrollY() > 0) {
-                        scrollBy(0, dy);
-                        consumed[1] = dy;
-                        return;
+                    /*if (dy > 0) {
+
                     } else {
-                        mTopView.scrollBy(0, dy);
-                        consumed[1] = dy;
-                        return;
-                    }
+                        LogUtil.d("向下滚动");
+                        if (getScrollY() > 0) {
+                            scrollBy(0, dy);
+                            consumed[1] = dy;
+                            return;
+                        } else {
+                            mTopView.scrollBy(0, dy);
+                            consumed[1] = dy;
+                            return;
+                        }
+                    }*/
                 }
             }
+
         }
 
-        //若topView不处理滚动 则先判断父布局的滚动情况
-        //如果子view欲向上滑动，则先交给父view滑动
+        //父布局与topView均处理完滚动
+
+        //则先判断自身的滚动情况
+        //如果隐藏topView
         boolean hideTop = dy > 0 && getScrollY() < getCanScrollDistance();
-        //如果子view欲向下滑动，必须要子view不能向下滑动后，才能交给父view滑动
+        //如果显示，必须要子view不能向下滑动后，才能交给自身滑动
         boolean showTop = dy < 0 && getScrollY() >= 0 && !target.canScrollVertically(-1);
         if (hideTop || showTop) {
+            if(showTop){    //显示顶部
+                if(getScrollY() == 0){
+                    //若已显示完全，交由父布局处理
+                    startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
+                    if(dispatchNestedPreScroll(dx,dy,consumed,mScrollOffset,type)){
+                        //如果父控件需要消耗，则处理父控件消耗的部分数据
+                        dy -= consumed[1];
+                        dx -= consumed[0];
+                    }
+                    return;
+                }
+            }
             scrollBy(0, dy);
             consumed[1] = dy;
         }
-    }
 
+
+
+    }
 
     /**
      * 决定了当前控件是否能接收到其内部View(非并非是直接子View)滑动时的参数 返回接受横向或纵向
@@ -136,17 +210,19 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
      */
     @Override
     public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes, int type) {
-        return (axes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
+        boolean result = (axes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
+        LogUtil.d("onStartNestedScroll result:" + result + " ViewId:" + getTag());
+        return result;
     }
 
     @Override
     public void onNestedScrollAccepted(@NonNull View child, @NonNull View target, int axes, int type) {
-        mNestedScrollingParentHelper.onNestedScrollAccepted(child, target, axes, type);
+        getScrollingParentHelper().onNestedScrollAccepted(child, target, axes, type);
     }
 
     @Override
     public void onStopNestedScroll(@NonNull View target, int type) {
-        mNestedScrollingParentHelper.onStopNestedScroll(target, type);
+        getScrollingParentHelper().onStopNestedScroll(target, type);
     }
 
     @Override
@@ -155,6 +231,15 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
             //表示已经向下滑动到头，这里不用区分手势还是fling
             scrollBy(0, dyUnconsumed);
         }
+    }
+
+    /**
+     * 重写是否支持嵌套滚动的方法
+     * @param enabled
+     */
+    @Override
+    public void setNestedScrollingEnabled(boolean enabled) {
+        getScrollingChildHelper().setNestedScrollingEnabled(true);
     }
 
     /**
@@ -178,7 +263,6 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         mContentLayout = findViewById(R.id.content_layout);
         mAdaptiveSizeView = findViewById(R.id.adaptive_size_view);
     }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -262,7 +346,21 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         if (mIsFitStatusBar) {
             mCanScrollDistance += StatusBarUtils.getStatusBarHeight(getContext());
         }
-        LogUtil.d("canScrollDistance=" + mCanScrollDistance);
+        LogUtil.d("canScrollDistance=" + mCanScrollDistance + " ViewId:" + getTag());
+    }
+
+    private NestedScrollingParentHelper getScrollingParentHelper(){
+        if(mNestedScrollingParentHelper == null){
+            mNestedScrollingParentHelper = new NestedScrollingParentHelper(this);
+        }
+        return mNestedScrollingParentHelper;
+    }
+
+    private NestedScrollingChildHelper getScrollingChildHelper() {
+        if (mNestedScrollingChildHelper == null) {
+            mNestedScrollingChildHelper = new NestedScrollingChildHelper(this);
+        }
+        return mNestedScrollingChildHelper;
     }
 
     /**
@@ -295,6 +393,5 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         mOnScrollChangeListener = listener;
         return this;
     }
-
 
 }

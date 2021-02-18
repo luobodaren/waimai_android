@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.Observable;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -301,7 +302,7 @@ public class ShopDetailFragment extends BaseFragment {
         mBinding.layoutShopDetails.layoutScoreAndFans.
                 setFansStr(getString(R.string.number_of_fans, shop.getNumber_of_fans()));
         mBinding.layoutShopDetails.tvShopDescribe1.
-                setText("月售" + shop.getSale_count_per_month() + "+ 配送约60分钟");
+                setText("月售" + shop.getMonSalesVolume() + "+ 配送约60分钟");
         mBinding.layoutShopDetails.tvMorePreferential.
                 setText(getString(R.string.more_preferential, 4));
         mBinding.layoutShopDetails.tvShopAnnouncement.
@@ -470,8 +471,7 @@ public class ShopDetailFragment extends BaseFragment {
             String receivedStr = "";
 
             @Override
-            protected void initView(BaseViewHolder helper, RedPacket item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, RedPacket item) {
                 if (receiveStr.equals("")) {
                     receiveStr = getResources().getString(R.string.receive);
                 }
@@ -503,8 +503,7 @@ public class ShopDetailFragment extends BaseFragment {
                 R.layout.item_recycler_preferential_activity,
                 mViewModel.getPreferentialData().getPreferentialActivityList(), BR.item) {
             @Override
-            protected void initView(BaseViewHolder helper, PreferentialActivity item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, PreferentialActivity item) {
                 helper.setText(R.id.tv_tag, item.getName());
             }
         });
@@ -516,8 +515,7 @@ public class ShopDetailFragment extends BaseFragment {
                 R.layout.item_recycler_merchants_service,
                 mViewModel.getPreferentialData().getMerchantsServiceList(), BR.item) {
             @Override
-            protected void initView(BaseViewHolder helper, MerchantsService item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MerchantsService item) {
                 helper.setText(R.id.tv_tag, item.getName());
             }
         });

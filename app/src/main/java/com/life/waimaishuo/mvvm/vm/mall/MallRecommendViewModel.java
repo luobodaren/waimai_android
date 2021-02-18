@@ -54,14 +54,14 @@ public class MallRecommendViewModel extends BaseViewModel {
      */
     public List<Goods> getRecommendData(String title,String type) {
         List<Goods> goods = new ArrayList<>();
-        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        goods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
-        goods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640","600","18.0"));
+        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
+        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
+        goods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
+        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
+        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
+        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
+        goods.add(new Goods("茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
+        goods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",600,"18.0"));
         return goods;
     }
 }

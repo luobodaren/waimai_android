@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -121,9 +122,7 @@ public class MallBuyersShowDetailFragment extends BaseFragment {
             Drawable likeUnCheckDrawable;
 
             @Override
-            protected void initView(BaseViewHolder helper, Comment item) {
-                super.initView(helper, item);
-
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Comment item) {
                 if(!hasInitDrawable){
                     int size = (int) UIUtils.getInstance().scalePx(40);
                     likeClickedDrawable = requireContext().getResources().getDrawable(R.drawable.ic_like);

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -43,10 +44,13 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
     @Override
     protected void convert(@NonNull BaseViewHolder holder, T item) {
         //dataBinding
-        if(variableId != -1)
-            DataBindingUtil.bind(holder.itemView).setVariable(variableId,item);
+        ViewDataBinding viewDataBinding= null;
+        if(variableId != -1){
+            viewDataBinding = DataBindingUtil.bind(holder.itemView);
+            viewDataBinding.setVariable(variableId,item);
+        }
         //特殊需求通过此方法实现
-        initView(holder,item);
+        initView(viewDataBinding,holder,item);
 
         //屏幕适配
         if(holder.itemView instanceof ViewGroup){
@@ -79,6 +83,6 @@ public class MyBaseRecyclerAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder
         return result;
     }
 
-    protected void initView(BaseViewHolder helper,T item){ }
+    protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, T item){ }
 
 }

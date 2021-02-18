@@ -3,27 +3,42 @@ package com.life.waimaishuo.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.math.BigInteger;
 import java.util.List;
 
 public class Shop implements Parcelable {
 
+    @SerializedName(value = "shopId")
+    int shopId;
     BigInteger organization_id; //组织ID
+    @SerializedName(value = "brandId")
     BigInteger brand_id;    //品牌ID
     BigInteger account_id;  //账户ID
+    @SerializedName(value = "shopType")
     int shop_type;   //1 外卖  2商场
 
+    @SerializedName(value = "shopImage")
     String shop_head_portrait;  //店铺头像
+    @SerializedName(value = "shopName")
     String shop_name;   //店铺名称
     String reservation_call;    //订餐电话
     String alternate_phone; //备用电话
     String province;    //省
     String city;    //市
     String district;    //区
+    @SerializedName(value = "lon")
+    String log; //经度
+    @SerializedName(value = "lat")
+    String lat; //纬度
 
     String shop_address;    //门店地址
     String shop_category;   //门店品类
+    @SerializedName(value = "favorableRate")
     String favorable_rate;  //评分
+    @SerializedName(value = "monSalesVolume")
+    String monSalesVolume;
     String goods_pictures;  //门店的展示商品的图片
     String shop_image;  //门店图片
     String shop_qr_code;    //门店二维码
@@ -36,21 +51,27 @@ public class Shop implements Parcelable {
     String synopsis;    //简介
     String invoice; //发票
     String effective_date;  //生效时间
+    @SerializedName(value = "shopTags")
     String tag_value;   //标签值
     int audit_state;//审核状态 0审核中 1审核通过 2审核未通过
     String audit_cause; //审核未通过原因
+    @SerializedName(value = "state")
     int state;   //状态 0正常 1关闭 2租用到期 3注销 4删除
     double sort;    //排序
     BigInteger create_id;   //创建人ID
     String create_time; //创建时间
     BigInteger update_id;   //更新人ID
     String update_time; //更新时间
+    @SerializedName(value = "openState")
     int open_state;  //营业状态 1上班 2下班
+    @SerializedName(value = "effectiveDate")
+    String effectiveDate;   //生效时间(9:00-18:00)
     String polygon; //多边形轮廓坐标值
 
     String create_name; //创建人
     String account_number;  //账号
     String user_pwd;   //密码
+    @SerializedName(value = "shopNature")
     int shop_nature; //店铺性质 1自提和外卖 2仅外卖 3仅自提
     List<String> synopsis_img;    //简介图 ["地址1","地址2"]
     String shop_sign;   //门店招牌
@@ -71,10 +92,28 @@ public class Shop implements Parcelable {
     String shop_district;   //门店区
     BigInteger recommend_type;  //推荐分类ID
 
+    @SerializedName(value = "goodsInfo")
+    List<Goods> goodsInfoList;  //商品列表
+
+    @SerializedName(value = "distance")
+    double distance;    //距离
+    @SerializedName(value = "distPattern")
+    int distPattern;    //配送模式 1专送 2自配送
+    @SerializedName(value = "distTeamName")
+    String distTeamName;    //配送团队名称
+    @SerializedName(value = "distTime")
+    int distTime;   //外卖配送时间（分钟）
+    @SerializedName(value = "minPrice")
+    String minPrice;    //最低价格
+    @SerializedName(value = "deliveryPrice")
+    String deliveryPrice;   //配送价格
+    @SerializedName(value = "avgPrice")
+    String avgPrice;        //人均价格
+    @SerializedName(value = "couponList")
+    List<String> couponList;    //优惠卷列表
 
     // FIXME: 2020/12/18 暂存以下属性值
     String number_of_fans;  //粉丝数
-    String sale_count_per_month;
     MemberCard memberCard;
 
     public Shop() {
@@ -84,7 +123,9 @@ public class Shop implements Parcelable {
         this.shop_name = shop_name;
     }
 
+
     protected Shop(Parcel in) {
+        shopId = in.readInt();
         shop_type = in.readInt();
         shop_head_portrait = in.readString();
         shop_name = in.readString();
@@ -93,9 +134,12 @@ public class Shop implements Parcelable {
         province = in.readString();
         city = in.readString();
         district = in.readString();
+        log = in.readString();
+        lat = in.readString();
         shop_address = in.readString();
         shop_category = in.readString();
         favorable_rate = in.readString();
+        monSalesVolume = in.readString();
         goods_pictures = in.readString();
         shop_image = in.readString();
         shop_qr_code = in.readString();
@@ -116,6 +160,7 @@ public class Shop implements Parcelable {
         create_time = in.readString();
         update_time = in.readString();
         open_state = in.readInt();
+        effectiveDate = in.readString();
         polygon = in.readString();
         create_name = in.readString();
         account_number = in.readString();
@@ -138,8 +183,16 @@ public class Shop implements Parcelable {
         shop_province = in.readString();
         shop_city = in.readString();
         shop_district = in.readString();
+        goodsInfoList = in.createTypedArrayList(Goods.CREATOR);
+        distance = in.readDouble();
+        distPattern = in.readInt();
+        distTeamName = in.readString();
+        distTime = in.readInt();
+        minPrice = in.readString();
+        deliveryPrice = in.readString();
+        avgPrice = in.readString();
+        couponList = in.createStringArrayList();
         number_of_fans = in.readString();
-        sale_count_per_month = in.readString();
     }
 
     public static final Creator<Shop> CREATOR = new Creator<Shop>() {
@@ -194,12 +247,12 @@ public class Shop implements Parcelable {
         this.notice = notice;
     }
 
-    public String getSale_count_per_month() {
-        return sale_count_per_month;
+    public String getMonSalesVolume() {
+        return monSalesVolume;
     }
 
-    public void setSale_count_per_month(String sale_count_per_month) {
-        this.sale_count_per_month = sale_count_per_month;
+    public void setMonSalesVolume(String monSalesVolume) {
+        this.monSalesVolume = monSalesVolume;
     }
 
     public MemberCard getMemberCard() {
@@ -650,6 +703,110 @@ public class Shop implements Parcelable {
         this.recommend_type = recommend_type;
     }
 
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(String effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public List<Goods> getGoodsInfoList() {
+        return goodsInfoList;
+    }
+
+    public void setGoodsInfoList(List<Goods> goodsInfoList) {
+        this.goodsInfoList = goodsInfoList;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public int getDistPattern() {
+        return distPattern;
+    }
+
+    public void setDistPattern(int distPattern) {
+        this.distPattern = distPattern;
+    }
+
+    public String getDistTeamName() {
+        return distTeamName;
+    }
+
+    public void setDistTeamName(String distTeamName) {
+        this.distTeamName = distTeamName;
+    }
+
+    public int getDistTime() {
+        return distTime;
+    }
+
+    public void setDistTime(int distTime) {
+        this.distTime = distTime;
+    }
+
+    public String getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(String minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public String getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(String deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
+
+    public String getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(String avgPrice) {
+        this.avgPrice = avgPrice;
+    }
+
+    public List<String> getCouponList() {
+        return couponList;
+    }
+
+    public void setCouponList(List<String> couponList) {
+        this.couponList = couponList;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -657,6 +814,7 @@ public class Shop implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(shopId);
         dest.writeInt(shop_type);
         dest.writeString(shop_head_portrait);
         dest.writeString(shop_name);
@@ -665,9 +823,12 @@ public class Shop implements Parcelable {
         dest.writeString(province);
         dest.writeString(city);
         dest.writeString(district);
+        dest.writeString(log);
+        dest.writeString(lat);
         dest.writeString(shop_address);
         dest.writeString(shop_category);
         dest.writeString(favorable_rate);
+        dest.writeString(monSalesVolume);
         dest.writeString(goods_pictures);
         dest.writeString(shop_image);
         dest.writeString(shop_qr_code);
@@ -688,6 +849,7 @@ public class Shop implements Parcelable {
         dest.writeString(create_time);
         dest.writeString(update_time);
         dest.writeInt(open_state);
+        dest.writeString(effectiveDate);
         dest.writeString(polygon);
         dest.writeString(create_name);
         dest.writeString(account_number);
@@ -710,7 +872,15 @@ public class Shop implements Parcelable {
         dest.writeString(shop_province);
         dest.writeString(shop_city);
         dest.writeString(shop_district);
+        dest.writeTypedList(goodsInfoList);
+        dest.writeDouble(distance);
+        dest.writeInt(distPattern);
+        dest.writeString(distTeamName);
+        dest.writeInt(distTime);
+        dest.writeString(minPrice);
+        dest.writeString(deliveryPrice);
+        dest.writeString(avgPrice);
+        dest.writeStringList(couponList);
         dest.writeString(number_of_fans);
-        dest.writeString(sale_count_per_month);
     }
 }

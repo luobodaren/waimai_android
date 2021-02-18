@@ -18,22 +18,31 @@ public class Goods extends BaseObservable implements Parcelable {
     private String shopName;
     private String details;
     @SerializedName(value = "goodsPrimaryImg")
-    private String goodsImgUrl;
-    private String buyNum;
+    private String goodsImgUrl; //商品主图
+    @SerializedName(value = "allInventory")
+    private String allInventory;    //库存
 
-    private String price;
-
-    private int time_send;
-
-    private String price_deliver;
-    private String price_avg_per_man;
     @SerializedName(value = "monSalesVolume")
-    private int monSalesVolume;
-    private String score;
-    private String lowestPriceOf15Days;
+    int monSalesVolume;  //购买数量
+
+    private String price;   //价格
+    @SerializedName(value = "minPrice")
+    private String minPrice;    //最低价格
+    @SerializedName(value = "maxPrice")
+    private String maxPrice;    //最高价格
+
+    private int time_send;  //配送时间
+
+    private String price_deliver;   //配送费
+    private String price_avg_per_man;   //人均价格
+    private String score;   //评分
+    private String lowestPriceOf15Days; //15天内最低价格
 
     @SerializedName(value = "goodsTag")
     private int goodsTag;
+
+    @SerializedName(value = "mealsFee")
+    String mealsFee;    //餐盒费
 
     public Goods() {
     }
@@ -47,11 +56,11 @@ public class Goods extends BaseObservable implements Parcelable {
         this.score = score;
     }
 
-    public Goods(String name, String describe, String goodsImgUrl, String buyNum, String price) {
+    public Goods(String name, String describe, String goodsImgUrl, int monSalesVolume, String price) {
         this.name = name;
         this.details = describe;
         this.goodsImgUrl = goodsImgUrl;
-        this.buyNum = buyNum;
+        this.monSalesVolume = monSalesVolume;
         this.price = price;
     }
 
@@ -61,12 +70,11 @@ public class Goods extends BaseObservable implements Parcelable {
         shopName = in.readString();
         details = in.readString();
         goodsImgUrl = in.readString();
-        buyNum = in.readString();
+        monSalesVolume = in.readInt();
         price = in.readString();
         time_send = in.readInt();
         price_deliver = in.readString();
         price_avg_per_man = in.readString();
-        monSalesVolume = in.readInt();
         score = in.readString();
         lowestPriceOf15Days = in.readString();
     }
@@ -127,12 +135,12 @@ public class Goods extends BaseObservable implements Parcelable {
         this.goodsImgUrl = goodsImgUrl;
     }
 
-    public String getBuyNum() {
-        return buyNum;
+    public int getMonSalesVolume() {
+        return monSalesVolume;
     }
 
-    public void setBuyNum(String buyNum) {
-        this.buyNum = buyNum;
+    public void setMonSalesVolume(int monSalesVolume) {
+        this.monSalesVolume = monSalesVolume;
     }
 
     public String getPrice_deliver() {
@@ -149,14 +157,6 @@ public class Goods extends BaseObservable implements Parcelable {
 
     public void setPrice_avg_per_man(String price_avg_per_man) {
         this.price_avg_per_man = price_avg_per_man;
-    }
-
-    public int getMonSalesVolume() {
-        return monSalesVolume;
-    }
-
-    public void setMonSalesVolume(int monSalesVolume) {
-        this.monSalesVolume = monSalesVolume;
     }
 
     public String getScore() {
@@ -186,7 +186,7 @@ public class Goods extends BaseObservable implements Parcelable {
         dest.writeString(shopName);
         dest.writeString(details);
         dest.writeString(goodsImgUrl);
-        dest.writeString(buyNum);
+        dest.writeInt(monSalesVolume);
         dest.writeString(price);
         dest.writeInt(time_send);
         dest.writeString(price_deliver);

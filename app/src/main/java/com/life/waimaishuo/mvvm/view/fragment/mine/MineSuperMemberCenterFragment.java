@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,8 +84,7 @@ public class MineSuperMemberCenterFragment extends BaseFragment {
     private void initRedPacketRecycler(){
         MyBaseRecyclerAdapter<RedPacket> redPacketMyBaseRecyclerAdapter = new MyBaseRecyclerAdapter<RedPacket>(R.layout.item_recycler_mine_member_center_red_packet,mViewModel.getRedPacketData()){
             @Override
-            protected void initView(BaseViewHolder helper, RedPacket item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, RedPacket item) {
                 //添加drawable
                 helper.setText(R.id.tv_value_of_red_packet, TextUtil.getAbsoluteSpannable("￥" + item.getPriceValue(),28,0,1));
                 helper.setText(R.id.tv_name, item.getName());

@@ -5,6 +5,7 @@ import android.graphics.ColorMatrixColorFilter;
 import android.util.SparseIntArray;
 import android.widget.ImageView;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -84,8 +85,7 @@ public class MineRedPacketFragment extends BaseFragment {
             ColorMatrixColorFilter filter = null;
 
             @Override
-            protected void initView(BaseViewHolder helper, RedPacket item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, RedPacket item) {
                 if(filter == null){
                     matrix.setSaturation(0);
                     filter = new ColorMatrixColorFilter(matrix);

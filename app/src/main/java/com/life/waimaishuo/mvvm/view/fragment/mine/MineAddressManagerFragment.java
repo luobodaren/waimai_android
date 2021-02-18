@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -143,8 +144,7 @@ public class MineAddressManagerFragment extends BaseFragment {
         mBinding.recycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.recycler.setAdapter(new MyBaseRecyclerAdapter<Address>(R.layout.item_recycler_address_info,mViewModel.getAddressData()){
             @Override
-            protected void initView(BaseViewHolder helper, Address item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Address item) {
                 helper.setText(R.id.tv_user_name,item.getUser_name() + "  " + TextUtil.phoneHide(item.getPhone()));
                 helper.setText(R.id.tv_address,item.getAddress());
             }

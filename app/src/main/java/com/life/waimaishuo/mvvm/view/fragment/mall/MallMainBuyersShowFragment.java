@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment.mall;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -80,8 +81,8 @@ public class MallMainBuyersShowFragment extends BaseFragment {
             Drawable likeUncheckDrawable;
 
             @Override
-            protected void initView(BaseViewHolder helper, BuyersShow item) {
-                super.initView(helper, item);
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, BuyersShow item) {
+                super.initView(viewDataBinding, helper, item);
                 if(likeDrawable == null){
                     int size = (int) UIUtils.getInstance().scalePx(40);
                     likeDrawable = getResources().getDrawable(R.drawable.ic_like);

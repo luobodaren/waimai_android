@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -88,9 +89,7 @@ public class MallShopNewArrivalFragment extends BaseFragment {
                 new MyBaseRecyclerAdapter<MallNewArrival>(R.layout.item_recycler_mall_shop_new_arrival,
                         ((MallShopViewModel)baseViewModel).getNewArrivalData(), com.life.waimaishuo.BR.item){
                     @Override
-                    protected void initView(BaseViewHolder helper, MallNewArrival item) {
-                        super.initView(helper, item);
-
+                    protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MallNewArrival item) {
                         RecyclerView recyclerView = helper.getView(R.id.recycler_new_arrival_goods);
                         if(recyclerView.getAdapter() == null){
                             recyclerView.setLayoutManager(

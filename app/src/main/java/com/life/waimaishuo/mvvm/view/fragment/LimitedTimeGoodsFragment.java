@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -209,7 +210,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
             int textSize = (int) UIUtils.getInstance().scalePx(40);
             @Override
-            protected void initView(BaseViewHolder helper, LimitedGoods item) {
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, LimitedGoods item) {
                 helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
                 helper.setText(R.id.tv_limited_kill_price,
                         TextUtil.getAbsoluteSpannable(
@@ -241,7 +242,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
                 R.layout.item_recycler_limited_goods_mall, mViewModel.getLimitedGoodsList(mPageType), BR.item) {
             int textSize = (int) UIUtils.getInstance().scalePx(28);
             @Override
-            protected void initView(BaseViewHolder helper, LimitedGoods item) {
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, LimitedGoods item) {
                 int position = getData().indexOf(item);
                 if(position == 0){
                     helper.getView(R.id.cl_content).setBackground(

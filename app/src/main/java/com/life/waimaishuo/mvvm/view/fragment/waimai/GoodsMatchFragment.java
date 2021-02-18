@@ -1,5 +1,6 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +57,7 @@ public class GoodsMatchFragment extends BaseRecyclerFragment {
     }
 
     @Override
-    protected void onRecyclerBindViewHolder(BaseViewHolder helper, Object item) {
+    protected void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
 
     }
 

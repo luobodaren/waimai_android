@@ -5,6 +5,7 @@ import android.util.SparseIntArray;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,9 +91,7 @@ public class MallMainGoodShopFragment extends BaseFragment {
         MyBaseRecyclerAdapter<Shop> adapter = new MyBaseRecyclerAdapter<Shop>(R.layout.item_recycler_mall_good_shop_recycler_show,
                 ((MallMainTypeViewModel)baseViewModel).getGoodShopData(), com.life.waimaishuo.BR.item){
             @Override
-            protected void initView(BaseViewHolder helper, Shop item) {
-                super.initView(helper, item);
-
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Shop item) {
                 ScoreView scoreView = helper.getView(R.id.score_view);
                 scoreView.hideFans();
                 scoreView.hideTitle();
