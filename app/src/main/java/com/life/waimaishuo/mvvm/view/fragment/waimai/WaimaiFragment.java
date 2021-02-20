@@ -3,9 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.content.Intent;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.util.SparseArray;
-import android.util.TimeUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -128,11 +126,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     //保存排序缓存
     private SparseArray<SortTypeEnum> sortTypeEnumMap = new SparseArray<>();
 
-    /**
-     * 第一次加载数据
-     */
-    private boolean firstRefreshData = true;
-
     {
         mTimerProgressListener = timeLong -> {
             LogUtil.d(timeLong + "");
@@ -194,6 +187,15 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         binding.layoutTitle.llLocal.setOnClickListener(v -> pickCity());
 
         binding.layoutTitle.ivMessage.setOnClickListener(v -> openPage(MessageFragment.class));
+
+        //金刚区装修点击
+        kingKongAreaAdapter.setOnItemClickListener((itemView, item, position) -> {
+            if (position == kingKongAreaAdapter.getItemCount() - 1) {
+                openPage(WaimaiAllTypeFragment.class);  //最后一个为全部类型
+            } else {  //打开子类型
+                WaimaiTypeFragment.openPage(WaimaiFragment.this,item.getName(),"");
+            }
+        });
 
         childSignRecyclerAdapter.setSelectedListener((holder, item, isCancel) -> {
             if (isCancel) {
@@ -276,18 +278,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         //开始定位
         startLocation();
 
-        if (firstRefreshData) {
-            firstRefreshData = false;
-            //请求数据
-            mViewModel.refreshSearchTag();
-            mViewModel.refreshBannerItemList();
-            mViewModel.refreshKingKongArea();
-
-            // TODO: 2021/2/19 以下两个请求可改为链式调用
-            mViewModel.refreshExclusiveBreakfast();
-            mViewModel.refreshActivityRegion();
-        }
-
         mViewModel.refreshSecondKillTime();
     }
 
@@ -296,6 +286,19 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         super.onLifecycleStop();
         LocationUtil.stopLocation(false);
         mSecondKillTiming.cancel();
+    }
+
+    @Override
+    protected void firstRequestData() {
+        super.firstRequestData();
+        //请求数据
+        mViewModel.refreshSearchTag();
+        mViewModel.refreshBannerItemList();
+        mViewModel.refreshKingKongArea();
+
+        // TODO: 2021/2/19 以下两个请求可改为链式调用
+        mViewModel.refreshExclusiveBreakfast();
+        mViewModel.refreshActivityRegion();
     }
 
     @Override
@@ -542,15 +545,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), spanCount
                 , LinearLayoutManager.VERTICAL, false);
         kingKongAreaAdapter = getFoodRecyclerAdapter();
-        kingKongAreaAdapter.setOnItemClickListener((itemView, item, position) -> {
-            if (position == kingKongAreaAdapter.getItemCount() - 1) {
-                openPage(WaimaiAllTypeFragment.class);  //最后一个为全部类型
-            } else {  //打开子类型
-                Bundle bundle = new Bundle();
-                bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY, item.getName());
-                openPage(WaimaiTypeFragment.class, bundle);
-            }
-        });
         adaptiveViewBinding.recyclerFoodType.setAdapter(kingKongAreaAdapter);
         adaptiveViewBinding.recyclerFoodType.setLayoutManager(gridLayoutManager);
         adaptiveViewBinding.recyclerFoodType.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -1082,8 +1076,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             fragment.setActivityType(new String[]{});
         }
 
-        fragment.setSortRules(adaptiveViewBinding.sortTypeView.getmCurrentSortTypeEnum());
-        fragment.setChildSign(child_sign);
+        fragment.setSortRules(adaptiveViewBinding.sortTypeView.getCurrentSortTypeEnum());
+        fragment.setShopCategory(child_sign);
 
         fragment.setScreenData(String.valueOf(adaptiveViewBinding.sortTypeView.getMinPrice()),
                 String.valueOf(adaptiveViewBinding.sortTypeView.getMaxPrice()));

@@ -6,11 +6,11 @@ public class ImageUrlNameData {
 
     @SerializedName(value = "sort", alternate = {"Sort"})
     int sort;
-    @SerializedName(value = "imgUrl",alternate = {"ImgUrl","img"})
+    @SerializedName(value = "imgUrl",alternate = {"ImgUrl","img","typeIcon"})
     String imgUrl;
     @SerializedName(value = "url")  //一般为跳转链接
     String url;
-    @SerializedName(value = "decorationName")
+    @SerializedName(value = "decorationName",alternate = {"typeName"})
     String name;
     @SerializedName(value = "desc")
     String describe;

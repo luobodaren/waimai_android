@@ -1,7 +1,7 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
 import com.life.base.utils.GsonUtil;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
+import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.ShopOrderDishesModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -14,7 +14,7 @@ public class ShopOrderDishesViewModel extends BaseViewModel {
 
     private ShopOrderDishesModel mModel;
 
-    List<LinkageGroupedItemShopGoods> shopGoodsLinkageGroupList = new ArrayList<>();
+    List<LinkageShopGoodsGroupedItemInfo> shopGoodsLinkageGroupList = new ArrayList<>();
 
     @Override
     public BaseModel getModel() {
@@ -33,7 +33,7 @@ public class ShopOrderDishesViewModel extends BaseViewModel {
                 "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2755313968,2418553549&fm=26&gp=0.jpg"};
     }
 
-    public List<BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo>> getShopGoodsItems() {
+    public List<BaseGroupedItem<LinkageShopGoodsGroupedItemInfo>> getShopGoodsItems() {
         String dataJson = "[\n" +
                 "  {\n" +
                 "    \"header\": \"热销\",\n" +
@@ -122,7 +122,7 @@ public class ShopOrderDishesViewModel extends BaseViewModel {
                 "  {\"header\": \"暴富\",\"isHeader\": true},\n" +
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=599791291,1995352191&fm=26&gp=0.jpg\",\"group\": \"暴富\",\"title\": \"烤全翅\"  } }\n" +
                 "]";
-        shopGoodsLinkageGroupList = GsonUtil.jsonToList(dataJson, LinkageGroupedItemShopGoods.class);
+        shopGoodsLinkageGroupList = GsonUtil.jsonToList(dataJson, LinkageShopGoodsGroupedItemInfo.class);
         return (List) shopGoodsLinkageGroupList;
     }
 

@@ -33,14 +33,14 @@ import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tag.MallShopSignAndClassificationTagAdapter;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemMallShopClassification;
+import com.life.waimaishuo.bean.ui.LinkageMallShopClassificationGroupedItemInfo;
 import com.life.waimaishuo.listener.OnSecondaryMallShopClassificationItemClickListener;
 import com.life.waimaishuo.util.TextUtil;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
 import java.lang.ref.WeakReference;
 
-public class CustomLinkageSecondaryMallShopClassificationAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemMallShopClassification.ItemInfo> {
+public class CustomLinkageSecondaryMallShopClassificationAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageMallShopClassificationGroupedItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
@@ -101,7 +101,7 @@ public class CustomLinkageSecondaryMallShopClassificationAdapterConfig<T extends
 
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
-                                 final BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo> item) {
+                                 final BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
         //DataBinding 绑定布局
         /*if(!isGetModeType){
             isGridMode = mLinkageRecyclerView.get().isGridMode();
@@ -135,14 +135,14 @@ public class CustomLinkageSecondaryMallShopClassificationAdapterConfig<T extends
 
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
     }
 
     @Override
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
     }
 

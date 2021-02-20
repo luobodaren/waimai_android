@@ -2,18 +2,19 @@ package com.life.waimaishuo.mvvm.vm.mine;
 
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.base.utils.GsonUtil;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemGoodsType;
+import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.mine.MineSelectCategoryModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MineSelectCategoryViewModel extends BaseViewModel {
 
     private MineSelectCategoryModel mModel;
 
-    private List<LinkageGroupedItemGoodsType> groupedItemGoodsTypeList;
+    private List<LinkageGoodsTypeGroupedItemInfo> groupedItemGoodsTypeList = new ArrayList<>();
     public int currentSelectedType = 1;    //1 商城 2 外卖
 
     @Override
@@ -29,7 +30,7 @@ public class MineSelectCategoryViewModel extends BaseViewModel {
 
     }
 
-    public List<BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo>> getLinkageGroupItems() {
+    public List<BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo>> getLinkageGroupItems() {
         String dataJson = "[\n" +
                 "  {\n" +
                 "    \"header\": \"优惠\",\n" +
@@ -60,7 +61,7 @@ public class MineSelectCategoryViewModel extends BaseViewModel {
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"翅\"  } }," +
                 "  {\"isHeader\": false, \"info\": { \"content\": \"热卖\",\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤\"  } }" +
                 "]" ;
-        groupedItemGoodsTypeList =  GsonUtil.jsonToList(dataJson,  LinkageGroupedItemGoodsType.class);
+        //groupedItemGoodsTypeList =  GsonUtil.jsonToList(dataJson,  BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo>.class);
         return (List)groupedItemGoodsTypeList;
     }
 

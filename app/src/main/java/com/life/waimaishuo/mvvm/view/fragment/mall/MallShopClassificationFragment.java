@@ -10,15 +10,11 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryMallShopClassificationAdapterConfig;
-import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryMallShopClassificationAdapterConfig;
-import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemMallShopClassification;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
+import com.life.waimaishuo.bean.ui.LinkageMallShopClassificationGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentMallShopClassificationBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.life.waimaishuo.listener.OnSecondaryMallShopClassificationItemClickListener;
-import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel;
@@ -78,22 +74,22 @@ public class MallShopClassificationFragment extends BaseFragment
     }
 
     @Override
-    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo> item) {
+    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
     }
 
     @Override
-    public void onSecondaryChildClick(LinkageSecondaryViewHolder holder, View view, BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo> item) {
+    public void onSecondaryChildClick(LinkageSecondaryViewHolder holder, View view, BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
     }
 
     @Override
-    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo> item) {
+    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
     }
 
     private void initLinkageRecycler() {
-        LinkageRecyclerView<LinkageGroupedItemMallShopClassification.ItemInfo> linkage = mBinding.linkageClassificationType;
+        LinkageRecyclerView<LinkageMallShopClassificationGroupedItemInfo> linkage = mBinding.linkageClassificationType;
         linkage.init(((MallShopViewModel)baseViewModel).getClassificationData(),
                 new CustomLinkagePrimaryMallShopClassificationAdapterConfig<>(this, linkage),
                 new CustomLinkageSecondaryMallShopClassificationAdapterConfig<>(this, linkage));

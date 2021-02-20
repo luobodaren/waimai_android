@@ -94,7 +94,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     @Override
     public boolean startNestedScroll(int axes, int type) {
         boolean result = getScrollingChildHelper().startNestedScroll(axes,type);
-        LogUtil.d("startNestedScroll result:" + result + " ViewId:" + getTag());
+        //LogUtil.d("startNestedScroll result:" + result + " ViewId:" + getTag());
         return result;
     }
 
@@ -118,7 +118,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow, int type) {
         boolean result = getScrollingChildHelper().dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow,
                 type);
-        LogUtil.d("dispatchNestedPreScroll result:" + result + " ViewId:" + getTag());
+        //LogUtil.d("dispatchNestedPreScroll result:" + result + " ViewId:" + getTag());
         return result;
     }
 
@@ -128,7 +128,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         // consumed[0] 水平消耗的距离，consumed[1] 垂直消耗的距离
 
-        LogUtil.d("onNestedPreScroll ViewId:" + getTag());
+        //LogUtil.d("onNestedPreScroll ViewId:" + getTag());
 
         if (mIsNeedResetCanScrollDistance) {
             calculateCanScrollDistance();
@@ -136,7 +136,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         }
 
         if(dy > 0){ //若向上滚动
-            LogUtil.d("向上滚动");
+            //LogUtil.d("向上滚动");
 
             startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
             if(dispatchNestedPreScroll(dx,dy,consumed,mScrollOffset,type)){
@@ -211,7 +211,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     @Override
     public boolean onStartNestedScroll(@NonNull View child, @NonNull View target, int axes, int type) {
         boolean result = (axes & ViewCompat.SCROLL_AXIS_VERTICAL) != 0;
-        LogUtil.d("onStartNestedScroll result:" + result + " ViewId:" + getTag());
+        //LogUtil.d("onStartNestedScroll result:" + result + " ViewId:" + getTag());
         return result;
     }
 
@@ -277,7 +277,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
                 lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 lp.height = mContentLayout.getMeasuredHeight();
                 mContentLayout.setLayoutParams(lp);
-                LogUtil.d("mContentLayout height:" + mContentLayout.getMeasuredHeight());
+                //LogUtil.d("mContentLayout height:" + mContentLayout.getMeasuredHeight());
             //}
         }
 
@@ -347,7 +347,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         if (mIsFitStatusBar) {
             mCanScrollDistance += StatusBarUtils.getStatusBarHeight(getContext());
         }
-        LogUtil.d("canScrollDistance=" + mCanScrollDistance + " ViewId:" + getTag());
+        //LogUtil.d("canScrollDistance=" + mCanScrollDistance + " ViewId:" + getTag());
     }
 
     private NestedScrollingParentHelper getScrollingParentHelper(){

@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods.ItemInfo" />
+            type="com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo" />
 
     </data>
 
@@ -25,9 +25,6 @@
             android:layout_height="110px"
             android:layout_marginTop="32px"
             android:background="@drawable/sl_linkage_secondary_grid"
-            android:clickable="true"
-            android:focusable="true"
-            android:longClickable="true"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_food_all_subtype"
             app:layout_constraintEnd_toEndOf="parent"

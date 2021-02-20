@@ -14,7 +14,7 @@ import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemGoodsType;
+import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentWaimaiMallAllTypeBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
@@ -74,6 +74,7 @@ public class MallAllTypeFragment extends BaseFragment implements
 
     @Override
     protected void onLifecycleResume() {
+        super.onLifecycleResume();
         changeStatusBarMode();
     }
 
@@ -84,13 +85,13 @@ public class MallAllTypeFragment extends BaseFragment implements
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
-                                     BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+                                     BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
         MallGoodsTypeFragment.openPageWithGoodsType(MallAllTypeFragment.this,item.info.getTitle());
     }
 
     @Override
     public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder,
-                                     BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+                                     BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
 //        if(item.isHeader){
 //            openPage(WaimaiTypeFragment.class);
 //        }
@@ -98,7 +99,7 @@ public class MallAllTypeFragment extends BaseFragment implements
 
 
     private void initLinkageRecycler(){
-        LinkageRecyclerView<LinkageGroupedItemGoodsType.ItemInfo> linkage = mBinding.linkageAllType;
+        LinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage = mBinding.linkageAllType;
         FrameLayout rightTopCustomView = linkage.findViewById(R.id.right_top_custom);
         rightTopCustomView.setVisibility(View.VISIBLE);
         initRightTopCustomView(rightTopCustomView);
@@ -111,7 +112,7 @@ public class MallAllTypeFragment extends BaseFragment implements
                     }
 
                     @Override
-                    public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+                    public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
                         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
                     }
                 });

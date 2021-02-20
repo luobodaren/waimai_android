@@ -18,14 +18,13 @@
 package com.life.waimaishuo.adapter;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemGoodsType;
+import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
@@ -33,9 +32,7 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
 
-import java.lang.ref.WeakReference;
-
-public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemGoodsType.ItemInfo> {
+public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSecondaryAdapterConfig<LinkageGoodsTypeGroupedItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
@@ -89,10 +86,10 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
-                                 final BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+                                 final BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
 
         ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
-        Glide.with(mContext).load(R.mipmap.ic_food_all_subtype).into((ImageView) holder.getView(R.id.iv_goods_img));
+        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
 //        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img)); // FIXME: 2020/12/15 暂时修改为读取本地图片
 
         ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);
@@ -107,7 +104,7 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
         holder.getView(R.id.secondary_header_right).setOnClickListener(v ->{
             if(mItemClickListener != null){
@@ -118,7 +115,7 @@ public class CustomLinkageSecondaryGoodsTypeAdapterConfig implements ILinkageSec
 
     @Override
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
 
     }
 

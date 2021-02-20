@@ -5,18 +5,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.databinding.Observable;
+
 import com.bumptech.glide.Glide;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
+import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemGoodsType;
+import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentWaimaiMallAllTypeBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.life.waimaishuo.listener.OnSecondaryItemClickListener;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiAllTypeViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
@@ -66,15 +70,28 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
     @Override
     protected void initViews() {
         super.initViews();
-        initLinkageRecycler();
         findViewById(R.id.iv_left_action).setOnClickListener(v -> {
             popToBack();
         });
     }
 
     @Override
+    protected void initListeners() {
+        super.initListeners();
+        addCallBack();
+    }
+
+    @Override
     protected void onLifecycleResume() {
+        super.onLifecycleResume();
         changeStatusBarMode();
+    }
+
+    @Override
+    protected void firstRequestData() {
+        super.firstRequestData();
+        LogUtil.d("全部分类 firstRequestData");
+        mViewModel.requestLinkageGroupItems();
     }
 
     @Override
@@ -84,25 +101,35 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
-                                     BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
-//        SnackbarUtils.Short(view, item.info.getGoodsTypeStrings()).show();
-        // FIXME: 2020/12/15 bundle传入频道与子类型
-        Bundle bundle = new Bundle();
-        bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY,item.info.getContent());
-        openPage(WaimaiTypeFragment.class,bundle);
+                                     BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
+        WaimaiTypeFragment.openPage(WaimaiAllTypeFragment.this, item.info.getGroup(),item.info.getTitle());
     }
 
     @Override
     public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder,
-                                     BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+                                     BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
         if(item.isHeader){
             openPage(WaimaiTypeFragment.class);
         }
     }
 
+    private void addCallBack(){
+        MyDataBindingUtil.addCallBack(this, mViewModel.getAllTypeObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> initLinkageRecycler());
+            }
+        });
+    }
 
+    /**
+     * 没有数据时，不可调用初始化 否则会报错
+     */
     private void initLinkageRecycler(){
-        LinkageRecyclerView<LinkageGroupedItemGoodsType.ItemInfo> linkage = mBinding.linkageAllType;
+        if(mViewModel.getLinkageGroupItems().size() <= 0){  //构造空数据
+            mViewModel.getLinkageGroupItems().add(new BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo>(true,"没有数据") {});
+        }
+        LinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage = mBinding.linkageAllType;
         FrameLayout rightTopCustomView = linkage.findViewById(R.id.right_top_custom);
         rightTopCustomView.setVisibility(View.VISIBLE);
         initRightTopCustomView(rightTopCustomView);
@@ -110,7 +137,6 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
                 new CustomLinkagePrimaryGoodsTypeAdapterConfig<>(this,linkage),
                 new CustomLinkageSecondaryGoodsTypeAdapterConfig(this));
         linkage.setGridMode(true);
-
     }
 
     private void initRightTopCustomView(FrameLayout frameLayout) {
@@ -126,4 +152,5 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
                 .centerCrop()
                 .into(imageView);
     }
+
 }

@@ -22,5 +22,9 @@ public class ApiConstant {
     public final static String API_WAIMAI_MAIN_GOODS_LIST = "/searchDeliveryGoods/selectDeliveryGoodsApp";  //外卖 发现好物
     public final static String API_WAIMAI_MAIN_SHIOP_LIST = "/searchDeliveryGoods/selectShopListApp";       //外卖 推荐商家
 
+    public final static String API_WAIMAI_TYPE_GET_SUBTYPE_BY_NAME = "/goodstype/getgtsubsetbysuperiorname";    //根据上级NAME查询子集
+    public final static String API_WAIMAI_TYPE_GET_SUBTYPE_BY_ID = "/goodstype/getgtsubsetbysuperiorid";    //根据上级NAME查询子集
+
+    public final static String API_WAIMAI_ALL_TYPE = "/common/gettakeouttype";  //全部分类
 
 }

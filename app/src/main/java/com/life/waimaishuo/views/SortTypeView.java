@@ -448,7 +448,7 @@ public class SortTypeView extends FrameLayout {
         }
     }
 
-    public SortTypeEnum getmCurrentSortTypeEnum() {
+    public SortTypeEnum getCurrentSortTypeEnum() {
         return mCurrentSortTypeEnum;
     }
 

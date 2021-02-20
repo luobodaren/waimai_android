@@ -9,7 +9,7 @@ import com.life.base.utils.GsonUtil;
 import com.life.waimaishuo.bean.Comment;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.ui.ImageViewInfo;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemMallShopClassification;
+import com.life.waimaishuo.bean.ui.LinkageMallShopClassificationGroupedItemInfo;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.bean.ui.MallNewArrival;
@@ -202,7 +202,7 @@ public class MallShopViewModel extends BaseViewModel {
         return list;
     }
 
-    public List<BaseGroupedItem<LinkageGroupedItemMallShopClassification.ItemInfo>> getClassificationData() {
+    public List<BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo>> getClassificationData() {
         String dataJson = "[\n" +
                 "  {\n" +
                 "    \"header\": \"优惠\",\n" +
@@ -233,8 +233,8 @@ public class MallShopViewModel extends BaseViewModel {
                 "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"翅\"  } }," +
                 "  {\"isHeader\": false, \"info\": { \"price\": \"99.00\",\"describeTags\": [\"正品保证\",\"行业优质\"],\"imgUrl\":\"https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640\",\"group\": \"超市便利\",\"title\": \"烤\"  } }" +
                 "]" ;
-        List<LinkageGroupedItemMallShopClassification> classificationList;
-        classificationList =  GsonUtil.jsonToList(dataJson,  LinkageGroupedItemMallShopClassification.class);
+        List<LinkageMallShopClassificationGroupedItemInfo> classificationList;
+        classificationList =  GsonUtil.jsonToList(dataJson,  LinkageMallShopClassificationGroupedItemInfo.class);
         return (List)classificationList;
     }
 

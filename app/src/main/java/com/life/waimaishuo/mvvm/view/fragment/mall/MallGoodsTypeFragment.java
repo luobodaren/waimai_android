@@ -91,6 +91,7 @@ public class MallGoodsTypeFragment extends BaseFragment {
 
     @Override
     protected void onLifecycleResume() {
+        super.onLifecycleResume();
         changeStatusBarMode();
     }
 

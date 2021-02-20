@@ -24,7 +24,7 @@
     <data>
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods.ItemInfo" />
+            type="com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo" />
     </data>
 
     <com.life.base.views.UiAdapterConstrainLayout

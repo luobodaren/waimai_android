@@ -15,7 +15,7 @@ import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemGoodsType;
+import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMineSelectCategoryBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
@@ -41,7 +41,7 @@ public class MineSelectCategoryFragment extends BaseFragment implements
     private FragmentMineSelectCategoryBinding mBinding;
     private MineSelectCategoryViewModel mViewModel;
 
-    private LinkageRecyclerView<LinkageGroupedItemGoodsType.ItemInfo> linkage;
+    private LinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage;
     private CustomLinkagePrimaryGoodsTypeAdapterConfig primaryConfig;
     private CustomLinkageSecondaryGoodsTypeAdapterConfig secondaryConfig;
     private String selected_type;
@@ -127,12 +127,12 @@ public class MineSelectCategoryFragment extends BaseFragment implements
     }
 
     @Override
-    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
         selected_type = item.info.getTitle();
     }
 
     @Override
-    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
 
     }
 
@@ -162,12 +162,12 @@ public class MineSelectCategoryFragment extends BaseFragment implements
             }
 
             @Override
-            public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+            public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
                 ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
             }
 
             @Override
-            public void onBindViewHolder(LinkageSecondaryViewHolder holder, BaseGroupedItem<LinkageGroupedItemGoodsType.ItemInfo> item) {
+            public void onBindViewHolder(LinkageSecondaryViewHolder holder, BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
                 ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
                 Glide.with(holder.itemView.getContext()).load(R.mipmap.ic_food_all_subtype).into((ImageView) holder.getView(R.id.iv_goods_img));
 //        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img)); // FIXME: 2020/12/15 暂时修改为读取本地图片

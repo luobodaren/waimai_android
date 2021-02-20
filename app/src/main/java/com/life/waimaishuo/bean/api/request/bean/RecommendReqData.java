@@ -1,5 +1,8 @@
 package com.life.waimaishuo.bean.api.request.bean;
 
+/**
+ * 推荐商品的请求体
+ */
 public class RecommendReqData {
     /*必要属性*/
     String province;    //省

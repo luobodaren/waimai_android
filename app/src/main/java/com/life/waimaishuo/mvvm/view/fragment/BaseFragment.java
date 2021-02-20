@@ -35,18 +35,17 @@ import org.greenrobot.eventbus.ThreadMode;
 @Page
 public abstract class BaseFragment extends XPageFragment {
 
-    protected static int SHOW_STATUS_BAR = 1; //显示
-    protected static int HIDE_STATUS_BAR = 0; //不显示
-    protected static int NO_HANDLE_STATUS_BAR = -1;
-    protected int mStatusBarShowType = NO_HANDLE_STATUS_BAR; //不处理
-
     private int mStatusBarLightMode = StatusBarUtils.STATUS_BAR_MODE_NO_HANDLE;
+    private int mStatusBarShowType = NO_HANDLE_STATUS_BAR; //不处理
 
     private boolean isRegisterEventBus = false;
     private boolean isFitStatusBarHeight = false;
 
-    public ViewDataBinding mViewDataBinding;
-    public BaseViewModel baseViewModel;
+    private boolean isFirstRequestData = true;  //用于第一次开启页面加载数据
+
+    protected static int SHOW_STATUS_BAR = 1; //显示
+    protected static int HIDE_STATUS_BAR = 0; //不显示
+    protected static int NO_HANDLE_STATUS_BAR = -1;
 
     //openPageForResult返回的内容
     protected int resultCode = Constant.RESULT_CODE_FALSE;
@@ -54,6 +53,9 @@ public abstract class BaseFragment extends XPageFragment {
 
     //用于UI更新
     protected Handler mHandler;
+
+    public ViewDataBinding mViewDataBinding;
+    public BaseViewModel baseViewModel;
 
     protected abstract BaseViewModel setViewModel();
 
@@ -116,7 +118,7 @@ public abstract class BaseFragment extends XPageFragment {
         getLifecycle().addObserver(new LifecycleEventObserver() {
             @Override
             public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
-                LogUtil.d(getPageTitle() + event.name());
+                LogUtil.d(event.name() + getPageTitle());
                 switch (event){
                     case ON_CREATE:
                         onLifecycleCreate();
@@ -290,11 +292,21 @@ public abstract class BaseFragment extends XPageFragment {
 
     protected void onLifecycleCreate(){}
     protected void onLifecycleStart(){}
-    protected void onLifecycleResume(){}
+    protected void onLifecycleResume(){
+        if(isFirstRequestData){
+            isFirstRequestData = false;
+            firstRequestData();
+        }
+    }
     protected void onLifecyclePause(){}
     protected void onLifecycleStop(){}
     protected void onLifecycleDestroy(){}
     protected void onLifecycleAny(){}
+
+    /**
+     * 第一次网络请求数据
+     */
+    protected void firstRequestData(){}
 
     public void setStatusBarLightMode(int mStatusBarLightMode) {
         this.mStatusBarLightMode = mStatusBarLightMode;
@@ -303,6 +315,10 @@ public abstract class BaseFragment extends XPageFragment {
 
     public void setFitStatusBarHeight(boolean fitStatusBarHeight) {
         isFitStatusBarHeight = fitStatusBarHeight;
+    }
+
+    public void setStatusBarShowType(int statusBarShowType){
+        mStatusBarShowType = statusBarShowType;
     }
 
     public void setRegisterEventBus(boolean isRegisterEventBus){

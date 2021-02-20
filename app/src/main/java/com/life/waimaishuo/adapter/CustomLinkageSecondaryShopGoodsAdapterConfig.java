@@ -26,7 +26,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
+import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
 import com.life.waimaishuo.databinding.AdapterLinkageSecondaryLinearBinding;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
@@ -39,7 +39,7 @@ import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 
 import java.lang.ref.WeakReference;
 
-public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageGroupedItemShopGoods.ItemInfo> {
+public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageShopGoodsGroupedItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
@@ -98,7 +98,7 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
 
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
-                                 final BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+                                 final BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
         //DataBinding 绑定布局
         /*if(!isGetModeType){
             isGridMode = mLinkageRecyclerView.get().isGridMode();
@@ -138,14 +138,14 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
 
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
 
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
     }
 
     @Override
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
-                                       BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+                                       BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
 
     }
 

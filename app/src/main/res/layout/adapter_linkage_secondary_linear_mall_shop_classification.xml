@@ -25,7 +25,7 @@
 
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.ui.LinkageGroupedItemMallShopClassification.ItemInfo" />
+            type="com.life.waimaishuo.bean.ui.LinkageMallShopClassificationGroupedItemInfo" />
 
     </data>
 

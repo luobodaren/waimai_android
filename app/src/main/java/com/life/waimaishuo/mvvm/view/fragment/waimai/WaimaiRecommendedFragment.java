@@ -54,11 +54,6 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
     private int queryType = 0;
     private WaiMaiReqData.WaiMaiRecommendReqData waiMaiRecommendReqData;
 
-    /**
-     * 第一次加载数据
-     */
-    private boolean firstRefreshData = true;
-
     @Override
     protected int getLayoutId() {
         if(queryType == 0){
@@ -238,9 +233,6 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
     @Override
     protected void onLifecycleResume() {
         super.onLifecycleResume();
-        if(firstRefreshData){
-            refreshListDate();
-        }
     }
 
     /**
@@ -282,7 +274,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
         }
     }
 
-    public void setChildSign(String sign){
+    public void setShopCategory(String sign){
         if(waiMaiRecommendReqData != null && waiMaiRecommendReqData.reqData != null){
             waiMaiRecommendReqData.reqData.setShopCategory(sign);
         }

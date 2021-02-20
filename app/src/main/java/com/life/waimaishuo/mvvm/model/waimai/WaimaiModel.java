@@ -136,6 +136,7 @@ public class WaimaiModel extends BaseModel {
                     }
                     requestCallBack.onSuccess(mFoodTypeList);
                 } else {
+                    mFoodTypeList.clear();
                     requestCallBack.onSuccess(null);
                 }
             }

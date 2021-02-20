@@ -21,7 +21,7 @@ import com.life.waimaishuo.adapter.BaseBannerAdapter;
 import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.tag.SpecificationWaiMaiTagAdapter;
-import com.life.waimaishuo.bean.ui.LinkageGroupedItemShopGoods;
+import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
 import com.life.waimaishuo.databinding.LayoutDialogChoseSpecificationBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
@@ -100,19 +100,19 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     @Override
-    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+    public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
         openPage(GoodsDetailFragment.class, new Bundle()); // FIXME: 2020/12/28 后续需要传入商品id
     }
 
     @Override
-    public void onSecondaryChildClick(LinkageSecondaryViewHolder holder, View view, BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+    public void onSecondaryChildClick(LinkageSecondaryViewHolder holder, View view, BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
         if (view.getId() == R.id.bt_chose_specification) {
             showChoseSpecificationDialog(item);
         }
     }
 
     @Override
-    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+    public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder, BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
 
     }
 
@@ -126,7 +126,7 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     private void initLinkageRecycler() {
-        LinkageRecyclerView<LinkageGroupedItemShopGoods.ItemInfo> linkage = mBinding.linkageOrderDishes;
+        LinkageRecyclerView<LinkageShopGoodsGroupedItemInfo> linkage = mBinding.linkageOrderDishes;
         linkage.init(mViewModel.getShopGoodsItems(),
                 new CustomLinkagePrimaryShopGoodsAdapterConfig<>(this, linkage),
                 new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this, linkage));
@@ -135,7 +135,7 @@ public class ShopOrderDishesFragment extends BaseFragment
 
     Dialog specificationDialog;
 
-    private void showChoseSpecificationDialog(BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+    private void showChoseSpecificationDialog(BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
         if (specificationDialog == null) {
             specificationDialog = new Dialog(requireContext(), R.style.mySimpleNoTitleDialog);
             specificationDialog.setContentView(getChoseSpecificationView(item));
@@ -155,7 +155,7 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     // FIXME: 2021/1/4 修改数据获取的方式
-    private View getChoseSpecificationView(BaseGroupedItem<LinkageGroupedItemShopGoods.ItemInfo> item) {
+    private View getChoseSpecificationView(BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
         View view = View.inflate(requireContext(), R.layout.layout_dialog_chose_specification, null);
         LayoutDialogChoseSpecificationBinding binding = DataBindingUtil.bind(view);
 
