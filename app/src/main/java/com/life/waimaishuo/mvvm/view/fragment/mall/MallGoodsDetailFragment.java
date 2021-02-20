@@ -376,7 +376,10 @@ public class MallGoodsDetailFragment extends BaseFragment {
                 holder.setText(R.id.tv_address, item.getAddress());
             }
         };
-        adapter.setSelectedListener((holder, item) -> {
+        adapter.setSelectedListener((holder, item, isCancel) -> {
+            if(!isCancel){
+
+            }
             // TODO: 2021/1/25  保存选中地址信息
             selectAddressDialog.dismiss();
 

@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,10 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
+import com.life.base.views.UiAdapterFrameLayout;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.FlexboxLayoutAdapter;
 import com.life.waimaishuo.adapter.tag.ScreenTagAdapter;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.LayoutSortBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
+import com.life.waimaishuo.util.Utils;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.adapter.simple.XUISimpleAdapter;
@@ -28,18 +33,16 @@ import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 import com.xuexiang.xui.widget.picker.XRangeSlider;
 import com.xuexiang.xui.widget.popupwindow.popup.XUIListPopup;
 import com.xuexiang.xui.widget.popupwindow.popup.XUIPopup;
-import com.xuexiang.xui.widget.tabbar.TabSegment;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class SortTypeView extends FrameLayout {
 
     private int sortViewBackground;
-    private boolean isShowTabSegment;
+    private boolean isShowPreferential;
+    private boolean isShowScreen;
+
     private int flowTagBackground;
 
     private int textUnCheckColor;
@@ -47,16 +50,24 @@ public class SortTypeView extends FrameLayout {
 
     private LayoutSortBinding mBinding;
 
-    private List<String> tabTypes = new ArrayList<>();//tab title
+    private List<String> mPreferentialTabs = new ArrayList<>();//tab title
     private SortPopup mSortPopup;    //综合排序点击弹出pop
-    private SortTypeEnum popSelectedTypeEnum = SortTypeEnum.SCORE;  //pop选中的排序
-    private SortTypeEnum currentSortTypeEnum = SortTypeEnum.SCORE; //当前选择的排序Enum
-    private onSortTypeChangeListener mOnSortTypeChangeListener;
-    int currentSelectedSort = 1;    //当前选中的排序类型
 
     private XUIPopup screenPop;
     private BaseRecyclerAdapter screenRecyclerAdapter;
     private List<String> screenTitleList = new ArrayList<>();
+    private onSortTypeChangeListener mOnSortTypeChangeListener;
+
+    private int mCurrentSelectedSort = 1;    //当前选中的排序类型
+    private SortTypeEnum mPopSelectedTypeEnum = SortTypeEnum.SCORE;  //pop选中的排序Enum
+    private SortTypeEnum mCurrentSortTypeEnum = SortTypeEnum.SCORE; //当前选择的排序Enum
+
+    private FlexboxLayoutAdapter preferentialRecyclerAdapter;
+
+    private int defaultMaxPrice = 100;
+    private int defaultMinPrice = 0;
+    private int maxPrice = defaultMaxPrice;
+    private int minPrice = defaultMinPrice;
 
     @Override
     public View getRootView() {
@@ -73,72 +84,37 @@ public class SortTypeView extends FrameLayout {
 
     public SortTypeView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SortTypeView);
         sortViewBackground = typedArray.getResourceId(R.styleable.SortTypeView_sortViewBackground, R.color.background);
-        isShowTabSegment = typedArray.getBoolean(R.styleable.SortTypeView_showTabSegment, false);
+        isShowPreferential = typedArray.getBoolean(R.styleable.SortTypeView_showPreferential, false);
+        isShowScreen = typedArray.getBoolean(R.styleable.SortTypeView_showScreen,false);
         flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
         flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
 
         int textUnCheckColorId = typedArray.getResourceId(R.styleable.SortTypeView_sortTextColor, R.color.text_uncheck);
         textUnCheckColor = getContext().getResources().getColor(textUnCheckColorId);
-
         initAttribute();
         addSortTypeView();
-        initTabSegment();
     }
 
-    /**
-     * 更新排序
-     */
-    public void setSortType(SortTypeEnum sortTypeEnum) {
-        switch (sortTypeEnum) {
-            case DISTANCE:
-                setSelectedSort(2);
-                break;
-            case SALES:
-                setSelectedSort(3);
-                break;
-            default:
-                setSelectedSort(1);
-                break;
-        }
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void setOnSortTypeChangeListener(onSortTypeChangeListener mOnSortTypeChangeListener) {
-        this.mOnSortTypeChangeListener = mOnSortTypeChangeListener;
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
     }
 
-    public void setPreferentialTab(List<String> preferentialList) {
-        addTab(mBinding.tabSegment, preferentialList);
-    }
-
-    /**
-     * 更新筛选内容
-     *
-     * @param screenData
-     */
-    public void setScreenData(List<String> screenData) {
-        screenTitleList.clear();
-        screenTitleList.addAll(screenData);
-        if (screenRecyclerAdapter != null) {
-            screenRecyclerAdapter.notifyDataSetChanged();
-        }
-    }
-
-    public SortTypeEnum getCurrentSortTypeEnum() {
-        return currentSortTypeEnum;
-    }
-
-    public String[] getSelectedPreferential(){
-        TabSegment.Tab tab = mBinding.tabSegment.getTab(mBinding.tabSegment.getSelectedIndex());
-        if(tab == null){
-            return new String[]{};
-        }
-        return new String[]{tab.getText().toString()};
+    private void initAttribute() {
+        textCheckColor = getContext().getResources().getColor(R.color.text_normal);
     }
 
     private void addSortTypeView() {
         View sortTypeView = View.inflate(getContext(), R.layout.layout_sort, null);
+        sortTypeView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         sortTypeView.setBackgroundColor(getContext().getResources().getColor(sortViewBackground));
 
         mBinding = LayoutSortBinding.bind(sortTypeView);
@@ -150,10 +126,7 @@ public class SortTypeView extends FrameLayout {
 
         addView(sortTypeView);
         initSortTypeView();
-    }
-
-    private void initAttribute() {
-        textCheckColor = getContext().getResources().getColor(R.color.text_normal);
+        initPreferentialRecycler();
     }
 
     private void initSortTypeView() {
@@ -162,63 +135,50 @@ public class SortTypeView extends FrameLayout {
         mBinding.tvSales.setOnClickListener(this::onSalesClick);
         mBinding.tvScreen.setOnClickListener(this::onScreenClick);
 
-        Drawable drawable;
-        if (textUnCheckColor == R.color.text_uncheck) {
-            drawable = getResources().getDrawable(R.drawable.ic_screen_gray);
-        } else {
-            drawable = getResources().getDrawable(R.drawable.ic_screen_white);
-        }
+        if(isShowScreen){
+            Drawable drawable;
+            if (textUnCheckColor == R.color.text_uncheck) {
+                drawable = getResources().getDrawable(R.drawable.ic_screen_gray);
+            } else {
+                drawable = getResources().getDrawable(R.drawable.ic_screen_white);
+            }
 
-        int drawableSize = (int) UIUtils.getInstance()
-                .scalePx(getResources().getDimensionPixelSize(R.dimen.sort_layout_text_size));
-        drawable.setBounds(0, 0, drawableSize, drawableSize);
-        mBinding.tvScreen.setCompoundDrawables(null, null, drawable, null);
+            int drawableSize = (int) UIUtils.getInstance()
+                    .scalePx(getResources().getDimensionPixelSize(R.dimen.sort_layout_text_size));
+            drawable.setBounds(0, 0, drawableSize, drawableSize);
+            mBinding.tvScreen.setCompoundDrawables(null, null, drawable, null);
+        }else{
+            mBinding.tvScreen.setVisibility(GONE);
+        }
     }
 
-    private void initTabSegment() {
-        if (!isShowTabSegment) {
+    private void initPreferentialRecycler() {
+        if (!isShowPreferential) {
             LogUtil.d("不显示flowTagLayout");
             return;
         }
 
-        int space = getResources().getDimensionPixelOffset(R.dimen.preferential_item_space);
+        mPreferentialTabs.clear();
+        mPreferentialTabs.addAll(Constant.PREFERENTIAL_TABS);
 
-        mBinding.tabSegment.setVisibility(VISIBLE);
-        mBinding.tabSegment.setItemSpaceInScrollMode(space);
-        mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.sort_layout_preferential_text_size));
-        addTab(mBinding.tabSegment, tabTypes);
-        mBinding.tabSegment.setOnTabClickListener(new TabSegment.OnTabClickListener() {
-            @Override
-            public void onTabClick(int index) {
-                mOnSortTypeChangeListener.onPreferentialChange(index);
-                // TODO: 2020/12/29 添加选中后的背景itemView的背景
-            }
+        mBinding.preferentialRecyclerView.setVisibility(VISIBLE);
+        mBinding.preferentialRecyclerView.setLayoutManager(Utils.getFlexboxLayoutManager(getContext()));
+        mBinding.preferentialRecyclerView.setAdapter(
+                preferentialRecyclerAdapter = new FlexboxLayoutAdapter(
+                        R.layout.adapter_flexbox_layout_item, mPreferentialTabs.toArray(new String[]{})));
+
+        preferentialRecyclerAdapter.setIsMultiSelectMode(true); //多选
+        preferentialRecyclerAdapter.setCancelable(true);    //可取消
+
+        preferentialRecyclerAdapter.setOnItemClickListener((itemView, item, position) -> {
+            preferentialRecyclerAdapter.select(position);
+            mOnSortTypeChangeListener.onPreferentialChange(position);
         });
     }
 
-    private void addTab(TabSegment tabSegment,
-                        List<String> titles) {
-        if (!isShowTabSegment) {
-            return;
-        }
-        tabSegment.reset();
-        Iterator<String> stringIterator = titles.iterator();
-        while (stringIterator.hasNext()) {
-            String s = stringIterator.next();
-            MyTabSegmentTab tab = new MyTabSegmentTab(s);
-            tabSegment.addTab(tab);
-        }
-        tabSegment.notifyDataChanged();
-        TabSegment.TabAdapter adapter = invokeGetAdapted(tabSegment);
-        if (adapter != null) {
-            int size = adapter.getViews().size();
-            for (int i = 0; i < size; i++) {
-                TextView textView = adapter.getViews().get(i).getTextView();
-                textView.setBackgroundResource(R.drawable.sr_bg_10radius_white);
-                textView.setPadding(24, 16, 24, 16);
-            }
-        } else {
-            LogUtil.e("反射getAdapter方法失败");
+    private void refreshPreferentialTab(){
+        if(preferentialRecyclerAdapter != null){
+            preferentialRecyclerAdapter.resetDataSource(mPreferentialTabs);
         }
     }
 
@@ -228,20 +188,20 @@ public class SortTypeView extends FrameLayout {
      * @param view
      */
     private void onTypeClick(View view) {
-        if (currentSelectedSort == 1) {   //当前为已选中状态
+        if (mCurrentSelectedSort == 1) {   //当前为已选中状态
             showSortPop();//显示popWindow 选择排序方法
         }else{
             setSelectedSort(1);
-            currentSortTypeEnum = popSelectedTypeEnum;
+            mCurrentSortTypeEnum = mPopSelectedTypeEnum;
             if (mOnSortTypeChangeListener != null) {
-                mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
+                mOnSortTypeChangeListener.onSortTypeChange(mCurrentSortTypeEnum);
             }
         }
     }
 
     private void onDistanceClick(View view) {
         setSelectedSort(2);
-        currentSortTypeEnum = SortTypeEnum.DISTANCE;
+        mCurrentSortTypeEnum = SortTypeEnum.DISTANCE;
         if (mOnSortTypeChangeListener != null) {
             mOnSortTypeChangeListener.onSortTypeChange(SortTypeEnum.DISTANCE);
         }
@@ -249,7 +209,7 @@ public class SortTypeView extends FrameLayout {
 
     private void onSalesClick(View view) {
         setSelectedSort(3);
-        currentSortTypeEnum = SortTypeEnum.SALES;
+        mCurrentSortTypeEnum = SortTypeEnum.SALES;
         if (mOnSortTypeChangeListener != null) {
             mOnSortTypeChangeListener.onSortTypeChange(SortTypeEnum.SALES);
         }
@@ -294,6 +254,21 @@ public class SortTypeView extends FrameLayout {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(screenRecyclerAdapter);
+        view.findViewById(R.id.bt_reset).setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+
+            }
+        });
+        view.findViewById(R.id.bt_finish).setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                if(screenPop != null && screenPop.isShowing()){
+                    screenPop.dismiss();
+                    mOnSortTypeChangeListener.onScreenChange();
+                }
+            }
+        });
         return view;
     }
 
@@ -323,11 +298,9 @@ public class SortTypeView extends FrameLayout {
                 }
                 if (holder.getItemViewType() == flowTabViewType) {
                     FlowTagLayout flowTagLayout = holder.findViewById(R.id.flowTagLayout);
-                    if(flowTagLayout.getAdapter() == null){
-                        ScreenTagAdapter tagAdapter = new ScreenTagAdapter(getContext());
-                        tagAdapter.setSelectedPosition(0);
-                        String[] strings = new String[]{"首单立减", "销量较高", "下单返利", "满减优惠", "新客立减", "津贴联盟"};
-
+                    ScreenTagAdapter tagAdapter = (ScreenTagAdapter) flowTagLayout.getAdapter();
+                    if(tagAdapter == null){
+                        tagAdapter = new ScreenTagAdapter(getContext());
                         flowTagLayout.setAdapter(tagAdapter);
                         flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
                         flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
@@ -336,18 +309,32 @@ public class SortTypeView extends FrameLayout {
                                 LogUtil.d("流标签选中index:" + tagPosition);
                             }
                         });
-                        tagAdapter.addTags(strings); // FIXME: 2021/1/4 修改内容
+                        tagAdapter.addTags(Constant.PREFERENTIAL_TABS);
                     }
+                    tagAdapter.setSelectedPosition(0);
                 }
                 if (holder.getItemViewType() == rangeSliderViewType) {
                     XRangeSlider xRangeSlider = holder.findViewById(R.id.rangeSlider);
+                    xRangeSlider.setMax(defaultMaxPrice);
+                    xRangeSlider.setMin(defaultMinPrice);
+                    xRangeSlider.setOnRangeSliderListener(new XRangeSlider.OnRangeSliderListener() {
+                        @Override
+                        public void onMaxChanged(XRangeSlider slider, int maxValue) {
+                            maxPrice = maxValue;
+                        }
+
+                        @Override
+                        public void onMinChanged(XRangeSlider slider, int minValue) {
+                            minPrice = minValue;
+                        }
+                    });
                 }
             }
 
             @Override
             public int getItemViewType(int position) {
                 int dataSize = getData().size();
-                if (position == dataSize - 1) {   //倒数第二个
+                if (position == dataSize - 1) {   //最后一个
                     return rangeSliderViewType;
                 }
                 if (position % 2 == 0) {
@@ -372,7 +359,7 @@ public class SortTypeView extends FrameLayout {
      * @param position 1：综合排序   2：距离    3：销量
      */
     private void setSelectedSort(int position) {
-        currentSelectedSort = position;
+        mCurrentSelectedSort = position;
         if (position == 1) {
             mBinding.tvSortType.setTextColor(textCheckColor);
             mBinding.tvDistance.setTextColor(textUnCheckColor);
@@ -405,14 +392,84 @@ public class SortTypeView extends FrameLayout {
             mSortPopup = new SortPopup(getContext(), XUIListPopup.DIRECTION_NONE, adapter);
             mSortPopup.create((int) UIUtils.getInstance().getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
                 mSortPopup.dismiss();
-                popSelectedTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
-                currentSortTypeEnum = popSelectedTypeEnum;
-                mBinding.tvSortType.setText(currentSortTypeEnum.getType());
-                mOnSortTypeChangeListener.onSortTypeChange(currentSortTypeEnum);
+                mPopSelectedTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
+                mCurrentSortTypeEnum = mPopSelectedTypeEnum;
+                mBinding.tvSortType.setText(mCurrentSortTypeEnum.getType());
+                mOnSortTypeChangeListener.onSortTypeChange(mCurrentSortTypeEnum);
             });
             mSortPopup.setContentViewBackground(R.drawable.sr_bg_sort_pop); //必须在创建create方法后调用才能生效
             mSortPopup.setOnDismissListener(() -> LogUtil.e("排序pop dismiss"));
         }
+    }
+
+    /**
+     * 更新排序
+     */
+    public void setSortType(SortTypeEnum sortTypeEnum) {
+        switch (sortTypeEnum) {
+            case DISTANCE:
+                setSelectedSort(2);
+                break;
+            case SALES:
+                setSelectedSort(3);
+                break;
+            default:
+                setSelectedSort(1);
+                break;
+        }
+    }
+
+    public void setOnSortTypeChangeListener(onSortTypeChangeListener mOnSortTypeChangeListener) {
+        this.mOnSortTypeChangeListener = mOnSortTypeChangeListener;
+    }
+
+    /**
+     * 设置优惠Tab
+     * @param preferentialList
+     */
+    public void setPreferentialTab(List<String> preferentialList) {
+        mPreferentialTabs.clear();
+        mPreferentialTabs.addAll(preferentialList);
+
+        refreshPreferentialTab();
+    }
+
+
+    /**
+     * 更新筛选内容
+     *
+     * @param screenData
+     */
+    public void setScreenData(List<String> screenData) {
+        screenTitleList.clear();
+        screenTitleList.addAll(screenData);
+        if (screenRecyclerAdapter != null) {
+            screenRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public SortTypeEnum getmCurrentSortTypeEnum() {
+        return mCurrentSortTypeEnum;
+    }
+
+    /**
+     * 若在选中后立刻调用，由于动画原因会存在延时，导致获取到的数据错误
+     * @return
+     */
+    public String[] getSelectedPreferential(){
+        if(preferentialRecyclerAdapter != null){
+            return preferentialRecyclerAdapter.getMultiContent().toArray(new String[]{});
+        }else{
+            return new String[]{};
+        }
+    }
+
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public int getMinPrice() {
+        return minPrice;
     }
 
     public interface onSortTypeChangeListener {
@@ -421,34 +478,7 @@ public class SortTypeView extends FrameLayout {
         void onSortTypeChange(SortTypeEnum sortTypeEnum);
 
         void onPreferentialChange(int selectedPosition);
-    }
 
-    /**
-     * 获取并调用私有方法
-     */
-    private TabSegment.TabAdapter invokeGetAdapted(TabSegment tabSegment) {
-        try {
-            // 获取方法名为showName，参数为String类型的方法
-            Class<TabSegment> cls = (Class<TabSegment>) tabSegment.getClass();
-            Method method = cls.getDeclaredMethod("getAdapter", null);
-            // 若调用私有方法，必须抑制java对权限的检查
-            method.setAccessible(true);
-            // 使用invoke调用方法，并且获取方法的返回值，需要传入一个方法所在类的对象，new Object[]
-            // {"Kai"}是需要传入的参数，与上面的String.class相对应
-            TabSegment.TabAdapter adapter = (TabSegment.TabAdapter) method.invoke(tabSegment, null);
-            return adapter;
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+        void onScreenChange();
     }
-
 }

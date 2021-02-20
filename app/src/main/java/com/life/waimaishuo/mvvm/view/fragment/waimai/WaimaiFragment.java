@@ -4,13 +4,14 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.SparseArray;
+import android.util.TimeUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
@@ -21,12 +22,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.amap.api.location.AMapLocationClientOption;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
+import com.life.base.utils.TimeUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.BR;
 import com.life.waimaishuo.Global;
@@ -39,7 +40,9 @@ import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.adapter.tag.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchTag;
+import com.life.waimaishuo.bean.api.respon.SecondKillTime;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentWaimaiAdaptiveSizeViewBinding;
 import com.life.waimaishuo.databinding.FragmentWaimaiBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeBinding;
@@ -55,6 +58,7 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TimeCountRefresh;
 import com.life.waimaishuo.util.Utils;
 import com.life.waimaishuo.util.amap.LocationUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
@@ -74,9 +78,9 @@ import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.statelayout.StatusLoader;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
-import com.yanzhenjie.recyclerview.widget.DefaultItemDecoration;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission_group.LOCATION;
@@ -93,7 +97,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     //主要内容
     //自适应大小布局-动态引入
-    private View adaptiveView;
     private FragmentWaimaiAdaptiveSizeViewBinding adaptiveViewBinding;
 
     //适配器-轮播图
@@ -111,12 +114,47 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     private MyFragmentPagerAdapter<BaseFragment> viewPagerAdapter;
     private FragmentManager fm;//viewpager的fragmentManager
 
+    //限时秒杀计时器
+    private TimeCountRefresh mSecondKillTiming;
+    private TimeCountRefresh.OnTimerProgressListener mTimerProgressListener;    //进度监听器
+    private TimeCountRefresh.OnTimerFinishListener mTimerFinishListener;    //及时结束监听器
+
+    //由于动画原因导致无法通过view本身立刻获取选中位置，需要设置变量保存
+    //主标签选中的位置
+    private int pageTypeSelectedIndex = 0;
+    //子标签选中的String
     private String child_sign = "";
+
+    //保存排序缓存
+    private SparseArray<SortTypeEnum> sortTypeEnumMap = new SparseArray<>();
 
     /**
      * 第一次加载数据
      */
     private boolean firstRefreshData = true;
+
+    {
+        mTimerProgressListener = timeLong -> {
+            LogUtil.d(timeLong + "");
+            String[] times = new String[3];
+
+            float minute = ((float) timeLong) / TimeUtil.ONE_MIN_MILLISECONDS;
+            int minute_int = (int) minute;
+            times[2] = String.valueOf((int) ((minute - minute_int) * 60));
+            float hour = minute / 60;
+            int hour_int = (int) hour;
+            times[1] = String.valueOf((int) ((hour - hour_int) * 60));
+            times[0] = String.valueOf(hour_int);
+            setSecondKillTime(times);
+        };
+        mTimerFinishListener = () -> {
+            LogUtil.d("限时秒杀计时结束");
+            if (mSecondKillTiming != null) {
+                mSecondKillTiming.cancel();
+                mSecondKillTiming = null;
+            }
+        };
+    }
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -126,7 +164,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     @Override
     protected void bindViewModel() {
-        binding = ((FragmentWaimaiBinding)mViewDataBinding);
+        binding = ((FragmentWaimaiBinding) mViewDataBinding);
         binding.setViewModel(mViewModel);
     }
 
@@ -142,14 +180,14 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
         addSortViewClickListener();
 
-        adaptiveViewBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        adaptiveViewBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 LogUtil.d("OnPageChangeListener position:" + position);
-                refreshTabAndViewPager(mViewModel.getDefaultTitle(),position,false);
-                refreshSortType(SortTypeEnum.SCORE);
+                pageTypeSelectedIndex = position;
+                refreshTabAndViewPager(mViewModel.getDefaultTitle(), position, false);
                 // TODO: 2020/12/3 刷新内容
-
+                notifyRecommendFragmentRefresh(false);
             }
         });
 
@@ -157,13 +195,14 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
         binding.layoutTitle.ivMessage.setOnClickListener(v -> openPage(MessageFragment.class));
 
-        childSignRecyclerAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<String>() {
-            @Override
-            public void onSelectedClick(BaseViewHolder holder, String item) {
+        childSignRecyclerAdapter.setSelectedListener((holder, item, isCancel) -> {
+            if (isCancel) {
+                child_sign = "";
+            } else {
                 child_sign = item;
-                adaptiveViewBinding.childSignRecycler.scrollToPosition(childSignRecyclerAdapter.getData().indexOf(item));
-                notifyRecommendFragmentRefresh(false);
             }
+            adaptiveViewBinding.childSignRecycler.scrollToPosition(childSignRecyclerAdapter.getData().indexOf(item));
+            notifyRecommendFragmentRefresh(false);
         });
 
 //        binding.myLlContentView.setOnScrollChangeListener(moveRatio -> {
@@ -197,9 +236,11 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         super.initViews();
 
         //动态添加adaptiveView
-        adaptiveView = View.inflate(requireContext(),R.layout.fragment_waimai_adaptive_size_view,null);
+        View adaptiveView = View.inflate(requireContext(), R.layout.fragment_waimai_adaptive_size_view, null);
         adaptiveViewBinding = FragmentWaimaiAdaptiveSizeViewBinding.bind(adaptiveView);
         binding.adaptiveSizeView.addView(adaptiveView);
+
+        setDefaultSecondKillTime();//设置默认限时秒杀时间
 
         initMyLocation();
 
@@ -212,6 +253,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         initActivityRegion();
         initNavigationTab();
         initChildSignRecycler();
+        initSortTypeView();
 
         showLoading();
     }
@@ -234,21 +276,26 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         //开始定位
         startLocation();
 
-        if(firstRefreshData){
+        if (firstRefreshData) {
             firstRefreshData = false;
             //请求数据
             mViewModel.refreshSearchTag();
             mViewModel.refreshBannerItemList();
             mViewModel.refreshKingKongArea();
+
+            // TODO: 2021/2/19 以下两个请求可改为链式调用
             mViewModel.refreshExclusiveBreakfast();
             mViewModel.refreshActivityRegion();
         }
+
+        mViewModel.refreshSecondKillTime();
     }
 
     @Override
     protected void onLifecycleStop() {
         super.onLifecycleStop();
         LocationUtil.stopLocation(false);
+        mSecondKillTiming.cancel();
     }
 
     @Override
@@ -262,16 +309,16 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         setMyLocationData();
     }
 
-    private void startLocation(){
+    private void startLocation() {
         LocationUtil.intervalLocation(aMapLocation -> {
             LogUtil.d(aMapLocation.toStr());
-            if(aMapLocation.getErrorCode() == 0){
+            if (aMapLocation.getErrorCode() == 0) {
                 Global.LocationProvince = aMapLocation.getProvince();
                 Global.LocationCity = aMapLocation.getCity();
                 Global.LocationDistrict = aMapLocation.getDistrict();
                 Global.latitude = aMapLocation.getLatitude();
                 Global.longitude = aMapLocation.getLongitude();
-            }else{
+            } else {
                 LogUtil.e("定位失败");
             }
 
@@ -283,13 +330,53 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     /**
      * 设置我的位置信息
      */
-    private void setMyLocationData(){
-        if(Global.LocationDistrict != null && !"".equals(Global.LocationDistrict)){
+    private void setMyLocationData() {
+        if (Global.LocationDistrict != null && !"".equals(Global.LocationDistrict)) {
             binding.layoutTitle.tvLocation.setText(Global.LocationDistrict);
-        }else if(Global.LocationCity != null && !"".equals(Global.LocationCity)){
+        } else if (Global.LocationCity != null && !"".equals(Global.LocationCity)) {
             binding.layoutTitle.tvLocation.setText(Global.LocationCity);
-        }else{
+        } else {
             binding.layoutTitle.tvLocation.setText(R.string.location_unknow);
+        }
+    }
+
+    /**
+     * 设置默认限时秒杀时间
+     */
+    private void setDefaultSecondKillTime() {
+        if (adaptiveViewBinding != null) {
+            adaptiveViewBinding.layoutActivityRegion.layoutCounting.tvHour.setText(R.string.default_second_kill_time);
+            adaptiveViewBinding.layoutActivityRegion.layoutCounting.tvMinute.setText(R.string.default_second_kill_time);
+            adaptiveViewBinding.layoutActivityRegion.layoutCounting.tvSeconds.setText(R.string.default_second_kill_time);
+        }
+    }
+
+    /**
+     * 设置限时秒杀时间
+     *
+     * @param times 小时分钟秒
+     */
+    private String currentSetHour;
+    private String currentSetMinute;
+
+    private void setSecondKillTime(String[] times) {
+        try {
+            if (adaptiveViewBinding != null) {
+                if (!times[0].equals(currentSetHour)) {
+                    currentSetHour = times[0];
+                    adaptiveViewBinding.layoutActivityRegion.layoutCounting.tvHour.setText(
+                            currentSetHour.length() == 1 ? "0" + currentSetHour : currentSetHour);
+                }
+                if (!times[1].equals(currentSetMinute)) {
+                    currentSetMinute = times[1];
+                    adaptiveViewBinding.layoutActivityRegion.layoutCounting.tvMinute.setText(
+                            currentSetMinute.length() == 1 ? "0" + currentSetMinute : currentSetMinute);
+                }
+                adaptiveViewBinding.layoutActivityRegion.layoutCounting.tvSeconds.setText(
+                        times[2].length() == 1 ? "0" + times[2] : times[2]);
+            }
+        } catch (Error error) {
+            LogUtil.e("设置限时秒杀时间失败 error:" + error.getMessage());
         }
     }
 
@@ -310,7 +397,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
                     baseBannerAdapter
-                            = new BaseBannerAdapter(mViewModel.getBannerItemList(),R.layout.adapter_banner_image_item_waimai);
+                            = new BaseBannerAdapter(mViewModel.getBannerItemList(), R.layout.adapter_banner_image_item_waimai);
                     adaptiveViewBinding.bannerLayout.setAdapter(baseBannerAdapter);
                     adaptiveViewBinding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
                 });
@@ -330,12 +417,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
                     kingKongAreaAdapter.getData().clear();
-                    if(mViewModel.getMyFoodDataList().size() > 0){
-                        setViewVisibility(adaptiveViewBinding.recyclerFoodType,true);
+                    if (mViewModel.getMyFoodDataList().size() > 0) {
+                        setViewVisibility(adaptiveViewBinding.recyclerFoodType, true);
                         kingKongAreaAdapter.getData().addAll(mViewModel.getMyFoodDataList());
                         kingKongAreaAdapter.notifyDataSetChanged();
-                    }else{
-                        setViewVisibility(adaptiveViewBinding.recyclerFoodType,false);
+                    } else {
+                        setViewVisibility(adaptiveViewBinding.recyclerFoodType, false);
                     }
                     adaptiveViewBinding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
                 });
@@ -345,10 +432,10 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
-                    if(mViewModel.getExclusiveShopData().size() <= 0){
-                        setViewVisibility(adaptiveViewBinding.recyclerMyExclusive,false);
-                    }else{
-                        setViewVisibility(adaptiveViewBinding.recyclerMyExclusive,true);
+                    if (mViewModel.getExclusiveShopData().size() <= 0) {
+                        setViewVisibility(adaptiveViewBinding.recyclerMyExclusive, false);
+                    } else {
+                        setViewVisibility(adaptiveViewBinding.recyclerMyExclusive, true);
                         showBottomContent();
                     }
                 });
@@ -357,14 +444,14 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.activityRegionObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                mHandler.post(()-> {
-                    if(mViewModel.activityRegionObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_FALSE){
+                mHandler.post(() -> {
+                    if (mViewModel.activityRegionObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_FALSE) {
                         showError();
-                    }else{
-                        if(mViewModel.getActivityRegion().size() > 0){
+                    } else {
+                        setActivityRegionData(mViewModel.getActivityRegion());
+                        if (mViewModel.getActivityRegion().size() > 0) {
                             showBottomContent();
                         }
-                        setActivityRegionData(mViewModel.getActivityRegion());
                     }
                 });
             }
@@ -372,12 +459,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.recommendTitleObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                mHandler.post(()->{
-                    if(mViewModel.getChildSignData().size() > 0){
-                        setViewVisibility(adaptiveViewBinding.childSignRecycler,true);
+                mHandler.post(() -> {
+                    if (mViewModel.getChildSignData().size() > 0) {
+                        setViewVisibility(adaptiveViewBinding.childSignRecycler, true);
                         child_sign = mViewModel.getChildSignData().get(0);
-                    }else{
-                        setViewVisibility(adaptiveViewBinding.childSignRecycler,false);
+                    } else {
+                        setViewVisibility(adaptiveViewBinding.childSignRecycler, false);
                         child_sign = "";
                     }
                     childSignRecyclerAdapter.notifyDataSetChanged();
@@ -389,12 +476,43 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                 });
             }
         });
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.secondKillTimeObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                //if(mViewModel.secondKillTimeObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_FALSE){   //失败
+                mHandler.post(() -> {
+                    SecondKillTime secondKillTime = mViewModel.getSecondKillTime();
+                    secondKillTime.setOverTime("2021-2-20 13:00:00");
+                    if (secondKillTime != null && !"".equals(secondKillTime.getOverTime())) {    //有数据
+                        int result = TimeUtil.compare_date(TimeUtil.getCurrentDate(TimeUtil.dateFormatYMDHMS), secondKillTime.getOverTime());
+                        if (result == -1) {   //秒杀活动未结束
+                            long times = TimeUtil.getExpired(secondKillTime.getOverTime());
+                            if (mSecondKillTiming != null) {
+                                mSecondKillTiming.cancel();
+                            }
+                            mSecondKillTiming = new TimeCountRefresh(times, 1000);
+                            mSecondKillTiming.setOnTimerProgressListener(mTimerProgressListener);
+                            mSecondKillTiming.setOnTimerFinishListener(mTimerFinishListener);
+                            mSecondKillTiming.start();
+                        }
+                    } else {
+                        LogUtil.d("没有限时秒杀时间");
+                        if (mSecondKillTiming != null) {
+                            mSecondKillTiming.cancel();
+                            mSecondKillTiming = null;
+                        }
+                        setDefaultSecondKillTime();
+                    }
+                });
+            }
+        });
     }
 
     /**
      * 初始化历史搜索View
      */
-    private void initSearchView(){
+    private void initSearchView() {
         SearchTag[] searchTag = mViewModel.getSearchTag();
         adaptiveViewBinding.searchRecord.setLayoutManager(Utils.getFlexboxLayoutManager(getContext()));
         adaptiveViewBinding.searchRecord.setAdapter(searchTagAdapter = new SearchRecordTagWaimaiAdapter());
@@ -404,12 +522,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     /**
      * 初始化轮播图
      */
-    private void initBanner(){
+    private void initBanner() {
         //String[] url = {"https://cjwm-pic.oss-cn-beijing.aliyuncs.com/wms2fa52615-d6e9-d5ff-88e4-f7281e29af31.jpg"};
         baseBannerAdapter
-                = new BaseBannerAdapter(mViewModel.getBannerItemList(),R.layout.adapter_banner_image_item_waimai);
+                = new BaseBannerAdapter(mViewModel.getBannerItemList(), R.layout.adapter_banner_image_item_waimai);
         baseBannerAdapter.setOnBannerItemClickListener(position ->
-                Toast.makeText(getContext(),"点击了轮播图：" + position,Toast.LENGTH_SHORT).show());
+                Toast.makeText(getContext(), "点击了轮播图：" + position, Toast.LENGTH_SHORT).show());
         adaptiveViewBinding.bannerLayout.setAdapter(baseBannerAdapter);
         adaptiveViewBinding.bannerLayout.setItemSpace((int) UIUtils.getInstance().scalePx(
                 getResources().getDimensionPixelSize(R.dimen.interval_size_xs)));
@@ -418,19 +536,19 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     /**
      * 初始化食物类型Recycler
      */
-    private void initFoodTypeRecycler(){
+    private void initFoodTypeRecycler() {
         int spanCount = 5;
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),spanCount
-                , LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), spanCount
+                , LinearLayoutManager.VERTICAL, false);
         kingKongAreaAdapter = getFoodRecyclerAdapter();
         kingKongAreaAdapter.setOnItemClickListener((itemView, item, position) -> {
-            if(position == kingKongAreaAdapter.getItemCount()-1){
+            if (position == kingKongAreaAdapter.getItemCount() - 1) {
                 openPage(WaimaiAllTypeFragment.class);  //最后一个为全部类型
-            }else{  //打开子类型
+            } else {  //打开子类型
                 Bundle bundle = new Bundle();
-                bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY,item.getName());
-                openPage(WaimaiTypeFragment.class,bundle);
+                bundle.putString(WaimaiTypeFragment.BUNDLE_FOOD_TYPE_STR_KEY, item.getName());
+                openPage(WaimaiTypeFragment.class, bundle);
             }
         });
         adaptiveViewBinding.recyclerFoodType.setAdapter(kingKongAreaAdapter);
@@ -438,15 +556,16 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         adaptiveViewBinding.recyclerFoodType.addItemDecoration(new RecyclerView.ItemDecoration() {
             int top_interval_40 = -1;
             int top_interval_32 = -1;
+
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                                        @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
-                if(top_interval_40 == -1)
-                    top_interval_40 = (int)UIUtils.getInstance().scalePx(40);
-                if(top_interval_32 == -1)
-                    top_interval_32 = (int)UIUtils.getInstance().scalePx(32);
+                if (top_interval_40 == -1)
+                    top_interval_40 = (int) UIUtils.getInstance().scalePx(40);
+                if (top_interval_32 == -1)
+                    top_interval_32 = (int) UIUtils.getInstance().scalePx(32);
                 outRect.top = position < 5 ? 0 : (position < 10 ? top_interval_40 : top_interval_32);
             }
         });
@@ -464,26 +583,27 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             }
         });
 
-        View view = View.inflate(getContext(),R.layout.head_exclusive_recycler,null);
-        ((TextView)view.findViewById(R.id.text_left)).setText(R.string.exclusive_breakfast);
-        ((TextView)view.findViewById(R.id.tv_right)).setText(R.string.more_shop);
-        ((ImageView)view.findViewById(R.id.iv_right)).setImageResource(R.drawable.ic_arrow_right_gray);
+        View view = View.inflate(getContext(), R.layout.head_exclusive_recycler, null);
+        ((TextView) view.findViewById(R.id.text_left)).setText(R.string.exclusive_breakfast);
+        ((TextView) view.findViewById(R.id.tv_right)).setText(R.string.more_shop);
+        ((ImageView) view.findViewById(R.id.iv_right)).setImageResource(R.drawable.ic_arrow_right_gray);
         exclusiveShopAdapter.addHeaderView(view);
 
         int spanCount = 2;
         adaptiveViewBinding.recyclerMyExclusive.setAdapter(exclusiveShopAdapter);
         adaptiveViewBinding.recyclerMyExclusive.setLayoutManager(
-                Utils.getGridLayoutManagerWithHead(getContext(),spanCount));
-        adaptiveViewBinding.recyclerMyExclusive.addItemDecoration(new RecyclerView.ItemDecoration(){
+                Utils.getGridLayoutManagerWithHead(getContext(), spanCount));
+        adaptiveViewBinding.recyclerMyExclusive.addItemDecoration(new RecyclerView.ItemDecoration() {
             int top_interval = -1;
+
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                                        @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 int position = parent.getChildAdapterPosition(view);
-                if(top_interval == -1)
-                    top_interval = (int)UIUtils.getInstance().scalePx(40);
-                if(position > 0){
+                if (top_interval == -1)
+                    top_interval = (int) UIUtils.getInstance().scalePx(40);
+                if (position > 0) {
                     outRect.top = top_interval;
 //                    if((position - kingKongAreaAdapter.getHeaderLayoutCount()) % 2 == 1){
 //                        outRect.left
@@ -496,14 +616,14 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     /**
      * 初始化活动专区
      */
-    private void initActivityRegion(){
+    private void initActivityRegion() {
         setActivityRegionData(mViewModel.getActivityRegion());
     }
 
     /**
      * 初始化子标签
      */
-    private void initChildSignRecycler(){
+    private void initChildSignRecycler() {
         childSignRecyclerAdapter = new SelectedPositionRecyclerViewAdapter<String>(mViewModel.getChildSignData()) {
             @Override
             public int getLayoutId(int viewType) {
@@ -512,35 +632,46 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
             @Override
             public void onBindViewHolder(BaseViewHolder holder, boolean selected, String item) {
-                holder.setText(R.id.tv_sign,item);
-                if(selected){
-                    holder.setTextColor(R.id.tv_sign,holder.itemView.getContext().getResources().getColor(R.color.text_normal));
-                }else{
-                    holder.setTextColor(R.id.tv_sign,holder.itemView.getContext().getResources().getColor(R.color.text_tip));
+                holder.setText(R.id.tv_sign, item);
+                if (selected) {
+                    holder.setTextColor(R.id.tv_sign, holder.itemView.getContext().getResources().getColor(R.color.text_normal));
+                } else {
+                    holder.setTextColor(R.id.tv_sign, holder.itemView.getContext().getResources().getColor(R.color.text_tip));
                 }
             }
         };
+        childSignRecyclerAdapter.setCancelable(true);
 
-        adaptiveViewBinding.childSignRecycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
+        adaptiveViewBinding.childSignRecycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         adaptiveViewBinding.childSignRecycler.setAdapter(childSignRecyclerAdapter);
         adaptiveViewBinding.childSignRecycler.addItemDecoration(new RecyclerView.ItemDecoration() {
             int interval_24 = (int) UIUtils.getInstance().scalePx(24);
             int interval_40 = (int) UIUtils.getInstance().scalePx(40);
+
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                if(parent.getChildAdapterPosition(view) == 0){
+                if (parent.getChildAdapterPosition(view) == 0) {
                     outRect.left = interval_24;
-                }else{
+                } else {
                     outRect.left = interval_40;
                 }
             }
         });
     }
 
+    /**
+     * 初始化排序
+     */
+    private void initSortTypeView() {
+        adaptiveViewBinding.sortTypeView.setPreferentialTab(mViewModel.getPreferential());
+        adaptiveViewBinding.sortTypeView.setScreenData(mViewModel.getScreenData());
+    }
+
     private int space;
     private int textSizeSelected;
     private int textSizeNormal;
+
     /**
      * 初始化粘性导航栏
      */
@@ -553,38 +684,44 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         fm = getChildFragmentManager();
         viewPagerAdapter = new MyFragmentPagerAdapter<>(fm);
 
-        addTab(adaptiveViewBinding.stickyView,viewPagerAdapter,titles,textSizeSelected,textSizeNormal,0);
+        addTab(adaptiveViewBinding.stickyView, viewPagerAdapter, titles, textSizeSelected, textSizeNormal, 0);
         adaptiveViewBinding.stickyView.setHasIndicator(false);
         adaptiveViewBinding.stickyView.setMode(TabSegment.MODE_SCROLLABLE);
         adaptiveViewBinding.stickyView.setItemSpaceInScrollMode(space);
         adaptiveViewBinding.stickyView.setDefaultNormalColor(getResources().getColor(R.color.text_tip));
         adaptiveViewBinding.stickyView.setDefaultSelectedColor(getResources().getColor(R.color.text_normal));
         adaptiveViewBinding.stickyView.setTabTextSize(textSizeNormal);
-        adaptiveViewBinding.stickyView.setupWithViewPager(adaptiveViewBinding.viewPager,false);
+        adaptiveViewBinding.stickyView.setupWithViewPager(adaptiveViewBinding.viewPager, false);
+        adaptiveViewBinding.stickyView.selectTab(0);
 
         adaptiveViewBinding.viewPager.setOffscreenPageLimit(titles.length - 1);
         adaptiveViewBinding.viewPager.setAdapter(viewPagerAdapter);
     }
 
-    private void setActivityRegionData(List<ImageUrlNameData> imageUrlNameDataList){
-        if(imageUrlNameDataList.size() <= 0){
+    /**
+     * 设置活动专区数据
+     *
+     * @param imageUrlNameDataList
+     */
+    private void setActivityRegionData(List<ImageUrlNameData> imageUrlNameDataList) {
+        if (imageUrlNameDataList.size() <= 0) {
             LogUtil.d("没有活动专区数据");
-            setViewVisibility(adaptiveViewBinding.layoutActivityRegion.clActivityLayout,false);
+            setViewVisibility(adaptiveViewBinding.layoutActivityRegion.clActivityLayout, false);
             return;
-        }else{
-            setViewVisibility(adaptiveViewBinding.layoutActivityRegion.clActivityLayout,true);
+        } else {
+            setViewVisibility(adaptiveViewBinding.layoutActivityRegion.clActivityLayout, true);
         }
         int size = imageUrlNameDataList.size();
         ImageUrlNameData temp;
         for (int index = 0; index < size; index++) {
-            if(index == 0){
+            if (index == 0) {
                 temp = imageUrlNameDataList.get(index);
                 Glide.with(requireContext())
                         .load(temp.getImageUrlNameData().getImgUrl())
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(adaptiveViewBinding.layoutActivityRegion.ivBrandZone);
                 adaptiveViewBinding.layoutActivityRegion.tvBrandZoneGoodsName.setText(temp.getImageUrlNameData().getDescribe());
-            }else if(index == 1){
+            } else if (index == 1) {
                 temp = imageUrlNameDataList.get(index);
                 LogUtil.d("setActivityRegionData " + temp.getImageUrlNameData().getImgUrl());
                 Glide.with(requireContext())
@@ -592,7 +729,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(adaptiveViewBinding.layoutActivityRegion.ivLimitKill);
                 adaptiveViewBinding.layoutActivityRegion.tvLimitedKillGoodsName.setText(temp.getImageUrlNameData().getDescribe());
-            }else if(index == 2){
+            } else if (index == 2) {
                 temp = imageUrlNameDataList.get(index);
                 Glide.with(requireContext())
                         .load(temp.getImageUrlNameData().getImgUrl())
@@ -605,8 +742,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     private void addSortViewClickListener() {
-        adaptiveViewBinding.sortTypeView.setPreferentialTab(mViewModel.getPreferential());
-        adaptiveViewBinding.sortTypeView.setScreenData(mViewModel.getScreenData());
         adaptiveViewBinding.sortTypeView.setOnSortTypeChangeListener(new SortTypeView.onSortTypeChangeListener() {
             @Override
             public void onSortPopShow() {
@@ -622,10 +757,37 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             public void onPreferentialChange(int selectedPosition) {
                 notifyRecommendFragmentRefresh(false);
             }
+
+            @Override
+            public void onScreenChange() {
+                notifyRecommendFragmentRefresh(false);
+            }
         });
     }
 
-    private void refreshSortType(SortTypeEnum sortType){
+    /**
+     * 清楚排序缓存
+     */
+    private void cleanSortTypeMap() {
+        sortTypeEnumMap.clear();
+    }
+
+    /**
+     * 更新排序界面
+     */
+    private void refreshSortType(int position) {
+        SortTypeEnum sortTypeEnum = sortTypeEnumMap.get(position);
+        if (sortTypeEnum == null) {
+            sortTypeEnum = SortTypeEnum.SCORE;
+            sortTypeEnumMap.put(position, sortTypeEnum);
+        }
+        refreshSortType(sortTypeEnum);
+    }
+
+    /**
+     * 更新排序界面
+     */
+    private void refreshSortType(SortTypeEnum sortType) {
         adaptiveViewBinding.sortTypeView.setSortType(sortType);
     }
 
@@ -641,8 +803,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         showCityPickerDialog();
     }
 
-    private void showCityPickerDialog(){
-        if(mFragmentManager == null){
+    private void showCityPickerDialog() {
+        if (mFragmentManager == null) {
             mFragmentManager = new WeakReference<>(this.getChildFragmentManager());
         }
         FragmentTransaction ft = mFragmentManager.get().beginTransaction();
@@ -662,13 +824,13 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         cityPickerFragment.show(ft, "CityPicker");
     }
 
-    private OnPickListener getOnPickListener(){
+    private OnPickListener getOnPickListener() {
         return new OnPickListener() {
 //                    OnBDLocationListener mListener = new OnBDLocationListener();
 
             @Override
             public void onPick(int position, City data) {
-                mLocatedCity = new LocatedCity(data.getName(),data.getProvince(),data.getCode());
+                mLocatedCity = new LocatedCity(data.getName(), data.getProvince(), data.getCode());
 
                 binding.layoutTitle.tvLocation.setText(data.getName());
 //                        tvCurrent.setText(String.format("当前城市：%s，%s", data.getName(), data.getCode()));
@@ -685,7 +847,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             @Override
             public void onLocate(final OnLocationListener locationListener) {
                 //开始定位
-                locationListener.onLocationChanged(new LocatedCity("深圳","广东","101280601"), LocateState.SUCCESS);
+                locationListener.onLocationChanged(new LocatedCity("深圳", "广东", "101280601"), LocateState.SUCCESS);
 //                        mListener.setOnLocationListener(locationListener);
 //                        BaiDuLocationService.start(mListener);
 //                                new Handler().postDelayed(new Runnable() {
@@ -701,8 +863,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     }
 
     private BaseRecyclerAdapter<ImageUrlNameData> getFoodRecyclerAdapter() {
-        return new BaseRecyclerAdapter<ImageUrlNameData>(mViewModel.getMyFoodDataList()){
-            private int mViewType[] = {1,2};    //1 大图  2 小图
+        return new BaseRecyclerAdapter<ImageUrlNameData>(mViewModel.getMyFoodDataList()) {
+            private int mViewType[] = {1, 2};    //1 大图  2 小图
 
             @Override
             protected void bindData(@NonNull RecyclerViewHolder holder, int position, ImageUrlNameData item) {
@@ -732,9 +894,9 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
             @Override
             public int getItemViewType(int position) {
-                if(position > 9){
+                if (position > 9) {
                     return mViewType[1];
-                }else{
+                } else {
                     return mViewType[0];
                 }
             }
@@ -743,13 +905,13 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     private MyBaseRecyclerAdapter<ExclusiveShopData> getExclusiveRecyclerAdapter() {
         return new MyBaseRecyclerAdapter<ExclusiveShopData>(R.layout.item_waimai_exclusive_shop
-                ,mViewModel.getExclusiveShopData(), BR.item){
+                , mViewModel.getExclusiveShopData(), BR.item) {
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, ExclusiveShopData item) {
                 super.initView(viewDataBinding, helper, item);
                 ItemWaimaiExclusiveShopBinding binding = (ItemWaimaiExclusiveShopBinding) viewDataBinding;
-                binding.tvRecent.setText(getString(R.string.recent_place_order_count,String.valueOf(item.getRecent())));
-                if(item.getGoodsList().size() > 0){
+                binding.tvRecent.setText(getString(R.string.recent_place_order_count, String.valueOf(item.getRecent())));
+                if (item.getGoodsList().size() > 0) {
                     Glide.with(helper.itemView.getContext())
                             .load(item.getGoodsList().get(0).getGoodsImgUrl())
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -761,26 +923,40 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     /**
      * 更新TabBar样式
+     *
      * @param titles
      * @param position
      * @param refreshContent 若更新内容，则会重新创建tab、fragment等，否则仅更新tab样式
      */
-    private void refreshTabAndViewPager(String[] titles,int position, boolean refreshContent) {
-        if(refreshContent){
-            resetTabAndViewPager(titles,position);
-        }else {
-            resetTab(titles,position);
+    private void refreshTabAndViewPager(String[] titles, int position, boolean refreshContent) {
+        if (refreshContent) {
+            cleanSortTypeMap();
+            refreshSortType(position);    //先重新刷新排序内容
+            resetTabAndViewPager(titles, position);
+        } else {
+            refreshSortType(position);    //先重新刷新排序内容
+            resetTab(titles, position);
         }
-        refreshSortType(position);
+        adaptiveViewBinding.stickyView.notifyDataChanged();
     }
 
-
+    /**
+     * 添加tab
+     *
+     * @param tabSegment
+     * @param adapter
+     * @param titles
+     * @param textSizeSelected
+     * @param textSizeNormal
+     * @param selectedPosition
+     */
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
-                        String[] titles, int textSizeSelected, int textSizeNormal, int selectedPosition){
-       int position = 0;
+                        String[] titles, int textSizeSelected, int textSizeNormal, int selectedPosition) {
+        int position = 0;
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            tab.setTextSize(position == selectedPosition ? textSizeSelected :textSizeNormal);
+            tab.setTextSize(position == selectedPosition ? textSizeSelected : textSizeNormal);
+            tab.setTextColor(getResources().getColor(R.color.text_tip), getResources().getColor(R.color.text_normal));
             adapter.addFragment(mViewModel.getRecommendedFragment(title), title);
             tabSegment.addTab(tab);
             position++;
@@ -789,35 +965,38 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     int textSizeSelectedScale = 0;
     int textSizeNormalScale = 0;
+
     /**
      * 仅更新 title 样式（切换选中时调用，内容不变）
+     *
      * @param titles
      * @param selectedPosition
      */
     private void resetTab(String[] titles,
-                          int selectedPosition){
+                          int selectedPosition) {
         adaptiveViewBinding.stickyView.reset();
         int position = 0;
-        if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
+        if (textSizeSelectedScale == 0 || textSizeNormalScale == 0) {
             textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
             textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
         }
         for (String title : titles) {
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            tab.setTextSize(position == selectedPosition ? textSizeSelectedScale :textSizeNormalScale);
+            tab.setTextSize(position == selectedPosition ? textSizeSelectedScale : textSizeNormalScale);
             adaptiveViewBinding.stickyView.addTab(tab);
             position++;
         }
-        adaptiveViewBinding.stickyView.notifyDataChanged();
+        //adaptiveViewBinding.stickyView.selectTab(selectedPosition);   //不更改index 由于内部又动画实现，无法立刻获取到正确的index
     }
 
     /**
      * 更新title viewPager内容(重新创建)
+     *
      * @param titles
      * @param selectedPosition
      */
-    private void resetTabAndViewPager(String[] titles, int selectedPosition){
-        if(textSizeSelectedScale == 0 || textSizeNormalScale == 0){
+    private void resetTabAndViewPager(String[] titles, int selectedPosition) {
+        if (textSizeSelectedScale == 0 || textSizeNormalScale == 0) {
             textSizeSelectedScale = (int) UIUtils.getInstance().scalePx(textSizeSelected);
             textSizeNormalScale = (int) UIUtils.getInstance().scalePx(textSizeNormal);
         }
@@ -825,33 +1004,26 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         adaptiveViewBinding.stickyView.reset();
 
         FragmentTransaction ft = fm.beginTransaction();
-        for (Fragment baseFragment:fm.getFragments()) {
+        for (Fragment baseFragment : fm.getFragments()) {
             ft.detach(baseFragment);
             ft.remove(baseFragment);
         }
         ft.commitNow();
         viewPagerAdapter.getTitleList().clear();
         viewPagerAdapter.getFragmentList().clear();
-        addTab(adaptiveViewBinding.stickyView,viewPagerAdapter,titles,textSizeSelectedScale,textSizeNormalScale,selectedPosition);
-
+        addTab(adaptiveViewBinding.stickyView, viewPagerAdapter, titles, textSizeSelectedScale, textSizeNormalScale, selectedPosition);
+        //adaptiveViewBinding.stickyView.selectTab(selectedPosition); //不更改index 由于内部又动画实现，无法立刻获取到正确的index
         viewPagerAdapter.notifyDataSetChanged();
-
-    }
-
-    /**
-     * 更新排序界面
-     */
-    private void refreshSortType(int position) {
 
     }
 
     /**
      * 当专属早餐与活动区域获取到数据后，展示底部内容
      */
-    private void showBottomContent(){
-        if(mHolder.getCurState() != STATUS_LOAD_SUCCESS){
-            setViewVisibility(adaptiveViewBinding.stickyView,true);
-            setViewVisibility(adaptiveViewBinding.contentLayout,true);
+    private void showBottomContent() {
+        if (mHolder.getCurState() != STATUS_LOAD_SUCCESS) {
+            setViewVisibility(adaptiveViewBinding.stickyView, true);
+            setViewVisibility(adaptiveViewBinding.contentLayout, true);
 
             showContent();
             adaptiveViewBinding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
@@ -865,28 +1037,56 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     /**
      * 通知碎片刷新数据
+     * both,刷新全部，否则刷新当前显示碎片的内容
      */
-    private void notifyRecommendFragmentRefresh(boolean both){
+    private void notifyRecommendFragmentRefresh(boolean both) {
         WaimaiRecommendedFragment fragment;
-        if(both){
-            for (BaseFragment baseFragment:viewPagerAdapter.getFragmentList()) {
-                fragment = (WaimaiRecommendedFragment)baseFragment;
+        if (both) {
+            for (BaseFragment baseFragment : viewPagerAdapter.getFragmentList()) {
+                fragment = (WaimaiRecommendedFragment) baseFragment;
                 refreshRecommendedFragment(fragment);
             }
-        }else{
+        } else {
+            //int position = adaptiveViewBinding.stickyView.getSelectedIndex();
+            if (pageTypeSelectedIndex < 0 || !(viewPagerAdapter.getFragmentList().size() > pageTypeSelectedIndex)) {
+                LogUtil.e("刷新失败，下标出错或超出 position:" + pageTypeSelectedIndex);
+                return;
+            }
             fragment =
-                    (WaimaiRecommendedFragment)viewPagerAdapter.getFragmentList().get(adaptiveViewBinding.stickyView.getSelectedIndex());
+                    (WaimaiRecommendedFragment) viewPagerAdapter.getFragmentList().get(pageTypeSelectedIndex);
             refreshRecommendedFragment(fragment);
         }
     }
 
-    private void refreshRecommendedFragment(WaimaiRecommendedFragment fragment){
-        fragment.setActivityType(adaptiveViewBinding.sortTypeView.getSelectedPreferential());
-        fragment.setSortRules(adaptiveViewBinding.sortTypeView.getCurrentSortTypeEnum());
+    /**
+     * 刷新推荐fragment的数据
+     *
+     * @param fragment
+     */
+    private void refreshRecommendedFragment(WaimaiRecommendedFragment fragment) {
+        //解析优惠活动标签
+        String[] selectedStrings = adaptiveViewBinding.sortTypeView.getSelectedPreferential();
+        List<String> activityTypeList = new ArrayList<>();
+        if (selectedStrings.length > 0) {
+            LogUtil.d(selectedStrings[0]);
+            for (String s : selectedStrings) {
+                if (Constant.PREFERENTIAL_TABS.contains(s)) {
+                    activityTypeList.add(
+                            Constant.PREFERENTIAL_TABS_INDEX.get(Constant.PREFERENTIAL_TABS.indexOf(s)));
+                }
+            }
+        }
+        if (activityTypeList.size() > 0) {
+            fragment.setActivityType(activityTypeList.toArray(selectedStrings));
+        } else {
+            fragment.setActivityType(new String[]{});
+        }
+
+        fragment.setSortRules(adaptiveViewBinding.sortTypeView.getmCurrentSortTypeEnum());
         fragment.setChildSign(child_sign);
 
-        // FIXME: 2021/2/5 筛选
-        //fragment.setScreenData();
+        fragment.setScreenData(String.valueOf(adaptiveViewBinding.sortTypeView.getMinPrice()),
+                String.valueOf(adaptiveViewBinding.sortTypeView.getMaxPrice()));
 
         fragment.refreshListDate();
     }

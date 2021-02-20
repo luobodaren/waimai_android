@@ -147,7 +147,7 @@ public class MallShopFragment extends BaseFragment {
             }
         });
 
-        mRecyclerItemSelectedAdapter.setSelectedListener((holder, item) -> {
+        mRecyclerItemSelectedAdapter.setSelectedListener((holder, item, isCancel) -> {
             if(mRecyclerItemSelectedAdapter.getData().contains(item)){
                 int position = mRecyclerItemSelectedAdapter.getData().indexOf(item);
                 mBinding.viewPager.setCurrentItem(position);

@@ -16,7 +16,7 @@
         android:textSize="@dimen/sort_layout_preferential_text_size"
         android:text="满减优惠"
         android:textColor="@color/text_uncheck"
-        android:background="@drawable/sr_bg_10radius_white"
+        android:background="@drawable/sr_bg_5dp_white"
         android:includeFontPadding="false"/>
 
 </LinearLayout>

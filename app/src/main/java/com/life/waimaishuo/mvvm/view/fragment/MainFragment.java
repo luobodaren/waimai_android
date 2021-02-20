@@ -84,11 +84,16 @@ public class MainFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
-        mRecyclerItemSelectedAdapter.setSelectedListener((holder, item) -> {
-            if(mRecyclerItemSelectedAdapter.getData().contains(item)){
-                int position = mRecyclerItemSelectedAdapter.getData().indexOf(item);
-                mBinding.viewPager.setCurrentItem(position);
+        mRecyclerItemSelectedAdapter.setSelectedListener((holder, item, isCancel) -> {
+            if(isCancel){
+
+            }else{
+                if(mRecyclerItemSelectedAdapter.getData().contains(item)){
+                    int position = mRecyclerItemSelectedAdapter.getData().indexOf(item);
+                    mBinding.viewPager.setCurrentItem(position);
+                }
             }
+
         });
 
         mBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){

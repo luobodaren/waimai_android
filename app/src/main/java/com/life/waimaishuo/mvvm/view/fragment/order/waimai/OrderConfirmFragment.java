@@ -394,7 +394,7 @@ public class OrderConfirmFragment extends BaseFragment {
         recyclerView.setAdapter(leftAdapter);
         leftAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<String>() {
             @Override
-            public void onSelectedClick(BaseViewHolder holder, String item) {
+            public void onSelectChangeClick(BaseViewHolder holder, String item, boolean isCancel) {
                 rightAdapter.setData(mViewModel.getRightPikUpTimeDataByIndex(leftAdapter.getData().indexOf(item)));
                 rightAdapter.notifyDataSetChanged();
             }
@@ -417,7 +417,7 @@ public class OrderConfirmFragment extends BaseFragment {
         recyclerView.setAdapter(rightAdapter);
         rightAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<String>() {
             @Override
-            public void onSelectedClick(BaseViewHolder holder, String item) {
+            public void onSelectChangeClick(BaseViewHolder holder, String item, boolean isCancel) {
                 mPickUpTimeDialog.dismiss();
                 mViewModel.pickUpTimeObservable.set(item);
             }
@@ -464,7 +464,7 @@ public class OrderConfirmFragment extends BaseFragment {
             }
         });
 
-        ((SelectedPositionRecyclerViewAdapter<IconStrData>) recyclerView.getAdapter()).setSelectedListener((holder, item) -> {
+        ((SelectedPositionRecyclerViewAdapter<IconStrData>) recyclerView.getAdapter()).setSelectedListener((holder, item, isCancel) -> {
             LogUtil.d("支付方式：" + item.getIconType());
             mPayTypeDialog.dismiss();
             infoSettingTextFragment.resetPayType(item);

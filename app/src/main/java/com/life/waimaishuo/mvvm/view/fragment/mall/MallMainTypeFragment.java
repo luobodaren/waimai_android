@@ -210,7 +210,7 @@ public class MallMainTypeFragment extends BaseFragment {
                 holder.setText(R.id.tv_describe,item.getDescribe());
             }
         };
-        stickyRecyclerAdapter.setSelectedListener((holder, item) -> {
+        stickyRecyclerAdapter.setSelectedListener((holder, item, isCancel) -> {
             mBinding.adaptiveSizeView.setCurrentItem(viewPagerAdapter.getTitleList().indexOf(item.getType()),true);
             LogUtil.d("选择了" + item.getType());
         });

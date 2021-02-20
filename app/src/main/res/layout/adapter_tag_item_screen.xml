@@ -2,6 +2,8 @@
 <com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/interval_size_xs"
+    android:paddingStart="@dimen/interval_size_xs"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -9,8 +11,6 @@
         style="@style/TextStyle.Explain"
         android:layout_height="wrap_content"
         android:background="@drawable/sr_bg_10radius_gray"
-        android:layout_marginTop="24px"
-        android:layout_marginStart="24px"
         android:paddingStart="32px"
         android:paddingTop="16px"
         android:paddingEnd="32px"

@@ -1,12 +1,9 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
-import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableField;
 
-import com.life.waimaishuo.MyApplication;
-import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.bean.api.request.WaiMaiRecommendReqData;
+import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiRecommendedModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -43,7 +40,7 @@ public class WaiMaiRecommendedViewModel extends BaseViewModel {
         }
     }
 
-    public void refreshListData(WaiMaiRecommendReqData waiMaiRecommendReqData) {
+    public void refreshListData(WaiMaiReqData.WaiMaiRecommendReqData waiMaiReqData) {
         BaseModel.RequestCallBack<Object> requestCallBack = new BaseModel.RequestCallBack<Object>() {
             @Override
             public void onSuccess(Object result) {
@@ -57,10 +54,10 @@ public class WaiMaiRecommendedViewModel extends BaseViewModel {
                 onRequestListObservable.notifyChange();
             }
         };
-        if(waiMaiRecommendReqData.reqData.getQueryType() == 1 ){
-            mModel.requestGoodsListData(requestCallBack, waiMaiRecommendReqData, 3);
-        }else if(waiMaiRecommendReqData.reqData.getQueryType() == 0){
-            mModel.requestShopListData(requestCallBack, waiMaiRecommendReqData,3);
+        if(waiMaiReqData.reqData.getQueryType() == 1 ){
+            mModel.requestGoodsListData(requestCallBack, waiMaiReqData, 3);
+        }else if(waiMaiReqData.reqData.getQueryType() == 0){
+            mModel.requestShopListData(requestCallBack, waiMaiReqData,3);
         }
     }
 }

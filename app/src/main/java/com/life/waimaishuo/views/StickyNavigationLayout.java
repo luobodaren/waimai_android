@@ -258,6 +258,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+        //此处findViewById只会找到布局文件中的ViewId,代码中动态引入的是不会被寻找到的  待验证？
         mTopView = findViewById(R.id.top_view);
         mNavigationView = findViewById(R.id.sticky_view);
         mContentLayout = findViewById(R.id.content_layout);
@@ -270,17 +271,16 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
         if (mContentLayout != null) { //计算contentLayout大小
-            if (mContentLayout.getMeasuredHeight() == 0) {
+            //if (mContentLayout.getMeasuredHeight() == 0) {    //仅测量一次会导致在View设置可见或隐藏时大小出错
                 mContentLayout.measure(0, 0);
                 ViewGroup.LayoutParams lp = mContentLayout.getLayoutParams();
                 lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 lp.height = mContentLayout.getMeasuredHeight();
                 mContentLayout.setLayoutParams(lp);
-                //LogUtil.e("mContentLayout height:" + mContentLayout.getMeasuredHeight());
-            }
+                LogUtil.d("mContentLayout height:" + mContentLayout.getMeasuredHeight());
+            //}
         }
 
-        //ViewPager修改后的高度
         ViewGroup.LayoutParams lp = mAdaptiveSizeView.getLayoutParams();
         if(mCustomCanScrollDistance != CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW){
             lp.height = (int) UIUtils.getInstance().scalePx(mCustomCanScrollDistance);
@@ -295,8 +295,9 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
                 //LogUtil.d("getMeasuredHeight:" + getMeasuredHeight() + "  mNavigationView:" + mNavigationView.getMeasuredHeight() + "  mainTabBarHeight:" + mainTabBarHeight + " StatusBarHeight:" + StatusBarUtils.getStatusBarHeight(getContext()));
             }
         }
-        //LogUtil.d("viewPagerHeight:" + lp.height);
+        //ViewPager修改后的高度
         mAdaptiveSizeView.setLayoutParams(lp);
+        //LogUtil.d("viewPagerHeight:" + lp.height);
 
         //因为ViewPager修改了高度，所以需要重新测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

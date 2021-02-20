@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.life.base.utils.GsonUtil;
+import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.Global;
 import com.life.waimaishuo.MyApplication;
@@ -24,7 +26,8 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.bean.api.request.WaiMaiRecommendReqData;
+import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
+import com.life.waimaishuo.bean.api.request.bean.RecommendReqData;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendGoodsBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendShopBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
@@ -49,7 +52,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
     private String title = "";
     private int queryType = 0;
-    private WaiMaiRecommendReqData waiMaiRecommendReqData;
+    private WaiMaiReqData.WaiMaiRecommendReqData waiMaiRecommendReqData;
 
     /**
      * 第一次加载数据
@@ -244,11 +247,10 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
      * 初始化请求内容
      */
     private void initData(){
-        waiMaiRecommendReqData = new WaiMaiRecommendReqData();
-        waiMaiRecommendReqData.reqData = new WaiMaiRecommendReqData.ReqData(
+        waiMaiRecommendReqData = new WaiMaiReqData.WaiMaiRecommendReqData(new RecommendReqData(
                 Global.LocationProvince,Global.LocationCity,Global.LocationDistrict,
                 Global.longitude + "," + Global.latitude,
-                1,PAGE_COUNT,queryType);
+                1,PAGE_COUNT,queryType));
     }
 
     /**
@@ -256,11 +258,12 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
      */
     public void refreshListDate(){
         if(waiMaiRecommendReqData.reqData != null){
+            LogUtil.d("refreshListDate" + GsonUtil.toJsonString(waiMaiRecommendReqData));
             mViewModel.refreshListData(waiMaiRecommendReqData);
         }
     }
 
-    public void setReqData(WaiMaiRecommendReqData.ReqData reqData) {
+    public void setReqData(RecommendReqData reqData) {
         this.waiMaiRecommendReqData.reqData = reqData;
     }
 
@@ -328,10 +331,9 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
         waiMaiRecommendReqData.reqData.setActivityType(activityType);
     }
 
-    public void setScrennData(String minAvgPrice, String maxAvgPrice,String[] activityType){
-        waiMaiRecommendReqData.reqData.setActivityType(activityType);
+    public void setScreenData(String minAvgPrice, String maxAvgPrice){
         waiMaiRecommendReqData.reqData.setMinAvgPrice(minAvgPrice);
-        waiMaiRecommendReqData.reqData.setMinAvgPrice(maxAvgPrice);
+        waiMaiRecommendReqData.reqData.setMaxAvgPrice(maxAvgPrice);
     }
 
 }

@@ -122,6 +122,25 @@ public class GsonUtil {
 
     // -------
 
+    /**
+     * 按章节点得到相应的内容
+     * @param jsonString json字符串
+     * @param note 节点
+     * @return 节点对应的内容
+     */
+    public static int getIntNoteJsonString(String jsonString,String note){
+        if(TextUtils.isEmpty(jsonString)){
+            throw new RuntimeException("json字符串");
+        }
+        if(TextUtils.isEmpty(note)){
+            throw new RuntimeException("note标签不能为空");
+        }
+        JsonElement element = JsonParser.parseString(jsonString);
+        if(element.isJsonNull()){
+            throw new RuntimeException("得到的jsonElement对象为空");
+        }
+        return element.getAsJsonObject().get(note).getAsInt();
+    }
 
     /**
      * 按章节点得到相应的内容
@@ -129,7 +148,7 @@ public class GsonUtil {
      * @param note 节点
      * @return 节点对应的内容
      */
-    public static String getNoteJsonString(String jsonString,String note){
+    public static String getStringNoteJsonString(String jsonString, String note){
         if(TextUtils.isEmpty(jsonString)){
             throw new RuntimeException("json字符串");
         }
@@ -170,7 +189,7 @@ public class GsonUtil {
      * @return 返回bean的数组
      */
     public static <T> List<T> parserJsonToArrayBeans(String jsonString,String note,Class<T> beanClazz){
-        String noteJsonString = getNoteJsonString(jsonString,note);
+        String noteJsonString = getStringNoteJsonString(jsonString,note);
         return parserJsonToArrayBeans(noteJsonString,beanClazz);
     }
     /**
@@ -207,7 +226,7 @@ public class GsonUtil {
      * @return 含有目标对象的集合
      */
     public static <T> T parserJsonToArrayBean(String jsonString,String note,Class<T> clazzBean){
-        String noteJsonString = getNoteJsonString(jsonString, note);
+        String noteJsonString = getStringNoteJsonString(jsonString, note);
         return parserJsonToArrayBean(noteJsonString, clazzBean);
     }
 

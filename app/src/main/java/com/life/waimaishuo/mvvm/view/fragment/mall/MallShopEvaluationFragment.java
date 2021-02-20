@@ -125,7 +125,7 @@ public class MallShopEvaluationFragment extends BaseTabSegmentRecyclerFragment {
             int size = adapter.getViews().size();
             for (int i = 0; i < size; i++) {
                 TextView textView = adapter.getViews().get(i).getTextView();
-                textView.setBackgroundResource(R.drawable.sr_bg_10radius_white);
+                textView.setBackgroundResource(R.drawable.sr_bg_5dp_white);
                 textView.setPadding(24,16,24,16);
             }
         }else{

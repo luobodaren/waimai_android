@@ -79,7 +79,7 @@ public class ZeroDividerFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-        adapter.setSelectedListener((holder, item) -> {
+        adapter.setSelectedListener((holder, item, isCancel) -> {
             mFoodType = item.getIconType();
             mBinding.recyclerFoodSubtype.scrollToPosition(adapter.getSelectedPosition());
             refreshSortType(SortTypeEnum.SCORE);
@@ -124,6 +124,11 @@ public class ZeroDividerFragment extends BaseFragment {
             @Override
             public void onPreferentialChange(int selectedPosition) {
                 refreshShopContent();
+            }
+
+            @Override
+            public void onScreenChange() {
+
             }
 
         });

@@ -99,7 +99,7 @@ public class WaimaiTypeFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         super.initListeners();
-        adapter.setSelectedListener((holder, item) -> {
+        adapter.setSelectedListener((holder, item, isCancel) -> {
             mFoodType = item.getIconType();
             mBinding.recyclerFoodSubtype.scrollToPosition(adapter.getSelectedPosition());
             handleSelectedSign();   //重置recyclerView底部延伸栏状态
@@ -286,6 +286,11 @@ public class WaimaiTypeFragment extends BaseFragment {
             @Override
             public void onPreferentialChange(int selectedPosition) {
                 refreshShopContent();
+            }
+
+            @Override
+            public void onScreenChange() {
+
             }
 
         });

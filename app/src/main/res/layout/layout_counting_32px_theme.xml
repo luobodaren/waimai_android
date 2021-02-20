@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_hour"
-        style="@style/tv_counting_32px_theme"
-        tools:text="12"/>
+    <data>
 
-    <TextView
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text=":"
-        android:textSize="32px"
-        android:textColor="@color/colorTheme"
-        android:paddingStart="5px"
-        android:paddingEnd="5px"/>
+        android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/tv_minute"
-        style="@style/tv_counting_32px_theme"
-        tools:text="12"/>
+        <TextView
+            android:id="@+id/tv_hour"
+            style="@style/tv_counting_32px_theme"
+            android:layout_width="wrap_content"
+            android:paddingStart="5px"
+            android:paddingEnd="5px"
+            tools:text="11" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text=":"
-        android:textSize="32px"
-        android:textColor="@color/colorTheme"
-        android:paddingStart="5px"
-        android:paddingEnd="5px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text=":"
+            android:textSize="32px"
+            android:textColor="@color/colorTheme"
+            android:paddingStart="5px"
+            android:paddingEnd="5px" />
+
+        <TextView
+            android:id="@+id/tv_minute"
+            style="@style/tv_counting_32px_theme"
+            tools:text="12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text=":"
+            android:textSize="32px"
+            android:textColor="@color/colorTheme"
+            android:paddingStart="5px"
+            android:paddingEnd="5px" />
 
 
-    <TextView
-        android:id="@+id/tv_seconds"
-        style="@style/tv_counting_32px_theme"
-        tools:text="12"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_seconds"
+            style="@style/tv_counting_32px_theme"
+            tools:text="12" />
+    </LinearLayout>
+</layout>

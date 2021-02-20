@@ -7,24 +7,22 @@
     </data>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_sort_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/interval_size_xs"
             android:paddingStart="@dimen/interval_size_xs"
             android:paddingEnd="@dimen/interval_size_xs"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_sort_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
+                style="@style/text_my_simple_style"
                 android:textSize="@dimen/sort_layout_text_size"
                 android:textColor="@color/text_normal"
                 android:drawablePadding="8px"
@@ -33,9 +31,7 @@
 
             <TextView
                 android:id="@+id/tv_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
+                style="@style/text_my_simple_style"
                 android:textSize="@dimen/sort_layout_text_size"
                 android:textColor="@color/text_uncheck"
                 android:text="距离"
@@ -43,9 +39,7 @@
 
             <TextView
                 android:id="@+id/tv_sales"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:includeFontPadding="false"
+                style="@style/text_my_simple_style"
                 android:textSize="@dimen/sort_layout_text_size"
                 android:textColor="@color/text_uncheck"
                 android:layout_marginStart="56px"
@@ -58,24 +52,20 @@
 
             <TextView
                 android:id="@+id/tv_screen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_my_simple_style"
                 android:textSize="@dimen/sort_layout_text_size"
                 android:textColor="@color/text_uncheck"
                 android:text="@string/screen"
                 android:drawablePadding="8px"
-                android:gravity="center"
-                android:includeFontPadding="false"/>
+                android:gravity="center"/>
             
         </LinearLayout>
 
-        <com.xuexiang.xui.widget.tabbar.TabSegment
-            android:id="@+id/tabSegment"
-            style="@style/sortLayoutTabSegment"
-            android:layout_width="match_parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/preferential_recyclerView"
+            style="@style/recycler_default"
             android:layout_height="@dimen/tabbar_height"
             android:visibility="gone"/>
-
 
     </LinearLayout>
 </layout>

@@ -108,15 +108,14 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/child_sign_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="35px" />
+                android:layout_height="wrap_content" />
 
             <com.life.waimaishuo.views.SortTypeView
                 android:id="@+id/sortTypeView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background"
-                android:paddingTop="30px"
-                app:showTabSegment="true" />
+                app:showPreferential="true" />
         </LinearLayout>
 
         <FrameLayout

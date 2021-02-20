@@ -17,6 +17,7 @@
         android:layout_marginTop="@dimen/interval_size_xs">
         
         <Button
+            android:id="@+id/bt_reset"
             android:layout_width="0px"
             android:layout_height="78px"
             android:layout_weight="1"
@@ -30,6 +31,7 @@
             android:layout_height="match_parent"/>
 
         <Button
+            android:id="@+id/bt_finish"
             android:layout_width="0px"
             android:layout_height="78px"
             android:layout_weight="1"

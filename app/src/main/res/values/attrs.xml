@@ -15,7 +15,8 @@
 
     <declare-styleable name="SortTypeView">
         <attr name="sortViewBackground" format="reference|color"/>
-        <attr name="showTabSegment" format="boolean"/>
+        <attr name="showPreferential" format="boolean"/>
+        <attr name="showScreen" format="boolean"/>
         <attr name="flowTagBackground" format="reference|color"/>
         <attr name="sortTextColor" format="color"/>
     </declare-styleable>

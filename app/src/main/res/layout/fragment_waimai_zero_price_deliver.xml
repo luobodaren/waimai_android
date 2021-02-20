@@ -51,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:layout_marginTop="34px"
-                    app:showTabSegment="false"
                     app:sortViewBackground="@color/transparent"
                     app:sortTextColor="@color/white"/>
 

@@ -8,7 +8,7 @@
         android:id="@+id/tv_sign"
         style="@style/text_my_simple_style"
         android:textSize="32px"
-        android:layout_height="32px"
+        android:layout_gravity="center"
         android:textColor="@color/text_tip"/>
 
 </com.life.base.views.UiAdapterLinearLayout>

@@ -132,7 +132,7 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
                 }
             }
         };
-        adapter.setSelectedListener((holder, item) -> {
+        adapter.setSelectedListener((holder, item, isCancel) -> {
             if(item.isGet()){
                 resultIntent = new Intent();
                 resultIntent.putExtra(RESULT_KEY_RED_PACKET_ID,getSelectedPacket());

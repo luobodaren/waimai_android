@@ -7,8 +7,11 @@ import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchTag;
+import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
+import com.life.waimaishuo.bean.api.respon.SecondKillTime;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -29,6 +32,7 @@ public class WaiMaiViewModel extends BaseViewModel {
     public ObservableInt exclusiveBreakfastObservable = new ObservableInt();
     public ObservableInt activityRegionObservable = new ObservableInt();
     public ObservableInt recommendTitleObservable = new ObservableInt();
+    public ObservableInt secondKillTimeObservable = new ObservableInt();
 
     private WaimaiRecommendedFragment recommendedFragment;
     private WaimaiModel mModel;
@@ -87,6 +91,14 @@ public class WaiMaiViewModel extends BaseViewModel {
      */
     public void refreshRecommendedTitle(){
         mModel.requestRecommendTitle(new BaseModel.NotifyChangeRequestCallBack(recommendTitleObservable),3);
+    }
+
+    /**
+     * 秒杀时间
+     */
+    public void refreshSecondKillTime() {
+        mModel.requestSecondKillTime(new BaseModel.NotifyChangeRequestCallBack(secondKillTimeObservable),
+                new WaiMaiReqData.WaiMaiSecondKillReqData(5),3);
     }
 
     private void initFoodRecyclerData() {
@@ -165,17 +177,12 @@ public class WaiMaiViewModel extends BaseViewModel {
         return mModel.mLimitedTimeGoodsDataList;
     }
 
-    public List<String> getPreferential() { // FIXME: 2021/2/5 对接接口
-        List<String> cashBackList = new ArrayList<>();
-        cashBackList.add("津贴优惠");
-        cashBackList.add("会员领红包");
-        cashBackList.add("满减优惠");
-        cashBackList.add("配送费优惠");
-        cashBackList.add("配送费优惠");
-        cashBackList.add("配送费优惠");
-        cashBackList.add("配送费优惠");
-        cashBackList.add("配送费优惠");
-        return cashBackList;
+    public List<String> getPreferential() {
+        return Constant.PREFERENTIAL_TABS;
+    }
+
+    public SecondKillTime getSecondKillTime(){
+        return mModel.secondKillTime;
     }
 
     public List<HotCity> getHotCities() {
@@ -192,10 +199,10 @@ public class WaiMaiViewModel extends BaseViewModel {
         List<String> screenData = new ArrayList<>();
         screenData.add("优惠活动");
         screenData.add("优惠活动");
-        screenData.add("商家服务");
-        screenData.add("商家服务");
-        screenData.add("品质");
-        screenData.add("品质");
+//        screenData.add("商家服务");
+//        screenData.add("商家服务");
+//        screenData.add("品质");
+//        screenData.add("品质");
         screenData.add("人均价格带");
         screenData.add("人均价格带");
         return screenData;

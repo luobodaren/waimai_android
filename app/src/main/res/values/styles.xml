@@ -282,16 +282,6 @@
         <item name="ts_mode">scrollable</item>
     </style>
 
-    <style name="sortLayoutTabSegment">
-        <item name="android:background">@color/transparent</item>
-        <item name="android:paddingStart">@dimen/interval_size_xs</item>
-        <item name="ts_selected_color">@color/text_normal</item>
-        <item name="ts_normal_color">@color/text_uncheck</item>
-        <item name="ts_has_indicator">false</item>
-        <item name="ts_indicator_height">0px</item>
-        <item name="ts_mode">scrollable</item>
-    </style>
-
     <style name="baseRecyclerFragmentTabSegment">
         <item name="android:background">@color/transparent</item>
         <item name="android:paddingStart">@dimen/interval_size_xs</item>

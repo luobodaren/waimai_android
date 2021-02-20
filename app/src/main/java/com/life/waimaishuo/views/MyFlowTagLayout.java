@@ -4,8 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
+/**
+ * 在FlowTagLayout上进行修改
+ * 使得换行后取消第一项间隔
+ */
 public class MyFlowTagLayout extends FlowTagLayout {
 
     public MyFlowTagLayout(Context context) {
@@ -45,7 +51,14 @@ public class MyFlowTagLayout extends FlowTagLayout {
             if (childLeft + realChildWidth > flowWidth - getPaddingLeft() - getPaddingRight()) {
                 //换行处理
                 childTop += realChildHeight;
-                childLeft = 0;  //这里换行 距离left改为0
+                childLeft = getPaddingLeft();
+
+                //换行去掉第一项间隔
+                int padding = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+                childView.setPadding(0,
+                        padding,
+                        0,0);
+                realChildWidth -= padding;  //换行去掉第一行间隔
             }
             //布局
             if (isRtl()) {

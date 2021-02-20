@@ -187,7 +187,7 @@ public class OrderConfirmFragment extends BaseFragment {
         mBinding.layoutPayType.recyclerPayTypeList.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.layoutPayType.recyclerPayTypeList.setAdapter(adapter);
 
-        adapter.setSelectedListener((holder, item) -> {
+        adapter.setSelectedListener((holder, item, isCancel) -> {
             LogUtil.d("支付方式：" + item.getIconType());
         });
 

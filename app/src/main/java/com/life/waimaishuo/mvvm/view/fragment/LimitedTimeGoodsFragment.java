@@ -197,7 +197,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
             }
 
         };
-        adapter.setSelectedListener((holder, item) -> {
+        adapter.setSelectedListener((holder, item, isCancel) -> {
             updateGoodsInfo();
         });
         mBinding.recyclerLimitedTime.setAdapter(adapter);

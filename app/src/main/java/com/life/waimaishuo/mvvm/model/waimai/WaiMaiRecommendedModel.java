@@ -1,13 +1,11 @@
 package com.life.waimaishuo.mvvm.model.waimai;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.net.HttpUtils;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.bean.api.request.WaiMaiRecommendReqData;
+import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
 import com.life.waimaishuo.constant.ApiConstant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 
@@ -43,22 +41,28 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * @param reqData
      * @param timeOutRequestTime
      */
-    public void requestGoodsListData(RequestCallBack<Object> requestCallBack, WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
+    public void requestGoodsListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
         timeOutRequestTime--;
         int count = timeOutRequestTime;
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_GOODS_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
+                LogUtil.d("requestGoodsListData data:" + data);
                 if (!"".equals(data)) {
-                    String total = GsonUtil.getNoteJsonString(data,"total");
-                    shopGoodsList = GsonUtil.parserJsonToArrayBeans(data,"list", Shop.class);
-                    for (Shop shop:shopGoodsList) {
-                        shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
-                        for (Goods goods:shop.getGoodsInfoList()) {
-                            goods.setGoodsImgUrl(HttpUtils.changeToHttps(goods.getGoodsImgUrl()));
+                    int total = GsonUtil.getIntNoteJsonString(data,"total");
+                    String listData = GsonUtil.getStringNoteJsonString(data,"list");
+                    if(total > 0 || (!"null".equals(listData) && !"".equals(listData))){
+                        shopGoodsList = GsonUtil.parserJsonToArrayBeans(listData, Shop.class);
+                        for (Shop shop:shopGoodsList) {
+                            shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
+                            for (Goods goods:shop.getGoodsInfoList()) {
+                                goods.setGoodsImgUrl(HttpUtils.changeToHttps(goods.getGoodsImgUrl()));
+                            }
                         }
+                    }else{
+                        shopGoodsList.clear();
                     }
-                    requestCallBack.onSuccess(total);
+                    requestCallBack.onSuccess(String.valueOf(total));
                 } else {
                     requestCallBack.onSuccess(null);
                 }
@@ -88,20 +92,25 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * @param reqData
      * @param timeOutRequestTime
      */
-    public void requestShopListData(RequestCallBack<Object> requestCallBack, WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
-        LogUtil.d("requestShopListData" + GsonUtil.toJsonString(reqData));
+    public void requestShopListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
         timeOutRequestTime--;
         int count = timeOutRequestTime;
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SHIOP_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
-                    String total = GsonUtil.getNoteJsonString(data,"total");
-                    shopList = GsonUtil.parserJsonToArrayBeans(data,"list", Shop.class);
-                    for (Shop shop:shopList) {
-                        shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
+                    int total = GsonUtil.getIntNoteJsonString(data,"total");
+                    String listData = GsonUtil.getStringNoteJsonString(data,"list");
+                    LogUtil.d("listData" + listData);
+                    if(total > 0 || (!"null".equals(listData) && !"".equals(listData))){
+                        shopList = GsonUtil.parserJsonToArrayBeans(listData, Shop.class);
+                        for (Shop shop:shopList) {
+                            shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
+                        }
+                    }else{
+                        shopList.clear();
                     }
-                    requestCallBack.onSuccess(total);
+                    requestCallBack.onSuccess(String.valueOf(total));
                 } else {
                     requestCallBack.onSuccess(null);
                 }

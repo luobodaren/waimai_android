@@ -9,6 +9,8 @@ import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchTag;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.SimpleString;
+import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
+import com.life.waimaishuo.bean.api.respon.SecondKillTime;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.bean.ui.LimitedTimeGoodsData;
 import com.life.waimaishuo.constant.ApiConstant;
@@ -26,10 +28,11 @@ public class WaimaiModel extends BaseModel {
     public List<ImageUrlNameData> mActivityRegion = new ArrayList<>();
     public final String[] defaultRecommendTitle = MyApplication.getMyApplication().getResources().getStringArray(R.array.default_waimai_recommend_titles);    //默认推荐列表
     public List<String> recommendTitle = new ArrayList<>();
-
     public List<Shop> mShopList = new ArrayList<>();
     public List<ExclusiveShopData> mExclusiveShopDataList = new ArrayList<>();
     public List<LimitedTimeGoodsData> mLimitedTimeGoodsDataList = new ArrayList<>();
+
+    public SecondKillTime secondKillTime = new SecondKillTime();   //限时秒杀时间
 
     /**
      * 轮播图
@@ -251,6 +254,38 @@ public class WaimaiModel extends BaseModel {
                 if (error instanceof TimeoutException) {
                     if (count >= 0) {
                         requestRecommendTitle(requestCallBack, count);
+                    } else {
+                        requestCallBack.onFail(error.getMessage());
+                    }
+                } else {
+                    requestCallBack.onFail(error.getMessage());
+                }
+            }
+        });
+    }
+
+    public void requestSecondKillTime(NotifyChangeRequestCallBack requestCallBack, WaiMaiReqData.WaiMaiSecondKillReqData reqData, int timeOutRequestTime) {
+        timeOutRequestTime--;
+        int count = timeOutRequestTime;
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SECOND_KILL, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+            @Override
+            public void onSuccess(String data) {
+                if (!"".equals(data) && !"null".equals(data)) {
+                    secondKillTime = GsonUtil.parserJsonToArrayBean(data, SecondKillTime.class);
+                    requestCallBack.onSuccess(secondKillTime);
+                } else {
+                    secondKillTime.setAllTimeDefault();
+                    requestCallBack.onSuccess(null);
+                }
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                LogUtil.e("requestSecondKillTime error:" + error.getMessage() + count);
+                secondKillTime.setAllTimeDefault();
+                if (error instanceof TimeoutException) {
+                    if (count >= 0) {
+                        requestSecondKillTime(requestCallBack, reqData, count);
                     } else {
                         requestCallBack.onFail(error.getMessage());
                     }

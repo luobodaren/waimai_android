@@ -365,6 +365,7 @@ public class HttpUtils {
         try {
             JSONObject jsonObject = new JSONObject(json);
             int code = jsonObject.getInt("code");
+            //String msg = jsonObject.getString("msg");
             if(code == 0){
                 return jsonObject.getString("data");
             }
