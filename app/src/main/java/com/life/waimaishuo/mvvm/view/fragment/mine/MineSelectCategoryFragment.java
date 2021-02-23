@@ -13,8 +13,8 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
-import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkagePrimaryGoodsTypeAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkageSecondaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMineSelectCategoryBinding;
@@ -25,6 +25,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineSelectCategoryViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -41,7 +42,7 @@ public class MineSelectCategoryFragment extends BaseFragment implements
     private FragmentMineSelectCategoryBinding mBinding;
     private MineSelectCategoryViewModel mViewModel;
 
-    private LinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage;
+    private MyLinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage;
     private CustomLinkagePrimaryGoodsTypeAdapterConfig primaryConfig;
     private CustomLinkageSecondaryGoodsTypeAdapterConfig secondaryConfig;
     private String selected_type;
@@ -127,6 +128,11 @@ public class MineSelectCategoryFragment extends BaseFragment implements
     }
 
     @Override
+    public void onPrimaryItemChange(int position) {
+
+    }
+
+    @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
         selected_type = item.info.getTitle();
     }
@@ -169,8 +175,7 @@ public class MineSelectCategoryFragment extends BaseFragment implements
             @Override
             public void onBindViewHolder(LinkageSecondaryViewHolder holder, BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
                 ((TextView) holder.getView(R.id.iv_goods_name)).setText(item.info.getTitle());
-                Glide.with(holder.itemView.getContext()).load(R.mipmap.ic_food_all_subtype).into((ImageView) holder.getView(R.id.iv_goods_img));
-//        Glide.with(mContext).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img)); // FIXME: 2020/12/15 暂时修改为读取本地图片
+                Glide.with(holder.itemView.getContext()).load(item.info.getImgUrl()).into((ImageView) holder.getView(R.id.iv_goods_img));
 
                 View imgView = holder.getView(R.id.iv_goods_img);
                 ViewGroup viewGroup = holder.getView(R.id.iv_goods_item);

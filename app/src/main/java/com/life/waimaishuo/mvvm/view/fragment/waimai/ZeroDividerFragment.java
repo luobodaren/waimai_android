@@ -87,6 +87,13 @@ public class ZeroDividerFragment extends BaseFragment {
         });
     }
 
+    @Override
+    protected void firstRequestData() {
+        super.firstRequestData();
+
+        //mViewModel.refreshGoodsList();
+    }
+
     private void initSubtypeRecycler(){
         layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         mBinding.recyclerFoodSubtype.setLayoutManager(layoutManager);

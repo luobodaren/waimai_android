@@ -25,7 +25,7 @@
             app:bl_itemSpace="0px"
             app:bl_moveSpeed="1.8" />
 
-        <com.kunminx.linkage.LinkageRecyclerView
+        <com.life.waimaishuo.views.MyLinkageRecyclerView
             android:id="@+id/linkage_order_dishes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

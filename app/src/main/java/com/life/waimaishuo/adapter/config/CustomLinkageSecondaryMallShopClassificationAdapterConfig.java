@@ -15,47 +15,47 @@
  *
  */
 
-package com.life.waimaishuo.adapter;
+package com.life.waimaishuo.adapter.config;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.life.waimaishuo.R;
-import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
-import com.life.waimaishuo.databinding.AdapterLinkageSecondaryLinearBinding;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.kunminx.linkage.contract.ILinkageSecondaryAdapterConfig;
-import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
-import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
+import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.tag.MallShopSignAndClassificationTagAdapter;
+import com.life.waimaishuo.bean.ui.LinkageMallShopClassificationGroupedItemInfo;
+import com.life.waimaishuo.listener.OnSecondaryMallShopClassificationItemClickListener;
+import com.life.waimaishuo.util.TextUtil;
+import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
 import java.lang.ref.WeakReference;
 
-public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageShopGoodsGroupedItemInfo> {
+public class CustomLinkageSecondaryMallShopClassificationAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageMallShopClassificationGroupedItemInfo> {
 
     private static final int SPAN_COUNT = 3;
 
     private Context mContext;
 
-    private OnSecondaryShopGoodsItemClickListener mItemClickListener;
+    private OnSecondaryMallShopClassificationItemClickListener mItemClickListener;
 
-    private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
 
-    public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryShopGoodsItemClickListener itemClickListener,
-                                                        LinkageRecyclerView<T> linkageRecyclerView) {
+    public CustomLinkageSecondaryMallShopClassificationAdapterConfig(
+            OnSecondaryMallShopClassificationItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
-        mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
     }
 
-    public CustomLinkageSecondaryShopGoodsAdapterConfig setOnItemClickListner(OnSecondaryShopGoodsItemClickListener itemClickListener) {
+    public CustomLinkageSecondaryMallShopClassificationAdapterConfig setOnItemClickListner(
+            OnSecondaryMallShopClassificationItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
         return this;
     }
@@ -72,7 +72,7 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
 
     @Override
     public int getLinearLayoutId() {
-        return R.layout.adapter_linkage_secondary_linear;
+        return R.layout.adapter_linkage_secondary_linear_mall_shop_classification;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
 
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
-                                 final BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
+                                 final BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
         //DataBinding 绑定布局
         /*if(!isGetModeType){
             isGridMode = mLinkageRecyclerView.get().isGridMode();
@@ -107,7 +107,7 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
         if(isGridMode){
             AdapterLinkageSecondaryGridBinding binding = AdapterLinkageSecondaryGridBinding.bind(holder.itemView);  //这样绑定会导致重复绑定 然后报错
             binding.setItem(item.info);
-            binding.setViewModel(mShopOrderDishesViewModel.get());
+            binding.setViewModel(mMallShopViewModel.get());
         }else{
             AdapterLinkageSecondaryLinearBinding binding = AdapterLinkageSecondaryLinearBinding.bind(holder.itemView);
         }*/
@@ -121,32 +121,31 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
                 mItemClickListener.onSecondaryItemClick(holder, viewGroup, item);
             }
         });
-        //处理item点击事件
-        //判断显示“选规格”按钮还是 加减数量
-        if(binding instanceof AdapterLinkageSecondaryLinearBinding){
-            AdapterLinkageSecondaryLinearBinding binding1 = (AdapterLinkageSecondaryLinearBinding)binding;
-            binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.btChoseSpecification
-                    .setOnClickListener(new BaseActivity.OnSingleClickListener() {
-                        @Override
-                        public void onSingleClick(View view) {
-                            mItemClickListener.onSecondaryChildClick(holder,view,item);
-                        }
-                    });
-        }
+
+        ((TextView)holder.itemView.findViewById(R.id.tv_goods_price)).setText(
+                TextUtil.getAbsoluteSpannable("￥" + item.info.getPrice(),
+                        (int) UIUtils.getInstance().scalePx(24),0,1));
+
+        initItemFlowTag(holder.itemView.findViewById(R.id.flowTagLayout),item.info.getDescribeTags());
 
     }
 
     @Override
     public void onBindHeaderViewHolder(LinkageSecondaryHeaderViewHolder holder,
-                                       BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
+                                       BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
         ((TextView) holder.getView(R.id.secondary_header)).setText(item.header);
     }
 
     @Override
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
-                                       BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
+                                       BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
+    }
+
+    private void initItemFlowTag(FlowTagLayout flowTagLayout,String[] tags){
+        flowTagLayout.setAdapter(new MallShopSignAndClassificationTagAdapter(flowTagLayout.getContext()));
+        flowTagLayout.addTags(tags);
     }
 
 }

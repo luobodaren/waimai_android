@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,29 +23,36 @@ import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
+import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.bean.LimitedGoods;
 import com.life.waimaishuo.bean.LimitedTime;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentWaimaiLimitedTimeGoodsBinding;
+import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.TextUtil;
 import com.life.waimaishuo.util.Utils;
 import com.life.waimaishuo.views.MyHorizontalProgressView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+import com.xuexiang.xui.widget.statelayout.StatusLoader;
 
 
 @Page(name = "限时秒杀",anim = CoreAnim.slide)
-public class LimitedTimeGoodsFragment extends BaseFragment {
+public class LimitedTimeGoodsFragment extends BaseStatusLoaderFragment {
 
     private final static String KEY_BACKGROUND_ID = "background_id";
 
     private FragmentWaimaiLimitedTimeGoodsBinding mBinding;
     private WaimaiLimitedViewModel mViewModel;
+
     private int mPageType;
     private int mBackGroundDrawableId;
+
+    private SelectedPositionRecyclerViewAdapter<LimitedTime> limitedTimeRVAdapter;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -96,13 +104,59 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
         initBackground();
         initIntroduce();
 
-        initLimitedTimeRecycler();
-        // FIXME: 2021/1/19 根据类型 选择不同的界面
-        if(mPageType == Constant.PAGE_TYPE_WAIMAI){
-            initWaiMaiLimitedGoodsRecycler();
-        }else if(mPageType == Constant.PAGE_TYPE_MALL){
-            initMallLimitedGoodsRecycler();
-        }
+        showLoading();
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+
+        addCallBack();
+    }
+
+    @Override
+    protected void firstRequestData() {
+        super.firstRequestData();
+
+        mViewModel.requestLimitedTimeData();
+    }
+
+    private void addCallBack(){
+        MyDataBindingUtil.addCallBack(this, mViewModel.requestLimitedTimeObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    if(mViewModel.requestLimitedTimeObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS){
+                        showContent();
+                        if(mViewModel.getSecondKillTime().getStartTime() == null
+                                && mViewModel.getSecondKillTime().getNextOverTime() == null){
+                            showEmpty();
+                        }else{
+                            initLimitedTimeRecycler();
+                            updateGoodsInfo(1,0);
+                        }
+                    }else{
+                        showError();
+                    }
+                });
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.requestLimitedContentObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    if(mViewModel.requestLimitedContentObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS){
+                        if(mPageType == Constant.PAGE_TYPE_WAIMAI){
+                            initWaiMaiLimitedGoodsRecycler();
+                        }else{
+                            initMallLimitedGoodsRecycler();
+                        }
+                    }else{
+                        LogUtil.e("请求限时秒杀内容失败");
+                    }
+                });
+            }
+        });
     }
 
     private void initTitle(){
@@ -135,7 +189,7 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
     private void initLimitedTimeRecycler() {
         mBinding.recyclerLimitedTime.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        SelectedPositionRecyclerViewAdapter<LimitedTime> adapter = new SelectedPositionRecyclerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData(mPageType)) {
+        limitedTimeRVAdapter = new SelectedPositionRecyclerViewAdapter<LimitedTime>(mViewModel.getLimitedTimeData(mPageType)) {
             int time_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_time_text_size);
             int time_unselected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_unselect_time_text_size);
             int state_selected_size = getContext().getResources().getDimensionPixelSize(R.dimen.waimai_limited_select_state_text_size);
@@ -197,10 +251,14 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
             }
 
         };
-        adapter.setSelectedListener((holder, item, isCancel) -> {
-            updateGoodsInfo();
+        limitedTimeRVAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<LimitedTime>() {
+            @Override
+            public void onSelectChangeClick(BaseViewHolder holder, LimitedTime item, boolean isCancel) {
+                int index = limitedTimeRVAdapter.getData().indexOf(item);
+                updateGoodsInfo(1, index);
+            }
         });
-        mBinding.recyclerLimitedTime.setAdapter(adapter);
+        mBinding.recyclerLimitedTime.setAdapter(limitedTimeRVAdapter);
 
     }
 
@@ -333,9 +391,25 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
 
     /**
      * 更新商城或外卖recycler
+     * @param type 1:重新刷新 2：加载更多
+     * @param index 刷新的时间段的位置
      */
-    private void updateGoodsInfo() {
+    private void updateGoodsInfo(int type, int index) {
+        if(mPageType == Constant.PAGE_TYPE_WAIMAI){
+            if(type == 1){
+                if(index == 0){
+                    mViewModel.requestLimitedGoodsList(mViewModel.getSecondKillTime().getStartTime(),
+                            mViewModel.getSecondKillTime().getOverTime(),0,10);
+                }else{
+                    mViewModel.requestLimitedGoodsList(mViewModel.getSecondKillTime().getNextStartTime(),
+                            mViewModel.getSecondKillTime().getNextOverTime(),0,10);
+                }
+            }else{
 
+            }
+        }else{
+            mViewModel.requestLimitedShopList();
+        }
     }
 
     public static void openPageWithTitle(BaseFragment baseFragment, int pageType,
@@ -347,4 +421,13 @@ public class LimitedTimeGoodsFragment extends BaseFragment {
         baseFragment.openPage(LimitedTimeGoodsFragment.class,bundle);
     }
 
+    @Override
+    protected View getWrapView() {
+        return mBinding.flState;
+    }
+
+    @Override
+    protected StatusLoader.Adapter getStatusLoaderAdapter() {
+        return new CustomSingleViewAdapter();
+    }
 }

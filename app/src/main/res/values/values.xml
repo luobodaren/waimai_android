@@ -54,4 +54,16 @@
         <item>@drawable/ic_after_sales</item>
     </array>
 
+    <array name="waimai_food_types">
+        <item>健康美食</item>
+        <item>甜点甜品</item>
+        <item>超市便利</item>
+        <item>蔬菜水果</item>
+        <item>鲜花蛋糕</item>
+        <item>汉堡披萨</item>
+        <item>日韩料理</item>
+        <item>快速自取</item>
+        <item>同城零售</item>
+    </array>
+
 </resources>

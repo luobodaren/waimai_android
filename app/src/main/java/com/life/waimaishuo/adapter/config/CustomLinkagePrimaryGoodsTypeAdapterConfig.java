@@ -15,7 +15,7 @@
  *
  */
 
-package com.life.waimaishuo.adapter;
+package com.life.waimaishuo.adapter.config;
 
 
 import android.content.Context;
@@ -30,8 +30,8 @@ import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
-import com.kunminx.linkage.contract.ILinkagePrimaryAdapterConfig;
 import com.life.waimaishuo.util.TextUtil;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 
 import java.lang.ref.WeakReference;
 
@@ -42,9 +42,9 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
     private Context mContext;
     private OnPrimaryItemClickListener mItemClickListener;
 
-    private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
+    private WeakReference<MyLinkageRecyclerView<T>> mLinkageRecyclerView;
 
-    public CustomLinkagePrimaryGoodsTypeAdapterConfig(OnPrimaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
+    public CustomLinkagePrimaryGoodsTypeAdapterConfig(OnPrimaryItemClickListener itemClickListener, MyLinkageRecyclerView<T> linkageRecyclerView) {
         mItemClickListener = itemClickListener;
         mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
     }
@@ -74,7 +74,7 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
         return R.id.layout_group;
     }
 
-    Drawable drawable = null;
+    private Drawable drawable = null;
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
         if(drawable == null){
@@ -123,4 +123,17 @@ public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedIte
         }
     }
 
+    public void OnItemChange(int position){
+        if(mItemClickListener != null){
+            mItemClickListener.onPrimaryItemChange(position);
+        }
+    }
+
+    @Override
+    public void onItemSelectedChange(int position) {
+
+        if (mItemClickListener != null) {
+            mItemClickListener.onPrimaryItemChange(position);
+        }
+    }
 }

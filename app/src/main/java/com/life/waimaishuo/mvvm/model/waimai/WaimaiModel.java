@@ -275,7 +275,7 @@ public class WaimaiModel extends BaseModel {
                     secondKillTime = GsonUtil.parserJsonToArrayBean(data, SecondKillTime.class);
                     requestCallBack.onSuccess(secondKillTime);
                 } else {
-                    secondKillTime.setAllTimeDefault();
+                    secondKillTime.setAllTimeNull();
                     requestCallBack.onSuccess(null);
                 }
             }
@@ -283,7 +283,7 @@ public class WaimaiModel extends BaseModel {
             @Override
             public void onError(Throwable error) {
                 LogUtil.e("requestSecondKillTime error:" + error.getMessage() + count);
-                secondKillTime.setAllTimeDefault();
+                secondKillTime.setAllTimeNull();
                 if (error instanceof TimeoutException) {
                     if (count >= 0) {
                         requestSecondKillTime(requestCallBack, reqData, count);

@@ -12,8 +12,8 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
-import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkagePrimaryGoodsTypeAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkageSecondaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentWaimaiMallAllTypeBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
@@ -22,6 +22,7 @@ import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallAllTypeViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -84,6 +85,11 @@ public class MallAllTypeFragment extends BaseFragment implements
     }
 
     @Override
+    public void onPrimaryItemChange(int position) {
+
+    }
+
+    @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view,
                                      BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
         MallGoodsTypeFragment.openPageWithGoodsType(MallAllTypeFragment.this,item.info.getTitle());
@@ -99,7 +105,7 @@ public class MallAllTypeFragment extends BaseFragment implements
 
 
     private void initLinkageRecycler(){
-        LinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage = mBinding.linkageAllType;
+        MyLinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage = mBinding.linkageAllType;
         FrameLayout rightTopCustomView = linkage.findViewById(R.id.right_top_custom);
         rightTopCustomView.setVisibility(View.VISIBLE);
         initRightTopCustomView(rightTopCustomView);

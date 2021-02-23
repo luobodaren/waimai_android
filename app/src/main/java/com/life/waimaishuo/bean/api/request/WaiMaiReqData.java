@@ -1,6 +1,7 @@
 package com.life.waimaishuo.bean.api.request;
 
 import com.life.waimaishuo.bean.api.request.bean.RecommendReqData;
+import com.life.waimaishuo.bean.api.request.bean.SecondKillReqData;
 import com.life.waimaishuo.bean.api.request.bean.SubTypeNameReqData;
 
 /**
@@ -8,13 +9,7 @@ import com.life.waimaishuo.bean.api.request.bean.SubTypeNameReqData;
  */
 public class WaiMaiReqData {
 
-    //限时秒杀
-    public static class WaiMaiSecondKillReqData extends BaseReqData<Integer>{
 
-        public WaiMaiSecondKillReqData(int reqData) {
-            super(reqData);
-        }
-    }
     //推荐列表
     public static class WaiMaiRecommendReqData extends BaseReqData<RecommendReqData>{
         public WaiMaiRecommendReqData(RecommendReqData reqData) {
@@ -26,6 +21,14 @@ public class WaiMaiReqData {
         public WaiMaiSubTypeReqData(SubTypeNameReqData reqData) {
             super(reqData);
         }
+    }
+    //限时秒杀
+    public static class WaiMaiSecondKillReqData extends BaseReqData<Integer>{
+        public WaiMaiSecondKillReqData(int reqData) { super(reqData); }
+    }
+    //限时秒杀内容
+    public static class WaiMaiSecondKillContentListReqData extends BaseReqData<SecondKillReqData>{
+        public WaiMaiSecondKillContentListReqData(SecondKillReqData reqData) { super(reqData); }
     }
 
 }

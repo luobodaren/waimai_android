@@ -9,8 +9,8 @@ import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.CustomLinkagePrimaryMallShopClassificationAdapterConfig;
-import com.life.waimaishuo.adapter.CustomLinkageSecondaryMallShopClassificationAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkagePrimaryMallShopClassificationAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkageSecondaryMallShopClassificationAdapterConfig;
 import com.life.waimaishuo.bean.ui.LinkageMallShopClassificationGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentMallShopClassificationBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
@@ -18,6 +18,7 @@ import com.life.waimaishuo.listener.OnSecondaryMallShopClassificationItemClickLi
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallShopViewModel;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -74,6 +75,11 @@ public class MallShopClassificationFragment extends BaseFragment
     }
 
     @Override
+    public void onPrimaryItemChange(int position) {
+
+    }
+
+    @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageMallShopClassificationGroupedItemInfo> item) {
 
     }
@@ -89,10 +95,10 @@ public class MallShopClassificationFragment extends BaseFragment
     }
 
     private void initLinkageRecycler() {
-        LinkageRecyclerView<LinkageMallShopClassificationGroupedItemInfo> linkage = mBinding.linkageClassificationType;
+        MyLinkageRecyclerView<LinkageMallShopClassificationGroupedItemInfo> linkage = mBinding.linkageClassificationType;
         linkage.init(((MallShopViewModel)baseViewModel).getClassificationData(),
-                new CustomLinkagePrimaryMallShopClassificationAdapterConfig<>(this, linkage),
-                new CustomLinkageSecondaryMallShopClassificationAdapterConfig<>(this, linkage));
+                new CustomLinkagePrimaryMallShopClassificationAdapterConfig<>(this),
+                new CustomLinkageSecondaryMallShopClassificationAdapterConfig<>(this));
         linkage.setGridMode(false);
     }
 

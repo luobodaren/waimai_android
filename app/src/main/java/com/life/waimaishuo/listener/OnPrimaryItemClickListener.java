@@ -13,4 +13,9 @@ public interface OnPrimaryItemClickListener {
      * @param title  groupTitle
      */
     void onPrimaryItemClick(LinkagePrimaryViewHolder holder, View view, String title);
+
+    /**
+     * 选中改变监听方法
+     */
+    void onPrimaryItemChange(int position);
 }

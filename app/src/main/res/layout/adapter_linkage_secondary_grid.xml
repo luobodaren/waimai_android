@@ -26,7 +26,6 @@
             android:layout_marginTop="32px"
             android:background="@drawable/sl_linkage_secondary_grid"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_food_all_subtype"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

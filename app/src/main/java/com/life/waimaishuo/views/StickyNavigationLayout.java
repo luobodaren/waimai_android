@@ -90,12 +90,29 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         setNestedScrollingEnabled(true);
     }
 
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+
+        if(getScrollY() == 0){
+            if (mOnScrollChangeListener != null) {
+                mOnScrollChangeListener.onScroll(getScrollY() / getCanScrollDistance());
+            }
+        }
+
+    }
+
+    @Override
+    protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
+        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
+    }
+
     /* NestedScrollingChild2 接口实现 */
     @Override
     public boolean startNestedScroll(int axes, int type) {
-        boolean result = getScrollingChildHelper().startNestedScroll(axes,type);
+        return getScrollingChildHelper().startNestedScroll(axes,type);
         //LogUtil.d("startNestedScroll result:" + result + " ViewId:" + getTag());
-        return result;
+        //return result;
     }
 
     @Override
@@ -116,10 +133,10 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
     @Override
     public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow, int type) {
-        boolean result = getScrollingChildHelper().dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow,
+        return getScrollingChildHelper().dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow,
                 type);
         //LogUtil.d("dispatchNestedPreScroll result:" + result + " ViewId:" + getTag());
-        return result;
+        //return result;
     }
 
     /* NestedScrollingParent2 接口实现 */
@@ -128,6 +145,8 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     public void onNestedPreScroll(@NonNull View target, int dx, int dy, @NonNull int[] consumed, int type) {
         // consumed[0] 水平消耗的距离，consumed[1] 垂直消耗的距离
 
+        int canScrollY = dy;
+        int canScrollX = dx;
         //LogUtil.d("onNestedPreScroll ViewId:" + getTag());
 
         if (mIsNeedResetCanScrollDistance) {
@@ -135,20 +154,20 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
             mIsNeedResetCanScrollDistance = false;
         }
 
-        if(dy > 0){ //若向上滚动
+        if(canScrollY > 0){ //若向上滚动
             //LogUtil.d("向上滚动");
-
             startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
-            if(dispatchNestedPreScroll(dx,dy,consumed,mScrollOffset,type)){
+            int[] consumed_2 = new int[2];
+            if(dispatchNestedPreScroll(canScrollX,canScrollY,consumed_2,mScrollOffset,type)){
                 //如果父控件需要消耗，则处理父控件消耗的部分数据
-                dy -= consumed[1];
-                dx -= consumed[0];
+                canScrollY -= consumed_2[1];
+                canScrollX -= consumed_2[0];
             }
 
             if (mTopView instanceof NestedScrollView) { //若topView也为scrollView 则交由顶部处理
                 if (target.getId() == mTopView.getId()) {
                     if (mTopView.canScrollVertically(1)) {
-                        mTopView.scrollBy(0, dy);
+                        mTopView.scrollBy(0, canScrollY);
                         consumed[1] = dy;
                         return;
                     }
@@ -175,28 +194,25 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
         //则先判断自身的滚动情况
         //如果隐藏topView
-        boolean hideTop = dy > 0 && getScrollY() < getCanScrollDistance();
+        boolean hideTop = canScrollY > 0 && getScrollY() < getCanScrollDistance();
         //如果显示，必须要子view不能向下滑动后，才能交给自身滑动
-        boolean showTop = dy < 0 && getScrollY() >= 0 && !target.canScrollVertically(-1);
+        boolean showTop = canScrollY < 0 && getScrollY() > 0 && !target.canScrollVertically(1);
+        LogUtil.d(getTag() + " hideTop:" + hideTop + " showTop:" + showTop);
         if (hideTop || showTop) {
-            if(showTop){    //显示顶部
-                if(getScrollY() == 0){
-                    //若已显示完全，交由父布局处理
-                    startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
-                    if(dispatchNestedPreScroll(dx,dy,consumed,mScrollOffset,type)){
-                        //如果父控件需要消耗，则处理父控件消耗的部分数据
-                        dy -= consumed[1];
-                        dx -= consumed[0];
-                    }
-                    return;
-                }
-            }
-            scrollBy(0, dy);
+            scrollBy(0, canScrollY);
             consumed[1] = dy;
         }
-
-
-
+        if(!showTop && !hideTop){
+            startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
+            int[] consumed_3 = new int[2];
+            if(dispatchNestedPreScroll(canScrollX,canScrollY,consumed_3,mScrollOffset,type)){
+                //如果父控件需要消耗，则处理父控件消耗的部分数据
+                canScrollY -= consumed_3[1];
+                canScrollX -= consumed_3[0];
+                consumed[1] = dy - canScrollY;
+                consumed[0] = dx - canScrollX;
+            }
+        }
     }
 
     /**
@@ -282,18 +298,19 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         }
 
         ViewGroup.LayoutParams lp = mAdaptiveSizeView.getLayoutParams();
-        if(mCustomCanScrollDistance != CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW){
+        /*if(mCustomCanScrollDistance != CAN_SCROLL_DISTANCE_ADJUST_TOP_VIEW){
             lp.height = (int) UIUtils.getInstance().scalePx(mCustomCanScrollDistance);
         }else{
-            if (mContentLayout != null) {
-                lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
-                        - mContentLayout.getMeasuredHeight();
-                //LogUtil.d("getMeasuredHeight:" + getMeasuredHeight() + "  mNavigationView:" + mNavigationView.getMeasuredHeight() + "  mContentLayout:" + mContentLayout.getMeasuredHeight() + "  mainTabBarHeight:" + mainTabBarHeight + " StatusBarHeight:" + StatusBarUtils.getStatusBarHeight(getContext()));
 
-            } else {
-                lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight();
-                //LogUtil.d("getMeasuredHeight:" + getMeasuredHeight() + "  mNavigationView:" + mNavigationView.getMeasuredHeight() + "  mainTabBarHeight:" + mainTabBarHeight + " StatusBarHeight:" + StatusBarUtils.getStatusBarHeight(getContext()));
-            }
+        }*/
+        if (mContentLayout != null) {
+            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight()
+                    - mContentLayout.getMeasuredHeight();
+            //LogUtil.d("getMeasuredHeight:" + getMeasuredHeight() + "  mNavigationView:" + mNavigationView.getMeasuredHeight() + "  mContentLayout:" + mContentLayout.getMeasuredHeight() + "  mainTabBarHeight:" + mainTabBarHeight + " StatusBarHeight:" + StatusBarUtils.getStatusBarHeight(getContext()));
+
+        } else {
+            lp.height = getMeasuredHeight() - mNavigationView.getMeasuredHeight();
+            //LogUtil.d("getMeasuredHeight:" + getMeasuredHeight() + "  mNavigationView:" + mNavigationView.getMeasuredHeight() + "  mainTabBarHeight:" + mainTabBarHeight + " StatusBarHeight:" + StatusBarUtils.getStatusBarHeight(getContext()));
         }
         //ViewPager修改后的高度
         mAdaptiveSizeView.setLayoutParams(lp);
@@ -302,7 +319,6 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         //因为ViewPager修改了高度，所以需要重新测量
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -318,9 +334,6 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         }
         if (y > canScrollDistance) {
             y = (int) canScrollDistance;
-        }
-        if (mOnScrollChangeListener != null) {
-            mOnScrollChangeListener.onScroll(y / canScrollDistance);
         }
         if (getScrollY() != y) {
             super.scrollTo(x, y);
@@ -360,6 +373,7 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     private NestedScrollingChildHelper getScrollingChildHelper() {
         if (mNestedScrollingChildHelper == null) {
             mNestedScrollingChildHelper = new NestedScrollingChildHelper(this);
+            mNestedScrollingChildHelper.setNestedScrollingEnabled(true);
         }
         return mNestedScrollingChildHelper;
     }

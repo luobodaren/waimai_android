@@ -69,7 +69,4 @@ public class WaiMaiAllTypeViewModel extends BaseViewModel {
         mModel.requestLinkageGroupItems(new BaseModel.NotifyChangeRequestCallBack(getAllTypeObservable),3);
     }
 
-    public String getAdvertisingUrl() {
-        return "https://img.pic88.com/16067341360375.jpg";
-    }
 }

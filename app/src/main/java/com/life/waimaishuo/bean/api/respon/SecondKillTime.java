@@ -1,5 +1,7 @@
 package com.life.waimaishuo.bean.api.respon;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class SecondKillTime {
@@ -45,11 +47,11 @@ public class SecondKillTime {
         this.nextOverTime = nextOverTime;
     }
 
-    public void setAllTimeDefault(){
-        startTime = "";
-        overTime = "";
-        nextStartTime = "";
-        nextOverTime = "";
+    public void setAllTimeNull(){
+        startTime = null;
+        overTime = null;
+        nextStartTime = null;
+        nextOverTime = null;
     }
 
     public void setAllTime(String time){
@@ -57,5 +59,15 @@ public class SecondKillTime {
         overTime = time;
         nextStartTime = time;
         nextOverTime = time;
+    }
+
+    @Override
+    public String toString() {
+        return "SecondKillTime{" +
+                "startTime='" + startTime + '\'' +
+                ", overTime='" + overTime + '\'' +
+                ", nextStartTime='" + nextStartTime + '\'' +
+                ", nextOverTime='" + nextOverTime + '\'' +
+                '}';
     }
 }

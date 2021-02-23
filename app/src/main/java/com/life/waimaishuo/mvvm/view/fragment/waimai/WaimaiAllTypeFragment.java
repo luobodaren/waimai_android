@@ -1,6 +1,5 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -11,8 +10,8 @@ import com.bumptech.glide.Glide;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.adapter.CustomLinkagePrimaryGoodsTypeAdapterConfig;
-import com.life.waimaishuo.adapter.CustomLinkageSecondaryGoodsTypeAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkagePrimaryGoodsTypeAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkageSecondaryGoodsTypeAdapterConfig;
 import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentWaimaiMallAllTypeBinding;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
@@ -26,6 +25,7 @@ import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -38,6 +38,9 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
 
     private FragmentWaimaiMallAllTypeBinding mBinding;
     private WaiMaiAllTypeViewModel mViewModel;
+
+    //双列表联动Recycler右侧顶部ImageView
+    private RadiusImageView rightTopCustomImgView;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -97,6 +100,38 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
     @Override
     public void onPrimaryItemClick(LinkagePrimaryViewHolder holder, View view, String title) {
 //        SnackbarUtils.Short(view, title).show();
+        /*for(BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> baseGroupedItem : mViewModel.getLinkageGroupItems()){
+            if(baseGroupedItem.isHeader){
+                if(baseGroupedItem.header.equals(title)){
+                    Glide.with(this)
+                            .load(baseGroupedItem.info.getImgUrl())
+                            .placeholder(R.drawable.ic_waimai_brand)
+                            .centerCrop()
+                            .into(rightTopCustomImgView);
+                    break;
+                }
+            }
+        }*/
+    }
+
+    @Override
+    public void onPrimaryItemChange(int position) {
+        int index = 0;
+        for(BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> baseGroupedItem : mViewModel.getLinkageGroupItems()){
+            LogUtil.d("onPrimaryItemChange isheader:" + baseGroupedItem.isHeader + " header;" + baseGroupedItem.header);
+            if(baseGroupedItem.isHeader){
+                if(index == position){
+                    Glide.with(this)
+                            .load(baseGroupedItem.info.getImgUrl())
+                            .placeholder(R.drawable.ic_waimai_brand)
+                            .centerCrop()
+                            .into(rightTopCustomImgView);
+                    break;
+                }else{
+                    index++;
+                }
+            }
+        }
     }
 
     @Override
@@ -109,7 +144,7 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
     public void onSecondaryHeadClick(LinkageSecondaryHeaderViewHolder holder,
                                      BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo> item) {
         if(item.isHeader){
-            openPage(WaimaiTypeFragment.class);
+            WaimaiTypeFragment.openPage(WaimaiAllTypeFragment.this, item.header,"");
         }
     }
 
@@ -129,7 +164,8 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
         if(mViewModel.getLinkageGroupItems().size() <= 0){  //构造空数据
             mViewModel.getLinkageGroupItems().add(new BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo>(true,"没有数据") {});
         }
-        LinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage = mBinding.linkageAllType;
+        MyLinkageRecyclerView<LinkageGoodsTypeGroupedItemInfo> linkage = mBinding.linkageAllType;
+        linkage.setScrollSmoothly(false);
         FrameLayout rightTopCustomView = linkage.findViewById(R.id.right_top_custom);
         rightTopCustomView.setVisibility(View.VISIBLE);
         initRightTopCustomView(rightTopCustomView);
@@ -140,17 +176,20 @@ public class WaimaiAllTypeFragment extends BaseFragment implements
     }
 
     private void initRightTopCustomView(FrameLayout frameLayout) {
-        RadiusImageView imageView = new RadiusImageView(getContext());
+        rightTopCustomImgView = new RadiusImageView(getContext());
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,FrameLayout.LayoutParams.MATCH_PARENT);
-        imageView.setLayoutParams(layoutParams);
-        imageView.setBackground(getResources().getDrawable(R.drawable.sr_bg_8dp_white));
-        imageView.setCornerRadius(24);
-        frameLayout.addView(imageView);
-        Glide.with(this)
-                .load(mViewModel.getAdvertisingUrl())
-                .placeholder(R.drawable.ic_waimai_brand)
-                .centerCrop()
-                .into(imageView);
+        rightTopCustomImgView.setLayoutParams(layoutParams);
+        rightTopCustomImgView.setBackground(getResources().getDrawable(R.drawable.sr_bg_8dp_white));
+        rightTopCustomImgView.setCornerRadius(24);
+        frameLayout.addView(rightTopCustomImgView);
+
+        if(mViewModel.getLinkageGroupItems().size() > 0){
+            Glide.with(this)
+                    .load(mViewModel.getLinkageGroupItems().get(0).info.getImgUrl())
+                    .placeholder(R.drawable.ic_waimai_brand)
+                    .centerCrop()
+                    .into(rightTopCustomImgView);
+        }
     }
 
 }

@@ -241,7 +241,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
     private void initData(){
         waiMaiRecommendReqData = new WaiMaiReqData.WaiMaiRecommendReqData(new RecommendReqData(
                 Global.LocationProvince,Global.LocationCity,Global.LocationDistrict,
-                Global.longitude + "," + Global.latitude,
+                Global.userLonAndLat,
                 1,PAGE_COUNT,queryType));
     }
 

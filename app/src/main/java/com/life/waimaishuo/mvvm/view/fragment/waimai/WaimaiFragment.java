@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
@@ -47,9 +48,11 @@ import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeBinding;
 import com.life.waimaishuo.databinding.ItemWaimaiExclusiveShopBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.activity.SearchActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.BaseStatusLoaderFragment;
+import com.life.waimaishuo.mvvm.view.fragment.LimitedTimeGoodsFragment;
 import com.life.waimaishuo.mvvm.view.fragment.MessageFragment;
 import com.life.waimaishuo.mvvm.view.fragment.city.CityPickerDialogFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
@@ -62,6 +65,9 @@ import com.life.waimaishuo.util.amap.LocationUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.SortTypeView;
 import com.life.waimaishuo.views.StickyNavigationLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.xuexiang.citypicker.adapter.OnLocationListener;
 import com.xuexiang.citypicker.adapter.OnPickListener;
 import com.xuexiang.citypicker.model.City;
@@ -78,8 +84,11 @@ import com.xuexiang.xui.widget.statelayout.StatusLoader;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static android.Manifest.permission_group.LOCATION;
 import static com.xuexiang.xui.widget.statelayout.StatusLoader.STATUS_LOAD_SUCCESS;
@@ -171,6 +180,33 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         super.initListeners();
         addCallBack();
 
+        binding.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            boolean isFirstRefresh = true;
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                LogUtil.d("SmartRefreshLayout onRefresh");
+                //binding.classicsHeader.setLastUpdateText()
+                if(isFirstRefresh){
+                    isFirstRefresh = false;
+                    binding.classicsHeader.setEnableLastTime(true);
+                }
+                binding.classicsHeader.setLastUpdateTime(new Date());
+                requestData();
+            }
+        });
+
+        adaptiveViewBinding.stickyNavigationLayout.setOnScrollChangeListener(new StickyNavigationLayout.OnScrollChangeListener() {
+            @Override
+            public void onScroll(float moveRatio) {
+                LogUtil.d("moveRatio:" + moveRatio);
+                if(moveRatio == 0){
+                    binding.refreshLayout.setEnableRefresh(true);
+                }else{
+                    binding.refreshLayout.setEnableRefresh(false);
+                }
+            }
+        });
+
         addSortViewClickListener();
 
         adaptiveViewBinding.viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -207,6 +243,27 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             notifyRecommendFragmentRefresh(false);
         });
 
+        adaptiveViewBinding.layoutActivityRegion.clSecondKill.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                LimitedTimeGoodsFragment.openPageWithTitle(
+                        WaimaiFragment.this, Constant.PAGE_TYPE_WAIMAI,R.mipmap.png_bg_waimai_limite_exclusive);
+            }
+        });
+        adaptiveViewBinding.layoutActivityRegion.clZeroDeliver.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                openPage(ZeroDividerFragment.class);
+            }
+        });
+        adaptiveViewBinding.layoutActivityRegion.clBrandZone.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+
+            }
+        });
+
+
 //        binding.myLlContentView.setOnScrollChangeListener(moveRatio -> {
 //            if(moveRatio == 1){
 //                if(!isHideStatusBar()){
@@ -242,6 +299,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         adaptiveViewBinding = FragmentWaimaiAdaptiveSizeViewBinding.bind(adaptiveView);
         binding.adaptiveSizeView.addView(adaptiveView);
 
+        initSmartRefresh();
+
         setDefaultSecondKillTime();//设置默认限时秒杀时间
 
         initMyLocation();
@@ -250,7 +309,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         initSearchView();
         initFoodTypeRecycler();
 
-        adaptiveViewBinding.stickyNavigationLayout.setCustomCanScrollDistance(UIUtils.getInstance().scalePx(700));
+        //adaptiveViewBinding.stickyNavigationLayout.setCustomCanScrollDistance(UIUtils.getInstance().scalePx(100));
         initMyExclusiveRecycler();
         initActivityRegion();
         initNavigationTab();
@@ -285,20 +344,16 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     protected void onLifecycleStop() {
         super.onLifecycleStop();
         LocationUtil.stopLocation(false);
-        mSecondKillTiming.cancel();
+        if(mSecondKillTiming != null){
+            mSecondKillTiming.cancel();
+        }
     }
 
     @Override
     protected void firstRequestData() {
         super.firstRequestData();
-        //请求数据
-        mViewModel.refreshSearchTag();
-        mViewModel.refreshBannerItemList();
-        mViewModel.refreshKingKongArea();
 
-        // TODO: 2021/2/19 以下两个请求可改为链式调用
-        mViewModel.refreshExclusiveBreakfast();
-        mViewModel.refreshActivityRegion();
+        requestData();
     }
 
     @Override
@@ -321,6 +376,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                 Global.LocationDistrict = aMapLocation.getDistrict();
                 Global.latitude = aMapLocation.getLatitude();
                 Global.longitude = aMapLocation.getLongitude();
+                Global.resetUserLonAndLat();
             } else {
                 LogUtil.e("定位失败");
             }
@@ -419,14 +475,20 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
-                    kingKongAreaAdapter.getData().clear();
-                    if (mViewModel.getMyFoodDataList().size() > 0) {
-                        setViewVisibility(adaptiveViewBinding.recyclerFoodType, true);
-                        kingKongAreaAdapter.getData().addAll(mViewModel.getMyFoodDataList());
-                        kingKongAreaAdapter.notifyDataSetChanged();
-                    } else {
-                        setViewVisibility(adaptiveViewBinding.recyclerFoodType, false);
+                    kingKongAreaAdapter.getData().clear();//清空本地金刚区数据
+                    if(mViewModel.kingKongAreaObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS){
+                        binding.refreshLayout.finishRefresh(true); // FIXME: 2021/2/23 修改判断刷新成功逻辑
+                        if (mViewModel.getMyFoodDataList().size() > 0) {
+                            setViewVisibility(adaptiveViewBinding.recyclerFoodType, true);
+                            kingKongAreaAdapter.getData().addAll(mViewModel.getMyFoodDataList());
+                        } else {
+                            setViewVisibility(adaptiveViewBinding.recyclerFoodType, false);
+                        }
+                    }else{
+                        binding.refreshLayout.finishRefresh(false); // FIXME: 2021/2/23 修改判断刷新成功逻辑
+                        Toast.makeText(requireContext(), "刷新数据失败！", Toast.LENGTH_SHORT).show();
                     }
+                    kingKongAreaAdapter.notifyDataSetChanged();
                     adaptiveViewBinding.stickyNavigationLayout.setNeedResetCanScrollDistance(true);
                 });
             }
@@ -486,8 +548,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                 //if(mViewModel.secondKillTimeObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_FALSE){   //失败
                 mHandler.post(() -> {
                     SecondKillTime secondKillTime = mViewModel.getSecondKillTime();
-                    secondKillTime.setOverTime("2021-2-20 13:00:00");
-                    if (secondKillTime != null && !"".equals(secondKillTime.getOverTime())) {    //有数据
+                    if (secondKillTime != null && secondKillTime.getOverTime() != null
+                            && !"".equals(secondKillTime.getOverTime())) {    //有数据
                         int result = TimeUtil.compare_date(TimeUtil.getCurrentDate(TimeUtil.dateFormatYMDHMS), secondKillTime.getOverTime());
                         if (result == -1) {   //秒杀活动未结束
                             long times = TimeUtil.getExpired(secondKillTime.getOverTime());
@@ -510,6 +572,13 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                 });
             }
         });
+    }
+
+    private void initSmartRefresh(){
+        binding.classicsHeader.setEnableLastTime(false);
+        binding.classicsHeader.setTimeFormat(new SimpleDateFormat("更新于 MM-dd HH:mm", Locale.CHINA));
+        //binding.classicsHeader.setTimeFormat(new DynamicTimeFormat("更新于 %s"));
+        binding.classicsHeader.setSpinnerStyle(SpinnerStyle.Scale);//尺寸拉伸
     }
 
     /**
@@ -863,8 +932,10 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             @Override
             protected void bindData(@NonNull RecyclerViewHolder holder, int position, ImageUrlNameData item) {
                 ItemRecyclerWaimaiFoodTypeBinding binding
-                        = ItemRecyclerWaimaiFoodTypeBinding.bind(holder.itemView);
-                binding.setItem(item);
+                        = DataBindingUtil.bind(holder.itemView);
+                if(binding != null){
+                    binding.setItem(item);
+                }
                 /*if(holder.getItemViewType() == mViewType[0]){
                     ItemRecyclerWaimaiFoodTypeBinding binding
                             = ItemRecyclerWaimaiFoodTypeBinding.bind(holder.itemView);
@@ -1009,6 +1080,19 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         //adaptiveViewBinding.stickyView.selectTab(selectedPosition); //不更改index 由于内部又动画实现，无法立刻获取到正确的index
         viewPagerAdapter.notifyDataSetChanged();
 
+    }
+
+    /**
+     * 请求数据
+     */
+    private void requestData(){
+        mViewModel.refreshSearchTag();
+        mViewModel.refreshBannerItemList();
+        mViewModel.refreshKingKongArea();
+
+        // TODO: 2021/2/19 以下两个请求可改为链式调用
+        mViewModel.refreshExclusiveBreakfast();
+        mViewModel.refreshActivityRegion();
     }
 
     /**

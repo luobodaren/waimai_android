@@ -63,6 +63,9 @@ dependencies {
     implementation project(':base')
     implementation project(':thirdlib')
 
+    //MMKV
+    implementation 'com.tencent:mmkv-static:1.2.7'
+
     //EventBus
     implementation 'org.greenrobot:eventbus:3.2.0'
 
@@ -70,6 +73,10 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    //下拉刷新
+    implementation 'com.github.xuexiangjys.SmartRefreshLayout:refresh-header:1.1.5'
+    implementation 'com.github.xuexiangjys.SmartRefreshLayout:refresh-layout:1.1.5'
 
     //XPage页面框架
     implementation 'com.github.xuexiangjys.XPage:xpage-lib:3.0.0'

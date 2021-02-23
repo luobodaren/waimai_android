@@ -25,9 +25,18 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
 
     public ObservableInt subtypeObservableInt = new ObservableInt();
 
+    public int[] bgImgId =
+            {
+                    R.mipmap.png_bg_food_type_health_food, R.mipmap.png_bg_food_type_drink,
+                    R.mipmap.png_bg_food_type_mark, R.mipmap.png_bg_food_type_fruit,
+                    R.mipmap.png_bg_food_type_flowers, R.mipmap.png_bg_food_type_hamburg,
+                    R.mipmap.png_bg_food_type_japanese, R.mipmap.png_bg_food_type_self_help,
+                    R.mipmap.png_bg_food_type_city
+            };
+
     @Override
     public BaseModel getModel() {
-        if(mModel == null){
+        if (mModel == null) {
             mModel = new WaiMaiTypeModel();
         }
         return mModel;
@@ -57,10 +66,13 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
         return mModel.mFoodSubtypeList;
     }
 
-    public void refreshSubTypeTitles(String typeName){
+    public void refreshSubTypeTitles(String typeName) {
         mModel.requestSubtype(new BaseModel.NotifyChangeRequestCallBack(subtypeObservableInt),
-                new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqData(1,typeName)),
+                new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqData(1, typeName)),
                 3);
     }
 
+    public int getTopBgImgId(int i) {
+        return bgImgId[i];
+    }
 }

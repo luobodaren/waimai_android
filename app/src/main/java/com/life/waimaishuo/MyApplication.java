@@ -6,6 +6,7 @@ import android.content.Context;
 import com.life.base.IComponentApplication;
 
 import com.life.base.utils.LogUtil;
+import com.tencent.mmkv.MMKV;
 import com.xuexiang.xpage.AppPageConfig;
 import com.xuexiang.xpage.PageConfig;
 import com.xuexiang.xpage.PageConfiguration;
@@ -26,6 +27,8 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
 
+        initMMKV();
+
         initPage();
 
         //Module类的APP初始化
@@ -39,7 +42,12 @@ public class MyApplication extends Application {
         return myApplication;
     }
 
-    public void initPage(){
+    private void initMMKV(){
+        String rootDir = MMKV.initialize(this);
+        System.out.println("mmkv root: " + rootDir);
+    }
+
+    private void initPage(){
         PageConfig.getInstance()
                 .setPageConfiguration(new PageConfiguration() {
                     @Override

@@ -11,52 +11,132 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text2"
-            style="@style/text_my_simple_style"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:includeFontPadding="false"
-            android:text="限时秒杀"
-            android:textColor="@color/text_normal"
-            android:textSize="40px"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <include
-            android:id="@+id/layout_counting"
-            layout="@layout/layout_counting_32px_theme"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_second_kill"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16px"
-            app:layout_constraintStart_toEndOf="@id/text2"
-            app:layout_constraintTop_toTopOf="@id/text2" />
+            android:paddingTop="@dimen/interval_size_xs"
+            android:paddingBottom="@dimen/interval_size_xs"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_50percent">
+            <TextView
+                android:id="@+id/text2"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:includeFontPadding="false"
+                android:text="限时秒杀"
+                android:textColor="@color/text_normal"
+                android:textSize="40px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text3"
-            style="@style/text_my_simple_style"
-            android:layout_marginStart="12px"
-            android:text="0元配送"
-            android:textColor="@color/text_normal"
-            android:textSize="36px"
-            app:layout_constraintStart_toStartOf="@id/guideline_50percent"
-            app:layout_constraintTop_toTopOf="@id/text2" />
+            <include
+                android:id="@+id/layout_counting"
+                layout="@layout/layout_counting_32px_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16px"
+                app:layout_constraintStart_toEndOf="@id/text2"
+                app:layout_constraintTop_toTopOf="@id/text2" />
 
-        <TextView
-            style="@style/text_my_simple_style"
-            android:layout_marginStart="8px"
-            android:background="@drawable/sr_stroke_1px_2dp_red"
-            android:drawableRight="@drawable/ic_arrow_right_theme"
-            android:paddingStart="8px"
-            android:paddingTop="7px"
-            android:paddingEnd="8px"
-            android:paddingBottom="7px"
-            android:text="海量放心选择"
-            android:textColor="@color/colorTheme"
-            android:textSize="18px"
-            app:layout_constraintBottom_toBottomOf="@id/text3"
-            app:layout_constraintStart_toEndOf="@id/text3"
-            app:layout_constraintTop_toTopOf="@id/text3" />
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_limit_kill"
+                android:layout_width="327px"
+                android:layout_height="230px"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text2"
+                app:riv_corner_radius="12dp" />
+
+            <TextView
+                android:id="@+id/tv_limited_kill_goods_name"
+                style="@style/text_my_simple_style"
+                android:layout_width="0px"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/text_normal"
+                android:textSize="30px"
+                app:layout_constraintEnd_toEndOf="@id/iv_limit_kill"
+                app:layout_constraintStart_toStartOf="@id/iv_limit_kill"
+                app:layout_constraintTop_toBottomOf="@id/iv_limit_kill" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_zero_deliver"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:paddingTop="@dimen/interval_size_xs"
+            app:layout_constraintStart_toEndOf="@id/guideline_50percent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tv_divider_horizontal">
+
+            <TextView
+                android:id="@+id/text3"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="12px"
+                android:text="0元配送"
+                android:textColor="@color/text_normal"
+                android:textSize="36px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="8px"
+                android:background="@drawable/sr_stroke_1px_2dp_red"
+                android:drawableRight="@drawable/ic_arrow_right_theme"
+                android:paddingStart="8px"
+                android:paddingTop="7px"
+                android:paddingEnd="8px"
+                android:paddingBottom="7px"
+                android:text="海量放心选择"
+                android:textColor="@color/colorTheme"
+                android:textSize="18px"
+                app:layout_constraintBottom_toBottomOf="@id/text3"
+                app:layout_constraintStart_toEndOf="@id/text3"
+                app:layout_constraintTop_toTopOf="@id/text3" />
+
+
+            <com.xuexiang.xui.widget.imageview.RadiusImageView
+                android:id="@+id/iv_zero_deliver"
+                android:layout_width="85px"
+                android:layout_height="85px"
+                android:layout_marginStart="@dimen/interval_size_xs"
+                android:layout_marginTop="@dimen/interval_size_xs"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text3"
+                app:riv_corner_radius="4dp" />
+
+            <TextView
+                android:id="@+id/tv_zero_deliver_goods_name"
+                style="@style/text_my_simple_style"
+                android:layout_marginStart="16px"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxWidth="315px"
+                android:maxLines="1"
+                android:textColor="@color/text_normal"
+                android:textSize="30px"
+                app:layout_constraintStart_toEndOf="@id/iv_zero_deliver"
+                app:layout_constraintTop_toTopOf="@id/iv_zero_deliver" />
+
+            <TextView
+                android:id="@+id/tv_zero_deliver_price"
+                style="@style/text_my_simple_style"
+                android:textColor="@color/white"
+                android:textSize="22px"
+                app:layout_constraintBottom_toBottomOf="@id/iv_zero_deliver"
+                app:layout_constraintStart_toStartOf="@id/tv_zero_deliver_goods_name" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/guideline_50percent"
@@ -69,65 +149,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.xuexiang.xui.widget.imageview.RadiusImageView
-            android:id="@+id/iv_limit_kill"
-            android:layout_width="327px"
-            android:layout_height="230px"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="@id/guideline_50percent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text2"
-            app:riv_corner_radius="12dp" />
-
-        <TextView
-            android:id="@+id/tv_limited_kill_goods_name"
-            style="@style/text_my_simple_style"
-            android:layout_width="0px"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:layout_marginBottom="@dimen/interval_size_xs"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:maxLines="1"
-            android:textColor="@color/text_normal"
-            android:textSize="30px"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/iv_limit_kill"
-            app:layout_constraintStart_toStartOf="@id/iv_limit_kill"
-            app:layout_constraintTop_toBottomOf="@id/iv_limit_kill" />
-
-        <com.xuexiang.xui.widget.imageview.RadiusImageView
-            android:id="@+id/iv_zero_deliver"
-            android:layout_width="85px"
-            android:layout_height="85px"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@id/guideline_50percent"
-            app:layout_constraintTop_toBottomOf="@id/text3"
-            app:riv_corner_radius="4dp" />
-
-        <TextView
-            android:id="@+id/tv_zero_deliver_goods_name"
-            style="@style/text_my_simple_style"
-            android:layout_marginStart="16px"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:maxWidth="315px"
-            android:maxLines="1"
-            android:textColor="@color/text_normal"
-            android:textSize="30px"
-            app:layout_constraintStart_toEndOf="@id/iv_zero_deliver"
-            app:layout_constraintTop_toTopOf="@id/iv_zero_deliver" />
-
-        <TextView
-            android:id="@+id/tv_zero_deliver_price"
-            style="@style/text_my_simple_style"
-            android:textColor="@color/white"
-            android:textSize="22px"
-            app:layout_constraintBottom_toBottomOf="@id/iv_zero_deliver"
-            app:layout_constraintStart_toStartOf="@id/tv_zero_deliver_goods_name" />
-
         <TextView
             android:id="@+id/tv_divider_horizontal"
             android:layout_width="0px"
@@ -136,51 +157,63 @@
             android:background="@color/divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline_50percent"
-            app:layout_constraintTop_toBottomOf="@id/iv_zero_deliver" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-        <TextView
-            android:id="@+id/tv_brand_zone"
-            style="@style/text_my_simple_style"
-            android:layout_marginStart="12px"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:text="品牌专区"
-            android:textColor="@color/text_normal"
-            android:textSize="36px"
-            app:layout_constraintStart_toStartOf="@id/guideline_50percent"
-            app:layout_constraintTop_toBottomOf="@id/tv_divider_horizontal" />
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/cl_brand_zone"
+           android:layout_width="0px"
+           android:layout_height="0px"
+           app:layout_constraintStart_toEndOf="@id/guideline_50percent"
+           app:layout_constraintTop_toBottomOf="@id/tv_divider_horizontal"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.xuexiang.xui.widget.imageview.RadiusImageView
-            android:id="@+id/iv_brand_zone"
-            android:layout_width="85px"
-            android:layout_height="85px"
-            android:layout_marginStart="@dimen/interval_size_xs"
-            android:layout_marginTop="@dimen/interval_size_xs"
-            android:scaleType="centerCrop"
-            app:layout_constraintStart_toStartOf="@id/guideline_50percent"
-            app:layout_constraintTop_toBottomOf="@id/tv_brand_zone"
-            app:riv_corner_radius="4dp" />
+           <TextView
+               android:id="@+id/tv_brand_zone"
+               style="@style/text_my_simple_style"
+               android:layout_marginStart="12px"
+               android:layout_marginTop="@dimen/interval_size_xs"
+               android:text="品牌专区"
+               android:textColor="@color/text_normal"
+               android:textSize="36px"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_brand_zone_goods_name"
-            style="@style/text_my_simple_style"
-            android:layout_marginStart="16px"
-            android:ellipsize="end"
-            android:includeFontPadding="false"
-            android:maxWidth="315px"
-            android:maxLines="1"
-            android:textColor="@color/text_normal"
-            android:textSize="30px"
-            app:layout_constraintStart_toEndOf="@id/iv_brand_zone"
-            app:layout_constraintTop_toTopOf="@id/iv_brand_zone" />
+           <com.xuexiang.xui.widget.imageview.RadiusImageView
+               android:id="@+id/iv_brand_zone"
+               android:layout_width="85px"
+               android:layout_height="85px"
+               android:layout_marginStart="@dimen/interval_size_xs"
+               android:layout_marginTop="@dimen/interval_size_xs"
+               android:scaleType="centerCrop"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/tv_brand_zone"
+               app:riv_corner_radius="4dp" />
 
-        <TextView
-            android:id="@+id/tv_brand_zone_price"
-            style="@style/text_my_simple_style"
-            android:textColor="@color/white"
-            android:textSize="22px"
-            app:layout_constraintBottom_toBottomOf="@id/iv_brand_zone"
-            app:layout_constraintStart_toStartOf="@id/tv_brand_zone_goods_name" />
+           <TextView
+               android:id="@+id/tv_brand_zone_goods_name"
+               style="@style/text_my_simple_style"
+               android:layout_marginStart="16px"
+               android:ellipsize="end"
+               android:includeFontPadding="false"
+               android:maxWidth="315px"
+               android:maxLines="1"
+               android:textColor="@color/text_normal"
+               android:textSize="30px"
+               app:layout_constraintStart_toEndOf="@id/iv_brand_zone"
+               app:layout_constraintTop_toTopOf="@id/iv_brand_zone" />
+
+           <TextView
+               android:id="@+id/tv_brand_zone_price"
+               style="@style/text_my_simple_style"
+               android:textColor="@color/white"
+               android:textSize="22px"
+               app:layout_constraintBottom_toBottomOf="@id/iv_brand_zone"
+               app:layout_constraintStart_toStartOf="@id/tv_brand_zone_goods_name" />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

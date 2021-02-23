@@ -25,6 +25,11 @@ public abstract class SelectedPositionRecyclerViewAdapter<T> extends RecyclerVie
 
     private OnSelectedListener<T> mSelectedListener;
 
+
+    public SelectedPositionRecyclerViewAdapter(List<T> data) {
+        this.data = data;
+    }
+
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -78,10 +83,6 @@ public abstract class SelectedPositionRecyclerViewAdapter<T> extends RecyclerVie
     }
 
     public void setData(List<T> data) {
-        this.data = data;
-    }
-
-    public SelectedPositionRecyclerViewAdapter(List<T> data) {
         this.data = data;
     }
 

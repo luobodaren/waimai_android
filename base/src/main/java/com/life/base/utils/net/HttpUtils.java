@@ -39,9 +39,9 @@ public class HttpUtils {
     private static String TOKEN_KEY = "token";
     private static String TOKEN_VALUE = "";
 
-    private static Long READ_TIME_OUT = 10L;   //从主机读取数据超时时间（秒）
-    private static Long WRITE_TIME_OUT = 10L;
-    private static Long CONNECTED_TIME_OUT = 10L;  //连接主机超时时间（秒）
+    private static Long READ_TIME_OUT = 5L;   //从主机读取数据超时时间（秒）
+    private static Long WRITE_TIME_OUT = 5L;
+    private static Long CONNECTED_TIME_OUT = 5L;  //连接主机超时时间（秒）
 
     //单例模式（饿汉式），饿汉式就是提前创建好封装类，还有懒汉式，我的其他博客有详细讲解
     private static HttpUtils httpUtils = new HttpUtils();

@@ -15,8 +15,7 @@
  *
  */
 
-package com.life.waimaishuo.adapter;
-
+package com.life.waimaishuo.adapter.config;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -31,7 +30,7 @@ import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
-import com.kunminx.linkage.contract.ILinkagePrimaryAdapterConfig;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 
 import java.lang.ref.WeakReference;
 
@@ -42,9 +41,9 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
     private Context mContext;
     private OnPrimaryItemClickListener mItemClickListener;
 
-    private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
+    private WeakReference<MyLinkageRecyclerView<T>> mLinkageRecyclerView;
 
-    public CustomLinkagePrimaryShopGoodsAdapterConfig(OnPrimaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
+    public CustomLinkagePrimaryShopGoodsAdapterConfig(OnPrimaryItemClickListener itemClickListener, MyLinkageRecyclerView<T> linkageRecyclerView) {
         mItemClickListener = itemClickListener;
         mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
     }
@@ -149,4 +148,10 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
         return groupIcon;
     }
 
+    @Override
+    public void onItemSelectedChange(int position) {
+        if (mItemClickListener != null) {
+            mItemClickListener.onPrimaryItemChange(position);
+        }
+    }
 }

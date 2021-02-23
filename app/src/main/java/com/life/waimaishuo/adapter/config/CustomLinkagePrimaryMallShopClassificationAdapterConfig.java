@@ -15,8 +15,7 @@
  *
  */
 
-package com.life.waimaishuo.adapter;
-
+package com.life.waimaishuo.adapter.config;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -29,10 +28,10 @@ import android.widget.TextView;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
-import com.kunminx.linkage.contract.ILinkagePrimaryAdapterConfig;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 
 import java.lang.ref.WeakReference;
 
@@ -43,11 +42,9 @@ public class CustomLinkagePrimaryMallShopClassificationAdapterConfig<T extends B
     private Context mContext;
     private OnPrimaryItemClickListener mItemClickListener;
 
-    private WeakReference<LinkageRecyclerView<T>> mLinkageRecyclerView;
 
-    public CustomLinkagePrimaryMallShopClassificationAdapterConfig(OnPrimaryItemClickListener itemClickListener, LinkageRecyclerView<T> linkageRecyclerView) {
+    public CustomLinkagePrimaryMallShopClassificationAdapterConfig(OnPrimaryItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
-        mLinkageRecyclerView = new WeakReference<>(linkageRecyclerView);
     }
 
     public CustomLinkagePrimaryMallShopClassificationAdapterConfig setOnItemClickListner(OnPrimaryItemClickListener itemClickListener) {
@@ -75,7 +72,6 @@ public class CustomLinkagePrimaryMallShopClassificationAdapterConfig<T extends B
         return R.id.layout_group;
     }
 
-    int maxPosition = -1;
     Drawable drawable = null;
     @Override
     public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
@@ -85,10 +81,6 @@ public class CustomLinkagePrimaryMallShopClassificationAdapterConfig<T extends B
 
         TextView tvTitle = ((TextView) holder.mGroupTitle);
         tvTitle.setText(title);
-        int selectedPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getSelectedPosition();
-        if(maxPosition == -1){
-            maxPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getItemCount() - 1;
-        }
 
         View viewSelectMark = holder.mLayout.findViewById(R.id.iv_selected);
         if(selected){
@@ -129,4 +121,10 @@ public class CustomLinkagePrimaryMallShopClassificationAdapterConfig<T extends B
         }
     }
 
+    @Override
+    public void onItemSelectedChange(int position) {
+        if (mItemClickListener != null) {
+            mItemClickListener.onPrimaryItemChange(position);
+        }
+    }
 }

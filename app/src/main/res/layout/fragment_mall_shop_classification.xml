@@ -15,7 +15,7 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.kunminx.linkage.LinkageRecyclerView
+        <com.life.waimaishuo.views.MyLinkageRecyclerView
             android:id="@+id/linkage_classification_type"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

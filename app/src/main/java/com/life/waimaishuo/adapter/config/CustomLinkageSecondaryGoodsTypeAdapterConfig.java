@@ -15,7 +15,7 @@
  *
  */
 
-package com.life.waimaishuo.adapter;
+package com.life.waimaishuo.adapter.config;
 
 import android.content.Context;
 import android.view.ViewGroup;

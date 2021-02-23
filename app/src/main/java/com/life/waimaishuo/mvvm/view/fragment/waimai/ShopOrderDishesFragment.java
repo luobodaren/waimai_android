@@ -18,8 +18,8 @@ import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
-import com.life.waimaishuo.adapter.CustomLinkagePrimaryShopGoodsAdapterConfig;
-import com.life.waimaishuo.adapter.CustomLinkageSecondaryShopGoodsAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkagePrimaryShopGoodsAdapterConfig;
+import com.life.waimaishuo.adapter.config.CustomLinkageSecondaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.tag.SpecificationWaiMaiTagAdapter;
 import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
@@ -33,6 +33,7 @@ import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
+import com.life.waimaishuo.views.MyLinkageRecyclerView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
@@ -100,6 +101,11 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     @Override
+    public void onPrimaryItemChange(int position) {
+
+    }
+
+    @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
         openPage(GoodsDetailFragment.class, new Bundle()); // FIXME: 2020/12/28 后续需要传入商品id
     }
@@ -126,10 +132,10 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     private void initLinkageRecycler() {
-        LinkageRecyclerView<LinkageShopGoodsGroupedItemInfo> linkage = mBinding.linkageOrderDishes;
+        MyLinkageRecyclerView<LinkageShopGoodsGroupedItemInfo> linkage = mBinding.linkageOrderDishes;
         linkage.init(mViewModel.getShopGoodsItems(),
                 new CustomLinkagePrimaryShopGoodsAdapterConfig<>(this, linkage),
-                new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this, linkage));
+                new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this));
         linkage.setGridMode(false);
     }
 

@@ -34,6 +34,7 @@
                 layout="@layout/title_menu_share_transparent"/>
 
            <androidx.constraintlayout.widget.ConstraintLayout
+               android:id="@+id/cl_sign"
                android:layout_width="match_parent"
                android:layout_height="match_parent">
 
@@ -66,24 +67,40 @@
                    app:layout_constraintEnd_toEndOf="parent"/>
 
 
-               <androidx.recyclerview.widget.RecyclerView
-                   android:id="@+id/recycler_limited_time"
-                   style="@style/recycler_default"
-                   android:layout_marginTop="40px"
-                   android:background="@color/transparent"
-                   app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@id/tv_introduce_1"/>
-
-               <androidx.recyclerview.widget.RecyclerView
-                   android:id="@+id/recycler_goods_list"
+               <FrameLayout
+                   android:id="@+id/fl_state"
                    android:layout_width="match_parent"
                    android:layout_height="0px"
-                   android:overScrollMode="never"
-                   android:paddingStart="@dimen/interval_size_xs"
-                   android:paddingEnd="@dimen/interval_size_xs"
+                   android:layout_marginTop="40px"
                    app:layout_constraintStart_toStartOf="parent"
-                   app:layout_constraintTop_toBottomOf="@id/recycler_limited_time"
-                   app:layout_constraintBottom_toBottomOf="parent"/>
+                   app:layout_constraintTop_toBottomOf="@id/tv_introduce_1"
+                   app:layout_constraintBottom_toBottomOf="parent">
+
+                   <androidx.constraintlayout.widget.ConstraintLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent">
+
+                       <androidx.recyclerview.widget.RecyclerView
+                           android:id="@+id/recycler_limited_time"
+                           style="@style/recycler_default"
+                           android:background="@color/transparent"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"/>
+
+                       <androidx.recyclerview.widget.RecyclerView
+                           android:id="@+id/recycler_goods_list"
+                           android:layout_width="match_parent"
+                           android:layout_height="0px"
+                           android:overScrollMode="never"
+                           android:paddingStart="@dimen/interval_size_xs"
+                           android:paddingEnd="@dimen/interval_size_xs"
+                           app:layout_constraintStart_toStartOf="parent"
+                           app:layout_constraintTop_toBottomOf="@id/recycler_limited_time"
+                           app:layout_constraintBottom_toBottomOf="parent"/>
+
+                   </androidx.constraintlayout.widget.ConstraintLayout>
+
+               </FrameLayout>
 
            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

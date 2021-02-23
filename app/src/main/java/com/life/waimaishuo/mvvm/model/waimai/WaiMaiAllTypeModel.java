@@ -30,8 +30,8 @@ public class WaiMaiAllTypeModel extends BaseModel {
                     LinkageGoodsTypeGroupedItemInfo itemInfo;
                     if (waiMaiAllTypeList != null) {
                         for (WaiMaiAllType waiMaiAllType : waiMaiAllTypeList) {
-                            item = new BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo>(true, waiMaiAllType.getTypeName()) {
-                            };
+                            item = new BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo>(true, waiMaiAllType.getTypeName()) {};
+                            item.info = new LinkageGoodsTypeGroupedItemInfo("","","",HttpUtils.changeToHttps(waiMaiAllType.getTypeIon()),"");
                             groupedItemList.add(item);
                             for (WaiMaiAllType.SubType subType : waiMaiAllType.getSubTypeList()) {
                                 itemInfo = new LinkageGoodsTypeGroupedItemInfo(

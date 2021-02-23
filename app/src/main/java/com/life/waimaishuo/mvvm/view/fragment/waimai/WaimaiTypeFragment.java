@@ -105,6 +105,8 @@ public class WaimaiTypeFragment extends BaseFragment {
         super.initViews();
         initTitleView();
 
+        initTopBgImg();
+
         initSubtypeRecycler();
         initSortView();
         initShopContent();
@@ -146,6 +148,7 @@ public class WaimaiTypeFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.subtypeObservableInt, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
+                LogUtil.d("title size:" + mViewModel.getSubtypeTitles().size());
                 mHandler.post(() -> {
                     adapter.setData(mViewModel.getSubtypeTitles());
                     adapter.notifyDataSetChanged();
@@ -166,9 +169,9 @@ public class WaimaiTypeFragment extends BaseFragment {
                                 }
                                 position++;
                             }
-                            if(isContain){  //不存在该子类型时
+                            if(isContain){  //存在该子类型时
                                 adapter.setSelectedPosition(position);
-                                mBinding.recyclerFoodSubtype.smoothScrollToPosition(position);
+                                mBinding.recyclerFoodSubtype.scrollToPosition(position);
                             }else{
                                 mSelectedSubType = mViewModel.getSubtypeTitles().get(0).getName();
                             }
@@ -193,8 +196,21 @@ public class WaimaiTypeFragment extends BaseFragment {
         }
     }
 
-    LinearLayoutManager layoutManager;
+    private void initTopBgImg(){
+        int bgImgId = R.mipmap.png_bg_food_type_drink;
+        String[] waimaiFoodTypes = getResources().getStringArray(R.array.waimai_food_types);
+        int i = 0;
+        for(String type : waimaiFoodTypes){
+            if(mFoodType.equals(type)){
+                bgImgId = mViewModel.getTopBgImgId(i);
+                break;
+            }
+            i++;
+        }
+        mBinding.ivTopBgImage.setImageResource(bgImgId);
+    }
 
+    LinearLayoutManager layoutManager;
     private void initSubtypeRecycler() {
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mBinding.recyclerFoodSubtype.setLayoutManager(layoutManager);
@@ -282,9 +298,14 @@ public class WaimaiTypeFragment extends BaseFragment {
         }
         int firstVisiblePosition = layoutManager.findFirstVisibleItemPosition();
         int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
-        if (currentSelectedPosition != adapter.getSelectedPosition()) {
+        if (currentSelectedPosition != adapter.getSelectedPosition()) { //需要保证切换选中position时，滚动到对应位置
             currentSelectedPosition = adapter.getSelectedPosition();
+            //拿到当前选中的View,计算宽度
             selectedView = layoutManager.getChildAt(adapter.getSelectedPosition() - firstVisiblePosition);
+            if(selectedView == null){//若selectedView不在屏幕内，会拿不到，选中第一个代替
+                LogUtil.e("获取不到选中的View，使用第一个View宽度代替计算");
+                selectedView = layoutManager.getChildAt(0);
+            }
             if (halfWidth == -1) {
                 halfWidth = selectedView.getWidth() / 2;  //仅计算一次
             }
@@ -375,7 +396,7 @@ public class WaimaiTypeFragment extends BaseFragment {
      * 重置内容
      */
     private void refreshShopContent() {
-        LogUtil.d("重置内容" + mFoodType + "-" + mSelectedSubType);
+        LogUtil.d("重置内容:" + mFoodType + "-" + mSelectedSubType);
 
         recommendedFragment.setActivityType(mBinding.stickyView.getSelectedPreferential());
         recommendedFragment.setSortRules(mBinding.stickyView.getCurrentSortTypeEnum());
