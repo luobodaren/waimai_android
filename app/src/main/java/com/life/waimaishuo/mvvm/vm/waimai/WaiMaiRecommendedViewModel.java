@@ -6,6 +6,7 @@ import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiRecommendedModel;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiRecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -31,11 +32,13 @@ public class WaiMaiRecommendedViewModel extends BaseViewModel {
     }
 
     public List<Shop> getListData(int queryType) {
-        if(queryType == 0){
+        if(queryType == WaimaiRecommendedFragment.QUERY_TYPE_SHOP){
             return mModel.getShopList();
-        }else if(queryType == 1){
+        }else if(queryType == WaimaiRecommendedFragment.QUERY_TYPE_GOODS){
             return mModel.getShopGoodsList();
-        }else{
+        }else if(queryType == WaimaiRecommendedFragment.QUERY_TYPE_ZERO_DELIVER){
+            return mModel.getZeroDeliverShopList();
+        } else{
             return new ArrayList<>();
         }
     }
@@ -54,10 +57,12 @@ public class WaiMaiRecommendedViewModel extends BaseViewModel {
                 onRequestListObservable.notifyChange();
             }
         };
-        if(waiMaiReqData.reqData.getQueryType() == 1 ){
+        if(waiMaiReqData.reqData.getQueryType() == WaimaiRecommendedFragment.QUERY_TYPE_GOODS ){
             mModel.requestGoodsListData(requestCallBack, waiMaiReqData, 3);
-        }else if(waiMaiReqData.reqData.getQueryType() == 0){
+        }else if(waiMaiReqData.reqData.getQueryType() == WaimaiRecommendedFragment.QUERY_TYPE_SHOP){
             mModel.requestShopListData(requestCallBack, waiMaiReqData,3);
+        }else if(waiMaiReqData.reqData.getQueryType() == WaimaiRecommendedFragment.QUERY_TYPE_ZERO_DELIVER){    //0元配送
+            mModel.requestZeroDeliverListData(requestCallBack,waiMaiReqData,3);
         }
     }
 }

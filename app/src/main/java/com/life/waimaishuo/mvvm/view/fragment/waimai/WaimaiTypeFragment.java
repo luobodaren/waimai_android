@@ -26,6 +26,7 @@ import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
 import com.life.waimaishuo.bean.api.request.bean.RecommendReqData;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentWaimaiTypeBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -37,6 +38,9 @@ import com.life.waimaishuo.views.SortTypeView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // FIXME: 2021/2/20 从全部分类打开时 存在不显示顶部recycler的情况
 
@@ -374,7 +378,10 @@ public class WaimaiTypeFragment extends BaseFragment {
 
             @Override
             public void onScreenChange() {
-
+                /*recommendedFragment.setActivityType(mBinding.stickyView.getSelectedPreferential());
+                recommendedFragment.setScreenData(String.valueOf(mBinding.stickyView.getMinPrice()),
+                        String.valueOf(mBinding.stickyView.getMaxPrice()));
+                refreshShopContent();*/
             }
 
         });
@@ -397,7 +404,6 @@ public class WaimaiTypeFragment extends BaseFragment {
      */
     private void refreshShopContent() {
         LogUtil.d("重置内容:" + mFoodType + "-" + mSelectedSubType);
-
         recommendedFragment.setActivityType(mBinding.stickyView.getSelectedPreferential());
         recommendedFragment.setSortRules(mBinding.stickyView.getCurrentSortTypeEnum());
         recommendedFragment.setShopCategory(mFoodType + "-" + mSelectedSubType);

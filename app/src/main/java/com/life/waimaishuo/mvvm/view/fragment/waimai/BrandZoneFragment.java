@@ -1,39 +1,31 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-import android.graphics.Rect;
-import android.view.View;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
-import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
+import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
-import com.life.waimaishuo.databinding.FragmentWaimaiZeroPriceDeliverBinding;
+import com.life.waimaishuo.databinding.FragmentWaimaiBrandZoneBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
-import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiZeroDividerViewModel;
+import com.life.waimaishuo.mvvm.vm.waimai.BrandZoneViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.views.SortTypeView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
 
-@Page(name = "0元配送", anim = CoreAnim.slide)
-public class ZeroDividerFragment extends BaseFragment {
+@Page(name = "品牌专区", anim = CoreAnim.slide)
+public class BrandZoneFragment extends BaseFragment {
 
-    private FragmentWaimaiZeroPriceDeliverBinding mBinding;
-    private WaiMaiZeroDividerViewModel mViewModel;
-
-    //推荐内容fragment
-    private WaimaiRecommendedFragment recommendedFragment;
+    private FragmentWaimaiBrandZoneBinding mBinding;
+    private BrandZoneViewModel mViewModel;
 
     private SelectedPositionRecyclerViewAdapter<IconStrData> adapter;
     private LinearLayoutManager layoutManager;
@@ -43,20 +35,20 @@ public class ZeroDividerFragment extends BaseFragment {
     @Override
     protected BaseViewModel setViewModel() {
         if(mViewModel == null){
-            mViewModel = new WaiMaiZeroDividerViewModel();
+            mViewModel = new BrandZoneViewModel();
         }
         return mViewModel;
     }
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentWaimaiZeroPriceDeliverBinding) mViewDataBinding;
+        mBinding = (FragmentWaimaiBrandZoneBinding) mViewDataBinding;
         mBinding.setViewModel(mViewModel);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_waimai_zero_price_deliver;
+        return R.layout.fragment_waimai_brand_zone;
     }
 
     @Override
@@ -81,7 +73,7 @@ public class ZeroDividerFragment extends BaseFragment {
         setViewVisibility(mBinding.recyclerFoodSubtype,false);
 
         initSortView();
-        initShopContent();
+        initBrandShopRecycler();
     }
 
     @Override
@@ -104,7 +96,7 @@ public class ZeroDividerFragment extends BaseFragment {
 
             @Override
             public void onSortTypeChange(SortTypeEnum sortTypeEnum) {
-                recommendedFragment.setSortRules(sortTypeEnum);
+                mViewModel.setSortRules(sortTypeEnum);
                 refreshShopContent();
             }
 
@@ -115,8 +107,8 @@ public class ZeroDividerFragment extends BaseFragment {
 
             @Override
             public void onScreenChange() {
-                recommendedFragment.setActivityType(mBinding.stickyView.getSelectedPreferential());
-                recommendedFragment.setScreenData(String.valueOf(mBinding.stickyView.getMinPrice()),
+                mViewModel.setActivityType(mBinding.stickyView.getSelectedPreferential());
+                mViewModel.setScreenData(String.valueOf(mBinding.stickyView.getMinPrice()),
                         String.valueOf(mBinding.stickyView.getMaxPrice()));
                 refreshShopContent();
             }
@@ -136,7 +128,7 @@ public class ZeroDividerFragment extends BaseFragment {
     }
 
     private void initSubtypeRecycler(){
-        layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        /*layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         mBinding.recyclerFoodSubtype.setLayoutManager(layoutManager);
 
         adapter = getSubtypeRecyclerAdapter();
@@ -153,20 +145,22 @@ public class ZeroDividerFragment extends BaseFragment {
                 outRect.left = (position == 0) ? left_interval_22 : left_interval_8;
                 outRect.right = (position == state.getItemCount()-1) ? left_interval_22 : 0;
             }
-        });
+        });*/
     }
 
     private void initSortView(){
         mBinding.stickyView.setPreferentialTab(mViewModel.getPreferential());
-        mBinding.stickyView.setScreenData(mViewModel.getScreenData());
+        //mBinding.stickyView.setScreenData(mViewModel.getScreenData());
     }
 
-    private void initShopContent() {
-        FragmentManager fm= getChildFragmentManager();
-        FragmentTransaction ft= fm.beginTransaction();
-        recommendedFragment = mViewModel.getRecommendedFragment(requireContext());
-        ft.add(R.id.adaptive_size_view, recommendedFragment,null);
-        ft.commit();
+    private void initBrandShopRecycler() {
+        mBinding.recyclerBrandShop.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
+        mBinding.recyclerBrandShop.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_brand_zone,mViewModel.getBrandShopRecycler(), com.life.waimaishuo.BR.item){
+            @Override
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
+                super.initView(viewDataBinding, helper, item);
+            }
+        });
     }
 
     private SelectedPositionRecyclerViewAdapter<IconStrData> getSubtypeRecyclerAdapter() {
@@ -204,6 +198,6 @@ public class ZeroDividerFragment extends BaseFragment {
      */
     private void refreshShopContent() {
         LogUtil.e("重置内容");
-        recommendedFragment.refreshListDate();
+        mViewModel.refreshListDate();
     }
 }

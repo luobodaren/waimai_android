@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.waimai.WaiMaiZeroDividerViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.BrandZoneViewModel" />
     </data>
     <com.life.base.views.UiAdapterFrameLayout
         android:orientation="vertical"
@@ -47,11 +47,9 @@
                 app:sortViewBackground="@color/transparent"
                 app:sortTextColor="@color/white"/>
 
-            <FrameLayout
-                android:id="@+id/adaptive_size_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_brand_shop"
+                style="@style/recycler_default"/>
 
             <!--<com.life.waimaishuo.views.StickyNavigationLayout
                 android:id="@+id/sticky_navigation_layout"

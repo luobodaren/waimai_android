@@ -27,7 +27,74 @@ public class MyFlowTagLayout extends FlowTagLayout {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int padding = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+
+        //获取Padding
+        // 获得它的父容器为它设置的测量模式和大小
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+        int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
+        int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
+
+        //FlowLayout最终的宽度和高度值
+        int resultWidth = 0;
+        int resultHeight = 0;
+
+        //测量时每一行的宽度
+        int lineWidth = 0;
+        //测量时每一行的高度，加起来就是FlowLayout的高度
+        int lineHeight = 0;
+
+        //遍历每个子元素
+        for (int i = 0, childCount = getChildCount(); i < childCount; i++) {
+            View childView = getChildAt(i);
+            //测量每一个子view的宽和高
+            measureChild(childView, widthMeasureSpec, heightMeasureSpec);
+
+            //获取到测量的宽和高
+            int childWidth = childView.getMeasuredWidth();
+            int childHeight = childView.getMeasuredHeight();
+
+            //因为子View可能设置margin，这里要加上margin的距离
+            MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
+            int realChildWidth = childWidth + lp.leftMargin + lp.rightMargin;
+            int realChildHeight = childHeight + lp.topMargin + lp.bottomMargin;
+
+            realChildWidth += padding;//添加宽度间隙
+            //如果当前一行的宽度加上要加入的子view的宽度大于父容器给的宽度，就换行
+            if ((lineWidth + realChildWidth) > sizeWidth - getPaddingLeft() - getPaddingRight()) {
+                //换行
+                resultWidth = Math.max(lineWidth, realChildWidth);
+                realChildHeight += padding;//添加高度间隙
+
+                resultHeight += realChildHeight ;
+                //换行了，lineWidth和lineHeight重新算
+                lineWidth = realChildWidth;
+                lineHeight = realChildHeight;
+            } else {
+                //不换行，直接相加
+                lineWidth += realChildWidth;
+                //每一行的高度取二者最大值
+                lineHeight = Math.max(lineHeight, realChildHeight);
+            }
+
+            //遍历到最后一个的时候，肯定走的是不换行
+            if (i == childCount - 1) {
+                resultWidth = Math.max(lineWidth, resultWidth);
+                resultHeight += lineHeight;
+            }
+
+            setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : resultWidth,
+                    modeHeight == MeasureSpec.EXACTLY ? sizeHeight : resultHeight);
+        }
+    }
+
+    @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        boolean isFirstLine = true;
+        int padding = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
+
         int flowWidth = getWidth();
 
         int childLeft = getPaddingStart();
@@ -48,17 +115,17 @@ public class MyFlowTagLayout extends FlowTagLayout {
             MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
             int realChildWidth = childWidth + lp.leftMargin + lp.rightMargin;
             int realChildHeight = childHeight + lp.topMargin + lp.bottomMargin;
+
+            realChildWidth += padding;//修改宽度位置
             if (childLeft + realChildWidth > flowWidth - getPaddingLeft() - getPaddingRight()) {
                 //换行处理
+                isFirstLine = false;
+
+                realChildHeight += padding; //修改高度位置
+
                 childTop += realChildHeight;
                 childLeft = getPaddingLeft();
 
-                //换行去掉第一项间隔
-                int padding = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
-                childView.setPadding(0,
-                        padding,
-                        0,0);
-                realChildWidth -= padding;  //换行去掉第一行间隔
             }
             //布局
             if (isRtl()) {

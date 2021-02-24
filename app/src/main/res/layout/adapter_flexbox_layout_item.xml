@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -7,12 +7,12 @@
         android:id="@+id/tv_tag"
         style="@style/text_my_simple_style"
         android:layout_marginStart="@dimen/interval_size_xs"
-        android:layout_marginTop="@dimen/interval_size_xs"
         android:background="@drawable/sr_bg_5dp_white"
-        android:paddingBottom="16px"
         android:paddingStart="@dimen/interval_size_xs"
-        android:paddingEnd="@dimen/interval_size_xs"
         android:paddingTop="16px"
-        android:textColor="@color/text_normal" />
+        android:paddingEnd="@dimen/interval_size_xs"
+        android:paddingBottom="16px"
+        android:textColor="@color/text_normal"
+        android:textSize="20px" />
 
-</LinearLayout>
+</com.life.base.views.UiAdapterLinearLayout>

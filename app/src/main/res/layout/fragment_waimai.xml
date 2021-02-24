@@ -23,7 +23,6 @@
             app:srlEnableAutoLoadMore="true"
             app:srlEnableRefresh="true"
             app:srlEnableLoadMore="false">
-            <!-- fixme app:srlEnableNestedScrolling="true" 后面添加，并且去掉代码中 scroll监听设置可刷新-->
 
             <com.scwang.smartrefresh.layout.header.ClassicsHeader
                 android:id="@+id/classicsHeader"
@@ -42,6 +41,7 @@
 
             <!--嵌套滑动父控件-->
             <com.life.waimaishuo.views.StickyNavigationLayout
+                android:id="@+id/sticky_navigation_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"

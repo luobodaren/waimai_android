@@ -137,7 +137,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     {
         mTimerProgressListener = timeLong -> {
-            LogUtil.d(timeLong + "");
+            //LogUtil.d(timeLong + "");
             String[] times = new String[3];
 
             float minute = ((float) timeLong) / TimeUtil.ONE_MIN_MILLISECONDS;
@@ -195,10 +195,10 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             }
         });
 
-        adaptiveViewBinding.stickyNavigationLayout.setOnScrollChangeListener(new StickyNavigationLayout.OnScrollChangeListener() {
+        binding.stickyNavigationLayout.setOnScrollChangeListener(new StickyNavigationLayout.OnScrollChangeListener() {
             @Override
             public void onScroll(float moveRatio) {
-                LogUtil.d("moveRatio:" + moveRatio);
+                //LogUtil.d("moveRatio:" + moveRatio);
                 if(moveRatio == 0){
                     binding.refreshLayout.setEnableRefresh(true);
                 }else{
@@ -254,6 +254,12 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
             @Override
             public void onSingleClick(View view) {
                 openPage(ZeroDividerFragment.class);
+            }
+        });
+        adaptiveViewBinding.layoutActivityRegion.clBrandZone.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                openPage(BrandZoneFragment.class);
             }
         });
         adaptiveViewBinding.layoutActivityRegion.clBrandZone.setOnClickListener(new BaseActivity.OnSingleClickListener() {
@@ -1142,24 +1148,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
      * @param fragment
      */
     private void refreshRecommendedFragment(WaimaiRecommendedFragment fragment) {
-        //解析优惠活动标签
-        String[] selectedStrings = adaptiveViewBinding.sortTypeView.getSelectedPreferential();
-        List<String> activityTypeList = new ArrayList<>();
-        if (selectedStrings.length > 0) {
-            LogUtil.d(selectedStrings[0]);
-            for (String s : selectedStrings) {
-                if (Constant.PREFERENTIAL_TABS.contains(s)) {
-                    activityTypeList.add(
-                            Constant.PREFERENTIAL_TABS_INDEX.get(Constant.PREFERENTIAL_TABS.indexOf(s)));
-                }
-            }
-        }
-        if (activityTypeList.size() > 0) {
-            fragment.setActivityType(activityTypeList.toArray(selectedStrings));
-        } else {
-            fragment.setActivityType(new String[]{});
-        }
-
+        fragment.setActivityType(adaptiveViewBinding.sortTypeView.getSelectedPreferential());
         fragment.setSortRules(adaptiveViewBinding.sortTypeView.getCurrentSortTypeEnum());
         fragment.setShopCategory(child_sign);
 

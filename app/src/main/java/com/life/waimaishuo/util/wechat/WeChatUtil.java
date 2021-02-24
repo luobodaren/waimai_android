@@ -176,7 +176,7 @@ public class WeChatUtil {
             }
 
             @Override
-            public void onError(Throwable error) {
+            public void onError(int errorType, Throwable error) {
 
             }
         });

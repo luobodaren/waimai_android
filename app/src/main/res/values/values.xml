@@ -4,6 +4,12 @@
     <string-array name="default_waimai_recommend_titles">
         <item>推荐列表</item>
         <item>发现好物</item>
+        <item>零元配送</item>
+    </string-array>
+
+    <string-array name="waimai_recommend_titles">
+        <item>推荐列表</item>
+        <item>发现好物</item>
     </string-array>
 
     <!-- 我的顶部4个功能 -->

@@ -39,7 +39,7 @@ public class Constant {
     public static final String ERROR_MSG_BUNDLE_DATA_ERROR = "bundle 数据错误";
 
     //排序筛选商品 商店的标签
-    public static final List<String> PREFERENTIAL_TABS = Arrays.asList("优惠津贴","会员领红包","满减优惠","配送费优惠");
+    public static final List<String> PREFERENTIAL_TABS = Arrays.asList("优惠津贴","会员领红包","满减优惠","配送费优惠","优惠津贴","会员领红包","满减优惠","配送费优惠","优惠津贴","会员领红包","满减优惠","配送费优惠");
     public static final List<String> PREFERENTIAL_TABS_INDEX = Arrays.asList("3","2","1","4");
 
 }

@@ -115,6 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background"
+                android:layout_marginTop="@dimen/interval_size_xs"
                 app:showPreferential="true" />
         </LinearLayout>
 
@@ -122,6 +123,7 @@
             android:id="@+id/adaptive_size_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/interval_size_xs"
             android:background="@color/background">
 
             <FrameLayout

@@ -150,7 +150,7 @@ public class GsonUtil {
      */
     public static String getStringNoteJsonString(String jsonString, String note){
         if(TextUtils.isEmpty(jsonString)){
-            throw new RuntimeException("json字符串");
+            throw new RuntimeException("json字符串为空");
         }
         if(TextUtils.isEmpty(note)){
             throw new RuntimeException("note标签不能为空");

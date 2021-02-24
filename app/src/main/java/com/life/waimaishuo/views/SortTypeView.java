@@ -172,7 +172,10 @@ public class SortTypeView extends FrameLayout {
 
         preferentialRecyclerAdapter.setOnItemClickListener((itemView, item, position) -> {
             preferentialRecyclerAdapter.select(position);
-            mOnSortTypeChangeListener.onPreferentialChange(position);
+            handlePreferentialChange();
+            if(mOnSortTypeChangeListener != null){
+                mOnSortTypeChangeListener.onPreferentialChange(position);
+            }
         });
     }
 
@@ -257,15 +260,18 @@ public class SortTypeView extends FrameLayout {
         view.findViewById(R.id.bt_reset).setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
-
+                handlePreferentialChange();
             }
         });
         view.findViewById(R.id.bt_finish).setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
+                handlePreferentialChange();
                 if(screenPop != null && screenPop.isShowing()){
                     screenPop.dismiss();
-                    mOnSortTypeChangeListener.onScreenChange();
+                    if(mOnSortTypeChangeListener != null){
+                        mOnSortTypeChangeListener.onScreenChange();
+                    }
                 }
             }
         });
@@ -302,11 +308,11 @@ public class SortTypeView extends FrameLayout {
                     if(tagAdapter == null){
                         tagAdapter = new ScreenTagAdapter(getContext());
                         flowTagLayout.setAdapter(tagAdapter);
-                        flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-                        flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
+                        flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_MULTI);
+                        flowTagLayout.setOnTagClickListener(new FlowTagLayout.OnTagClickListener() {
                             @Override
-                            public void onItemSelect(FlowTagLayout parent, int tagPosition, List<Integer> selectedList) {
-                                LogUtil.d("流标签选中index:" + tagPosition);
+                            public void onItemClick(FlowTagLayout parent, View view, int position) {
+                                LogUtil.d("筛选点击了position:" + position);
                             }
                         });
                         tagAdapter.addTags(Constant.PREFERENTIAL_TABS);
@@ -383,7 +389,9 @@ public class SortTypeView extends FrameLayout {
         mSortPopup.setAnimStyle(XUIPopup.DIRECTION_TOP);
         mSortPopup.setPreferredDirection(XUIPopup.DIRECTION_NONE);
         mSortPopup.showDown(mBinding.tvSortType);
-        mOnSortTypeChangeListener.onSortPopShow();
+        if(mOnSortTypeChangeListener != null){
+            mOnSortTypeChangeListener.onSortPopShow();
+        }
     }
 
     private void initListPopupIfNeed() {
@@ -395,11 +403,20 @@ public class SortTypeView extends FrameLayout {
                 mPopSelectedTypeEnum = SortTypeEnum.get(adapter.getItem(i).getTitle().toString());
                 mCurrentSortTypeEnum = mPopSelectedTypeEnum;
                 mBinding.tvSortType.setText(mCurrentSortTypeEnum.getType());
-                mOnSortTypeChangeListener.onSortTypeChange(mCurrentSortTypeEnum);
+                if(mOnSortTypeChangeListener != null){
+                    mOnSortTypeChangeListener.onSortTypeChange(mCurrentSortTypeEnum);
+                }
             });
             mSortPopup.setContentViewBackground(R.drawable.sr_bg_sort_pop); //必须在创建create方法后调用才能生效
             mSortPopup.setOnDismissListener(() -> LogUtil.e("排序pop dismiss"));
         }
+    }
+
+    /**
+     * 由于有两次优惠展示，需要通知另一处进行同步
+     */
+    private void handlePreferentialChange(){    //包括取消恢复
+        // TODO: 2021/2/24 完成功能
     }
 
     /**

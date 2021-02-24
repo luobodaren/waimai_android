@@ -1,6 +1,7 @@
 package com.life.waimaishuo.bean.api.request;
 
 import com.life.waimaishuo.bean.api.request.bean.RecommendReqData;
+import com.life.waimaishuo.bean.api.request.bean.SearchReqData;
 import com.life.waimaishuo.bean.api.request.bean.SecondKillReqData;
 import com.life.waimaishuo.bean.api.request.bean.SubTypeNameReqData;
 
@@ -9,7 +10,12 @@ import com.life.waimaishuo.bean.api.request.bean.SubTypeNameReqData;
  */
 public class WaiMaiReqData {
 
-
+    //搜索
+    public static class WaiMaiSearchReqData extends BaseReqData<SearchReqData>{
+        public WaiMaiSearchReqData(SearchReqData reqData) {
+            super(reqData);
+        }
+    }
     //推荐列表
     public static class WaiMaiRecommendReqData extends BaseReqData<RecommendReqData>{
         public WaiMaiRecommendReqData(RecommendReqData reqData) {

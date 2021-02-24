@@ -31,16 +31,18 @@ public class WaimaiLimitedModel extends BaseModel {
             }
 
             @Override
-            public void onError(Throwable error) {
+            public void onError(int errorType, Throwable error) {
                 LogUtil.e("requestSecondKillTime error:" + error.getMessage() + count);
                 secondKillTime.setAllTimeNull();
-                if (error instanceof TimeoutException) {
-                    if (count >= 0) {
-                        requestSecondKillTime(requestCallBack, reqData, count);
-                    } else {
-                        requestCallBack.onFail(error.getMessage());
+                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
+                    if (error instanceof TimeoutException) {
+                        if (count >= 0) {
+                            requestSecondKillTime(requestCallBack, reqData, count);
+                        } else {
+                            requestCallBack.onFail(error.getMessage());
+                        }
                     }
-                } else {
+                }else {
                     requestCallBack.onFail(error.getMessage());
                 }
             }

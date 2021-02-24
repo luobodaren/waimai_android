@@ -6,6 +6,7 @@
 
     <com.life.waimaishuo.views.MyFlowTagLayout
         android:id="@+id/flowTagLayout"
+        android:layout_marginTop="@dimen/interval_size_xs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

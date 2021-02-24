@@ -93,18 +93,15 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
         super.onScrollChanged(l, t, oldl, oldt);
-
-        if(getScrollY() == 0){
-            if (mOnScrollChangeListener != null) {
-                mOnScrollChangeListener.onScroll(getScrollY() / getCanScrollDistance());
-            }
+        if (mOnScrollChangeListener != null) {
+            mOnScrollChangeListener.onScroll(((float) t) / getCanScrollDistance());
         }
-
     }
 
     @Override
     protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
+
     }
 
     /* NestedScrollingChild2 接口实现 */
@@ -156,8 +153,8 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
         if(canScrollY > 0){ //若向上滚动
             //LogUtil.d("向上滚动");
-            startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
             int[] consumed_2 = new int[2];
+            startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
             if(dispatchNestedPreScroll(canScrollX,canScrollY,consumed_2,mScrollOffset,type)){
                 //如果父控件需要消耗，则处理父控件消耗的部分数据
                 canScrollY -= consumed_2[1];
@@ -197,15 +194,15 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         boolean hideTop = canScrollY > 0 && getScrollY() < getCanScrollDistance();
         //如果显示，必须要子view不能向下滑动后，才能交给自身滑动
         boolean showTop = canScrollY < 0 && getScrollY() > 0 && !target.canScrollVertically(1);
-        LogUtil.d(getTag() + " hideTop:" + hideTop + " showTop:" + showTop);
+        //LogUtil.d(getTag() + " hideTop:" + hideTop + " showTop:" + showTop);
         if (hideTop || showTop) {
             scrollBy(0, canScrollY);
             consumed[1] = dy;
         }
         if(!showTop && !hideTop){
-            startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
             int[] consumed_3 = new int[2];
-            if(dispatchNestedPreScroll(canScrollX,canScrollY,consumed_3,mScrollOffset,type)){
+            boolean result = startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
+            if(result && dispatchNestedPreScroll(canScrollX,canScrollY,consumed_3,mScrollOffset,type)){
                 //如果父控件需要消耗，则处理父控件消耗的部分数据
                 canScrollY -= consumed_3[1];
                 canScrollX -= consumed_3[0];

@@ -322,18 +322,27 @@ public class HttpUtils {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         LogUtil.e("error:" + e.getMessage() + " url:" + request.url().toString());
-                        httpCallback.onError(e);
+                        httpCallback.onError(HttpCallback.ERROR_TYPE_REQUEST, e);
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String json = response.body().string();
-                        String data = isRequestSuccess(json);
-                        if(data != null){
-                            httpCallback.onSuccess(data);
-                        }else{
-                            LogUtil.e("error:返回 code != 0" + " url:" + request.url().toString() + " resultJson:" + json);
-                            httpCallback.onError(new Error("返回 code != 0"));
+                        try {
+                            int code = GsonUtil.getIntNoteJsonString(json,"code");
+                            if(code == 0){
+                                String data = GsonUtil.getStringNoteJsonString(json,"data");
+                                if("null".equals(data)){    //有字段但返回null
+                                    httpCallback.onSuccess("");
+                                }else{
+                                    httpCallback.onSuccess(data);
+                                }
+                            }else{
+                                httpCallback.onError(HttpCallback.ERROR_TYPE_CODE, new Error(code+""));
+                            }
+                        }catch (Exception e){
+                            LogUtil.e("error:解析失败" + " url:" + request.url().toString() + " resultJson:" + json);
+                            httpCallback.onError(HttpCallback.ERROR_TYPE_PARSE, new Error("解析失败"));
                         }
                     }
                 });
@@ -356,34 +365,24 @@ public class HttpUtils {
         return build.build();
     }
 
-    /**
-     * 判断请求是否成功（code是否为0）
-     * @param json 请求返回的json字符串
-     * @return 若成功则返回data字段 失败返回null(成功状态下 data不会返回null)
-     */
-    private String isRequestSuccess(String json){
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            int code = jsonObject.getInt("code");
-            //String msg = jsonObject.getString("msg");
-            if(code == 0){
-                return jsonObject.getString("data");
-            }
-            return null;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            LogUtil.e("json解析出错 error:" + e.getMessage() + " json:" + json);
-        }
-        return null;
-    }
-
     //创建接口
     public interface HttpCallback{
+        //请求失败状态
+        int ERROR_TYPE_REQUEST = 0;
+        //code错误
+        int ERROR_TYPE_CODE = 1;
+        //json解析错误
+        int ERROR_TYPE_PARSE = 2;
+
         //请求成功时的监听方法
         void onSuccess(String data);
 
-        //请求失败时的监听方法
-        void onError(Throwable error);
+        /**
+         * 请求失败时的监听方法
+         * @param type
+         * @param error
+         */
+        void onError(int type, Throwable error);
     }
 
     public static String changeToHttps(String url){

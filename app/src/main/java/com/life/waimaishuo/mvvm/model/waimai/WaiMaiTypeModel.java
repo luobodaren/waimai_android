@@ -43,14 +43,16 @@ public class WaiMaiTypeModel extends BaseModel {
             }
 
             @Override
-            public void onError(Throwable error) {
+            public void onError(int errorType, Throwable error) {
                 mFoodSubtypeList.clear();
                 LogUtil.e("requestSubtype error:" + error.getMessage() + count);
-                if (error instanceof TimeoutException) {
-                    if (count >= 0) {
-                        requestSubtype(requestCallBack, reqData, count);
-                    } else {
-                        requestCallBack.onFail(error.getMessage());
+                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
+                    if (error instanceof TimeoutException) {
+                        if (count >= 0) {
+                            requestSubtype(requestCallBack, reqData, count);
+                        } else {
+                            requestCallBack.onFail(error.getMessage());
+                        }
                     }
                 } else {
                     requestCallBack.onFail(error.getMessage());

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
@@ -28,6 +29,7 @@ import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
 import com.life.waimaishuo.bean.api.request.bean.RecommendReqData;
+import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendGoodsBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendShopBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
@@ -46,17 +48,23 @@ import java.util.List;
 @Page(name = "推荐列表")
 public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
+    public static final int QUERY_TYPE_SHOP = 1;
+    public static final int QUERY_TYPE_GOODS = 2;
+    public static final int QUERY_TYPE_ZERO_DELIVER = 3;
+
     private WaiMaiRecommendedViewModel mViewModel;
 
     private final int PAGE_COUNT = 10;    //一页的显示个数
 
     private String title = "";
-    private int queryType = 0;
+    private int queryType = QUERY_TYPE_SHOP;
     private WaiMaiReqData.WaiMaiRecommendReqData waiMaiRecommendReqData;
+
+    private int customItemLayoutId = 0;
 
     @Override
     protected int getLayoutId() {
-        if(queryType == 0){
+        if(queryType == QUERY_TYPE_SHOP || queryType == QUERY_TYPE_ZERO_DELIVER){
             return super.getLayoutId();
         }
         return R.layout.fragment_base_recycler_grid_16px;
@@ -106,7 +114,9 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
     @Override
     protected int getItemLayoutId() {
-        if(queryType == 0)
+        if(customItemLayoutId != 0)
+            return customItemLayoutId;
+        if(queryType == QUERY_TYPE_SHOP || queryType == QUERY_TYPE_ZERO_DELIVER)
             return R.layout.item_recycler_waimai_recommend_shop;
         else
             return R.layout.item_recycler_waimai_recommend_goods;
@@ -115,7 +125,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
     @Override
     protected RecyclerView.LayoutManager getRecyclerLayoutManager() {
-        if(queryType == 0){
+        if(queryType == QUERY_TYPE_SHOP || queryType == QUERY_TYPE_ZERO_DELIVER){
             return new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         }else{  // FIXME: 2021/2/5 修改为瀑布流布局
             return new GridLayoutManager(requireContext(),2,LinearLayoutManager.VERTICAL,false);
@@ -134,7 +144,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
     @Override
     protected RecyclerView.ItemDecoration getItemDecoration() {
-        if(queryType == 0){
+        if(queryType == QUERY_TYPE_SHOP || queryType == QUERY_TYPE_ZERO_DELIVER){
             return new RecyclerView.ItemDecoration() {
                 int top_interval =(int)UIUtils.getInstance().scalePx(
                         getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
@@ -157,7 +167,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
     @Override
     protected void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding, BaseViewHolder helper, Shop item) {
-        if(queryType == 0){
+        if(queryType == QUERY_TYPE_SHOP || queryType == QUERY_TYPE_ZERO_DELIVER){
             ItemRecyclerWaimaiRecommendShopBinding binding = (ItemRecyclerWaimaiRecommendShopBinding)viewDataBinding;
             String monSalesCount = getString(R.string.sale_count_a_month)+item.getMonSalesVolume();
             String distanceAndTime = getString(R.string.dist_time_and_distance,item.getDistTime()+"",item.getDistance()+"");
@@ -255,16 +265,27 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
         }
     }
 
+    public void setCustomItemLayoutId(@LayoutRes int customItemLayoutId){
+        this.customItemLayoutId = customItemLayoutId;
+    }
+
     public void setReqData(RecommendReqData reqData) {
         this.waiMaiRecommendReqData.reqData = reqData;
     }
 
+    /**
+     * 设置title 并且确定页面的搜索类型
+     * @param title
+     */
     public void setTitle(String title){
         if(title.equals( MyApplication.getMyApplication().getResources().getStringArray(
                 R.array.default_waimai_recommend_titles)[0])){
-            queryType = 0;
+            queryType = QUERY_TYPE_SHOP;
+        }else if(title.equals( MyApplication.getMyApplication().getResources().getStringArray(
+                R.array.default_waimai_recommend_titles)[1])){
+            queryType = QUERY_TYPE_GOODS;
         }else{
-            queryType = 1;
+            queryType = QUERY_TYPE_ZERO_DELIVER;
         }
         this.title = title;
         if(waiMaiRecommendReqData != null && waiMaiRecommendReqData.reqData != null){
@@ -320,7 +341,19 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
      * @param activityType
      */
     public void setActivityType(String[] activityType){
-        waiMaiRecommendReqData.reqData.setActivityType(activityType);
+        //解析优惠活动标签
+        List<String> activityTypeList = new ArrayList<>();
+        if (activityType.length > 0) {
+            LogUtil.d(activityType[0]);
+            for (String s : activityType) {
+                if (Constant.PREFERENTIAL_TABS.contains(s)) {
+                    activityTypeList.add(
+                            Constant.PREFERENTIAL_TABS_INDEX.get(Constant.PREFERENTIAL_TABS.indexOf(s)));
+                }
+            }
+        }
+
+        waiMaiRecommendReqData.reqData.setActivityType(activityTypeList.toArray(activityType));
     }
 
     public void setScreenData(String minAvgPrice, String maxAvgPrice){

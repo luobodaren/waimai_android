@@ -1,5 +1,7 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
+import android.content.Context;
+
 import androidx.fragment.app.Fragment;
 
 import com.life.waimaishuo.R;
@@ -39,8 +41,9 @@ public class WaiMaiZeroDividerViewModel extends BaseViewModel {
         return mModel.getSubTypeTitle();
     }
 
-    public Fragment getRecommendedFragment() {
+    public WaimaiRecommendedFragment getRecommendedFragment(Context context) {
         WaimaiRecommendedFragment fragment = new WaimaiRecommendedFragment();
+        fragment.setTitle(context.getResources().getStringArray(R.array.default_waimai_recommend_titles)[2]);
         return fragment;
     }
 
@@ -55,5 +58,14 @@ public class WaiMaiZeroDividerViewModel extends BaseViewModel {
         cashBackList.add("配送费优惠");
         cashBackList.add("配送费优惠");
         return cashBackList;
+    }
+
+    public List<String> getScreenData() {
+        List<String> screenData = new ArrayList<>();
+        screenData.add("优惠活动");
+        screenData.add("优惠活动");
+        screenData.add("人均价格带");
+        screenData.add("人均价格带");
+        return screenData;
     }
 }
