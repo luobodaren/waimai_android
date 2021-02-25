@@ -394,7 +394,7 @@
         <item name="android:gravity">end</item>
         <item name="android:layout_marginStart">216px</item>
         <item name="android:layout_marginEnd">@dimen/interval_size_xs</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>
 

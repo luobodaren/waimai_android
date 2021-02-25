@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
@@ -264,7 +263,7 @@ public class LimitedTimeGoodsFragment extends BaseStatusLoaderFragment {
 
     private void initWaiMaiLimitedGoodsRecycler() {
         mBinding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedGoods>(R.layout.item_recycler_limited_goods_waimai, mViewModel.getLimitedGoodsList(mPageType), BR.item) {
+        mBinding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<LimitedGoods>(R.layout.item_recycler_limited_goods_waimai, mViewModel.getLimitedGoodsList(mPageType), com.life.waimaishuo.BR.item) {
 
             int textSize = (int) UIUtils.getInstance().scalePx(40);
             @Override
@@ -297,7 +296,7 @@ public class LimitedTimeGoodsFragment extends BaseStatusLoaderFragment {
     // FIXME: 2021/1/19  add headView
     private void initMallLimitedGoodsRecycler(){
         MyBaseRecyclerAdapter adapter = new MyBaseRecyclerAdapter<LimitedGoods>(
-                R.layout.item_recycler_limited_goods_mall, mViewModel.getLimitedGoodsList(mPageType), BR.item) {
+                R.layout.item_recycler_limited_goods_mall, mViewModel.getLimitedGoodsList(mPageType), com.life.waimaishuo.BR.item) {
             int textSize = (int) UIUtils.getInstance().scalePx(28);
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, LimitedGoods item) {

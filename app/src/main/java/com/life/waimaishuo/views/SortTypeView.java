@@ -396,7 +396,7 @@ public class SortTypeView extends FrameLayout {
 
     private void initListPopupIfNeed() {
         if (mSortPopup == null) {
-            XUISimpleAdapter adapter = XUISimpleAdapter.create(getContext(), SortTypeEnum.getKeyList());
+            XUISimpleAdapter adapter = XUISimpleAdapter.create(getContext(), getSortList());
             mSortPopup = new SortPopup(getContext(), XUIListPopup.DIRECTION_NONE, adapter);
             mSortPopup.create((int) UIUtils.getInstance().getDisplayMetricsWidth(), 0, (adapterView, view, i, l) -> { //maxHeight = 0 表示warContent
                 mSortPopup.dismiss();
@@ -410,6 +410,23 @@ public class SortTypeView extends FrameLayout {
             mSortPopup.setContentViewBackground(R.drawable.sr_bg_sort_pop); //必须在创建create方法后调用才能生效
             mSortPopup.setOnDismissListener(() -> LogUtil.e("排序pop dismiss"));
         }
+    }
+
+    /**
+     * 获取排序List,去掉距离和销量
+     * @return
+     */
+    private List<String> getSortList(){
+        List<String> keyList = new ArrayList<>();
+        keyList.add(SortTypeEnum.SCORE.getType());
+        keyList.add(SortTypeEnum.STARTING_SHIPPING_PRICE_LOWEST.getType());
+        keyList.add(SortTypeEnum.DELIVERY_FASTEST.getType());
+        keyList.add(SortTypeEnum.DELIVERY_PRICE_LOWEST.getType());
+        keyList.add(SortTypeEnum.PER_CAPITA_PRICE_LOWEST.getType());
+        keyList.add(SortTypeEnum.PER_CAPITA_PRICE_HIGHEST.getType());
+        //keyList.add(SortTypeEnum.DISTANCE.getType());
+        //keyList.add(SortTypeEnum.SALES.getType());
+        return keyList;
     }
 
     /**

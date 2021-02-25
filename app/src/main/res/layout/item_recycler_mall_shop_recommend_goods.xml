@@ -36,7 +36,7 @@
             android:layout_marginTop="@dimen/interval_size_xs"
             android:layout_marginEnd="@dimen/interval_size_xs"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="@{item.name}"
             android:textColor="@color/text_normal"
             android:textSize="26px"

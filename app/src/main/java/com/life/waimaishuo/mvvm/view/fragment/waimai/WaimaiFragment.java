@@ -28,7 +28,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.TimeUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.Global;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.BaseBannerAdapter;
@@ -259,13 +258,8 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
         adaptiveViewBinding.layoutActivityRegion.clBrandZone.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
-                openPage(BrandZoneFragment.class);
-            }
-        });
-        adaptiveViewBinding.layoutActivityRegion.clBrandZone.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-
+                BrandZoneFragment.openPage(WaimaiFragment.this,
+                        mViewModel.getActivityRegion().get(0).getImageUrlNameData().getBrandId());
             }
         });
 
@@ -976,7 +970,7 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
 
     private MyBaseRecyclerAdapter<ExclusiveShopData> getExclusiveRecyclerAdapter() {
         return new MyBaseRecyclerAdapter<ExclusiveShopData>(R.layout.item_waimai_exclusive_shop
-                , mViewModel.getExclusiveShopData(), BR.item) {
+                , mViewModel.getExclusiveShopData(), com.life.waimaishuo.BR.item) {
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, ExclusiveShopData item) {
                 super.initView(viewDataBinding, helper, item);

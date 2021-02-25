@@ -34,7 +34,7 @@
             style="@style/text_my_simple_style"
             android:layout_marginStart="@dimen/interval_size_xs"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="@{item.name}"
             android:textColor="@color/text_tip"
             android:textSize="32px"

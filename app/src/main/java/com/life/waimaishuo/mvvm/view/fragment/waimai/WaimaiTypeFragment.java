@@ -20,13 +20,9 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.Global;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
-import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
-import com.life.waimaishuo.bean.api.request.bean.RecommendReqData;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
-import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentWaimaiTypeBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -38,9 +34,6 @@ import com.life.waimaishuo.views.SortTypeView;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.enums.CoreAnim;
 import com.xuexiang.xpage.utils.TitleBar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 // FIXME: 2021/2/20 从全部分类打开时 存在不显示顶部recycler的情况
 
@@ -144,12 +137,12 @@ public class WaimaiTypeFragment extends BaseFragment {
     protected void firstRequestData() {
         super.firstRequestData();
 
+        mViewModel.refreshSubTypeImg(mFoodType);
         mViewModel.refreshSubTypeTitles(mFoodType);
-
     }
 
     private void addCallBack() {
-        MyDataBindingUtil.addCallBack(this, mViewModel.subtypeObservableInt, new Observable.OnPropertyChangedCallback() {
+        MyDataBindingUtil.addCallBack(this, mViewModel.subtypeObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 LogUtil.d("title size:" + mViewModel.getSubtypeTitles().size());
@@ -185,6 +178,17 @@ public class WaimaiTypeFragment extends BaseFragment {
                     }
                     refreshShopContent();  //刷新内容
                 });
+            }
+        });
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.subtypeImgObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> Glide.with(requireContext())
+                        .load(mViewModel.getCurrentSubtypeImgUrl())
+                        .placeholder(R.drawable.ic_waimai_brand)
+                        .centerCrop()
+                        .into(mBinding.imgSubtype));
             }
         });
 

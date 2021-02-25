@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ui.IconStrData;
@@ -184,7 +183,7 @@ public class MineFragment extends BaseFragment {
 
     private void initTopRecycler() {
        topRecyclerAdapter = new MyBaseRecyclerAdapter<TypeCountData>(
-               R.layout.item_vertical_data_show, getTopDataList(), BR.item) {};
+               R.layout.item_vertical_data_show, getTopDataList(), com.life.waimaishuo.BR.item) {};
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
 
         mBinding.recyclerTopData.setAdapter(topRecyclerAdapter);
@@ -194,7 +193,7 @@ public class MineFragment extends BaseFragment {
     private void initLogisticsRecycler() {
         MyBaseRecyclerAdapter<IconStrData> myBaseRecyclerAdapter =
                 new MyBaseRecyclerAdapter<>(R.layout.item_mine_recycler_good_logistics, getGoodsLogisticsData()
-                        , BR.item);
+                        , com.life.waimaishuo.BR.item);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 5, LinearLayoutManager.VERTICAL, false);
 
         mBinding.recyclerGoodsLogistics.setAdapter(myBaseRecyclerAdapter);
@@ -228,7 +227,7 @@ public class MineFragment extends BaseFragment {
 
     private MyBaseRecyclerAdapter<IconStrData> getFunctionRecyclerAdapter() {
         recommendRecyclerAdapter = new MyBaseRecyclerAdapter<>
-                (R.layout.item_mine_recycler_more_recommended, getMoreRecommendData(), BR.item);
+                (R.layout.item_mine_recycler_more_recommended, getMoreRecommendData(), com.life.waimaishuo.BR.item);
         return recommendRecyclerAdapter;
     }
 

@@ -14,8 +14,11 @@ public class ImageUrlNameData {
     String name;
     @SerializedName(value = "desc")
     String describe;
-    @SerializedName(value = "decorationContentMap") //配合金刚区接口数据获取
+    @SerializedName(value = "decorationContentMap") //配合金刚区接口数据获取 (包括其他大部分接口
     ImageUrlNameData imageUrlNameData;
+
+    @SerializedName(value = "brandId")
+    int brandId; //配合活动专区-品牌专区 获取品牌Id
 
     public ImageUrlNameData(String imgUrl, String name) {
         this.imgUrl = imgUrl;
@@ -70,5 +73,13 @@ public class ImageUrlNameData {
 
     public void setImageUrlNameData(ImageUrlNameData imageUrlNameData) {
         this.imageUrlNameData = imageUrlNameData;
+    }
+
+    public int getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 }

@@ -105,6 +105,7 @@
     <string name="super_member">超级会员</string>
     <string name="pay_type">支付方式</string>
     <string name="distribution_time">配送时间</string>
+    <string name="distribution_minute">配送%s分钟</string>
     <string name="dist_time_and_distance">%1$s分钟&#160;&#160;%2$skm</string>
     <string name="price_start_deliver_delivering_avg">起送%1$s元&#160;&#160;配送%2$s元&#160;&#160;人均%3$s元</string>
     <string name="reserved_phone">预留电话</string>
@@ -332,4 +333,5 @@
     <string name="no_businesses_in_this_area">该地区无商家</string>
     <string name="go_shopping_at_the_mall">去商场逛逛</string>
     <string name="loading_fail">加载失败</string>
+    <string name="brand">品牌</string>
 </resources>

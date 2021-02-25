@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8px"
                 android:includeFontPadding="false"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:paddingStart="24px"
                 android:text='@{goods.score + @string/score}'
                 android:textColor="@color/colorAssist_3"

@@ -81,7 +81,7 @@
             android:layout_marginTop="16px"
             android:ellipsize="end"
             android:includeFontPadding="false"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="好吃的食物，增肥神器，有求必应"
             android:textColor="@color/text_tip"
             android:textSize="20px"

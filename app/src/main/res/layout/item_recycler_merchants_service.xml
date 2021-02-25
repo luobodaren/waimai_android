@@ -24,7 +24,7 @@
             android:textSize="24px"
             android:layout_marginStart="8px"
             android:text="@{item.introduce}"
-            android:maxLines="1"
+            android:singleLine="true"
             android:ellipsize="end"
             tools:text="满60元减20元，满80元减30元" />
 

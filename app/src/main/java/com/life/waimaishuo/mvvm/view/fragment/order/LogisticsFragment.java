@@ -13,7 +13,6 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.ui.LogisticsData;
 import com.life.waimaishuo.databinding.FragmentViewLogisticsBinding;

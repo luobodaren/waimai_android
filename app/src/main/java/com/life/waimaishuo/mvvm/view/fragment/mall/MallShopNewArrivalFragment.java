@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.ui.MallNewArrival;
@@ -97,7 +96,7 @@ public class MallShopNewArrivalFragment extends BaseFragment {
                                             LinearLayoutManager.VERTICAL,false));
                             recyclerView.setAdapter(
                                     new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_shop_new_arrival_chiren,
-                                            item.getGoodsList(),BR.item));
+                                            item.getGoodsList(), com.life.waimaishuo.BR.item));
                         }
                     }
                 });

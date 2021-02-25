@@ -20,8 +20,7 @@
 
         <TextView
             android:id="@+id/tv_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/text_my_simple_style"
             android:layout_marginStart="3px"
             android:includeFontPadding="false"
             android:textColor="@color/score_text"

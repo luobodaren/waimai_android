@@ -43,6 +43,7 @@ import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.widget.statelayout.StatusLoader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Page(name = "推荐列表")
@@ -177,11 +178,8 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
             binding.tvDistanceAndTime.setText(distanceAndTime);
             binding.tvShopDescribe.setText(describe);
             if(binding.recyclerTag.getAdapter() == null){
-                List<String> tagList = new ArrayList<>();
                 String[] tags = item.getTag_value().split(",");
-                for (String tag:tags) {
-                    tagList.add(tag);
-                }
+                List<String> tagList = new ArrayList<>(Arrays.asList(tags));
                 binding.recyclerTag.setLayoutManager(new LinearLayoutManager(helper.itemView.getContext(),LinearLayoutManager.HORIZONTAL,false));
                 binding.recyclerTag.setAdapter(new MyBaseRecyclerAdapter<String>(R.layout.adapter_tag_item_cash_back,tagList){
                     @Override

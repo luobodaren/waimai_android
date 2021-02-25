@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.MyApplication;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
@@ -106,7 +105,7 @@ public class OrderBarItemFragment extends BaseChildFragment {
 
                 int viewType = holder.getItemViewType();
                 if (viewType == mall) {
-                    MyBaseRecyclerAdapter adapter1 = new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_order_list_mall_goods_info, item.getGoodsList(), BR.goods);
+                    MyBaseRecyclerAdapter adapter1 = new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_order_list_mall_goods_info, item.getGoodsList(), com.life.waimaishuo.BR.goods);
 
                     View headView = View.inflate(MyApplication.getMyApplication(), R.layout.head_shop_order_goods_list, null);
                     ((HeadShopOrderGoodsListBinding) DataBindingUtil.bind(headView)).setOrder(item);

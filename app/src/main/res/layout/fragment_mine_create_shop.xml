@@ -170,7 +170,7 @@
                                 style="@style/text_create_shop_et_info"
                                 android:layout_marginEnd="@dimen/interval_size_xs"
                                 android:ellipsize="end"
-                                android:maxLines="1"
+                                android:singleLine="true"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/iv_shop_address_arrow_right"
                                 app:layout_constraintStart_toStartOf="parent"

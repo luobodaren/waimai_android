@@ -27,9 +27,9 @@ public class MyApplication extends Application {
         super.onCreate();
         myApplication = this;
 
-        initMMKV();
-
         initPage();
+
+        initMMKV();
 
         //Module类的APP初始化
         modulesApplicationInit();

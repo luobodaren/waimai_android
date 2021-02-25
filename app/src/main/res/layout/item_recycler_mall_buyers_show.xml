@@ -68,7 +68,7 @@
                 android:layout_marginStart="8px"
                 android:ellipsize="end"
                 android:maxEms="4"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:text="@{item.userName}"
                 android:textColor="@color/text_normal"
                 android:textSize="24px"

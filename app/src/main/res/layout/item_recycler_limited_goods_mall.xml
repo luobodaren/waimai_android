@@ -34,7 +34,7 @@
             android:layout_marginStart="24px"
             android:ellipsize="end"
             android:includeFontPadding="false"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="@{item.goods.name}"
             android:textColor="@color/text_deep_black"
             android:textSize="34px"

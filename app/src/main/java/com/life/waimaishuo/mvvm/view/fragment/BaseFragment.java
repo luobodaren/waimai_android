@@ -109,7 +109,6 @@ public abstract class BaseFragment extends XPageFragment {
 
     @Override
     protected void initListeners() {
-
         /*getFragmentManager()
                 .beginTransaction()
                 .setMaxLifecycle(this, Lifecycle.State.CREATED)

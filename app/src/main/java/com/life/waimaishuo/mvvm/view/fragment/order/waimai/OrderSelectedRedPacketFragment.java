@@ -2,10 +2,8 @@ package com.life.waimaishuo.mvvm.view.fragment.order.waimai;
 
 import android.content.Intent;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.RedPacket;
@@ -102,7 +99,7 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
             public void onBindViewHolder(BaseViewHolder holder, boolean selected, RedPacket item) {
                 ViewDataBinding binding = DataBindingUtil.bind(holder.itemView);
                 if(binding != null){
-                    binding.setVariable(BR.item,item);
+                    binding.setVariable(com.life.waimaishuo.BR.item,item);
                     ImageView ivCheckBottom = holder.getView(R.id.iv_check_bottom);
                     if(item.isGet()){
                         if(ivCheckBottom.getVisibility() == View.GONE){

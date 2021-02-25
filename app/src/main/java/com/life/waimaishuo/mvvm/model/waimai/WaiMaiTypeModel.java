@@ -16,6 +16,7 @@ public class WaiMaiTypeModel extends BaseModel {
 
     public List<ImageUrlNameData> mFoodSubtypeList = new ArrayList<>();
 
+    public ImageUrlNameData currentSubtypeImgUrl = new ImageUrlNameData("","");
     /**
      * 类别的子集
      *
@@ -25,7 +26,7 @@ public class WaiMaiTypeModel extends BaseModel {
     public void requestSubtype(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiSubTypeReqData reqData, int timeOutRequestTime) {
         timeOutRequestTime--;
         int count = timeOutRequestTime;
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_TYPE_GET_SUBTYPE_BY_NAME, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_TYPE_GET_SUBTYPES_BY_NAME, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
@@ -61,4 +62,50 @@ public class WaiMaiTypeModel extends BaseModel {
         });
     }
 
+    public String getCurrentSubtypeImgUrl() {
+        return currentSubtypeImgUrl.getImgUrl();
+    }
+
+    /**
+     * 根据类型名称获取类型信息
+     * @param requestCallBack
+     * @param reqData
+     * @param timeOutRequestTime
+     */
+    public void requestSubtypeImg(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiSubTypeReqData reqData, int timeOutRequestTime){
+        timeOutRequestTime--;
+        int count = timeOutRequestTime;
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_TYPE_GET_SUBTYPE_BY_NAME, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+            @Override
+            public void onSuccess(String data) {
+                if (!"".equals(data)) {
+                    currentSubtypeImgUrl = GsonUtil.parserJsonToArrayBean(data, ImageUrlNameData.class);
+                    currentSubtypeImgUrl.setImgUrl(HttpUtils.changeToHttps(currentSubtypeImgUrl.getImgUrl()));
+                    requestCallBack.onSuccess(mFoodSubtypeList);
+                } else {
+                    currentSubtypeImgUrl.setImgUrl("");
+                    currentSubtypeImgUrl.setName("");
+                    requestCallBack.onSuccess(null);
+                }
+            }
+
+            @Override
+            public void onError(int errorType, Throwable error) {
+                currentSubtypeImgUrl.setImgUrl("");
+                currentSubtypeImgUrl.setName("");
+                LogUtil.e("requestSubtypeImg error:" + error.getMessage() + count);
+                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
+                    if (error instanceof TimeoutException) {
+                        if (count >= 0) {
+                            requestSubtypeImg(requestCallBack, reqData, count);
+                        } else {
+                            requestCallBack.onFail(error.getMessage());
+                        }
+                    }
+                } else {
+                    requestCallBack.onFail(error.getMessage());
+                }
+            }
+        });
+    }
 }

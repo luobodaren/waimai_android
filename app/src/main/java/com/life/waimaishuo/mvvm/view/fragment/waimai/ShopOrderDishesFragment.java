@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +29,7 @@ import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
 import com.life.waimaishuo.listener.OnSecondaryShopGoodsItemClickListener;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopOrderDishesViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
@@ -92,7 +94,19 @@ public class ShopOrderDishesFragment extends BaseFragment
     protected void initViews() {
         super.initViews();
         initBanner();
-        initLinkageRecycler();
+
+    }
+
+    @Override
+    protected void initListeners() {
+        super.initListeners();
+
+        addCallBack();
+    }
+
+    @Override
+    protected void firstRequestData() {
+        super.firstRequestData();
     }
 
     @Override
@@ -268,6 +282,15 @@ public class ShopOrderDishesFragment extends BaseFragment
 
         return view;
 
+    }
+
+    private void addCallBack(){
+        MyDataBindingUtil.addCallBack(this, mViewModel.requestShopGoodsObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                initLinkageRecycler();
+            }
+        });
     }
 
 }

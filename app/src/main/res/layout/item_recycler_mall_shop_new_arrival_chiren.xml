@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/interval_size_xs"
             android:ellipsize="end"
             android:maxWidth="182px"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="@{item.describe}"
             android:textColor="@color/text_normal"
             android:textSize="26px"

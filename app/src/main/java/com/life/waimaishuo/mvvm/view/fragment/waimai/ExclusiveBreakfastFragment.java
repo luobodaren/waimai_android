@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Goods;
@@ -99,6 +98,6 @@ public class ExclusiveBreakfastFragment extends BaseFragment {
             }
         });
         recyclerView.setAdapter(new MyBaseRecyclerAdapter<Goods>(R.layout.item_recycler_exclusive_goods_info,
-                mViewModel.getmBreakFastList(), BR.goods));
+                mViewModel.getmBreakFastList(), com.life.waimaishuo.BR.goods));
     }
 }

@@ -37,7 +37,7 @@
         android:layout_width="0px"
         android:layout_marginStart="17px"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:singleLine="true"
         android:textColor="@color/text_normal"
         android:textSize="26px"
         app:layout_constraintBottom_toTopOf="@id/tv_goods_specification"

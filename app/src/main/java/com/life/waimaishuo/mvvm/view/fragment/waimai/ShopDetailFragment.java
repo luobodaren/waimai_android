@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 import android.app.Dialog;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.google.android.material.appbar.AppBarLayout;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
-import com.life.waimaishuo.BR;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tag.CashBackTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
@@ -61,11 +61,15 @@ import java.util.List;
 @Page(name = "店铺详情页", anim = CoreAnim.slide)
 public class ShopDetailFragment extends BaseFragment {
 
+    private final static String BUNDLE_KEY_SHOP_ID = "key_shop_id";
+
     private FragmentWaimaiShopDetailBinding mBinding;
     private ShopDetailViewModel mViewModel;
 
     private MyCheckRoundTextInfoPop mAddMemberInfoPopWindow;
     private Runnable mCancelPopRunnable;
+
+    private int shopId;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -93,6 +97,14 @@ public class ShopDetailFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
+
+        Bundle bundle = getArguments();
+        if (bundle == null) {
+            throw new Error(Constant.ERROR_MSG_NO_BUNDLE);
+        }
+
+        shopId = bundle.getInt(BUNDLE_KEY_SHOP_ID);
+
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
@@ -466,7 +478,7 @@ public class ShopDetailFragment extends BaseFragment {
             }
         });
         binding.redPacketRecyclerView.setAdapter(new MyBaseRecyclerAdapter<RedPacket>(
-                R.layout.item_recycler_waimai_dialog_red_packet, mViewModel.getPreferentialData().getRedPacketList(), BR.item) {
+                R.layout.item_recycler_waimai_dialog_red_packet, mViewModel.getPreferentialData().getRedPacketList(), com.life.waimaishuo.BR.item) {
             String receiveStr = "";
             String receivedStr = "";
 
@@ -501,7 +513,7 @@ public class ShopDetailFragment extends BaseFragment {
         binding.preferentialRecyclerView.addItemDecoration(getPreferentialRecyclerItemDecoration());
         binding.preferentialRecyclerView.setAdapter(new MyBaseRecyclerAdapter<PreferentialActivity>(
                 R.layout.item_recycler_preferential_activity,
-                mViewModel.getPreferentialData().getPreferentialActivityList(), BR.item) {
+                mViewModel.getPreferentialData().getPreferentialActivityList(), com.life.waimaishuo.BR.item) {
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, PreferentialActivity item) {
                 helper.setText(R.id.tv_tag, item.getName());
@@ -513,7 +525,7 @@ public class ShopDetailFragment extends BaseFragment {
         binding.serviceRecyclerView.addItemDecoration(getPreferentialRecyclerItemDecoration());
         binding.serviceRecyclerView.setAdapter(new MyBaseRecyclerAdapter<MerchantsService>(
                 R.layout.item_recycler_merchants_service,
-                mViewModel.getPreferentialData().getMerchantsServiceList(), BR.item) {
+                mViewModel.getPreferentialData().getMerchantsServiceList(), com.life.waimaishuo.BR.item) {
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MerchantsService item) {
                 helper.setText(R.id.tv_tag, item.getName());
@@ -571,7 +583,7 @@ public class ShopDetailFragment extends BaseFragment {
         binding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
         binding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<ShoppingCartGood>(
-                R.layout.item_recycler_shopping_cart_goods, mViewModel.getShoppingCartData(), BR.item));
+                R.layout.item_recycler_shopping_cart_goods, mViewModel.getShoppingCartData(), com.life.waimaishuo.BR.item));
         binding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
             int top_interval = (int) UIUtils.getInstance().scalePx(
                     getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
@@ -618,5 +630,12 @@ public class ShopDetailFragment extends BaseFragment {
         ((TextView)shareDialog.getContentView().findViewById(R.id.bottom_sheet_close_button)).setText(R.string.cancel);
         shareDialog.show();
     }
+
+    public static void openPage(BaseFragment baseFragment, int shopId){
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_KEY_SHOP_ID,shopId);
+        baseFragment.openPage(ShopDetailFragment.class,bundle);
+    }
+
 
 }

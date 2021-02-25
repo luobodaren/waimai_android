@@ -175,6 +175,22 @@ public class Goods extends BaseObservable implements Parcelable {
         this.lowestPriceOf15Days = lowestPriceOf15Days;
     }
 
+    public String getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(String minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public String getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(String maxPrice) {
+        this.maxPrice = maxPrice;
+    }
+
     @Override
     public int describeContents() {
         return 0;

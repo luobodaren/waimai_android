@@ -1,5 +1,7 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
+import androidx.databinding.ObservableInt;
+
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.constant.Constant;
@@ -14,6 +16,8 @@ import java.util.List;
 public class BrandZoneViewModel extends BaseViewModel {
 
     public BrandZoneModel mModel;
+
+    public ObservableInt requestShopListObservable = new ObservableInt();
 
     @Override
     public BaseModel getModel() {
@@ -50,8 +54,12 @@ public class BrandZoneViewModel extends BaseViewModel {
         return null;
     }
 
-    public List<Shop> getBrandShopRecycler() {
+    public List<Shop> getBrandShopList() {
         return mModel.getBrandShopList();
+    }
+
+    public void setBrandId(int brandId) {
+        mModel.setBrandId(brandId);
     }
 
     public void setSortRules(SortTypeEnum sortTypeEnum) {
@@ -68,6 +76,6 @@ public class BrandZoneViewModel extends BaseViewModel {
     }
 
     public void refreshListDate() {
-        mModel.requestBrandShopData();
+        mModel.requestBrandShopData(new BaseModel.NotifyChangeRequestCallBack(requestShopListObservable),3);
     }
 }

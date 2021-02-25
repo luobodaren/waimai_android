@@ -3,27 +3,24 @@ package com.life.waimaishuo.mvvm.vm.waimai;
 import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
 import com.life.waimaishuo.bean.api.request.bean.SubTypeNameReqData;
-import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiTypeModel;
-import com.life.waimaishuo.mvvm.model.waimai.WaimaiModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.WaimaiRecommendedFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WaiMaiTypeViewModel extends BaseViewModel {
 
     private WaiMaiTypeModel mModel;
 
-    public ObservableInt subtypeObservableInt = new ObservableInt();
+    public ObservableInt subtypeObservable = new ObservableInt();
+    public ObservableInt subtypeImgObservable = new ObservableInt();
 
     public int[] bgImgId =
             {
@@ -67,12 +64,22 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
     }
 
     public void refreshSubTypeTitles(String typeName) {
-        mModel.requestSubtype(new BaseModel.NotifyChangeRequestCallBack(subtypeObservableInt),
+        mModel.requestSubtype(new BaseModel.NotifyChangeRequestCallBack(subtypeObservable),
                 new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqData(1, typeName)),
                 3);
     }
 
     public int getTopBgImgId(int i) {
         return bgImgId[i];
+    }
+
+    public String getCurrentSubtypeImgUrl() {
+        return mModel.getCurrentSubtypeImgUrl();
+    }
+
+    public void refreshSubTypeImg(String subTypeName){
+        mModel.requestSubtypeImg(new BaseModel.NotifyChangeRequestCallBack(subtypeImgObservable),
+                new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqData(1,subTypeName)),
+                3);
     }
 }

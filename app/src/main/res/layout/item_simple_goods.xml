@@ -30,7 +30,7 @@
             android:textSize="24px"
             android:maxWidth="315px"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:singleLine="true"
             android:text="@{item.shopName}"/>
 
     </com.life.base.views.UiAdapterLinearLayout>
