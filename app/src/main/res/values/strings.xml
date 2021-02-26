@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">外卖说</string>
 
+    <string name="company_info">
+        外卖说（深圳）科技有限公司\n粤ICP备20060292号\n公安备案号：44030502006664\n增值电信业务经营许可证:粤B2-20210051
+    </string>
+
     <!-- 默认限时秒杀时间 -->
     <string name="default_second_kill_time">00</string>
 
@@ -23,10 +27,11 @@
     <string name="login_by_other">使用其他手机号登录</string>
     <string name="login_tip_login_by_other">其他登录方式</string>
     <string name="login_tip">未注册手机号登陆后将自动生成账号，且代表您已阅读并同意</string>
-    <string name="login_tip_bottom">登录即同意</string>
+    <string name="login_tip_bottom">登录即同意用户协议.隐私条款</string>
     <string name="input_phoneNumber">请输入手机号</string>
     <string name="input_phoneNumber_or_QQ">请输入手机号/QQ</string>
     <string name="login">登录</string>
+    <string name="verification">验证码</string>
     <string name="get_verification">获取验证码</string>
     <string name="login_please">请登录</string>
     <string name="more_recommended">更多推荐</string>
@@ -264,7 +269,7 @@
     <string name="full_inventory">库存充足</string>
     <string name="count">数量</string>
     <string name="name">姓名</string>
-    <string name="phone">电话</string>
+    <string name="mobile">电话</string>
     <string name="phoneNumber">手机号</string>
     <string name="consignee_name">收货人姓名</string>
     <string name="consignee_phone">收货人手机号</string>

@@ -1,52 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="48px"
+        android:layout_height="48px"
+        android:src="@drawable/ic_close_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line_h_begin_16percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.16" />
 
     <TextView
         android:id="@+id/tv_login_by_phone"
         style="@style/login_tv_by_phone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="@id/line_h_begin_16percent" />
 
-    <EditText
-        android:id="@+id/et_phoneNumber"
-        style="@style/login_et_phoneNumber"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_login_by_phone"/>
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/divider_1"
-        style="@style/dividerStyle"
-        app:layout_constraintTop_toBottomOf="@id/et_phoneNumber"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_phoneNumber"
+            android:textAlignment="viewStart"
+            android:textColorHint="@color/white"
+            android:textDirection="locale"
+            app:errorEnabled="false"
+            app:errorTextColor="@color/colorTheme"
+            app:hintTextAppearance="@style/hintAppearence"
+            app:hintTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/et_verification"
-        style="@style/login_et_verification"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider_1"/>
+            <com.xuexiang.xui.widget.edittext.ClearEditText
+                android:id="@+id/et_phoneNumber"
+                style="@style/et_base_login"
+                android:inputType="phone"
+                android:layoutDirection="locale"
+                android:textAlignment="viewStart"
+                android:textSize="34px"
+                app:cet_clearIcon="@drawable/ic_close_gray"
+                app:cet_clearIconSize="24px"
+                app:pet_enableIconAlpha="true"
+                app:pet_isAsteriskStyle="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/divider_2"
-        style="@style/dividerStyle"
-        app:layout_constraintTop_toBottomOf="@id/et_verification"
-        app:layout_constraintStart_toStartOf="parent"/>
 
-    <Button
-        android:id="@+id/bt_login"
-        style="@style/login_bt_login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/divider_2"/>
+        <TextView
+            android:id="@+id/divider_1"
+            style="@style/dividerStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_phone" />
 
-    <com.xuexiang.xui.widget.textview.supertextview.SuperButton
-        android:id="@+id/bt_get_verification"
-        style="@style/login_bt_get_verification"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/divider_2"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_verification"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/interval_size_m"
+            android:hint="@string/verification"
+            android:textAlignment="viewStart"
+            android:textColorHint="@color/white"
+            android:textDirection="locale"
+            app:errorEnabled="false"
+            app:errorTextColor="@color/colorTheme"
+            app:hintTextAppearance="@style/hintAppearence"
+            app:hintTextColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/bt_get_verification"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_1">
+
+            <com.xuexiang.xui.widget.edittext.ClearEditText
+                android:id="@+id/et_verification"
+                style="@style/et_base_login"
+                android:inputType="number"
+                android:textAlignment="viewStart"
+                android:textSize="34px"
+                app:cet_clearIcon="@drawable/ic_close_gray"
+                app:cet_clearIconSize="24px"
+                app:pet_enableIconAlpha="true"
+                app:pet_isAsteriskStyle="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/divider_2"
+            style="@style/dividerStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_layout_verification" />
+
+        <Button
+            android:id="@+id/bt_login"
+            style="@style/login_bt_login"
+            android:layout_height="88px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/divider_2" />
+
+        <com.xuexiang.xui.widget.textview.supertextview.SuperButton
+            android:id="@+id/bt_get_verification"
+            style="@style/login_bt_get_verification"
+            app:layout_constraintBottom_toTopOf="@id/divider_2"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.life.base.views.UiAdapterConstrainLayout>

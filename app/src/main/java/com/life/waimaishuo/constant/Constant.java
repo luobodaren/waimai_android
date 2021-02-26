@@ -16,6 +16,7 @@ public class Constant {
     /**
      * openPageForResult的请求码
      */
+    public static final int REQUEST_CODE_LOGIN = 888;
     public static final int REQUEST_CODE_CHOSE_RED_PACKET = 1000;
     public static final int REQUEST_CODE_ORDER_NOTE = 1001;
     public static final int REQUEST_CODE_ADD_NEW_ADDRESS = 1002;

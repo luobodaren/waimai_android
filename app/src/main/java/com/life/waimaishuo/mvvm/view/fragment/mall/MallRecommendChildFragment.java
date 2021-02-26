@@ -62,7 +62,8 @@ public class MallRecommendChildFragment extends BaseRecyclerFragment {
     @Override
     protected void onRecyclerBindViewHolder(ViewDataBinding viewDataBinding, BaseViewHolder helper, Object item) {
         TextView prePriceTV = helper.getView(R.id.tv_pre_price);
-        prePriceTV.setText(TextUtil.getStrikeThroughSpanSpannable(((Goods)item).getPrice()));
+        String price = ((Goods)item).getPrice();
+        prePriceTV.setText(TextUtil.getStrikeThroughSpanSpannable(price,0,price.length()));
     }
 
     @Override

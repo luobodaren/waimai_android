@@ -182,7 +182,7 @@ public class MallMainTypeFragment extends BaseFragment {
                         .into(imageView);
 
                 currentPrice.setText(TextUtil.getAbsoluteSpannable("￥" + cp,textSize,0,1));
-                prePrice.setText(TextUtil.getStrikeThroughSpanSpannable("￥" + pp));
+                prePrice.setText(TextUtil.getStrikeThroughSpanSpannable("￥" + pp,0,4));
             }
         };
     }

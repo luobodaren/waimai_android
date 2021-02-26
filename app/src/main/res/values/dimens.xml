@@ -25,11 +25,9 @@
     <dimen name="interval_size_l">64px</dimen>
 
     <!--  登录  -->
-    <dimen name="login_divider_phoneNumberET_button">40px</dimen>
     <dimen name="login_font_phone_size">54px</dimen>
     <dimen name="login_font_button_size">@dimen/font_size_32</dimen>
     <dimen name="login_font_by_phone">56px</dimen>
-    <dimen name="login_interval_size_loginByPhone_phoneET">100px</dimen>
     <dimen name="login_interval_size_verificationET_loginBT">102px</dimen>
     <dimen name="login_bt_getVerification_height">64px</dimen>
     <dimen name="login_bt_getVerification_width">168px</dimen>

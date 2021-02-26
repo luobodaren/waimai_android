@@ -113,9 +113,9 @@ public class MineSelectCategoryFragment extends BaseFragment implements
         mBinding.btChosen.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
-                resultIntent = new Intent();
+                Intent resultIntent = new Intent();
                 resultIntent.putExtra(RESULT_KEY_CATEGORY_TYPE,selected_type);
-                resultCode = Constant.RESULT_CODE_SUCCESS;
+                setFragmentResult(Constant.RESULT_CODE_SUCCESS,resultIntent);
                 popToBack();
             }
         });

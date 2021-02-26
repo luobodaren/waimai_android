@@ -108,11 +108,11 @@ public class OrderNoteFragment extends BaseFragment {
     }
 
     private void popToBackWithResult(boolean isReturnEmptyData){
-        resultIntent = new Intent();
+        Intent resultIntent = new Intent();
         if(!isReturnEmptyData){
             resultIntent.putExtra(RESULT_KEY_NOTE,mViewModel.orderNoteObservable.get());
         }
-        resultCode = Constant.RESULT_CODE_SUCCESS;
+        setFragmentResult(Constant.RESULT_CODE_SUCCESS,resultIntent);
         popToBack();
     }
 

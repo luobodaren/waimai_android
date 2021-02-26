@@ -77,7 +77,7 @@
                 android:id="@+id/tv_phone"
                 style="@style/text_my_simple_style"
                 android:layout_marginStart="@dimen/interval_size_xs"
-                android:text="@string/phone"
+                android:text="@string/mobile"
                 android:textColor="@color/text_normal"
                 android:textSize="34px"
                 android:textStyle="bold"

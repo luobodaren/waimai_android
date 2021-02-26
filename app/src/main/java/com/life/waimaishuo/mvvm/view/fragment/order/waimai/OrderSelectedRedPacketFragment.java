@@ -131,9 +131,9 @@ public class OrderSelectedRedPacketFragment extends BaseFragment {
         };
         adapter.setSelectedListener((holder, item, isCancel) -> {
             if(item.isGet()){
-                resultIntent = new Intent();
+                Intent resultIntent = new Intent();
                 resultIntent.putExtra(RESULT_KEY_RED_PACKET_ID,getSelectedPacket());
-                resultCode = Constant.RESULT_CODE_SUCCESS;
+                setFragmentResult(Constant.RESULT_CODE_SUCCESS,resultIntent);
             }else{
                 LogUtil.d("点击了没有获得的会员卡");
             }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.life.base.views.UiAdapterConstrainLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line_h_begin_26percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.261" />
+
+    <!--<androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line_h_begin_56percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.566" />-->
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="48px"
+        android:layout_height="48px"
+        android:src="@drawable/ic_close_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_brand"
+        style="@style/login_iv_brand"
+        android:src="@drawable/ic_waimai_brand"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/line_h_begin_26percent" />
+
+    <TextView
+        android:id="@+id/tv_login_phoneNumber"
+        style="@style/login_tv_phoneNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bt_login_by_machine" />
+
+    <Button
+        android:id="@+id/bt_login_by_machine"
+        style="@style/login_bt_machine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bt_login_by_other" />
+
+    <Button
+        android:id="@+id/bt_login_by_other"
+        style="@style/login_bt_by_other"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_tip" />
+
+    <TextView
+        android:id="@+id/tv_tip"
+        style="@style/login_tv_tip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</com.life.base.views.UiAdapterConstrainLayout>

@@ -191,6 +191,12 @@ public class ShopDetailFragment extends BaseFragment {
         changeStatusBarMode();
     }
 
+    @Override
+    protected void firstRequestData() {
+        super.firstRequestData();
+
+    }
+
     private void addCallback() {
         MyDataBindingUtil.addCallBack(this, mViewModel.onBackClick, new Observable.OnPropertyChangedCallback() {
             @Override

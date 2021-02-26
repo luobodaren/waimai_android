@@ -106,8 +106,8 @@
     </style>
 
     <style name="login_iv_icon">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">100px</item>
+        <item name="android:layout_width">100px</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:layout_marginStart">14px</item>
         <item name="android:layout_marginBottom">152px</item>
@@ -126,20 +126,19 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:textSize">@dimen/login_font_phone_size</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_marginBottom">@dimen/login_divider_phoneNumberET_button</item>
-        <item name="android:layout_marginTop">145px</item>
+        <item name="android:layout_marginBottom">@dimen/interval_size_m</item>
     </style>
 
 
     <style name="login_bt_machine" parent="button_login_base">
         <item name="android:background">@drawable/sr_login_button_machine</item>
         <item name="android:text">@string/login_by_machine</item>
-        <item name="android:layout_marginTop">@dimen/interval_size_m</item>
+        <item name="android:layout_marginBottom">@dimen/interval_size_s</item>
     </style>
 
     <style name="login_bt_by_other" parent="button_login_base">
         <item name="android:background">@drawable/sr_stroke_1px_full_radius_white</item>
-        <item name="android:layout_marginTop">@dimen/interval_size_s</item>
+        <item name="android:layout_marginBottom">@dimen/interval_size_s</item>
         <item name="android:text">@string/login_by_other</item>
     </style>
 
@@ -147,10 +146,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="android:text">@string/login_tip</item>
         <item name="android:textSize">@dimen/font_size_28</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_marginTop">@dimen/interval_size_s</item>
         <item name="android:maxLines">2</item>
     </style>
 
@@ -185,23 +182,17 @@
         <item name="android:text">@string/login_by_phone</item>
     </style>
 
-
-    <style name="login_et_phoneNumber" parent="et_base_login">
-        <item name="android:hint">@string/input_phoneNumber</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="android:layout_marginTop">@dimen/login_interval_size_loginByPhone_phoneET</item>
-    </style>
-
-    <style name="login_et_verification" parent="et_base_login">
-        <item name="android:hint">@string/input_phoneNumber</item>
-        <item name="android:layout_marginTop">@dimen/interval_size_m</item>
+    <!--TextInputLayout hintText 样式-->
+    <style name="hintAppearence" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="login_bt_login" parent="button_login_base">
         <item name="android:background">@drawable/sr_login_bt_login_unable</item>
         <item name="android:text">@string/login</item>
-        <item name="android:layout_marginTop">@dimen/login_interval_size_verificationET_loginBT
-        </item>
+        <item name="android:layout_marginTop">@dimen/login_interval_size_verificationET_loginBT</item>
+        <item name="android:enabled">false</item>
     </style>
 
     <style name="login_bt_get_verification">
@@ -211,9 +202,12 @@
         <item name="android:textSize">@dimen/font_size_24</item>
         <item name="android:text">@string/get_verification</item>
         <item name="sSelectorNormalColor">@color/transparent</item>
-        <item name="sSelectorPressedColor">@color/gray</item>
-        <item name="android:background">@drawable/sr_stroke_1px_full_radius_white</item>
+        <item name="sSelectorPressedColor">@color/transparent</item>
         <item name="android:layout_marginBottom">@dimen/login_bt_getVerification_marginBottom</item>
+        <item name="sCornersRadius">50dp</item>
+        <item name="sSolidColor">@color/transparent</item>
+        <item name="sStrokeColor">@color/white</item>
+        <item name="sStrokeWidth">1dp</item>
     </style>
 
     <style name="main_tab_bottom">
@@ -572,6 +566,7 @@
         <item name="android:layout_marginStart">@dimen/interval_size_xs</item>
         <item name="android:layout_marginEnd">@dimen/interval_size_xs</item>
     </style>
+
 
 
     <dimen name="xui_bottom_sheet_list_item_text_size">16sp</dimen>

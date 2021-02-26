@@ -30,6 +30,7 @@
 
     <color name="bg_20_black">#33000000</color>
     <color name="bg_50_black">#80000000</color>
+    <color name="bg_66_black">#A8000000</color>
     <color name="bg_80_black">#CC000000</color>
 
     <color name="bg_20_white">#33FFFFFF</color>

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="295px"
         android:layout_marginTop="@dimen/interval_size_xs"
-        android:background="@color/white"
+        android:background="@color/transparent"
         android:gravity="top"
         android:hint="@string/please_input_signature"
         android:textColor="@color/text_normal"

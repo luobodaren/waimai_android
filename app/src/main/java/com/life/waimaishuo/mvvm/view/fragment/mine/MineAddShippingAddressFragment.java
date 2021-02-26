@@ -63,7 +63,9 @@ public class MineAddShippingAddressFragment extends BaseFragment {
         mBinding.btCancel.setOnClickListener(new BaseActivity.OnSingleClickListener() {
             @Override
             public void onSingleClick(View view) {
-                popToBackWithFailResult();
+
+                setFragmentResult(Constant.RESULT_CODE_FALSE,null);
+                popToBack();
             }
         });
         mBinding.btSave.setOnClickListener(new BaseActivity.OnSingleClickListener() {
@@ -72,16 +74,12 @@ public class MineAddShippingAddressFragment extends BaseFragment {
                 // TODO: 2021/1/25 上传新增地址信息
 
                 //成功
-                resultCode = Constant.RESULT_CODE_SUCCESS;
+                setFragmentResult(Constant.RESULT_CODE_SUCCESS,null);
                 popToBack();
             }
         });
     }
 
-    private void popToBackWithFailResult(){
-        resultCode = Constant.RESULT_CODE_FALSE;
-        popToBack();
-    }
 
     private void initTitle(){
         mBinding.layoutTitle.tvTitle.setText(getPageName());

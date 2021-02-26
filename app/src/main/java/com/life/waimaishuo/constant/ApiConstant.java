@@ -11,6 +11,10 @@ public class ApiConstant {
     public final static String WAIMAI_SECOND_KILL_JSON_INFO = "{ \"reqData\":5}";  //获取外卖类型的限时秒杀时间
     public final static String MALL_SECOND_KILL_JSON_INFO = "{ \"reqData\":3}";  //获取商场类型的限时秒杀时间
 
+    public final static String API_LOGIN = "/appuser/notelogin";
+
+    public final static String API_GET_VERIFICATION = "/common/sendsms";
+
     public final static String API_WAIMAI_SEARCH = "/searchDeliveryGoods/searchGoodsOrShopApp"; //搜索接口 品牌专区也使用此接口
 
     public final static String API_WAIMAI_MAIN_SLIDESHOW = "/deliveryhomepage/getdeliveryslideshow";

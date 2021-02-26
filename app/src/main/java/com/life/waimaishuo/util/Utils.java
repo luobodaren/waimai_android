@@ -2,6 +2,7 @@ package com.life.waimaishuo.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.view.View;
@@ -230,4 +231,22 @@ public class Utils {
         PictureSelector.create(baseFragment).themeStyle(R.style.XUIPictureStyle).openExternalPreview(position, mSelectList);
     }
 
+    /**
+     * 检查是否获取权限
+     * @param context
+     * @param permName  例："android.permission.READ_EXTERNAL_STORAGE"
+     * @return
+     */
+    public static boolean checkPermission(Context context, String permName) {
+        // 检查权限是否获取（android6.0及以上系统可能默认关闭权限，且没提示）
+        int perm = context.checkCallingOrSelfPermission(permName);
+        return perm == PackageManager.PERMISSION_GRANTED;
+
+        /*if (!(permission_readStorage && permission_writeStorage && permission_caremera)) {
+            ActivityCompat.requestPermissions(AudioRecordActivity.this, new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.RECORD_AUDIO,
+            }, 0x01);
+        }*/
+    }
 }

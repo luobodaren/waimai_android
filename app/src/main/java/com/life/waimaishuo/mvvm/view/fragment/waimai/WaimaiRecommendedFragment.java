@@ -1,6 +1,8 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
+import android.content.Intent;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendGoodsBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendShopBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseRecyclerFragment;
+import com.life.waimaishuo.mvvm.view.fragment.LoginFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiRecommendedViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
@@ -42,12 +45,17 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.widget.statelayout.StatusLoader;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Page(name = "推荐列表")
 public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
+
+    public static final String KEY_OPEN_SHOP_ID = "bundle_key_open_shop_id";
 
     public static final int QUERY_TYPE_SHOP = 1;
     public static final int QUERY_TYPE_GOODS = 2;
@@ -55,7 +63,12 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
     private WaiMaiRecommendedViewModel mViewModel;
 
-    private final int PAGE_COUNT = 10;    //一页的显示个数
+    /**
+     * 执行openPageForResult 需要携带的数据或标识（供页面返回时进行处理）
+     */
+    private final Map<String,Bundle> bundleMap = new HashMap<>();
+
+    private final int PAGE_COUNT = 10;    //推荐内容一页的显示个数
 
     private String title = "";
     private int queryType = QUERY_TYPE_SHOP;
@@ -211,11 +224,20 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
     @Override
     protected void initListeners() {
         super.initListeners();
-        ((BaseQuickAdapter)mRecyclerView.getAdapter()).setOnItemClickListener(
-                (adapter, view, position) -> {
-                    openPage(ShopDetailFragment.class);
-                });
-
+        if(recyclerAdapter != null){
+            recyclerAdapter.setOnItemClickListener(
+                    (adapter, view, position) -> {
+                        int shopId = recyclerAdapter.getData().get(position).getShopId();
+                        if(!Global.isLogin){
+                            Bundle bundle = new Bundle();
+                            bundle.putInt(KEY_OPEN_SHOP_ID,shopId);
+                            bundleMap.put(KEY_OPEN_SHOP_ID,bundle);
+                            openPageForResult(LoginFragment.class,bundle,Constant.REQUEST_CODE_LOGIN);
+                        }else{
+                            ShopDetailFragment.openPage(this,shopId);
+                        }
+                    });
+        }
         MyDataBindingUtil.addCallBack(this, mViewModel.onRequestListObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
@@ -241,6 +263,26 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
     @Override
     protected void onLifecycleResume() {
         super.onLifecycleResume();
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Intent data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if(requestCode == Constant.REQUEST_CODE_LOGIN){
+            if(resultCode == Constant.RESULT_CODE_SUCCESS){
+                //跳转外卖店铺界面
+                if(bundleMap.containsKey(KEY_OPEN_SHOP_ID)){
+                    int shopId = bundleMap.get(KEY_OPEN_SHOP_ID).getInt(KEY_OPEN_SHOP_ID,-1);
+                    if(shopId != -1){
+                        ShopDetailFragment.openPage(this,shopId);
+                    }else{
+                        //do nothing
+                    }
+                }
+
+
+            }
+        }
     }
 
     /**

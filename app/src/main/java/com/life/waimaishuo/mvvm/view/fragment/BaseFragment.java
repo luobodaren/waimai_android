@@ -47,10 +47,6 @@ public abstract class BaseFragment extends XPageFragment {
     protected static int HIDE_STATUS_BAR = 0; //不显示
     protected static int NO_HANDLE_STATUS_BAR = -1;
 
-    //openPageForResult返回的内容
-    protected int resultCode = Constant.RESULT_CODE_FALSE;
-    protected Intent resultIntent;
-
     //用于UI更新
     protected Handler mHandler;
 
@@ -72,7 +68,6 @@ public abstract class BaseFragment extends XPageFragment {
 
     @Override
     public void popToBack() {
-        beforePopToBack();
         super.popToBack();
     }
 
@@ -188,15 +183,6 @@ public abstract class BaseFragment extends XPageFragment {
 
     private void initMyHandle() {
         mHandler = new Handler(Looper.getMainLooper());
-    }
-
-    /**
-     * popToBack之前被调用
-     */
-    private void beforePopToBack(){
-        //方法内会判断是否存在openPageForResultListener 不存在不会进行结果回调
-        //listener会在调用openPageForResult或openPageForResult(带new Activity字段)时被创建
-        setFragmentResult(resultCode,resultIntent);
     }
 
     protected void fitStatusBarHeight(){

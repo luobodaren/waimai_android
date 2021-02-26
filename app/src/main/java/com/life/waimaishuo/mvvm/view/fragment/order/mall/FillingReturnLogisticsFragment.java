@@ -77,7 +77,7 @@ public class FillingReturnLogisticsFragment extends BaseFragment {
                         Toast.makeText(requireContext(), "联系手机号不可为空", Toast.LENGTH_SHORT).show();
                     }else{
                         // FIXME: 2021/1/12 网络请求 填写物流单号成功则返回
-                        resultCode = Constant.RESULT_CODE_SUCCESS;
+                        setFragmentResult(Constant.RESULT_CODE_SUCCESS,null);
                         popToBack();
                     }
                 }

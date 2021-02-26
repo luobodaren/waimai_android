@@ -268,7 +268,7 @@ public class LimitedTimeGoodsFragment extends BaseStatusLoaderFragment {
             int textSize = (int) UIUtils.getInstance().scalePx(40);
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, LimitedGoods item) {
-                helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
+                helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189",0,4));  //原始价格
                 helper.setText(R.id.tv_limited_kill_price,
                         TextUtil.getAbsoluteSpannable(
                                 getResources().getString(R.string.limited_second_kill_price, item.getLimitedPrice()),
@@ -305,7 +305,7 @@ public class LimitedTimeGoodsFragment extends BaseStatusLoaderFragment {
                     helper.getView(R.id.cl_content).setBackground(
                             helper.itemView.getContext().getResources().getDrawable(R.drawable.sr_bg_bl_br_12dp_white));
                 }
-                helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189"));  //原始价格
+                helper.setText(R.id.tv_foods_price_pre, TextUtil.getStrikeThroughSpanSpannable("￥189",0,4));  //原始价格
                 helper.setText(R.id.tv_limited_kill_price,
                         TextUtil.getAbsoluteSpannable(
                                 "$"+ item.getLimitedPrice(),

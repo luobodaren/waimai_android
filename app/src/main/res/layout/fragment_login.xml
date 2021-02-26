@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.life.base.views.UiAdapterConstrainLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.life.waimaishuo.views.SrcScrollFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isScroll="true"
+            app:maskLayerColor="@color/bg_66_black"
+            app:scrollOrientation="vertical"
+            app:speed="2"
+            app:src="@mipmap/png_bg_loging" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/v_line_begin_48px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="48px" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_v_end_48px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="48px" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/line_h_begin_64"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.078" />
+
+        <FrameLayout
+            android:id="@+id/fl_login_type"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:layout_marginBottom="60px"
+            app:layout_constraintBottom_toTopOf="@id/tv_company_info"
+            app:layout_constraintEnd_toEndOf="@id/line_v_end_48px"
+            app:layout_constraintStart_toStartOf="@id/v_line_begin_48px"
+            app:layout_constraintTop_toTopOf="@id/line_h_begin_64" />
+
+        <TextView
+            android:id="@+id/tv_company_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60px"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:text="@string/company_info"
+            android:textColor="@color/text_tip"
+            android:textSize="18px"
+            app:layout_constraintBottom_toTopOf="@id/tv_tip_login_by_other"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_tip_login_by_other"
+            style="@style/login_tv_tip_other"
+            app:layout_constraintBottom_toTopOf="@id/iv_wechat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_wechat"
+            style="@style/login_iv_icon"
+            android:src="@drawable/ic_wechat_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_qq"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_qq"
+            style="@style/login_iv_icon"
+            android:src="@drawable/ic_qq_login"
+            app:layout_constraintEnd_toStartOf="@id/iv_sina"
+            app:layout_constraintStart_toEndOf="@id/iv_wechat"
+            app:layout_constraintTop_toTopOf="@id/iv_wechat" />
+
+        <ImageView
+            android:id="@+id/iv_sina"
+            style="@style/login_iv_icon"
+            android:src="@drawable/ic_sina_login"
+            app:layout_constraintEnd_toStartOf="@id/iv_alipay"
+            app:layout_constraintStart_toEndOf="@id/iv_qq"
+            app:layout_constraintTop_toTopOf="@id/iv_wechat" />
+
+        <ImageView
+            android:id="@+id/iv_alipay"
+            style="@style/login_iv_icon"
+            android:layout_marginEnd="14px"
+            android:src="@drawable/ic_alipay_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_sina"
+            app:layout_constraintTop_toTopOf="@id/iv_wechat" />
+
+        <TextView
+            android:id="@+id/tv_login_tip_bottom"
+            style="@style/login_tv_tip_bottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_wechat" />
+
+    </com.life.base.views.UiAdapterConstrainLayout>
+</layout>
