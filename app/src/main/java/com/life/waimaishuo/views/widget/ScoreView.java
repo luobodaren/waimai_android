@@ -1,6 +1,7 @@
 package com.life.waimaishuo.views.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -14,8 +15,8 @@ import com.life.waimaishuo.R;
 
 public class ScoreView extends FrameLayout {
 
-    private float score = 0; // 0-5
-    private String number_of_fans = "";
+    private int score; // 0-5
+    private int number_of_fans = 0;
 
     private ImageView iv_star_1;
     private ImageView iv_star_2;
@@ -36,6 +37,11 @@ public class ScoreView extends FrameLayout {
 
     public ScoreView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ScoreView);
+        score = typedArray.getInteger(R.styleable.ScoreView_score,5);
+        number_of_fans = typedArray.getInteger(R.styleable.ScoreView_fans_number,0);
+        typedArray.recycle();
+
         init(context);
     }
 
@@ -50,6 +56,9 @@ public class ScoreView extends FrameLayout {
         tv_title = view.findViewById(R.id.tv_title);
         tv_fans = view.findViewById(R.id.tv_fans);
         this.addView(view);
+
+        setScore(score);
+        setFansStr(number_of_fans);
     }
 
     public void setScore(int score){
@@ -102,9 +111,10 @@ public class ScoreView extends FrameLayout {
         }
     }
 
-    public void setFansStr(String str){
-        number_of_fans = str;
-        tv_fans.setText(str);
+    public void setFansStr(int num){
+        number_of_fans = num;
+
+        tv_fans.setText(getContext().getString(R.string.number_of_fans,String.valueOf(num)));
     }
 
     public void hideTitle(){

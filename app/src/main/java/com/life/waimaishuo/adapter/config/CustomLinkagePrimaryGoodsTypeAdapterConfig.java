@@ -35,7 +35,7 @@ import com.life.waimaishuo.views.MyLinkageRecyclerView;
 
 import java.lang.ref.WeakReference;
 
-public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkagePrimaryAdapterConfig {
+public class CustomLinkagePrimaryGoodsTypeAdapterConfig<T extends BaseGroupedItem.ItemInfo> extends ILinkagePrimaryAdapterConfig {
 
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;
     private static final int MARQUEE_REPEAT_NONE_MODE = 0;

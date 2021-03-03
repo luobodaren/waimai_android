@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
@@ -30,7 +29,7 @@ import com.life.waimaishuo.adapter.statelayout.CustomSingleViewAdapter;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
-import com.life.waimaishuo.bean.api.request.bean.RecommendReqData;
+import com.life.waimaishuo.bean.api.request.bean.RecommendReqBean;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendGoodsBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendShopBinding;
@@ -45,7 +44,6 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.widget.statelayout.StatusLoader;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -65,8 +63,9 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
 
     /**
      * 执行openPageForResult 需要携带的数据或标识（供页面返回时进行处理）
+     * 保存点击店铺的店铺Id,登录成功后可进行页面跳转
      */
-    private final Map<String,Bundle> bundleMap = new HashMap<>();
+    private final Map<Integer,Bundle> bundleMap = new HashMap<>();
 
     private final int PAGE_COUNT = 10;    //推荐内容一页的显示个数
 
@@ -231,7 +230,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
                         if(!Global.isLogin){
                             Bundle bundle = new Bundle();
                             bundle.putInt(KEY_OPEN_SHOP_ID,shopId);
-                            bundleMap.put(KEY_OPEN_SHOP_ID,bundle);
+                            bundleMap.put(Constant.REQUEST_CODE_LOGIN,bundle);
                             openPageForResult(LoginFragment.class,bundle,Constant.REQUEST_CODE_LOGIN);
                         }else{
                             ShopDetailFragment.openPage(this,shopId);
@@ -271,15 +270,14 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
         if(requestCode == Constant.REQUEST_CODE_LOGIN){
             if(resultCode == Constant.RESULT_CODE_SUCCESS){
                 //跳转外卖店铺界面
-                if(bundleMap.containsKey(KEY_OPEN_SHOP_ID)){
-                    int shopId = bundleMap.get(KEY_OPEN_SHOP_ID).getInt(KEY_OPEN_SHOP_ID,-1);
+                if(bundleMap.containsKey(Constant.REQUEST_CODE_LOGIN)){
+                    int shopId = bundleMap.get(Constant.REQUEST_CODE_LOGIN).getInt(KEY_OPEN_SHOP_ID,-1);
                     if(shopId != -1){
-                        ShopDetailFragment.openPage(this,shopId);
+                        mHandler.post(() -> ShopDetailFragment.openPage(WaimaiRecommendedFragment.this,shopId));
                     }else{
                         //do nothing
                     }
                 }
-
 
             }
         }
@@ -289,7 +287,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
      * 初始化请求内容
      */
     private void initData(){
-        waiMaiRecommendReqData = new WaiMaiReqData.WaiMaiRecommendReqData(new RecommendReqData(
+        waiMaiRecommendReqData = new WaiMaiReqData.WaiMaiRecommendReqData(new RecommendReqBean(
                 Global.LocationProvince,Global.LocationCity,Global.LocationDistrict,
                 Global.userLonAndLat,
                 1,PAGE_COUNT,queryType));
@@ -309,7 +307,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
         this.customItemLayoutId = customItemLayoutId;
     }
 
-    public void setReqData(RecommendReqData reqData) {
+    public void setReqData(RecommendReqBean reqData) {
         this.waiMaiRecommendReqData.reqData = reqData;
     }
 

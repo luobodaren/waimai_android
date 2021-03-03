@@ -91,9 +91,10 @@ public class SortTypeView extends FrameLayout {
         isShowScreen = typedArray.getBoolean(R.styleable.SortTypeView_showScreen,false);
         flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
         flowTagBackground = typedArray.getResourceId(R.styleable.SortTypeView_flowTagBackground, R.color.background);
-
         int textUnCheckColorId = typedArray.getResourceId(R.styleable.SortTypeView_sortTextColor, R.color.text_uncheck);
         textUnCheckColor = getContext().getResources().getColor(textUnCheckColorId);
+        typedArray.recycle();
+
         initAttribute();
         addSortTypeView();
     }

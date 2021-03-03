@@ -2,7 +2,7 @@ package com.life.waimaishuo.mvvm.model.waimai;
 
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
-import com.life.base.utils.net.HttpUtils;
+import com.life.waimaishuo.util.net.HttpUtils;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
@@ -48,11 +48,8 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * 获取发现好物列表
      * @param requestCallBack
      * @param reqData
-     * @param timeOutRequestTime
      */
-    public void requestGoodsListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestGoodsListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_GOODS_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -82,17 +79,8 @@ public class WaiMaiRecommendedModel extends BaseModel {
                 if(shopGoodsList != null){
                     shopGoodsList.clear();
                 }
-                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestGoodsListData(requestCallBack, reqData, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                }else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }
@@ -101,11 +89,8 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * 推荐店铺
      * @param requestCallBack
      * @param reqData
-     * @param timeOutRequestTime
      */
-    public void requestShopListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestShopListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SHIOP_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -116,7 +101,7 @@ public class WaiMaiRecommendedModel extends BaseModel {
                     if(total > 0 || (!"null".equals(listData) && !"".equals(listData))){
                         shopList = GsonUtil.parserJsonToArrayBeans(listData, Shop.class);
                         for (Shop shop:shopList) {
-                            shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
+                            shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShopImage()));
                         }
                     }else{
                         shopList.clear();
@@ -132,17 +117,7 @@ public class WaiMaiRecommendedModel extends BaseModel {
                 if(shopList != null){
                     shopList.clear();
                 }
-                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestShopListData(requestCallBack, reqData, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                }else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }
@@ -151,11 +126,8 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * 0元配送
      * @param requestCallBack
      * @param reqData
-     * @param timeOutRequestTime
      */
-    public void requestZeroDeliverListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestZeroDeliverListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ZERO_DELIVER, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -182,15 +154,7 @@ public class WaiMaiRecommendedModel extends BaseModel {
                 if(zeroDeliverShopList != null){
                     zeroDeliverShopList.clear();
                 }
-                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestZeroDeliverListData(requestCallBack, reqData, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                }else if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_CODE){
+                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_CODE){
                     if(Integer.valueOf(error.getMessage()) == 1){   //接口返回的code=1 表示没有商家参加
                         requestCallBack.onSuccess(null);
                     }

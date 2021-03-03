@@ -54,7 +54,7 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
     private TextView mTvHeader;
     private FrameLayout mHeaderContainer;
 
-    private List<String> mInitGroupNames;
+    private List<String[]> mInitGroupNames;
     private List<BaseGroupedItem<T>> mInitItems;
 
     private List<Integer> mHeaderPositions = new ArrayList<>();
@@ -161,7 +161,7 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                mTitleHeight = mTvHeader.getMeasuredHeight();
+                mTitleHeight = mHeaderContainer.getMeasuredHeight();
             }
 
             @Override
@@ -179,7 +179,7 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
 
                     View view = mSecondaryLayoutManager.findViewByPosition(firstCompletePosition);
                     if (view != null && view.getTop() <= mTitleHeight) {
-                        mTvHeader.setY(view.getTop() - mTitleHeight);
+                        mHeaderContainer.setY(view.getTop() - mTitleHeight);
                     }
                 }
 
@@ -189,7 +189,7 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
 
                 if (mFirstVisiblePosition != firstPosition && firstPosition >= 0) {
                     mFirstVisiblePosition = firstPosition;
-                    mTvHeader.setY(0);
+                    mHeaderContainer.setY(0);
 
                     String currentGroupName = items.get(mFirstVisiblePosition).isHeader
                             ? items.get(mFirstVisiblePosition).header
@@ -212,9 +212,9 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
                 // Note: 2019.5.22 KunMinX
 
                 if (groupNameChanged) {
-                    List<String> groupNames = mPrimaryAdapter.getStrings();
+                    List<String[]> groupNames = mPrimaryAdapter.getStrings();
                     for (int i = 0; i < groupNames.size(); i++) {
-                        if (groupNames.get(i).equals(mLastGroupName)) {
+                        if (groupNames.get(i)[0].equals(mLastGroupName)) {
                             mPrimaryAdapter.setSelectedPosition(i);
                             RecyclerViewScrollHelper.smoothScrollToPosition(mRvPrimary,
                                     LinearSmoothScroller.SNAP_TO_END, i);
@@ -239,11 +239,11 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
         this.mInitItems = linkageItems;
 
         String lastGroupName = null;
-        List<String> groupNames = new ArrayList<>();
+        List<String[]> groupNames = new ArrayList<>();
         if (mInitItems != null && mInitItems.size() > 0) {
             for (BaseGroupedItem<T> item1 : mInitItems) {
                 if (item1.isHeader) {
-                    groupNames.add(item1.header);
+                    groupNames.add(new String[]{item1.header,item1.info != null ? item1.info.getTitle() : ""});
                     lastGroupName = item1.header;
                 }
             }
@@ -265,27 +265,6 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
         mPrimaryAdapter.initData(mInitGroupNames);
         mSecondaryAdapter.initData(mInitItems);
         initLinkageSecondary();
-    }
-
-    public void init(List<BaseGroupedItem<T>> linkageItems) {
-        //init(linkageItems, new DefaultLinkagePrimaryAdapterConfig(), new DefaultLinkageSecondaryAdapterConfig());
-    }
-
-    public void setDefaultOnItemBindListener(
-            DefaultLinkagePrimaryAdapterConfig.OnPrimaryItemClickListner primaryItemClickListner,
-            DefaultLinkagePrimaryAdapterConfig.OnPrimaryItemBindListener primaryItemBindListener,
-            DefaultLinkageSecondaryAdapterConfig.OnSecondaryItemBindListener secondaryItemBindListener,
-            DefaultLinkageSecondaryAdapterConfig.OnSecondaryHeaderBindListener headerBindListener,
-            DefaultLinkageSecondaryAdapterConfig.OnSecondaryFooterBindListener footerBindListener) {
-
-        if (mPrimaryAdapter.getConfig() != null) {
-            ((DefaultLinkagePrimaryAdapterConfig) mPrimaryAdapter.getConfig())
-                    .setListener(primaryItemBindListener, primaryItemClickListner);
-        }
-        if (mSecondaryAdapter.getConfig() != null) {
-            ((DefaultLinkageSecondaryAdapterConfig) mSecondaryAdapter.getConfig())
-                    .setItemBindListener(secondaryItemBindListener, headerBindListener, footerBindListener);
-        }
     }
 
     public void setLayoutHeight(float dp) {

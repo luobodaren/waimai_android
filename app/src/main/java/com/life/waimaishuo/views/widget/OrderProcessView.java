@@ -38,6 +38,8 @@ public class OrderProcessView extends FrameLayout {
         init(context);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FilletImageView);
         int process = typedArray.getInt(R.styleable.OrderProcessView_process,1); //默认进度为1
+        typedArray.recycle();
+
         setProcess(process);
     }
 

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.PreferentialActivity" />
+            type="com.life.waimaishuo.bean.Coupon" />
     </data>
 
     <LinearLayout
@@ -13,7 +13,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <include layout="@layout/adapter_tag_item_cash_back"></include>
+        <TextView
+            android:id="@+id/tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:paddingStart="6px"
+            android:paddingEnd="6px"
+            android:background="@drawable/sr_stroke_1px_2dp_red"
+            android:textSize="22px"
+            android:text="@{item.typeTag}"
+            android:textColor="@color/colorTheme"
+            tools:text="60减25"/>
 
         <TextView
             android:id="@+id/tv_activity_introduce"
@@ -21,7 +32,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="@color/text_uncheck"
-            android:text="@{item.introduce}"
+            android:text="@{item.getIntroduceByType()}"
             android:textSize="24px"
             android:layout_marginStart="8px"
             android:singleLine="true"

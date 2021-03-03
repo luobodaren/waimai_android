@@ -2,6 +2,7 @@ package com.life.waimaishuo.util;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -55,6 +56,11 @@ public class TextUtil {
     public static SpannableString setStrikeThroughSpanSpannable(SpannableString s,int start,int end){
         s.setSpan(new StrikethroughSpan(),start,end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         return s;
+    }
+    public static void setStrikeThrough(TextView textView){
+        textView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+        textView.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG ); //中间横线（删除线）
+        textView.getPaint().setAntiAlias(true);
     }
 
     /**

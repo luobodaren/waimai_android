@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/interval_size_xs">
 
     <TextView
         android:id="@+id/tv_title"
         style="@style/text_my_simple_style"
         android:textColor="@color/text_uncheck"
         android:textSize="30px"/>
+
+    <com.life.waimaishuo.views.MyFlowTagLayout
+        android:id="@+id/flowTagLayout"
+        android:layout_marginTop="@dimen/interval_size_xs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

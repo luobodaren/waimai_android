@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.life.base.utils.net.HttpUtils;
+import com.life.waimaishuo.util.net.HttpUtils;
 import com.life.waimaishuo.MyApplication;
 import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;

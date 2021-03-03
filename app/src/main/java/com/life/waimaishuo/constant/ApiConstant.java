@@ -15,8 +15,12 @@ public class ApiConstant {
 
     public final static String API_GET_VERIFICATION = "/common/sendsms";
 
+    public final static String API_WAIMAI_COLLECT_SHOP_OR_GOOD = "/appusercollect/addusercollect";    //收藏店铺或商品
+    public final static String API_WAIMAI_CANCEL_COLLECT_SHOP_OR_GOOD = "/appusercollect/cancelusercollect";    //取消收藏店铺或商品
+
     public final static String API_WAIMAI_SEARCH = "/searchDeliveryGoods/searchGoodsOrShopApp"; //搜索接口 品牌专区也使用此接口
 
+    //--------------外卖---------------//
     public final static String API_WAIMAI_MAIN_SLIDESHOW = "/deliveryhomepage/getdeliveryslideshow";
     public final static String API_WAIMAI_MAIN_SEARCH_TAG = "/sysseachtag/appgetsysseachtag";
     public final static String API_WAIMAI_MAIN_KING_KONG_AREGION = "/deliveryhomepage/getkingkongarearegion";
@@ -35,5 +39,19 @@ public class ApiConstant {
 
     public final static String API_WAIMAI_ALL_TYPE = "/common/gettakeouttype";  //全部分类
 
+    public final static String API_WAIMAI_SHOPINFO = "/deliveryShopFirst/getShopInfoApp";   //店铺首页信息
+    public final static String API_WAIMAI_IS_JOIN_SHOP_FANS = "/shopfans/isJoinShopFans";   //是否成为会员
+    public final static String API_WAIMAI_JOIN_SHOP_FANS = "/shopfans/joinShopFans";        //成为会员
 
+    public final static String API_WAIMAI_IS_COLLECT_SHOP = "/appusercollect/isusercollectshop";    //是否收藏店铺
+    public final static String API_WAIMAI_COLLECT_SHOP = "/appusercollect/isusercollectshop";    //收藏店铺
+
+    public final static String API_WAIMAI_GET_SHOP_GOODS_GROUP_LIST = "/deliveryShopFirst/selectShopGroupList";   //查询外卖店铺首页的分组以及商品列表
+
+    public final static String API_WAIMAI_GOODS_DELIVER_DETAIL = "/deliveryShopFirst/getGoodsDeliveryDetail";   //外卖商品详情
+    public final static String API_WAIMAI_GET_GOODS_SPECIFICATION = "";
+
+    public final static String API_WAIMAI_GET_SHOPPING_CART = "/deliverycart/getcartbyshopid";  //获取购物车
+    public final static String API_WAIMAI_ADD_SHOPPING_CART = "/deliverycart/adddeliverycart";  //加入购物车
+    public final static String API_WAIMAI_CHANGE_SHOPPING_CART = "/deliverycart/upddeliverycart";  //加入购物车
 }

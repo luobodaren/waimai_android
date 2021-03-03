@@ -32,11 +32,12 @@ import java.util.List;
 
 /**
  * 双列表View左侧Recycler的适配器
- * 实现点击最下Item的点击效果展示
+ * 1.实现点击最下Item的点击效果展示
+ * 2.左侧添加ImgUrl属性
  */
 public class LinkagePrimaryAdapter extends RecyclerView.Adapter<LinkagePrimaryViewHolder> {
 
-    private List<String> mStrings;
+    private List<String[]> mStrings;    //index:0 title index:1 标题Icon的Url
     private Context mContext;
     private View mView;
     private int mSelectedPosition;
@@ -45,7 +46,7 @@ public class LinkagePrimaryAdapter extends RecyclerView.Adapter<LinkagePrimaryVi
     private ILinkagePrimaryAdapterConfig mConfig;
     private OnLinkageListener mLinkageListener;
 
-    public List<String> getStrings() {
+    public List<String[]> getStrings() {
         return mStrings;
     }
 
@@ -80,7 +81,7 @@ public class LinkagePrimaryAdapter extends RecyclerView.Adapter<LinkagePrimaryVi
         this.mClickSelectedPosition = ClickSelectedPosition;
     }
 
-    public LinkagePrimaryAdapter(List<String> strings, ILinkagePrimaryAdapterConfig config,
+    public LinkagePrimaryAdapter(List<String[]> strings, ILinkagePrimaryAdapterConfig config,
                                  OnLinkageListener linkageListener) {
         mStrings = strings;
         if (mStrings == null) {
@@ -90,7 +91,7 @@ public class LinkagePrimaryAdapter extends RecyclerView.Adapter<LinkagePrimaryVi
         mLinkageListener = linkageListener;
     }
 
-    public void initData(List<String> list) {
+    public void initData(List<String[]> list) {
         mStrings.clear();
         if (list != null) {
             mStrings.addAll(list);
@@ -114,7 +115,7 @@ public class LinkagePrimaryAdapter extends RecyclerView.Adapter<LinkagePrimaryVi
         holder.mLayout.setSelected(true);
 
         final int adapterPosition = holder.getAdapterPosition();
-        final String title = mStrings.get(adapterPosition);
+        final String[] title = mStrings.get(adapterPosition);
 
         mConfig.onBindViewHolder(holder, adapterPosition == mSelectedPosition, title);
 
@@ -122,9 +123,9 @@ public class LinkagePrimaryAdapter extends RecyclerView.Adapter<LinkagePrimaryVi
             @Override
             public void onClick(View v) {
                 if (mLinkageListener != null) {
-                    mLinkageListener.onLinkageClick(holder, title);
+                    mLinkageListener.onLinkageClick(holder, title[0]);
                 }
-                mConfig.onItemClick(holder, v, title);
+                mConfig.onItemClick(holder, v, title[0]);
             }
         });
     }

@@ -18,50 +18,17 @@
 package com.life.waimaishuo.bean.ui;
 
 import com.kunminx.linkage.bean.BaseGroupedItem;
+import com.life.waimaishuo.bean.Goods;
 
 public class LinkageShopGoodsGroupedItemInfo extends BaseGroupedItem.ItemInfo {
-    // FIXME: 2020/12/24 后续对接时 完善数据属性 并在layout文件中进行数据绑定
-    private String content;
-    private String imgUrl;
-    private String cost;
+    private Goods goods;
 
-    public LinkageShopGoodsGroupedItemInfo(String title, String group, String content) {
+    public LinkageShopGoodsGroupedItemInfo(String title, String group, Goods goods) {
         super(title, group);
-        this.content = content;
+        this.goods = goods;
     }
 
-    public LinkageShopGoodsGroupedItemInfo(String title, String group, String content, String imgUrl) {
-        this(title, group, content);
-        this.imgUrl = imgUrl;
+    public Goods getGoods() {
+        return goods;
     }
-
-    public LinkageShopGoodsGroupedItemInfo(String title, String group, String content, String imgUrl, String cost) {
-        this(title, group, content, imgUrl);
-        this.cost = cost;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getCost() {
-        return cost;
-    }
-
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
-
 }

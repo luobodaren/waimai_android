@@ -1,6 +1,6 @@
 package com.life.waimaishuo.bean.api.request.bean;
 
-public class GetVerificationReqData {
+public class GetVerificationReqBean {
 
     /**
      * 1app登录
@@ -22,7 +22,7 @@ public class GetVerificationReqData {
 
     String mobile;
 
-    public GetVerificationReqData(String mobile, int usr) {
+    public GetVerificationReqBean(String mobile, int usr) {
         this.mobile = mobile;
         this.usr = usr;
     }

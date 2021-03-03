@@ -48,6 +48,7 @@ public class FilletImageView extends AppCompatImageView {
         bottomRightCorner = typedArray.getBoolean(R.styleable.FilletImageView_bottomRightCorner,false);
         radius = typedArray.getDimensionPixelOffset(R.styleable.FilletImageView_filletImageRadius,16);
         typedArray.recycle();
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         matrix = new Matrix();

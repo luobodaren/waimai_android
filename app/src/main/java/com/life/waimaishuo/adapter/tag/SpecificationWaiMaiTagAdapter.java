@@ -12,6 +12,8 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.xuexiang.xui.widget.flowlayout.BaseTagAdapter;
 
+import java.util.List;
+
 public class SpecificationWaiMaiTagAdapter extends BaseTagAdapter<String, TextView> {
 
     Drawable selected;
@@ -44,7 +46,9 @@ public class SpecificationWaiMaiTagAdapter extends BaseTagAdapter<String, TextVi
         }
 
         ImageView likeIv = (ImageView) textView.getTag();
-        if(this.selectedIndex == position){ //当前为选中的view
+        List<Integer> selectedPositions = getInitSelectedPositions();
+
+        if(selectedPositions.contains(position)){ //当前为选中的view
             LogUtil.d("当前为选中的view" + position);
             likeIv.setVisibility(View.VISIBLE);
             textView.setCompoundDrawables(selected,null,null,null);

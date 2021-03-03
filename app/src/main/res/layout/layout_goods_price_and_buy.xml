@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="goods"
+            type="com.life.waimaishuo.bean.Goods" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +28,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="¥18.8"
+                tools:text="¥18.8"
+                android:text="@{goods.specialPrice}"
                 android:textColor="@color/red"
                 android:textSize="28px" />
 
@@ -37,7 +41,8 @@
                 android:layout_marginStart="8px"
                 android:textSize="20px"
                 android:textColor="@color/text_tip"
-                android:text="￥18.8" />
+                android:text="@{goods.linePrice}"
+                tools:text="￥18.8" />
         </LinearLayout>
 
         <LinearLayout
@@ -54,7 +59,8 @@
                 android:includeFontPadding="false"
                 android:textColor="@color/colorTheme"
                 android:textSize="20px"
-                android:text="拼团价" />
+                android:text="拼团价"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -67,11 +73,13 @@
 
             <include
                 android:id="@+id/layout_goods_option_add_shopping_cart"
-                layout="@layout/layout_goods_option_add_shopping_cart" />
+                layout="@layout/layout_goods_option_add_shopping_cart"
+                android:visibility="gone"/>
 
             <include
                 android:id="@+id/layout_goods_option_chose"
-                layout="@layout/layout_goods_option_chose" />
+                layout="@layout/layout_goods_option_chose"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

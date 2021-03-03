@@ -378,6 +378,10 @@ public class UIUtils {
         return defaultValue;
     }*/
 
+    /**
+     * 设置已经过放大的标志
+     * @param view
+     */
     public void setScaleTag(View view){
         if(view.getTag(R.id.tag_scale) == null){
             view.setTag(R.id.tag_scale,1);

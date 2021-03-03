@@ -76,6 +76,6 @@ public class BrandZoneViewModel extends BaseViewModel {
     }
 
     public void refreshListDate() {
-        mModel.requestBrandShopData(new BaseModel.NotifyChangeRequestCallBack(requestShopListObservable),3);
+        mModel.requestBrandShopData(new BaseModel.NotifyChangeRequestCallBack(requestShopListObservable));
     }
 }

@@ -20,7 +20,7 @@
 
         <ImageView
             android:id="@+id/iv_goods_img"
-            imageUrl="@{item.imgUrl}"
+            imageUrl="@{item.goods.goodsImgUrl}"
             android:layout_width="110px"
             android:layout_height="110px"
             android:layout_marginTop="32px"

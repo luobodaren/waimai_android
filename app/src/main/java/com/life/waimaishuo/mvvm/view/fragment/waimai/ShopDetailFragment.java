@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +27,7 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tag.CashBackTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
-import com.life.waimaishuo.bean.MerchantsService;
 import com.life.waimaishuo.bean.PreferentialActivity;
-import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.ShoppingCartGood;
 import com.life.waimaishuo.constant.Constant;
@@ -38,6 +35,7 @@ import com.life.waimaishuo.databinding.FragmentWaimaiShopDetailBinding;
 import com.life.waimaishuo.databinding.LayoutDialogShopMorePreferentialBinding;
 import com.life.waimaishuo.databinding.LayoutDialogShoppingCartExpandBinding;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
+import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
@@ -45,7 +43,6 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
-import com.life.waimaishuo.util.TextUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
@@ -70,6 +67,8 @@ public class ShopDetailFragment extends BaseFragment {
     private Runnable mCancelPopRunnable;
 
     private int shopId;
+
+    private CashBackTagAdapter shopCashBackTagAdapter;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -118,10 +117,11 @@ public class ShopDetailFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
+        initTitleDrawable();
+
         initAppBarLayoutToolbar();
 
-        initHeadDetail();
-        initMemberCard();
+        initCashBackFlowTagLayout();
 
         initNavigationTab();
     }
@@ -195,6 +195,10 @@ public class ShopDetailFragment extends BaseFragment {
     protected void firstRequestData() {
         super.firstRequestData();
 
+        mViewModel.requestShopInfo(shopId);
+
+        mViewModel.requestIsJoinShopFans(shopId);
+        mViewModel.requestIsCollectShop(shopId);
     }
 
     private void addCallback() {
@@ -213,13 +217,18 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.onCollectClick, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-
+                mViewModel.doOrCancelCollectShop(shopId);
             }
         });
         MyDataBindingUtil.addCallBack(this, mViewModel.onMembersCodeClick, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                showMembersQrCodeDialog();
+                if(mViewModel.isJoinShopFans()){    //是会员
+                    showMembersQrCodeDialog();
+                }else{  //不是会员
+                    //请求加入会员
+                    mViewModel.joinShopFans(shopId);
+                }
             }
         });
         MyDataBindingUtil.addCallBack(this, mViewModel.onMorePreferentialClick, new Observable.OnPropertyChangedCallback() {
@@ -246,41 +255,70 @@ public class ShopDetailFragment extends BaseFragment {
                 OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this,null,OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
             }
         });
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.onRequestShopInfoObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    refreshShopInfo();
+                });
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onRequestIsJoinShopFansObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    if(mViewModel.isJoinShopFans()){
+                        mBinding.layoutMembers.btSignIn.setText(R.string.tv_show_qr_code);
+                    }else{
+                        mBinding.layoutMembers.btSignIn.setText(R.string.tv_sign_in_members);
+                    }
+                    setViewVisibility(mBinding.layoutMembers.btSignIn,true);
+                });
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.onRequestJoinShopFansObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    if(mViewModel.onRequestIsJoinShopFansObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS){
+                        Toast.makeText(requireContext(), "成功成为会员！", Toast.LENGTH_SHORT).show();
+                        mBinding.layoutMembers.btSignIn.setText(R.string.tv_show_qr_code);
+                    }else{
+                        Toast.makeText(requireContext(), "加入会员失败！", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.onRequestIsCollectShopObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> refreshCollectIv(currentFoldStatus,mViewModel.isCollectShop()));
+            }
+        });
+
+        MyDataBindingUtil.addCallBack(this, mViewModel.onRequestCollectOrCancelShopObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    if(mViewModel.onRequestCollectOrCancelShopObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS){
+                        if(mViewModel.isCollectShop()){
+                            Toast.makeText(requireContext(), "收藏成功！", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(requireContext(), "取消收藏了！", Toast.LENGTH_SHORT).show();
+                        }
+                        refreshCollectIv(currentFoldStatus,mViewModel.isCollectShop());
+                    }
+                });
+
+            }
+        });
     }
 
     private void initAppBarLayoutToolbar() {
         ((ViewGroup.MarginLayoutParams) mBinding.appbarLayoutToolbar.getLayoutParams()).setMargins(
                 0, (int) (UIUtils.getInstance().getSystemBarHeight()/UIUtils.getInstance().getHorValue()), 0, 0);
-    }
-
-    private boolean isCollect = false;
-    private boolean currentFoldStatus = false;
-
-    private void setTitleBarFoldingStyle(boolean isFolding) {
-        initTitleDrawable();
-
-        if (currentFoldStatus != isFolding) {
-            currentFoldStatus = isFolding;
-            if (isFolding) {
-                mBinding.layoutTitleShopDetail.ivBack.setImageDrawable(drawableBackDark);
-                mBinding.layoutTitleShopDetail.ivSearch.setImageDrawable(drawableSearchDark);
-                if (isCollect) {
-                    mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollect);
-                } else {
-                    mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollectDark);
-                }
-                mBinding.layoutTitleShopDetail.ivShare.setImageDrawable(drawableShareDark);
-            } else {
-                mBinding.layoutTitleShopDetail.ivBack.setImageDrawable(drawableBack);
-                mBinding.layoutTitleShopDetail.ivSearch.setImageDrawable(drawableSearch);
-                if (isCollect) {
-                    mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollect);
-                } else {
-                    mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollectLight);
-                }
-                mBinding.layoutTitleShopDetail.ivShare.setImageDrawable(drawableShare);
-            }
-        }
     }
 
     private Drawable drawableBack;
@@ -297,6 +335,9 @@ public class ShopDetailFragment extends BaseFragment {
     private Drawable drawableCollectDark;
     private boolean isInitTitleDrawable = false;
 
+    /**
+     * 初始化title的图标 按钮按键
+     */
     private void initTitleDrawable() {
         if (!isInitTitleDrawable) {
             isInitTitleDrawable = true;
@@ -312,44 +353,20 @@ public class ShopDetailFragment extends BaseFragment {
         }
     }
 
-    private void initHeadDetail() {
-        Shop shop = mViewModel.getShopDetail();
-
-        mBinding.layoutShopDetails.tvShopName.setText(shop.getShop_name());
-        mBinding.layoutShopDetails.layoutScoreAndFans.setScore((int) Float.parseFloat(shop.getFavorable_rate()));
-        mBinding.layoutShopDetails.layoutScoreAndFans.
-                setFansStr(getString(R.string.number_of_fans, shop.getNumber_of_fans()));
-        mBinding.layoutShopDetails.tvShopDescribe1.
-                setText("月售" + shop.getMonSalesVolume() + "+ 配送约60分钟");
-        mBinding.layoutShopDetails.tvMorePreferential.
-                setText(getString(R.string.more_preferential, 4));
-        mBinding.layoutShopDetails.tvShopAnnouncement.
-                setText(getString(R.string.notice_content, shop.getNotice()));
-        Glide.with(this).load(shop.getShop_head_portrait()).
-                placeholder(R.drawable.ic_waimai_brand).centerCrop().
-                into(mBinding.layoutShopDetails.ivShopIcon);
-        initCashBackFlowTagLayout();
-    }
-
     private void initCashBackFlowTagLayout() {
-        CashBackTagAdapter tagAdapter = new CashBackTagAdapter(getContext());
-        mBinding.layoutShopDetails.flowlayoutCashBack.setAdapter(tagAdapter);
+        shopCashBackTagAdapter = new CashBackTagAdapter(getContext());
+        mBinding.layoutShopDetails.flowlayoutCashBack.setAdapter(shopCashBackTagAdapter);
         mBinding.layoutShopDetails.flowlayoutCashBack.
                 setOnTagClickListener((parent, view, position) ->
                         Toast.makeText(getContext(),
                                 "点击了：" + parent.getAdapter().getItem(position),
                                 Toast.LENGTH_SHORT).show());
 
-        tagAdapter.addTags(mViewModel.getCashBackData());
+        shopCashBackTagAdapter.addTags(mViewModel.getCashBackData());
     }
 
     private void initMemberCard() {
         Shop shop = mViewModel.getShopDetail();
-        mBinding.layoutMembers.tvShopMembersCardName.setText(shop.getMemberCard().getName());
-        mBinding.layoutMembers.tvShopMembersCardDescribe.setText(shop.getMemberCard().getDescribe());
-        Glide.with(this).load(shop.getShop_head_portrait()).
-                placeholder(R.drawable.ic_waimai_brand).centerCrop().
-                into(mBinding.layoutMembers.ivShopIcon);
     }
 
     /**
@@ -380,8 +397,48 @@ public class ShopDetailFragment extends BaseFragment {
             String title = shopTabType.getName();
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
             tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_shop_tabbar_item_text_size_selected));
-            adapter.addFragment(mViewModel.getTabBarFragment(shopTabType), title);
+            adapter.addFragment(mViewModel.getTabBarFragment(shopTabType,shopId), title);
             tabSegment.addTab(tab);
+        }
+    }
+
+    private boolean currentFoldStatus = false;
+    /**
+     * 根据折叠状态 更新界面
+     * @param isFolding
+     */
+    private void setTitleBarFoldingStyle(boolean isFolding) {
+        if (currentFoldStatus != isFolding) {
+            currentFoldStatus = isFolding;
+            refreshCollectIv(isFolding,mViewModel.isCollectShop());
+            if (isFolding) {
+                mBinding.layoutTitleShopDetail.ivBack.setImageDrawable(drawableBackDark);
+                mBinding.layoutTitleShopDetail.ivSearch.setImageDrawable(drawableSearchDark);
+                mBinding.layoutTitleShopDetail.ivShare.setImageDrawable(drawableShareDark);
+            } else {
+                mBinding.layoutTitleShopDetail.ivBack.setImageDrawable(drawableBack);
+                mBinding.layoutTitleShopDetail.ivSearch.setImageDrawable(drawableSearch);
+                mBinding.layoutTitleShopDetail.ivShare.setImageDrawable(drawableShare);
+            }
+        }
+    }
+
+    /**
+     * 根据状态刷新收藏IV的显示
+     */
+    private void refreshCollectIv(boolean isFolding, boolean isCollectShop){
+        if(isFolding){
+            if (isCollectShop) {
+                mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollect);
+            } else {
+                mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollectDark);
+            }
+        }else{
+            if (isCollectShop) {
+                mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollect);
+            } else {
+                mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollectLight);
+            }
         }
     }
 
@@ -473,7 +530,9 @@ public class ShopDetailFragment extends BaseFragment {
 
         binding.tvShopName.setText(mViewModel.getShopDetail().getShop_name());
 
-        binding.redPacketRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
+        binding.tvRedPackage.setVisibility(View.GONE);
+        binding.redPacketRecyclerView.setVisibility(View.GONE);
+        /*binding.redPacketRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.redPacketRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             int interval = (int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
 
@@ -512,21 +571,24 @@ public class ShopDetailFragment extends BaseFragment {
                     receiveBt.setTextColor(getResources().getColor(R.color.white));
                 }
             }
-        });
+        });*/
+
 
         binding.preferentialRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
         binding.preferentialRecyclerView.addItemDecoration(getPreferentialRecyclerItemDecoration());
         binding.preferentialRecyclerView.setAdapter(new MyBaseRecyclerAdapter<PreferentialActivity>(
                 R.layout.item_recycler_preferential_activity,
-                mViewModel.getPreferentialData().getPreferentialActivityList(), com.life.waimaishuo.BR.item) {
+                mViewModel.getShopDetail().getCouponList(), com.life.waimaishuo.BR.item) {
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, PreferentialActivity item) {
                 helper.setText(R.id.tv_tag, item.getName());
             }
         });
 
-        binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),
+        binding.tvService.setVisibility(View.GONE);
+        binding.serviceRecyclerView.setVisibility(View.GONE);
+        /*binding.serviceRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
         binding.serviceRecyclerView.addItemDecoration(getPreferentialRecyclerItemDecoration());
         binding.serviceRecyclerView.setAdapter(new MyBaseRecyclerAdapter<MerchantsService>(
@@ -536,9 +598,9 @@ public class ShopDetailFragment extends BaseFragment {
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, MerchantsService item) {
                 helper.setText(R.id.tv_tag, item.getName());
             }
-        });
+        });*/
 
-        binding.tvNoticeContent.setText(getResources().getString(R.string.notice_content, mViewModel.getPreferentialData().getNotice()));
+        binding.tvNoticeContent.setText(mViewModel.getShopDetail().getNotice());
 
         return view;
 
@@ -635,6 +697,34 @@ public class ShopDetailFragment extends BaseFragment {
         shareDialog.getContentView().setBackgroundResource(R.drawable.sr_bg_tl_tr_8dp);
         ((TextView)shareDialog.getContentView().findViewById(R.id.bottom_sheet_close_button)).setText(R.string.cancel);
         shareDialog.show();
+    }
+
+    private void refreshShopInfo(){
+        //Head区域
+        mBinding.layoutShopDetails.setShop(mViewModel.getShopDetail());
+        String notice = mViewModel.getShopDetail().getNotice();
+        if(null == notice ||"".equals(notice)){
+            setViewVisibility(mBinding.layoutShopDetails.tvShopAnnouncement,false);
+        }else{
+            setViewVisibility(mBinding.layoutShopDetails.tvShopAnnouncement,true);
+        }
+
+        List<String> stringList = mViewModel.getCashBackData();
+        if(stringList.size() == 0){
+            setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack,false);
+        }else{
+            setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack,true);
+            shopCashBackTagAdapter.setData(stringList);
+        }
+        Glide.with(this).load(mViewModel.getShopDetail().getShop_head_portrait()).
+                placeholder(R.drawable.ic_waimai_brand).centerCrop().
+                into(mBinding.layoutShopDetails.ivShopIcon);
+
+        //会员相关
+        mBinding.layoutMembers.setShop(mViewModel.getShopDetail());
+        Glide.with(this).load(mViewModel.getShopDetail().getShop_head_portrait()).
+                placeholder(R.drawable.ic_waimai_brand).centerCrop().
+                into(mBinding.layoutMembers.ivShopIcon);
     }
 
     public static void openPage(BaseFragment baseFragment, int shopId){

@@ -9,7 +9,7 @@ import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.LimitedGoods;
 import com.life.waimaishuo.bean.LimitedTime;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
-import com.life.waimaishuo.bean.api.request.bean.SecondKillReqData;
+import com.life.waimaishuo.bean.api.request.bean.SecondKillReqBean;
 import com.life.waimaishuo.bean.api.respon.SecondKillTime;
 import com.life.waimaishuo.enumtype.LimitedTimeStateEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
@@ -89,14 +89,14 @@ public class WaimaiLimitedViewModel extends BaseViewModel {
     }
 
     public void requestLimitedTimeData() {
-        mModel.requestSecondKillTime(new BaseModel.NotifyChangeRequestCallBack(requestLimitedTimeObservable),new WaiMaiReqData.WaiMaiSecondKillReqData(5),3);
+        mModel.requestSecondKillTime(new BaseModel.NotifyChangeRequestCallBack(requestLimitedTimeObservable),new WaiMaiReqData.WaiMaiSecondKillReqData(5));
     }
 
 
     public void requestLimitedGoodsList(String startTime, String overTime,int pageNumber,int pageSize) {
         mModel.requestLimitedGoodsList(new BaseModel.NotifyChangeRequestCallBack(requestLimitedContentObservable),
                 new WaiMaiReqData.WaiMaiSecondKillContentListReqData(
-                        new SecondKillReqData(startTime,overTime,pageNumber,pageSize, Global.userLonAndLat,5)),3);
+                        new SecondKillReqBean(startTime,overTime,pageNumber,pageSize, Global.userLonAndLat,5)),3);
     }
 
     public void requestLimitedShopList() {

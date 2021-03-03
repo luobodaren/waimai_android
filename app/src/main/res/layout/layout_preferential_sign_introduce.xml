@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tv_discount"
-        android:layout_width="wrap_content"
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/sr_stroke_1px_2dp_red"
-        android:textSize="22px"
-        android:paddingStart="6px"
-        android:paddingEnd="6px"
-        android:textColor="@color/colorTheme"
-        android:text="9.7折" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_preferential_describe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorTheme"
-        android:textSize="22px"
-        android:layout_marginStart="8px"
-        android:text="每单限一份优惠" />
+        <TextView
+            android:id="@+id/tv_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sr_stroke_1px_2dp_red"
+            android:textSize="22px"
+            android:paddingStart="6px"
+            android:paddingEnd="6px"
+            android:textColor="@color/colorTheme"
+            tools:text="9.7折" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_preferential_describe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTheme"
+            android:textSize="22px"
+            android:layout_marginStart="8px"
+            android:text="每单限一份优惠" />
+
+    </LinearLayout>
+</layout>

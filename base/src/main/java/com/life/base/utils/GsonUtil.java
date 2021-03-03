@@ -219,15 +219,15 @@ public class GsonUtil {
     }
 
     /**
-     * 按照节点得到节点内容，转化为一个数组
+     * 按照节点得到节点内容，转化为一个对象
      * @param jsonString json字符串
      * @param note json标签
-     * @param clazzBean 集合里存入的数据对象
+     * @param clazzBean 要封装成的目标对象
      * @return 含有目标对象的集合
      */
-    public static <T> T parserJsonToArrayBean(String jsonString,String note,Class<T> clazzBean){
+    public static <T> T parserJsonToBean(String jsonString, String note, Class<T> clazzBean){
         String noteJsonString = getStringNoteJsonString(jsonString, note);
-        return parserJsonToArrayBean(noteJsonString, clazzBean);
+        return parserJsonToBean(noteJsonString, clazzBean);
     }
 
     /**
@@ -236,7 +236,7 @@ public class GsonUtil {
      * @param clazzBean  要封装成的目标对象
      * @return 目标对象
      */
-    public static <T> T parserJsonToArrayBean(String jsonString,Class<T> clazzBean){
+    public static <T> T parserJsonToBean(String jsonString, Class<T> clazzBean){
         if(TextUtils.isEmpty(jsonString)){
             throw new RuntimeException("json字符串为空");
         }

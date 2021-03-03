@@ -22,19 +22,23 @@ import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.listener.OnPrimaryItemClickListener;
-import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkagePrimaryViewHolder;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.views.MyLinkageRecyclerView;
 
 import java.lang.ref.WeakReference;
 
-public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkagePrimaryAdapterConfig {
+public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> extends ILinkagePrimaryAdapterConfig {
 
     private static final int MARQUEE_REPEAT_LOOP_MODE = -1;
     private static final int MARQUEE_REPEAT_NONE_MODE = 0;
@@ -75,9 +79,9 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
 
     int maxPosition = -1;
     @Override
-    public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String title) {
+    public void onBindViewHolder(LinkagePrimaryViewHolder holder, boolean selected, String[] title) {
         TextView tvTitle = ((TextView) holder.mGroupTitle);
-        tvTitle.setText(title);
+        tvTitle.setText(title[0]);
         int selectedPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getSelectedPosition();
         if(maxPosition == -1){
             maxPosition = mLinkageRecyclerView.get().getPrimaryAdapter().getItemCount() - 1;
@@ -94,8 +98,7 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
             }
         }
 
-        Drawable drawableTop = getDrawableTop();
-        tvTitle.setCompoundDrawablesRelative(null,drawableTop,null,null);
+        setDrawableTop(title[1], tvTitle);
 
         View viewSelectMark = holder.mLayout.findViewById(R.id.iv_selected);
         if(selected){
@@ -133,19 +136,27 @@ public class CustomLinkagePrimaryShopGoodsAdapterConfig<T extends BaseGroupedIte
         }
     }
 
-    Drawable groupIcon;
+    int drawableSize;
     /**
      * 获得groupIcon
      * @return
      */
-    private Drawable getDrawableTop(){  // TODO: 2020/12/9 此处应该从服务获取icon?
-        if(groupIcon == null){
-            groupIcon = mContext.getResources().getDrawable(R.drawable.ic_hot_drinks);
-            int drawableSize = (int)UIUtils.getInstance().scalePx(
-                    mContext.getResources().getDimensionPixelSize(R.dimen.linkagePrimary_top_icon_size));
-            groupIcon.setBounds(0,0,drawableSize, drawableSize);
+    private void setDrawableTop(String url, TextView tvTitle){
+        if(url != null && !"".equals(url)){
+            Glide.with(mContext)
+                    .load(url)
+                    .into(new ImageViewTarget<Drawable>(new ImageView(mContext)) {
+                        @Override
+                        protected void setResource(@Nullable Drawable resource) {   // TODO: 2021/3/2 判断是否再主线程？
+                            if(drawableSize == -1){
+                                drawableSize = (int)UIUtils.getInstance().scalePx(
+                                        mContext.getResources().getDimensionPixelSize(R.dimen.linkagePrimary_top_icon_size));
+                            }
+                            resource.setBounds(0,0,drawableSize, drawableSize);
+                            tvTitle.setCompoundDrawablesRelative(null,resource,null,null);
+                        }
+                    });
         }
-        return groupIcon;
     }
 
     @Override

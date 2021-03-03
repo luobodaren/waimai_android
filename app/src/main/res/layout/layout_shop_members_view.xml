@@ -4,37 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
+
+        <variable
+            name="shop"
+            type="com.life.waimaishuo.bean.Shop" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/interval_size_xs"
-        android:background="@drawable/sr_bg_shop_members">
+        android:background="@drawable/sr_bg_shop_members"
+        android:paddingStart="@dimen/interval_size_xs"
+        android:paddingTop="16px"
+        android:paddingEnd="@dimen/interval_size_xs"
+        android:paddingBottom="16px">
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_shopIcon"
+            imageUrl="@{shop.shop_head_portrait}"
             android:layout_width="68px"
             android:layout_height="68px"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_corner_radius="4dp" />
 
         <TextView
             android:id="@+id/tv_shop_members_card_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16px"
+            android:drawableLeft="@drawable/ic_members_sign_black"
+            android:drawablePadding="8px"
             android:includeFontPadding="false"
+            android:text="@{shop.shop_name}"
             android:textColor="@color/text_normal"
             android:textSize="28px"
-            android:layout_marginStart="16px"
-            android:drawablePadding="8px"
-            android:drawableLeft="@drawable/ic_members_sign_black"
-            app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
             app:layout_constraintStart_toEndOf="@id/iv_shopIcon"
+            app:layout_constraintTop_toTopOf="@id/iv_shopIcon"
             tools:text="一点点会员阿卡" />
 
         <TextView
@@ -42,29 +53,30 @@
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
+            android:text="新注册会员即可享受海量优惠"
             android:textColor="@color/text_normal"
             android:textSize="22px"
-            app:layout_constraintStart_toStartOf="@id/tv_shop_members_card_name"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="新注册会员即可享受海量优惠" />
+            app:layout_constraintStart_toStartOf="@id/tv_shop_members_card_name" />
 
         <com.xuexiang.xui.widget.button.shadowbutton.ShadowButton
             android:id="@+id/bt_sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv_sign_in_members"
+            android:onClick="@{(v)-> viewModel.onMembersCodeClick(v)}"
+            android:paddingStart="21px"
+            android:paddingTop="11px"
+            android:paddingEnd="21px"
+            android:paddingBottom="11px"
             android:textColor="@color/white"
             android:textSize="22px"
-            android:background="@drawable/sr_bg_full_corners_theme"
-            android:paddingStart="21px"
-            android:paddingEnd="21px"
-            android:paddingTop="11px"
-            android:paddingBottom="11px"
-            android:onClick="@{(v)-> viewModel.onMembersCodeClick(v)}"
-            app:sb_radius="24px"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:sb_color_pressed="@color/colorTheme"
+            app:sb_color_unpressed="@color/colorTheme"
+            app:sb_radius="100dp"
+            app:sb_shape_type="rectangle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

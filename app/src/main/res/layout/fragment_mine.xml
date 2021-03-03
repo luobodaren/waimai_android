@@ -153,8 +153,13 @@
                                 android:orientation="vertical"
                                 android:paddingStart="@dimen/interval_size_xs"
                                 android:paddingEnd="@dimen/interval_size_xs"
+                                app:xui_borderColor="?attr/xui_config_color_separator_light"
+                                app:xui_outerNormalColor="?attr/xui_config_color_background"
                                 app:xui_radius="12dp"
-                                app:xui_useThemeGeneralShadowElevation="true">
+                                app:xui_shadowAlpha="1"
+                                app:xui_shadowElevation="4dp"
+                                app:xui_showBorderOnlyBeforeL="true"
+                                app:xui_useThemeGeneralShadowElevation="false">
 
                                 <include
                                     android:id="@+id/layout_super_member"

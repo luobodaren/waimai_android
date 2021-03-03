@@ -5,8 +5,8 @@
         <shape>
             <solid android:color="@color/shopping_cart_background"/>
             <corners
-                android:topLeftRadius="@dimen/shopping_cart_radius"
-                android:bottomLeftRadius="@dimen/shopping_cart_radius"
+                android:topLeftRadius="100dp"
+                android:bottomLeftRadius="100dp"
                 android:topRightRadius="4px"
                 android:bottomRightRadius="4px"/>
         </shape>

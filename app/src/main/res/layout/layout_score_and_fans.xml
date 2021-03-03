@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -34,6 +35,6 @@
             android:textColor="@color/text_normal"
             android:textSize="20px"
             android:layout_marginStart="24px"
-            android:text="@string/number_of_fans" />
+            tools:text="@string/number_of_fans" />
     </LinearLayout>
 </layout>

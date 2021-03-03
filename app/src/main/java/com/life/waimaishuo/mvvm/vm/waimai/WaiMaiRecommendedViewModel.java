@@ -58,11 +58,11 @@ public class WaiMaiRecommendedViewModel extends BaseViewModel {
             }
         };
         if(waiMaiReqData.reqData.getQueryType() == WaimaiRecommendedFragment.QUERY_TYPE_GOODS ){
-            mModel.requestGoodsListData(requestCallBack, waiMaiReqData, 3);
+            mModel.requestGoodsListData(requestCallBack, waiMaiReqData);
         }else if(waiMaiReqData.reqData.getQueryType() == WaimaiRecommendedFragment.QUERY_TYPE_SHOP){
-            mModel.requestShopListData(requestCallBack, waiMaiReqData,3);
+            mModel.requestShopListData(requestCallBack, waiMaiReqData);
         }else if(waiMaiReqData.reqData.getQueryType() == WaimaiRecommendedFragment.QUERY_TYPE_ZERO_DELIVER){    //0元配送
-            mModel.requestZeroDeliverListData(requestCallBack,waiMaiReqData,3);
+            mModel.requestZeroDeliverListData(requestCallBack,waiMaiReqData);
         }
     }
 }

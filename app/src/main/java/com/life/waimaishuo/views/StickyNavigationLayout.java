@@ -86,6 +86,8 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StickyNavigationLayout);
         mIsFitStatusBar = typedArray.getBoolean(R.styleable.StickyNavigationLayout_fitStatusBar, false);
+        typedArray.recycle();
+
         setOrientation(LinearLayout.VERTICAL);
         setNestedScrollingEnabled(true);
     }

@@ -19,7 +19,7 @@ public class Shop implements Parcelable {
     @SerializedName(value = "shopType")
     int shop_type;   //1 外卖  2商场
 
-    @SerializedName(value = "shopImage")
+    @SerializedName(value = "shopHeadPortrait")
     String shop_head_portrait;  //店铺头像
     @SerializedName(value = "shopName")
     String shop_name;   //店铺名称
@@ -40,13 +40,13 @@ public class Shop implements Parcelable {
     @SerializedName(value = "monSalesVolume")
     String monSalesVolume;
     String goods_pictures;  //门店的展示商品的图片
-    String shop_image;  //门店图片
     String shop_qr_code;    //门店二维码
     String shop_number; //门店号
     String admin_phone; //管理员手机号
     String last_equipment_name; //最后一次登陆设备
     String last_login_address;  //最后一次登录地址
     String last_login_time; //最后一次登录时间
+    @SerializedName(value = "notice")
     String notice;  //公告
     String synopsis;    //简介
     String invoice; //发票
@@ -91,7 +91,8 @@ public class Shop implements Parcelable {
     String shop_city;   //门店市
     String shop_district;   //门店区
     BigInteger recommend_type;  //推荐分类ID
-
+    @SerializedName(value = "shopImage")
+    String shopImage;
     @SerializedName(value = "goodsInfo")
     List<Goods> goodsInfoList;  //商品列表
 
@@ -110,10 +111,11 @@ public class Shop implements Parcelable {
     @SerializedName(value = "avgPrice")
     String avgPrice;        //人均价格
     @SerializedName(value = "couponList")
-    List<String> couponList;    //优惠卷列表
+    List<Coupon> couponList;    //优惠卷列表
 
     // FIXME: 2020/12/18 暂存以下属性值
-    String number_of_fans;  //粉丝数
+    @SerializedName(value = "fansNum")
+    int number_of_fans;  //粉丝数
     MemberCard memberCard;
 
     public Shop() {
@@ -141,7 +143,6 @@ public class Shop implements Parcelable {
         favorable_rate = in.readString();
         monSalesVolume = in.readString();
         goods_pictures = in.readString();
-        shop_image = in.readString();
         shop_qr_code = in.readString();
         shop_number = in.readString();
         admin_phone = in.readString();
@@ -183,6 +184,7 @@ public class Shop implements Parcelable {
         shop_province = in.readString();
         shop_city = in.readString();
         shop_district = in.readString();
+        shopImage = in.readString();
         goodsInfoList = in.createTypedArrayList(Goods.CREATOR);
         distance = in.readDouble();
         distPattern = in.readInt();
@@ -191,8 +193,8 @@ public class Shop implements Parcelable {
         minPrice = in.readString();
         deliveryPrice = in.readString();
         avgPrice = in.readString();
-        couponList = in.createStringArrayList();
-        number_of_fans = in.readString();
+        couponList = in.createTypedArrayList(Coupon.CREATOR);
+        number_of_fans = in.readInt();
     }
 
     public static final Creator<Shop> CREATOR = new Creator<Shop>() {
@@ -231,11 +233,11 @@ public class Shop implements Parcelable {
         this.favorable_rate = favorable_rate;
     }
 
-    public String getNumber_of_fans() {
+    public int getNumber_of_fans() {
         return number_of_fans;
     }
 
-    public void setNumber_of_fans(String number_of_fans) {
+    public void setNumber_of_fans(int number_of_fans) {
         this.number_of_fans = number_of_fans;
     }
 
@@ -357,14 +359,6 @@ public class Shop implements Parcelable {
 
     public void setGoods_pictures(String goods_pictures) {
         this.goods_pictures = goods_pictures;
-    }
-
-    public String getShop_image() {
-        return shop_image;
-    }
-
-    public void setShop_image(String shop_image) {
-        this.shop_image = shop_image;
     }
 
     public String getShop_qr_code() {
@@ -799,12 +793,20 @@ public class Shop implements Parcelable {
         this.avgPrice = avgPrice;
     }
 
-    public List<String> getCouponList() {
+    public List<Coupon> getCouponList() {
         return couponList;
     }
 
-    public void setCouponList(List<String> couponList) {
+    public void setCouponList(List<Coupon> couponList) {
         this.couponList = couponList;
+    }
+
+    public String getShopImage() {
+        return shopImage;
+    }
+
+    public void setShopImage(String shopImage) {
+        this.shopImage = shopImage;
     }
 
     @Override
@@ -830,7 +832,6 @@ public class Shop implements Parcelable {
         dest.writeString(favorable_rate);
         dest.writeString(monSalesVolume);
         dest.writeString(goods_pictures);
-        dest.writeString(shop_image);
         dest.writeString(shop_qr_code);
         dest.writeString(shop_number);
         dest.writeString(admin_phone);
@@ -872,6 +873,7 @@ public class Shop implements Parcelable {
         dest.writeString(shop_province);
         dest.writeString(shop_city);
         dest.writeString(shop_district);
+        dest.writeString(shopImage);
         dest.writeTypedList(goodsInfoList);
         dest.writeDouble(distance);
         dest.writeInt(distPattern);
@@ -880,7 +882,7 @@ public class Shop implements Parcelable {
         dest.writeString(minPrice);
         dest.writeString(deliveryPrice);
         dest.writeString(avgPrice);
-        dest.writeStringList(couponList);
-        dest.writeString(number_of_fans);
+        dest.writeTypedList(couponList);
+        dest.writeInt(number_of_fans);
     }
 }

@@ -258,23 +258,6 @@ public abstract class BaseFragment extends XPageFragment {
         }
     }
 
-    /**
-     * 设置view 是否可见  取值visible、gone
-     * @param view
-     * @param isVisibility
-     */
-    protected void setViewVisibility(View view,boolean isVisibility){
-        if(isVisibility){
-            if(view.getVisibility() != View.VISIBLE){
-                view.setVisibility(View.VISIBLE);
-            }
-        }else{
-            if(view.getVisibility() != View.GONE){
-                view.setVisibility(View.GONE);
-            }
-        }
-    }
-
     protected void onLifecycleCreate(){}
     protected void onLifecycleStart(){}
     protected void onLifecycleResume(){
@@ -308,5 +291,22 @@ public abstract class BaseFragment extends XPageFragment {
 
     public void setRegisterEventBus(boolean isRegisterEventBus){
         this.isRegisterEventBus = isRegisterEventBus;
+    }
+
+    /**
+     * 设置view 是否可见  取值visible、gone
+     * @param view
+     * @param isVisibility
+     */
+    public static void setViewVisibility(View view,boolean isVisibility){
+        if(isVisibility){
+            if(view.getVisibility() != View.VISIBLE){
+                view.setVisibility(View.VISIBLE);
+            }
+        }else{
+            if(view.getVisibility() != View.GONE){
+                view.setVisibility(View.GONE);
+            }
+        }
     }
 }

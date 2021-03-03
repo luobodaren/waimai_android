@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 public class MessageEvent {
 
     private int code;
-    private String message;
+    private Object message;
 
-    public MessageEvent(int code, String message) {
+    public MessageEvent(int code, Object message) {
         this.code = code;
         this.message = message;
     }
@@ -20,11 +20,11 @@ public class MessageEvent {
         this.code = code;
     }
 
-    public String getMessage() {
+    public Object getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Object message) {
         this.message = message;
     }
 

@@ -1,15 +1,11 @@
-package com.life.base.utils.net;
+package com.life.waimaishuo.util.net;
 
-import com.google.gson.JsonObject;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.life.waimaishuo.Global;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -36,8 +32,7 @@ public class HttpUtils {
     final static private String MEDIA_TYPE_JPG = "image/jpeg";
     final static private String MEDIA_TYPE_GIF = "image/gif";
 
-    private static String TOKEN_KEY = "token";
-    private static String TOKEN_VALUE = "";
+    private static String TOKEN_KEY = "Authorization-cjwm-app";
 
     private static Long READ_TIME_OUT = 5L;   //从主机读取数据超时时间（秒）
     private static Long WRITE_TIME_OUT = 5L;
@@ -151,7 +146,6 @@ public class HttpUtils {
 
         //异步请求enqueue(Callback)
         executeQuest_Async(okHttpClient, request, httpCallback);
-
     }
 
     /**
@@ -289,7 +283,7 @@ public class HttpUtils {
     private Request.Builder getRequestBuild(boolean isWithToken){
         Request.Builder builder = new Request.Builder();
         if(isWithToken){
-            builder.header(TOKEN_KEY,TOKEN_VALUE);
+            builder.header(TOKEN_KEY, Global.token);
         }
         return builder;
     }
@@ -333,15 +327,14 @@ public class HttpUtils {
                             if(code == 0){
                                 String data = GsonUtil.getStringNoteJsonString(json,"data");
                                 if("null".equals(data)){    //有字段但返回null
-                                    httpCallback.onSuccess("");
-                                }else{
-                                    httpCallback.onSuccess(data);
+                                    data = "";
                                 }
+                                httpCallback.onSuccess(data);
                             }else{
-                                httpCallback.onError(HttpCallback.ERROR_TYPE_CODE, new Error(code+""));
+                                httpCallback.onError(HttpCallback.ERROR_TYPE_CODE, new Error("失败，code != 1"));
                             }
                         }catch (Exception e){
-                            LogUtil.e("error:解析失败" + " url:" + request.url().toString() + " resultJson:" + json);
+                            LogUtil.e("error:" + e.getMessage() + " url:" + request.url().toString() + " resultJson:" + json);
                             httpCallback.onError(HttpCallback.ERROR_TYPE_PARSE, new Error("解析失败"));
                         }
                     }
@@ -386,7 +379,7 @@ public class HttpUtils {
     }
 
     public static String changeToHttps(String url){
-        if(url == null){
+        if(url == null || "".equals(url)){
             return "";
         }
         if(url.startsWith("http:")){

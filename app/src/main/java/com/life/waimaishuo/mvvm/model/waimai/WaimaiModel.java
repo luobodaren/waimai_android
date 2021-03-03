@@ -2,7 +2,7 @@ package com.life.waimaishuo.mvvm.model.waimai;
 
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
-import com.life.base.utils.net.HttpUtils;
+import com.life.waimaishuo.util.net.HttpUtils;
 import com.life.waimaishuo.MyApplication;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.ExclusiveShopData;
@@ -38,11 +38,8 @@ public class WaimaiModel extends BaseModel {
      * 轮播图
      *
      * @param requestCallBack
-     * @param timeOutRequestTime
      */
-    public void requestBannerItemList(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestBannerItemList(RequestCallBack<Object> requestCallBack ) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SLIDESHOW, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -64,18 +61,8 @@ public class WaimaiModel extends BaseModel {
             @Override
             public void onError(int errorType, Throwable error) {
                 mBannerItemList.clear();
-                LogUtil.e("requestBannerItemList error:" + error.getMessage() + count);
-                if (errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST) {
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestBannerItemList(requestCallBack, count); //再执行一次
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                LogUtil.e("requestBannerItemList error:" + error.getMessage());
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }
@@ -85,9 +72,7 @@ public class WaimaiModel extends BaseModel {
      *
      * @param requestCallBack
      */
-    public void requestSearchTag(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestSearchTag(RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SEARCH_TAG, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -104,18 +89,8 @@ public class WaimaiModel extends BaseModel {
             public void onError(int errorType, Throwable error) {
                 if (searchTags.length > 0)
                     searchTags = new SearchTag[]{};
-                LogUtil.e("requestSearchTag error:" + error.getMessage() + count);
-                if (errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST) {
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestSearchTag(requestCallBack, count); //再执行一次
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                LogUtil.e("requestSearchTag error:" + error.getMessage());
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }
@@ -124,11 +99,8 @@ public class WaimaiModel extends BaseModel {
      * 金刚区
      *
      * @param requestCallBack
-     * @param timeOutRequestTime
      */
-    public void requestKingKongArea(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestKingKongArea(RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_KING_KONG_AREGION, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -148,18 +120,8 @@ public class WaimaiModel extends BaseModel {
             @Override
             public void onError(int errorType, Throwable error) {
                 mFoodTypeList.clear();
-                LogUtil.e("requestKingKongArea error:" + error.getMessage() + " requestCount:" + count);
-                if (errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST) {
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestKingKongArea(requestCallBack, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                LogUtil.e("requestKingKongArea error:" + error.getMessage());
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }
@@ -168,11 +130,8 @@ public class WaimaiModel extends BaseModel {
      * 专属早餐
      *
      * @param requestCallBack
-     * @param timeOutRequestTime
      */
-    public void getExclusiveBreakfast(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void getExclusiveBreakfast(RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_EXCLUSIVE_BREAKFAST, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -187,26 +146,15 @@ public class WaimaiModel extends BaseModel {
 
             @Override
             public void onError(int errorType, Throwable error) {
-                LogUtil.e("requestKingKongArea error:" + error.getMessage() + " requestCount:" + count);
+                LogUtil.e("requestKingKongArea error:" + error.getMessage());
                 mExclusiveShopDataList.clear();
-                if (errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST) {
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            getExclusiveBreakfast(requestCallBack, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                requestCallBack.onFail(error.getMessage());
+
             }
         });
     }
 
-    public void requestActivityRegion(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestActivityRegion(RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_ACTIVITY_REGION, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -224,26 +172,14 @@ public class WaimaiModel extends BaseModel {
 
             @Override
             public void onError(int errorType, Throwable error) {
-                LogUtil.e("requestActivityRegion error:" + error.getMessage() + count);
+                LogUtil.e("requestActivityRegion error:" + error.getMessage());
                 mActivityRegion.clear();
-                if (errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST) {
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestActivityRegion(requestCallBack, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }
 
-    public void requestRecommendTitle(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestRecommendTitle(RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_RECOMMEND_TITLE, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -262,31 +198,19 @@ public class WaimaiModel extends BaseModel {
 
             @Override
             public void onError(int errorType, Throwable error) {
-                LogUtil.e("requestRecommendTitle error:" + error.getMessage() + count);
+                LogUtil.e("requestRecommendTitle error:" + error.getMessage());
                 recommendTitle.clear();
-                if (errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST) {
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestRecommendTitle(requestCallBack, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }
 
-    public void requestSecondKillTime(NotifyChangeRequestCallBack requestCallBack, WaiMaiReqData.WaiMaiSecondKillReqData reqData, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestSecondKillTime(NotifyChangeRequestCallBack requestCallBack, WaiMaiReqData.WaiMaiSecondKillReqData reqData) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SECOND_KILL, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data) && !"null".equals(data)) {
-                    secondKillTime = GsonUtil.parserJsonToArrayBean(data, SecondKillTime.class);
+                    secondKillTime = GsonUtil.parserJsonToBean(data, SecondKillTime.class);
                     requestCallBack.onSuccess(secondKillTime);
                 } else {
                     secondKillTime.setAllTimeNull();
@@ -296,19 +220,9 @@ public class WaimaiModel extends BaseModel {
 
             @Override
             public void onError(int errorType, Throwable error) {
-                LogUtil.e("requestSecondKillTime error:" + error.getMessage() + count);
+                LogUtil.e("requestSecondKillTime error:" + error.getMessage());
                 secondKillTime.setAllTimeNull();
-                if (errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST) {
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestSecondKillTime(requestCallBack, reqData, count);
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }

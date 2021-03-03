@@ -55,42 +55,42 @@ public class WaiMaiViewModel extends BaseViewModel {
      * 刷新搜索标签
      */
     public void refreshSearchTag() {
-        mModel.requestSearchTag(new BaseModel.NotifyChangeRequestCallBack(searchTagObservable), 3);
+        mModel.requestSearchTag(new BaseModel.NotifyChangeRequestCallBack(searchTagObservable));
     }
 
     /**
      * 刷新轮播图
      */
     public void refreshBannerItemList() {
-        mModel.requestBannerItemList(new BaseModel.NotifyChangeRequestCallBack(bannerUpdateObservable), 3);
+        mModel.requestBannerItemList(new BaseModel.NotifyChangeRequestCallBack(bannerUpdateObservable));
     }
 
     /**
      * 刷新金刚区
      */
     public void refreshKingKongArea() {
-        mModel.requestKingKongArea(new BaseModel.NotifyChangeRequestCallBack(kingKongAreaObservable), 3);
+        mModel.requestKingKongArea(new BaseModel.NotifyChangeRequestCallBack(kingKongAreaObservable));
     }
 
     /**
      * 刷新专属早餐
      */
     public void refreshExclusiveBreakfast(){
-        mModel.getExclusiveBreakfast(new BaseModel.NotifyChangeRequestCallBack(exclusiveBreakfastObservable),3);
+        mModel.getExclusiveBreakfast(new BaseModel.NotifyChangeRequestCallBack(exclusiveBreakfastObservable));
     }
 
     /**
      * 刷新活动区
      */
     public void refreshActivityRegion(){
-        mModel.requestActivityRegion(new BaseModel.NotifyChangeRequestCallBack(activityRegionObservable), 3);
+        mModel.requestActivityRegion(new BaseModel.NotifyChangeRequestCallBack(activityRegionObservable));
     }
 
     /**
      * 刷新推荐tab
      */
     public void refreshRecommendedTitle(){
-        mModel.requestRecommendTitle(new BaseModel.NotifyChangeRequestCallBack(recommendTitleObservable),3);
+        mModel.requestRecommendTitle(new BaseModel.NotifyChangeRequestCallBack(recommendTitleObservable));
     }
 
     /**
@@ -98,7 +98,7 @@ public class WaiMaiViewModel extends BaseViewModel {
      */
     public void refreshSecondKillTime() {
         mModel.requestSecondKillTime(new BaseModel.NotifyChangeRequestCallBack(secondKillTimeObservable),
-                new WaiMaiReqData.WaiMaiSecondKillReqData(5),3);
+                new WaiMaiReqData.WaiMaiSecondKillReqData(5));
     }
 
     private void initFoodRecyclerData() {

@@ -457,7 +457,7 @@ public class MallGoodsDetailFragment extends BaseFragment {
             @Override
             protected int getItemLayoutId(int viewType) {
                 if (viewType == titleViewType) {
-                    return R.layout.layout_specification_dialog_reycler_child_text;
+                    return R.layout.layout_specification_dialog_reycler_child;
                 } else if (viewType == flowTabViewType) {
                     return R.layout.layout_simple_flowtag;
                 }

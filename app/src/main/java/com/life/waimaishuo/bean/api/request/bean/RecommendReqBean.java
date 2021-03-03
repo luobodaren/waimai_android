@@ -3,7 +3,7 @@ package com.life.waimaishuo.bean.api.request.bean;
 /**
  * 推荐商品的请求体
  */
-public class RecommendReqData {
+public class RecommendReqBean {
     /*必要属性*/
     String province;    //省
     String city;        //城市
@@ -31,7 +31,7 @@ public class RecommendReqData {
      * @param pageSize
      * @param queryType
      */
-    public RecommendReqData(String province, String city, String district, String userLonAndLat, int pageNum, int pageSize, int queryType) {
+    public RecommendReqBean(String province, String city, String district, String userLonAndLat, int pageNum, int pageSize, int queryType) {
         this.province = province;
         this.city = city;
         this.district = district;

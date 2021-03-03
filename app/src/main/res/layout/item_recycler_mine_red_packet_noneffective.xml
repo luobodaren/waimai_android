@@ -20,7 +20,7 @@
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_red_packet_img"
-            imageUrl="@{item.shop.shop_image}"
+            imageUrl="@{item.shop.shop_head_portrait}"
             android:layout_width="80px"
             android:layout_height="80px"
             android:layout_marginStart="32px"

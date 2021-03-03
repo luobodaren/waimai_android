@@ -2,18 +2,18 @@ package com.life.waimaishuo.mvvm.model;
 
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
-import com.life.base.utils.net.HttpUtils;
+import com.life.waimaishuo.util.net.HttpUtils;
 import com.life.waimaishuo.Global;
 import com.life.waimaishuo.bean.api.request.BaseReqData;
-import com.life.waimaishuo.bean.api.request.bean.GetVerificationReqData;
-import com.life.waimaishuo.bean.api.request.bean.LoginWithVerificcationReqData;
+import com.life.waimaishuo.bean.api.request.bean.GetVerificationReqBean;
+import com.life.waimaishuo.bean.api.request.bean.LoginWithVerificcationReqBean;
 import com.life.waimaishuo.constant.ApiConstant;
 
 public class LoginModel extends BaseModel {
 
     public void requestVerification(String currentRequestVerificationPhone, RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_GET_VERIFICATION,
-                GsonUtil.toJsonString(new BaseReqData<>(new GetVerificationReqData(currentRequestVerificationPhone, 1))),
+                GsonUtil.toJsonString(new BaseReqData<>(new GetVerificationReqBean(currentRequestVerificationPhone, 1))),
                 false, new HttpUtils.HttpCallback() {
                     @Override
                     public void onSuccess(String data) {
@@ -35,7 +35,7 @@ public class LoginModel extends BaseModel {
      */
     public void loginByPhone(String phoneNumber, String verification, RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_LOGIN,
-                GsonUtil.toJsonString(new BaseReqData<>(new LoginWithVerificcationReqData(verification,phoneNumber))),
+                GsonUtil.toJsonString(new BaseReqData<>(new LoginWithVerificcationReqBean(verification,phoneNumber))),
                 false, new HttpUtils.HttpCallback() {
                     @Override
                     public void onSuccess(String data) {

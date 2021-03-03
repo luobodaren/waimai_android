@@ -4,7 +4,7 @@ import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
-import com.life.waimaishuo.bean.api.request.bean.SubTypeNameReqData;
+import com.life.waimaishuo.bean.api.request.bean.SubTypeNameReqBean;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
@@ -65,8 +65,7 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
 
     public void refreshSubTypeTitles(String typeName) {
         mModel.requestSubtype(new BaseModel.NotifyChangeRequestCallBack(subtypeObservable),
-                new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqData(1, typeName)),
-                3);
+                new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqBean(1, typeName)));
     }
 
     public int getTopBgImgId(int i) {
@@ -79,7 +78,6 @@ public class WaiMaiTypeViewModel extends BaseViewModel {
 
     public void refreshSubTypeImg(String subTypeName){
         mModel.requestSubtypeImg(new BaseModel.NotifyChangeRequestCallBack(subtypeImgObservable),
-                new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqData(1,subTypeName)),
-                3);
+                new WaiMaiReqData.WaiMaiSubTypeReqData(new SubTypeNameReqBean(1,subTypeName)));
     }
 }

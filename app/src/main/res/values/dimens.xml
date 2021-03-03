@@ -67,7 +67,7 @@
     <dimen name="linkagePrimary_left_icon_width">6px</dimen>
     <dimen name="linkagePrimary_left_icon_height">30px</dimen>
 
-    <dimen name="shop_members_cardview_radius">10px</dimen>
+    <dimen name="shop_members_cardview_radius">5dp</dimen>
 
     <dimen name="shop_goods_text_size_grid_item">20px</dimen>
     <dimen name="shop_goods_text_size_grid_header">30px</dimen>
@@ -75,7 +75,6 @@
     <dimen name="linkagePrimary_top_icon_size">46px</dimen>
 
     <dimen name="shopping_cart_height">88px</dimen>
-    <dimen name="shopping_cart_radius">44px</dimen>
     <dimen name="height_of_room_for_shopping_cart">160px</dimen>
 
     <dimen name="waimai_type_tabbar_item_space">6px</dimen>
@@ -110,7 +109,8 @@
     <dimen name="goods_comment_tabSegment_item_text_size">@dimen/font_size_24</dimen>
     <dimen name="goods_comment_tabSegment_item_space">16px</dimen>
     <dimen name="specification_selete_sign_size">32px</dimen>
-    <dimen name="width_of_specification_dialog">702px</dimen>
+    <dimen name="width_of_specification_dialog">662px</dimen>
+    <dimen name="height_of_specification_dialog">1088px</dimen>
     <dimen name="mall_tabbar_item_text_size_selected">36px</dimen>
     <dimen name="mall_tabbar_item_text_size">30px</dimen>
 

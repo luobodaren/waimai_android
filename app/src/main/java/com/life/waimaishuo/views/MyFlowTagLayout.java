@@ -85,9 +85,9 @@ public class MyFlowTagLayout extends FlowTagLayout {
                 resultHeight += lineHeight;
             }
 
-            setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : resultWidth,
-                    modeHeight == MeasureSpec.EXACTLY ? sizeHeight : resultHeight);
         }
+        setMeasuredDimension(modeWidth == MeasureSpec.EXACTLY ? sizeWidth : resultWidth,
+                modeHeight == MeasureSpec.EXACTLY ? sizeHeight : resultHeight);
     }
 
     @Override

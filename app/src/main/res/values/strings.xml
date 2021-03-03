@@ -61,7 +61,10 @@
     <string name="notice_content">公告：%s</string>
     <string name="preferential">优惠</string>
     <string name="more_preferential">%d个优惠</string>
+    <string name="shop_mon_sale_count_and_dist_time">月售%1$s+ 配送%2$d分钟</string>
+    <string name="shop_mon_sale_count_and_favorable_rate">月售%1$s 好评%2$d%%</string>
     <string name="tv_sign_in_members">入会有礼</string>
+    <string name="tv_show_qr_code">显示二维码</string>
     <string name="verification_by_scan_qr">请扫描一下二维码验证</string>
     <string name="connect_merchants">联系商家</string>
     <string name="to_settle_accounts">去结算</string>
@@ -339,4 +342,5 @@
     <string name="go_shopping_at_the_mall">去商场逛逛</string>
     <string name="loading_fail">加载失败</string>
     <string name="brand">品牌</string>
+    <string name="discount">%s折</string>
 </resources>

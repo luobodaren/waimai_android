@@ -1,11 +1,11 @@
 package com.life.waimaishuo.bean.api.request.bean;
 
-public class LoginWithVerificcationReqData {
+public class LoginWithVerificcationReqBean {
 
     private String authCode;
     private String phoneNumber;
 
-    public LoginWithVerificcationReqData(String authCode, String phoneNumber) {
+    public LoginWithVerificcationReqBean(String authCode, String phoneNumber) {
         this.authCode = authCode;
         this.phoneNumber = phoneNumber;
     }

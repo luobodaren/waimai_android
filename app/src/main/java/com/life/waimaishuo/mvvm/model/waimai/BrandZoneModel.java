@@ -2,12 +2,12 @@ package com.life.waimaishuo.mvvm.model.waimai;
 
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
-import com.life.base.utils.net.HttpUtils;
+import com.life.waimaishuo.bean.api.request.bean.SearchReqBean;
+import com.life.waimaishuo.util.net.HttpUtils;
 import com.life.waimaishuo.Global;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiReqData;
-import com.life.waimaishuo.bean.api.request.bean.SearchReqData;
 import com.life.waimaishuo.constant.ApiConstant;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
@@ -15,7 +15,6 @@ import com.life.waimaishuo.mvvm.model.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 public class BrandZoneModel extends BaseModel {
 
@@ -24,7 +23,7 @@ public class BrandZoneModel extends BaseModel {
 
     {
         reqData = new WaiMaiReqData.WaiMaiSearchReqData(
-                new SearchReqData(Global.LocationProvince,Global.LocationCity,Global.LocationDistrict,
+                new SearchReqBean(Global.LocationProvince,Global.LocationCity,Global.LocationDistrict,
                         Global.userLonAndLat,1,10,0));
     }
 
@@ -87,9 +86,7 @@ public class BrandZoneModel extends BaseModel {
         reqData.reqData.setMaxAvgPrice(valueOf1);
     }
 
-    public void requestBrandShopData(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestBrandShopData(RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_SEARCH, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -112,18 +109,8 @@ public class BrandZoneModel extends BaseModel {
             @Override
             public void onError(int errorType, Throwable error) {
                 brandShopList.clear();
-                LogUtil.e("requestLinkageGroupItems error:" + error.getMessage() + count);
-                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestBrandShopData(requestCallBack, count); //再执行一次
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                LogUtil.e("requestLinkageGroupItems error:" + error.getMessage());
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }

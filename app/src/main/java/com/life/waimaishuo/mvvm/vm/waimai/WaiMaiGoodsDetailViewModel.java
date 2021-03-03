@@ -1,7 +1,10 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
+import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.api.request.WaiMaiShopReqData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiGoodsDetailModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
@@ -16,11 +19,7 @@ public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
 
     WaiMaiGoodsDetailModel mModel;
 
-    public ObservableField<String> goodNameObservable = new ObservableField<>();
-    public ObservableField<String> goodSaleInfoObservable = new ObservableField<>();
-    public ObservableField<String> goodIntroduceObservable = new ObservableField<>();
-    public ObservableField<String> goodPriceObservable = new ObservableField<>();
-    public ObservableField<String> goodPrePriceObservable = new ObservableField<>();
+    public ObservableInt onGetGoodsDetailObservable = new ObservableInt();
 
     @Override
     public BaseModel getModel() {
@@ -32,11 +31,7 @@ public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
 
     @Override
     public void initData() {
-        goodNameObservable.set("现切压沙瓜");
-        goodSaleInfoObservable.set("月售331  好评率99%");
-        goodIntroduceObservable.set("大家喜欢的，才是真好吃，图片仅供参考");
-        goodPriceObservable.set("￥18.99");
-        goodPrePriceObservable.set("￥28.99");
+
     }
 
     public List<String> getGoodsPictures() {
@@ -65,5 +60,13 @@ public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
                 break;
         }
         return baseFragment;
+    }
+
+    public void requestGoodsDetail(int goodsId) {
+        mModel.requestGoodsDetail(new BaseModel.NotifyChangeRequestCallBack(onGetGoodsDetailObservable),new WaiMaiShopReqData.WaiMaiSimpleReqData(goodsId));
+    }
+
+    public Goods getGoodsData(){
+        return mModel.goods;
     }
 }

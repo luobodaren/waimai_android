@@ -7,8 +7,8 @@
             <corners
                 android:topLeftRadius="0px"
                 android:bottomLeftRadius="0px"
-                android:topRightRadius="@dimen/shopping_cart_radius"
-                android:bottomRightRadius="@dimen/shopping_cart_radius"/>
+                android:topRightRadius="100dp"
+                android:bottomRightRadius="100dp"/>
         </shape>
     </item>
 

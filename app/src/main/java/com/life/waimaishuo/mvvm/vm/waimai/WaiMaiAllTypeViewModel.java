@@ -66,7 +66,7 @@ public class WaiMaiAllTypeViewModel extends BaseViewModel {
     }
 
     public void requestLinkageGroupItems(){
-        mModel.requestLinkageGroupItems(new BaseModel.NotifyChangeRequestCallBack(getAllTypeObservable),3);
+        mModel.requestLinkageGroupItems(new BaseModel.NotifyChangeRequestCallBack(getAllTypeObservable));
     }
 
 }

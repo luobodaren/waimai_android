@@ -2,7 +2,7 @@ package com.life.waimaishuo.bean.api.request.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SecondKillReqData {
+public class SecondKillReqBean {
 
     @SerializedName(value = "startTime")
     private String startTime;
@@ -17,7 +17,7 @@ public class SecondKillReqData {
     @SerializedName(value = "marketingType")
     private int marketingType;  //营销类型 1商城瓷片区 2商城更多好店 3商城限时秒杀 4外卖专属早餐 5外卖限时秒杀 6外卖0元配送
 
-    public SecondKillReqData(String startTime, String endTime, int pageNum, int pageSize, String userLonAndLat, int marketingType) {
+    public SecondKillReqBean(String startTime, String endTime, int pageNum, int pageSize, String userLonAndLat, int marketingType) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.pageNum = pageNum;
@@ -76,7 +76,7 @@ public class SecondKillReqData {
 
     @Override
     public String toString() {
-        return "SecondKillReqData{" +
+        return "SecondKillReqBean{" +
                 "startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", pageNum=" + pageNum +

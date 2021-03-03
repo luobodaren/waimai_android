@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:includeFontPadding="false"
         android:textColor="@color/text_normal"
-        android:textSize="@dimen/shop_goods_text_size_grid_header"
-        android:singleLine="true"/>
+        android:textSize="@dimen/shop_goods_text_size_grid_header"/>
 
     <TextView
         android:id="@+id/secondary_header_right"
@@ -26,6 +25,6 @@
         android:textSize="@dimen/shop_goods_text_size_grid_header_right"
         android:singleLine="true"
         android:layout_marginStart="16px"
-        tools:text="大家喜欢的，才是真好吃"/>
+        android:text="大家喜欢的，才是真好吃"/>
 
 </com.life.base.views.UiAdapterLinearLayout>

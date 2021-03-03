@@ -41,6 +41,11 @@
         <attr name="sortTextColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="ScoreView">
+        <attr name="score" format="integer"/>
+        <attr name="fans_number" format="integer"/>
+    </declare-styleable>
+
     <declare-styleable name="OrderProcessView">
         <attr name="process" format="integer"/> <!-- 1-3 -->
     </declare-styleable>

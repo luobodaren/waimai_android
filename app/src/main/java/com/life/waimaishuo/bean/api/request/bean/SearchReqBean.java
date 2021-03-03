@@ -2,7 +2,7 @@ package com.life.waimaishuo.bean.api.request.bean;
 
 import java.util.Arrays;
 
-public class SearchReqData {
+public class SearchReqBean {
 
     /*必要属性*/
     String province;    //省
@@ -39,7 +39,7 @@ public class SearchReqData {
      * @param pageSize
      * @param queryType
      */
-    public SearchReqData(String province, String city, String district, String userLonAndLat, int pageNum, int pageSize, int queryType) {
+    public SearchReqBean(String province, String city, String district, String userLonAndLat, int pageNum, int pageSize, int queryType) {
         this.province = province;
         this.city = city;
         this.district = district;
@@ -219,7 +219,7 @@ public class SearchReqData {
 
     @Override
     public String toString() {
-        return "SearchReqData{" +
+        return "SearchReqBean{" +
                 "province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", district='" + district + '\'' +

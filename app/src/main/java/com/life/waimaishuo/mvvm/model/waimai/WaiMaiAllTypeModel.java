@@ -3,7 +3,7 @@ package com.life.waimaishuo.mvvm.model.waimai;
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
-import com.life.base.utils.net.HttpUtils;
+import com.life.waimaishuo.util.net.HttpUtils;
 import com.life.waimaishuo.bean.api.respon.WaiMaiAllType;
 import com.life.waimaishuo.bean.ui.LinkageGoodsTypeGroupedItemInfo;
 import com.life.waimaishuo.constant.ApiConstant;
@@ -17,9 +17,7 @@ public class WaiMaiAllTypeModel extends BaseModel {
 
     public List<BaseGroupedItem<LinkageGoodsTypeGroupedItemInfo>> groupedItemList = new ArrayList<>();
 
-    public void requestLinkageGroupItems(RequestCallBack<Object> requestCallBack, int timeOutRequestTime) {
-        timeOutRequestTime--;
-        int count = timeOutRequestTime;
+    public void requestLinkageGroupItems(RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ALL_TYPE, ApiConstant.DEFAULT_BASE_JSON_INFO, false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
@@ -54,18 +52,8 @@ public class WaiMaiAllTypeModel extends BaseModel {
             @Override
             public void onError(int errorType, Throwable error) {
                 groupedItemList.clear();
-                LogUtil.e("requestLinkageGroupItems error:" + error.getMessage() + count);
-                if(errorType == HttpUtils.HttpCallback.ERROR_TYPE_REQUEST){
-                    if (error instanceof TimeoutException) {
-                        if (count >= 0) {
-                            requestLinkageGroupItems(requestCallBack, count); //再执行一次
-                        } else {
-                            requestCallBack.onFail(error.getMessage());
-                        }
-                    }
-                } else {
-                    requestCallBack.onFail(error.getMessage());
-                }
+                LogUtil.e("requestLinkageGroupItems error:" + error.getMessage());
+                requestCallBack.onFail(error.getMessage());
             }
         });
     }

@@ -90,6 +90,9 @@ public class LoginFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
+
+        LogUtil.d("初始化登录界面----------------------------");
+
         setMachinePhone();
 
         if (mFragmentManager == null) {

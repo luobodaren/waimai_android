@@ -4,42 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
+
+        <variable
+            name="shop"
+            type="com.life.waimaishuo.bean.Shop" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <com.meetsl.scardview.SCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18px"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:cardCornerRadius="8dp"
             app:cardElevation="6px"
-            app:cardLightDirection="LT">
+            app:cardLightDirection="LT"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/sr_bg_8dp_white"
                 android:padding="24px"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tv_shopName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="36px"
-                    android:textColor="@color/text_normal"
-                    android:includeFontPadding="false"
                     android:layout_marginTop="8px"
+                    android:includeFontPadding="false"
+                    android:text="@{shop.shop_name}"
+                    android:textColor="@color/text_normal"
+                    android:textSize="36px"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,24 +54,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16px"
-                    app:layout_constraintTop_toBottomOf="@id/tv_shopName"
-                    app:layout_constraintStart_toStartOf="@id/tv_shopName"/>
+
+                    app:layout_constraintStart_toStartOf="@id/tv_shopName"
+                    app:layout_constraintTop_toBottomOf="@id/tv_shopName" />
+
+                <!--android:text='@{"月售" + viewModel.shopDetail.monSalesVolume + "+  配送约"
+                    + viewModel.shopDetail.distTime + "分钟"}'-->
 
                 <TextView
                     android:id="@+id/tv_shop_describe_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
                     android:layout_marginTop="16px"
-                    android:textSize="20px"
-                    android:textColor="@color/text_tip"
-                    android:singleLine="true"
-                    android:maxWidth="500px"
                     android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxWidth="500px"
+                    android:singleLine="true"
+                    android:text='@{String.format(@string/shop_mon_sale_count_and_dist_time,shop.monSalesVolume,shop.distTime)}'
+                    android:textColor="@color/text_tip"
+                    android:textSize="20px"
                     app:layout_constraintStart_toStartOf="@id/tv_shopName"
                     app:layout_constraintTop_toBottomOf="@id/layout_score_and_fans" />
 
-                <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+                <com.life.waimaishuo.views.MyFlowTagLayout
                     android:id="@+id/flowlayout_cash_back"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,39 +89,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20px"
-                    android:includeFontPadding="false"
-                    android:textSize="22px"
-                    android:textColor="@color/text_tip"
-                    android:singleLine="true"
-                    android:maxWidth="540px"
                     android:ellipsize="end"
-                    android:text="@string/notice_content"
+                    android:includeFontPadding="false"
+                    android:maxWidth="540px"
+                    android:singleLine="true"
+                    android:text='@{"公告" + shop.notice}'
+                    android:textColor="@color/text_tip"
+                    android:textSize="22px"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="@id/tv_shopName"
-                    app:layout_constraintEnd_toStartOf="@id/tv_more_preferential"
                     app:layout_constraintTop_toBottomOf="@id/flowlayout_cash_back" />
+                <!--android:text="@string/notice_content"-->
+
 
                 <TextView
                     android:id="@+id/tv_more_preferential"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:textSize="22px"
-                    android:textColor="@color/text_tip"
-                    android:singleLine="true"
-                    android:maxWidth="540px"
                     android:drawableRight="@drawable/ic_arrow_down_gray"
                     android:drawablePadding="8px"
-                    tools:text="@string/more_preferential"
+                    android:includeFontPadding="false"
+                    android:maxWidth="540px"
                     android:onClick="@{(v)->viewModel.onMorePreferentialClick(v)}"
-                    app:layout_constraintStart_toEndOf="@id/tv_shop_announcement"
+                    android:singleLine="true"
+                    android:text='@{String.format(@string/more_preferential,shop.couponList.size())}'
+                    android:textColor="@color/text_tip"
+                    android:textSize="22px"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_shop_announcement" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_shop_announcement"
+                    tools:text="@string/more_preferential" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.meetsl.scardview.SCardView>
-
 
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
@@ -118,9 +129,10 @@
             android:layout_width="130px"
             android:layout_height="130px"
             android:layout_marginEnd="24px"
-            app:riv_corner_radius="16px"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:riv_corner_radius="16px"
+            imageUrl="@{shop.shop_head_portrait}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
