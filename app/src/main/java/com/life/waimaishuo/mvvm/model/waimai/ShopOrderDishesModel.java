@@ -4,12 +4,19 @@ import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.GoodsShoppingCart;
 import com.life.waimaishuo.bean.api.request.WaiMaiShopReqData;
+import com.life.waimaishuo.bean.api.request.bean.ShoppingCartOption;
 import com.life.waimaishuo.bean.api.respon.WaiMaiShopGoodsGroup;
+import com.life.waimaishuo.bean.api.respon.WaiMaiShoppingCart;
+import com.life.waimaishuo.bean.event.ShoppingCartOptionEvent;
 import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
 import com.life.waimaishuo.constant.ApiConstant;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.util.net.HttpUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +25,6 @@ public class ShopOrderDishesModel extends BaseModel {
 
     public List<WaiMaiShopGoodsGroup> waiMaiShopGoodsGroupList = new ArrayList<>();
     public List<BaseGroupedItem<LinkageShopGoodsGroupedItemInfo>> shopGoodsLinkageGroupList = new ArrayList<>();
-
-    public Goods specificationGoods;    //保存请求商品规格获取的goods信息
 
     public void requestShopGoodsGroupList(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_SHOP_GOODS_GROUP_LIST, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
@@ -32,8 +37,9 @@ public class ShopOrderDishesModel extends BaseModel {
                     BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> baseGroupedItem;
                     for (WaiMaiShopGoodsGroup waiMaiShopGoodsGroup : waiMaiShopGoodsGroupList) {
                         waiMaiShopGoodsGroup.setGroupIcon(HttpUtils.changeToHttps(waiMaiShopGoodsGroup.getGroupIcon()));
-                        baseGroupedItem = new BaseGroupedItem<LinkageShopGoodsGroupedItemInfo>(true, waiMaiShopGoodsGroup.getGroupName()) {};
-                        baseGroupedItem.info = new LinkageShopGoodsGroupedItemInfo(waiMaiShopGoodsGroup.getGroupIcon(),waiMaiShopGoodsGroup.getGroupName(),null);
+                        baseGroupedItem = new BaseGroupedItem<LinkageShopGoodsGroupedItemInfo>(true, waiMaiShopGoodsGroup.getGroupName()) {
+                        };
+                        baseGroupedItem.info = new LinkageShopGoodsGroupedItemInfo(waiMaiShopGoodsGroup.getGroupIcon(), waiMaiShopGoodsGroup.getGroupName(), null);
                         shopGoodsLinkageGroupList.add(baseGroupedItem);
                         for (Goods goods : waiMaiShopGoodsGroup.getGoodsDeliveryListDtos()) {
                             goods.setGoodsImgUrl(HttpUtils.changeToHttps(goods.getGoodsImgUrl()));
@@ -41,7 +47,8 @@ public class ShopOrderDishesModel extends BaseModel {
                             baseGroupedItem = new BaseGroupedItem<LinkageShopGoodsGroupedItemInfo>(
                                     new LinkageShopGoodsGroupedItemInfo(goods.getName(),
                                             waiMaiShopGoodsGroup.getGroupName(),
-                                            goods)) {};
+                                            goods)) {
+                            };
                             shopGoodsLinkageGroupList.add(baseGroupedItem);
                         }
                     }
@@ -61,15 +68,36 @@ public class ShopOrderDishesModel extends BaseModel {
 
     /**
      * 请求商品规格信息
+     *
      * @param requestCallBack
-     * @param reqData
      */
-    public void requestGoodsSpecification(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_GOODS_SPECIFICATION, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+    public void requestGoodsSpecification(RequestCallBack<Object> requestCallBack, Goods goods) {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_GOODS_SPECIFICATION, GsonUtil.toJsonString(new WaiMaiShopReqData.WaiMaiSimpleReqData(goods.getId())), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
+                if (!"".equals(data)) {
+                    Goods requestGoods = GsonUtil.parserJsonToBean(data, Goods.class);
+                    if (requestGoods != null) {
+                        boolean isFindGoods = false;
+                        for (WaiMaiShopGoodsGroup waiMaiShopGoodsGroup : waiMaiShopGoodsGroupList) {
+                            for (Goods goods1 : waiMaiShopGoodsGroup.getGoodsDeliveryListDtos()) {
+                                if (goods.getId() == goods1.getId()) {
+                                    isFindGoods = true;
+                                    goods1.setAttributeList(requestGoods.getAttributeList());
+                                    goods1.setSpecificationList(requestGoods.getSpecificationList());
+                                    break;
+                                }
+                            }
+                            if (isFindGoods) {
+                                break;
+                            }
+                        }
+                    }
 
-                requestCallBack.onSuccess(data);
+                    requestCallBack.onSuccess(data);
+                } else {
+                    requestCallBack.onFail(data);
+                }
             }
 
             @Override
@@ -83,44 +111,57 @@ public class ShopOrderDishesModel extends BaseModel {
     /**
      * 加入购物车
      */
-    public void requestAddShoppingCart(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiShoppingCartOption reqData){
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ADD_SHOPPING_CART,GsonUtil.toJsonString(reqData),true, new HttpUtils.HttpCallback() {
+    public void requestAddShoppingCart(String shopId, Goods goods) {
+        WaiMaiShopReqData.WaiMaiShoppingCartOption reqData = new WaiMaiShopReqData.WaiMaiShoppingCartOption(
+                new ShoppingCartOption(goods.getAttrs(), goods.getMealsFee(), goods.getWantBuyCount(),
+                        String.valueOf(goods.getId()), goods.getName(),goods.getGoodsImgUrl(),
+                        String.valueOf(goods.getIsBargainGoods()), "1",
+                        goods.getSpecialPrice(), shopId, goods.getSpecSelected(), goods.getVersions()));
+
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ADD_SHOPPING_CART, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
-                if("true".equals(data)){
-                    requestCallBack.onSuccess(data);
-                }else{
-                    requestCallBack.onFail("");
+                if ("true".equals(data)) {
+                    EventBus.getDefault().post(new ShoppingCartOptionEvent(MessageCodeConstant.SHOPPING_CART_ADD_SUCCESS,"",goods.getId(),1,Integer.valueOf(goods.getWantBuyCount())));
+                } else {
+                    EventBus.getDefault().post(new ShoppingCartOptionEvent(MessageCodeConstant.SHOPPING_CART_ADD_FALSE,"",goods.getId(),1,Integer.valueOf(goods.getWantBuyCount())));
                 }
             }
 
             @Override
             public void onError(int errorType, Throwable error) {
-                LogUtil.e("requestShoppingCartData error:" + error.getMessage());
-                requestCallBack.onFail("");
+                LogUtil.e("requestAddShoppingCart error:" + error.getMessage());
+                EventBus.getDefault().post(new ShoppingCartOptionEvent(MessageCodeConstant.SHOPPING_CART_ADD_FALSE,error.getMessage(),goods.getId(),1,Integer.valueOf(goods.getWantBuyCount())));
             }
         });
     }
 
     /**
-     * 加入购物车
+     * 修改购物车
      */
-    public void requestChangeShoppingCart(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiShoppingCartOption reqData){
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_CHANGE_SHOPPING_CART,GsonUtil.toJsonString(reqData),true, new HttpUtils.HttpCallback() {
+    public void requestChangeShoppingCart(String shopId, Goods goods) {
+        LogUtil.d(goods.toString());
+        WaiMaiShopReqData.WaiMaiShoppingCartOption reqData = new WaiMaiShopReqData.WaiMaiShoppingCartOption(
+                new ShoppingCartOption(goods.getAttrs(), goods.getMealsFee(), goods.getWantBuyCount(),
+                        String.valueOf(goods.getId()), goods.getName(),goods.getGoodsImgUrl(),
+                        String.valueOf(goods.getIsBargainGoods()), "1",
+                        goods.getSpecialPrice(), shopId, goods.getSpecSelected(), goods.getVersions()));
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_CHANGE_SHOPPING_CART, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
-                if("true".equals(data)){
-                    requestCallBack.onSuccess(data);
-                }else{
-                    requestCallBack.onFail("");
+                if ("true".equals(data)) {
+                    EventBus.getDefault().post(new ShoppingCartOptionEvent(MessageCodeConstant.SHOPPING_CART_CHANGE_SUCCESS,"",goods.getId(),2,Integer.valueOf(goods.getWantBuyCount())));
+                } else {
+                    EventBus.getDefault().post(new ShoppingCartOptionEvent(MessageCodeConstant.SHOPPING_CART_CHANGE_FALSE,"",goods.getId(),2,Integer.valueOf(goods.getWantBuyCount())));
                 }
             }
 
             @Override
             public void onError(int errorType, Throwable error) {
                 LogUtil.e("requestChangeShoppingCart error:" + error.getMessage());
-                requestCallBack.onFail("");
+                EventBus.getDefault().post(new ShoppingCartOptionEvent(MessageCodeConstant.SHOPPING_CART_CHANGE_FALSE,error.getMessage(),goods.getId(),2,Integer.valueOf(goods.getWantBuyCount())));
             }
         });
     }
+
 }

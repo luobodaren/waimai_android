@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="goods"
-            type="com.life.waimaishuo.bean.Goods" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -29,9 +23,8 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 tools:text="¥18.8"
-                android:text="@{goods.specialPrice}"
                 android:textColor="@color/red"
-                android:textSize="28px" />
+                android:textSize="30px" />
 
             <TextView
                 android:id="@+id/tv_goods_pre_price"
@@ -39,9 +32,8 @@
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:layout_marginStart="8px"
-                android:textSize="20px"
+                android:textSize="22px"
                 android:textColor="@color/text_tip"
-                android:text="@{goods.linePrice}"
                 tools:text="￥18.8" />
         </LinearLayout>
 

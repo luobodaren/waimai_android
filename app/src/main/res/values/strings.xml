@@ -5,6 +5,8 @@
         外卖说（深圳）科技有限公司\n粤ICP备20060292号\n公安备案号：44030502006664\n增值电信业务经营许可证:粤B2-20210051
     </string>
 
+    <string name="waimai_goods_default_spec_str">默认</string>
+
     <!-- 默认限时秒杀时间 -->
     <string name="default_second_kill_time">00</string>
 
@@ -108,7 +110,6 @@
     <string name="brand_introduce">品牌介绍</string>
     <string name="video_introduce">视频介绍</string>
     <string name="empty">清空</string>
-    <string name="has_been_reduced_to">已减%s</string>
     <string name="merchant_reply">卖家回复</string>
     <string name="super_member">超级会员</string>
     <string name="pay_type">支付方式</string>
@@ -343,4 +344,5 @@
     <string name="loading_fail">加载失败</string>
     <string name="brand">品牌</string>
     <string name="discount">%s折</string>
+    <string name="dist_price">另需配送费%s元</string>
 </resources>

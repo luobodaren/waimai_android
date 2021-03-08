@@ -8,11 +8,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,11 +27,15 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tag.CashBackTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
+import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.GoodsShoppingCart;
 import com.life.waimaishuo.bean.PreferentialActivity;
-import com.life.waimaishuo.bean.Shop;
-import com.life.waimaishuo.bean.ui.ShoppingCartGood;
+import com.life.waimaishuo.bean.api.respon.WaiMaiShoppingCart;
+import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.constant.Constant;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopDetailBinding;
+import com.life.waimaishuo.databinding.ItemRecyclerShoppingCartGoodsBinding;
 import com.life.waimaishuo.databinding.LayoutDialogShopMorePreferentialBinding;
 import com.life.waimaishuo.databinding.LayoutDialogShoppingCartExpandBinding;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
@@ -43,6 +47,7 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
+import com.life.waimaishuo.util.TextUtil;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
@@ -52,8 +57,13 @@ import com.xuexiang.xui.adapter.FragmentAdapter;
 import com.xuexiang.xui.widget.dialog.bottomsheet.BottomSheet;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 @Page(name = "店铺详情页", anim = CoreAnim.slide)
 public class ShopDetailFragment extends BaseFragment {
@@ -69,6 +79,11 @@ public class ShopDetailFragment extends BaseFragment {
     private int shopId;
 
     private CashBackTagAdapter shopCashBackTagAdapter;
+
+    private Dialog mMembersQeCardDialog;    //会员卡dialog
+
+    private BottomSheet mShoppingCartDialog;//购物车dialog
+    private MyBaseRecyclerAdapter<GoodsShoppingCart> recyclerGoodsListAdapter; //购物车商品recycler Adapter
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -104,6 +119,7 @@ public class ShopDetailFragment extends BaseFragment {
 
         shopId = bundle.getInt(BUNDLE_KEY_SHOP_ID);
 
+        setRegisterEventBus(true);
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);
     }
@@ -122,8 +138,6 @@ public class ShopDetailFragment extends BaseFragment {
         initAppBarLayoutToolbar();
 
         initCashBackFlowTagLayout();
-
-        initNavigationTab();
     }
 
     @Override
@@ -154,7 +168,7 @@ public class ShopDetailFragment extends BaseFragment {
             int folding = 0;
 
             @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {    // FIXME: 2020/12/25 存在问题：由于布局使用fitSystemWindow 布局会预留出状态栏空间，但activity又是沉浸式，所以会存在空白
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (folding == 0) {
                     folding = mBinding.flFolding.getMeasuredHeight()
                             - ((ViewGroup.MarginLayoutParams) mBinding.appbarLayoutToolbar.getLayoutParams()).topMargin
@@ -165,7 +179,7 @@ public class ShopDetailFragment extends BaseFragment {
                     setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_DARK);//状态栏白色字体
                     changeStatusBarMode();
                     setTitleBarFoldingStyle(false);
-                    mBinding.layoutTitleShopDetail.etSearch.setFocusable(false);    // FIXME: 2020/12/25 无效
+                    mBinding.layoutTitleShopDetail.etSearch.setFocusable(false);    // FIXME: 2020/12/25 无效 由于布局遮挡 点击事件无法传递
                     mBinding.layoutTitleShopDetail.etSearch.setClickable(false);
                 } else {                                          //折叠超过一半
                     setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);//状态栏黑色字体
@@ -174,7 +188,6 @@ public class ShopDetailFragment extends BaseFragment {
                     mBinding.layoutTitleShopDetail.etSearch.setFocusable(true);
                     mBinding.layoutTitleShopDetail.etSearch.setClickable(true);
                 }
-                LogUtil.d("渐变值：" + gradient);
                 mBinding.layoutTitleShopDetail.etSearch.setAlpha(gradient);
 
                 if ((-verticalOffset) == folding) {//完全折叠
@@ -199,6 +212,27 @@ public class ShopDetailFragment extends BaseFragment {
 
         mViewModel.requestIsJoinShopFans(shopId);
         mViewModel.requestIsCollectShop(shopId);
+        // TODO: 2021/3/4 开启加载dialog
+        mViewModel.requestShoppingCart(shopId);
+    }
+
+    @Override
+    public void MessageEvent(MessageEvent messageEvent) {
+        super.MessageEvent(messageEvent);
+        switch (messageEvent.getCode()){
+            case MessageCodeConstant.SHOPPING_CART_ADD_SUCCESS:
+            case MessageCodeConstant.SHOPPING_CART_CHANGE_SUCCESS:
+            case MessageCodeConstant.SHOPPING_CART_REQUEST_DATA:
+                //刷新购物车数据
+                mViewModel.requestShoppingCart(shopId);
+                break;
+            case MessageCodeConstant.SHOPPING_CART_DEL_LIST:
+                mViewModel.requestDelShoppingCartList(shopId);
+                break;
+            case MessageCodeConstant.SHOPPING_CART_DEL_LIST_SUCCESS:
+                setShoppingCartData(mViewModel.getWaiMaiShoppingCart(), null);
+                break;
+        }
     }
 
     private void addCallback() {
@@ -223,9 +257,9 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.onMembersCodeClick, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                if(mViewModel.isJoinShopFans()){    //是会员
+                if (mViewModel.isJoinShopFans()) {    //是会员
                     showMembersQrCodeDialog();
-                }else{  //不是会员
+                } else {  //不是会员
                     //请求加入会员
                     mViewModel.joinShopFans(shopId);
                 }
@@ -252,7 +286,7 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.goToSettleAccounts, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this,null,OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
+                OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this, null, OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
             }
         });
 
@@ -260,6 +294,7 @@ public class ShopDetailFragment extends BaseFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
+                    initNavigationTab();
                     refreshShopInfo();
                 });
             }
@@ -268,12 +303,12 @@ public class ShopDetailFragment extends BaseFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
-                    if(mViewModel.isJoinShopFans()){
+                    if (mViewModel.isJoinShopFans()) {
                         mBinding.layoutMembers.btSignIn.setText(R.string.tv_show_qr_code);
-                    }else{
+                    } else {
                         mBinding.layoutMembers.btSignIn.setText(R.string.tv_sign_in_members);
                     }
-                    setViewVisibility(mBinding.layoutMembers.btSignIn,true);
+                    setViewVisibility(mBinding.layoutMembers.btSignIn, true);
                 });
             }
         });
@@ -281,10 +316,10 @@ public class ShopDetailFragment extends BaseFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
-                    if(mViewModel.onRequestIsJoinShopFansObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS){
+                    if (mViewModel.onRequestIsJoinShopFansObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS) {
                         Toast.makeText(requireContext(), "成功成为会员！", Toast.LENGTH_SHORT).show();
                         mBinding.layoutMembers.btSignIn.setText(R.string.tv_show_qr_code);
-                    }else{
+                    } else {
                         Toast.makeText(requireContext(), "加入会员失败！", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -294,7 +329,7 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.onRequestIsCollectShopObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                mHandler.post(() -> refreshCollectIv(currentFoldStatus,mViewModel.isCollectShop()));
+                mHandler.post(() -> refreshCollectIv(currentFoldStatus, mViewModel.isCollectShop()));
             }
         });
 
@@ -302,23 +337,34 @@ public class ShopDetailFragment extends BaseFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
-                    if(mViewModel.onRequestCollectOrCancelShopObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS){
-                        if(mViewModel.isCollectShop()){
+                    if (mViewModel.onRequestCollectOrCancelShopObservable.get() == BaseModel.NotifyChangeRequestCallBack.REQUEST_SUCCESS) {
+                        if (mViewModel.isCollectShop()) {
                             Toast.makeText(requireContext(), "收藏成功！", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(requireContext(), "取消收藏了！", Toast.LENGTH_SHORT).show();
                         }
-                        refreshCollectIv(currentFoldStatus,mViewModel.isCollectShop());
+                        refreshCollectIv(currentFoldStatus, mViewModel.isCollectShop());
                     }
                 });
+            }
+        });
 
+        MyDataBindingUtil.addCallBack(this, mViewModel.onRequestShoppingCartObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    EventBus.getDefault().post(new MessageEvent(        //发送购物车数据更新事件
+                            MessageCodeConstant.SHOPPING_CART_DATA_UPDATE, mViewModel.getWaiMaiShoppingCart()));
+
+                    setShoppingCartData(mViewModel.getWaiMaiShoppingCart(),null);
+                });
             }
         });
     }
 
     private void initAppBarLayoutToolbar() {
         ((ViewGroup.MarginLayoutParams) mBinding.appbarLayoutToolbar.getLayoutParams()).setMargins(
-                0, (int) (UIUtils.getInstance().getSystemBarHeight()/UIUtils.getInstance().getHorValue()), 0, 0);
+                0, (int) (UIUtils.getInstance().getSystemBarHeight() / UIUtils.getInstance().getHorValue()), 0, 0);
     }
 
     private Drawable drawableBack;
@@ -365,28 +411,26 @@ public class ShopDetailFragment extends BaseFragment {
         shopCashBackTagAdapter.addTags(mViewModel.getCashBackData());
     }
 
-    private void initMemberCard() {
-        Shop shop = mViewModel.getShopDetail();
-    }
-
     /**
      * 初始化粘性导航栏
      */
     private void initNavigationTab() {
-        int space = getResources().getDimensionPixelOffset(R.dimen.shop_detail_tabbar_item_space);
-        List<ShopTabTypeEnum> shopTabTypes = mViewModel.getRecommendedTitle();
-        FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
+        if(mBinding.viewPager.getAdapter() == null){
+            int space = getResources().getDimensionPixelOffset(R.dimen.shop_detail_tabbar_item_space);
+            List<ShopTabTypeEnum> shopTabTypes = mViewModel.getRecommendedTitle();
+            FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
 
-        mBinding.tabSegment.setItemSpaceInScrollMode(space);
-        mBinding.tabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widget_horizontal_bar));
-        mBinding.tabSegment.setIndicatorWidthAdjustContent(false);
-        mBinding.tabSegment.setHasIndicator(true);
-        mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size));
-        addTab(mBinding.tabSegment, adapter, shopTabTypes);
-        mBinding.tabSegment.setupWithViewPager(mBinding.viewPager, false);
+            mBinding.tabSegment.setItemSpaceInScrollMode(space);
+            mBinding.tabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.sr_widget_horizontal_bar));
+            mBinding.tabSegment.setIndicatorWidthAdjustContent(false);
+            mBinding.tabSegment.setHasIndicator(true);
+            mBinding.tabSegment.setTabTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_tabbar_item_text_size));
+            addTab(mBinding.tabSegment, adapter, shopTabTypes);
+            mBinding.tabSegment.setupWithViewPager(mBinding.viewPager, false);
 
-        mBinding.viewPager.setOffscreenPageLimit(shopTabTypes.size() - 1);
-        mBinding.viewPager.setAdapter(adapter);
+            mBinding.viewPager.setOffscreenPageLimit(shopTabTypes.size() - 1);
+            mBinding.viewPager.setAdapter(adapter);
+        }
     }
 
     private void addTab(TabSegment tabSegment, FragmentAdapter<BaseFragment> adapter,
@@ -396,21 +440,23 @@ public class ShopDetailFragment extends BaseFragment {
             ShopTabTypeEnum shopTabType = iterator.next();
             String title = shopTabType.getName();
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
-            tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_shop_tabbar_item_text_size_selected));
-            adapter.addFragment(mViewModel.getTabBarFragment(shopTabType,shopId), title);
+            tab.setTextSize((int) UIUtils.getInstance().scalePx(getResources().getDimensionPixelSize(R.dimen.waimai_shop_tabbar_item_text_size_selected)));
+            adapter.addFragment(mViewModel.getTabBarFragment(shopTabType, shopId), title);
             tabSegment.addTab(tab);
         }
     }
 
     private boolean currentFoldStatus = false;
+
     /**
      * 根据折叠状态 更新界面
+     *
      * @param isFolding
      */
     private void setTitleBarFoldingStyle(boolean isFolding) {
         if (currentFoldStatus != isFolding) {
             currentFoldStatus = isFolding;
-            refreshCollectIv(isFolding,mViewModel.isCollectShop());
+            refreshCollectIv(isFolding, mViewModel.isCollectShop());
             if (isFolding) {
                 mBinding.layoutTitleShopDetail.ivBack.setImageDrawable(drawableBackDark);
                 mBinding.layoutTitleShopDetail.ivSearch.setImageDrawable(drawableSearchDark);
@@ -426,14 +472,14 @@ public class ShopDetailFragment extends BaseFragment {
     /**
      * 根据状态刷新收藏IV的显示
      */
-    private void refreshCollectIv(boolean isFolding, boolean isCollectShop){
-        if(isFolding){
+    private void refreshCollectIv(boolean isFolding, boolean isCollectShop) {
+        if (isFolding) {
             if (isCollectShop) {
                 mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollect);
             } else {
                 mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollectDark);
             }
-        }else{
+        } else {
             if (isCollectShop) {
                 mBinding.layoutTitleShopDetail.ivCollect.setImageDrawable(drawableCollect);
             } else {
@@ -442,7 +488,6 @@ public class ShopDetailFragment extends BaseFragment {
         }
     }
 
-    private Dialog mMembersQeCardDialog;
     /**
      * 显示会员二维码
      */
@@ -479,21 +524,11 @@ public class ShopDetailFragment extends BaseFragment {
         // TODO: 2020/12/1 改为在回调时调用
         if (mAddMemberInfoPopWindow == null) {
             mAddMemberInfoPopWindow = new MyCheckRoundTextInfoPop(getContext(), info, successful);
-            mAddMemberInfoPopWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                @Override
-                public void onDismiss() {
-                    mHandler.removeCallbacks(mCancelPopRunnable);
-                }
-            });
+            mAddMemberInfoPopWindow.setOnDismissListener(() -> mHandler.removeCallbacks(mCancelPopRunnable));
         }
 
         if (mCancelPopRunnable == null) {
-            mCancelPopRunnable = new Runnable() {
-                @Override
-                public void run() {
-                    mAddMemberInfoPopWindow.dismiss();
-                }
-            };
+            mCancelPopRunnable = () -> mAddMemberInfoPopWindow.dismiss();
         }
 
         mAddMemberInfoPopWindow.showAtCenter(mRootView);
@@ -501,6 +536,7 @@ public class ShopDetailFragment extends BaseFragment {
     }
 
     private BottomSheet mPreferentialDialog;
+
     /**
      * 显示更多优惠dialog
      */
@@ -621,22 +657,21 @@ public class ShopDetailFragment extends BaseFragment {
         };
     }
 
-    BottomSheet mShoppingCartDialog;
     /**
      * 显示购物车详细信息
      */
     private void shopOrCloseShoppingCartDetailDialog() {
         LogUtil.d("显示购物车详情");
         if (mShoppingCartDialog == null) {
-            View contentView = initShoppingCartDetailView();
             mShoppingCartDialog = new BottomSheet(requireContext());
+            View contentView = initShoppingCartDetailView();
             mShoppingCartDialog.setContentView(
                     contentView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT));
         }
-        if(mShoppingCartDialog.isShowing()){
+        if (mShoppingCartDialog.isShowing()) {
             mShoppingCartDialog.cancel();
-        }else{
+        } else {
             mShoppingCartDialog.show();
         }
     }
@@ -644,41 +679,169 @@ public class ShopDetailFragment extends BaseFragment {
     private View initShoppingCartDetailView() {
         View view = View.inflate(getContext(), R.layout.layout_dialog_shopping_cart_expand, null);
         LayoutDialogShoppingCartExpandBinding binding = LayoutDialogShoppingCartExpandBinding.bind(view);
-        binding.setViewModel(mViewModel);
 
+        //设置店铺名称
+        binding.tvShopName.setText(mViewModel.getShopDetail().getShop_name());
+
+        binding.tvEmptyShoppingCart.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                mViewModel.requestDelShoppingCartList(shopId);
+            }
+        });
         // FIXME: 2020/12/25  购物车按钮添加viemodel
-
         binding.recyclerGoodsList.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
-        binding.recyclerGoodsList.setAdapter(new MyBaseRecyclerAdapter<ShoppingCartGood>(
-                R.layout.item_recycler_shopping_cart_goods, mViewModel.getShoppingCartData(), com.life.waimaishuo.BR.item));
+        recyclerGoodsListAdapter = new MyBaseRecyclerAdapter<GoodsShoppingCart>(
+                R.layout.item_recycler_shopping_cart_goods, new ArrayList<>(), com.life.waimaishuo.BR.item) {
+            int priceSymbolSize = (int) UIUtils.getInstance().scalePx(16);
+
+            @Override
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, GoodsShoppingCart item) {
+                super.initView(viewDataBinding, helper, item);
+                ItemRecyclerShoppingCartGoodsBinding binding1 = (ItemRecyclerShoppingCartGoodsBinding) viewDataBinding;
+
+                binding1.tvGoodsDiscountPrice.setText(
+                        TextUtil.getAbsoluteSpannable("￥" + item.getAllPrice(), priceSymbolSize,
+                                0, 1));
+
+                Goods goods = new Goods();
+                goods.setChoiceNumber(Integer.valueOf(item.getBuyCount()));
+                binding1.layoutGoodsOptionAddShoppingCart.setGoods(goods);
+
+                binding1.layoutGoodsOptionAddShoppingCart.ivAdd.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View view) {
+                        handleAddOrReduceGoodsCount(true, item);
+                    }
+                });
+                binding1.layoutGoodsOptionAddShoppingCart.ivRemove.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                    @Override
+                    public void onSingleClick(View view) {
+                        handleAddOrReduceGoodsCount(false, item);
+                    }
+                });
+
+            }
+
+            private void handleAddOrReduceGoodsCount(boolean isAdd, GoodsShoppingCart goodsShoppingCart) {
+                //加入购物车
+                if (isAdd) {
+                    EventBus.getDefault().post(new MessageEvent(
+                            MessageCodeConstant.SHOPPING_CART_ADD_WITH_SHOPPING_DATA, goodsShoppingCart));
+                }else{
+                    EventBus.getDefault().post(new MessageEvent(
+                            MessageCodeConstant.SHOPPING_CART_REDUCE_WITH_SHOPPING_DATA, goodsShoppingCart));
+                }
+            }
+        };
+        binding.recyclerGoodsList.setAdapter(recyclerGoodsListAdapter);
         binding.recyclerGoodsList.addItemDecoration(new RecyclerView.ItemDecoration() {
             int top_interval = (int) UIUtils.getInstance().scalePx(
                     getContext().getResources().getDimensionPixelOffset(R.dimen.interval_size_xs));
+
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
                                        @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
                 outRect.top = top_interval;
-                if(parent.getChildAdapterPosition(view) == state.getItemCount()-1){   //最后一项
+                if (parent.getChildAdapterPosition(view) == state.getItemCount() - 1) {   //最后一项
                     outRect.bottom = 4;
                 }
             }
         });
-        binding.layoutShoppingCart.tvPreferentialPrice.setVisibility(View.VISIBLE); // FIXME: 2020/12/25 暂时在这里处理
-        binding.layoutShoppingCart.tvPreferentialPrice.setText(getString(R.string.has_been_reduced_to,"3.88"));
-
+        setShoppingCartData(mViewModel.getWaiMaiShoppingCart(), view);
         return view;
     }
 
+    /**
+     * 设置购物车数据
+     * @param shoppingCartDialogContentView 购物车dialog的contentView
+     */
+    private void setShoppingCartData(WaiMaiShoppingCart waiMaiShoppingCart, View shoppingCartDialogContentView){
+        int goodsCount = 0;
+        String allPrice = "0";
+        String distPrice = "0";
+        String cartDesc = "";
+        List<GoodsShoppingCart> list = new ArrayList<>();
+        if(waiMaiShoppingCart != null){
+            goodsCount = waiMaiShoppingCart.getCount();
+            allPrice = waiMaiShoppingCart.getAllMoney();
+            if(allPrice == null || "".equals(allPrice))
+                allPrice = "0";
+            distPrice = waiMaiShoppingCart.getDistPrice();
+            if(distPrice == null || "".equals(distPrice))
+                distPrice = "0";
+            cartDesc = waiMaiShoppingCart.getCartDesc();
+            if(cartDesc == null || "".equals(cartDesc))
+                cartDesc = "";
+            list = waiMaiShoppingCart.getDeliveryGoodsDto();
+            if(list == null)
+                list = new ArrayList<>();
+        }
+        //设置商品数量角标
+        if (goodsCount > 0) {
+            mBinding.layoutShoppingCart.tvGoodsCount.setText(
+                    String.valueOf(goodsCount));
+            setViewVisibility(mBinding.layoutShoppingCart.tvGoodsCount, true);
+        } else {
+            setViewVisibility(mBinding.layoutShoppingCart.tvGoodsCount, false);
+        }
+        //设置总价
+        mBinding.layoutShoppingCart.tvSumPrice.setText(String.format("￥%s", allPrice));
+        //设置配送费
+        mBinding.layoutShoppingCart.tvDistPrice.setText(getString(R.string.dist_price,distPrice));
+
+        /*---------- 下面为更新dialog内数据 ----------*/
+        View view = shoppingCartDialogContentView;
+        if(view == null){
+            if(mShoppingCartDialog == null)
+                return;
+            view = mShoppingCartDialog.getContentView();
+        }
+        if(view == null){
+            return;
+        }
+
+        LayoutDialogShoppingCartExpandBinding binding = DataBindingUtil.bind(view);
+        if(binding == null)
+            return;
+
+        //设置优惠价格
+        if (!"".equals(cartDesc)) {
+            setViewVisibility(binding.layoutShoppingCart.tvPreferentialPrice, true);
+            binding.layoutShoppingCart.tvPreferentialPrice.setText(cartDesc);
+        } else {
+            setViewVisibility(binding.layoutShoppingCart.tvPreferentialPrice, false);
+        }
+        //设置商品数量角标
+        if (goodsCount > 0) {
+            binding.layoutShoppingCart.tvGoodsCount.setText(
+                    String.valueOf(goodsCount));
+            setViewVisibility(binding.layoutShoppingCart.tvGoodsCount, true);
+        } else {
+            setViewVisibility(binding.layoutShoppingCart.tvGoodsCount, false);
+        }
+        //设置总价
+        binding.layoutShoppingCart.tvSumPrice.setText(String.format("￥%s", allPrice));
+        //设置配送费
+        binding.layoutShoppingCart.tvDistPrice.setText(getString(R.string.dist_price,distPrice));
+        //刷新商品
+        if(recyclerGoodsListAdapter != null){
+            recyclerGoodsListAdapter.setNewData(list);
+            recyclerGoodsListAdapter.notifyDataSetChanged();
+        }
+    }
+
     BottomSheet shareDialog;
-    private void shopShareDialog(){
+
+    private void shopShareDialog() {
         final int TAG_SHARE_WECHAT_FRIEND = 0;
         final int TAG_SHARE_QQ = 1;
         final int TAG_SHARE_WECHAT_MOMENT = 2;
         final int TAG_SHARE_QZONE = 3;
         final int TAG_SHARE_LOCAL = 4;
-        BottomSheet.BottomGridSheetBuilder builder = new BottomSheet.BottomGridSheetBuilder(getActivity()){
+        BottomSheet.BottomGridSheetBuilder builder = new BottomSheet.BottomGridSheetBuilder(getActivity()) {
             @Override
             protected int getItemViewLayoutId() {
                 return R.layout.item_share_dialog;
@@ -695,25 +858,25 @@ public class ShopDetailFragment extends BaseFragment {
                     LogUtil.e("tag:" + tag + ", content:" + itemView.toString());
                 }).build();
         shareDialog.getContentView().setBackgroundResource(R.drawable.sr_bg_tl_tr_8dp);
-        ((TextView)shareDialog.getContentView().findViewById(R.id.bottom_sheet_close_button)).setText(R.string.cancel);
+        ((TextView) shareDialog.getContentView().findViewById(R.id.bottom_sheet_close_button)).setText(R.string.cancel);
         shareDialog.show();
     }
 
-    private void refreshShopInfo(){
+    private void refreshShopInfo() {
         //Head区域
         mBinding.layoutShopDetails.setShop(mViewModel.getShopDetail());
         String notice = mViewModel.getShopDetail().getNotice();
-        if(null == notice ||"".equals(notice)){
-            setViewVisibility(mBinding.layoutShopDetails.tvShopAnnouncement,false);
-        }else{
-            setViewVisibility(mBinding.layoutShopDetails.tvShopAnnouncement,true);
+        if (null == notice || "".equals(notice)) {
+            setViewVisibility(mBinding.layoutShopDetails.tvShopAnnouncement, false);
+        } else {
+            setViewVisibility(mBinding.layoutShopDetails.tvShopAnnouncement, true);
         }
 
         List<String> stringList = mViewModel.getCashBackData();
-        if(stringList.size() == 0){
-            setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack,false);
-        }else{
-            setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack,true);
+        if (stringList.size() == 0) {
+            setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack, false);
+        } else {
+            setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack, true);
             shopCashBackTagAdapter.setData(stringList);
         }
         Glide.with(this).load(mViewModel.getShopDetail().getShop_head_portrait()).
@@ -727,10 +890,10 @@ public class ShopDetailFragment extends BaseFragment {
                 into(mBinding.layoutMembers.ivShopIcon);
     }
 
-    public static void openPage(BaseFragment baseFragment, int shopId){
+    public static void openPage(BaseFragment baseFragment, int shopId) {
         Bundle bundle = new Bundle();
-        bundle.putInt(BUNDLE_KEY_SHOP_ID,shopId);
-        baseFragment.openPage(ShopDetailFragment.class,bundle);
+        bundle.putInt(BUNDLE_KEY_SHOP_ID, shopId);
+        baseFragment.openPage(ShopDetailFragment.class, bundle);
     }
 
 

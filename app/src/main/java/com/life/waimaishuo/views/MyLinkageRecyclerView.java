@@ -50,7 +50,7 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
     private LinearLayout mLinkageLayout;
 
     private LinkagePrimaryAdapter mPrimaryAdapter;
-    private LinkageSecondaryAdapter mSecondaryAdapter;
+    private LinkageSecondaryAdapter<T> mSecondaryAdapter;
     private TextView mTvHeader;
     private FrameLayout mHeaderContainer;
 
@@ -135,7 +135,7 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
         mRvPrimary.setLayoutManager(mPrimaryLayoutManager);
         mRvPrimary.setAdapter(mPrimaryAdapter);
 
-        mSecondaryAdapter = new LinkageSecondaryAdapter(mInitItems, secondaryAdapterConfig);
+        mSecondaryAdapter = new LinkageSecondaryAdapter<>(mInitItems, secondaryAdapterConfig);
         setLevel2LayoutManager();
         mRvSecondary.setAdapter(mSecondaryAdapter);
     }
@@ -295,7 +295,7 @@ public class MyLinkageRecyclerView <T extends BaseGroupedItem.ItemInfo> extends 
         return mPrimaryAdapter;
     }
 
-    public LinkageSecondaryAdapter getSecondaryAdapter() {
+    public LinkageSecondaryAdapter<T> getSecondaryAdapter() {
         return mSecondaryAdapter;
     }
 

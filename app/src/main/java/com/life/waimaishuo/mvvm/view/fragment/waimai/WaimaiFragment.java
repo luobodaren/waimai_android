@@ -359,7 +359,6 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        MyDataBindingUtil.removeFragmentCallBack(this);
         LocationUtil.stopLocation(true);
     }
 

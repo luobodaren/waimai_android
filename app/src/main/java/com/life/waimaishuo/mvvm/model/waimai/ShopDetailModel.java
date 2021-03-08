@@ -1,15 +1,23 @@
 package com.life.waimaishuo.mvvm.model.waimai;
 
+import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.bean.Coupon;
+import com.life.waimaishuo.bean.GoodsShoppingCart;
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.CommonReqData;
 import com.life.waimaishuo.bean.api.request.WaiMaiShopReqData;
 import com.life.waimaishuo.bean.api.request.bean.AddUserCollectReqBean;
+import com.life.waimaishuo.bean.api.respon.WaiMaiShoppingCart;
+import com.life.waimaishuo.bean.event.MessageEvent;
+import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.util.net.HttpUtils;
 import com.life.waimaishuo.constant.ApiConstant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +26,8 @@ public class ShopDetailModel extends BaseModel {
 
     public Shop shop = new Shop();
     public List<String> couponStringList = new ArrayList<>();
+
+    public WaiMaiShoppingCart waiMaiShoppingCart;   //购物车商品数据
 
     public boolean isJoinShopFans = false;
 
@@ -169,8 +179,51 @@ public class ShopDetailModel extends BaseModel {
 
     }
 
-    public List<String> getCouponStringList() {
-        return couponStringList;
+    /**
+     * 获取购物车
+     */
+    public void requestShoppingCart(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData) {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_SHOPPING_CART, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+            @Override
+            public void onSuccess(String data) {
+                waiMaiShoppingCart = null;
+                if(!"".equals(data)){
+                    waiMaiShoppingCart = GsonUtil.parserJsonToBean(data, WaiMaiShoppingCart.class);
+                    for(GoodsShoppingCart goodsShoppingCart : waiMaiShoppingCart.getDeliveryGoodsDto()){
+                        if(goodsShoppingCart.getAttrs() == null){
+                            goodsShoppingCart.setAttrs("");
+                        }
+                    }
+                }
+                requestCallBack.onSuccess(data);
+            }
+
+            @Override
+            public void onError(int errorType, Throwable error) {
+                LogUtil.e("requestShoppingCart error:" + error.getMessage());
+                waiMaiShoppingCart = null;
+                requestCallBack.onFail("");
+            }
+        });
     }
 
+    /**
+     * 清空购物车
+     * @param shopId
+     */
+    public void requestDelShoppingCartList(int shopId) {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_DEL_SHOPPING_CART_LIST, GsonUtil.toJsonString(new WaiMaiShopReqData.WaiMaiSimpleReqData(shopId)), true, new HttpUtils.HttpCallback() {
+            @Override
+            public void onSuccess(String data) {
+                waiMaiShoppingCart = null;
+                EventBus.getDefault().post(new MessageEvent(MessageCodeConstant.SHOPPING_CART_DEL_LIST_SUCCESS,waiMaiShoppingCart));
+            }
+
+            @Override
+            public void onError(int type, Throwable error) {
+                LogUtil.e("requestDelShoppingCartList error:" + error.getMessage());
+                EventBus.getDefault().post(new MessageEvent(MessageCodeConstant.SHOPPING_CART_DEL_LIST_FALSE,""));
+            }
+        });
+    }
 }

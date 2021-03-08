@@ -24,7 +24,7 @@
     <data>
         <variable
             name="item"
-            type="com.life.waimaishuo.bean.ui.ShoppingCartGood" />
+            type="com.life.waimaishuo.bean.GoodsShoppingCart" />
     </data>
 
     <LinearLayout
@@ -42,10 +42,10 @@
                 android:layout_width="136px"
                 android:layout_height="136px"
                 android:src="@drawable/ic_waimai_brand"
-                app:riv_corner_radius="4dp"
+                app:riv_corner_radius="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                imageUrl="@{item.imgUrl}"/>
+                imageUrl="@{item.goodsPrimaryImg}"/>
 
             <TextView
                 android:id="@+id/iv_goods_name"
@@ -58,7 +58,7 @@
                 android:textColor="@color/text_normal"
                 app:layout_constraintStart_toEndOf="@+id/iv_goods_img"
                 app:layout_constraintTop_toTopOf="@+id/iv_goods_img"
-                android:text="@{item.name}"
+                android:text="@{item.goodsName}"
                 tools:text="水果" />
 
             <TextView
@@ -70,7 +70,8 @@
                 android:ellipsize="end"
                 android:textColor="@color/text_tip"
                 android:layout_marginTop="16px"
-                android:text="好吃的食物，增肥神器，有求必应"
+                android:text="@{item.describe}"
+                tools:text="好吃的食物，增肥神器，有求必应"
                 android:textSize="26px"
                 app:layout_constraintStart_toStartOf="@+id/iv_goods_name"
                 app:layout_constraintEnd_toStartOf="@id/fl_goods_add"
@@ -82,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="¥18.8"
+                tools:text="¥18.8"
                 android:textColor="@color/red"
                 android:textSize="28px"
                 android:layout_marginTop="16px"
@@ -97,7 +98,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                <include layout="@layout/layout_goods_option_add_shopping_cart" />
+                <include
+                    android:id="@+id/layout_goods_option_add_shopping_cart"
+                    layout="@layout/layout_goods_option_add_shopping_cart" />
                 <!--            <include layout="@layout/layout_goods_option_chose"/>选规格  -->
             </FrameLayout>
 

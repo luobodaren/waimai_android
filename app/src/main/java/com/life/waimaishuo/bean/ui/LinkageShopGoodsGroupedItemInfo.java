@@ -17,11 +17,15 @@
 
 package com.life.waimaishuo.bean.ui;
 
+import androidx.databinding.ObservableInt;
+
 import com.kunminx.linkage.bean.BaseGroupedItem;
 import com.life.waimaishuo.bean.Goods;
 
 public class LinkageShopGoodsGroupedItemInfo extends BaseGroupedItem.ItemInfo {
     private Goods goods;
+
+    private ObservableInt uiUpdateObservable;
 
     public LinkageShopGoodsGroupedItemInfo(String title, String group, Goods goods) {
         super(title, group);
@@ -30,5 +34,13 @@ public class LinkageShopGoodsGroupedItemInfo extends BaseGroupedItem.ItemInfo {
 
     public Goods getGoods() {
         return goods;
+    }
+
+    public ObservableInt getUiUpdateObservable() {
+        return uiUpdateObservable;
+    }
+
+    public void setUiUpdateObservable(ObservableInt uiUpdateObservable) {
+        this.uiUpdateObservable = uiUpdateObservable;
     }
 }

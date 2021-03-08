@@ -7,7 +7,7 @@ import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiShopReqData;
-import com.life.waimaishuo.bean.ui.ShoppingCartGood;
+import com.life.waimaishuo.bean.api.respon.WaiMaiShoppingCart;
 import com.life.waimaishuo.enumtype.ShopTabTypeEnum;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.ShopDetailModel;
@@ -20,22 +20,21 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopDetailViewModel extends BaseViewModel {
+public class ShopDetailViewModel extends BaseShopDetailViewModel {
 
     public ObservableInt onRequestShopInfoObservable = new ObservableInt();
     public ObservableInt onRequestIsJoinShopFansObservable = new ObservableInt();
     public ObservableInt onRequestJoinShopFansObservable = new ObservableInt();
     public ObservableInt onRequestIsCollectShopObservable = new ObservableInt();
     public ObservableInt onRequestCollectOrCancelShopObservable = new ObservableInt();
+    public ObservableInt onRequestShoppingCartObservable = new ObservableInt();
 
     public BaseObservable onMembersCodeClick = new ObservableInt();
     public BaseObservable onMorePreferentialClick = new ObservableInt();
     public BaseObservable onCancelDialogClick = new ObservableInt();
-    public BaseObservable onShowShoppingCart = new ObservableInt();
     public BaseObservable onBackClick = new ObservableInt();
     public BaseObservable onCollectClick = new ObservableInt();
     public BaseObservable onShareClick = new ObservableInt();
-    public BaseObservable goToSettleAccounts = new ObservableInt();
 
     private ShopDetailModel model;
 
@@ -90,26 +89,8 @@ public class ShopDetailViewModel extends BaseViewModel {
         onCancelDialogClick.notifyChange();
     }
 
-    /**
-     * 展示购物车
-     *
-     * @param view
-     */
-    public void onShowShoppingCart(View view) {
-        onShowShoppingCart.notifyChange();
-    }
-
-    /**
-     * 去结算
-     *
-     * @param view
-     */
-    public void goToSettleAccounts(View view) {
-        goToSettleAccounts.notifyChange();
-    }
-
     public List<String> getCashBackData() {
-        return model.getCouponStringList();
+        return model.couponStringList;
     }
 
     /**
@@ -166,6 +147,21 @@ public class ShopDetailViewModel extends BaseViewModel {
         return model.isCollectShop;
     }
 
+    /**
+     * 请求购物车信息
+     */
+    public void requestShoppingCart(int shopId){
+        model.requestShoppingCart(new BaseModel.NotifyChangeRequestCallBack(onRequestShoppingCartObservable),new WaiMaiShopReqData.WaiMaiSimpleReqData(shopId));
+    }
+
+    /**
+     * 清空购物车
+     * @param shopId
+     */
+    public void requestDelShoppingCartList(int shopId) {
+        model.requestDelShoppingCartList(shopId);
+    }
+
     List<ShopTabTypeEnum> titleList = new ArrayList<>();
     public List<ShopTabTypeEnum> getRecommendedTitle() {
         titleList.add(ShopTabTypeEnum.ORDER_DISHES);
@@ -179,7 +175,8 @@ public class ShopDetailViewModel extends BaseViewModel {
         switch (title) {
             case ORDER_DISHES:
                 ShopOrderDishesFragment shopOrderDishesFragment = new ShopOrderDishesFragment();
-                shopOrderDishesFragment.setShopId(shopId);
+                shopOrderDishesFragment.setShop(model.shop);
+                shopOrderDishesFragment.waiMaiShoppingCart = model.waiMaiShoppingCart;
                 baseFragment = shopOrderDishesFragment;
                 break;
             case EVALUATION:
@@ -192,14 +189,8 @@ public class ShopDetailViewModel extends BaseViewModel {
         return baseFragment;
     }
 
-
-    public List<ShoppingCartGood> getShoppingCartData() {
-        List<ShoppingCartGood> list = new ArrayList<>();
-        list.add(new ShoppingCartGood("现切呀沙瓜", "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
-        list.add(new ShoppingCartGood("现切呀沙瓜", "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
-        list.add(new ShoppingCartGood("现切呀沙瓜", "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
-        list.add(new ShoppingCartGood("现切呀沙瓜", "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3557750652,71235332&fm=26&gp=0.jpg"));
-        return list;
+    public WaiMaiShoppingCart getWaiMaiShoppingCart(){
+        return model.waiMaiShoppingCart;
     }
 
 }

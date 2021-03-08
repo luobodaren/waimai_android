@@ -2,6 +2,7 @@ package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.databinding.Observable;
 
@@ -11,7 +12,11 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.config.CustomLinkagePrimaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.adapter.config.CustomLinkageSecondaryShopGoodsAdapterConfig;
 import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.GoodsShoppingCart;
+import com.life.waimaishuo.bean.Shop;
+import com.life.waimaishuo.bean.api.respon.WaiMaiShoppingCart;
 import com.life.waimaishuo.bean.event.MessageEvent;
+import com.life.waimaishuo.bean.event.ShoppingCartOptionEvent;
 import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
 import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentWaimaiShopOrderDishesBinding;
@@ -32,9 +37,6 @@ import com.xuexiang.xpage.utils.TitleBar;
 
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 @Page(name = "点餐", anim = CoreAnim.slide)
 public class ShopOrderDishesFragment extends BaseFragment
         implements OnPrimaryItemClickListener,
@@ -43,9 +45,15 @@ public class ShopOrderDishesFragment extends BaseFragment
     private FragmentWaimaiShopOrderDishesBinding mBinding;
     private ShopOrderDishesViewModel mViewModel;
 
+    private MyLinkageRecyclerView<LinkageShopGoodsGroupedItemInfo> linkage; //双列表Recycler
+
     private SpecificationDialog specificationDialog;    //选规格Dialog
 
-    private int shopId;
+    private Shop shop;
+
+    public WaiMaiShoppingCart waiMaiShoppingCart;   //初始的购物车数据，用于获取到商品数据时，设置以购买数量
+
+    public Goods tempGoods; //保存一个商品信息，用于在请求商品规格后，进行展示
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -81,6 +89,7 @@ public class ShopOrderDishesFragment extends BaseFragment
     @Override
     protected void initViews() {
         super.initViews();
+
         initBanner();
 
     }
@@ -96,7 +105,7 @@ public class ShopOrderDishesFragment extends BaseFragment
     protected void firstRequestData() {
         super.firstRequestData();
 
-        mViewModel.requestShopGoodsGroupList(shopId);
+        mViewModel.requestShopGoodsGroupList(shop.getShopId());
     }
 
     @Override
@@ -111,27 +120,29 @@ public class ShopOrderDishesFragment extends BaseFragment
 
     @Override
     public void onSecondaryItemClick(LinkageSecondaryViewHolder holder, ViewGroup view, BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
-        GoodsDetailFragment.openPage(this, shopId, item.info.getGoods());
+        GoodsDetailFragment.openPage(this, shop, item.info.getGoods());
     }
 
     @Override
     public void onSecondaryChildClick(LinkageSecondaryViewHolder holder, View view, BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
-        if (view.getId() == R.id.bt_chose_specification) {
-            //请求商品规格信息
-            mViewModel.requestGoodsSpecification();
-        } else if (view.getId() == R.id.iv_add) {
-            //开启加载dialog
-            if(item.info.getGoods().getChoiceNumber() == 0){    //若没有数据 则加入购物车
-                mViewModel.requestAddShoppingCart(String.valueOf(shopId), item.info.getGoods(),
-                        "1","", "");
-            }else{  //若有 则修改购物车加一
-                mViewModel.requestChangeShoppingCart(String.valueOf(shopId), item.info.getGoods(),
-                        String.valueOf(item.info.getGoods().getChoiceNumber() + 1),"", "");
+        tempGoods = item.info.getGoods();
+        if (view.getId() == R.id.bt_chose_specification || view.getId() == R.id.iv_add) {
+            // TODO: 2021/3/4 打开加载dialog
+            int buyCount = tempGoods.getChoiceNumber() + 1;
+            if (buyCount > 0) {
+                tempGoods.setWantBuyCount(String.valueOf(tempGoods.getChoiceNumber() + 1));
+                handleAddOrReduceGoodsCount();
             }
         } else if (view.getId() == R.id.iv_remove) {
-            //开启加载dialog
-            mViewModel.requestChangeShoppingCart(String.valueOf(shopId), item.info.getGoods(),
-                    String.valueOf(item.info.getGoods().getChoiceNumber() - 1),"", "");
+            if (tempGoods.getIsChooseSpecs() == 0) {
+                Toast.makeText(requireContext(), "删除商品请在购物车中删除！", Toast.LENGTH_SHORT).show();
+            } else {
+                int buyCount = tempGoods.getChoiceNumber() - 1;
+                if (buyCount >= 0) {
+                    tempGoods.setWantBuyCount(String.valueOf(buyCount));
+                    handleAddOrReduceGoodsCount();
+                }
+            }
         }
     }
 
@@ -144,13 +155,90 @@ public class ShopOrderDishesFragment extends BaseFragment
     public void MessageEvent(MessageEvent messageEvent) {
         super.MessageEvent(messageEvent);
         LogUtil.d(messageEvent.toString());
-        if(messageEvent.getCode() == MessageCodeConstant.ADD_SHOPPING_CART_SUCCESS){
-
-        }else if(messageEvent.getCode() == MessageCodeConstant.ADD_SHOPPING_CART_FALSE){
-
+        if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_SUCCESS
+                || messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_CHANGE_SUCCESS) {
+            if (messageEvent instanceof ShoppingCartOptionEvent) {
+                ShoppingCartOptionEvent shoppingCartOptionEvent = (ShoppingCartOptionEvent) messageEvent;
+                for (BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> linkageShopGoodsGroupedItem : mViewModel.getShopGoodsItems()) {
+                    if (linkageShopGoodsGroupedItem.isHeader) {
+                        continue;
+                    }
+                    //linkage最后一项为BaseGroupedItem<DefaultGroupedItem$ItemInfo> 需要添加判断
+                    if (linkageShopGoodsGroupedItem.info instanceof LinkageShopGoodsGroupedItemInfo) {
+                        if (shoppingCartOptionEvent.goodsId == linkageShopGoodsGroupedItem.info.getGoods().getId()) {
+                            linkageShopGoodsGroupedItem.info.getGoods().setChoiceNumber(shoppingCartOptionEvent.buyCount);
+                            if(linkageShopGoodsGroupedItem.info.getUiUpdateObservable() != null)
+                                linkageShopGoodsGroupedItem.info.getUiUpdateObservable().notifyChange();
+                            break;
+                        }
+                    }
+                }
+            }
+        } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_FALSE) {
+            Toast.makeText(requireContext(), "加入购物车失败", Toast.LENGTH_SHORT).show();
+        } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_CHANGE_FALSE) {
+            Toast.makeText(requireContext(), "修改商品失败", Toast.LENGTH_SHORT).show();
+        } else if(messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_WITH_GOODS){
+            tempGoods = (Goods) messageEvent.getMessage();  //需要设置好wantBuy
+            handleAddOrReduceGoodsCount();
+        } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_WITH_GOODS_DIRECT) { //这里直接执行加入购物车操作 而不是点击事件触发的加入购物车
+            Goods buyGoods = (Goods) messageEvent.getMessage();
+            mViewModel.requestAddShoppingCart(String.valueOf(shop.getShopId()), buyGoods);
+        } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_WITH_SHOPPING_DATA) {
+            GoodsShoppingCart goodsShoppingCart = (GoodsShoppingCart) messageEvent.getMessage();
+            Goods buyGoods = new Goods(goodsShoppingCart);
+            buyGoods.setWantBuyCount(String.valueOf(buyGoods.getChoiceNumber() + 1));
+            mViewModel.requestChangeShoppingCart(String.valueOf(shop.getShopId()), buyGoods);
+        } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_REDUCE_WITH_SHOPPING_DATA) {
+            GoodsShoppingCart goodsShoppingCart = (GoodsShoppingCart) messageEvent.getMessage();
+            Goods buyGoods = new Goods(goodsShoppingCart);
+            buyGoods.setWantBuyCount(String.valueOf(buyGoods.getChoiceNumber() - 1));
+            mViewModel.requestChangeShoppingCart(String.valueOf(shop.getShopId()), buyGoods);
+        } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_DEL_LIST_SUCCESS) {
+            if (linkage != null && linkage.getSecondaryAdapter() != null) {
+                for (BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> linkageShopGoodsGroupedItem : mViewModel.getShopGoodsItems()) {
+                    if (!linkageShopGoodsGroupedItem.isHeader) {
+                        //linkage最后一项为BaseGroupedItem<DefaultGroupedItem$ItemInfo> 需要添加判断
+                        if (linkageShopGoodsGroupedItem.info instanceof LinkageShopGoodsGroupedItemInfo) {
+                            linkageShopGoodsGroupedItem.info.getGoods().setChoiceNumber(0);
+                        }
+                    }
+                }
+                linkage.getSecondaryAdapter().notifyDataSetChanged();
+            }
         }
     }
 
+    /**
+     * 点击事件触发的加入购物车操作
+     */
+    private void handleAddOrReduceGoodsCount() {
+        if (tempGoods.getSpecificationList() != null || tempGoods.getAttributeList() != null) {
+            if (tempGoods.getIsChooseSpecs() == 1) {  //若无需选择规格
+                if (tempGoods.getSpecSelected() == null || "".equals(tempGoods.getSpecSelected())) {  //判断是否以设置选择的规格
+                    //设置选择的规格
+                    if (tempGoods.getSpecificationList() != null && tempGoods.getSpecificationList().size() > 0) {
+                        tempGoods.setSpecSelected(tempGoods.getSpecificationList().get(0).getName());
+                    } else {
+                        tempGoods.setSpecSelected(getString(R.string.waimai_goods_default_spec_str));
+                    }
+                }
+                if(tempGoods.getAttrs() == null){   //没有设置属性则设置为空字符串
+                    tempGoods.setAttrs("");
+                }
+                if (Integer.valueOf(tempGoods.getWantBuyCount()) == 1 && tempGoods.getChoiceNumber() == 0) {  //由0 -> 1加入购物车
+                    mViewModel.requestAddShoppingCart(String.valueOf(shop.getShopId()), tempGoods);
+                } else {  //否则 修改购物车
+                    mViewModel.requestChangeShoppingCart(String.valueOf(shop.getShopId()), tempGoods);
+                }
+            } else {
+                showChoseSpecificationDialog(tempGoods);
+            }
+        } else {
+            //请求商品规格信息 完成后打开规格Dialog
+            mViewModel.requestGoodsSpecification(tempGoods);
+        }
+    }
 
     private void initBanner() {
         mBinding.contentLayout.setVisibility(View.GONE);    //目前不需要展示
@@ -167,7 +255,7 @@ public class ShopOrderDishesFragment extends BaseFragment
             mViewModel.getShopGoodsItems().add(new BaseGroupedItem<LinkageShopGoodsGroupedItemInfo>(true, "没有数据") {
             });
         }
-        MyLinkageRecyclerView<LinkageShopGoodsGroupedItemInfo> linkage = mBinding.linkageOrderDishes;
+        linkage = mBinding.linkageOrderDishes;
         linkage.init(mViewModel.getShopGoodsItems(),
                 new CustomLinkagePrimaryShopGoodsAdapterConfig<>(this, linkage),
                 new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this));
@@ -190,21 +278,36 @@ public class ShopOrderDishesFragment extends BaseFragment
     }
 
     private void addCallBack() {
-        MyDataBindingUtil.addCallBack(this, mViewModel.requestShopGoodsObservable, new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                mHandler.post(() -> initLinkageRecycler());
-            }
-        });
         MyDataBindingUtil.addCallBack(this, mViewModel.requestGoodsSpecificationObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                mHandler.post(() -> showChoseSpecificationDialog(mViewModel.getGoodsSpecification()));
+                mHandler.post(() -> {
+                    //判断是加入购物车 还是删除 还是修改
+                    handleAddOrReduceGoodsCount();
+                });
+            }
+        });
+        MyDataBindingUtil.addCallBack(this, mViewModel.requestShopGoodsObservable, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> {
+                    //设置购买数量
+                    for (BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item : mViewModel.getShopGoodsItems()) {
+                        if (item.isHeader)
+                            continue;
+                        for (GoodsShoppingCart goodsShoppingCart : waiMaiShoppingCart.getDeliveryGoodsDto()) {
+                            if (goodsShoppingCart.getGoodsId() == item.info.getGoods().getId()) {
+                                item.info.getGoods().setChoiceNumber(Integer.valueOf(goodsShoppingCart.getBuyCount()));
+                            }
+                        }
+                    }
+                    initLinkageRecycler();
+                });
             }
         });
     }
 
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }

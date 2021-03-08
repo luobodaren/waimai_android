@@ -19,9 +19,13 @@ public class WaiMaiGoodsDetailModel extends BaseModel {
                 goods = null;
                 if (!"".equals(data)) {
                     goods = GsonUtil.parserJsonToBean(data, Goods.class);
-
                     goods.setGoodsImgUrl(HttpUtils.changeToHttps(goods.getGoodsImgUrl()));
                     goods.setGoodsMoreImgs(HttpUtils.changeToHttps(goods.getGoodsMoreImgs()));
+                    if(goods.getIsChooseSpecs() == 1){
+                        if(goods.getSpecificationList().size() > 0){
+                            goods.setSpecialPrice(goods.getSpecificationList().get(0).getSpecialPrice());
+                        }
+                    }
                 }
                 requestCallBack.onSuccess(null);
             }

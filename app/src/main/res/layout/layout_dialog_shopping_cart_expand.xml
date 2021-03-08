@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
+
     </data>
 
     <com.life.base.views.UiAdapterConstrainLayout
@@ -24,10 +22,10 @@
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/text_normal"
             android:textSize="28px"
-            android:text="@{viewModel.shopDetail.shop_name}"
             tools:text="嘉禾一品粥店（国展店）" />
 
         <TextView
+            android:id="@+id/tv_empty_shopping_cart"
             style="@style/text_my_simple_style"
             android:textColor="@color/text_tip"
             android:textSize="26px"
@@ -42,10 +40,10 @@
             app:layout_constraintTop_toBottomOf="@id/tv_shop_name"
             app:layout_constraintStart_toStartOf="parent" />
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_goods_list"
             style="@style/recycler_default"
+            android:layout_height="600px"
             app:layout_constraintTop_toBottomOf="@id/tv_divider"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -21,6 +21,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.databinding.LayoutDialogDirectFunctionBinding;
 import com.life.waimaishuo.mvvm.view.fragment.MainFragment;
 import com.life.waimaishuo.util.ActivityCollector;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.views.widget.dialog.TopLightBackgroundDialog;
 import com.xuexiang.xpage.base.XPageActivity;
@@ -269,6 +270,7 @@ public abstract class BaseActivity extends XPageActivity {
 //        mViewDataBinding.unbind();
         //activity管理
         ActivityCollector.removeActivity(this);
+        MyDataBindingUtil.removeActivityCallBack(this);
     }
 
     /**

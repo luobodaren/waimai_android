@@ -331,7 +331,7 @@ public class HttpUtils {
                                 }
                                 httpCallback.onSuccess(data);
                             }else{
-                                httpCallback.onError(HttpCallback.ERROR_TYPE_CODE, new Error("失败，code != 1"));
+                                httpCallback.onError(HttpCallback.ERROR_TYPE_CODE, new Error("失败，responseJson:" + json));
                             }
                         }catch (Exception e){
                             LogUtil.e("error:" + e.getMessage() + " url:" + request.url().toString() + " resultJson:" + json);

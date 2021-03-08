@@ -19,16 +19,17 @@ package com.life.waimaishuo.adapter.config;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableInt;
 import androidx.databinding.ViewDataBinding;
 
+import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.bean.ui.LinkageShopGoodsGroupedItemInfo;
 import com.life.waimaishuo.databinding.AdapterLinkageSecondaryLinearBinding;
-import com.kunminx.linkage.LinkageRecyclerView;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryFooterViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryHeaderViewHolder;
 import com.kunminx.linkage.adapter.viewholder.LinkageSecondaryViewHolder;
@@ -39,8 +40,6 @@ import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.util.TextUtil;
 
-import java.lang.ref.WeakReference;
-
 public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedItem.ItemInfo> implements ILinkageSecondaryAdapterConfig<LinkageShopGoodsGroupedItemInfo> {
 
     private static final int SPAN_COUNT = 3;
@@ -48,6 +47,9 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
     private Context mContext;
 
     private OnSecondaryShopGoodsItemClickListener mItemClickListener;
+
+    private int textSize_one;
+    private int textSize_two;
 
     public CustomLinkageSecondaryShopGoodsAdapterConfig(OnSecondaryShopGoodsItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
@@ -93,7 +95,6 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
         return SPAN_COUNT;
     }
 
-
     @Override
     public void onBindViewHolder(final LinkageSecondaryViewHolder holder,
                                  final BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
@@ -111,12 +112,25 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
         }*/
 
         ViewDataBinding binding = DataBindingUtil.bind(holder.itemView);
-        binding.setVariable(com.life.waimaishuo.BR.item,item.info);
+        binding.setVariable(com.life.waimaishuo.BR.item, item.info);
 
         //处理item点击事件
         //判断显示“选规格”按钮还是 加减数量
-        if(binding instanceof AdapterLinkageSecondaryLinearBinding){
-            AdapterLinkageSecondaryLinearBinding binding1 = (AdapterLinkageSecondaryLinearBinding)binding;
+        if (binding instanceof AdapterLinkageSecondaryLinearBinding) {
+            AdapterLinkageSecondaryLinearBinding binding1 = (AdapterLinkageSecondaryLinearBinding) binding;
+
+            /*-------------- 设置监听 --------------*/
+            if (item.info.getUiUpdateObservable() == null) { //添加UI更新界面
+                ObservableInt observableInt = new ObservableInt();
+                observableInt.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+                    @Override
+                    public void onPropertyChanged(Observable sender, int propertyId) {
+                        //更新UI
+                        updateItemUI(item.info, binding1);
+                    }
+                });
+                item.info.setUiUpdateObservable(observableInt);
+            }
 
             binding1.clGoodsItem.setOnClickListener(v -> {
                 if (mItemClickListener != null) {
@@ -124,46 +138,57 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
                 }
             });
 
-            if(item.info.getGoods().getDiscount() != null && !"".equals(item.info.getGoods().getDiscount())){
-                binding1.llPreferential.tvDiscount.setText(mContext.getString(R.string.discount,item.info.getGoods().getDiscount()));
-            }else{
+            item.info.getGoods().getChoiceNumberObservable().set(String.valueOf(item.info.getGoods().getChoiceNumber()));
+            binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.setGoods(item.info.getGoods());
+
+            binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.btChoseSpecification
+                    .setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View view) {
+                            if (mItemClickListener != null)
+                                mItemClickListener.onSecondaryChildClick(holder, view, item);
+                        }
+                    });
+            binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.ivAdd
+                    .setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View view) {
+                            if (mItemClickListener != null)
+                                mItemClickListener.onSecondaryChildClick(holder, view, item);
+                        }
+                    });
+            binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.ivRemove
+                    .setOnClickListener(new BaseActivity.OnSingleClickListener() {
+                        @Override
+                        public void onSingleClick(View view) {
+                            if (mItemClickListener != null)
+                                mItemClickListener.onSecondaryChildClick(holder, view, item);
+                        }
+                    });
+
+            updateItemUI(item.info, binding1);
+
+            /*-------------- 设置数据 --------------*/
+            //设置优惠信息
+            if (item.info.getGoods().getDiscount() != null && !"".equals(item.info.getGoods().getDiscount())) {
+                binding1.llPreferential.tvDiscount.setText(mContext.getString(R.string.discount, item.info.getGoods().getDiscount()));
+            } else {
                 binding1.llPreferential.llContent.setVisibility(View.GONE);
             }
 
+            if(textSize_one == 0)
+                textSize_one = (int) UIUtils.getInstance().scalePx(16);
+            if(textSize_two == 0)
+                textSize_two = (int) UIUtils.getInstance().scalePx(12);
+
+            String discountPrice = String.format("￥%s", item.info.getGoods().getSpecialPrice());
+            binding1.layoutGoodsPriceAndBuy.tvGoodsDiscountPrice.setText(
+                    TextUtil.getAbsoluteSpannable(discountPrice,textSize_one,0,1));
+
+            String linePrice = String.format("￥%s", item.info.getGoods().getLinePrice());
+            binding1.layoutGoodsPriceAndBuy.tvGoodsPrePrice.setText(
+                    TextUtil.getAbsoluteSpannable(linePrice,textSize_two,0,1));
             TextUtil.setStrikeThrough(binding1.layoutGoodsPriceAndBuy.tvGoodsPrePrice);
-            binding1.layoutGoodsPriceAndBuy.setGoods(item.info.getGoods());
-
-            if(item.info.getGoods().getIsChooseSpecs() == 0){
-                binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.btChoseSpecification
-                        .setOnClickListener(new BaseActivity.OnSingleClickListener() {
-                            @Override
-                            public void onSingleClick(View view) {
-                                mItemClickListener.onSecondaryChildClick(holder,view,item);
-                            }
-                        });
-                BaseFragment.setViewVisibility(binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.llContent,false);
-                BaseFragment.setViewVisibility(binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.llContent,true);
-            }else{
-                binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.tvCount.setText(
-                        String.valueOf(item.info.getGoods().getChoiceNumber()));    //设置选中数量
-                binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.ivAdd
-                        .setOnClickListener(new BaseActivity.OnSingleClickListener() {
-                            @Override
-                            public void onSingleClick(View view) {
-                                mItemClickListener.onSecondaryChildClick(holder,view,item);
-                            }
-                        });
-                binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.ivRemove
-                        .setOnClickListener(new BaseActivity.OnSingleClickListener() {
-                            @Override
-                            public void onSingleClick(View view) {
-                                mItemClickListener.onSecondaryChildClick(holder,view,item);
-                            }
-                        });
-                BaseFragment.setViewVisibility(binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.llContent,true);
-                BaseFragment.setViewVisibility(binding1.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.llContent,false);
-            }
-
         }
 
     }
@@ -179,6 +204,21 @@ public class CustomLinkageSecondaryShopGoodsAdapterConfig<T extends BaseGroupedI
     public void onBindFooterViewHolder(LinkageSecondaryFooterViewHolder holder,
                                        BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item) {
 
+    }
+
+    /**
+     * 更新Item UI
+     */
+    private void updateItemUI(LinkageShopGoodsGroupedItemInfo item, AdapterLinkageSecondaryLinearBinding binding) {
+        if (item.getGoods().getIsChooseSpecs() == 0 && item.getGoods().getChoiceNumber() == 0) {
+            BaseFragment.setViewVisibility(binding.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.llContent, false);
+            BaseFragment.setViewVisibility(binding.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.llContent, true);
+        } else {
+            binding.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.tvCount.setText(
+                    String.valueOf(item.getGoods().getChoiceNumber()));    //设置选中数量
+            BaseFragment.setViewVisibility(binding.layoutGoodsPriceAndBuy.layoutGoodsOptionAddShoppingCart.llContent, true);
+            BaseFragment.setViewVisibility(binding.layoutGoodsPriceAndBuy.layoutGoodsOptionChose.llContent, false);
+        }
     }
 
 }

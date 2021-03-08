@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel" />
+            type="com.life.waimaishuo.mvvm.vm.waimai.BaseShopDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,7 +103,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_uncheck_message_count"
+                        android:id="@+id/tv_goods_count"
                         android:layout_width="24px"
                         android:layout_height="24px"
                         android:layout_marginStart="32px"
@@ -114,7 +114,7 @@
                         android:textColor="@color/white"
                         app:layout_constraintTop_toTopOf="@id/iv_shopping_cart"
                         app:layout_constraintStart_toStartOf="@id/iv_shopping_cart"
-                        android:text="2" />
+                        tools:text="2" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -134,16 +134,17 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_36"
                         android:includeFontPadding="false"
-                        android:text="￥26.88" />
+                        tools:text="￥26.88" />
 
                     <TextView
+                        android:id="@+id/tvDistPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
                         android:textSize="18px"
                         android:layout_marginTop="8px"
-                        android:text="另需配送费3元" />
+                        tools:text="另需配送费3元" />
 
                 </LinearLayout>
 

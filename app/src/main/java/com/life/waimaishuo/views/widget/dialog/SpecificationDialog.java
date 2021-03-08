@@ -3,6 +3,7 @@ package com.life.waimaishuo.views.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,16 @@ import com.life.base.utils.UIUtils;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tag.SpecificationWaiMaiTagAdapter;
 import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.event.MessageEvent;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.LayoutDialogChoseSpecificationBinding;
+import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.views.MyFlowTagLayout;
 import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +45,8 @@ import static java.lang.Integer.parseInt;
  * 选规格的Dialog
  */
 public class SpecificationDialog extends Dialog {
+
+    private LayoutDialogChoseSpecificationBinding binding;
 
     private TextView tvName;
     private TextView tvGoodsPrice;
@@ -60,6 +68,11 @@ public class SpecificationDialog extends Dialog {
 
     private Goods goods;    //数据来源
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     public SpecificationDialog(@NonNull Context context) {
         super(context, R.style.mySimpleNoTitleDialog);
 
@@ -79,7 +92,7 @@ public class SpecificationDialog extends Dialog {
     // FIXME: 2021/1/4 修改数据获取的方式
     private void initView() {
         View view = View.inflate(getContext(), R.layout.layout_dialog_chose_specification, null);
-        LayoutDialogChoseSpecificationBinding binding = DataBindingUtil.bind(view);
+        binding = DataBindingUtil.bind(view);
 
         //对象保存
         tvName = binding.tvName;
@@ -94,8 +107,21 @@ public class SpecificationDialog extends Dialog {
 
         binding.ivClose.setOnClickListener(v -> dismiss());
 
-        binding.layoutGoodsOptionAddShoppingCart.ivAdd.setOnClickListener(v -> handleAddOrReduceGoodsCount(true));
-        binding.layoutGoodsOptionAddShoppingCart.ivRemove.setOnClickListener(v -> handleAddOrReduceGoodsCount(false));
+        binding.layoutGoodsOptionAddShoppingCart.ivAdd.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                handleAddOrReduceGoodsCount(true);
+            }
+        });
+        binding.layoutGoodsOptionAddShoppingCart.ivRemove.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                handleAddOrReduceGoodsCount(false);
+            }
+        });
+        binding.btAddShoppingCart.setOnClickListener(v -> {
+            handelAddShoppingCart();
+        });
 
         //初始化规格 属性
         if (goods != null) {
@@ -132,25 +158,26 @@ public class SpecificationDialog extends Dialog {
 
                     flowTagLayout.setAdapter(tagAdapter);
                     flowTagLayout.setTagCheckedMode(FlowTagLayout.FLOW_TAG_CHECKED_SINGLE);
-                    flowTagLayout.setOnTagSelectListener(new FlowTagLayout.OnTagSelectListener() {
-                        @Override
-                        public void onItemSelect(FlowTagLayout parent, int tagPosition, List<Integer> selectedList) {
-                            LogUtil.d("流标签选中index:" + tagPosition);
-                            //tagAdapter.selectedIndex = tagPosition;
-                            tagAdapter.setSelectedPosition(tagPosition);
+                    flowTagLayout.setOnTagSelectListener((parent, tagPosition, selectedList) -> {
+                        LogUtil.d("流标签选中index:" + tagPosition);
+                        //tagAdapter.selectedIndex = tagPosition;
+                        tagAdapter.setSelectedPosition(tagPosition);
 
-                            //保存选中的数据
-                            if (!tagKeyList.contains(position)) {
-                                tagKeyList.add(position);
-                            } else {
-                                tagStringMap.remove(position);
-                            }
-                            tagStringMap.put(position, item.getValue()[tagPosition]);
-
-                            resetSelectInfo();
+                        //保存选中的数据
+                        if (!tagKeyList.contains(position)) {
+                            tagKeyList.add(position);
+                        } else {
+                            tagStringMap.remove(position);
                         }
+                        tagStringMap.put(position, item.getValue()[tagPosition]);
+
+                        resetSelectInfo();
                     });
-                    tagAdapter.addTags(item.getValue()); // FIXME: 2021/1/4 修改内容
+                    tagAdapter.addTags(item.getValue());
+                }else{
+                    SpecificationWaiMaiTagAdapter tagAdapter = ((SpecificationWaiMaiTagAdapter)flowTagLayout.getAdapter());
+                    tagAdapter.clearData();
+                    tagAdapter.addData(item.getValue());
                 }
             }
 
@@ -169,9 +196,11 @@ public class SpecificationDialog extends Dialog {
                 LogUtil.d("流标签选中index:" + tagPosition);
                 //tagAdapter.selectedIndex = tagPosition;
                 tagAdapter.setSelectedPosition(tagPosition);
-
                 specification = tagAdapter.getItem(tagPosition);
 
+                goods.setSpecialPrice(goods.getSpecificationList().get(tagPosition).getSpecialPrice());
+
+                refreshAllGoodsPrice();
                 resetSelectInfo();
             }
         });
@@ -202,14 +231,27 @@ public class SpecificationDialog extends Dialog {
         tvSelectedInfo.setText(selectedInfoBuilder.toString());
     }
 
+    /**
+     * 处理加减按钮点击事件
+     * @param isAdd
+     */
     private void handleAddOrReduceGoodsCount(boolean isAdd) {
-        int count;
+        int currentCount = parseInt(tvSelectedCount.getText().toString());
         if (isAdd) {
-            count = parseInt(tvSelectedCount.getText().toString()) + 1;
-
+            tvSelectedCount.setText(String.valueOf(currentCount + 1));
         } else {
-            count = parseInt(tvSelectedCount.getText().toString()) - 1;
+            if(currentCount > 1){
+                tvSelectedCount.setText(String.valueOf(parseInt(tvSelectedCount.getText().toString()) - 1));
+            }
         }
+        refreshAllGoodsPrice();
+    }
+
+    /**
+     * 刷新价格
+     */
+    private void refreshAllGoodsPrice(){
+        int count = parseInt(tvSelectedCount.getText().toString());
         if (count > 0) {
             tvSelectedCount.setText(String.valueOf(count));
             tvAllGoodsPrice.setText(String.valueOf(
@@ -217,6 +259,20 @@ public class SpecificationDialog extends Dialog {
                             goods.getSpecificationList().get(
                                     tagAdapter.getSelectedIndex()).getSpecialPrice())));
         }
+    }
+
+    /**
+     * 处理点击加入购物车
+     */
+    private void handelAddShoppingCart(){
+        dismiss();
+        List<String> attrsList = new ArrayList<>();
+        for (int key : tagKeyList) {
+            attrsList.add(tagStringMap.get(key));
+        }
+        goods.setAddShoppingCartData(tvSelectedCount.getText().toString(),
+                specification, attrsList);
+        EventBus.getDefault().post(new MessageEvent(MessageCodeConstant.SHOPPING_CART_ADD_WITH_GOODS_DIRECT,goods));
     }
 
 
@@ -228,6 +284,13 @@ public class SpecificationDialog extends Dialog {
     public void setData(Goods goods) {
         this.goods = goods;
 
+        String price = goods.getSpecificationList().get(0).getSpecialPrice();
+        goods.setSpecialPrice(price);   //设置默认价格为规格一的价格 不进行设置接口会请求失败
+
+        Goods temp = new Goods();
+        temp.setChoiceNumber(1);
+        binding.layoutGoodsOptionAddShoppingCart.setGoods(temp);
+
         Glide.with(getContext())
                 .load(goods.getGoodsImgUrl())
                 .placeholder(R.drawable.ic_waimai_brand)
@@ -235,7 +298,6 @@ public class SpecificationDialog extends Dialog {
                 .into(ivGoodsImg);
 
         //初始展示价格选中规格第一项价格
-        String price = goods.getSpecificationList().get(0).getSpecialPrice();
         tvGoodsPrice.setText(price);
         tvAllGoodsPrice.setText(price);
         tvName.setText(goods.getName());
@@ -243,6 +305,7 @@ public class SpecificationDialog extends Dialog {
         //初始选中的数据
         tagKeyList.clear();
         tagStringMap.clear();
+
         specification = goods.getSpecificationList().get(0).getName();
         int attributeSize = goods.getAttributeList().size();
         for (int i = 0; i < attributeSize; i++) {
@@ -256,7 +319,7 @@ public class SpecificationDialog extends Dialog {
                 initAttributeRecycler();
             }
         } else {
-            attributeRVAdapter.refresh(goods.getAttributeList());
+            attributeRVAdapter.resetDataSource(goods.getAttributeList()).notifyDataSetChanged();
         }
         if (tagAdapter == null) {
             if (goods.getSpecificationList() != null && goods.getSpecificationList().size() > 0) {
@@ -267,6 +330,7 @@ public class SpecificationDialog extends Dialog {
             for (Goods.Specification specification : goods.getSpecificationList()) {
                 tags.add(specification.getName());
             }
+            tagAdapter.clearData();
             tagAdapter.addTags(tags);
         }
 
@@ -278,6 +342,10 @@ public class SpecificationDialog extends Dialog {
             lp.height = scaleHeight;
             sv_attribute.setLayoutParams(lp);
         }
+    }
+
+    public interface MyListener {
+        void onAddShoppingCart(Goods goods);
     }
 
 }

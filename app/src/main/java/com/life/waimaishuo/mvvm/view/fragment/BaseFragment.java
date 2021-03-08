@@ -22,6 +22,7 @@ import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.base.XPageFragment;
@@ -169,6 +170,8 @@ public abstract class BaseFragment extends XPageFragment {
         if(EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().unregister(this);
         }
+
+        MyDataBindingUtil.removeFragmentCallBack(this);
     }
 
     @Override

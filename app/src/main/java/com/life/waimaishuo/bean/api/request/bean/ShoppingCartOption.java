@@ -7,7 +7,7 @@ public class ShoppingCartOption {
     private String buyCount;
     private String goodsId;
     private String goodsName;
-    //private String goodsPrimaryImg;
+    private String goodsPrimaryImg;
     private String isBargainGoods;
     private String isPitchOn;
     private String price;
@@ -15,12 +15,13 @@ public class ShoppingCartOption {
     private String specs;
     private String versions;
 
-    public ShoppingCartOption(String attrs, String boxPrice, String buyCount, String goodsId, String goodsName, String isBargainGoods, String isPitchOn, String price, String shopId, String specs, String versions) {
+    public ShoppingCartOption(String attrs, String boxPrice, String buyCount, String goodsId, String goodsName, String goodsPrimaryImg, String isBargainGoods, String isPitchOn, String price, String shopId, String specs, String versions) {
         this.attrs = attrs;
         this.boxPrice = boxPrice;
         this.buyCount = buyCount;
         this.goodsId = goodsId;
         this.goodsName = goodsName;
+        this.goodsPrimaryImg = goodsPrimaryImg;
         this.isBargainGoods = isBargainGoods;
         this.isPitchOn = isPitchOn;
         this.price = price;
@@ -69,6 +70,14 @@ public class ShoppingCartOption {
         this.goodsName = goodsName;
     }
 
+    public String getGoodsPrimaryImg() {
+        return goodsPrimaryImg;
+    }
+
+    public void setGoodsPrimaryImg(String goodsPrimaryImg) {
+        this.goodsPrimaryImg = goodsPrimaryImg;
+    }
+
     public String getIsBargainGoods() {
         return isBargainGoods;
     }
@@ -115,5 +124,23 @@ public class ShoppingCartOption {
 
     public void setVersions(String versions) {
         this.versions = versions;
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingCartOption{" +
+                "attrs='" + attrs + '\'' +
+                ", boxPrice='" + boxPrice + '\'' +
+                ", buyCount='" + buyCount + '\'' +
+                ", goodsId='" + goodsId + '\'' +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsPrimaryImg='" + goodsPrimaryImg + '\'' +
+                ", isBargainGoods='" + isBargainGoods + '\'' +
+                ", isPitchOn='" + isPitchOn + '\'' +
+                ", price='" + price + '\'' +
+                ", shopId='" + shopId + '\'' +
+                ", specs='" + specs + '\'' +
+                ", versions='" + versions + '\'' +
+                '}';
     }
 }

@@ -49,9 +49,11 @@ public class ApiConstant {
     public final static String API_WAIMAI_GET_SHOP_GOODS_GROUP_LIST = "/deliveryShopFirst/selectShopGroupList";   //查询外卖店铺首页的分组以及商品列表
 
     public final static String API_WAIMAI_GOODS_DELIVER_DETAIL = "/deliveryShopFirst/getGoodsDeliveryDetail";   //外卖商品详情
-    public final static String API_WAIMAI_GET_GOODS_SPECIFICATION = "";
+    public final static String API_WAIMAI_GET_GOODS_SPECIFICATION = "/deliveryShopFirst/getDeliveryGoodsSpecs";
 
     public final static String API_WAIMAI_GET_SHOPPING_CART = "/deliverycart/getcartbyshopid";  //获取购物车
     public final static String API_WAIMAI_ADD_SHOPPING_CART = "/deliverycart/adddeliverycart";  //加入购物车
-    public final static String API_WAIMAI_CHANGE_SHOPPING_CART = "/deliverycart/upddeliverycart";  //加入购物车
+    public final static String API_WAIMAI_CHANGE_SHOPPING_CART = "/deliverycart/upddeliverycart";  //修改购物车
+    public final static String API_WAIMAI_DEL_SHOPPING_CART_LIST = "/deliverycart/delListDeliveryCart";  //清空指定店铺购物车
+
 }

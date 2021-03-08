@@ -3,7 +3,7 @@ package com.life.waimaishuo.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.databinding.BaseObservable;
+import androidx.databinding.ObservableField;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Goods implements Parcelable {
+
+    private ObservableField<String> choiceNumberObservable = new ObservableField<>(); //用于DataBinding 展示购买数量数据
 
     @SerializedName(value = "id")
     private int id;
@@ -90,6 +92,26 @@ public class Goods implements Parcelable {
     @SerializedName(value = "attributeJsonList")
     private List<Attribute> attributeList;
 
+    /**
+     * 将购买的数量，供添加购物车时使用
+     */
+    private String wantBuyCount;
+
+    /**
+     * 选择的规格，供添加购物车时使用
+     */
+    private String specSelected;
+
+    /**
+     * 选择的属性，供添加购物车时使用
+     */
+    private List<String> attrsSelected;
+
+    /**
+     * 选择的属性拼接完成后的字符串
+     */
+    private String attrs;
+
     public Goods() {
     }
 
@@ -109,6 +131,27 @@ public class Goods implements Parcelable {
         this.monSalesVolume = monSalesVolume;
         this.price = price;
     }
+
+
+    /**
+     * 构造方法 由购物车类对象生成商品对象
+     * @param goodsShoppingCart
+     */
+    public Goods(GoodsShoppingCart goodsShoppingCart){
+        this.id = goodsShoppingCart.getGoodsId();
+        this.shopId = goodsShoppingCart.getShopId();
+        this.name = goodsShoppingCart.getGoodsName();
+        this.goodsImgUrl = goodsShoppingCart.getGoodsPrimaryImg();
+        this.specSelected = goodsShoppingCart.getSpecs();
+        this.attrs = goodsShoppingCart.getAttrs();
+        this.isBargainGoods = goodsShoppingCart.getIsBargainGoods();
+        this.specialPrice = goodsShoppingCart.getPrice();
+        this.choiceNumber = Integer.valueOf(goodsShoppingCart.getBuyCount());
+        this.details = goodsShoppingCart.getDescribe();
+        this.mealsFee = goodsShoppingCart.getBoxPrice();
+        this.versions = goodsShoppingCart.getVersions();
+    }
+
 
     protected Goods(Parcel in) {
         id = in.readInt();
@@ -145,6 +188,10 @@ public class Goods implements Parcelable {
         isChooseSpecs = in.readInt();
         specificationList = in.createTypedArrayList(Specification.CREATOR);
         attributeList = in.createTypedArrayList(Attribute.CREATOR);
+        wantBuyCount = in.readString();
+        specSelected = in.readString();
+        attrsSelected = in.createStringArrayList();
+        attrs = in.readString();
     }
 
     public static final Creator<Goods> CREATOR = new Creator<Goods>() {
@@ -159,47 +206,8 @@ public class Goods implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeInt(shopId);
-        dest.writeInt(brandId);
-        dest.writeString(name);
-        dest.writeString(shopName);
-        dest.writeString(versions);
-        dest.writeString(details);
-        dest.writeString(goodsImgUrl);
-        dest.writeString(goodsMoreImgs);
-        dest.writeInt(allInventory);
-        dest.writeInt(choiceNumber);
-        dest.writeString(goodsUnit);
-        dest.writeString(goods_special);
-        dest.writeInt(state);
-        dest.writeInt(favorable_rate);
-        dest.writeInt(monSalesVolume);
-        dest.writeString(price);
-        dest.writeString(minPrice);
-        dest.writeString(maxPrice);
-        dest.writeString(specialPrice);
-        dest.writeInt(isBargainGoods);
-        dest.writeString(linePrice);
-        dest.writeInt(time_send);
-        dest.writeString(price_deliver);
-        dest.writeString(price_avg_per_man);
-        dest.writeString(salesVolume);
-        dest.writeString(score);
-        dest.writeString(lowestPriceOf15Days);
-        dest.writeInt(goodsTag);
-        dest.writeString(mealsFee);
-        dest.writeString(discount);
-        dest.writeInt(isChooseSpecs);
-        dest.writeTypedList(specificationList);
-        dest.writeTypedList(attributeList);
+    public ObservableField<String> getChoiceNumberObservable() {
+        return choiceNumberObservable;
     }
 
     public int getId() {
@@ -288,6 +296,8 @@ public class Goods implements Parcelable {
 
     public void setChoiceNumber(int choiceNumber) {
         this.choiceNumber = choiceNumber;
+        choiceNumberObservable.set(String.valueOf(choiceNumber));
+        choiceNumberObservable.notifyChange();
     }
 
     public String getGoodsUnit() {
@@ -472,6 +482,45 @@ public class Goods implements Parcelable {
 
     public void setAttributeList(List<Attribute> attributeList) {
         this.attributeList = attributeList;
+        StringBuilder attrsBuilder = new StringBuilder();
+        attrsBuilder.append("");
+        if(attrsSelected != null && attrsSelected.size() > 0){
+            for (String attr : attrsSelected) {
+                attrsBuilder.append(attr).append("、");
+            }
+            attrsBuilder.deleteCharAt(attrsSelected.size()-1);
+        }
+        attrs = attrsBuilder.toString();
+    }
+
+    public String getWantBuyCount() {
+        return wantBuyCount;
+    }
+
+    public void setWantBuyCount(String wantBuyCount) {
+        this.wantBuyCount = wantBuyCount;
+    }
+
+    public String getSpecSelected() {
+        return specSelected;
+    }
+
+    public void setSpecSelected(String specSelected) {
+        this.specSelected = specSelected;
+    }
+
+    public String getAttrs() {
+        return attrs;
+    }
+
+    public void setAttrs(String attrs) {
+        this.attrs = attrs;
+    }
+
+    public void setAddShoppingCartData(String wantBuyCount, String specSelected, List<String> attrsSelected){
+        this.wantBuyCount = wantBuyCount;
+        setSpecSelected(specSelected);
+        setAttributeList(attributeList);
     }
 
     @Override
@@ -497,7 +546,7 @@ public class Goods implements Parcelable {
                 ", minPrice='" + minPrice + '\'' +
                 ", maxPrice='" + maxPrice + '\'' +
                 ", specialPrice='" + specialPrice + '\'' +
-                ", isBargainGoods='" + isBargainGoods + '\'' +
+                ", isBargainGoods=" + isBargainGoods +
                 ", linePrice='" + linePrice + '\'' +
                 ", time_send=" + time_send +
                 ", price_deliver='" + price_deliver + '\'' +
@@ -511,8 +560,60 @@ public class Goods implements Parcelable {
                 ", isChooseSpecs=" + isChooseSpecs +
                 ", specificationList=" + specificationList +
                 ", attributeList=" + attributeList +
+                ", wantBuyCount='" + wantBuyCount + '\'' +
+                ", specSelected='" + specSelected + '\'' +
+                ", attrsSelected=" + attrsSelected +
+                ", attrs='" + attrs + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(shopId);
+        dest.writeInt(brandId);
+        dest.writeString(name);
+        dest.writeString(shopName);
+        dest.writeString(versions);
+        dest.writeString(details);
+        dest.writeString(goodsImgUrl);
+        dest.writeString(goodsMoreImgs);
+        dest.writeInt(allInventory);
+        dest.writeInt(choiceNumber);
+        dest.writeString(goodsUnit);
+        dest.writeString(goods_special);
+        dest.writeInt(state);
+        dest.writeInt(favorable_rate);
+        dest.writeInt(monSalesVolume);
+        dest.writeString(price);
+        dest.writeString(minPrice);
+        dest.writeString(maxPrice);
+        dest.writeString(specialPrice);
+        dest.writeInt(isBargainGoods);
+        dest.writeString(linePrice);
+        dest.writeInt(time_send);
+        dest.writeString(price_deliver);
+        dest.writeString(price_avg_per_man);
+        dest.writeString(salesVolume);
+        dest.writeString(score);
+        dest.writeString(lowestPriceOf15Days);
+        dest.writeInt(goodsTag);
+        dest.writeString(mealsFee);
+        dest.writeString(discount);
+        dest.writeInt(isChooseSpecs);
+        dest.writeTypedList(specificationList);
+        dest.writeTypedList(attributeList);
+        dest.writeString(wantBuyCount);
+        dest.writeString(specSelected);
+        dest.writeStringList(attrsSelected);
+        dest.writeString(attrs);
+    }
+
 
     public static class Specification implements Parcelable {
         @SerializedName(value = "specs")

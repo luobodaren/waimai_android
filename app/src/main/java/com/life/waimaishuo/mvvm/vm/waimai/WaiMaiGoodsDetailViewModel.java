@@ -15,7 +15,7 @@ import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WaiMaiGoodsDetailViewModel extends BaseViewModel {
+public class WaiMaiGoodsDetailViewModel extends BaseShopDetailViewModel {
 
     WaiMaiGoodsDetailModel mModel;
 
