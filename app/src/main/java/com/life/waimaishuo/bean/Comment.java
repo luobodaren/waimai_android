@@ -1,122 +1,325 @@
 package com.life.waimaishuo.bean;
 
-import com.life.waimaishuo.bean.ui.ImageViewInfo;
-
 import java.util.List;
+import java.util.Map;
 
 public class Comment {
 
-    String userIcon;
-    String userName;
-    String score;
-    String createData;
-    String commentContent;
 
-    String merchantReply;
+    /**
+     * brandId : 0
+     * buyersShow : 0
+     * createId : 0
+     * createTime :
+     * delFlag : 0
+     * evaluateContent :
+     * evaluateGrade :
+     * evaluatePhoto :
+     * evaluatePhotoList : []
+     * goodsIds :
+     * goodsSpecsIds :
+     * headPortrait :
+     * id : 0
+     * isAnonymity : 0
+     * nickName :
+     * orderCreateTime :
+     * orderNumber :
+     * otherEvaluateGrade :
+     * otherEvaluateGradeMap : [{}]
+     * reason :
+     * replyStatus : 0
+     * setTop : 0
+     * shopId : 0
+     * shopName :
+     * shopReply :
+     * source : 0
+     * state : 0
+     * superiorId : 0
+     * updateId : 0
+     * updateTime :
+     * userId : 0
+     */
 
-    List<ImageViewInfo> commentPictureList;
+    private int brandId;
+    private int buyersShow;
+    private int createId;
+    private String createTime;
+    private int delFlag;
+    private String evaluateContent;
+    private String evaluateGrade;
+    private String evaluatePhoto;
+    private String goodsIds;
+    private String goodsSpecsIds;
+    private String headPortrait;
+    private int id;
+    private int isAnonymity;
+    private String nickName;
+    private String orderCreateTime;
+    private String orderNumber;
+    private String otherEvaluateGrade;
+    private String reason;
+    private int replyStatus;
+    private int setTop;
+    private int shopId;
+    private String shopName;
+    private String shopReply;
+    private int source;
+    private int state;
+    private int superiorId;
+    private int updateId;
+    private String updateTime;
+    private int userId;
+    private List<String> evaluatePhotoList;
+    private List<Map<String, String>> otherEvaluateGradeMap;
 
-    List<String> goodsList; //购买的商品名称列表
-
-    boolean isClickedLike;
-    String countOfLike;
-
-    public Comment(String userIcon, String userName, String commentContent, boolean isClickedLike, String countOfLike) {
-        this.userIcon = userIcon;
-        this.userName = userName;
-        this.commentContent = commentContent;
-        this.isClickedLike = isClickedLike;
-        this.countOfLike = countOfLike;
+    public int getBrandId() {
+        return brandId;
     }
 
-    public Comment(String userIcon, String userName, String score, String createData, String commentContent, List<ImageViewInfo> commentPictureList, List<String> goodsList, String merchantReply) {
-        this.userIcon = userIcon;
-        this.userName = userName;
-        this.score = score;
-        this.createData = createData;
-        this.commentContent = commentContent;
-        this.commentPictureList = commentPictureList;
-        this.goodsList = goodsList;
-        this.merchantReply = merchantReply;
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
-    public String getUserIcon() {
-        return userIcon;
+    public int getBuyersShow() {
+        return buyersShow;
     }
 
-    public void setUserIcon(String userIcon) {
-        this.userIcon = userIcon;
+    public void setBuyersShow(int buyersShow) {
+        this.buyersShow = buyersShow;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getCreateId() {
+        return createId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setCreateId(int createId) {
+        this.createId = createId;
     }
 
-    public String getScore() {
-        return score;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setScore(String score) {
-        this.score = score;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getCreateData() {
-        return createData;
+    public int getDelFlag() {
+        return delFlag;
     }
 
-    public void setCreateData(String createData) {
-        this.createData = createData;
+    public void setDelFlag(int delFlag) {
+        this.delFlag = delFlag;
     }
 
-    public String getCommentContent() {
-        return commentContent;
+    public String getEvaluateContent() {
+        return evaluateContent;
     }
 
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent;
+    public void setEvaluateContent(String evaluateContent) {
+        this.evaluateContent = evaluateContent;
     }
 
-    public List<ImageViewInfo> getCommentPictureList() {
-        return commentPictureList;
+    public String getEvaluateGrade() {
+        return evaluateGrade;
     }
 
-    public void setCommentPictureList(List<ImageViewInfo> commentPictureList) {
-        this.commentPictureList = commentPictureList;
+    public void setEvaluateGrade(String evaluateGrade) {
+        this.evaluateGrade = evaluateGrade;
     }
 
-    public List<String> getGoodsList() {
-        return goodsList;
+    public String getEvaluatePhoto() {
+        return evaluatePhoto;
     }
 
-    public void setGoodsList(List<String> goodsList) {
-        this.goodsList = goodsList;
+    public void setEvaluatePhoto(String evaluatePhoto) {
+        this.evaluatePhoto = evaluatePhoto;
     }
 
-    public String getMerchantReply() {
-        return merchantReply;
+    public String getGoodsIds() {
+        return goodsIds;
     }
 
-    public void setMerchantReply(String merchantReply) {
-        this.merchantReply = merchantReply;
+    public void setGoodsIds(String goodsIds) {
+        this.goodsIds = goodsIds;
     }
 
-    public boolean isClickedLike() {
-        return isClickedLike;
+    public String getGoodsSpecsIds() {
+        return goodsSpecsIds;
     }
 
-    public void setClickedLike(boolean clickedLike) {
-        isClickedLike = clickedLike;
+    public void setGoodsSpecsIds(String goodsSpecsIds) {
+        this.goodsSpecsIds = goodsSpecsIds;
     }
 
-    public String getCountOfLike() {
-        return countOfLike;
+    public String getHeadPortrait() {
+        return headPortrait;
     }
 
-    public void setCountOfLike(String countOfLike) {
-        this.countOfLike = countOfLike;
+    public void setHeadPortrait(String headPortrait) {
+        this.headPortrait = headPortrait;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIsAnonymity() {
+        return isAnonymity;
+    }
+
+    public void setIsAnonymity(int isAnonymity) {
+        this.isAnonymity = isAnonymity;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getOrderCreateTime() {
+        return orderCreateTime;
+    }
+
+    public void setOrderCreateTime(String orderCreateTime) {
+        this.orderCreateTime = orderCreateTime;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public String getOtherEvaluateGrade() {
+        return otherEvaluateGrade;
+    }
+
+    public void setOtherEvaluateGrade(String otherEvaluateGrade) {
+        this.otherEvaluateGrade = otherEvaluateGrade;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public int getReplyStatus() {
+        return replyStatus;
+    }
+
+    public void setReplyStatus(int replyStatus) {
+        this.replyStatus = replyStatus;
+    }
+
+    public int getSetTop() {
+        return setTop;
+    }
+
+    public void setSetTop(int setTop) {
+        this.setTop = setTop;
+    }
+
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getShopReply() {
+        return shopReply;
+    }
+
+    public void setShopReply(String shopReply) {
+        this.shopReply = shopReply;
+    }
+
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getSuperiorId() {
+        return superiorId;
+    }
+
+    public void setSuperiorId(int superiorId) {
+        this.superiorId = superiorId;
+    }
+
+    public int getUpdateId() {
+        return updateId;
+    }
+
+    public void setUpdateId(int updateId) {
+        this.updateId = updateId;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public List<String> getEvaluatePhotoList() {
+        return evaluatePhotoList;
+    }
+
+    public void setEvaluatePhotoList(List<String> evaluatePhotoList) {
+        this.evaluatePhotoList = evaluatePhotoList;
+    }
+
+    public List<Map<String, String>> getOtherEvaluateGradeMap() {
+        return otherEvaluateGradeMap;
+    }
+
+    public void setOtherEvaluateGradeMap(List<Map<String, String>> otherEvaluateGradeMap) {
+        this.otherEvaluateGradeMap = otherEvaluateGradeMap;
+    }
+
+    public static class OtherEvaluateGradeMapBean {
     }
 }

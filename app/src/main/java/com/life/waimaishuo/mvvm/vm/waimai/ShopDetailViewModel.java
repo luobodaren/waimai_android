@@ -180,10 +180,14 @@ public class ShopDetailViewModel extends BaseShopDetailViewModel {
                 baseFragment = shopOrderDishesFragment;
                 break;
             case EVALUATION:
-                baseFragment = new ShopEvaluationFragment();
+                ShopEvaluationFragment shopEvaluationFragment = new ShopEvaluationFragment();
+                shopEvaluationFragment.setShopId(model.shop.getShopId());
+                baseFragment = shopEvaluationFragment;
                 break;
             case MERCHANT:
-                baseFragment = new ShopMerchantsInfoFragment();
+                ShopMerchantsInfoFragment shopMerchantsInfoFragment = new ShopMerchantsInfoFragment();
+                shopMerchantsInfoFragment.setShop(model.shop);
+                baseFragment = shopMerchantsInfoFragment;
                 break;
         }
         return baseFragment;

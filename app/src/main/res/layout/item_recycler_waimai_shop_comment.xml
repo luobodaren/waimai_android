@@ -23,7 +23,7 @@
 
             <com.xuexiang.xui.widget.imageview.RadiusImageView
                 android:id="@+id/iv_user_img"
-                imageUrl="@{item.userIcon}"
+                imageUrl="@{item.headPortrait}"
                 android:layout_width="72px"
                 android:layout_height="72px"
                 android:scaleType="centerCrop"
@@ -40,7 +40,7 @@
                 android:ellipsize="end"
                 android:includeFontPadding="false"
                 android:singleLine="true"
-                android:text="@{item.userName}"
+                android:text="@{item.nickName}"
                 android:textColor="@color/text_normal"
                 android:textSize="30px"
                 app:layout_constraintEnd_toStartOf="@id/tv_comment_time"
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="@{item.createData}"
+                android:text="@{item.updateTime}"
                 android:textColor="@color/text_tip"
                 android:textSize="@dimen/font_size_26"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_size_xs"
                 android:includeFontPadding="false"
-                android:text="@{item.commentContent}"
+                android:text="@{item.evaluateContent}"
                 android:textColor="@color/text_normal"
                 android:textSize="26px"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,11 +96,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_comment_content" />
 
+            <!-- 暂时不显示 -->
             <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
                 android:id="@+id/flow_layout_goods_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/interval_size_xs"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recycler_comment_picture" />
 
@@ -129,7 +131,7 @@
                     style="@style/text_my_simple_style"
                     android:layout_marginStart="@dimen/interval_size_xs"
                     android:layout_marginTop="16px"
-                    android:text="@{item.commentContent}"
+                    android:text="@{item.shopReply}"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/font_size_22"
                     tools:text="谢谢亲的喜欢与支持呀，感谢您的好评！我们会更加努力的～" />

@@ -64,8 +64,6 @@ public class ScoreView extends FrameLayout {
     public void setScore(int score){
         this.score = score;
         switch (score){
-            case 0:
-                break;
             case 1:
                 iv_star_1.setImageResource(R.drawable.ic_star_red);
                 iv_star_2.setImageResource(R.drawable.ic_star_gray);

@@ -56,4 +56,6 @@ public class ApiConstant {
     public final static String API_WAIMAI_CHANGE_SHOPPING_CART = "/deliverycart/upddeliverycart";  //修改购物车
     public final static String API_WAIMAI_DEL_SHOPPING_CART_LIST = "/deliverycart/delListDeliveryCart";  //清空指定店铺购物车
 
+    public final static String API_WAIMAI_SHOP_STAT_EVALUATE = "/deliveryShopFirst/getStatEvaluateByShopId";    //店铺总评分信息
+    public final static String API_WAIMAI_SHOP_EVALUATE = "/deliveryShopFirst/selectGoodsEvaluateApp";  //店铺评价内容
 }

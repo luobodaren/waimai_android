@@ -19,7 +19,7 @@
             android:id="@+id/iv_user_img"
             android:layout_width="52px"
             android:layout_height="52px"
-            imageUrl="@{item.userIcon}"
+            imageUrl="@{item.headPortrait}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="100dp" />
@@ -30,7 +30,7 @@
             android:layout_marginStart="@dimen/interval_size_xs"
             android:textColor="@color/text_normal"
             android:textSize="26px"
-            android:text="@{item.userName}"
+            android:text="@{item.nickName}"
             app:layout_constraintStart_toEndOf="@id/iv_user_img"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="才跟花儿小宝贝" />
@@ -43,7 +43,7 @@
             android:layout_marginEnd="50px"
             android:textColor="@color/text_uncheck"
             android:textSize="26px"
-            android:text="@{item.commentContent}"
+            android:text="@{item.evaluateContent}"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintStart_toStartOf="@id/tv_user_name"
             app:layout_constraintTop_toBottomOf="@id/tv_user_name" />

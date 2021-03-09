@@ -78,7 +78,6 @@
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_one"
-            imageUrl="@{item.synopsis_img.get(0)}"
             android:layout_width="432px"
             android:layout_height="432px"
             android:layout_marginTop="@dimen/interval_size_xs"
@@ -91,7 +90,6 @@
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_two"
-            imageUrl="@{item.synopsis_img.get(1)}"
             android:layout_width="208px"
             android:layout_height="208px"
             android:layout_marginStart="14px"
@@ -103,7 +101,6 @@
 
         <com.xuexiang.xui.widget.imageview.RadiusImageView
             android:id="@+id/iv_three"
-            imageUrl="@{item.synopsis_img.get(2)}"
             android:layout_width="208px"
             android:layout_height="208px"
             android:scaleType="centerCrop"

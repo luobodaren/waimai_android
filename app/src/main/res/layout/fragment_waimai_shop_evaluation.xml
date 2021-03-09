@@ -10,7 +10,7 @@
             type="com.life.waimaishuo.mvvm.vm.waimai.ShopEvaluationViewModel" />
     </data>
 
-    <LinearLayout
+    <com.life.base.views.UiAdapterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -129,7 +129,7 @@
                 tools:text="4.8" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.xuexiang.xui.widget.flowlayout.FlowTagLayout
+        <com.life.waimaishuo.views.MyFlowTagLayout
             android:id="@+id/flow_layout_comments_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -145,5 +145,5 @@
             android:paddingStart="@dimen/interval_size_xs"
             android:paddingEnd="@dimen/interval_size_xs" />
 
-    </LinearLayout>
+    </com.life.base.views.UiAdapterLinearLayout>
 </layout>

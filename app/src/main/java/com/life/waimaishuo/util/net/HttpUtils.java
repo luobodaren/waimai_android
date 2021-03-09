@@ -382,11 +382,15 @@ public class HttpUtils {
         if(url == null || "".equals(url)){
             return "";
         }
-        if(url.startsWith("http:")){
-            String[] strings = url.split(":",2);
-            return "https:" + strings[1];
+        if(url.startsWith("http")){
+            if(url.startsWith("http:")){
+                String[] strings = url.split(":",2);
+                return "https:" + strings[1];
+            }else{
+                return url;
+            }
         }
-        return url;
+        return "";
     }
 
 

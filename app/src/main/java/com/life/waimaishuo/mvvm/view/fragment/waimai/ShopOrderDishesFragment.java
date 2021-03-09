@@ -256,6 +256,7 @@ public class ShopOrderDishesFragment extends BaseFragment
             });
         }
         linkage = mBinding.linkageOrderDishes;
+        linkage.setScrollSmoothly(false);
         linkage.init(mViewModel.getShopGoodsItems(),
                 new CustomLinkagePrimaryShopGoodsAdapterConfig<>(this, linkage),
                 new CustomLinkageSecondaryShopGoodsAdapterConfig<>(this));

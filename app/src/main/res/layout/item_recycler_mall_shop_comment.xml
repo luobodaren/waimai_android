@@ -29,7 +29,7 @@
                 app:riv_corner_radius="4dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                imageUrl="@{item.userIcon}"/>
+                imageUrl="@{item.headPortrait}"/>
 
             <TextView
                 android:id="@+id/tv_user_name"
@@ -39,7 +39,7 @@
                 android:ellipsize="end"
                 android:textSize="30px"
                 android:textColor="@color/text_normal"
-                android:text="@{item.userName}"
+                android:text="@{item.nickName}"
                 app:layout_constraintTop_toTopOf="@id/iv_user_img"
                 app:layout_constraintStart_toEndOf="@id/iv_user_img"
                 app:layout_constraintEnd_toStartOf="@id/tv_comment_time"
@@ -53,7 +53,7 @@
                 android:includeFontPadding="false"
                 android:textSize="@dimen/font_size_26"
                 android:textColor="@color/text_tip"
-                android:text="@{item.createData}"
+                android:text="@{item.updateTime}"
                 app:layout_constraintTop_toTopOf="@id/tv_user_name"
                 app:layout_constraintStart_toEndOf="@id/tv_user_name"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -84,7 +84,7 @@
                 android:layout_marginTop="@dimen/interval_size_xs"
                 android:textColor="@color/text_normal"
                 android:textSize="26px"
-                android:text="@{item.commentContent}"
+                android:text="@{item.evaluateContent}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_user_img"/>
 
@@ -130,7 +130,7 @@
                     android:textSize="@dimen/font_size_22"
                     android:layout_marginStart="@dimen/interval_size_xs"
                     android:layout_marginTop="16px"
-                    android:text="@{item.commentContent}"
+                    android:text="@{item.shopReply}"
                     tools:text="谢谢亲的喜欢与支持呀，感谢您的好评！我们会更加努力的～"/>
 
             </LinearLayout>

@@ -63,7 +63,7 @@
             app:hpv_end_progress="100"
             app:hpv_isTracked="true"
             app:hpv_progress_duration="2600"
-            app:hpv_progress_textColor="#FFFE5945"
+            app:hpv_progress_textColor="@color/colorAssist_5"
             app:hpv_progress_textSize="22px"
             app:hpv_progress_textVisibility="true"
             app:hpv_start_color="@color/colorTheme_gradient_start"

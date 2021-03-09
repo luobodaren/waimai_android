@@ -1,5 +1,6 @@
 package com.life.waimaishuo.bean.api.request;
 
+import com.life.waimaishuo.bean.api.request.bean.ShopEvaluateReqBean;
 import com.life.waimaishuo.bean.api.request.bean.ShoppingCartOption;
 
 public class WaiMaiShopReqData  {
@@ -18,6 +19,15 @@ public class WaiMaiShopReqData  {
      */
     public static class WaiMaiShoppingCartOption extends BaseReqData<ShoppingCartOption>{
         public WaiMaiShoppingCartOption(ShoppingCartOption reqData) {
+            super(reqData);
+        }
+    }
+
+    /**
+     * 获取店铺评价
+     */
+    public static class WaiMaiEvaluateReqData extends BaseReqData<ShopEvaluateReqBean>{
+        public WaiMaiEvaluateReqData(ShopEvaluateReqBean reqData) {
             super(reqData);
         }
     }

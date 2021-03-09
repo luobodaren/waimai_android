@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.life.base.views.UiAdapterLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:paddingTop="12px"
-        android:paddingBottom="12px"
-        android:paddingStart="16px"
-        android:paddingEnd="16px"
         android:layout_marginStart="@dimen/interval_size_xs"
-        android:background="@drawable/sr_bg_2dp_theme"
-        android:textSize="24px"
+        android:background="@drawable/sl_100dp_gray_to_assist_5"
+        android:includeFontPadding="false"
+        android:paddingStart="16px"
+        android:paddingTop="12px"
+        android:paddingEnd="16px"
+        android:paddingBottom="12px"
         android:textColor="@color/white"
-        tools:text="60减25"/>
+        android:textSize="24px"
+        tools:text="60减25" />
 
 </com.life.base.views.UiAdapterLinearLayout>

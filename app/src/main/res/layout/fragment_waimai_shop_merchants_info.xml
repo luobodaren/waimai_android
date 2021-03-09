@@ -18,6 +18,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_merchants_info"
                 style="@style/text_my_simple_style"
                 android:textColor="@color/text_normal"
                 android:textSize="30px"

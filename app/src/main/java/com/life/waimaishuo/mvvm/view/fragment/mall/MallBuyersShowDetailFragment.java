@@ -131,14 +131,14 @@ public class MallBuyersShowDetailFragment extends BaseFragment {
                     likeUnCheckDrawable.setBounds(0,0,size,size);
                 }
 
-                helper.setText(R.id.tv_like,item.getCountOfLike());
+                /*helper.setText(R.id.tv_like,item.getCountOfLike());
                 if(item.isClickedLike()){
                     helper.setTextColor(R.id.tv_like,getResources().getColor(R.color.colorTheme));
                     ((TextView)helper.getView(R.id.tv_like)).setCompoundDrawables(likeClickedDrawable,null,null,null);
                 }else{
                     helper.setTextColor(R.id.tv_like,getResources().getColor(R.color.text_tip));
                     ((TextView)helper.getView(R.id.tv_like)).setCompoundDrawables(likeUnCheckDrawable,null,null,null);
-                }
+                }*/
             }
         };
         /*adapter.setEnableLoadMore(true);

@@ -23,6 +23,7 @@ public class Shop implements Parcelable {
     String shop_head_portrait;  //店铺头像
     @SerializedName(value = "shopName")
     String shop_name;   //店铺名称
+    @SerializedName(value = "reservationCall")
     String reservation_call;    //订餐电话
     String alternate_phone; //备用电话
     String province;    //省
@@ -32,8 +33,9 @@ public class Shop implements Parcelable {
     String log; //经度
     @SerializedName(value = "lat")
     String lat; //纬度
-
+    @SerializedName(value = "shopAddress")
     String shop_address;    //门店地址
+    @SerializedName(value = "shopCategory")
     String shop_category;   //门店品类
     @SerializedName(value = "favorableRate")
     String favorable_rate;  //评分
@@ -50,7 +52,6 @@ public class Shop implements Parcelable {
     String notice;  //公告
     String synopsis;    //简介
     String invoice; //发票
-    String effective_date;  //生效时间
     @SerializedName(value = "shopTags")
     String tag_value;   //标签值
     int audit_state;//审核状态 0审核中 1审核通过 2审核未通过
@@ -73,7 +74,9 @@ public class Shop implements Parcelable {
     String user_pwd;   //密码
     @SerializedName(value = "shopNature")
     int shop_nature; //店铺性质 1自提和外卖 2仅外卖 3仅自提
-    List<String> synopsis_img;    //简介图 ["地址1","地址2"]
+    @SerializedName(value = "synopsisImg")
+    String synopsis_img;    //简介图 ["地址1","地址2"]
+    @SerializedName(value = "shopSign")
     String shop_sign;   //门店招牌
     String logistics_rate;  //物流服务
     String serve_rate;  //服务态度
@@ -152,7 +155,6 @@ public class Shop implements Parcelable {
         notice = in.readString();
         synopsis = in.readString();
         invoice = in.readString();
-        effective_date = in.readString();
         tag_value = in.readString();
         audit_state = in.readInt();
         audit_cause = in.readString();
@@ -167,7 +169,7 @@ public class Shop implements Parcelable {
         account_number = in.readString();
         user_pwd = in.readString();
         shop_nature = in.readInt();
-        synopsis_img = in.createStringArrayList();
+        synopsis_img = in.readString();
         shop_sign = in.readString();
         logistics_rate = in.readString();
         serve_rate = in.readString();
@@ -425,14 +427,6 @@ public class Shop implements Parcelable {
         this.invoice = invoice;
     }
 
-    public String getEffective_date() {
-        return effective_date;
-    }
-
-    public void setEffective_date(String effective_date) {
-        this.effective_date = effective_date;
-    }
-
     public String getTag_value() {
         return tag_value;
     }
@@ -553,11 +547,11 @@ public class Shop implements Parcelable {
         this.shop_nature = shop_nature;
     }
 
-    public List<String> getSynopsis_img() {
+    public String getSynopsis_img() {
         return synopsis_img;
     }
 
-    public void setSynopsis_img(List<String> synopsis_img) {
+    public void setSynopsis_img(String synopsis_img) {
         this.synopsis_img = synopsis_img;
     }
 
@@ -841,7 +835,6 @@ public class Shop implements Parcelable {
         dest.writeString(notice);
         dest.writeString(synopsis);
         dest.writeString(invoice);
-        dest.writeString(effective_date);
         dest.writeString(tag_value);
         dest.writeInt(audit_state);
         dest.writeString(audit_cause);
@@ -856,7 +849,7 @@ public class Shop implements Parcelable {
         dest.writeString(account_number);
         dest.writeString(user_pwd);
         dest.writeInt(shop_nature);
-        dest.writeStringList(synopsis_img);
+        dest.writeString(synopsis_img);
         dest.writeString(shop_sign);
         dest.writeString(logistics_rate);
         dest.writeString(serve_rate);

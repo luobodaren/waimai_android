@@ -30,6 +30,7 @@ import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.GoodsShoppingCart;
 import com.life.waimaishuo.bean.PreferentialActivity;
+import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.respon.WaiMaiShoppingCart;
 import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.constant.Constant;
@@ -62,6 +63,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import static java.lang.Integer.parseInt;
 
@@ -84,6 +86,8 @@ public class ShopDetailFragment extends BaseFragment {
 
     private BottomSheet mShoppingCartDialog;//购物车dialog
     private MyBaseRecyclerAdapter<GoodsShoppingCart> recyclerGoodsListAdapter; //购物车商品recycler Adapter
+
+    private CountDownLatch countDownLatch;
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -207,13 +211,22 @@ public class ShopDetailFragment extends BaseFragment {
     @Override
     protected void firstRequestData() {
         super.firstRequestData();
-
-        mViewModel.requestShopInfo(shopId);
+        countDownLatch = new CountDownLatch(2);
+        Thread thread = new Thread(() -> {  //开启线程进行 店铺信息 店铺购物车接口请求，完成后进行剩下界面初始化操作
+            mViewModel.requestShopInfo(shopId);
+            mViewModel.requestShoppingCart(shopId);
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            countDownLatch = null;
+            mHandler.post(this::initNavigationTab);
+        });
+        thread.start();
 
         mViewModel.requestIsJoinShopFans(shopId);
         mViewModel.requestIsCollectShop(shopId);
-        // TODO: 2021/3/4 开启加载dialog
-        mViewModel.requestShoppingCart(shopId);
     }
 
     @Override
@@ -293,10 +306,14 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.onRequestShopInfoObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                mHandler.post(() -> {
-                    initNavigationTab();
-                    refreshShopInfo();
-                });
+                if(countDownLatch != null){
+                    if(countDownLatch.getCount() > 0){
+                        countDownLatch.countDown();
+                    }else{
+                        countDownLatch = null;
+                    }
+                }
+                mHandler.post(() -> refreshShopInfo());
             }
         });
         MyDataBindingUtil.addCallBack(this, mViewModel.onRequestIsJoinShopFansObservable, new Observable.OnPropertyChangedCallback() {
@@ -353,6 +370,13 @@ public class ShopDetailFragment extends BaseFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
+                    if(countDownLatch != null){
+                        if(countDownLatch.getCount() > 0){
+                            countDownLatch.countDown();
+                        }else{
+                            countDownLatch = null;
+                        }
+                    }
                     EventBus.getDefault().post(new MessageEvent(        //发送购物车数据更新事件
                             MessageCodeConstant.SHOPPING_CART_DATA_UPDATE, mViewModel.getWaiMaiShoppingCart()));
 

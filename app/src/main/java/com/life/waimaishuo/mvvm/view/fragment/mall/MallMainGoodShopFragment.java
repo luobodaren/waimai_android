@@ -25,6 +25,8 @@ import com.xuexiang.xpage.annotation.Page;
 import com.xuexiang.xpage.utils.TitleBar;
 import com.xuexiang.xui.widget.flowlayout.FlowTagLayout;
 
+import java.util.ArrayList;
+
 @Page(name = "商城-好店")
 public class MallMainGoodShopFragment extends BaseFragment {
 
@@ -112,7 +114,7 @@ public class MallMainGoodShopFragment extends BaseFragment {
                 RecyclerView recyclerView = helper.getView(R.id.recycler_goods_img);
                 if(helper.getItemViewType() == viewTypes[0] && recyclerView.getAdapter() == null){  //图片循环显示的布局
                     recyclerView.setLayoutManager(new GridLayoutManager(helper.itemView.getContext(),3,LinearLayoutManager.VERTICAL,false));
-                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_good_shop_recycler_item,item.getSynopsis_img(), com.life.waimaishuo.BR.str));
+                    recyclerView.setAdapter(new MyBaseRecyclerAdapter(R.layout.item_recycler_mall_good_shop_recycler_item, new ArrayList(), com.life.waimaishuo.BR.str));
                     recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
                         int interval = (int) UIUtils.getInstance().scalePx(
                                 getResources().getDimensionPixelSize(R.dimen.interval_size_xs));
@@ -128,7 +130,7 @@ public class MallMainGoodShopFragment extends BaseFragment {
         adapter.setMultiTypeDelegate(new MultiTypeDelegate<Shop>(layouts) {
             @Override
             protected int getItemType(Shop shop) {
-                if(shop.getSynopsis_img().size() != 3){
+                if(adapter.getData().size() != 3){
                     return viewTypes[0];   //循环展示
                 }else{
                     return viewTypes[1];   //三张图片的布局
