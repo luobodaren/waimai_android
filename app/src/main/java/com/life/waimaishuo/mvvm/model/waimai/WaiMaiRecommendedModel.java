@@ -50,14 +50,14 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * @param reqData
      */
     public void requestGoodsListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_GOODS_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_GOODS_LIST, GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 LogUtil.d("requestGoodsListData data:" + data);
                 if (!"".equals(data)) {
-                    int total = GsonUtil.getIntNoteJsonString(data,"total");
+                    Integer total = GsonUtil.getIntNoteJsonString(data,"total");
                     String listData = GsonUtil.getStringNoteJsonString(data,"list");
-                    if(total > 0 || (!"null".equals(listData) && !"".equals(listData))){
+                    if((total != null && total > 0) || (!"null".equals(listData) && !"".equals(listData))){
                         shopGoodsList = GsonUtil.parserJsonToArrayBeans(listData, Shop.class);
                         for (Shop shop:shopGoodsList) {
                             shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
@@ -91,14 +91,14 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * @param reqData
      */
     public void requestShopListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SHIOP_LIST, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SHIOP_LIST, GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
-                    int total = GsonUtil.getIntNoteJsonString(data,"total");
+                    Integer total = GsonUtil.getIntNoteJsonString(data,"total");
                     String listData = GsonUtil.getStringNoteJsonString(data,"list");
                     LogUtil.d("listData" + listData);
-                    if(total > 0 || (!"null".equals(listData) && !"".equals(listData))){
+                    if((total != null && total > 0) || (!"null".equals(listData) && !"".equals(listData))){
                         shopList = GsonUtil.parserJsonToArrayBeans(listData, Shop.class);
                         for (Shop shop:shopList) {
                             shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShopImage()));
@@ -128,14 +128,14 @@ public class WaiMaiRecommendedModel extends BaseModel {
      * @param reqData
      */
     public void requestZeroDeliverListData(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiRecommendReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ZERO_DELIVER, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ZERO_DELIVER, GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
-                    int total = GsonUtil.getIntNoteJsonString(data,"total");
+                    Integer total = GsonUtil.getIntNoteJsonString(data,"total");
                     String listData = GsonUtil.getStringNoteJsonString(data,"list");
                     LogUtil.d("listData" + listData);
-                    if(total > 0 || (!"null".equals(listData) && !"".equals(listData))){
+                    if((total != null && total > 0) || (!"null".equals(listData) && !"".equals(listData))){
                         zeroDeliverShopList = GsonUtil.parserJsonToArrayBeans(listData, Shop.class);
                         for (Shop shop:zeroDeliverShopList) {
                             shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));

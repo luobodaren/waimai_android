@@ -13,7 +13,7 @@ public class LoginModel extends BaseModel {
 
     public void requestVerification(String currentRequestVerificationPhone, RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_GET_VERIFICATION,
-                GsonUtil.toJsonString(new BaseReqData<>(new GetVerificationReqBean(currentRequestVerificationPhone, 1))),
+                GsonUtil.gsonString(new BaseReqData<>(new GetVerificationReqBean(currentRequestVerificationPhone, 1))),
                 false, new HttpUtils.HttpCallback() {
                     @Override
                     public void onSuccess(String data) {
@@ -35,7 +35,7 @@ public class LoginModel extends BaseModel {
      */
     public void loginByPhone(String phoneNumber, String verification, RequestCallBack<Object> requestCallBack) {
         HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_LOGIN,
-                GsonUtil.toJsonString(new BaseReqData<>(new LoginWithVerificcationReqBean(verification,phoneNumber))),
+                GsonUtil.gsonString(new BaseReqData<>(new LoginWithVerificcationReqBean(verification,phoneNumber))),
                 false, new HttpUtils.HttpCallback() {
                     @Override
                     public void onSuccess(String data) {

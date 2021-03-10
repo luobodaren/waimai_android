@@ -87,7 +87,7 @@ public class BrandZoneModel extends BaseModel {
     }
 
     public void requestBrandShopData(RequestCallBack<Object> requestCallBack) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_SEARCH, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_SEARCH, GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {

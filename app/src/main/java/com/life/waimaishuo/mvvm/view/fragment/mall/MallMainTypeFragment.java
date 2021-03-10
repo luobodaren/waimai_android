@@ -28,7 +28,7 @@ import com.life.waimaishuo.bean.ui.TypeDescribeValue;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMallMainTypeBinding;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
-import com.life.waimaishuo.mvvm.view.fragment.LimitedTimeGoodsFragment;
+import com.life.waimaishuo.mvvm.view.fragment.common.LimitedTimeGoodsFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mall.MallMainTypeViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;

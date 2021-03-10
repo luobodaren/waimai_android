@@ -4,12 +4,14 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.life.waimaishuo.bean.Goods;
+import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.request.WaiMaiShopReqData;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiGoodsDetailModel;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.GoodsEvaluationFragment;
 import com.life.waimaishuo.mvvm.view.fragment.waimai.GoodsMatchFragment;
+import com.life.waimaishuo.mvvm.view.fragment.waimai.ShopEvaluationFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class WaiMaiGoodsDetailViewModel extends BaseShopDetailViewModel {
 
     @Override
     public BaseModel getModel() {
-        if(mModel == null){
+        if (mModel == null) {
             mModel = new WaiMaiGoodsDetailModel();
         }
         return mModel;
@@ -49,24 +51,32 @@ public class WaiMaiGoodsDetailViewModel extends BaseShopDetailViewModel {
         return strings;
     }
 
-    public BaseFragment getTabBarFragment(String title) {
+    public BaseFragment getTabBarFragment(String title, Shop shop, Goods goods) {
         BaseFragment baseFragment = null;
-        switch (title){
+        switch (title) {
             case "搭配":
-                baseFragment = new GoodsMatchFragment();
+                GoodsMatchFragment goodsMatchFragment = new GoodsMatchFragment();
+                goodsMatchFragment.setShop(shop);
+                goodsMatchFragment.setGoods(goods);
+                baseFragment = goodsMatchFragment;
                 break;
             case "评价":
-                baseFragment = new GoodsEvaluationFragment();
+                //baseFragment = new GoodsEvaluationFragment();
+                ShopEvaluationFragment shopEvaluationFragment = new ShopEvaluationFragment();
+                shopEvaluationFragment.setShopId(shop.getShopId());
+                shopEvaluationFragment.setShowStatEvaluation(false);
+                baseFragment = shopEvaluationFragment;
                 break;
         }
         return baseFragment;
     }
 
     public void requestGoodsDetail(int goodsId) {
-        mModel.requestGoodsDetail(new BaseModel.NotifyChangeRequestCallBack(onGetGoodsDetailObservable),new WaiMaiShopReqData.WaiMaiSimpleReqData(goodsId));
+        mModel.requestGoodsDetail(new BaseModel.NotifyChangeRequestCallBack(onGetGoodsDetailObservable), new WaiMaiShopReqData.WaiMaiSimpleReqData(goodsId));
     }
 
-    public Goods getGoodsData(){
+    public Goods getGoodsData() {
         return mModel.goods;
     }
+
 }

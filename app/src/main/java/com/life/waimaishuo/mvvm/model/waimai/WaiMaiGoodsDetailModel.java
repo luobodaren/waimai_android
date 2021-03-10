@@ -4,16 +4,20 @@ import com.life.base.utils.GsonUtil;
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.api.request.WaiMaiShopReqData;
+import com.life.waimaishuo.bean.api.request.bean.ShopCommendGoodsReqBean;
 import com.life.waimaishuo.constant.ApiConstant;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.util.net.HttpUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WaiMaiGoodsDetailModel extends BaseModel {
 
     public Goods goods;
 
     public void requestGoodsDetail(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GOODS_DELIVER_DETAIL, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GOODS_DELIVER_DETAIL, GsonUtil.gsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 goods = null;

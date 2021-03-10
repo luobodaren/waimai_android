@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment;
+package com.life.waimaishuo.mvvm.view.fragment.common;
 
 import android.Manifest;
 import android.content.Context;
@@ -31,6 +31,7 @@ import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentLoginBinding;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
+import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.LoginViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;

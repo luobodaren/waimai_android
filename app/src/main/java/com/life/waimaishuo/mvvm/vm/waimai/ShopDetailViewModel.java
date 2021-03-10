@@ -89,9 +89,6 @@ public class ShopDetailViewModel extends BaseShopDetailViewModel {
         onCancelDialogClick.notifyChange();
     }
 
-    public List<String> getCashBackData() {
-        return model.couponStringList;
-    }
 
     /**
      * 请求店铺信息
@@ -195,6 +192,10 @@ public class ShopDetailViewModel extends BaseShopDetailViewModel {
 
     public WaiMaiShoppingCart getWaiMaiShoppingCart(){
         return model.waiMaiShoppingCart;
+    }
+
+    public String getQrCode(){
+        return model.shopMemberQRCode;
     }
 
 }

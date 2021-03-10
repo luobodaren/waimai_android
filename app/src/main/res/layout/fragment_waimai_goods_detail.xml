@@ -65,7 +65,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/sr_bg_bl_br_8dp_white">
+                            android:background="@drawable/sr_bg_bl_br_8dp_white"
+                            android:paddingBottom="@dimen/interval_size_xs">
 
                             <TextView
                                 android:id="@+id/tv_goods_name"
@@ -151,7 +152,6 @@
                                 style="@style/text_my_simple_style"
                                 android:layout_width="0px"
                                 android:layout_marginTop="19px"
-                                android:layout_marginBottom="@dimen/interval_size_xs"
                                 android:layout_marginEnd="@dimen/interval_size_xs"
                                 android:text="@{goods.details}"
                                 android:textColor="@color/text_tip"

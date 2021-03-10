@@ -35,7 +35,7 @@ import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendGoodsBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiRecommendShopBinding;
 import com.life.waimaishuo.enumtype.SortTypeEnum;
 import com.life.waimaishuo.mvvm.view.fragment.BaseRecyclerFragment;
-import com.life.waimaishuo.mvvm.view.fragment.LoginFragment;
+import com.life.waimaishuo.mvvm.view.fragment.common.LoginFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiRecommendedViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
@@ -298,7 +298,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
      */
     public void refreshListDate(){
         if(waiMaiRecommendReqData.reqData != null){
-            LogUtil.d("refreshListDate" + GsonUtil.toJsonString(waiMaiRecommendReqData));
+            LogUtil.d("refreshListDate" + GsonUtil.gsonString(waiMaiRecommendReqData));
             mViewModel.refreshListData(waiMaiRecommendReqData);
         }
     }

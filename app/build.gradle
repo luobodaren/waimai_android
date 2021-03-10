@@ -120,4 +120,9 @@ dependencies {
     implementation 'com.amap.api:search:latest.integration'    //搜索
     implementation 'com.amap.api:location:latest.integration'  //定位
 
+    //webView
+    implementation 'com.github.xuexiangjys.AgentWeb:agentweb-core:1.0.0'
+
+    //二维码
+    implementation 'com.google.zxing:core:3.3.0'
 }

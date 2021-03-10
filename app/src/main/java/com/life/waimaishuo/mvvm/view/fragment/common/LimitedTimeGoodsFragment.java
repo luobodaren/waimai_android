@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment;
+package com.life.waimaishuo.mvvm.view.fragment.common;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -28,6 +28,8 @@ import com.life.waimaishuo.bean.LimitedTime;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentWaimaiLimitedTimeGoodsBinding;
 import com.life.waimaishuo.mvvm.model.BaseModel;
+import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
+import com.life.waimaishuo.mvvm.view.fragment.BaseStatusLoaderFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaimaiLimitedViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;

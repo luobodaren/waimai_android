@@ -23,7 +23,7 @@ public class WaiMaiTypeModel extends BaseModel {
      * @param requestCallBack
      */
     public void requestSubtype(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiSubTypeReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_TYPE_GET_SUBTYPES_BY_NAME, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_TYPE_GET_SUBTYPES_BY_NAME, GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
@@ -59,7 +59,7 @@ public class WaiMaiTypeModel extends BaseModel {
      * @param reqData
      */
     public void requestSubtypeImg(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiSubTypeReqData reqData){
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_TYPE_GET_SUBTYPE_BY_NAME, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_TYPE_GET_SUBTYPE_BY_NAME, GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {

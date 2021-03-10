@@ -27,7 +27,7 @@ public class ShopOrderDishesModel extends BaseModel {
     public List<BaseGroupedItem<LinkageShopGoodsGroupedItemInfo>> shopGoodsLinkageGroupList = new ArrayList<>();
 
     public void requestShopGoodsGroupList(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_SHOP_GOODS_GROUP_LIST, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_SHOP_GOODS_GROUP_LIST, GsonUtil.gsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 waiMaiShopGoodsGroupList.clear();
@@ -72,7 +72,7 @@ public class ShopOrderDishesModel extends BaseModel {
      * @param requestCallBack
      */
     public void requestGoodsSpecification(RequestCallBack<Object> requestCallBack, Goods goods) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_GOODS_SPECIFICATION, GsonUtil.toJsonString(new WaiMaiShopReqData.WaiMaiSimpleReqData(goods.getId())), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_GOODS_SPECIFICATION, GsonUtil.gsonString(new WaiMaiShopReqData.WaiMaiSimpleReqData(goods.getId())), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
@@ -118,7 +118,7 @@ public class ShopOrderDishesModel extends BaseModel {
                         String.valueOf(goods.getIsBargainGoods()), "1",
                         goods.getSpecialPrice(), shopId, goods.getSpecSelected(), goods.getVersions()));
 
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ADD_SHOPPING_CART, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_ADD_SHOPPING_CART, GsonUtil.gsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if ("true".equals(data)) {
@@ -146,7 +146,7 @@ public class ShopOrderDishesModel extends BaseModel {
                         String.valueOf(goods.getId()), goods.getName(),goods.getGoodsImgUrl(),
                         String.valueOf(goods.getIsBargainGoods()), "1",
                         goods.getSpecialPrice(), shopId, goods.getSpecSelected(), goods.getVersions()));
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_CHANGE_SHOPPING_CART, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_CHANGE_SHOPPING_CART, GsonUtil.gsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if ("true".equals(data)) {

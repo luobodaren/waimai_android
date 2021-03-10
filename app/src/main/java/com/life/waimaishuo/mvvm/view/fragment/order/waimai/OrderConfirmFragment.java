@@ -637,13 +637,11 @@ public class OrderConfirmFragment extends BaseFragment {
     /**
      * 根据样式打开页面确认订单
      * @param baseFragment
-     * @param order
      * @param deliverType
      */
-    public static void openPageConfirmOrder(BaseFragment baseFragment, Order order, int deliverType){
+    public static void openPageConfirmOrder(BaseFragment baseFragment, int deliverType){
         Bundle bundle = new Bundle();
         bundle.putInt(ORDER_PAGE_TYPE_INT_KEY,deliverType);
-        bundle.putParcelable(ORDER_DATA_KEY,order);
         baseFragment.openPage(OrderConfirmFragment.class,bundle);
     }
 

@@ -65,13 +65,11 @@
 
             <include
                 android:id="@+id/layout_goods_option_add_shopping_cart"
-                layout="@layout/layout_goods_option_add_shopping_cart"
-                android:visibility="gone"/>
+                layout="@layout/layout_goods_option_add_shopping_cart"/>
 
             <include
                 android:id="@+id/layout_goods_option_chose"
-                layout="@layout/layout_goods_option_chose"
-                android:visibility="gone"/>
+                layout="@layout/layout_goods_option_chose"/>
 
         </RelativeLayout>
 

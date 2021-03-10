@@ -18,7 +18,7 @@ public class WaiMaiZeroDividerModel extends BaseModel {
      * 获取顶部筛选的recyclerView内容 目前不需要实现
      */
     /*public void requestFoodSubTypeList(RequestCallBack<Object> requestCallBack, WaiMaiReqData.WaiMaiSubTypeReqData reqData){
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant., GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant., GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {

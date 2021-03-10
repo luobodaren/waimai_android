@@ -31,7 +31,7 @@ public class ShopEvaluationModel extends BaseModel {
 
     public void requestStatEvaluate(RequestCallBack<Object> requestCallBack, int shopId) {
         WaiMaiShopReqData.WaiMaiSimpleReqData reqData = new WaiMaiShopReqData.WaiMaiSimpleReqData(shopId);
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_SHOP_STAT_EVALUATE, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_SHOP_STAT_EVALUATE, GsonUtil.gsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 shopStatEvaluate = null;

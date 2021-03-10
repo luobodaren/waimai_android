@@ -7,7 +7,7 @@ import androidx.databinding.Observable;
 import androidx.databinding.ViewDataBinding;
 import com.life.waimaishuo.databinding.ActivitySearchBinding;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.mvvm.view.fragment.SearchHistoryFragment;
+import com.life.waimaishuo.mvvm.view.fragment.common.SearchHistoryFragment;
 import com.life.waimaishuo.mvvm.vm.SearchViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.xuexiang.xpage.annotation.Page;

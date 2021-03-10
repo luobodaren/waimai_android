@@ -51,8 +51,8 @@ import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.activity.SearchActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.view.fragment.BaseStatusLoaderFragment;
-import com.life.waimaishuo.mvvm.view.fragment.LimitedTimeGoodsFragment;
-import com.life.waimaishuo.mvvm.view.fragment.MessageFragment;
+import com.life.waimaishuo.mvvm.view.fragment.common.LimitedTimeGoodsFragment;
+import com.life.waimaishuo.mvvm.view.fragment.common.MessageFragment;
 import com.life.waimaishuo.mvvm.view.fragment.city.CityPickerDialogFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.waimai.WaiMaiViewModel;
@@ -84,7 +84,6 @@ import com.xuexiang.xui.widget.tabbar.TabSegment;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;

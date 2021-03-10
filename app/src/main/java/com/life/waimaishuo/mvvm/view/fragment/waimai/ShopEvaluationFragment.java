@@ -40,6 +40,8 @@ public class ShopEvaluationFragment extends BaseFragment {
 
     private MyBaseRecyclerAdapter<Comment> commentsRecyclerAdapter;  //评价RecyclerView 适配器
 
+    boolean isShowStatEvaluation = true;    //是否显示综合评分区域
+
     @Override
     protected BaseViewModel setViewModel() {
         if (mViewModel == null) {
@@ -73,6 +75,12 @@ public class ShopEvaluationFragment extends BaseFragment {
     protected void initViews() {
         super.initViews();
 
+        if(isShowStatEvaluation){
+            setViewVisibility(mBinding.llStatEvaluation,true);
+        }else {
+            setViewVisibility(mBinding.llStatEvaluation,false);
+        }
+
         initScoreView();
     }
 
@@ -86,18 +94,16 @@ public class ShopEvaluationFragment extends BaseFragment {
     @Override
     protected void firstRequestData() {
         super.firstRequestData();
-        mViewModel.requestStatEvaluate(shopId);
+        if(isShowStatEvaluation){
+            mViewModel.requestStatEvaluate(shopId); //请求综合评价
+        }
         mViewModel.requestShopEvaluate(shopId, 1, 10, 1);   //默认选择有图
-    }
-
-    public void setShopId(int shopId) {
-        this.shopId = shopId;
     }
 
     private void initScoreView() {
         mBinding.layoutFiveStar.hideFans();
         mBinding.layoutFiveStar.hideTitle();
-        mBinding.layoutFiveStar.setScore(5);
+        mBinding.layoutFiveStar.setScore(0);
     }
 
     private void addCallBack() {
@@ -194,4 +200,11 @@ public class ShopEvaluationFragment extends BaseFragment {
 
     }
 
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
+    }
+
+    public void setShowStatEvaluation(boolean showStatEvaluation) {
+        isShowStatEvaluation = showStatEvaluation;
+    }
 }

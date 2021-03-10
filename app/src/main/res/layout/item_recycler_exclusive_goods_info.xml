@@ -75,7 +75,7 @@
                 android:includeFontPadding="false"
                 android:singleLine="true"
                 android:paddingStart="24px"
-                android:text='@{goods.score + @string/score}'
+                android:text='@{String.valueOf(goods.favorable_rate) + @string/score}'
                 android:textColor="@color/colorAssist_3"
                 android:textSize="24px"
                 app:layout_constraintStart_toStartOf="@id/tv_goods_name"

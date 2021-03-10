@@ -67,6 +67,10 @@ public class Shop implements Parcelable {
     int open_state;  //营业状态 1上班 2下班
     @SerializedName(value = "effectiveDate")
     String effectiveDate;   //生效时间(9:00-18:00)
+    @SerializedName(value = "businessLicense")//经营执照
+    String businessLicense;
+    @SerializedName(value = "foodLicense")  //食品经营许可证
+    String foodLicense;
     String polygon; //多边形轮廓坐标值
 
     String create_name; //创建人
@@ -114,7 +118,7 @@ public class Shop implements Parcelable {
     @SerializedName(value = "avgPrice")
     String avgPrice;        //人均价格
     @SerializedName(value = "couponList")
-    List<Coupon> couponList;    //优惠卷列表
+    List<String> couponList; //优惠卷列表
 
     // FIXME: 2020/12/18 暂存以下属性值
     @SerializedName(value = "fansNum")
@@ -127,7 +131,6 @@ public class Shop implements Parcelable {
     public Shop(String shop_name) {
         this.shop_name = shop_name;
     }
-
 
     protected Shop(Parcel in) {
         shopId = in.readInt();
@@ -164,6 +167,8 @@ public class Shop implements Parcelable {
         update_time = in.readString();
         open_state = in.readInt();
         effectiveDate = in.readString();
+        businessLicense = in.readString();
+        foodLicense = in.readString();
         polygon = in.readString();
         create_name = in.readString();
         account_number = in.readString();
@@ -195,7 +200,7 @@ public class Shop implements Parcelable {
         minPrice = in.readString();
         deliveryPrice = in.readString();
         avgPrice = in.readString();
-        couponList = in.createTypedArrayList(Coupon.CREATOR);
+        couponList = in.createStringArrayList();
         number_of_fans = in.readInt();
     }
 
@@ -723,6 +728,22 @@ public class Shop implements Parcelable {
         this.effectiveDate = effectiveDate;
     }
 
+    public String getBusinessLicense() {
+        return businessLicense;
+    }
+
+    public void setBusinessLicense(String businessLicense) {
+        this.businessLicense = businessLicense;
+    }
+
+    public String getFoodLicense() {
+        return foodLicense;
+    }
+
+    public void setFoodLicense(String foodLicense) {
+        this.foodLicense = foodLicense;
+    }
+
     public List<Goods> getGoodsInfoList() {
         return goodsInfoList;
     }
@@ -787,11 +808,11 @@ public class Shop implements Parcelable {
         this.avgPrice = avgPrice;
     }
 
-    public List<Coupon> getCouponList() {
+    public List<String> getCouponList() {
         return couponList;
     }
 
-    public void setCouponList(List<Coupon> couponList) {
+    public void setCouponList(List<String> couponList) {
         this.couponList = couponList;
     }
 
@@ -844,6 +865,8 @@ public class Shop implements Parcelable {
         dest.writeString(update_time);
         dest.writeInt(open_state);
         dest.writeString(effectiveDate);
+        dest.writeString(businessLicense);
+        dest.writeString(foodLicense);
         dest.writeString(polygon);
         dest.writeString(create_name);
         dest.writeString(account_number);
@@ -875,7 +898,7 @@ public class Shop implements Parcelable {
         dest.writeString(minPrice);
         dest.writeString(deliveryPrice);
         dest.writeString(avgPrice);
-        dest.writeTypedList(couponList);
+        dest.writeStringList(couponList);
         dest.writeInt(number_of_fans);
     }
 }

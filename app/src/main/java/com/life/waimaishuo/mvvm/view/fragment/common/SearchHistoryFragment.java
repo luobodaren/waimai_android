@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment;
+package com.life.waimaishuo.mvvm.view.fragment.common;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.tag.SearchRecordTagAdapter;
 import com.life.waimaishuo.bean.SearchTag;
 import com.life.waimaishuo.databinding.FragmentSearchHistoryBinding;
+import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.SearchHistoryViewModel;
 import com.google.android.flexbox.FlexDirection;

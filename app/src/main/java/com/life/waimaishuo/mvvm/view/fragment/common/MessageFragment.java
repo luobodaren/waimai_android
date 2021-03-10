@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment;
+package com.life.waimaishuo.mvvm.view.fragment.common;
 
 import android.graphics.Color;
 import android.view.View;
@@ -19,6 +19,7 @@ import com.life.waimaishuo.bean.Message;
 import com.life.waimaishuo.constant.Constant;
 import com.life.waimaishuo.databinding.FragmentMessageBinding;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
+import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.MessageViewModel;
 import com.life.waimaishuo.util.StatusBarUtils;

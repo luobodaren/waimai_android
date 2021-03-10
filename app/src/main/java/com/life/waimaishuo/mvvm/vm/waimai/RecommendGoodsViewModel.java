@@ -1,5 +1,7 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
+import androidx.databinding.ObservableInt;
+
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.RecommendGoodsModel;
@@ -11,6 +13,8 @@ import java.util.List;
 public class RecommendGoodsViewModel extends BaseViewModel {
 
     RecommendGoodsModel mModel;
+
+    public ObservableInt onGetCommendGoodsObservable = new ObservableInt();
 
     @Override
     public BaseModel getModel() {
@@ -24,15 +28,10 @@ public class RecommendGoodsViewModel extends BaseViewModel {
     }
 
     public List<Goods> getGoodsList() {
-        List<Goods> foods = new ArrayList<>();
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        foods.add(new Goods("茶叶蛋","月售五十 好评率100%","https://img.pic88.com/preview/2020/08/10/15970307461454932.jpg!s640",1,"18.0"));
-        return foods;
+        return mModel.commendGoods;
+    }
+
+    public void requestCommendGoods(int shopId, int brandId, int pageNum, int pageSize) {
+        mModel.requestCommendGoods(new BaseModel.NotifyChangeRequestCallBack(onGetCommendGoodsObservable), shopId, brandId, pageNum, pageSize);
     }
 }

@@ -25,33 +25,24 @@ import java.util.List;
 public class ShopDetailModel extends BaseModel {
 
     public Shop shop = new Shop();
-    public List<String> couponStringList = new ArrayList<>();
 
     public WaiMaiShoppingCart waiMaiShoppingCart;   //购物车商品数据
 
     public boolean isJoinShopFans = false;
+    public String shopMemberQRCode = "";
 
     public boolean isCollectShop = false;
 
-    /**
-     * 刷新优惠介绍列表
-     */
-    private void refreshCouponStringList(){
-        if(shop != null && shop.getCouponList() != null){
-            for(Coupon coupon : shop.getCouponList()){
-                couponStringList.add(coupon.getIntroduceByType());
-            }
-        }
-    }
-
     public void requestShopInfo(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_SHOPINFO, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_SHOPINFO, GsonUtil.gsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if (!"".equals(data)) {
                     shop = GsonUtil.parserJsonToBean(data,Shop.class);
                     shop.setShop_head_portrait(HttpUtils.changeToHttps(shop.getShop_head_portrait()));
-                    refreshCouponStringList();
+                    shop.setShop_sign(HttpUtils.changeToHttps(shop.getShop_sign()));
+                    shop.setBusinessLicense(HttpUtils.changeToHttps(shop.getBusinessLicense()));
+                    shop.setFoodLicense(HttpUtils.changeToHttps(shop.getFoodLicense()));
 
                     requestCallBack.onSuccess(shop);
                 } else {
@@ -75,13 +66,15 @@ public class ShopDetailModel extends BaseModel {
      * @param reqData
      */
     public void requestIsJoinShopFans(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData){
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_IS_JOIN_SHOP_FANS,GsonUtil.toJsonString(reqData),true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_IS_JOIN_SHOP_FANS,GsonUtil.gsonString(reqData),true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
+                shopMemberQRCode = "";
                 if("".equals(data)){
                     isJoinShopFans = false;
                 }else{
                     isJoinShopFans = true;
+                    shopMemberQRCode = data;
                 }
                 requestCallBack.onSuccess(data);
             }
@@ -89,6 +82,7 @@ public class ShopDetailModel extends BaseModel {
             @Override
             public void onError(int errorType, Throwable error) {
                 LogUtil.e("requestIsJoinShopFans error:" + error.getMessage());
+                shopMemberQRCode = "";
                 requestCallBack.onFail(error.getMessage());
             }
         });
@@ -98,7 +92,7 @@ public class ShopDetailModel extends BaseModel {
      * 加入店铺会员
      */
     public void joinInShopFans(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData){
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_JOIN_SHOP_FANS,GsonUtil.toJsonString(reqData),true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_JOIN_SHOP_FANS,GsonUtil.gsonString(reqData),true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 isJoinShopFans = true;
@@ -117,7 +111,7 @@ public class ShopDetailModel extends BaseModel {
      * 是否收藏店铺
      */
     public void requestIsCollectShop(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData){
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_IS_COLLECT_SHOP,GsonUtil.toJsonString(reqData),true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_IS_COLLECT_SHOP,GsonUtil.gsonString(reqData),true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 if("".equals(data) || "false".equals(data)){
@@ -144,7 +138,7 @@ public class ShopDetailModel extends BaseModel {
     public void doOrCancelCollectShop(RequestCallBack<Object> requestCallBack, int shopId){
         CommonReqData.AddUserCollectReqData reqData = new CommonReqData.AddUserCollectReqData(new AddUserCollectReqBean(shopId,0,1));
         if(isCollectShop){//收藏则取消收藏
-            HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_CANCEL_COLLECT_SHOP_OR_GOOD,GsonUtil.toJsonString(reqData),true, new HttpUtils.HttpCallback() {
+            HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_CANCEL_COLLECT_SHOP_OR_GOOD,GsonUtil.gsonString(reqData),true, new HttpUtils.HttpCallback() {
                 @Override
                 public void onSuccess(String data) {
                     if(!"".equals(data) && !"false".equals(data)){
@@ -160,7 +154,7 @@ public class ShopDetailModel extends BaseModel {
                 }
             });
         }else{  //没收藏 则收藏
-            HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_COLLECT_SHOP_OR_GOOD,GsonUtil.toJsonString(reqData),true, new HttpUtils.HttpCallback() {
+            HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_COLLECT_SHOP_OR_GOOD,GsonUtil.gsonString(reqData),true, new HttpUtils.HttpCallback() {
                 @Override
                 public void onSuccess(String data) {
                     if(!"".equals(data) && !"false".equals(data)){
@@ -183,7 +177,7 @@ public class ShopDetailModel extends BaseModel {
      * 获取购物车
      */
     public void requestShoppingCart(RequestCallBack<Object> requestCallBack, WaiMaiShopReqData.WaiMaiSimpleReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_SHOPPING_CART, GsonUtil.toJsonString(reqData), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_GET_SHOPPING_CART, GsonUtil.gsonString(reqData), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 waiMaiShoppingCart = null;
@@ -212,7 +206,7 @@ public class ShopDetailModel extends BaseModel {
      * @param shopId
      */
     public void requestDelShoppingCartList(int shopId) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_DEL_SHOPPING_CART_LIST, GsonUtil.toJsonString(new WaiMaiShopReqData.WaiMaiSimpleReqData(shopId)), true, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_DEL_SHOPPING_CART_LIST, GsonUtil.gsonString(new WaiMaiShopReqData.WaiMaiSimpleReqData(shopId)), true, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 waiMaiShoppingCart = null;

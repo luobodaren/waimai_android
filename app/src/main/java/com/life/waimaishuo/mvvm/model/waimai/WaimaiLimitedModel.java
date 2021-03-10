@@ -15,7 +15,7 @@ public class WaimaiLimitedModel extends BaseModel {
     public SecondKillTime secondKillTime = new SecondKillTime();    //限时秒杀时间
 
     public void requestSecondKillTime(NotifyChangeRequestCallBack requestCallBack, WaiMaiReqData.WaiMaiSecondKillReqData reqData) {
-        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SECOND_KILL, GsonUtil.toJsonString(reqData), false, new HttpUtils.HttpCallback() {
+        HttpUtils.getHttpUtils().doPostJson(ApiConstant.DOMAIN_NAME + ApiConstant.API_WAIMAI_MAIN_SECOND_KILL, GsonUtil.gsonString(reqData), false, new HttpUtils.HttpCallback() {
             @Override
             public void onSuccess(String data) {
                 LogUtil.d(data);

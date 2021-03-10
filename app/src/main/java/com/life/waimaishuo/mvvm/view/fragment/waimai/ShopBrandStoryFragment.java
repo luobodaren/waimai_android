@@ -1,6 +1,7 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,8 +26,18 @@ import com.xuexiang.xpage.utils.TitleBar;
 @Page(name = "品牌故事", anim = CoreAnim.slide)
 public class ShopBrandStoryFragment extends BaseFragment {
 
+    private final static String BUNDLE_KEY_SHOP_ID = "bundle_key_shop_id";
+
     private FragmentWaimaiBrandStoryBinding mBinding;
     private BrandStoryViewModel mViewModel;
+
+    private int shopId;
+
+    public static void openPage(BaseFragment baseFragment, int shopId){
+        Bundle bundle = new Bundle();
+        bundle.putInt(BUNDLE_KEY_SHOP_ID,shopId);
+        baseFragment.openPage(ShopBrandStoryFragment.class, bundle);
+    }
 
     @Override
     protected BaseViewModel setViewModel() {
@@ -55,6 +66,16 @@ public class ShopBrandStoryFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            shopId = bundle.getInt(BUNDLE_KEY_SHOP_ID,-1);
+            if(shopId == -1)
+                throw new Error("shopId错误");
+        }else{
+            throw new Error("bundle 为空");
+        }
+
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }

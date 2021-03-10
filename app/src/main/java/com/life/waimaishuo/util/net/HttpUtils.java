@@ -257,7 +257,7 @@ public class HttpUtils {
 
         //添加表单信息
         RequestBody bodyParams = RequestBody
-                .create(MediaType.parse(MEDIA_TYPE_FORMDATA), GsonUtil.toJsonString(params));
+                .create(MediaType.parse(MEDIA_TYPE_FORMDATA), GsonUtil.gsonString(params));
         requestBodyBuilder .addFormDataPart("", "", bodyParams);// FIXME: 2020/11/23 修改表单key value
 
         //循环添加文件
@@ -323,10 +323,11 @@ public class HttpUtils {
                     public void onResponse(Call call, Response response) throws IOException {
                         String json = response.body().string();
                         try {
-                            int code = GsonUtil.getIntNoteJsonString(json,"code");
-                            if(code == 0){
+                            Integer code = GsonUtil.getIntNoteJsonString(json,"code");
+                            if(code != null && code == 0){
                                 String data = GsonUtil.getStringNoteJsonString(json,"data");
-                                if("null".equals(data)){    //有字段但返回null
+                                LogUtil.d("data" + data);
+                                if(data == null || "null".equals(data)){    //有字段但返回null
                                     data = "";
                                 }
                                 httpCallback.onSuccess(data);

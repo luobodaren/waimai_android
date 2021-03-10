@@ -345,4 +345,6 @@
     <string name="brand">品牌</string>
     <string name="discount">%s折</string>
     <string name="dist_price">另需配送费%s元</string>
+    <string name="business_license">营业执照</string>
+    <string name="food_business_license">食品经营许可证</string>
 </resources>

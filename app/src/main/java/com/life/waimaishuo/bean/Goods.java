@@ -71,7 +71,6 @@ public class Goods implements Parcelable {
     private String price_avg_per_man;   //人均价格
     @SerializedName(value = "salesVolume")
     private String salesVolume; //销量
-    private String score;   //评分
     private String lowestPriceOf15Days; //15天内最低价格
 
     @SerializedName(value = "goodsTag")
@@ -115,13 +114,13 @@ public class Goods implements Parcelable {
     public Goods() {
     }
 
-    public Goods(String name, int time_send, String goodsImgUrl, String price_deliver, int monSalesVolume, String score) {
+    public Goods(String name, int time_send, String goodsImgUrl, String price_deliver, int monSalesVolume, int favorable_rate) {
         this.name = name;
         this.goodsImgUrl = goodsImgUrl;
         this.time_send = time_send;
         this.price_deliver = price_deliver;
         this.monSalesVolume = monSalesVolume;
-        this.score = score;
+        this.favorable_rate = favorable_rate;
     }
 
     public Goods(String name, String describe, String goodsImgUrl, int monSalesVolume, String price) {
@@ -180,7 +179,6 @@ public class Goods implements Parcelable {
         price_deliver = in.readString();
         price_avg_per_man = in.readString();
         salesVolume = in.readString();
-        score = in.readString();
         lowestPriceOf15Days = in.readString();
         goodsTag = in.readInt();
         mealsFee = in.readString();
@@ -420,14 +418,6 @@ public class Goods implements Parcelable {
         this.salesVolume = salesVolume;
     }
 
-    public String getScore() {
-        return score;
-    }
-
-    public void setScore(String score) {
-        this.score = score;
-    }
-
     public String getLowestPriceOf15Days() {
         return lowestPriceOf15Days;
     }
@@ -552,7 +542,6 @@ public class Goods implements Parcelable {
                 ", price_deliver='" + price_deliver + '\'' +
                 ", price_avg_per_man='" + price_avg_per_man + '\'' +
                 ", salesVolume='" + salesVolume + '\'' +
-                ", score='" + score + '\'' +
                 ", lowestPriceOf15Days='" + lowestPriceOf15Days + '\'' +
                 ", goodsTag=" + goodsTag +
                 ", mealsFee='" + mealsFee + '\'' +
@@ -600,7 +589,6 @@ public class Goods implements Parcelable {
         dest.writeString(price_deliver);
         dest.writeString(price_avg_per_man);
         dest.writeString(salesVolume);
-        dest.writeString(score);
         dest.writeString(lowestPriceOf15Days);
         dest.writeInt(goodsTag);
         dest.writeString(mealsFee);

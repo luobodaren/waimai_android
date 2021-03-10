@@ -1,6 +1,6 @@
 package com.life.waimaishuo.mvvm.view.activity;
 
-import com.life.waimaishuo.mvvm.view.fragment.MainFragment;
+import com.life.waimaishuo.mvvm.view.fragment.common.MainFragment;
 
 public class MainActivity extends BaseActivity {
 

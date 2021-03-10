@@ -49,7 +49,9 @@ public class ApiConstant {
     public final static String API_WAIMAI_GET_SHOP_GOODS_GROUP_LIST = "/deliveryShopFirst/selectShopGroupList";   //查询外卖店铺首页的分组以及商品列表
 
     public final static String API_WAIMAI_GOODS_DELIVER_DETAIL = "/deliveryShopFirst/getGoodsDeliveryDetail";   //外卖商品详情
-    public final static String API_WAIMAI_GET_GOODS_SPECIFICATION = "/deliveryShopFirst/getDeliveryGoodsSpecs";
+    public final static String API_WAIMAI_GET_GOODS_SPECIFICATION = "/deliveryShopFirst/getDeliveryGoodsSpecs"; //商品规格
+
+    public final static String API_WAIMAI_GOODS_DETAIL_COMMEND_GOODS = "/searchDeliveryGoods/selectDeliveryGoodsDetailApp"; //商品详情下的推荐商品
 
     public final static String API_WAIMAI_GET_SHOPPING_CART = "/deliverycart/getcartbyshopid";  //获取购物车
     public final static String API_WAIMAI_ADD_SHOPPING_CART = "/deliverycart/adddeliverycart";  //加入购物车
@@ -58,4 +60,6 @@ public class ApiConstant {
 
     public final static String API_WAIMAI_SHOP_STAT_EVALUATE = "/deliveryShopFirst/getStatEvaluateByShopId";    //店铺总评分信息
     public final static String API_WAIMAI_SHOP_EVALUATE = "/deliveryShopFirst/selectGoodsEvaluateApp";  //店铺评价内容
+
+    public final static String API_WAIMAI_SHOP_BRAND_STORY = "/appshopfitment/getdeliverbrandstory";    //店铺 品牌故事
 }

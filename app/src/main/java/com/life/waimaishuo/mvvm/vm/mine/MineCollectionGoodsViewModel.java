@@ -33,7 +33,7 @@ public class MineCollectionGoodsViewModel extends BaseViewModel {
         List<Goods> goodsList = new ArrayList<>();
         Goods goods = new Goods();
         goods.setName("饭戒(西丽店)");
-        goods.setScore("4.8");
+        goods.setFavorable_rate(48);
         goods.setPrice("20");
         goods.setTime_send(40);
         goods.setMonSalesVolume(1998);
@@ -50,7 +50,7 @@ public class MineCollectionGoodsViewModel extends BaseViewModel {
         List<Goods> goodsList = new ArrayList<>();
         Goods goods = new Goods();
         goods.setName("饭戒(西丽店)");
-        goods.setScore("4.8");
+        goods.setFavorable_rate(48);
         goods.setPrice_deliver("20");
         goods.setTime_send(40);
         goods.setMonSalesVolume(1998);

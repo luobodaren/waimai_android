@@ -1,6 +1,8 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +52,7 @@ import com.life.waimaishuo.mvvm.vm.waimai.ShopDetailViewModel;
 import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.TextUtil;
+import com.life.waimaishuo.util.Utils;
 import com.life.waimaishuo.views.MyTabSegmentTab;
 import com.life.waimaishuo.views.widget.pop.MyCheckRoundTextInfoPop;
 import com.xuexiang.xpage.annotation.Page;
@@ -299,7 +303,16 @@ public class ShopDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.goToSettleAccounts, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this, null, OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
+                int pageType = -1;
+                int shopNature = mViewModel.getShopDetail().getShop_nature();
+                if(shopNature == 1){
+                    pageType = OrderConfirmFragment.ORDER_ACCESS_WAIMAI;
+                }else if(shopNature == 2){
+                    pageType = OrderConfirmFragment.ORDER_ACCESS_WAIMAI_ONLY;
+                }else if(shopNature == 3){
+                    pageType = OrderConfirmFragment.ORDER_ACCESS_ZIQU_ONLY;
+                }
+                OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this, pageType); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
             }
         });
 
@@ -432,7 +445,7 @@ public class ShopDetailFragment extends BaseFragment {
                                 "点击了：" + parent.getAdapter().getItem(position),
                                 Toast.LENGTH_SHORT).show());
 
-        shopCashBackTagAdapter.addTags(mViewModel.getCashBackData());
+        shopCashBackTagAdapter.addTags(mViewModel.getShopDetail().getCouponList());
     }
 
     /**
@@ -526,6 +539,10 @@ public class ShopDetailFragment extends BaseFragment {
                     showAddMemberInfo("加入会员成功", true);
                 }
             });
+            //生成二维码
+            Bitmap qrBitmap = Utils.createQRCodeBitmap(mViewModel.getQrCode(), 800, 800,"UTF-8","H", "1", Color.BLACK, Color.WHITE);
+            ((ImageView)view.findViewById(R.id.iv_qr_code)).setImageBitmap(qrBitmap);
+
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -637,12 +654,12 @@ public class ShopDetailFragment extends BaseFragment {
         binding.preferentialRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),
                 LinearLayoutManager.VERTICAL, false));
         binding.preferentialRecyclerView.addItemDecoration(getPreferentialRecyclerItemDecoration());
-        binding.preferentialRecyclerView.setAdapter(new MyBaseRecyclerAdapter<PreferentialActivity>(
+        binding.preferentialRecyclerView.setAdapter(new MyBaseRecyclerAdapter<String>(
                 R.layout.item_recycler_preferential_activity,
                 mViewModel.getShopDetail().getCouponList(), com.life.waimaishuo.BR.item) {
             @Override
-            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, PreferentialActivity item) {
-                helper.setText(R.id.tv_tag, item.getName());
+            protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, String item) {
+                helper.setText(R.id.tv_tag, item);
             }
         });
 
@@ -888,6 +905,11 @@ public class ShopDetailFragment extends BaseFragment {
 
     private void refreshShopInfo() {
         //Head区域
+        Glide.with(requireContext())
+                .load(mViewModel.getShopDetail().getShop_sign())
+                .centerCrop()
+                .placeholder(R.mipmap.png_bg_shop_top)
+                .into(mBinding.imgBgTop);
         mBinding.layoutShopDetails.setShop(mViewModel.getShopDetail());
         String notice = mViewModel.getShopDetail().getNotice();
         if (null == notice || "".equals(notice)) {
@@ -896,8 +918,8 @@ public class ShopDetailFragment extends BaseFragment {
             setViewVisibility(mBinding.layoutShopDetails.tvShopAnnouncement, true);
         }
 
-        List<String> stringList = mViewModel.getCashBackData();
-        if (stringList.size() == 0) {
+        List<String> stringList = mViewModel.getShopDetail().getCouponList();
+        if (stringList == null || stringList.size() == 0) {
             setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack, false);
         } else {
             setViewVisibility(mBinding.layoutShopDetails.flowlayoutCashBack, true);

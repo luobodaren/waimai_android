@@ -65,7 +65,7 @@ public class GoodsDetailFragment extends BaseFragment {
 
     private SpecificationDialog specificationDialog;
 
-    private Shop shop;
+    private Shop shop;  //保存店铺传进来的Goods信息，有部分数据需要从这里获取
     private Goods goods;    //保存店铺传进来的Goods信息，有部分数据需要从这里获取
 
     private BottomSheet mShoppingCartDialog;//购物车dialog
@@ -208,10 +208,10 @@ public class GoodsDetailFragment extends BaseFragment {
             case MessageCodeConstant.SHOPPING_CART_DATA_UPDATE:
                 waiMaiShoppingCart = (WaiMaiShoppingCart) messageEvent.getMessage();
                 setShoppingCartData(waiMaiShoppingCart, null);
-                if(mViewModel.getGoodsData() != null){
-                    for(GoodsShoppingCart goodsShoppingCart : waiMaiShoppingCart.getDeliveryGoodsDto()){
-                        if(goodsShoppingCart.getShopId() == shop.getShopId()
-                                && goodsShoppingCart.getGoodsId() == mViewModel.getGoodsData().getId()){
+                if (mViewModel.getGoodsData() != null) {
+                    for (GoodsShoppingCart goodsShoppingCart : waiMaiShoppingCart.getDeliveryGoodsDto()) {
+                        if (goodsShoppingCart.getShopId() == shop.getShopId()
+                                && goodsShoppingCart.getGoodsId() == mViewModel.getGoodsData().getId()) {
                             mViewModel.getGoodsData().setChoiceNumber(Integer.valueOf(goodsShoppingCart.getBuyCount()));
                             mBinding.layoutGoodsOptionAddShoppingCart.tvCount.setText(String.valueOf(goodsShoppingCart.getBuyCount()));
                             break;
@@ -233,7 +233,7 @@ public class GoodsDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.goToSettleAccounts, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                OrderConfirmFragment.openPageConfirmOrder(GoodsDetailFragment.this, null, OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
+                OrderConfirmFragment.openPageConfirmOrder(GoodsDetailFragment.this, OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
             }
         });
 
@@ -267,9 +267,10 @@ public class GoodsDetailFragment extends BaseFragment {
         mBinding.tvPrePrice.setText(TextUtil.getAbsoluteSpannable(price_two, (int) UIUtils.getInstance().scalePx(12), 0, 1));
         TextUtil.setStrikeThrough(mBinding.tvPrePrice);
 
-        if (goods.getDetails() == null || "".equals(goods.getDetails())) {
+        if (mViewModel.getGoodsData().getDetails() == null || "".equals(mViewModel.getGoodsData().getDetails())) {
             BaseFragment.setViewVisibility(mBinding.tvIntroduce, false);
         } else {
+            mBinding.tvIntroduce.setText(mViewModel.getGoodsData().getDetails());
             BaseFragment.setViewVisibility(mBinding.tvIntroduce, true);
         }
         setGoodsOptionLayoutState();
@@ -278,7 +279,7 @@ public class GoodsDetailFragment extends BaseFragment {
     /**
      * 设置商品操作区域的显示情况
      */
-    private void setGoodsOptionLayoutState(){
+    private void setGoodsOptionLayoutState() {
         if (mViewModel.getGoodsData().getIsChooseSpecs() == 0
                 && mViewModel.getGoodsData().getChoiceNumber() == 0) {    //需要选择规格，且购物车无数据时 -》显示选规格按钮
             BaseFragment.setViewVisibility(mBinding.layoutGoodsOptionAddShoppingCart.llContent, false);
@@ -330,7 +331,7 @@ public class GoodsDetailFragment extends BaseFragment {
             String title = iterator.next();
             MyTabSegmentTab tab = new MyTabSegmentTab(title);
             tab.setTextSize(getResources().getDimensionPixelSize(R.dimen.waimai_shop_tabbar_item_text_size_selected));
-            adapter.addFragment(mViewModel.getTabBarFragment(title), title);
+            adapter.addFragment(mViewModel.getTabBarFragment(title,shop,goods), title);
             tabSegment.addTab(tab);
         }
     }

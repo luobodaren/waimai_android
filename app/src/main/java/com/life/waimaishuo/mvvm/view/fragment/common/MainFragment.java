@@ -1,4 +1,4 @@
-package com.life.waimaishuo.mvvm.view.fragment;
+package com.life.waimaishuo.mvvm.view.fragment.common;
 
 import android.os.Bundle;
 
@@ -14,6 +14,7 @@ import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentMainBinding;
+import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.MainViewModel;
 import com.xuexiang.xpage.annotation.Page;
