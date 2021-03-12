@@ -100,6 +100,11 @@
         <item name="cpIndexBarSelectedTextColor">@color/white</item>
     </style>
 
+    <style name="CityPickerAnimation2" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/cp_push_right_in</item>
+        <item name="android:windowExitAnimation">@anim/cp_push_right_out</item>
+    </style>
+
     <style name="xui_bottom_sheet_list_item_text_style" parent="@style/BottomSheetListItemTextStyle">
         <item name="android:textColor">@color/text_normal</item>
         <item name="android:textSize">@dimen/xui_bottom_sheet_list_item_text_size</item>

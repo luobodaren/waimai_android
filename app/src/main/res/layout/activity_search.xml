@@ -35,6 +35,8 @@
                 android:background="@drawable/sr_bg_search"
                 android:gravity="center_vertical"
                 android:text="@={viewModel.searchStr}"
+                android:textColorHint="@color/text_tip"
+                android:textSize="26px"
                 android:hint="搜索词"/>
 
             <Button

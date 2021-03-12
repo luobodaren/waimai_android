@@ -127,8 +127,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/et_region"
+            <TextView
+                android:id="@+id/tv_region_value"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="216px"

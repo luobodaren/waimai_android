@@ -3,6 +3,7 @@ package com.life.waimaishuo.mvvm.view.fragment.mine;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.databinding.Observable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -10,16 +11,20 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.life.base.utils.LogUtil;
 import com.life.base.utils.UIUtils;
+import com.life.waimaishuo.Global;
 import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
+import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.TypeCountData;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentMineBinding;
 import com.life.waimaishuo.listener.AppBarStateChangeListener;
 import com.life.waimaishuo.mvvm.view.activity.BaseActivity;
 import com.life.waimaishuo.mvvm.view.fragment.BaseFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 import com.life.waimaishuo.mvvm.vm.mine.MineViewModel;
+import com.life.waimaishuo.util.MyDataBindingUtil;
 import com.life.waimaishuo.util.StatusBarUtils;
 import com.life.waimaishuo.util.Utils;
 import com.xuexiang.xpage.annotation.Page;
@@ -47,6 +52,9 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initArgs() {
+        super.initArgs();
+
+        setRegisterEventBus(true);
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }
@@ -57,8 +65,30 @@ public class MineFragment extends BaseFragment {
     }
 
     @Override
+    protected BaseViewModel setViewModel() {
+        mViewModel = new MineViewModel();
+        return mViewModel;
+    }
+
+    @Override
+    protected void bindViewModel() {
+        mBinding = (FragmentMineBinding) mViewDataBinding;
+        mBinding.setViewModel(mViewModel);
+        if(Global.getUser() != null){
+            mBinding.setUser(Global.getUser());
+        }
+    }
+
+    @Override
     protected void initViews() {
         super.initViews();
+
+        if(Global.isLogin()){   //直接展示
+            //若已登录通过用户信息展示界面，并再请求一次数据进行展示
+
+        }else{
+            //展示空数据
+        }
 
         initAppBarLayout();
         initSuperMember();
@@ -79,6 +109,8 @@ public class MineFragment extends BaseFragment {
     protected void initListeners() {
         super.initListeners();
 
+        addCallBack();
+
         mBinding.xuiLayout.setOnClickListener(new BaseActivity.OnSingleClickListener(500) {
             @Override
             public void onSingleClick(View view) {
@@ -91,18 +123,17 @@ public class MineFragment extends BaseFragment {
         });
 
         mBinding.layoutSuperMember.btGoToMemberCenter.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-
-            boolean i = true;
-
             @Override
             public void onSingleClick(View view) {
-                // TODO: 2021/1/30 判断是否成为会员 进入不同的会员界面（会员中心 会员续费）
-                if(i){
-                    i = false;
-                    openPage(MineSuperMemberCenterFragment.class);
+                if(Global.getUser() == null){
+                    //跳转登录界面
+
                 }else{
-                    i = true;
-                    openPage(MineSuperMemberRenewFragment.class);
+                    if(Global.getUser().getIsVip() == 0){
+                        openPage(MineSuperMemberCenterFragment.class);  //非会员   开通
+                    }else{
+                        openPage(MineSuperMemberRenewFragment.class);   //会员    会员中心
+                    }
                 }
             }
         });
@@ -134,7 +165,7 @@ public class MineFragment extends BaseFragment {
             LogUtil.d("更多推荐点击 position=" + position);
             switch (position) { //注意与R.array.mine_recommends_str匹配
                 case 0:
-                    openPage(MineAddressManagerFragment.class);
+                    MineAddressManagerFragment.openPage(MineFragment.this,null);
                     break;
                 case 2:
                     openPage(MineCollectionFragment.class);
@@ -153,15 +184,31 @@ public class MineFragment extends BaseFragment {
     }
 
     @Override
-    protected BaseViewModel setViewModel() {
-        mViewModel = new MineViewModel();
-        return mViewModel;
+    protected void firstRequestData() {
+        super.firstRequestData();
+        if(Global.isLogin()){
+            //若已登录 重新获取用户信息 刷新界面
+            mViewModel.requestUserInfo();
+        }
     }
 
     @Override
-    protected void bindViewModel() {
-        mBinding = (FragmentMineBinding) mViewDataBinding;
-        mBinding.setViewModel(mViewModel);
+    public void MessageEvent(MessageEvent messageEvent) {
+        super.MessageEvent(messageEvent);
+        switch (messageEvent.getCode()){
+            case MessageCodeConstant.LOGIN_AND_GET_USERINFO_SUCCESS:    //登录成功
+                updateUIWithUserInfo();
+                break;
+        }
+    }
+
+    private void addCallBack(){
+        MyDataBindingUtil.addCallBack(this, mViewModel.onRequestUserInfo, new Observable.OnPropertyChangedCallback() {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId) {
+                mHandler.post(() -> updateUIWithUserInfo());
+            }
+        });
     }
 
     private void initAppBarLayout() {
@@ -183,7 +230,7 @@ public class MineFragment extends BaseFragment {
 
     private void initTopRecycler() {
        topRecyclerAdapter = new MyBaseRecyclerAdapter<TypeCountData>(
-               R.layout.item_vertical_data_show, getTopDataList(), com.life.waimaishuo.BR.item) {};
+               R.layout.item_vertical_data_show, mViewModel.getTopDataList(requireContext(),null), com.life.waimaishuo.BR.item) {};
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
 
         mBinding.recyclerTopData.setAdapter(topRecyclerAdapter);
@@ -231,15 +278,6 @@ public class MineFragment extends BaseFragment {
         return recommendRecyclerAdapter;
     }
 
-    private List<TypeCountData> getTopDataList(){
-        List<TypeCountData> topDataList = new ArrayList<>();
-        String[] orderStateStr = getResources().getStringArray(R.array.mine_top_data_list_str);
-        for (int i = 0; i < orderStateStr.length; i++) {
-            topDataList.add(new TypeCountData(orderStateStr[i],mViewModel.getTopDataValue(i)));
-        }
-        return topDataList;
-    }
-
     private List<IconStrData> getGoodsLogisticsData() {
         List<IconStrData> goodsLogisticsData = new ArrayList<>();
         String[] orderStateStr = getResources().getStringArray(R.array.mine_order_state_list_str);
@@ -258,6 +296,20 @@ public class MineFragment extends BaseFragment {
             mMoreRecommendData.add(new IconStrData(resImgId[i],iconTypes[i]));
         }
         return mMoreRecommendData;
+    }
+
+    private void updateUIWithUserInfo(){
+        mBinding.setUser(Global.getUser());
+
+        if(Global.getUser().getIsVip() == 0){   //非会员
+            mBinding.layoutSuperMember.btGoToMemberCenter.setText(R.string.open);
+        }else { //会员
+            mBinding.layoutSuperMember.btGoToMemberCenter.setText(R.string.into);
+        }
+
+        mViewModel.getTopDataList(requireContext(), topRecyclerAdapter.getData());
+        topRecyclerAdapter.notifyDataSetChanged();
+
     }
 
 }

@@ -54,7 +54,7 @@ public class OrderDeliverFinishFragment extends BaseFragment {
         mBinding.tvRight.setCompoundDrawables(null,connectedMerchantsDrawable,null,null);
 
         Glide.with(this)
-                .load(mViewModel.getOrderInfo().getShopIconUrl())
+                .load(mViewModel.getShop().getShop_head_portrait())
                 .placeholder(R.drawable.ic_waimai_brand)
                 .centerCrop()
                 .into(mBinding.ivShopIcon);

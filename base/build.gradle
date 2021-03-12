@@ -38,11 +38,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    //MMKV
+    api 'com.tencent:mmkv-static:1.2.7'
+
     api 'com.squareup.okhttp3:okhttp:4.9.0'
     api 'com.google.code.gson:gson:2.8.6'
 
     //androidx项目
     api 'com.github.xuexiangjys:XUI:1.1.5'
+
 
     implementation 'com.android.support:multidex:1.0.3'
 }

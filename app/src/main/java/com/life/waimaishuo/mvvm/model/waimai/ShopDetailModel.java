@@ -74,6 +74,11 @@ public class ShopDetailModel extends BaseModel {
                     isJoinShopFans = false;
                 }else{
                     isJoinShopFans = true;
+                    //去除前后引号
+                    if(data.startsWith("\""))
+                        data = data.substring(1);
+                    if(data.endsWith("\""))
+                        data = data.substring(0,data.length()-1);
                     shopMemberQRCode = data;
                 }
                 requestCallBack.onSuccess(data);

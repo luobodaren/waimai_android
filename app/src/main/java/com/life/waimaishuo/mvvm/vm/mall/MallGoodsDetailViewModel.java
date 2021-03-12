@@ -124,19 +124,11 @@ public class MallGoodsDetailViewModel extends BaseViewModel {
 
     public List<Address> getAddressList() {
         List<Address> addresses = new ArrayList<>();
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",true,true));
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,true));
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,true));
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,true));
         return addresses;
     }
 
     public List<Address> getnoneEffectiveAddressList() {
         List<Address> addresses = new ArrayList<>();
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,false));
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,false));
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,false));
-        addresses.add(new Address("的撒合法破伤风啊大师风范就","的撒发","13715714099",false,false));
-        return addresses;
+         return addresses;
     }
 }

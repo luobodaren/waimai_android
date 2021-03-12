@@ -167,7 +167,7 @@ public class ShopOrderDishesFragment extends BaseFragment
                     if (linkageShopGoodsGroupedItem.info instanceof LinkageShopGoodsGroupedItemInfo) {
                         if (shoppingCartOptionEvent.goodsId == linkageShopGoodsGroupedItem.info.getGoods().getId()) {
                             linkageShopGoodsGroupedItem.info.getGoods().setChoiceNumber(shoppingCartOptionEvent.buyCount);
-                            if(linkageShopGoodsGroupedItem.info.getUiUpdateObservable() != null)
+                            if (linkageShopGoodsGroupedItem.info.getUiUpdateObservable() != null)
                                 linkageShopGoodsGroupedItem.info.getUiUpdateObservable().notifyChange();
                             break;
                         }
@@ -178,7 +178,7 @@ public class ShopOrderDishesFragment extends BaseFragment
             Toast.makeText(requireContext(), "加入购物车失败", Toast.LENGTH_SHORT).show();
         } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_CHANGE_FALSE) {
             Toast.makeText(requireContext(), "修改商品失败", Toast.LENGTH_SHORT).show();
-        } else if(messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_WITH_GOODS){
+        } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_WITH_GOODS) {
             tempGoods = (Goods) messageEvent.getMessage();  //需要设置好wantBuy
             handleAddOrReduceGoodsCount();
         } else if (messageEvent.getCode() == MessageCodeConstant.SHOPPING_CART_ADD_WITH_GOODS_DIRECT) { //这里直接执行加入购物车操作 而不是点击事件触发的加入购物车
@@ -223,7 +223,7 @@ public class ShopOrderDishesFragment extends BaseFragment
                         tempGoods.setSpecSelected(getString(R.string.waimai_goods_default_spec_str));
                     }
                 }
-                if(tempGoods.getAttrs() == null){   //没有设置属性则设置为空字符串
+                if (tempGoods.getAttrs() == null) {   //没有设置属性则设置为空字符串
                     tempGoods.setAttrs("");
                 }
                 if (Integer.valueOf(tempGoods.getWantBuyCount()) == 1 && tempGoods.getChoiceNumber() == 0) {  //由0 -> 1加入购物车
@@ -293,13 +293,17 @@ public class ShopOrderDishesFragment extends BaseFragment
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
                     //设置购买数量
-                    for (BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item : mViewModel.getShopGoodsItems()) {
-                        if (item.isHeader)
-                            continue;
-                        for (GoodsShoppingCart goodsShoppingCart : waiMaiShoppingCart.getDeliveryGoodsDto()) {
-                            if (goodsShoppingCart.getGoodsId() == item.info.getGoods().getId()) {
-                                item.info.getGoods().setChoiceNumber(Integer.valueOf(goodsShoppingCart.getBuyCount()));
+                    if (waiMaiShoppingCart != null) {
+                        for (BaseGroupedItem<LinkageShopGoodsGroupedItemInfo> item : mViewModel.getShopGoodsItems()) {
+                            if (item.isHeader)
+                                continue;
+
+                            for (GoodsShoppingCart goodsShoppingCart : waiMaiShoppingCart.getDeliveryGoodsDto()) {
+                                if (goodsShoppingCart.getGoodsId() == item.info.getGoods().getId()) {
+                                    item.info.getGoods().setChoiceNumber(Integer.valueOf(goodsShoppingCart.getBuyCount()));
+                                }
                             }
+
                         }
                     }
                     initLinkageRecycler();

@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.life.waimaishuo.mvvm.vm.waimai.BaseShopDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/interval_size_xs"
+        android:paddingEnd="@dimen/interval_size_xs">
 
         <TextView
             android:id="@+id/tv_preferential_price"
@@ -19,22 +22,22 @@
             android:layout_height="102px"
             android:background="@drawable/sr_preferential_price"
             android:gravity="top|center"
-            android:textSize="@dimen/font_size_24"
-            android:textColor="@color/text_uncheck"
-            android:paddingTop="12px"
             android:includeFontPadding="false"
-            tools:text="已减3.88"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingTop="12px"
+            android:textColor="@color/text_uncheck"
+            android:textSize="@dimen/font_size_24"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            tools:text="已减3.88" />
 
         <LinearLayout
             android:id="@+id/ll_shopping_cart"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/shopping_cart_height"
             android:layout_marginTop="51px"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -60,8 +63,8 @@
                 android:layout_width="130px"
                 android:layout_height="@dimen/shopping_cart_height"
                 android:background="@drawable/sr_shopping_bar_left"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="40px"
@@ -71,22 +74,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4px"
                     android:includeFontPadding="false"
                     android:text="@string/connect_merchants"
                     android:textColor="#FFE3D1B1"
-                    android:textSize="20px"
-                    android:layout_marginTop="4px" />
+                    android:textSize="20px" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_shopping_cart_mid"
-                android:layout_width="438px"
+                android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
+                android:layout_marginStart="4px"
+                android:layout_weight="1"
                 android:background="@drawable/sr_shopping_bar_mid"
-                android:layout_marginStart="4px">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -107,13 +111,13 @@
                         android:layout_width="24px"
                         android:layout_height="24px"
                         android:layout_marginStart="32px"
-                        android:includeFontPadding="false"
                         android:background="@drawable/sr_round_red"
                         android:gravity="center"
-                        android:textSize="@dimen/font_size_20"
+                        android:includeFontPadding="false"
                         android:textColor="@color/white"
-                        app:layout_constraintTop_toTopOf="@id/iv_shopping_cart"
+                        android:textSize="@dimen/font_size_20"
                         app:layout_constraintStart_toStartOf="@id/iv_shopping_cart"
+                        app:layout_constraintTop_toTopOf="@id/iv_shopping_cart"
                         tools:text="2" />
 
 
@@ -123,27 +127,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="right|center"
-                    android:paddingEnd="@dimen/interval_size_xs">
+                    android:layout_marginStart="@dimen/interval_size_xs"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_sum_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_36"
-                        android:includeFontPadding="false"
                         tools:text="￥26.88" />
 
                     <TextView
                         android:id="@+id/tvDistPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8px"
                         android:includeFontPadding="false"
                         android:textColor="@color/white"
                         android:textSize="18px"
-                        android:layout_marginTop="8px"
                         tools:text="另需配送费3元" />
 
                 </LinearLayout>
@@ -152,12 +156,14 @@
 
             <LinearLayout
                 android:id="@+id/ll_shopping_cart_right"
-                android:layout_width="130px"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:background="@drawable/sr_shopping_bar_right"
                 android:gravity="center"
-                android:onClick="@{(v)->viewModel.goToSettleAccounts(v)}">
+                android:onClick="@{(v)->viewModel.goToSettleAccounts(v)}"
+                android:orientation="horizontal"
+                android:paddingStart="18px"
+                android:paddingEnd="18px">
 
                 <TextView
                     android:id="@+id/tv_to_settle_accounts"

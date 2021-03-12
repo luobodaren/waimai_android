@@ -1,6 +1,8 @@
 package com.life.waimaishuo.mvvm.view.fragment.mine;
 
 import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -27,8 +29,13 @@ import com.yanzhenjie.recyclerview.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Page(name = "地址管理", anim = CoreAnim.slide)
 public class MineAddressManagerFragment extends BaseFragment {
+
+    private final static String BUNDLE_KEY_ADDRESS = "bundle_key_address";
 
     private FragmentMineAddressManagerBinding mBinding;
     private MineAddressManagerViewModel mViewModel;
@@ -82,9 +89,15 @@ public class MineAddressManagerFragment extends BaseFragment {
         }
     };
 
+    public static void openPage(BaseFragment baseFragment, List<Address> addressList) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(BUNDLE_KEY_ADDRESS, (ArrayList<? extends Parcelable>) addressList);
+        baseFragment.openPage(MineAddressManagerFragment.class, bundle);
+    }
+
     @Override
     protected BaseViewModel setViewModel() {
-        if(mViewModel == null){
+        if (mViewModel == null) {
             mViewModel = new MineAddressManagerViewModel();
         }
         return mViewModel;
@@ -92,7 +105,7 @@ public class MineAddressManagerFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mBinding = (FragmentMineAddressManagerBinding)mViewDataBinding;
+        mBinding = (FragmentMineAddressManagerBinding) mViewDataBinding;
     }
 
     @Override
@@ -103,6 +116,8 @@ public class MineAddressManagerFragment extends BaseFragment {
     @Override
     protected void initArgs() {
         super.initArgs();
+
+        mViewModel.setAddressData(getArguments().getParcelableArrayList(BUNDLE_KEY_ADDRESS));
 
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
@@ -133,20 +148,20 @@ public class MineAddressManagerFragment extends BaseFragment {
         });
     }
 
-    private void initTitle(){
+    private void initTitle() {
         mBinding.layoutTitle.tvTitle.setText(getPageName());
     }
 
-    private void initAddressRecycler(){
+    private void initAddressRecycler() {
 
         mBinding.recycler.setSwipeMenuCreator(swipeMenuCreator);
         mBinding.recycler.setOnItemMenuClickListener(mMenuItemClickListener);
-        mBinding.recycler.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
-        mBinding.recycler.setAdapter(new MyBaseRecyclerAdapter<Address>(R.layout.item_recycler_address_info,mViewModel.getAddressData()){
+        mBinding.recycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
+        mBinding.recycler.setAdapter(new MyBaseRecyclerAdapter<Address>(R.layout.item_recycler_address_info, mViewModel.getAddressData()) {
             @Override
             protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Address item) {
-                helper.setText(R.id.tv_user_name,item.getUser_name() + "  " + TextUtil.phoneHide(item.getPhone()));
-                helper.setText(R.id.tv_address,item.getAddress());
+                helper.setText(R.id.tv_user_name, item.getConsignee() + "  " + TextUtil.phoneHide(item.getPhone()));
+                helper.setText(R.id.tv_address, item.getProvince() + item.getCity() + item.getDistrict() + item.getDetailedAddress());
             }
         });
     }

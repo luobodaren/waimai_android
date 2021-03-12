@@ -5,10 +5,10 @@
         <shape>
             <solid android:color="@color/shopping_cart_background"/>
             <corners
-                android:topLeftRadius="0px"
-                android:bottomLeftRadius="6px"
-                android:topRightRadius="0px"
-                android:bottomRightRadius="0px"/>
+                android:topLeftRadius="4dp"
+                android:bottomLeftRadius="4dp"
+                android:topRightRadius="0dp"
+                android:bottomRightRadius="0dp"/>
         </shape>
     </item>
 

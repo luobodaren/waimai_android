@@ -32,8 +32,6 @@ import com.life.waimaishuo.adapter.tag.CashBackTagAdapter;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.bean.Goods;
 import com.life.waimaishuo.bean.GoodsShoppingCart;
-import com.life.waimaishuo.bean.PreferentialActivity;
-import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.api.respon.WaiMaiShoppingCart;
 import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.constant.Constant;
@@ -236,7 +234,7 @@ public class ShopDetailFragment extends BaseFragment {
     @Override
     public void MessageEvent(MessageEvent messageEvent) {
         super.MessageEvent(messageEvent);
-        switch (messageEvent.getCode()){
+        switch (messageEvent.getCode()) {
             case MessageCodeConstant.SHOPPING_CART_ADD_SUCCESS:
             case MessageCodeConstant.SHOPPING_CART_CHANGE_SUCCESS:
             case MessageCodeConstant.SHOPPING_CART_REQUEST_DATA:
@@ -305,24 +303,25 @@ public class ShopDetailFragment extends BaseFragment {
             public void onPropertyChanged(Observable sender, int propertyId) {
                 int pageType = -1;
                 int shopNature = mViewModel.getShopDetail().getShop_nature();
-                if(shopNature == 1){
+                if (shopNature == 1) {
                     pageType = OrderConfirmFragment.ORDER_ACCESS_WAIMAI;
-                }else if(shopNature == 2){
+                } else if (shopNature == 2) {
                     pageType = OrderConfirmFragment.ORDER_ACCESS_WAIMAI_ONLY;
-                }else if(shopNature == 3){
+                } else if (shopNature == 3) {
                     pageType = OrderConfirmFragment.ORDER_ACCESS_ZIQU_ONLY;
                 }
-                OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this, pageType); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
+                //跳转确认订单页面
+                OrderConfirmFragment.openPageConfirmOrder(ShopDetailFragment.this, mViewModel.getShopDetail(), pageType); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
             }
         });
 
         MyDataBindingUtil.addCallBack(this, mViewModel.onRequestShopInfoObservable, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                if(countDownLatch != null){
-                    if(countDownLatch.getCount() > 0){
+                if (countDownLatch != null) {
+                    if (countDownLatch.getCount() > 0) {
                         countDownLatch.countDown();
-                    }else{
+                    } else {
                         countDownLatch = null;
                     }
                 }
@@ -383,17 +382,17 @@ public class ShopDetailFragment extends BaseFragment {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
                 mHandler.post(() -> {
-                    if(countDownLatch != null){
-                        if(countDownLatch.getCount() > 0){
+                    if (countDownLatch != null) {
+                        if (countDownLatch.getCount() > 0) {
                             countDownLatch.countDown();
-                        }else{
+                        } else {
                             countDownLatch = null;
                         }
                     }
                     EventBus.getDefault().post(new MessageEvent(        //发送购物车数据更新事件
                             MessageCodeConstant.SHOPPING_CART_DATA_UPDATE, mViewModel.getWaiMaiShoppingCart()));
 
-                    setShoppingCartData(mViewModel.getWaiMaiShoppingCart(),null);
+                    setShoppingCartData(mViewModel.getWaiMaiShoppingCart(), null);
                 });
             }
         });
@@ -452,7 +451,7 @@ public class ShopDetailFragment extends BaseFragment {
      * 初始化粘性导航栏
      */
     private void initNavigationTab() {
-        if(mBinding.viewPager.getAdapter() == null){
+        if (mBinding.viewPager.getAdapter() == null) {
             int space = getResources().getDimensionPixelOffset(R.dimen.shop_detail_tabbar_item_space);
             List<ShopTabTypeEnum> shopTabTypes = mViewModel.getRecommendedTitle();
             FragmentAdapter<BaseFragment> adapter = new FragmentAdapter<>(getChildFragmentManager());
@@ -539,9 +538,21 @@ public class ShopDetailFragment extends BaseFragment {
                     showAddMemberInfo("加入会员成功", true);
                 }
             });
+
+            //设置会员中心icon
+            int drawableSize = (int) UIUtils.getInstance().scalePx(38);
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_members_sign_white);
+            drawable.setBounds(0, 0, drawableSize, drawableSize);
+            ((TextView) view.findViewById(R.id.tv_members_center)).setCompoundDrawables(drawable, null, null, null);
+
+            //设置码号
+            ((TextView)view.findViewById(R.id.tv_qr_code)).setText(mViewModel.getQrCode());
             //生成二维码
-            Bitmap qrBitmap = Utils.createQRCodeBitmap(mViewModel.getQrCode(), 800, 800,"UTF-8","H", "1", Color.BLACK, Color.WHITE);
-            ((ImageView)view.findViewById(R.id.iv_qr_code)).setImageBitmap(qrBitmap);
+            //Bitmap qrBitmap = Utils.createQRCodeBitmap(mViewModel.getQrCode(), 800, 800,"UTF-8","H", "1", Color.BLACK, Color.WHITE);
+            Bitmap qrBitmap = Utils.createBarcodeBitmap(mViewModel.getQrCode(),
+                    (int) UIUtils.getInstance().scalePx(382), (int) UIUtils.getInstance().scalePx(226),
+                    Color.BLACK, Color.WHITE);
+            ((ImageView) view.findViewById(R.id.iv_qr_code)).setImageBitmap(qrBitmap);
 
             ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -770,7 +781,7 @@ public class ShopDetailFragment extends BaseFragment {
                 if (isAdd) {
                     EventBus.getDefault().post(new MessageEvent(
                             MessageCodeConstant.SHOPPING_CART_ADD_WITH_SHOPPING_DATA, goodsShoppingCart));
-                }else{
+                } else {
                     EventBus.getDefault().post(new MessageEvent(
                             MessageCodeConstant.SHOPPING_CART_REDUCE_WITH_SHOPPING_DATA, goodsShoppingCart));
                 }
@@ -797,27 +808,28 @@ public class ShopDetailFragment extends BaseFragment {
 
     /**
      * 设置购物车数据
+     *
      * @param shoppingCartDialogContentView 购物车dialog的contentView
      */
-    private void setShoppingCartData(WaiMaiShoppingCart waiMaiShoppingCart, View shoppingCartDialogContentView){
+    private void setShoppingCartData(WaiMaiShoppingCart waiMaiShoppingCart, View shoppingCartDialogContentView) {
         int goodsCount = 0;
         String allPrice = "0";
         String distPrice = "0";
         String cartDesc = "";
         List<GoodsShoppingCart> list = new ArrayList<>();
-        if(waiMaiShoppingCart != null){
+        if (waiMaiShoppingCart != null) {
             goodsCount = waiMaiShoppingCart.getCount();
             allPrice = waiMaiShoppingCart.getAllMoney();
-            if(allPrice == null || "".equals(allPrice))
+            if (allPrice == null || "".equals(allPrice))
                 allPrice = "0";
             distPrice = waiMaiShoppingCart.getDistPrice();
-            if(distPrice == null || "".equals(distPrice))
+            if (distPrice == null || "".equals(distPrice))
                 distPrice = "0";
             cartDesc = waiMaiShoppingCart.getCartDesc();
-            if(cartDesc == null || "".equals(cartDesc))
+            if (cartDesc == null || "".equals(cartDesc))
                 cartDesc = "";
             list = waiMaiShoppingCart.getDeliveryGoodsDto();
-            if(list == null)
+            if (list == null)
                 list = new ArrayList<>();
         }
         //设置商品数量角标
@@ -831,21 +843,21 @@ public class ShopDetailFragment extends BaseFragment {
         //设置总价
         mBinding.layoutShoppingCart.tvSumPrice.setText(String.format("￥%s", allPrice));
         //设置配送费
-        mBinding.layoutShoppingCart.tvDistPrice.setText(getString(R.string.dist_price,distPrice));
+        mBinding.layoutShoppingCart.tvDistPrice.setText(getString(R.string.dist_price, distPrice));
 
         /*---------- 下面为更新dialog内数据 ----------*/
         View view = shoppingCartDialogContentView;
-        if(view == null){
-            if(mShoppingCartDialog == null)
+        if (view == null) {
+            if (mShoppingCartDialog == null)
                 return;
             view = mShoppingCartDialog.getContentView();
         }
-        if(view == null){
+        if (view == null) {
             return;
         }
 
         LayoutDialogShoppingCartExpandBinding binding = DataBindingUtil.bind(view);
-        if(binding == null)
+        if (binding == null)
             return;
 
         //设置优惠价格
@@ -866,9 +878,9 @@ public class ShopDetailFragment extends BaseFragment {
         //设置总价
         binding.layoutShoppingCart.tvSumPrice.setText(String.format("￥%s", allPrice));
         //设置配送费
-        binding.layoutShoppingCart.tvDistPrice.setText(getString(R.string.dist_price,distPrice));
+        binding.layoutShoppingCart.tvDistPrice.setText(getString(R.string.dist_price, distPrice));
         //刷新商品
-        if(recyclerGoodsListAdapter != null){
+        if (recyclerGoodsListAdapter != null) {
             recyclerGoodsListAdapter.setNewData(list);
             recyclerGoodsListAdapter.notifyDataSetChanged();
         }

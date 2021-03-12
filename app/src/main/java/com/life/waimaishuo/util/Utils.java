@@ -29,6 +29,7 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -429,5 +430,40 @@ public class Utils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 简单生成条形码
+     * @param contents      字符串内容
+     * @param desiredWidth  条形码宽度
+     * @param desiredHeight 条形码高度
+     * @param color_black   黑色色块
+     * @param color_white   白色色块
+     * @return
+     */
+    public  static Bitmap createBarcodeBitmap(String contents, int desiredWidth, int desiredHeight, int color_black, int color_white) {
+        MultiFormatWriter writer = new MultiFormatWriter();
+        BitMatrix result=null;
+        try {
+            result = writer.encode(contents, BarcodeFormat.CODE_128, desiredWidth,
+                    desiredHeight);
+        } catch (WriterException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        int width = result.getWidth();
+        int height = result.getHeight();
+        int[] pixels = new int[width * height];
+        // All are 0, or black, by default
+        for (int y = 0; y < height; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                pixels[offset + x] = result.get(x, y) ? color_black : color_white;
+            }
+        }
+        Bitmap bitmap = Bitmap.createBitmap(width, height,
+                Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return bitmap;
     }
 }

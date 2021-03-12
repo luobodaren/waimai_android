@@ -144,7 +144,7 @@
         <include
             android:id="@+id/layout_shopping_cart"
             layout="@layout/layout_shopping_cart"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="@dimen/interval_size_xs"/>

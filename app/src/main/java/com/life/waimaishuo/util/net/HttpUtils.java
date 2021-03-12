@@ -283,7 +283,7 @@ public class HttpUtils {
     private Request.Builder getRequestBuild(boolean isWithToken){
         Request.Builder builder = new Request.Builder();
         if(isWithToken){
-            builder.header(TOKEN_KEY, Global.token);
+            builder.header(TOKEN_KEY, Global.getToken());
         }
         return builder;
     }
@@ -326,7 +326,7 @@ public class HttpUtils {
                             Integer code = GsonUtil.getIntNoteJsonString(json,"code");
                             if(code != null && code == 0){
                                 String data = GsonUtil.getStringNoteJsonString(json,"data");
-                                LogUtil.d("data" + data);
+                                LogUtil.d("data:" + data);
                                 if(data == null || "null".equals(data)){    //有字段但返回null
                                     data = "";
                                 }

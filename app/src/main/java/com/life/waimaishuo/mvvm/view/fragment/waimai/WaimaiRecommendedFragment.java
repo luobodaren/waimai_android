@@ -227,7 +227,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
             recyclerAdapter.setOnItemClickListener(
                     (adapter, view, position) -> {
                         int shopId = recyclerAdapter.getData().get(position).getShopId();
-                        if(!Global.isLogin){
+                        if(!Global.isLogin()){
                             Bundle bundle = new Bundle();
                             bundle.putInt(KEY_OPEN_SHOP_ID,shopId);
                             bundleMap.put(Constant.REQUEST_CODE_LOGIN,bundle);
@@ -272,6 +272,7 @@ public class WaimaiRecommendedFragment extends BaseRecyclerFragment<Shop> {
                 //跳转外卖店铺界面
                 if(bundleMap.containsKey(Constant.REQUEST_CODE_LOGIN)){
                     int shopId = bundleMap.get(Constant.REQUEST_CODE_LOGIN).getInt(KEY_OPEN_SHOP_ID,-1);
+                    bundleMap.remove(Constant.REQUEST_CODE_LOGIN);
                     if(shopId != -1){
                         mHandler.post(() -> ShopDetailFragment.openPage(WaimaiRecommendedFragment.this,shopId));
                     }else{

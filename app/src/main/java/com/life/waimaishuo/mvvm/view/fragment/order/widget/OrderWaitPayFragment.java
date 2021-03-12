@@ -57,7 +57,7 @@ public class OrderWaitPayFragment extends BaseFragment {
         mBinding.tvRight.setCompoundDrawables(null,goPayDrawable,null,null);
 
         Glide.with(this)
-                .load(mViewModel.getOrderInfo().getShopIconUrl())
+                .load(mViewModel.getShop().getShop_head_portrait())
                 .placeholder(R.drawable.ic_waimai_brand)
                 .centerCrop()
                 .into(mBinding.ivShopIcon);

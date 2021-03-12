@@ -188,8 +188,8 @@ public class CityPickerDialogFragment extends DialogFragment implements TextWatc
         if (args != null) {
             enableAnim = args.getBoolean(KEY_ENABLE_ANIM);
         }
-        //初始化热门城市
-        if (mHotCities == null || mHotCities.isEmpty()) {
+        //初始化热门城市   （改：不进行初始化，空数据是可不进行热门城市展示
+        /*if (mHotCities == null || mHotCities.isEmpty()) {
             mHotCities = new ArrayList<>();
             mHotCities.add(new HotCity("北京", "北京", "101010100"));
             mHotCities.add(new HotCity("上海", "上海", "101020100"));
@@ -200,7 +200,7 @@ public class CityPickerDialogFragment extends DialogFragment implements TextWatc
             mHotCities.add(new HotCity("南京", "江苏", "101190101"));
             mHotCities.add(new HotCity("成都", "四川", "101270101"));
             mHotCities.add(new HotCity("武汉", "湖北", "101200101"));
-        }
+        }*/
         //初始化定位城市，默认为空时会自动回调定位
         if (mLocatedCity == null) {
             mLocatedCity = new LocatedCity(getString(R.string.cp_locating), "未知", "0");
@@ -212,7 +212,9 @@ public class CityPickerDialogFragment extends DialogFragment implements TextWatc
         mCityCenter = CityPicker.getICityCenter(getContext());
         mAllCities = mCityCenter.getAllCities();
         mAllCities.add(0, mLocatedCity);
-        mAllCities.add(1, new HotCity("热门城市", "未知", "0"));
+        if(mHotCities != null && !mHotCities.isEmpty()){
+            mAllCities.add(1, new HotCity("热门城市", "未知", "0"));
+        }
         mResults = mAllCities;
     }
 

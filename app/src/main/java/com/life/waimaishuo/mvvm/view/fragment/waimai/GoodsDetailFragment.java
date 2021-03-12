@@ -233,7 +233,7 @@ public class GoodsDetailFragment extends BaseFragment {
         MyDataBindingUtil.addCallBack(this, mViewModel.goToSettleAccounts, new Observable.OnPropertyChangedCallback() {
             @Override
             public void onPropertyChanged(Observable sender, int propertyId) {
-                OrderConfirmFragment.openPageConfirmOrder(GoodsDetailFragment.this, OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
+                OrderConfirmFragment.openPageConfirmOrder(GoodsDetailFragment.this, shop, OrderConfirmFragment.ORDER_ACCESS_WAIMAI); // FIXME: 2021/1/9 判断店铺订单类型传入对应值
             }
         });
 

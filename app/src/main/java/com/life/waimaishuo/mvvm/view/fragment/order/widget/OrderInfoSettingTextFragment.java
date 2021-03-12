@@ -84,6 +84,22 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
         });
     }
 
+    Drawable checkDrawableRight;
+    Drawable uncheckDrawableRight;
+    /**
+     * 初始化取餐方式
+     */
+    private void initAccessTypeView(){
+        int checkDrawableSize = (int) UIUtils.getInstance().scalePx(40);
+        checkDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_red);
+        uncheckDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_gray);
+
+        checkDrawableRight.setBounds(0,0,checkDrawableSize,checkDrawableSize);
+        uncheckDrawableRight.setBounds(0,0,checkDrawableSize,checkDrawableSize);
+        mBinding.tvRightAccessType1.setCompoundDrawables(null,null,checkDrawableRight,null);
+        mBinding.tvRightAccessType2.setCompoundDrawables(null,null,uncheckDrawableRight,null);
+    }
+
     /**
      * 根据类型更新界面元素
      * @param type
@@ -151,20 +167,5 @@ public class OrderInfoSettingTextFragment extends BaseFragment {
         return drawable;
     }
 
-    Drawable checkDrawableRight;
-    Drawable uncheckDrawableRight;
-    /**
-     * 初始化取餐方式
-     */
-    private void initAccessTypeView(){
-        int checkDrawableSize = (int) UIUtils.getInstance().scalePx(40);
-        checkDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_red);
-        uncheckDrawableRight = getResources().getDrawable(R.drawable.ic_check_round_fill_gray);
-
-        checkDrawableRight.setBounds(0,0,checkDrawableSize,checkDrawableSize);
-        uncheckDrawableRight.setBounds(0,0,checkDrawableSize,checkDrawableSize);
-        mBinding.tvRightAccessType1.setCompoundDrawables(null,null,checkDrawableRight,null);
-        mBinding.tvRightAccessType2.setCompoundDrawables(null,null,uncheckDrawableRight,null);
-    }
 
 }

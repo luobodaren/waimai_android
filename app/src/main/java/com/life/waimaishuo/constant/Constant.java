@@ -22,6 +22,7 @@ public class Constant {
     public static final int REQUEST_CODE_ADD_NEW_ADDRESS = 1002;
     public static final int REQUEST_CODE_FILLING_LOGISTICS = 1003;
     public static final int REQUEST_CODE_SELECT_CATEGORY = 1004;
+    public static final int REQUEST_CODE_LOCAL_ADDRESS = 1005;
 
     /**
      * page 返回的 结果码

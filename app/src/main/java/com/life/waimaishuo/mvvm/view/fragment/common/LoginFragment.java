@@ -197,14 +197,16 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void setMachinePhone() {
-        TelephonyManager mTelephonyMgr;
-        mTelephonyMgr = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        if (!Utils.checkPermission(requireContext(),Manifest.permission.READ_SMS)
-                && !Utils.checkPermission(requireContext(),Manifest.permission.READ_PHONE_NUMBERS)
-                && !Utils.checkPermission(requireContext(), Manifest.permission.READ_PHONE_STATE)) {
-            return;
+        if(Global.getMachine_number() == null || "".equals(Global.getMachine_number())){
+            TelephonyManager mTelephonyMgr;
+            mTelephonyMgr = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+            if (!Utils.checkPermission(requireContext(),Manifest.permission.READ_SMS)
+                    && !Utils.checkPermission(requireContext(),Manifest.permission.READ_PHONE_NUMBERS)
+                    && !Utils.checkPermission(requireContext(), Manifest.permission.READ_PHONE_STATE)) {
+                return;
+            }
+            Global.setMachine_number(mTelephonyMgr.getLine1Number());
         }
-        Global.machine_number = mTelephonyMgr.getLine1Number();
     }
 
 
@@ -267,10 +269,11 @@ public class LoginFragment extends BaseFragment {
             view.findViewById(R.id.bt_login_by_other).setOnClickListener(onClickListener);
 
             phoneTv = view.findViewById(R.id.tv_login_phoneNumber);
-            if(!"".equals(Global.user_login_phone)){
-                phoneTv.setText(Global.user_login_phone);
-            }else if(!"".equals(Global.machine_number)){
-                phoneTv.setText(Global.machine_number);
+            if(Global.getUser() != null && Global.getUser().getPhoneNumber() != null
+                    && !"".equals(Global.getUser().getPhoneNumber())){
+                phoneTv.setText(Global.getUser().getPhoneNumber());
+            }else if(Global.getMachine_number() != null && !"".equals(Global.getMachine_number())){
+                phoneTv.setText(Global.getMachine_number());
             }
 
             String loginTip = getString(R.string.login_tip);

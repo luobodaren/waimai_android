@@ -28,8 +28,8 @@
 
     <ImageView
         android:id="@+id/iv_qr_code"
-        android:layout_width="309px"
-        android:layout_height="183px"
+        android:layout_width="382px"
+        android:layout_height="226px"
         android:layout_marginTop="32px"
         android:scaleType="centerInside" />
 
@@ -42,20 +42,37 @@
         android:textColor="@color/text_tip"
         android:textSize="@dimen/font_size_24" />
 
-    <Button
-        android:id="@+id/bt_members_center"
-        android:layout_width="wrap_content"
-        android:layout_height="55px"
-        android:layout_marginTop="61px"
-        android:background="@drawable/sr_bg_full_corners_theme"
-        android:drawableStart="@drawable/ic_members_sign_white"
-        android:drawablePadding="6px"
-        android:gravity="center_vertical"
-        android:paddingStart="18px"
-        android:paddingLeft="18px"
-        android:paddingEnd="18px"
-        android:text="@string/members_center"
-        android:textColor="@color/white"
-        android:textSize="24px" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32px">
+
+        <Button
+            android:id="@+id/bt_members_center"
+            android:layout_width="404px"
+            android:layout_height="88px"
+            android:layout_centerInParent="true"
+            android:background="@drawable/sr_bg_full_corners_theme"
+            android:paddingStart="18px"
+            android:paddingLeft="18px"
+            android:paddingEnd="18px" />
+
+        <TextView
+            android:id="@+id/tv_members_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="19px"
+            android:text="@string/members_center"
+            android:textColor="@color/white"
+            android:textSize="36px" />
+
+    </RelativeLayout>
+
 
 </com.life.base.views.UiAdapterLinearLayout>

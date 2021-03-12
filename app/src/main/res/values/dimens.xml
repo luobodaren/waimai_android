@@ -74,7 +74,7 @@
     <dimen name="shop_goods_text_size_grid_header_right">22px</dimen>
     <dimen name="linkagePrimary_top_icon_size">46px</dimen>
 
-    <dimen name="shopping_cart_height">88px</dimen>
+    <dimen name="shopping_cart_height">110px</dimen>
     <dimen name="height_of_room_for_shopping_cart">160px</dimen>
 
     <dimen name="waimai_type_tabbar_item_space">6px</dimen>
@@ -94,8 +94,8 @@
     <dimen name="cp_grid_item_padding_start">40px</dimen>
 
     <dimen name="message_all_read_check_round_size">77px</dimen>
-    <dimen name="members_qr_code_dialog_width">485px</dimen>
-    <dimen name="members_qr_code_dialog_height">676px</dimen>
+    <dimen name="members_qr_code_dialog_width">570px</dimen>
+    <dimen name="members_qr_code_dialog_height">794px</dimen>
 
     <dimen name="shop_picture_size">207px</dimen>
     <dimen name="shop_info_text_item_height">94px</dimen>

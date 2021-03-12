@@ -6,6 +6,7 @@ import android.content.Context;
 import com.life.base.IComponentApplication;
 
 import com.life.base.utils.LogUtil;
+import com.life.base.utils.UIUtils;
 import com.tencent.mmkv.MMKV;
 import com.xuexiang.xpage.AppPageConfig;
 import com.xuexiang.xpage.PageConfig;
@@ -29,22 +30,15 @@ public class MyApplication extends Application {
 
         initPage();
 
-        initMMKV();
-
         //Module类的APP初始化
         modulesApplicationInit();
-        // TODO: 2021/2/3  mmkv获取本地备份数据进行初始化
+
         //mmkv获取本地备份数据进行初始化
-        //Global UIUtil
+        Global.readFormMMKV();
     }
 
     public static MyApplication getMyApplication(){
         return myApplication;
-    }
-
-    private void initMMKV(){
-        String rootDir = MMKV.initialize(this);
-        System.out.println("mmkv root: " + rootDir);
     }
 
     private void initPage(){

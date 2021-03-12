@@ -8,12 +8,14 @@ public class ApiConstant {
      * 接口默认需要传入的json字符串 不可缺少
      */
     public final static String DEFAULT_BASE_JSON_INFO = "{ \"reqData\":\"\"}";
-    public final static String WAIMAI_SECOND_KILL_JSON_INFO = "{ \"reqData\":5}";  //获取外卖类型的限时秒杀时间
-    public final static String MALL_SECOND_KILL_JSON_INFO = "{ \"reqData\":3}";  //获取商场类型的限时秒杀时间
 
     public final static String API_LOGIN = "/appuser/notelogin";
+    public final static String API_GET_VERIFICATION = "/common/sendsms";    //发送验证码
 
-    public final static String API_GET_VERIFICATION = "/common/sendsms";
+    public final static String API_GET_USER_INFO = "/appuser/getAppUserInfoByPhone";  //获取用户信息
+
+    public final static String API_GET_SHIPPING_ADDRESS = "/appuseraddress/getuseraddress"; //查询用户收货地址
+    public final static String API_ADD_SHIPPING_ADDRESS = "/appuseraddress/adduseraddress"; //新增收货地址
 
     public final static String API_WAIMAI_COLLECT_SHOP_OR_GOOD = "/appusercollect/addusercollect";    //收藏店铺或商品
     public final static String API_WAIMAI_CANCEL_COLLECT_SHOP_OR_GOOD = "/appusercollect/cancelusercollect";    //取消收藏店铺或商品

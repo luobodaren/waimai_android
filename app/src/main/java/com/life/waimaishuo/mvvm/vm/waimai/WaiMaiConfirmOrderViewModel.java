@@ -7,13 +7,13 @@ import androidx.databinding.ObservableInt;
 
 import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.R;
-import com.life.waimaishuo.bean.Order;
+import com.life.waimaishuo.bean.Address;
 import com.life.waimaishuo.bean.PreferentialActivity;
+import com.life.waimaishuo.bean.Shop;
 import com.life.waimaishuo.bean.ui.IconStrData;
 import com.life.waimaishuo.bean.ui.OrderItemFoods;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.WaiMaiConfirmOrderModel;
-import com.life.waimaishuo.mvvm.view.fragment.order.waimai.OrderConfirmFragment;
 import com.life.waimaishuo.mvvm.vm.BaseViewModel;
 
 import java.util.ArrayList;
@@ -22,6 +22,8 @@ import java.util.List;
 public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
 
     WaiMaiConfirmOrderModel mModel;
+
+    public ObservableInt onRequestShippingAddressObservable = new ObservableInt();
 
     public ObservableInt onAccessTimeClickObservable = new ObservableInt();
     public ObservableInt onPayTypeClickObservable = new ObservableInt();
@@ -69,13 +71,13 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
         onChoseTablewareClickObservable.notifyChange();
     }
 
-    Order order;
-    public Order getOrderInfo() {
-        return order;
+    Shop shop;
+    public Shop getShop() {
+        return shop;
     }
 
-    public void setOrder(Order order){
-        this.order = order;
+    public void setShop(Shop shop){
+        this.shop = shop;
     }
 
     public List<IconStrData> getPayTypeList() {
@@ -144,5 +146,16 @@ public class WaiMaiConfirmOrderViewModel extends BaseViewModel {
         list.add(new PreferentialActivity("配送费","蜂鸟专送","￥4.5"));
         list.add(new PreferentialActivity("拼团","拼团优惠","￥4.5"));
         return list;
+    }
+
+    /**
+     * 请求收货地址
+     */
+    public void requestShippingAddress(){
+        mModel.requestShoppingAddress(new BaseModel.NotifyChangeRequestCallBack(onRequestShippingAddressObservable));
+    }
+
+    public List<Address> getShippingAddress(){
+        return mModel.addressList;
     }
 }

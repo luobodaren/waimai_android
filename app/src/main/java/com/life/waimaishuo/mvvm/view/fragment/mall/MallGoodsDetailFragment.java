@@ -361,19 +361,19 @@ public class MallGoodsDetailFragment extends BaseFragment {
                 if (selected) {   //选中图标设置
                     holder.setImageResource(R.id.iv_selected, R.drawable.ic_selected_sign);
                 } else {
-                    if (item.isEffective()) {
+                    if (item.getIsEffective() == 1) {
                         holder.setImageResource(R.id.iv_selected, R.drawable.ic_round_gray);
                     } else {
                         holder.setImageResource(R.id.iv_selected, 0);
                     }
                 }
-                if (item.isDefaultAddress()) {    //默认地址设置
+                if (item.getIsDefaultAddress() == 1) {    //默认地址设置
                     holder.setVisible(R.id.tv_default, true);
                 } else {
                     holder.setVisible(R.id.tv_default, false);
                 }
-                holder.setText(R.id.tv_recipients_info, item.getUser_name() + "  " + TextUtil.phoneHide(item.getPhone()));
-                holder.setText(R.id.tv_address, item.getAddress());
+                holder.setText(R.id.tv_recipients_info, item.getConsignee() + "  " + TextUtil.phoneHide(item.getPhone()));
+                holder.setText(R.id.tv_address, item.getProvince() + item.getCity() + item.getDistrict() + item.getDetailedAddress());
             }
         };
         adapter.setSelectedListener((holder, item, isCancel) -> {
@@ -395,8 +395,8 @@ public class MallGoodsDetailFragment extends BaseFragment {
             noneffectiveAddressRecycler.setAdapter(new MyBaseRecyclerAdapter<Address>(R.layout.item_recycler_address_info_selectable, noneffectiveAddressList) {
                 @Override
                 protected void initView(ViewDataBinding viewDataBinding, BaseViewHolder helper, Address item) {
-                    helper.setText(R.id.tv_recipients_info, item.getUser_name() + "  " + TextUtil.phoneHide(item.getPhone()));
-                    helper.setText(R.id.tv_address, item.getAddress());
+                    helper.setText(R.id.tv_recipients_info, item.getConsignee() + "  " + TextUtil.phoneHide(item.getPhone()));
+                    helper.setText(R.id.tv_address, item.getProvince() + item.getCity() + item.getDistrict() + item.getDetailedAddress());
                     helper.setTextColor(R.id.tv_address, getResources().getColor(R.color.text_tip));
 
                     setViewVisibility(helper.getView(R.id.iv_selected), false);

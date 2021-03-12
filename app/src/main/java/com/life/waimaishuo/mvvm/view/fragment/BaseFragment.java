@@ -75,6 +75,10 @@ public abstract class BaseFragment extends XPageFragment {
     @Override
     protected void initArgs() {
         initMyHandle();
+
+        if(baseViewModel != null){
+            baseViewModel.init();
+        }
     }
 
     @Override
@@ -94,10 +98,6 @@ public abstract class BaseFragment extends XPageFragment {
 
     @Override
     protected void initViews() {
-        if(baseViewModel != null){
-            baseViewModel.init();
-        }
-
         if(isRegisterEventBus){
             EventBus.getDefault().register(this);
         }

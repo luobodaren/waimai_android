@@ -3,6 +3,16 @@ package com.life.waimaishuo.constant;
 public class MessageCodeConstant {
 
     /**
+     * 登录并获取用户信息成功
+     */
+    public final static int LOGIN_AND_GET_USERINFO_SUCCESS = 10000;
+
+    /**
+     * 更新定位信息
+     */
+    public final static int LOCAL_INFO_UPDATE = 10001;
+
+    /**
      * 切换app主页显示的内容（外卖，商场，订单，我的）
      */
     public final static int MAIN_TAB_BAR_PAGE_CHANGE_WAIMAI = 1000;

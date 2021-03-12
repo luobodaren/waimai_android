@@ -2,6 +2,8 @@ package com.life.base.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextPaint;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -10,18 +12,20 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.life.base.MMKVConstant;
 import com.life.base.R;
+import com.tencent.mmkv.MMKV;
 import com.xuexiang.xui.utils.StatusBarUtils;
 
 import java.lang.reflect.Field;
 import java.util.Random;
 
-public class UIUtils {
+public class UIUtils implements Parcelable {
 
-    private final String DIME_CLASS = "com.android.internal.R$dimen";
+    private final static String DIME_CLASS = "com.android.internal.R$dimen";
     //标准值
-    private final float STANDRD_WIDTH = 750f;
-    private final float STANDRD_HEIGHT = 1624f;
+    private final static float STANDRD_WIDTH = 750f;
+    private final static float STANDRD_HEIGHT = 1624f;
     //实际值 保存MMKV中
     private float displayMetricsWidth;
     private float displayMetricsHeight;
@@ -37,9 +41,47 @@ public class UIUtils {
 
     private UIUtils() { }
 
+    protected UIUtils(Parcel in) {
+        displayMetricsWidth = in.readFloat();
+        displayMetricsHeight = in.readFloat();
+        scaledDensity = in.readFloat();
+        systemBarHeight = in.readFloat();
+        density = in.readFloat();
+        horValue = in.readFloat();
+        verValue = in.readFloat();
+        hasInit = in.readByte() != 0;
+    }
+
+    public static final Creator<UIUtils> CREATOR = new Creator<UIUtils>() {
+        @Override
+        public UIUtils createFromParcel(Parcel in) {
+            return new UIUtils(in);
+        }
+
+        @Override
+        public UIUtils[] newArray(int size) {
+            return new UIUtils[size];
+        }
+    };
+
+    private void saveToMMKV(){
+        MMKV mmkv = MMKV.mmkvWithID(MMKVConstant.MMKV_ID_UI_UTIL);
+        mmkv.encode("UIUtils",instance);
+    }
+
+    private static void readFormMMKV(){
+        MMKV mmkv = MMKV.mmkvWithID(MMKVConstant.MMKV_ID_UI_UTIL);
+        instance = mmkv.decodeParcelable("UIUtils",null);
+    }
+
     public synchronized static UIUtils getInstance(){
         if (instance == null){
-            instance = new UIUtils();
+            readFormMMKV();
+            if(instance == null){
+                instance = new UIUtils();
+            }else{
+                instance.hasInit = true;
+            }
         }
         return instance;
     }
@@ -53,7 +95,11 @@ public class UIUtils {
             LogUtil.e("context == null");
             return;
         }
-        hasInit = true;
+
+        if(hasInit){
+            return;
+        }
+
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         // TODO: 2020/11/24 从缓存中读取时间屏幕高宽值
         if(displayMetricsWidth == 0.0f || displayMetricsHeight == 0.0f
@@ -76,7 +122,14 @@ public class UIUtils {
                 displayMetricsWidth = (float)displayMetrics.widthPixels;
                 displayMetricsHeight = (float) displayMetrics.heightPixels - systemBarHeight;
             }
+
+            verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight());
+            horValue = displayMetricsWidth/STANDRD_WIDTH;
+
+            saveToMMKV();
         }
+
+        hasInit = true;
 
         LogUtil.d("display Width=" + displayMetricsWidth + " height=" + displayMetricsHeight);
     }
@@ -260,10 +313,6 @@ public class UIUtils {
             LogUtil.e("尚未初始化");
             return 1;
         }
-        if(horValue == 0.0f){
-            horValue = displayMetricsWidth/STANDRD_WIDTH;
-            LogUtil.d("horValue=" + horValue);
-        }
         return horValue;
     }
 
@@ -275,10 +324,6 @@ public class UIUtils {
         if(!hasInit){
             LogUtil.e("尚未初始化");
             return 1;
-        }
-        if(verValue == 0.0f){
-            verValue = displayMetricsHeight/(STANDRD_HEIGHT-getSystemBarHeight());
-            LogUtil.d("verValue=" + verValue);
         }
         return verValue;
     }
@@ -394,5 +439,22 @@ public class UIUtils {
         }else{
             return false;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeFloat(displayMetricsWidth);
+        dest.writeFloat(displayMetricsHeight);
+        dest.writeFloat(scaledDensity);
+        dest.writeFloat(systemBarHeight);
+        dest.writeFloat(density);
+        dest.writeFloat(horValue);
+        dest.writeFloat(verValue);
+        dest.writeByte((byte) (hasInit ? 1 : 0));
     }
 }

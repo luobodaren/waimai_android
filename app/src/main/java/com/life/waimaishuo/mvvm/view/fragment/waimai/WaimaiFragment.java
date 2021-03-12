@@ -39,8 +39,10 @@ import com.life.waimaishuo.adapter.tag.SearchRecordTagWaimaiAdapter;
 import com.life.waimaishuo.bean.ExclusiveShopData;
 import com.life.waimaishuo.bean.SearchTag;
 import com.life.waimaishuo.bean.api.respon.SecondKillTime;
+import com.life.waimaishuo.bean.event.MessageEvent;
 import com.life.waimaishuo.bean.ui.ImageUrlNameData;
 import com.life.waimaishuo.constant.Constant;
+import com.life.waimaishuo.constant.MessageCodeConstant;
 import com.life.waimaishuo.databinding.FragmentWaimaiAdaptiveSizeViewBinding;
 import com.life.waimaishuo.databinding.FragmentWaimaiBinding;
 import com.life.waimaishuo.databinding.ItemRecyclerWaimaiFoodTypeBinding;
@@ -81,6 +83,8 @@ import com.xuexiang.xui.adapter.recyclerview.BaseRecyclerAdapter;
 import com.xuexiang.xui.adapter.recyclerview.RecyclerViewHolder;
 import com.xuexiang.xui.widget.statelayout.StatusLoader;
 import com.xuexiang.xui.widget.tabbar.TabSegment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -374,7 +378,10 @@ public class WaimaiFragment extends BaseStatusLoaderFragment {
                 Global.LocationDistrict = aMapLocation.getDistrict();
                 Global.latitude = aMapLocation.getLatitude();
                 Global.longitude = aMapLocation.getLongitude();
+                Global.AoiName = aMapLocation.getAoiName();
+                Global.Address = aMapLocation.getAddress();
                 Global.resetUserLonAndLat();
+                EventBus.getDefault().post(new MessageEvent(MessageCodeConstant.LOCAL_INFO_UPDATE,aMapLocation));
             } else {
                 LogUtil.e("定位失败");
             }
