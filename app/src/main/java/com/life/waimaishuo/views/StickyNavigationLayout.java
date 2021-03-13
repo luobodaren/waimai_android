@@ -368,43 +368,6 @@ public class StickyNavigationLayout extends UiAdapterLinearLayout implements Nes
 
         }
 
-
-        /*else {
-            //则先判断自身的滚动情况
-            //如果隐藏topView
-            boolean hideTop = canScrollY > 0 && getScrollY() < getCanScrollDistance();
-            //如果显示，必须要子view不能向下滑动后，才能交给自身滑动
-            boolean showTop = canScrollY < 0 && getScrollY() > 0 && !target.canScrollVertically(1);
-            //LogUtil.d(getTag() + " hideTop:" + hideTop + " showTop:" + showTop);
-            if (hideTop || showTop) {
-                scrollBy(0, canScrollY);
-                consumed[1] = dy;
-            }
-        }*/
-
-        /*//父布局与topView均处理完滚动
-
-        //则先判断自身的滚动情况
-        //如果隐藏topView
-        boolean hideTop = canScrollY > 0 && getScrollY() < getCanScrollDistance();
-        //如果显示，必须要子view不能向下滑动后，才能交给自身滑动
-        boolean showTop = canScrollY < 0 && getScrollY() > 0 && !target.canScrollVertically(1);
-        //LogUtil.d(getTag() + " hideTop:" + hideTop + " showTop:" + showTop);
-        if (hideTop || showTop) {
-            scrollBy(0, canScrollY);
-            consumed[1] = dy;
-        }
-        if(!showTop && !hideTop){
-            int[] consumed_3 = new int[2];
-            boolean result = startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL,type); //先由parent处理滚动
-            if(result && dispatchNestedPreScroll(canScrollX,canScrollY,consumed_3,mScrollOffset,type)){
-                //如果父控件需要消耗，则处理父控件消耗的部分数据
-                canScrollY -= consumed_3[1];
-                canScrollX -= consumed_3[0];
-                consumed[1] = dy - canScrollY;
-                consumed[0] = dx - canScrollX;
-            }
-        }*/
     }
 
 
