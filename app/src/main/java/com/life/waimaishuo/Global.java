@@ -108,7 +108,8 @@ public class Global {
     public static void readFormMMKV() {
         MMKV mmkv = MMKV.mmkvWithID(MMKVConstant.MMKV_ID_USER);
         user = mmkv.decodeParcelable("user", User.class, null);
-        token = mmkv.decodeString("token", "");
+        // TODO: 2021/3/13  为了测试方便 去掉此处的token获取
+        //token = mmkv.decodeString("token", "");
         machine_number = mmkv.decodeString("machine_number", "");
         LogUtil.d("token:" + token + " user:" + (user == null ? "null" : user.toString()));
     }
