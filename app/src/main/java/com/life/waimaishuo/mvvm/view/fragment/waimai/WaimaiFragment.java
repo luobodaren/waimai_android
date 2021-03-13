@@ -1,6 +1,5 @@
 package com.life.waimaishuo.mvvm.view.fragment.waimai;
 
-
 import android.content.Intent;
 import android.graphics.Rect;
 import android.util.SparseArray;
