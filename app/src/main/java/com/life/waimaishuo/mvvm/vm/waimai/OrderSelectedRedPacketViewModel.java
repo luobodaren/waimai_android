@@ -1,5 +1,8 @@
 package com.life.waimaishuo.mvvm.vm.waimai;
 
+import androidx.databinding.ObservableInt;
+
+import com.life.waimaishuo.bean.Coupon;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.mvvm.model.BaseModel;
 import com.life.waimaishuo.mvvm.model.waimai.OrderRedPacketModel;
@@ -12,9 +15,11 @@ public class OrderSelectedRedPacketViewModel extends BaseViewModel {
 
     OrderRedPacketModel mModel;
 
+    public ObservableInt requestCouponObserver = new ObservableInt();
+
     @Override
     public BaseModel getModel() {
-        if(mModel == null){
+        if (mModel == null) {
             mModel = new OrderRedPacketModel();
         }
         return mModel;
@@ -25,12 +30,11 @@ public class OrderSelectedRedPacketViewModel extends BaseViewModel {
 
     }
 
-    public List<RedPacket> getRedPacketData() {
-        List<RedPacket> list = new ArrayList<>();
-        list.add(new RedPacket(1,"嘉禾一品粥 (国展店）神经学家电话专享红包","¥24","满45可用","限收货手机号为18231875432","限2020-06-12至2020-06-12使用",true,"仅限果蔬商家使用",true));
-        list.add(new RedPacket(2,"嘉禾一品粥 (国展店）神经学家电话专享红包","¥24","满45可用","限收货手机号为18231875432","限2020-06-12至2020-06-12使用",true,"仅限果蔬商家使用",true));
-        list.add(new RedPacket(3,"嘉禾一品粥 (国展店）神经学家电话专享红包","¥24","满45可用","限收货手机号为18231875432","限2020-06-12至2020-06-12使用",false,"仅限果蔬商家使用",false));
-        return list;
+    public void requestCoupon(int shopId, int pageSize, int pageNum) {
+        mModel.requestCoupon(new BaseModel.NotifyChangeRequestCallBack(requestCouponObserver), shopId, pageSize, pageNum);
     }
 
+    public List<Coupon> getCouponList(){
+        return mModel.couponList;
+    }
 }

@@ -1,6 +1,7 @@
 package com.life.waimaishuo.mvvm.model.mine;
 
 import com.life.base.utils.GsonUtil;
+import com.life.base.utils.LogUtil;
 import com.life.waimaishuo.bean.api.request.MineReqData;
 import com.life.waimaishuo.bean.api.request.bean.AddShippingAddress;
 import com.life.waimaishuo.constant.ApiConstant;
@@ -23,6 +24,7 @@ public class MineAddShippingAddressModel extends BaseModel {
 
                     @Override
                     public void onError(int type, Throwable error) {
+                        LogUtil.e(error.getMessage());
                         requestCallBack.onFail(error.getMessage());
                     }
                 });

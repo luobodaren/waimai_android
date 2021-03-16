@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
 public class Address implements Parcelable {
 
     int userId;
-    @SerializedName(value = "consignee")
     String consignee;
 
     String province;

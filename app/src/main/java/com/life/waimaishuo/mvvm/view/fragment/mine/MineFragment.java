@@ -165,7 +165,7 @@ public class MineFragment extends BaseFragment {
             LogUtil.d("更多推荐点击 position=" + position);
             switch (position) { //注意与R.array.mine_recommends_str匹配
                 case 0:
-                    MineAddressManagerFragment.openPage(MineFragment.this,null);
+                    openPage(MineAddressManagerFragment.class);
                     break;
                 case 2:
                     openPage(MineCollectionFragment.class);

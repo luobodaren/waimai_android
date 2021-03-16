@@ -21,6 +21,7 @@ import com.life.waimaishuo.R;
 import com.life.waimaishuo.adapter.MyBaseRecyclerAdapter;
 import com.life.waimaishuo.adapter.SelectedPositionRecyclerViewAdapter;
 import com.life.waimaishuo.bean.Address;
+import com.life.waimaishuo.bean.Coupon;
 import com.life.waimaishuo.bean.Order;
 import com.life.waimaishuo.bean.RedPacket;
 import com.life.waimaishuo.bean.Shop;
@@ -174,10 +175,10 @@ public class OrderConfirmFragment extends BaseFragment {
             }
         });
 
-        mBinding.llRedPacket.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            openPageForResult(OrderSelectedRedPacketFragment.class, bundle, Constant.REQUEST_CODE_CHOSE_RED_PACKET);
-        });
+        mBinding.llRedPacket.setOnClickListener(v ->
+                OrderSelectedRedPacketFragment.openPageForResult(OrderConfirmFragment.this,
+                        Constant.REQUEST_CODE_CHOSE_RED_PACKET, mViewModel.getShop().getShopId()));
+
         mBinding.layoutOrderNote.clOrderNote.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             openPageForResult(OrderNoteFragment.class, bundle, Constant.REQUEST_CODE_ORDER_NOTE);
@@ -188,10 +189,38 @@ public class OrderConfirmFragment extends BaseFragment {
             @Override
             public void onSingleClick(View view) {
                 if(mViewModel.getShippingAddress() != null){
-                    MineAddressManagerFragment.openPage(OrderConfirmFragment.this, mViewModel.getShippingAddress());
+                    openPageForResult(MineAddressManagerFragment.class,null,Constant.REQUEST_CODE_CHOSE_SHIPPING_ADDRESS);
                 }
             }
         });
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Intent data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+        if (requestCode == Constant.REQUEST_CODE_CHOSE_RED_PACKET) {
+            if (resultCode == Constant.RESULT_CODE_SUCCESS) {
+                Coupon coupon = data.getParcelableExtra(OrderSelectedRedPacketFragment.RESULT_KEY_RED_PACKET_ID);
+                if (coupon != null) {
+                    mViewModel.redPacketPriceValueObservable.set("-" + coupon.getPriceValue());
+                }
+            }
+        }
+        if (requestCode == Constant.REQUEST_CODE_ORDER_NOTE) {
+            if (resultCode == Constant.RESULT_CODE_SUCCESS) {
+                String note = data.getStringExtra(OrderNoteFragment.RESULT_KEY_NOTE);
+                if (note != null) {
+                    mViewModel.orderNoteObservable.set(note);
+                }
+            }
+        }
+        if(requestCode == Constant.REQUEST_CODE_CHOSE_SHIPPING_ADDRESS){
+            if(resultCode == Constant.RESULT_CODE_SUCCESS){
+                setShippingAddress(data != null ?
+                        data.getParcelableExtra(MineAddressManagerFragment.RESULT_KEY_SELECT_ADDRESS) : null);
+            }
+        }
+
     }
 
     private void addCallBack() {
@@ -221,18 +250,14 @@ public class OrderConfirmFragment extends BaseFragment {
                     if(mViewModel.getShippingAddress().size() > 0){
                         for (Address address:mViewModel.getShippingAddress()) {
                             if(address.getIsDefaultAddress() == 1){
-                                mBinding.layoutOrderTitle.tvShopLocation.setText(   //设置地址
-                                        String.format("%s %s %s %s", address.getProvince(),
-                                                address.getCity(), address.getDistrict(),
-                                                address.getDetailedAddress()));
-                                mBinding.layoutOrderTitle.tvInfo.setText(   //设置姓名
-                                        String.format("%s %s", address.getConsignee(), address.getPhone()));
+                                setShippingAddress(address);
                                 return;
                             }
                         }
+                        Address address = mViewModel.getShippingAddress().get(0);   //若没有默认地址，则选第一个
+                        setShippingAddress(address);
                     }else{
-                        mBinding.layoutOrderTitle.tvShopLocation.setText("请点击前往添加收货地址...");
-                        mBinding.layoutOrderTitle.tvInfo.setText("");
+                        setShippingAddress(null);
                     }
                 });
             }
@@ -546,7 +571,6 @@ public class OrderConfirmFragment extends BaseFragment {
         }
     }
 
-
     private void initOrderFoodsView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false) {
             @Override
@@ -627,28 +651,6 @@ public class OrderConfirmFragment extends BaseFragment {
         };
     }
 
-    @Override
-    public void onFragmentResult(int requestCode, int resultCode, Intent data) {
-        super.onFragmentResult(requestCode, resultCode, data);
-        if (requestCode == Constant.REQUEST_CODE_CHOSE_RED_PACKET) {
-            if (resultCode == Constant.RESULT_CODE_SUCCESS) {
-                RedPacket redPacket = data.getParcelableExtra(OrderSelectedRedPacketFragment.RESULT_KEY_RED_PACKET_ID);
-                if (redPacket != null) {
-                    mViewModel.redPacketPriceValueObservable.set("-" + redPacket.getPriceValue());
-                }
-            }
-        }
-        if (requestCode == Constant.REQUEST_CODE_ORDER_NOTE) {
-            if (resultCode == Constant.RESULT_CODE_SUCCESS) {
-                String note = data.getStringExtra(OrderNoteFragment.RESULT_KEY_NOTE);
-                if (note != null) {
-                    mViewModel.orderNoteObservable.set(note);
-                }
-            }
-        }
-
-    }
-
     /**
      * 外卖订单点击进入此订单详情页
      *
@@ -676,6 +678,24 @@ public class OrderConfirmFragment extends BaseFragment {
         bundle.putInt(ORDER_PAGE_TYPE_INT_KEY, orderPageType);
         bundle.putParcelable(ORDER_SHOP_DATA_KEY, order);
         baseFragment.openPage(OrderConfirmFragment.class, bundle);
+    }
+
+    /**
+     * 设置顶部配送地址信息，若地址为空显示提示
+     * @param address
+     */
+    private void setShippingAddress(Address address){
+        if(address == null){
+            mBinding.layoutOrderTitle.tvShopLocation.setText("请点击前往添加收货地址...");
+            mBinding.layoutOrderTitle.tvInfo.setText("");
+            return;
+        }
+        mBinding.layoutOrderTitle.tvShopLocation.setText(   //设置地址
+                String.format("%s %s %s %s", address.getProvince(),
+                        address.getCity(), address.getDistrict(),
+                        address.getDetailedAddress()));
+        mBinding.layoutOrderTitle.tvInfo.setText(   //设置姓名
+                String.format("%s %s", address.getConsignee(), address.getPhone()));
     }
 
     /**

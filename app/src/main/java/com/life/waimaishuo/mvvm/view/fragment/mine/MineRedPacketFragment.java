@@ -72,6 +72,13 @@ public class MineRedPacketFragment extends BaseFragment {
         super.initListeners();
     }
 
+    @Override
+    protected void firstRequestData() {
+        super.firstRequestData();
+
+        mViewModel.requestCoupon();
+    }
+
     private void initTitle() {
         mBinding.layoutTitle.tvTitle.setText(getPageName());
         mBinding.layoutTitle.tvRight.setText(R.string.record_of_use);

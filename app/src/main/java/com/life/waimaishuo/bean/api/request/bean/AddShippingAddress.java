@@ -38,22 +38,17 @@ public class AddShippingAddress {
     private String updateTime;
     private int userId;
 
-    public AddShippingAddress(String city, String consignee, String createTime, int delFlag, String detailedAddress, String district, int id, int isCanUsers, int isDefault, String lat, String lon, String phone, String postcode, String province, String updateTime, int userId) {
+    public AddShippingAddress(String province, String city, String district, String detailedAddress, String postcode, String lat, String lon, String consignee, String phone, int userId, int isDefault) {
         this.city = city;
         this.consignee = consignee;
-        this.createTime = createTime;
-        this.delFlag = delFlag;
         this.detailedAddress = detailedAddress;
         this.district = district;
-        this.id = id;
-        this.isCanUsers = isCanUsers;
         this.isDefault = isDefault;
         this.lat = lat;
         this.lon = lon;
         this.phone = phone;
         this.postcode = postcode;
         this.province = province;
-        this.updateTime = updateTime;
         this.userId = userId;
     }
 

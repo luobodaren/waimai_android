@@ -52,7 +52,7 @@
                 android:includeFontPadding="false"
                 android:inputType="text"
                 android:paddingStart="0px"
-                android:text="@{viewModel.consigneeNameObservable}"
+                android:text="@={viewModel.consigneeNameObservable}"
                 android:textColor="@color/text_normal"
                 android:textColorHint="@color/text_tip"
                 android:textSize="30px"
@@ -95,7 +95,7 @@
                 android:includeFontPadding="false"
                 android:inputType="phone"
                 android:paddingStart="0px"
-                android:text="@{viewModel.consigneePhoneObservable}"
+                android:text="@={viewModel.consigneePhoneObservable}"
                 android:textColor="@color/text_normal"
                 android:textColorHint="@color/text_tip"
                 android:textSize="30px"
@@ -178,7 +178,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/et_address_detail"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                 android:hint="@string/address_detail_introduce"
                 android:includeFontPadding="false"
                 android:paddingStart="0px"
-                android:text="@{viewModel.locationDetailObservable}"
+                android:text="@={viewModel.locationDetailObservable}"
                 android:textColor="@color/text_normal"
                 android:textColorHint="@color/text_tip"
                 android:textSize="30px"

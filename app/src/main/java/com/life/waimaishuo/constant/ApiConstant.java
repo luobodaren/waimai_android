@@ -60,6 +60,9 @@ public class ApiConstant {
     public final static String API_WAIMAI_CHANGE_SHOPPING_CART = "/deliverycart/upddeliverycart";  //修改购物车
     public final static String API_WAIMAI_DEL_SHOPPING_CART_LIST = "/deliverycart/delListDeliveryCart";  //清空指定店铺购物车
 
+    public final static String API_WAIMAI_GET_USER_COUPON = "/appusercoupon/listusercoupon";    //获取用户的优惠卷或红包列表
+    public final static String API_WAIMAI_SETTLE_ACCOUNT = "/orderdeliveryinfo/settleAccount";  //选择优惠卷，判断优惠卷是否可以共享，并计算商品最终价格
+
     public final static String API_WAIMAI_SHOP_STAT_EVALUATE = "/deliveryShopFirst/getStatEvaluateByShopId";    //店铺总评分信息
     public final static String API_WAIMAI_SHOP_EVALUATE = "/deliveryShopFirst/selectGoodsEvaluateApp";  //店铺评价内容
 

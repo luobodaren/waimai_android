@@ -9,8 +9,6 @@
             type="com.life.waimaishuo.bean.RedPacket" />
     </data>
 
-
-
     <com.life.base.views.UiAdapterLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -37,11 +37,11 @@ public class Global {
     //定位的城市
     public static String LocationCity = "深圳市";
     //定位的城区
-    public static String LocationDistrict = "科技园";
+    public static String LocationDistrict = "南山区";
     //建筑名称（AOI NAME
     public static String AoiName = "深圳讯美大厦";
     //具体位置
-    public static String Address = "广东省深圳市南山区科智东路79号靠近科技园·金融基地";
+    public static String Address = "科技园科智东路79号靠近科技园·金融基地";
 
 
 

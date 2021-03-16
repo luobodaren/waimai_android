@@ -8,6 +8,7 @@
     <com.life.base.views.UiAdapterConstrainLayout
         android:layout_width="match_parent"
         android:layout_height="123px">
+
         <TextView
             android:id="@+id/select_sign"
             android:layout_width="50px"
@@ -24,6 +25,8 @@
             android:layout_width="0px"
             android:layout_marginStart="@dimen/interval_size_xs"
             android:layout_marginEnd="@dimen/interval_size_xs"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/text_normal"
             android:textSize="32px"
             app:layout_constraintBottom_toTopOf="@id/tv_address"
@@ -39,6 +42,7 @@
             android:layout_width="0px"
             android:layout_marginTop="16px"
             android:layout_marginEnd="@dimen/interval_size_xs"
+            android:ellipsize="end"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@color/text_tip"

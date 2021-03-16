@@ -32,4 +32,8 @@ public class MineRedPacketViewModel extends BaseViewModel {
         list.add(new RedPacket(3,"嘉禾一品粥 (国展店）","¥24","满45可用","限收货手机号为18231875432","限2020-06-12至2020-06-12使用",false,"仅限果蔬商家使用",false));
         return list;
     }
+
+    public void requestCoupon() {
+        //mModel.requestCoupon();
+    }
 }

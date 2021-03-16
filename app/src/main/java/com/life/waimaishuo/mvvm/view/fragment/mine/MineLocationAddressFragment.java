@@ -50,9 +50,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Page(name = "定位地址")
-public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.OnPoiSearchListener{
+public class MineLocationAddressFragment extends BaseFragment implements PoiSearch.OnPoiSearchListener{
 
-    private final static String RESULT_KEY = "result_key";
+    public final static String RESULT_KEY = "result_key";
 
     private FragmentMineLocalAddressBinding mBinding;
 
@@ -121,7 +121,6 @@ public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.
     protected void initArgs() {
         super.initArgs();
 
-        setRegisterEventBus(true);
         setFitStatusBarHeight(true);
         setStatusBarLightMode(StatusBarUtils.STATUS_BAR_MODE_LIGHT);
     }
@@ -180,6 +179,21 @@ public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.
     @Override
     protected void initListeners() {
         super.initListeners();
+
+        mBinding.layoutTitle.ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragmentResult(Constant.RESULT_CODE_FALSE, null);
+                popToBack();
+            }
+        });
+
+        mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                onFinish();
+            }
+        });
 
         onStrSearchPoiListener = new PoiSearch.OnPoiSearchListener() {
             @Override
@@ -247,33 +261,26 @@ public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.
             }
         });
 
-        mBinding.layoutTitle.tvRight.setOnClickListener(new BaseActivity.OnSingleClickListener() {
-            @Override
-            public void onSingleClick(View view) {
-                onFinish();
-            }
-        });
-    }
-
-    @Override
-    public void MessageEvent(MessageEvent messageEvent) {
-        super.MessageEvent(messageEvent);
-        switch (messageEvent.getCode()){
-            case MessageCodeConstant.LOCAL_INFO_UPDATE:
-                nearbyAddressAdapter.notifyDataSetChanged();
-                break;
-        }
     }
 
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
+        List<PoiItem> poiItemList = new ArrayList<>();
+        //生成当前位置的PoiItem 显示在第一项
+        PoiItem poiItem = new PoiItem("",new LatLonPoint(Global.latitude,Global.longitude),
+                Global.AoiName,Global.Address);
+        poiItem.setProvinceName(Global.LocationProvince);   //设置省市区
+        poiItem.setCityName(Global.LocationCity);
+        poiItem.setAdName(Global.LocationDistrict);
+        poiItemList.add(0,poiItem);
+        selectedPoi = poiItem;
         if(i == 1000){
-            List<PoiItem> poiItemList = poiResult.getPois();
-            poiItemList.add(0,new PoiItem("",null,"",""));
+            poiItemList.addAll(poiResult.getPois());
             nearbyAddressAdapter.setData(poiItemList);
         }else{
-            nearbyAddressAdapter.getData().clear();
+            nearbyAddressAdapter.setData(poiItemList);
         }
+        nearbyAddressAdapter.setSelectedPosition(0);
         nearbyAddressAdapter.notifyDataSetChanged();
     }
 
@@ -351,7 +358,7 @@ public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.
     }
 
     private void initNearbyAddressRecycler(){
-        nearbyAddressAdapter = new SelectedPositionRecyclerViewAdapter<PoiItem>(new ArrayList<PoiItem>()){
+        nearbyAddressAdapter = new SelectedPositionRecyclerViewAdapter<PoiItem>(new ArrayList<>()){
             @Override
             public int getLayoutId(int viewType) {
                 return R.layout.item_recycler_mine_nearby_address;
@@ -359,13 +366,9 @@ public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.
 
             @Override
             public void onBindViewHolder(BaseViewHolder holder, boolean selected, PoiItem item) {
-                if(holder.getAdapterPosition() == 0){
-                    holder.setText(R.id.tv_name,Global.AoiName);
-                    holder.setText(R.id.tv_address,Global.Address);
-                }else{
-                    holder.setText(R.id.tv_name,item.getTitle());
-                    holder.setText(R.id.tv_address,item.getSnippet());
-                }
+                holder.setText(R.id.tv_name,item.getTitle());
+                holder.setText(R.id.tv_address,item.getSnippet());
+
                 if(selected){
                     holder.getView(R.id.select_sign).setSelected(true);
                 }else{
@@ -373,11 +376,8 @@ public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.
                 }
             }
         };
-        nearbyAddressAdapter.setSelectedListener(new SelectedPositionRecyclerViewAdapter.OnSelectedListener<PoiItem>() {
-            @Override
-            public void onSelectChangeClick(BaseViewHolder holder, PoiItem item, boolean isCancel) {
-                selectedPoi = item;
-            }
+        nearbyAddressAdapter.setSelectedListener((holder, item, isCancel) -> {
+            selectedPoi = item;
         });
         mBinding.recyclerNearbyAddress.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false));
         mBinding.recyclerNearbyAddress.setAdapter(nearbyAddressAdapter);
@@ -418,7 +418,8 @@ public class MineLocalAddressFragment extends BaseFragment implements PoiSearch.
     private void onFinish(){
         Intent resultIntent = new Intent();
         resultIntent.putExtra(RESULT_KEY,selectedPoi);
-        setFragmentResult(Constant.REQUEST_CODE_LOCAL_ADDRESS, resultIntent);
+        setFragmentResult(Constant.RESULT_CODE_SUCCESS, resultIntent);
+        popToBack();
     }
 
 }
